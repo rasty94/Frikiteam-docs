@@ -1,1 +1,1 @@
-# Frikiteam-docs
+# docs
