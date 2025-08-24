@@ -1,14 +1,54 @@
-# 🌟 Bienvenido a frikiteam 🌟
+# 🚀 Bienvenido a frikiteam Docs 🚀
 
-¡Bienvenido al proyecto frikiteam! Nos alegra tenerte aquí 😊. frikiteam es una herramienta innovadora diseñada para facilitar y optimizar tus proyectos 🚀. Esperamos que disfrutes explorando y utilizando todas las funcionalidades que hemos desarrollado con mucho esfuerzo y dedicación 💪.
+¡Bienvenido a la documentación técnica de frikiteam! Soy un profesional apasionado por la tecnología que comparte conocimiento y experiencias en el mundo de la infraestructura, la nube y la automatización.
 
-## 📬 Contacto
+## 🎯 Mi Idea
 
-- [GitHub](https://github.com/rasty94) 🐙
-<!-- - [Twitter](https://twitter.com/frikiteam_es) 🐦 -->
+Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnologías que utilizo día a día. Quiero compartir no solo la teoría, sino también las experiencias reales, los trucos y las mejores prácticas que he aprendido en la "trinchera" tecnológica.
 
-<!-- - [Correo Electrónico](mailto:tu-email@ejemplo.com) 📧 -->
+## 📚 Documentación Técnica Disponible
 
-Gracias por ser parte de nuestra comunidad. ¡Esperamos tus comentarios y sugerencias! ✨
+### 🔧 **Automatización e Infraestructura**
+- **[Ansible](doc/ansible/ansible_base.md)** - Automatización de infraestructura sin agentes
+- **[Terraform & OpenTofu](doc/terraform/terraform_base.md)** - Infraestructura como Código
 
-El equipo de frikiteam
+### ☁️ **Plataformas de Nube**
+- **[OpenStack](doc/openstack/openstack_base.md)** - Plataforma de nube privada y pública
+- **[Kubernetes](doc/kubernetes/kubernetes_base.md)** - Orquestación de contenedores
+
+### 🐳 **Contenedores y Almacenamiento**
+- **[Docker](doc/docker/docker_base.md)** - Contenedores y virtualización
+- **[Ceph](doc/ceph/ceph_base.md)** - Almacenamiento distribuido escalable
+
+
+## 🚀 Empezando
+
+¿No sabes por dónde empezar? Te recomendamos:
+
+1. **Si eres nuevo en automatización**: Comienza con [Ansible](doc/ansible/ansible_base.md)
+2. **Si quieres trabajar con contenedores**: Explora [Docker](doc/docker/docker_base.md)
+3. **Si te interesa la nube**: Descubre [OpenStack](doc/openstack/openstack_base.md)
+4. **Si quieres orquestar aplicaciones**: Aprende [Kubernetes](doc/kubernetes/kubernetes_base.md)
+
+## 📖 Blog y Artículos
+
+Mantente al día con las últimas novedades y tutoriales en mi [blog](blog/index.md). Comparto experiencias, mejores prácticas y casos de uso reales.
+
+## 🤝 Contribuir
+
+¡Tu contribución es bienvenida! Si encuentras errores, quieres añadir contenido o tienes sugerencias:
+
+- **GitHub**: [rasty94/Frikiteam-docs](https://github.com/rasty94/Frikiteam-docs)
+- **Issues**: Reporta problemas o solicita nuevas funcionalidades
+- **Pull Requests**: Contribuye con mejoras o nuevo contenido
+
+## 📞 Contacto
+
+- **GitHub**: [@rasty94](https://github.com/rasty94) 🐙
+- **Repositorio**: [Frikiteam-docs](https://github.com/rasty94/Frikiteam-docs) 📚
+
+---
+
+*Gracias por ser parte de nuestra comunidad. ¡Esperamos que esta documentación te sea útil en tu viaje tecnológico! ✨*
+
+**Antonio Rodríguez** 🚀
