@@ -4,8 +4,8 @@ Welcome to the frikiteam project! We are glad to have you here 😊. frikiteam i
 
 ## 📬 Contact
 
-- [GitHub](https://github.com/frikiteam) 🐙
-- [Twitter](https://twitter.com/frikiteam_es) 🐦
+- [GitHub](https://github.com/rasty94) 🐙
+<!-- - [Twitter](https://twitter.com/frikiteam_es) 🐦 -->
 
 <!-- - [Email](mailto:your-email@example.com) 📧 -->
 

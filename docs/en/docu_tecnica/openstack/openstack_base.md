@@ -60,12 +60,32 @@ These use cases demonstrate the versatility and capability of OpenStack to adapt
 
 **Additionally, as a collaborative open-source project**, OpenStack benefits from a global community of developers and users who continuously contribute to its improvement and evolution. This ensures that the platform remains up-to-date with the latest technological innovations and that emerging issues and needs can be quickly addressed. The open nature of OpenStack also allows organizations to customize and adapt the platform to their specific needs, fostering innovation and flexibility in cloud infrastructure management.
 
-## Useful Links 🔗
+## Additional resources
 
-- [Official OpenStack Website](https://www.openstack.org/)
-- [OpenStack Documentation](https://docs.openstack.org/)
-- [Source Code on GitHub](https://github.com/openstack)
-- [OpenStack Community](https://www.openstack.org/community/)
-- [Kolla-Ansible on GitHub](https://github.com/openstack/kolla-ansible)
-- [Kolla-Ansible Documentation](https://docs.openstack.org/kolla-ansible/latest/)
-- [Soax-Oasix](https://oasixcloud.es)
+### Official documentation
+- **Official website:** [openstack.org](https://www.openstack.org/)
+- **Documentation:** [docs.openstack.org](https://docs.openstack.org/)
+- **GitHub:** [github.com/openstack](https://github.com/openstack)
+- **Community:** [openstack.org/community](https://www.openstack.org/community/)
+- **Official blog:** [openstack.org/blog](https://www.openstack.org/blog/)
+
+### Deployment tools
+- **Kolla-Ansible:** [github.com/openstack/kolla-ansible](https://github.com/openstack/kolla-ansible)
+- **Kolla-Ansible Documentation:** [docs.openstack.org/kolla-ansible](https://docs.openstack.org/kolla-ansible/latest/)
+- **OpenStack-Ansible:** [github.com/openstack/openstack-ansible](https://github.com/openstack/openstack-ansible)
+- **DevStack:** [github.com/openstack/devstack](https://github.com/openstack/devstack)
+
+### Commercial distributions
+- **Red Hat OpenStack Platform:** [redhat.com/en/technologies/linux-platforms/openstack-platform](https://www.redhat.com/en/technologies/linux-platforms/openstack-platform)
+- **Mirantis OpenStack:** [mirantis.com/software/openstack](https://www.mirantis.com/software/openstack/)
+- **Canonical OpenStack:** [ubuntu.com/openstack](https://ubuntu.com/openstack)
+- **SUSE OpenStack Cloud:** [suse.com/products/openstack-cloud](https://www.suse.com/products/openstack-cloud/)
+
+### Community and support
+- **Reddit:** [r/openstack](https://www.reddit.com/r/openstack/)
+- **Stack Overflow:** [stackoverflow.com/questions/tagged/openstack](https://stackoverflow.com/questions/tagged/openstack)
+- **IRC:** #openstack on freenode
+- **Official forums:** [ask.openstack.org](https://ask.openstack.org/)
+
+### Notable use cases
+- **OASIX Cloud (Grupo Aire):** [oasixcloud.es](https://oasixcloud.es) - One of the few Spanish clouds based on OpenStack with its own development 🇪🇸

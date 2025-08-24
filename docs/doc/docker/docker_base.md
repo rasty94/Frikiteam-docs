@@ -87,3 +87,16 @@ En las siguientes secciones exploraremos:
 - Volúmenes y persistencia
 - Seguridad en contenedores
 - Orquestación con Kubernetes
+
+## Recursos adicionales
+
+### Documentación oficial
+- **Sitio web oficial:** [docker.com](https://www.docker.com/)
+- **Documentación:** [docs.docker.com](https://docs.docker.com/)
+- **GitHub:** [github.com/docker](https://github.com/docker)
+- **Docker Hub:** [hub.docker.com](https://hub.docker.com/)
+
+### Comunidad
+- **Reddit:** [r/docker](https://www.reddit.com/r/docker/)
+- **Stack Overflow:** [stackoverflow.com/questions/tagged/docker](https://stackoverflow.com/questions/tagged/docker)
+- **Foros oficiales:** [forums.docker.com](https://forums.docker.com/)

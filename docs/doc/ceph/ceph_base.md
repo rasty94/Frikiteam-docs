@@ -55,4 +55,16 @@ Para instalar Ceph versión Reef utilizando `cephadm`, se pueden seguir los sigu
     ceph -s
     ```
 
-Para más detalles, se puede consultar la [documentación oficial de Ceph](https://docs.ceph.com/en/latest/).
+
+## Recursos adicionales
+
+### Documentación oficial
+- **Sitio web oficial:** [ceph.io](https://ceph.io/)
+- **Documentación:** [docs.ceph.com](https://docs.ceph.com/)
+- **GitHub:** [github.com/ceph/ceph](https://github.com/ceph/ceph)
+- **Wiki:** [wiki.ceph.com](https://wiki.ceph.com/)
+
+### Comunidad
+- **Reddit:** [r/ceph](https://www.reddit.com/r/ceph/)
+- **Stack Overflow:** [stackoverflow.com/questions/tagged/ceph](https://stackoverflow.com/questions/tagged/ceph)
+- **IRC:** #ceph en freenode

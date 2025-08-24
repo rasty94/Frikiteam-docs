@@ -5,9 +5,9 @@ Si quieres estar en contacto con nosotros, aquí tienes nuestras redes sociales:
 ## 📡 Contacto y Redes Sociales
 
 <!-- - 📧 **Email:** contacto@ejemplo.com -->
-- 🐦 **Twitter:** [@ejemplo](https://twitter.com/frikiteam_es)
+<!-- - 🐦 **Twitter:** [@ejemplo](https://twitter.com/frikiteam_es) -->
 <!-- - 💼 **LinkedIn:** [linkedin.com/in/ejemplo](https://linkedin.com/in/ejemplo) -->
-- 💻 **GitHub:** [github.com/ejemplo](https://github.com/ejemplo)
+- 💻 **GitHub:** [github.com/rasty94](https://github.com/rasty94)
 
 ## ¿Por qué seguirnos? 🎯
 

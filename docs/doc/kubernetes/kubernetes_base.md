@@ -112,3 +112,17 @@ En las siguientes secciones exploraremos:
 - Redes y políticas de seguridad
 - Monitoreo y logging
 - Helm y gestión de paquetes
+
+## Recursos adicionales
+
+### Documentación oficial
+- **Sitio web oficial:** [kubernetes.io](https://kubernetes.io/)
+- **Documentación:** [kubernetes.io/docs](https://kubernetes.io/docs/)
+- **GitHub:** [github.com/kubernetes/kubernetes](https://github.com/kubernetes/kubernetes)
+- **Blog oficial:** [kubernetes.io/blog](https://kubernetes.io/blog/)
+
+### Comunidad
+- **Reddit:** [r/kubernetes](https://www.reddit.com/r/kubernetes/)
+- **Stack Overflow:** [stackoverflow.com/questions/tagged/kubernetes](https://stackoverflow.com/questions/tagged/kubernetes)
+- **Slack:** [slack.k8s.io](https://slack.k8s.io/)
+- **Discord:** [discord.gg/kubernetes](https://discord.gg/kubernetes)

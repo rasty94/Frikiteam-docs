@@ -61,3 +61,15 @@ In the following sections we will explore:
 - Creating custom roles
 - CI/CD integration
 - Best practices
+
+## Additional resources
+
+### Official documentation
+- **Official website:** [ansible.com](https://www.ansible.com/)
+- **Documentation:** [docs.ansible.com](https://docs.ansible.com/)
+- **GitHub:** [github.com/ansible/ansible](https://github.com/ansible/ansible)
+- **Galaxy (roles):** [galaxy.ansible.com](https://galaxy.ansible.com/)
+
+### Community
+- **Reddit:** [r/ansible](https://www.reddit.com/r/ansible/)
+- **Stack Overflow:** [stackoverflow.com/questions/tagged/ansible](https://stackoverflow.com/questions/tagged/ansible)

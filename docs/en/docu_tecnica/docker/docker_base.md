@@ -87,3 +87,16 @@ In the following sections we will explore:
 - Volumes and persistence
 - Container security
 - Orchestration with Kubernetes
+
+## Additional resources
+
+### Official documentation
+- **Official website:** [docker.com](https://www.docker.com/)
+- **Documentation:** [docs.docker.com](https://docs.docker.com/)
+- **GitHub:** [github.com/docker](https://github.com/docker)
+- **Docker Hub:** [hub.docker.com](https://hub.docker.com/)
+
+### Community
+- **Reddit:** [r/docker](https://www.reddit.com/r/docker/)
+- **Stack Overflow:** [stackoverflow.com/questions/tagged/docker](https://stackoverflow.com/questions/tagged/docker)
+- **Official forums:** [forums.docker.com](https://forums.docker.com/)

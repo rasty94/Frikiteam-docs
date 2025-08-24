@@ -122,3 +122,17 @@ In the following sections we will explore:
 - CI/CD integration
 - Policies with Sentinel
 - Terraform Cloud
+
+## Additional resources
+
+### Official documentation
+- **Official website:** [terraform.io](https://www.terraform.io/)
+- **Documentation:** [developer.hashicorp.com/terraform](https://developer.hashicorp.com/terraform)
+- **GitHub:** [github.com/hashicorp/terraform](https://github.com/hashicorp/terraform)
+- **Registry:** [registry.terraform.io](https://registry.terraform.io/)
+
+### Community
+- **Reddit:** [r/terraform](https://www.reddit.com/r/terraform/)
+- **Stack Overflow:** [stackoverflow.com/questions/tagged/terraform](https://stackoverflow.com/questions/tagged/terraform)
+- **Discord:** [discord.gg/hashicorp](https://discord.gg/hashicorp)
+- **Official forums:** [discuss.hashicorp.com](https://discuss.hashicorp.com/)

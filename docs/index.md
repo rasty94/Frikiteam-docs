@@ -4,8 +4,8 @@
 
 ## 📬 Contacto
 
-- [GitHub](https://github.com/frikiteam) 🐙
-- [Twitter](https://twitter.com/frikiteam_es) 🐦
+- [GitHub](https://github.com/rasty94) 🐙
+<!-- - [Twitter](https://twitter.com/frikiteam_es) 🐦 -->
 
 <!-- - [Correo Electrónico](mailto:tu-email@ejemplo.com) 📧 -->
 
