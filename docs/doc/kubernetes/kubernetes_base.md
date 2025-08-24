@@ -1,0 +1,114 @@
+# Kubernetes - Orquestación de Contenedores
+
+## Introducción a Kubernetes
+
+Kubernetes (K8s) es una plataforma de orquestación de contenedores de código abierto que automatiza el despliegue, escalado y gestión de aplicaciones contenerizadas.
+
+## Arquitectura de Kubernetes
+
+### Componentes del plano de control
+- **API Server**: Punto de entrada para todas las operaciones
+- **etcd**: Base de datos distribuida que almacena la configuración
+- **Scheduler**: Asigna pods a nodos
+- **Controller Manager**: Mantiene el estado del cluster
+
+### Componentes del nodo
+- **kubelet**: Agente que ejecuta en cada nodo
+- **kube-proxy**: Gestiona las reglas de red
+- **Container Runtime**: Software que ejecuta los contenedores
+
+## Conceptos fundamentales
+
+### Pods
+Los pods son la unidad más pequeña de Kubernetes. Contienen uno o más contenedores.
+
+```yaml
+# pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mi-pod
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+```
+
+### Deployments
+Los deployments gestionan el estado deseado de los pods.
+
+```yaml
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mi-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mi-app
+  template:
+    metadata:
+      labels:
+        app: mi-app
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+```
+
+### Services
+Los services exponen aplicaciones que se ejecutan en pods.
+
+```yaml
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mi-service
+spec:
+  selector:
+    app: mi-app
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer
+```
+
+## Comandos básicos
+
+```bash
+# Aplicar un manifiesto
+kubectl apply -f archivo.yaml
+
+# Listar pods
+kubectl get pods
+
+# Ver logs de un pod
+kubectl logs <pod-name>
+
+# Ejecutar comando en un pod
+kubectl exec -it <pod-name> -- /bin/bash
+
+# Escalar un deployment
+kubectl scale deployment mi-deployment --replicas=5
+```
+
+## Casos de uso
+
+- Microservicios
+- Aplicaciones nativas en la nube
+- CI/CD pipelines
+- Aplicaciones de alta disponibilidad
+
+## Próximos pasos
+
+En las siguientes secciones exploraremos:
+- Configuración avanzada de clusters
+- Gestión de almacenamiento
+- Redes y políticas de seguridad
+- Monitoreo y logging
+- Helm y gestión de paquetes
