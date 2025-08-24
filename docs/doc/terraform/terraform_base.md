@@ -1,8 +1,41 @@
-# Terraform - Infraestructura como Código
+# Terraform & OpenTofu - Infraestructura como Código
 
 ## Introducción a Terraform
 
 Terraform es una herramienta de Infraestructura como Código (IaC) desarrollada por HashiCorp que permite definir y gestionar infraestructura de manera declarativa usando archivos de configuración.
+
+## Introducción a OpenTofu
+
+OpenTofu es un fork de Terraform que surgió en 2023 como respuesta al cambio de licencia de HashiCorp de MPL 2.0 a BSL 1.1. OpenTofu mantiene la compatibilidad total con Terraform mientras garantiza que permanezca como software de código abierto bajo la licencia MPL 2.0.
+
+## Comparativa: Terraform vs OpenTofu
+
+### Compatibilidad
+- **Terraform**: Versión original de HashiCorp
+- **OpenTofu**: 100% compatible con Terraform, incluyendo:
+  - Sintaxis HCL idéntica
+  - Mismos providers y módulos
+  - Mismos comandos y workflows
+  - Migración transparente
+
+### Licencias
+- **Terraform**: BSL 1.1 (Business Source License) - restrictiva para uso comercial
+- **OpenTofu**: MPL 2.0 (Mozilla Public License) - verdadero código abierto
+
+### Desarrollo
+- **Terraform**: Desarrollado por HashiCorp
+- **OpenTofu**: Desarrollado por la comunidad, liderado por Gruntwork y otros contribuyentes
+
+### Roadmap
+- **Terraform**: Controlado por HashiCorp
+- **OpenTofu**: Roadmap abierto y dirigido por la comunidad
+
+### Migración
+La migración de Terraform a OpenTofu es completamente transparente:
+```bash
+# Simplemente reemplaza el binario
+# Los archivos .tf, .tfvars y .tfstate funcionan sin cambios
+```
 
 ## Conceptos fundamentales
 
@@ -125,14 +158,26 @@ En las siguientes secciones exploraremos:
 
 ## Recursos adicionales
 
-### Documentación oficial
+### Terraform (HashiCorp)
 - **Sitio web oficial:** [terraform.io](https://www.terraform.io/)
 - **Documentación:** [developer.hashicorp.com/terraform](https://developer.hashicorp.com/terraform)
 - **GitHub:** [github.com/hashicorp/terraform](https://github.com/hashicorp/terraform)
 - **Registry:** [registry.terraform.io](https://registry.terraform.io/)
 
+### OpenTofu
+- **Sitio web oficial:** [opentofu.org](https://opentofu.org/)
+- **Documentación:** [opentofu.org/docs](https://opentofu.org/docs)
+- **GitHub:** [github.com/opentofu/opentofu](https://github.com/opentofu/opentofu)
+- **Registry:** [registry.opentofu.org](https://registry.opentofu.org/)
+- **Migración:** [opentofu.org/docs/intro/migration](https://opentofu.org/docs/intro/migration)
+
 ### Comunidad
-- **Reddit:** [r/terraform](https://www.reddit.com/r/terraform/)
-- **Stack Overflow:** [stackoverflow.com/questions/tagged/terraform](https://stackoverflow.com/questions/tagged/terraform)
+- **Reddit:** [r/terraform](https://www.reddit.com/r/terraform/), [r/opentofu](https://www.reddit.com/r/opentofu/)
+- **Stack Overflow:** [stackoverflow.com/questions/tagged/terraform](https://stackoverflow.com/questions/tagged/terraform), [stackoverflow.com/questions/tagged/opentofu](https://stackoverflow.com/questions/tagged/opentofu)
 - **Discord:** [discord.gg/hashicorp](https://discord.gg/hashicorp)
 - **Foros oficiales:** [discuss.hashicorp.com](https://discuss.hashicorp.com/)
+
+### Artículos y comparativas
+- **Análisis de licencias:** [hashicorp.com/blog/announcing-hashicorp-license-v2](https://www.hashicorp.com/blog/announcing-hashicorp-license-v2)
+- **Nacimiento de OpenTofu:** [opentofu.org/blog/opentofu-announcement](https://opentofu.org/blog/opentofu-announcement)
+- **Guía de migración:** [gruntwork.io/blog/opentofu-vs-terraform](https://gruntwork.io/blog/opentofu-vs-terraform)
