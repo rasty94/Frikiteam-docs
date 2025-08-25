@@ -9,26 +9,26 @@ My idea is to provide practical, clear, and useful documentation about the techn
 ## 📚 Available Technical Documentation
 
 ### 🔧 **Automation & Infrastructure**
-- **[Ansible](docu_tecnica/ansible/ansible_base.md)** - Agentless infrastructure automation
-- **[Terraform & OpenTofu](docu_tecnica/terraform/terraform_base.md)** - Infrastructure as Code
+- **[Ansible](doc/ansible/ansible_base.md)** - Agentless infrastructure automation
+- **[Terraform & OpenTofu](doc/terraform/terraform_base.md)** - Infrastructure as Code
 
 ### ☁️ **Cloud Platforms**
-- **[OpenStack](docu_tecnica/openstack/openstack_base.md)** - Private and public cloud platform
-- **[Kubernetes](docu_tecnica/kubernetes/kubernetes_base.md)** - Container orchestration
+- **[OpenStack](doc/openstack/openstack_base.md)** - Private and public cloud platform
+- **[Kubernetes](doc/kubernetes/kubernetes_base.md)** - Container orchestration
 
 ### 🐳 **Containers & Storage**
-- **[Docker](docu_tecnica/docker/docker_base.md)** - Containers and virtualization
-- **[Ceph](docu_tecnica/ceph/ceph_base.md)** - Scalable distributed storage
+- **[Docker](doc/docker/docker_base.md)** - Containers and virtualization
+- **[Ceph](doc/ceph/ceph_base.md)** - Scalable distributed storage
 
 
 ## 🚀 Getting Started
 
 Don't know where to start? We recommend:
 
-1. **If you're new to automation**: Start with [Ansible](docu_tecnica/ansible/ansible_base.md)
-2. **If you want to work with containers**: Explore [Docker](docu_tecnica/docker/docker_base.md)
-3. **If you're interested in cloud**: Discover [OpenStack](docu_tecnica/openstack/openstack_base.md)
-4. **If you want to orchestrate applications**: Learn [Kubernetes](docu_tecnica/kubernetes/kubernetes_base.md)
+1. **If you're new to automation**: Start with [Ansible](doc/ansible/ansible_base.md)
+2. **If you want to work with containers**: Explore [Docker](doc/docker/docker_base.md)
+3. **If you're interested in cloud**: Discover [OpenStack](doc/openstack/openstack_base.md)
+4. **If you want to orchestrate applications**: Learn [Kubernetes](doc/kubernetes/kubernetes_base.md)
 
 ## 📖 Blog and Articles
 
