@@ -19,5 +19,5 @@ Si tienes alguna duda, sugerencia o simplemente quieres saludar, ¡escríbenos! 
 
 ---
 
-➡️ [Inicio](inicio.md)  
-➡️ [Documentación Técnica](documentacion_tecnica.md)
+➡️ [Inicio](index.md)  
+➡️ [Documentación Técnica](doc/ansible/ansible_base.md)
