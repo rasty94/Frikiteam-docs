@@ -11,7 +11,7 @@ authors:
 
 # ¡Hola a todos y bienvenidos a este nuevo blog dedicado a la tecnología! 🚀
 
-¡Bienvenidos a la documentación de frikiteam! 🎉
+¡Bienvenidos a la documentación de Frikiteam! 🎉
 
 Después de varios años trabajando en el mundo de la infraestructura, la nube y la automatización, ¡por fin me he animado a lanzar este proyecto personal! Han sido incontables las horas invertidas enfrentando retos técnicos, explorando nuevas herramientas y aprendiendo cada día algo diferente sobre sistemas, redes y desarrollo. Ahora quiero compartir todo ese bagaje, esas experiencias reales y trucos que solo se descubren al estar en la "trinchera" tecnológica.
 

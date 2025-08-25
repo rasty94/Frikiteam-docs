@@ -1,6 +1,6 @@
-# 🚀 Bienvenido a frikiteam Docs 🚀
+# 🚀 Bienvenido a Frikiteam Docs 🚀
 
-¡Bienvenido a la documentación técnica de frikiteam! Soy un profesional apasionado por la tecnología que comparte conocimiento y experiencias en el mundo de la infraestructura, la nube y la automatización.
+¡Bienvenido a la documentación técnica de Frikiteam! Soy un profesional apasionado por la tecnología que comparte conocimiento y experiencias en el mundo de la infraestructura, la nube y la automatización.
 
 ## 🎯 Mi Idea
 
