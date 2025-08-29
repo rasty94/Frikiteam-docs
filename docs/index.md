@@ -15,7 +15,7 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 
 ### ☁️ **Plataformas de Nube**
 - **[OpenStack](doc/openstack/openstack_base.md)** - Plataforma de nube privada y pública Open-Source
-- **[ProxMox](doc/proxmox/proxmox_base.md)** - Plataforma de virtualización Open-Source
+- **[Proxmox](doc/proxmox/proxmox_base.md)** - Plataforma de virtualización Open-Source
 
 ### 🐳 **Contenedores y Almacenamiento**
 - **[Docker](doc/docker/docker_base.md)** - Contenedores y virtualización
