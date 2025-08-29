@@ -51,7 +51,15 @@ Notas clave:
 ## Requisitos
 
 - Python 3.10+
-- mkdocs-material, mkdocs-static-i18n, mkdocs-macros-plugin
+- mkdocs-material, mkdocs-static-i18n, mkdocs-macros-plugin, mkdocs-minify-plugin
+
+## Características
+
+- **Multi-idioma**: Soporte completo para español e inglés
+- **Blog automático**: Generación automática de listados, archivos y categorías
+- **Diagramas Mermaid**: Soporte completo para diagramas técnicos
+- **Tema responsive**: Adaptado para dispositivos móviles y escritorio
+- **Navegación avanzada**: Tabs, búsqueda y navegación instantánea
 
 Instalación en local (opcional pero recomendado con venv):
 
@@ -113,16 +121,45 @@ categories:
 ---
 ```
 
+## Diagramas Mermaid
+
+La documentación incluye soporte completo para diagramas Mermaid, permitiendo crear diagramas técnicos directamente en Markdown.
+
+### Tipos de Diagramas Soportados
+
+- **Flowcharts**: Diagramas de flujo
+- **Sequence Diagrams**: Diagramas de secuencia
+- **Class Diagrams**: Diagramas de clases
+- **State Diagrams**: Diagramas de estado
+- **Entity-Relationship**: Diagramas entidad-relación
+- **Git Graphs**: Diagramas de Git
+- **Gantt Charts**: Diagramas de Gantt
+- **Pie Charts**: Gráficos de tarta
+
+### Verificación de Diagramas
+
+Usa el script incluido para verificar la sintaxis de todos los diagramas:
+
+```bash
+python3 scripts/check_diagrams.py
+```
+
+### Documentación
+
+Consulta la [Guía de Diagramas Mermaid](diagramas_guia.md) para más información sobre sintaxis y mejores prácticas.
+
 ## Flujo de trabajo de contribución
 
 1. Crea una rama desde `main`: `feat/...`, `fix/...` o `docs/...`.
 2. Edítalo en local y verifica con `mkdocs serve`.
-3. Sube la rama y abre un Pull Request.
-4. Al aprobarse, se fusiona en `main` para desplegar.
+3. Para diagramas, verifica la sintaxis con `python3 scripts/check_diagrams.py`.
+4. Sube la rama y abre un Pull Request.
+5. Al aprobarse, se fusiona en `main` para desplegar.
 
 Convenciones:
 - Enlaces relativos consistentes (no usar rutas absolutas del sitio).
 - Mantén el mismo árbol en ES y EN cuando apliquen traducciones.
+- Verifica la sintaxis de diagramas Mermaid antes de hacer commit.
 
 ## CI/CD (despliegue)
 
@@ -169,3 +206,12 @@ Notas CI/CD:
 ## Soporte
 
 - Issues y PRs en `https://github.com/rasty94/Frikiteam-docs`.
+
+## Recursos internos (Mermaid)
+
+Las guías y utilidades de Mermaid se han movido fuera del contenido público del sitio:
+
+- Guías: `internal/mermaid/diagramas_guia.md`, `internal/mermaid/solucion_problemas_mermaid.md`
+- Herramientas: `internal/mermaid/tools/check_diagrams.py`, `internal/mermaid/tools/debug_mermaid.py`
+
+Estas referencias son solo para uso interno y no se publican en el sitio.
