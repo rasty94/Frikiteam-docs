@@ -29,6 +29,7 @@ Don't know where to start? We recommend:
 2. **If you want to work with containers**: Explore [Docker](doc/docker/docker_base.md)
 3. **If you're interested in cloud**: Discover [OpenStack](doc/openstack/openstack_base.md)
 4. **If you want to orchestrate applications**: Learn [Kubernetes](doc/kubernetes/kubernetes_base.md)
+5. **If you want to deploy a complete HomeLab**: Aprende [Proxmox](doc/proxmox/proxmox_base.md)
 
 ## 📖 Blog and Articles
 

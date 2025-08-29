@@ -31,6 +31,7 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 2. **Si quieres trabajar con contenedores**: Explora [Docker](doc/docker/docker_base.md)
 3. **Si te interesa la nube**: Descubre [OpenStack](doc/openstack/openstack_base.md)
 4. **Si quieres orquestar aplicaciones**: Aprende [Kubernetes](doc/kubernetes/kubernetes_base.md)
+5. **Si te interesa montar un HomeLab completo y flexible**: Aprende [Proxmox](doc/proxmox/proxmox_base.md)
 
 ## 📖 Blog y Artículos
 
