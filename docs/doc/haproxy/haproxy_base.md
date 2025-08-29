@@ -1,19 +1,57 @@
 # HAProxy
 
-Guía base de HAProxy: introducción, instalación y configuración mínima.
+Guía completa de HAProxy: balanceador de carga y proxy de alto rendimiento para TCP/HTTP.
+
+## 📋 Tabla de Contenidos
+
+- [Introducción](#introducción)
+- [Instalación](#instalación)
+- [Configuración Básica](#configuración-básica)
+- [Configuración Avanzada](#configuración-avanzada)
+- [Seguridad](#seguridad)
+- [Monitoreo y Logging](#monitoreo-y-logging)
+- [Casos de Uso](#casos-de-uso)
+- [Diagramas](#diagramas)
+- [Buenas Prácticas](#buenas-prácticas)
+- [Referencias](#referencias)
 
 ## Introducción
 
-HAProxy es un balanceador de carga y proxy de alto rendimiento para TCP/HTTP.
+HAProxy es un balanceador de carga y proxy de alto rendimiento para TCP/HTTP que proporciona:
+
+- **Alto rendimiento**: Optimizado para manejar miles de conexiones simultáneas
+- **Flexibilidad**: Soporte para HTTP/HTTPS y TCP genérico
+- **Confiabilidad**: Health checks automáticos y failover
+- **Seguridad**: Terminación TLS, rate limiting, y cabeceras de seguridad
 
 ## Instalación
 
-- Debian/Ubuntu: `apt install haproxy`
-- RHEL/CentOS/Rocky: `dnf install haproxy`
+### Instalación Básica
 
-## Configuración mínima
+```bash
+# Debian/Ubuntu
+apt install haproxy
 
-Archivo principal: `/etc/haproxy/haproxy.cfg`.
+# RHEL/CentOS/Rocky
+dnf install haproxy
+```
+
+### Instalación Avanzada
+
+```bash
+# Habilitar y arrancar
+sudo systemctl enable --now haproxy
+sudo systemctl status haproxy
+
+# Recarga sin corte (hot reload)
+sudo haproxy -c -f /etc/haproxy/haproxy.cfg && sudo systemctl reload haproxy
+```
+
+## Configuración Básica
+
+### Configuración Mínima
+
+Archivo principal: `/etc/haproxy/haproxy.cfg`
 
 ```cfg
 global
@@ -36,43 +74,24 @@ backend app
   server app2 10.0.0.12:8080 check
 ```
 
-## Comprobación
+### Comprobación de Configuración
 
 ```bash
 haproxy -c -f /etc/haproxy/haproxy.cfg
 ```
 
-## Referencias
+## Configuración Avanzada
 
-- Documentación oficial: https://www.haproxy.org/
+### Terminación TLS (HTTPS)
 
-## Instalación avanzada
-
-- Habilitar y arrancar:
-
-```bash
-sudo systemctl enable --now haproxy
-sudo systemctl status haproxy
-```
-
-- Recarga sin corte (hot reload):
-
-```bash
-sudo haproxy -c -f /etc/haproxy/haproxy.cfg && sudo systemctl reload haproxy
-```
-
-## Terminación TLS (HTTPS)
-
-Genera/instala un `fullchain.pem` y `privkey.pem` (por ejemplo de Let’s Encrypt) y referencia un `pem` combinado:
-
+1. **Generar certificado combinado**:
 ```bash
 cat /etc/letsencrypt/live/tu-dominio/fullchain.pem \
     /etc/letsencrypt/live/tu-dominio/privkey.pem \
     | sudo tee /etc/haproxy/certs/tu-dominio.pem
 ```
 
-Config en `frontend`:
-
+2. **Configurar frontend HTTPS**:
 ```cfg
 frontend https-in
   bind *:443 ssl crt /etc/haproxy/certs/tu-dominio.pem alpn h2,http/1.1
@@ -81,17 +100,14 @@ frontend https-in
   default_backend app
 ```
 
-Opcional: redirección 80→443
-
+3. **Redirección HTTP → HTTPS** (opcional):
 ```cfg
 frontend http-in
   bind *:80
   redirect scheme https code 301 if !{ ssl_fc }
 ```
 
-## Health checks
-
-Mejora la detección con `check` y paths HTTP:
+### Health Checks Avanzados
 
 ```cfg
 backend app
@@ -101,10 +117,9 @@ backend app
   server app2 10.0.0.12:8080 check inter 3s fall 3 rise 2
 ```
 
-## Sticky sessions (afinidad)
+### Sticky Sessions (Afinidad)
 
-Por cookie insertada por el balanceador:
-
+**Por cookie** (insertada por el balanceador):
 ```cfg
 backend app
   cookie SRV insert indirect nocache
@@ -113,71 +128,13 @@ backend app
   server app2 10.0.0.12:8080 check cookie app2
 ```
 
-Por hash de IP del cliente (sin cookies):
-
+**Por hash de IP** (sin cookies):
 ```cfg
 backend app
   balance hdr_ip(X-Forwarded-For)
 ```
 
-## Métricas y panel de estado
-
-```cfg
-listen stats
-  bind *:8404
-  stats enable
-  stats uri /
-  stats refresh 10s
-  stats auth admin:admin
-```
-
-## Logging
-
-Activa logs en `global` y configura rsyslog:
-
-```cfg
-global
-  log /dev/log local0
-  log /dev/log local1 notice
-```
-
-En `/etc/rsyslog.d/49-haproxy.conf`:
-
-```conf
-if ($programname == 'haproxy') then /var/log/haproxy.log
-& stop
-```
-
-## Buenas prácticas
-
-- Valida la config antes de recargar: `haproxy -c -f ...`
-- Usa `alpn h2,http/1.1` para mejor rendimiento en HTTPS.
-- Ajusta timeouts según tus servicios y clientes.
-
-## Ejemplo TCP (modo capa 4)
-
-Para servicios no HTTP (p. ej., bases de datos o TCP genérico):
-
-```cfg
-defaults
-  mode tcp
-  timeout connect 5s
-  timeout client  50s
-  timeout server  50s
-
-frontend tcp-in
-  bind *:5432
-  default_backend db
-
-backend db
-  balance roundrobin
-  server db1 10.0.0.21:5432 check
-  server db2 10.0.0.22:5432 check
-```
-
-## Balanceo `leastconn`
-
-Distribuye al servidor con menos conexiones activas (útil para sesiones largas):
+### Balanceo por Conexiones Mínimas
 
 ```cfg
 backend app
@@ -186,55 +143,7 @@ backend app
   server app2 10.0.0.12:8080 check
 ```
 
-## Cabeceras `X-Forwarded-*` y seguridad
-
-Inserta cabeceras de cliente y endurece respuestas:
-
-```cfg
-frontend https-in
-  bind *:443 ssl crt /etc/haproxy/certs/tu-dominio.pem alpn h2,http/1.1
-  http-response set-header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-  http-response set-header X-Content-Type-Options "nosniff"
-  http-response set-header X-Frame-Options "SAMEORIGIN"
-  http-response set-header Referrer-Policy "no-referrer-when-downgrade"
-  http-response set-header Permissions-Policy "geolocation=(), microphone=()"
-  default_backend app
-
-backend app
-  http-request set-header X-Forwarded-Proto https if { ssl_fc }
-  http-request add-header X-Forwarded-Proto http if !{ ssl_fc }
-  http-request set-header X-Forwarded-For %[src]
-  http-request set-header X-Forwarded-Host %[req.hdr(Host)]
-```
-
-## Diagramas
-
-### Flujo básico de balanceo HTTP
-
-```mermaid
-flowchart LR
-  C[Cliente] -->|HTTP/HTTPS| H((HAProxy))
-  H -->|Round Robin / LeastConn| A1[App 1]
-  H --> A2[App 2]
-```
-
-### Terminación TLS y cabeceras
-
-```mermaid
-sequenceDiagram
-  participant U as Usuario
-  participant H as HAProxy (443)
-  participant S as Servidor App
-  U->>H: HTTPS (TLS handshake)
-  H-->>U: Certificado (ALPN h2/http1)
-  H->>S: HTTP (X-Forwarded-For, X-Forwarded-Proto)
-  S-->>H: Respuesta HTTP 200
-  H-->>U: Respuesta HTTPS 200 (+ HSTS)
-```
-
-## ACLs (paths/hosts) y enrutado
-
-Rutas por path y host:
+### ACLs y Enrutado
 
 ```cfg
 frontend https-in
@@ -255,20 +164,7 @@ backend admin
   server adm1 10.0.0.41:8080 check
 ```
 
-## Rate limiting básico
-
-Límite por IP usando stick-table:
-
-```cfg
-frontend https-in
-  stick-table type ip size 1m expire 10m store gpc0,http_req_rate(10s)
-  http-request track-sc0 src
-  acl abuse sc0_http_req_rate gt 50
-  http-request deny if abuse
-  default_backend app
-```
-
-## Descubrimiento dinámico con `server-template`
+### Descubrimiento Dinámico
 
 Útil con DNS SRV/round‑robin (consul, kubernetes headless services, etc.):
 
@@ -279,3 +175,131 @@ backend app
     nameserver google 8.8.8.8:53
   server-template srv 5 _app._tcp.example.local resolvers dns resolve-prefer ipv4 check
 ```
+
+## Seguridad
+
+### Cabeceras X-Forwarded-* y Seguridad
+
+```cfg
+frontend https-in
+  bind *:443 ssl crt /etc/haproxy/certs/tu-dominio.pem alpn h2,http/1.1
+  http-response set-header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+  http-response set-header X-Content-Type-Options "nosniff"
+  http-response set-header X-Frame-Options "SAMEORIGIN"
+  http-response set-header Referrer-Policy "no-referrer-when-downgrade"
+  http-response set-header Permissions-Policy "geolocation=(), microphone=()"
+  default_backend app
+
+backend app
+  http-request set-header X-Forwarded-Proto https if { ssl_fc }
+  http-request add-header X-Forwarded-Proto http if !{ ssl_fc }
+  http-request set-header X-Forwarded-For %[src]
+  http-request set-header X-Forwarded-Host %[req.hdr(Host)]
+```
+
+### Rate Limiting
+
+```cfg
+frontend https-in
+  stick-table type ip size 1m expire 10m store gpc0,http_req_rate(10s)
+  http-request track-sc0 src
+  acl abuse sc0_http_req_rate gt 50
+  http-request deny if abuse
+  default_backend app
+```
+
+## Monitoreo y Logging
+
+### Panel de Estado
+
+```cfg
+listen stats
+  bind *:8404
+  stats enable
+  stats uri /
+  stats refresh 10s
+  stats auth admin:admin
+```
+
+### Configuración de Logs
+
+**En HAProxy**:
+```cfg
+global
+  log /dev/log local0
+  log /dev/log local1 notice
+```
+
+**En rsyslog** (`/etc/rsyslog.d/49-haproxy.conf`):
+```conf
+if ($programname == 'haproxy') then /var/log/haproxy.log
+& stop
+```
+
+## Casos de Uso
+
+### Balanceo HTTP/HTTPS
+
+Configuración estándar para aplicaciones web con terminación TLS.
+
+### Balanceo TCP (Capa 4)
+
+Para servicios no HTTP (bases de datos, TCP genérico):
+
+```cfg
+defaults
+  mode tcp
+  timeout connect 5s
+  timeout client  50s
+  timeout server  50s
+
+frontend tcp-in
+  bind *:5432
+  default_backend db
+
+backend db
+  balance roundrobin
+  server db1 10.0.0.21:5432 check
+  server db2 10.0.0.22:5432 check
+```
+
+## Diagramas
+
+### Flujo Básico de Balanceo HTTP
+
+```mermaid
+flowchart LR
+  C[Cliente] -->|HTTP/HTTPS| H((HAProxy))
+  H -->|Round Robin / LeastConn| A1[App 1]
+  H --> A2[App 2]
+```
+
+### Terminación TLS y Cabeceras
+
+```mermaid
+sequenceDiagram
+  participant U as Usuario
+  participant H as HAProxy (443)
+  participant S as Servidor App
+  U->>H: HTTPS (TLS handshake)
+  H-->>U: Certificado (ALPN h2/http1)
+  H->>S: HTTP (X-Forwarded-For, X-Forwarded-Proto)
+  S-->>H: Respuesta HTTP 200
+  H-->>U: Respuesta HTTPS 200 (+ HSTS)
+```
+
+## Buenas Prácticas
+
+- ✅ **Validar configuración** antes de recargar: `haproxy -c -f ...`
+- ✅ **Usar ALPN** para mejor rendimiento en HTTPS: `alpn h2,http/1.1`
+- ✅ **Ajustar timeouts** según tus servicios y clientes
+- ✅ **Configurar health checks** apropiados para cada servicio
+- ✅ **Implementar rate limiting** para proteger contra abuso
+- ✅ **Usar sticky sessions** solo cuando sea necesario
+- ✅ **Monitorear logs** y métricas regularmente
+
+## Referencias
+
+- **Documentación oficial**: https://www.haproxy.org/
+- **Guía de configuración**: https://www.haproxy.org/download/2.8/doc/configuration.txt
+- **Comunidad**: https://www.haproxy.org/community/

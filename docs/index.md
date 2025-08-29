@@ -11,13 +11,15 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 ### 🔧 **Automatización e Infraestructura**
 - **[Ansible](doc/ansible/ansible_base.md)** - Automatización de infraestructura sin agentes
 - **[Terraform & OpenTofu](doc/terraform/terraform_base.md)** - Infraestructura como Código
+- **[Haproxy](doc/haproxy/haproxy_base.md)** - Balanceo de carga TCP/HTTP
 
 ### ☁️ **Plataformas de Nube**
-- **[OpenStack](doc/openstack/openstack_base.md)** - Plataforma de nube privada y pública
-- **[Kubernetes](doc/kubernetes/kubernetes_base.md)** - Orquestación de contenedores
+- **[OpenStack](doc/openstack/openstack_base.md)** - Plataforma de nube privada y pública Open-Source
+- **[ProxMox](doc/proxmox/proxmox_base.md)** - Plataforma de virtualización Open-Source
 
 ### 🐳 **Contenedores y Almacenamiento**
 - **[Docker](doc/docker/docker_base.md)** - Contenedores y virtualización
+- **[Kubernetes](doc/kubernetes/kubernetes_base.md)** - Orquestación de contenedores
 - **[Ceph](doc/ceph/ceph_base.md)** - Almacenamiento distribuido escalable
 
 
@@ -32,7 +34,7 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 
 ## 📖 Blog y Artículos
 
-Mantente al día con las últimas novedades y tutoriales en mi [blog](blog/index.md). Comparto experiencias, mejores prácticas y casos de uso reales.
+Mantente al día con las últimas novedades y tutoriales en mi [blog](https://frikiteam.es). Comparto experiencias, mejores prácticas y casos de uso reales.
 
 ## 🤝 Contribuir
 
