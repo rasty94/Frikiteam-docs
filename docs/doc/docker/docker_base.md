@@ -1,4 +1,4 @@
-# Docker - Contenedores y Virtualización
+# Docker - Contenedores
 
 ## Introducción a Docker
 

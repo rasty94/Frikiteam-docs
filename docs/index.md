@@ -22,6 +22,8 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 - **[Kubernetes](doc/kubernetes/kubernetes_base.md)** - Orquestación de contenedores
 - **[Ceph](doc/ceph/ceph_base.md)** - Almacenamiento distribuido escalable
 
+### 🎯 **Curiosidades y Comparativas**
+- **[Curiosidades](doc/curiosidades/index.md)** - Comparativas interesantes entre tecnologías
 
 ## 🚀 Empezando
 

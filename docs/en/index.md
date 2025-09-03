@@ -20,6 +20,8 @@ My idea is to provide practical, clear, and useful documentation about the techn
 - **[Docker](doc/docker/docker_base.md)** - Containers and virtualization
 - **[Ceph](doc/ceph/ceph_base.md)** - Scalable distributed storage
 
+### 🎯 **Curiosities and Comparisons**
+- **[Curiosities](doc/curiosidades/index.md)** - Interesting comparisons between technologies
 
 ## 🚀 Getting Started
 
@@ -33,7 +35,7 @@ Don't know where to start? We recommend:
 
 ## 📖 Blog and Articles
 
-Stay up to date with the latest news and tutorials on my [blog](blog/index.md). I share experiences, best practices, and real use cases.
+Stay up to date with the latest news and tutorials on my [blog](https://frikiteam.es). I share experiences, best practices, and real use cases.
 
 ## 🤝 Contributing
 

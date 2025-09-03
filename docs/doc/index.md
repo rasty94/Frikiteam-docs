@@ -9,3 +9,4 @@ Bienvenido a la sección técnica. Selecciona un tema:
 - [HAProxy](haproxy/haproxy_base.md)
 - [OpenStack](openstack/openstack_base.md)
 - [Terraform & OpenTofu](terraform/terraform_base.md)
+- [Curiosidades](curiosidades/index.md)
