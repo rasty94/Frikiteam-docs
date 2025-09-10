@@ -20,6 +20,9 @@ My idea is to provide practical, clear, and useful documentation about the techn
 - **[Docker](doc/docker/docker_base.md)** - Containers and virtualization
 - **[Ceph](doc/ceph/ceph_base.md)** - Scalable distributed storage
 
+### 🌐 **Networking & Connectivity**
+- **[Networking](doc/networking/index.md)** - VPN and networking solutions (NetBird, Tailscale, ZeroTier)
+
 ### 🎯 **Curiosities and Comparisons**
 - **[Curiosities](doc/curiosidades/index.md)** - Interesting comparisons between technologies
 
@@ -31,7 +34,8 @@ Don't know where to start? We recommend:
 2. **If you want to work with containers**: Explore [Docker](doc/docker/docker_base.md)
 3. **If you're interested in cloud**: Discover [OpenStack](doc/openstack/openstack_base.md)
 4. **If you want to orchestrate applications**: Learn [Kubernetes](doc/kubernetes/kubernetes_base.md)
-5. **If you want to deploy a complete HomeLab**: Aprende [Proxmox](doc/proxmox/proxmox_base.md)
+5. **If you want to deploy a complete HomeLab**: Learn [Proxmox](doc/proxmox/proxmox_base.md)
+6. **If you need to connect devices securely**: Explore [Networking](doc/networking/index.md)
 
 ## 📖 Blog and Articles
 

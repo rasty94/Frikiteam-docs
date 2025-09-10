@@ -22,6 +22,9 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 - **[Kubernetes](doc/kubernetes/kubernetes_base.md)** - Orquestación de contenedores
 - **[Ceph](doc/ceph/ceph_base.md)** - Almacenamiento distribuido escalable
 
+### 🌐 **Redes y Conectividad**
+- **[Networking](doc/networking/index.md)** - VPN y soluciones de red (NetBird, Tailscale, ZeroTier)
+
 ### 🎯 **Curiosidades y Comparativas**
 - **[Curiosidades](doc/curiosidades/index.md)** - Comparativas interesantes entre tecnologías
 
@@ -34,6 +37,7 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 3. **Si te interesa la nube**: Descubre [OpenStack](doc/openstack/openstack_base.md)
 4. **Si quieres orquestar aplicaciones**: Aprende [Kubernetes](doc/kubernetes/kubernetes_base.md)
 5. **Si te interesa montar un HomeLab completo y flexible**: Aprende [Proxmox](doc/proxmox/proxmox_base.md)
+6. **Si necesitas conectar dispositivos de forma segura**: Explora [Networking](doc/networking/index.md)
 
 ## 📖 Blog y Artículos
 
