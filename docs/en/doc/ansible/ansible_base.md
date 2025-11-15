@@ -4,6 +4,14 @@
 
 Ansible is an IT automation tool that can configure systems, deploy software, and orchestrate more complex IT tasks. Unlike other automation tools, Ansible doesn't require agent installation on managed nodes.
 
+## 🚀 Start with Ansible in 15 minutes
+
+New to Ansible? Start here:
+
+- **[Official tutorial: Get started](https://docs.ansible.com/ansible/latest/getting_started/index.html)** - Your first playbook in minutes
+- **[Ansible Lab](https://lab.redhat.com/ansible-automation-platform-trial)** - Free testing environment
+- **[Learn Ansible](https://www.ansible.com/resources/webinars-training/introduction-to-ansible)** - Free webinars and courses
+
 ## Key features
 
 - **Agentless**: No special software required on managed nodes

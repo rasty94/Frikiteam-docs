@@ -8,6 +8,14 @@ Terraform is an Infrastructure as Code (IaC) tool developed by HashiCorp that al
 
 OpenTofu is a fork of Terraform that emerged in 2023 as a response to HashiCorp's license change from MPL 2.0 to BSL 1.1. OpenTofu maintains full compatibility with Terraform while ensuring it remains open-source software under the MPL 2.0 license.
 
+## 🚀 Start with Terraform in 15 minutes
+
+New to Terraform? Start here:
+
+- **[Tutorial: First steps with Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/infrastructure-as-code)** - Create your first infrastructure in AWS
+- **[Quick installation guide](https://developer.hashicorp.com/terraform/install)** - Install Terraform on your system
+- **[Interactive tutorial](https://learn.hashicorp.com/terraform)** - Learn with practical examples
+
 ## Comparison: Terraform vs OpenTofu
 
 ### Compatibility

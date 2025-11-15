@@ -4,6 +4,14 @@
 
 Docker is a container platform that allows packaging applications and their dependencies in lightweight and portable containers. This facilitates development, deployment and scaling of applications.
 
+## 🚀 Start with Docker in 10 minutes
+
+New to Docker? Start here:
+
+- **[Official tutorial: Get started](https://docs.docker.com/get-started/)** - Your first container in minutes
+- **[Play with Docker](https://labs.play-with-docker.com/)** - Free online interactive environment
+- **[Docker Cheat Sheet](https://dockerlabs.collabnix.com/docker/cheatsheet/)** - Essential commands
+
 ## Fundamental concepts
 
 ### Containers
