@@ -1,3 +1,9 @@
+---
+title: "Ceph Storage Guide: Distributed Storage System Overview"
+description: "Complete guide to Ceph, the distributed storage system. Learn about architecture, installation with cephadm, use cases, and resources for scalable and reliable data storage."
+keywords: Ceph, distributed storage, OSD, MON, MGR, MDS, object storage, block storage, file system, cloud storage, big data, backup, recovery, cephadm, Reef
+---
+
 # Ceph
 
 Ceph es un sistema de almacenamiento distribuido que proporciona un almacenamiento altamente escalable y fiable para grandes cantidades de datos. Está diseñado para ser auto-gestionado, auto-reparado y auto-optimizado, lo que lo hace ideal para entornos de almacenamiento en la nube y centros de datos.
