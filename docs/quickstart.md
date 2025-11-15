@@ -83,6 +83,10 @@ docker run -p 8080:80 mi-app
 
 Abre <http://localhost:8080> en tu navegador. ¡Felicidades! Has creado tu primera aplicación contenerizada.
 
+![Captura de pantalla: Primera app en Docker](https://via.placeholder.com/800x400/4CAF50/FFFFFF?text=Tu+primera+app+en+Docker)
+
+*Vista esperada: Página "Hello World" servida por tu contenedor Nginx*
+
 ### 3. Explora Kubernetes localmente
 
 ```bash

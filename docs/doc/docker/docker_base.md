@@ -102,6 +102,14 @@ En las siguientes secciones exploraremos:
 
 ## Recursos adicionales
 
+### Videos tutoriales
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+  <iframe src="https://www.youtube.com/embed/fqMOX6JJhGo" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div>
+
+*Video: Introducción completa a Docker en español (Docker Fundamentals)*
+
 ### Documentación oficial
 - **Sitio web oficial:** [docker.com](https://www.docker.com/)
 - **Documentación:** [docs.docker.com](https://docs.docker.com/)
