@@ -2,6 +2,68 @@
 
 > NetBird es una solución de VPN mesh basada en WireGuard con control de acceso.
 
+## Arquitectura de NetBird
+
+```mermaid
+graph TB
+    subgraph "Control Plane"
+        CP[NetBird Management<br/>app.netbird.io]
+        CP --> DB[(Base de datos)]
+        CP --> API[API REST]
+        CP --> TURN[TURN Servers<br/>opcionales]
+    end
+    
+    subgraph "Peers/Nodos"
+        P1[Peer 1<br/>Servidor Linux]
+        P2[Peer 2<br/>Desktop Windows]
+        P3[Peer 3<br/>Mobile iOS]
+        P4[Peer 4<br/>Gateway<br/>con rutas]
+    end
+    
+    CP -->|Políticas de acceso| P1
+    CP -->|Políticas de acceso| P2
+    CP -->|Políticas de acceso| P3
+    CP -->|Políticas de acceso| P4
+    
+    P1 -->|WireGuard Mesh| P2
+    P1 -->|WireGuard Mesh| P3
+    P1 -->|WireGuard Mesh| P4
+    P2 -->|WireGuard Mesh| P3
+    P2 -->|WireGuard Mesh| P4
+    P3 -->|WireGuard Mesh| P4
+    
+    P4 -->|Acceso LAN| LAN[(Red Local<br/>192.168.1.0/24)]
+    
+    style CP fill:#e1f5fe
+    style P1 fill:#f3e5f5
+    style P2 fill:#f3e5f5
+    style P3 fill:#f3e5f5
+    style P4 fill:#fff3e0
+```
+
+## Flujo de conexión
+
+```mermaid
+sequenceDiagram
+    participant U as Usuario
+    participant P as Peer (Cliente)
+    participant CP as Control Plane
+    participant T as TURN Server
+    
+    P->>CP: Registro inicial (netbird up)
+    CP-->>P: Enlace de autenticación
+    U->>CP: Autenticación vía navegador
+    CP-->>P: Credenciales WireGuard
+    
+    P->>CP: Solicitud de peers
+    CP-->>P: Lista de peers autorizados
+    
+    P->>P: Establecer conexiones WireGuard
+    P->>T: Usar TURN si NAT traversal falla
+    
+    Note over P: Conectado a la mesh VPN
+```
+
 ## Requisitos
 
 - Debian/Ubuntu o equivalente con `curl` y `sudo`

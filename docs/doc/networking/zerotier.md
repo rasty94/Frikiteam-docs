@@ -2,6 +2,70 @@
 
 > ZeroTier proporciona redes virtuales L2/L3 fáciles de desplegar entre dispositivos.
 
+## Arquitectura de ZeroTier
+
+```mermaid
+graph TB
+    subgraph "Controller"
+        ZT[ZeroTier Controller<br/>my.zerotier.com]
+        ZT --> NET[Redes Virtuales<br/>Network IDs]
+        ZT --> RULES[Flow Rules<br/>Políticas de tráfico]
+        ZT --> DNS[DNS Management]
+    end
+    
+    subgraph "Nodos/Peers"
+        P1[Planet<br/>Root Server]
+        M1[Moon<br/>Controller Distribuido]
+        L1[Leaf 1<br/>Cliente Final]
+        L2[Leaf 2<br/>Servidor]
+        GW[Gateway<br/>con rutas]
+    end
+    
+    ZT -->|Configuración| P1
+    ZT -->|Configuración| M1
+    ZT -->|Configuración| L1
+    ZT -->|Configuración| L2
+    ZT -->|Configuración| GW
+    
+    P1 -->|Protocolo ZeroTier| M1
+    P1 -->|Protocolo ZeroTier| L1
+    P1 -->|Protocolo ZeroTier| L2
+    P1 -->|Protocolo ZeroTier| GW
+    
+    M1 -->|Protocolo ZeroTier| L1
+    M1 -->|Protocolo ZeroTier| L2
+    M1 -->|Protocolo ZeroTier| GW
+    
+    L1 -->|Protocolo ZeroTier| L2
+    L1 -->|Protocolo ZeroTier| GW
+    L2 -->|Protocolo ZeroTier| GW
+    
+    GW -->|Bridging L2/L3| LAN[(Redes Físicas)]
+    
+    style ZT fill:#e1f5fe
+    style P1 fill:#fff3e0
+    style M1 fill:#ffebee
+    style L1 fill:#f3e5f5
+    style L2 fill:#f3e5f5
+    style GW fill:#e8f5e8
+```
+
+## Jerarquía de nodos
+
+```mermaid
+flowchart TD
+    A[Planets<br/>Servidores raíz<br/>Estables y públicos] --> B[Moons<br/>Controladores<br/>distribuidos<br/>opcionales]
+    B --> C[Leafs<br/>Clientes finales<br/>Dispositivos usuarios]
+    
+    D[Controller<br/>my.zerotier.com<br/>o self-hosted] --> E[Redes Virtuales<br/>Network IDs]
+    E --> F[Miembros<br/>autorizados]
+    
+    style A fill:#fff3e0
+    style B fill:#ffebee
+    style C fill:#f3e5f5
+    style D fill:#e1f5fe
+```
+
 ## Requisitos
 
 - Debian/Ubuntu o equivalente con `curl` y `sudo`

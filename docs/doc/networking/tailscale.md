@@ -2,6 +2,75 @@
 
 > Tailscale crea una red mesh segura basada en WireGuard y autenticación SSO.
 
+## Arquitectura de Tailscale
+
+```mermaid
+graph TB
+    subgraph "Tailscale SaaS"
+        TS[Control Plane<br/>admin.tailscale.com]
+        TS --> AUTH[Autenticación SSO<br/>Google/Microsoft/etc]
+        TS --> DNS[MagicDNS]
+        TS --> ACL[ACL Engine]
+    end
+    
+    subgraph "Nodos/Peers"
+        D1[Device 1<br/>Laptop]
+        D2[Device 2<br/>Server]
+        D3[Device 3<br/>Mobile]
+        SR[Subnet Router<br/>Gateway]
+        EN[Exit Node<br/>VPN Gateway]
+    end
+    
+    TS -->|ACLs| D1
+    TS -->|ACLs| D2
+    TS -->|ACLs| D3
+    TS -->|ACLs| SR
+    TS -->|ACLs| EN
+    
+    D1 -->|WireGuard| D2
+    D1 -->|WireGuard| D3
+    D1 -->|WireGuard| SR
+    D1 -->|WireGuard| EN
+    D2 -->|WireGuard| D3
+    SR -->|WireGuard| EN
+    
+    SR -->|Acceso LAN| LAN[(Red Local)]
+    EN -->|Internet| NET[Internet]
+    
+    style TS fill:#e1f5fe
+    style D1 fill:#f3e5f5
+    style D2 fill:#f3e5f5
+    style D3 fill:#f3e5f5
+    style SR fill:#fff3e0
+    style EN fill:#ffebee
+```
+
+## Tipos de nodos en Tailscale
+
+```mermaid
+mindmap
+  root((Tipos de Nodos<br/>Tailscale))
+    Regular Node
+      Conexión mesh
+      Acceso peer-to-peer
+      MagicDNS
+      Sin privilegios especiales
+    Subnet Router
+      Anuncia rutas locales
+      --advertise-routes
+      Gateway para LAN
+      Requiere autorización
+    Exit Node
+      --advertise-exit-node
+      Gateway de internet
+      Enruta todo el tráfico
+      Configuración de ACLs
+    App Connector
+      Próximamente
+      Conexión a servicios SaaS
+      Sin exposición pública
+```
+
 ## Requisitos
 
 - Debian/Ubuntu o equivalente con `curl` y `sudo`
