@@ -1,6 +1,6 @@
 # Terraform & OpenTofu - Infraestructura como Código
 
-## 🚀 Iniciar con Terraform en 15 minutos
+## 🚀 :material-cloud: Iniciar con Terraform en 15 minutos
 
 ¿Nuevo en Terraform? Comienza aquí:
 

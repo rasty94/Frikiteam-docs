@@ -4,7 +4,7 @@
 
 Ansible es una herramienta de automatización de TI que puede configurar sistemas, desplegar software y orquestar tareas más complejas de TI. A diferencia de otras herramientas de automatización, Ansible no requiere la instalación de agentes en los nodos gestionados.
 
-## 🚀 Iniciar con Ansible en 15 minutos
+## 🚀 :material-robot: Iniciar con Ansible en 15 minutos
 
 ¿Nuevo en Ansible? Comienza aquí:
 
