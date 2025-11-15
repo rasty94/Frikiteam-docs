@@ -103,3 +103,11 @@ Estos casos de uso demuestran la versatilidad y capacidad de OpenStack para adap
 
 ### Casos de uso destacados
 - **OASIX Cloud (Grupo Aire):** [oasixcloud.es](https://oasixcloud.es) - Una de las pocas clouds españolas basadas en OpenStack con desarrollo propio 🇪🇸
+
+---
+
+!!! tip "¿Buscas comandos rápidos?"
+    Consulta nuestras **[Recetas rápidas](../recipes.md#openstack)** para comandos copy-paste comunes.
+
+!!! warning "¿Problemas con OpenStack?"
+    Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md)** para soluciones a errores comunes.

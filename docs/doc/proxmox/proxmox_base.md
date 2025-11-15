@@ -583,3 +583,11 @@ docker compose run --rm pvetui
 - **ProxMenuX**: https://github.com/ayufan/proxmox-ve-helper
 - **Proxmox VE Helper**: https://github.com/ayufan/proxmox-ve-helper
 - **PVETUI**: https://github.com/devnullvoid/pvetui
+
+---
+
+!!! tip "¿Buscas comandos rápidos?"
+    Consulta nuestras **[Recetas rápidas](../recipes.md#proxmox)** para comandos copy-paste comunes.
+
+!!! warning "¿Problemas con Proxmox?"
+    Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md)** para soluciones a errores comunes.

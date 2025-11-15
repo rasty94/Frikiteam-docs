@@ -108,6 +108,27 @@ En las siguientes secciones exploraremos:
 - Seguridad en contenedores
 - Orquestación con Kubernetes
 
+## Preguntas frecuentes (FAQs)
+
+!!! question "¿Cuál es la diferencia entre una imagen y un contenedor?"
+    Una **imagen** es un paquete inmutable que contiene el código de la aplicación, dependencias y configuración. Un **contenedor** es una instancia ejecutable de una imagen.
+
+!!! question "¿Cómo compartir datos entre contenedores?"
+    Usa **volúmenes nombrados** (`docker volume create mi-volumen`) o **bind mounts** (`-v /host/path:/container/path`). Para datos persistentes, siempre usa volúmenes nombrados.
+
+!!! question "¿Por qué mi contenedor no puede acceder a internet?"
+    Verifica la configuración de red con `docker network ls` e `docker inspect <container>`. Asegúrate de que Docker esté usando el DNS correcto o configura `--dns` en el comando `docker run`.
+
+!!! question "¿Cómo reducir el tamaño de mis imágenes Docker?"
+    - Usa imágenes base pequeñas (alpine)
+    - Combina comandos RUN en capas
+    - Elimina archivos temporales en el mismo layer
+    - Usa .dockerignore para excluir archivos innecesarios
+
+!!! question "¿Cuál es la diferencia entre CMD y ENTRYPOINT?"
+    - **CMD**: Define el comando por defecto que se ejecuta cuando el contenedor inicia. Puede ser sobreescrito.
+    - **ENTRYPOINT**: Define el ejecutable principal. Los argumentos de CMD se pasan como parámetros al ENTRYPOINT.
+
 ## Recursos adicionales
 
 ### Videos tutoriales

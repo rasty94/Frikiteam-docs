@@ -121,6 +121,23 @@ En las siguientes secciones exploraremos:
 - Monitoreo y logging
 - Helm y gestión de paquetes
 
+## Preguntas frecuentes (FAQs)
+
+!!! question "¿Cuál es la diferencia entre un Pod y un Deployment?"
+    Un **Pod** es la unidad más pequeña en Kubernetes (uno o más contenedores). Un **Deployment** gestiona réplicas de Pods, actualizaciones y rollback automático.
+
+!!! question "¿Cómo exponer mi aplicación fuera del cluster?"
+    Usa **Services** (ClusterIP, NodePort, LoadBalancer) o **Ingress** para HTTP/HTTPS. Para pruebas rápidas, NodePort expone en un puerto del nodo.
+
+!!! question "¿Por qué mi Pod está en estado Pending?"
+    Revisa con `kubectl describe pod <pod>`. Causas comunes: falta de recursos (CPU/memoria), problemas de scheduling, o nodos no disponibles.
+
+!!! question "¿Cómo persistir datos en Kubernetes?"
+    Usa **PersistentVolumes** (PV) y **PersistentVolumeClaims** (PVC). Para bases de datos, considera StorageClasses con provisionamiento dinámico.
+
+!!! question "¿Cuál es la diferencia entre ConfigMap y Secret?"
+    **ConfigMap**: Almacena datos no sensibles (variables de entorno, archivos de config). **Secret**: Para datos sensibles (passwords, tokens, certificados) - están base64 encoded pero no encriptados por defecto.
+
 ## Recursos adicionales
 
 ### Videos tutoriales

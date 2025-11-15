@@ -319,3 +319,11 @@ sequenceDiagram
 - **Documentación oficial**: https://www.haproxy.org/
 - **Guía de configuración**: https://www.haproxy.org/download/2.8/doc/configuration.txt
 - **Comunidad**: https://www.haproxy.org/community/
+
+---
+
+!!! tip "¿Buscas comandos rápidos?"
+    Consulta nuestras **[Recetas rápidas](../recipes.md#haproxy)** para comandos copy-paste comunes.
+
+!!! warning "¿Problemas con HAProxy?"
+    Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md)** para soluciones a errores comunes.

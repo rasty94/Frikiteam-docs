@@ -197,3 +197,11 @@ En las siguientes secciones exploraremos:
 - **Análisis de licencias:** [hashicorp.com/blog/announcing-hashicorp-license-v2](https://www.hashicorp.com/blog/announcing-hashicorp-license-v2)
 - **Nacimiento de OpenTofu:** [opentofu.org/blog/opentofu-announcement](https://opentofu.org/blog/opentofu-announcement)
 - **Guía de migración:** [gruntwork.io/blog/opentofu-vs-terraform](https://gruntwork.io/blog/opentofu-vs-terraform)
+
+---
+
+!!! tip "¿Buscas comandos rápidos?"
+    Consulta nuestras **[Recetas rápidas](../recipes.md#terraform)** para comandos copy-paste comunes.
+
+!!! warning "¿Problemas con Terraform?"
+    Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md)** para soluciones a errores comunes.

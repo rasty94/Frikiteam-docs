@@ -1,5 +1,8 @@
 ---
 title: Glosario — Términos comunes
+description: Diccionario de términos técnicos de DevOps, cloud y contenedores. Definiciones de Kubernetes, Docker, Ansible, Terraform y más.
+keywords: glosario, términos, definiciones, devops, cloud, kubernetes, docker, ansible, terraform
+tags: [glosario, términos, definiciones, diccionario]
 ---
 
 # Glosario

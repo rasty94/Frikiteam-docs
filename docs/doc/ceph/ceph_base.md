@@ -82,3 +82,11 @@ Para instalar Ceph versión Reef utilizando `cephadm`, se pueden seguir los sigu
 - **Reddit:** [r/ceph](https://www.reddit.com/r/ceph/)
 - **Stack Overflow:** [stackoverflow.com/questions/tagged/ceph](https://stackoverflow.com/questions/tagged/ceph)
 - **IRC:** #ceph en freenode
+
+---
+
+!!! tip "¿Buscas comandos rápidos?"
+    Consulta nuestras **[Recetas rápidas](../recipes.md#ceph)** para comandos copy-paste comunes.
+
+!!! warning "¿Problemas con Ceph?"
+    Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md)** para soluciones a errores comunes.

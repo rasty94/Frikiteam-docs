@@ -89,3 +89,11 @@ En las siguientes secciones exploraremos:
 ### Comunidad
 - **Reddit:** [r/ansible](https://www.reddit.com/r/ansible/)
 - **Stack Overflow:** [stackoverflow.com/questions/tagged/ansible](https://stackoverflow.com/questions/tagged/ansible)
+
+---
+
+!!! tip "¿Buscas comandos rápidos?"
+    Consulta nuestras **[Recetas rápidas](../recipes.md#ansible)** para comandos copy-paste comunes.
+
+!!! warning "¿Problemas con Ansible?"
+    Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md)** para soluciones a errores comunes.
