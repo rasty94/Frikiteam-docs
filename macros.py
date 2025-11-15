@@ -158,4 +158,46 @@ def define_env(env):
                 lines.append(f"- [{p['title']}]({p['link']}) — {p['date_str']}")
         return "\n".join(lines)
 
+    @env.macro
+    def sync_badge():
+        page = env.variables.get('page')
+        if not page:
+            return ""
+        # Get the front matter
+        meta = getattr(page, 'meta', {})
+        sync_date = meta.get('sync_date')
+        if not sync_date:
+            return ""
+        # Determine language
+        src_path = getattr(getattr(page, 'file', None), 'src_path', '') or ''
+        lang = 'en' if src_path.startswith('en/') else 'es'
+        if lang == 'es':
+            badge_text = f"Sincronizado: {sync_date}"
+            return f'<span class="md-badge md-badge--secondary">{badge_text}</span>'
+        else:
+            badge_text = f"Synchronized: {sync_date}"
+            return f'<span class="md-badge md-badge--secondary">{badge_text}</span>'
+
+
+
+def on_post_page_macros(env):
+    def inner(html, page, config, site_navigation=None, **kwargs):
+        # Add sync badge if sync_date exists in front matter
+        meta = getattr(page, 'meta', {})
+        sync_date = meta.get('sync_date')
+        if sync_date:
+            src_path = getattr(getattr(page, 'file', None), 'src_path', '') or ''
+            lang = 'en' if src_path.startswith('en/') else 'es'
+            if lang == 'es':
+                badge = f'<p><span class="md-badge md-badge--secondary">Sincronizado: {sync_date}</span></p>'
+            else:
+                badge = f'<p><span class="md-badge md-badge--secondary">Synchronized: {sync_date}</span></p>'
+            # Insert before the closing article tag
+            if '</article>' in html:
+                html = html.replace('</article>', f'{badge}</article>', 1)
+            else:
+                html += badge
+        return html
+    return inner
+
 
