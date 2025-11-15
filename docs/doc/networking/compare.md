@@ -82,7 +82,7 @@ flowchart TD
     H -->|Simple| M[ZeroTier Básico]
     H -->|Avanzado| N[ZeroTier Flow Rules]
     
-    style A fill:#e1f5fe,color:#000000
+    style A fill:#b3e5fc,color:#000000
     style C fill:#4caf50,color:#ffffff
     style D fill:#f44336,color:#ffffff
     style E fill:#2196f3,color:#ffffff
