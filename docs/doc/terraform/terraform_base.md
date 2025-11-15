@@ -172,6 +172,14 @@ En las siguientes secciones exploraremos:
 - **Migración:** [opentofu.org/docs/intro/migration](https://opentofu.org/docs/intro/migration)
 
 ### Comunidad
+### Videos tutoriales
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+  <iframe src="https://www.youtube.com/embed/h970ZBgKINM" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div>
+
+*Video: Terraform desde cero - Infraestructura como Código completa*
+
 - **Reddit:** [r/terraform](https://www.reddit.com/r/terraform/), [r/opentofu](https://www.reddit.com/r/opentofu/)
 - **Stack Overflow:** [stackoverflow.com/questions/tagged/terraform](https://stackoverflow.com/questions/tagged/terraform), [stackoverflow.com/questions/tagged/opentofu](https://stackoverflow.com/questions/tagged/opentofu)
 - **Discord:** [discord.gg/hashicorp](https://discord.gg/hashicorp)

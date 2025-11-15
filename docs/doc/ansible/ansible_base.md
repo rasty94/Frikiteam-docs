@@ -64,6 +64,14 @@ En las siguientes secciones exploraremos:
 
 ## Recursos adicionales
 
+### Videos tutoriales
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+  <iframe src="https://www.youtube.com/embed/8GSY6l3F9_0" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div>
+
+*Video: Ansible desde cero - Tutorial completo en español*
+
 ### Documentación oficial
 - **Sitio web oficial:** [ansible.com](https://www.ansible.com/)
 - **Documentación:** [docs.ansible.com](https://docs.ansible.com/)

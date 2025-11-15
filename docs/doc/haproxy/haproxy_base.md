@@ -300,6 +300,14 @@ sequenceDiagram
 
 ## Referencias
 
+### Videos tutoriales
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+  <iframe src="https://www.youtube.com/embed/8H6pUV9ZGZU" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div>
+
+*Video: HAProxy desde cero - Balanceo de carga completo*
+
 - **Documentación oficial**: https://www.haproxy.org/
 - **Guía de configuración**: https://www.haproxy.org/download/2.8/doc/configuration.txt
 - **Comunidad**: https://www.haproxy.org/community/

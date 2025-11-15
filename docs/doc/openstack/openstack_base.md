@@ -88,6 +88,14 @@ Estos casos de uso demuestran la versatilidad y capacidad de OpenStack para adap
 - **SUSE OpenStack Cloud:** [suse.com/products/openstack-cloud](https://www.suse.com/products/openstack-cloud/)
 
 ### Comunidad y soporte
+### Videos tutoriales
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+  <iframe src="https://www.youtube.com/embed/9X8R3vZfK9Y" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div>
+
+*Video: OpenStack desde cero - Plataforma de nube completa*
+
 - **Reddit:** [r/openstack](https://www.reddit.com/r/openstack/)
 - **Stack Overflow:** [stackoverflow.com/questions/tagged/openstack](https://stackoverflow.com/questions/tagged/openstack)
 - **IRC:** #openstack en freenode

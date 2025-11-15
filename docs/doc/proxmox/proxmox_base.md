@@ -567,6 +567,14 @@ docker compose run --rm pvetui
 
 ## Referencias
 
+### Videos tutoriales
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+  <iframe src="https://www.youtube.com/embed/7qRAqUzgQXI" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div>
+
+*Video: Proxmox VE desde cero - Instalación y configuración completa*
+
 - **Documentación oficial**: https://pve.proxmox.com/wiki/Documentation
 - **Wiki de Proxmox**: https://pve.proxmox.com/wiki/Main_Page
 - **Foro de la comunidad**: https://forum.proxmox.com/
