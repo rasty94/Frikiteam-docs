@@ -124,13 +124,13 @@ Si estás de acuerdo con esta lista te genero los stubs (post y doc) y puedo cre
 
 ## Mejoras de UX y Navegación (Nuevas Sugerencias)
 
-- Navegación y Crosslinking — Enlaces internos visibles (IMPLEMENTADO PARCIALMENTE)
+- Navegación y Crosslinking — Enlaces internos visibles (COMPLETADO)
   - Descripción: Añadir enlaces internos entre recetas rápidas, troubleshooting y guías completas. Ej: "¿Buscas comandos rápidos? Mira [Recetas rápidas]" y viceversa.
-  - Estado: Añadidos enlaces en recipes.md y algunas guías base (Docker, Kubernetes). Pendiente: Completar en todas las guías restantes.
+  - Estado: Añadidos enlaces en recipes.md y TODAS las guías base (Docker, Kubernetes, Ansible, HAProxy, Terraform, Proxmox, OpenStack, Ceph).
   - Audiencia: Todos los usuarios
   - Estimado: 1-2h
 
-- Destacar FAQs recurrentes y errores/trucos (PENDIENTE)
+- Destacar FAQs recurrentes y errores/trucos (COMPLETADO PARCIALMENTE)
   - Descripción: Resaltar preguntas frecuentes o errores comunes en cada área tecnológica con admonitions o secciones destacadas.
   - Audiencia: Usuarios principiantes
   - Estimado: 2-3h
@@ -145,12 +145,12 @@ Si estás de acuerdo con esta lista te genero los stubs (post y doc) y puedo cre
   - Estado: Sistema ya soporta admonitions en MkDocs.
   - Audiencia: Todos
 
-- Homogeneizar metadatos (description, keywords, opengraph) (PENDIENTE)
+- Homogeneizar metadatos (description, keywords, opengraph) (COMPLETADO)
   - Descripción: Verificar y estandarizar metadatos en todas las páginas, especialmente portada y quickstart.
   - Audiencia: SEO y accesibilidad
   - Estimado: 1h
 
-- Comprobar contraste y alt-text en imágenes/diagramas (PENDIENTE)
+- Comprobar contraste y alt-text en imágenes/diagramas (VERIFICADO)
   - Descripción: Revisar contraste de colores y añadir alt-text descriptivo a todas las imágenes y diagramas Mermaid.
   - Audiencia: Accesibilidad
   - Estimado: 2h
