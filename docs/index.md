@@ -1,3 +1,10 @@
+---
+title: Inicio - Frikiteam Docs
+description: Documentación técnica completa sobre DevOps, infraestructura, contenedores y nube. Guías prácticas de Ansible, Docker, Kubernetes, OpenStack y más.
+keywords: devops, infraestructura, docker, kubernetes, ansible, terraform, openstack, proxmox, haproxy, ceph, networking
+tags: [inicio, documentacion, devops, infraestructura]
+---
+
 # 🚀 Bienvenido a Frikiteam Docs 🚀
 
 ¡Bienvenido a la documentación técnica de Frikiteam! Soy un profesional apasionado por la tecnología que comparte conocimiento y experiencias en el mundo de la infraestructura, la nube y la automatización.
