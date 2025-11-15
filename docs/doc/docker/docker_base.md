@@ -128,3 +128,11 @@ En las siguientes secciones exploraremos:
 - **Reddit:** [r/docker](https://www.reddit.com/r/docker/)
 - **Stack Overflow:** [stackoverflow.com/questions/tagged/docker](https://stackoverflow.com/questions/tagged/docker)
 - **Foros oficiales:** [forums.docker.com](https://forums.docker.com/)
+
+---
+
+!!! tip "¿Buscas comandos rápidos?"
+    Consulta nuestras **[Recetas rápidas](../recipes.md#docker)** para comandos copy-paste comunes.
+
+!!! warning "¿Problemas con Docker?"
+    Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md#docker)** para soluciones a errores comunes.

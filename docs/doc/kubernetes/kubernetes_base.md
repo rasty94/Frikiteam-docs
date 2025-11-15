@@ -142,3 +142,11 @@ En las siguientes secciones exploraremos:
 - **Stack Overflow:** [stackoverflow.com/questions/tagged/kubernetes](https://stackoverflow.com/questions/tagged/kubernetes)
 - **Slack:** [slack.k8s.io](https://slack.k8s.io/)
 - **Discord:** [discord.gg/kubernetes](https://discord.gg/kubernetes)
+
+---
+
+!!! tip "¿Buscas comandos rápidos?"
+    Consulta nuestras **[Recetas rápidas](../../recipes.md#kubernetes)** para comandos copy-paste comunes.
+
+!!! warning "¿Problemas con Kubernetes?"
+    Revisa nuestra **[sección de troubleshooting](../../../troubleshooting.md)** para soluciones a errores comunes.
