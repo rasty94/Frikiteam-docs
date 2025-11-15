@@ -516,25 +516,48 @@ chmod +x scripts/*.sh
 ./scripts/install.sh
 ```
 
-**Usage examples:**
+### PVETUI
+
+PVETUI (Proxmox Virtual Environment Terminal User Interface) is a terminal-based user interface tool written in Go that allows you to manage Proxmox VE entirely from the terminal, inspired by tools like k9s and lazydocker.
+
+**Main features:**
+
+- Fast performance and smooth navigation between nodes, VMs, and containers
+- Complete management of virtual machines, LXC containers, and Proxmox clusters
+- Support for multiple connection profiles
+- Secure authentication with API tokens or passwords, with automatic token renewal
+- Integrated SSH shells and embedded VNC access
+- Plugin support (including Community Scripts installer)
+- Vim-style keyboard navigation (h, j, k, l, etc.)
+- Customizable themes and cross-platform (Linux, macOS, Windows)
+
+**Installation:**
+
 ```bash
-# Automatic backup of all VMs
-./scripts/backup-all-vms.sh
+# Option 1: Using Go (Linux/macOS)
+go install github.com/devnullvoid/pvetui/cmd/pvetui@latest
 
-# VM migration with verification
-./scripts/migrate-vm.sh 100 target-node
+# Option 2: Precompiled binaries
+# Download from https://github.com/devnullvoid/pvetui/releases
 
-# Resource monitoring
-./scripts/monitor-resources.sh
+# Option 3: Using package managers
+# Arch Linux: yay -S pvetui-bin
+# macOS: brew tap devnullvoid/pvetui && brew install pvetui
+# Windows: scoop install pvetui
+
+# Option 4: Docker
+git clone https://github.com/devnullvoid/pvetui.git
+cd pvetui
+cp .env.example .env
+docker compose run --rm pvetui
 ```
 
-### Other Recommended Tools
+**Basic usage:**
 
-- **Proxmox Backup Server**: Dedicated backup solution
-- **Cockpit**: Web interface for server management
-- **Grafana**: Advanced monitoring dashboards
-- **Prometheus**: Monitoring and alerting system
-- **Ansible**: Configuration automation
+- Run `pvetui` to start the interface
+- On first launch, configure connection profile
+- Navigate with Alt+1 (Nodes), Alt+2 (Guests), Alt+3 (Tasks)
+- Use 'm' for action menus, 's' for SSH, 'v' for VNC
 
 ## References
 
@@ -545,4 +568,5 @@ chmod +x scripts/*.sh
 - **Downloads**: https://www.proxmox.com/en/downloads
 - **ProxMenuX**: https://github.com/ayufan/proxmox-ve-helper
 - **Proxmox VE Helper**: https://github.com/ayufan/proxmox-ve-helper
+- **PVETUI**: https://github.com/devnullvoid/pvetui
 
