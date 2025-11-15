@@ -135,4 +135,4 @@ En las siguientes secciones exploraremos:
     Consulta nuestras **[Recetas rápidas](../recipes.md#docker)** para comandos copy-paste comunes.
 
 !!! warning "¿Problemas con Docker?"
-    Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md#docker)** para soluciones a errores comunes.
+    Revisa nuestra **[sección de troubleshooting](../troubleshooting.md)** para soluciones a errores comunes.

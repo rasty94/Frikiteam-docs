@@ -146,7 +146,7 @@ En las siguientes secciones exploraremos:
 ---
 
 !!! tip "¿Buscas comandos rápidos?"
-    Consulta nuestras **[Recetas rápidas](../../recipes.md#kubernetes)** para comandos copy-paste comunes.
+    Consulta nuestras **[Recetas rápidas](../recipes.md#kubernetes)** para comandos copy-paste comunes.
 
 !!! warning "¿Problemas con Kubernetes?"
-    Revisa nuestra **[sección de troubleshooting](../../../troubleshooting.md)** para soluciones a errores comunes.
+    Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md)** para soluciones a errores comunes.
