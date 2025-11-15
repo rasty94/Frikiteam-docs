@@ -94,27 +94,32 @@ flowchart TD
 
 ```mermaid
 graph TB
-    subgraph "NetBird - Zero Trust"
+    subgraph "NetBird - Zero Trust Explícito"
         NB[NetBird]
         NB --> POL[Políticas Granulares]
         NB --> ACL[ACLs por Peer/Grupo]
-        NB --> AUD[Auditoría]
+        NB --> AUD[Auditoría Detallada]
+        NB --> ZT[Zero Trust Architecture]
     end
-    
-    subgraph "Tailscale - Confianza Implícita"
+
+    subgraph "Tailscale - Zero Trust Simplificado"
         TS[Tailscale]
         TS --> SSO[Autenticación SSO]
-        TS --> ACL2[ACLs Simples]
+        TS --> ACL2[ACLs JSON]
         TS --> DNS2[MagicDNS]
+        TS --> ZT2[Zero Trust con Confianza Implícita]
     end
-    
-    subgraph "ZeroTier - Redes Virtuales"
+
+    subgraph "ZeroTier - Control L2/L3"
         ZT[ZeroTier]
         ZT --> L2[L2/L3 Bridging]
         ZT --> RULES[Flow Rules]
         ZT --> VLAN[VLAN-like Networks]
+        ZT --> NET[Control por Red]
     end
-    
+
     style NB fill:#c8e6c9
     style TS fill:#ffcdd2
     style ZT fill:#bbdefb
+```
+
