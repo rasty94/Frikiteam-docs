@@ -4,19 +4,19 @@ Guía completa de Proxmox Virtual Environment: plataforma de virtualización emp
 
 ## 📋 Tabla de Contenidos
 
-- [Introducción](#introducción)
-- [Instalación](#instalación)
-- [Configuración Básica](#configuración-básica)
-- [Gestión de Máquinas Virtuales](#gestión-de-máquinas-virtuales)
+- [Introducción](#introduccion)
+- [Instalación](#instalacion)
+- [Configuración Básica](#configuracion-basica)
+- [Gestión de Máquinas Virtuales](#gestion-de-maquinas-virtuales)
 - [Contenedores LXC](#contenedores-lxc)
 - [Almacenamiento](#almacenamiento)
 - [Redes](#redes)
-- [Backup y Recuperación](#backup-y-recuperación)
+- [Backup y Recuperación](#backup-y-recuperacion)
 - [Clustering](#clustering)
 - [Seguridad](#seguridad)
 - [Monitoreo](#monitoreo)
 - [Casos de Uso](#casos-de-uso)
-- [Herramientas Útiles](#herramientas-útiles)
+- [Herramientas Útiles](#herramientas-utiles)
 - [Referencias](#referencias)
 
 ## Introducción
@@ -50,7 +50,7 @@ Proxmox Virtual Environment (Proxmox VE) es una plataforma de virtualización em
 
 ### Instalación desde ISO
 
-1. **Descargar ISO** desde [proxmox.com](https://www.proxmox.com/en/downloads)
+1. **Descargar ISO** desde https://www.proxmox.com/en/downloads
 2. **Crear USB booteable** o usar PXE
 3. **Bootear** desde el medio de instalación
 4. **Seguir el asistente** de instalación
@@ -516,25 +516,48 @@ chmod +x scripts/*.sh
 ./scripts/install.sh
 ```
 
-**Ejemplos de uso:**
+### PVETUI
+
+PVETUI (Proxmox Virtual Environment Terminal User Interface) es una herramienta de interfaz de usuario basada en terminal escrita en Go que permite gestionar Proxmox VE completamente desde el terminal, inspirada en herramientas como k9s y lazydocker.
+
+**Características principales:**
+
+- Rendimiento rápido y navegación fluida entre nodos, VMs y contenedores
+- Gestión completa de máquinas virtuales, contenedores LXC y clusters Proxmox
+- Soporte para múltiples perfiles de conexión
+- Autenticación segura con tokens API o contraseñas, con renovación automática
+- Shells SSH integrados y acceso VNC embebido
+- Soporte para plugins (incluyendo instalador de scripts comunitarios)
+- Navegación por teclado estilo Vim (h, j, k, l, etc.)
+- Temas personalizables y multiplataforma (Linux, macOS, Windows)
+
+**Instalación:**
+
 ```bash
-# Backup automático de todas las VMs
-./scripts/backup-all-vms.sh
+# Opción 1: Usando Go (Linux/macOS)
+go install github.com/devnullvoid/pvetui/cmd/pvetui@latest
 
-# Migración de VM con verificación
-./scripts/migrate-vm.sh 100 target-node
+# Opción 2: Binarios precompilados
+# Descargar desde https://github.com/devnullvoid/pvetui/releases
 
-# Monitoreo de recursos
-./scripts/monitor-resources.sh
+# Opción 3: Usando gestores de paquetes
+# Arch Linux: yay -S pvetui-bin
+# macOS: brew tap devnullvoid/pvetui && brew install pvetui
+# Windows: scoop install pvetui
+
+# Opción 4: Docker
+git clone https://github.com/devnullvoid/pvetui.git
+cd pvetui
+cp .env.example .env
+docker compose run --rm pvetui
 ```
 
-### Otras Herramientas Recomendadas
+**Uso básico:**
 
-- **Proxmox Backup Server**: Solución de backup dedicada
-- **Cockpit**: Interfaz web para gestión de servidores
-- **Grafana**: Dashboards de monitoreo avanzado
-- **Prometheus**: Sistema de monitoreo y alertas
-- **Ansible**: Automatización de configuración
+- Ejecutar `pvetui` para iniciar la interfaz
+- En el primer lanzamiento, configurar perfil de conexión
+- Navegar con Alt+1 (Nodos), Alt+2 (Guests), Alt+3 (Tareas)
+- Usar 'm' para menús de acciones, 's' para SSH, 'v' para VNC
 
 ## Referencias
 
@@ -545,3 +568,4 @@ chmod +x scripts/*.sh
 - **Descargas**: https://www.proxmox.com/en/downloads
 - **ProxMenuX**: https://github.com/ayufan/proxmox-ve-helper
 - **Proxmox VE Helper**: https://github.com/ayufan/proxmox-ve-helper
+- **PVETUI**: https://github.com/devnullvoid/pvetui

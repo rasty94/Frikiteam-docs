@@ -4,15 +4,15 @@ Guía completa de HAProxy: balanceador de carga y proxy de alto rendimiento para
 
 ## 📋 Tabla de Contenidos
 
-- [Introducción](#introducción)
-- [Instalación](#instalación)
-- [Configuración Básica](#configuración-básica)
-- [Configuración Avanzada](#configuración-avanzada)
+- [Introducción](#introduccion)
+- [Instalación](#instalacion)
+- [Configuración Básica](#configuracion-basica)
+- [Configuración Avanzada](#configuracion-avanzada)
 - [Seguridad](#seguridad)
 - [Monitoreo y Logging](#monitoreo-y-logging)
 - [Casos de Uso](#casos-de-uso)
 - [Diagramas](#diagramas)
-- [Buenas Prácticas](#buenas-prácticas)
+- [Buenas Prácticas](#buenas-practicas)
 - [Referencias](#referencias)
 
 ## Introducción
@@ -85,27 +85,27 @@ haproxy -c -f /etc/haproxy/haproxy.cfg
 ### Terminación TLS (HTTPS)
 
 1. **Generar certificado combinado**:
-```bash
-cat /etc/letsencrypt/live/tu-dominio/fullchain.pem \
-    /etc/letsencrypt/live/tu-dominio/privkey.pem \
-    | sudo tee /etc/haproxy/certs/tu-dominio.pem
-```
+   ```bash
+   cat /etc/letsencrypt/live/tu-dominio/fullchain.pem \
+       /etc/letsencrypt/live/tu-dominio/privkey.pem \
+       | sudo tee /etc/haproxy/certs/tu-dominio.pem
+   ```
 
 2. **Configurar frontend HTTPS**:
-```cfg
-frontend https-in
-  bind *:443 ssl crt /etc/haproxy/certs/tu-dominio.pem alpn h2,http/1.1
-  http-response set-header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-  redirect scheme https code 301 if !{ ssl_fc }
-  default_backend app
-```
+   ```cfg
+   frontend https-in
+     bind *:443 ssl crt /etc/haproxy/certs/tu-dominio.pem alpn h2,http/1.1
+     http-response set-header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+     redirect scheme https code 301 if !{ ssl_fc }
+     default_backend app
+   ```
 
 3. **Redirección HTTP → HTTPS** (opcional):
-```cfg
-frontend http-in
-  bind *:80
-  redirect scheme https code 301 if !{ ssl_fc }
-```
+   ```cfg
+   frontend http-in
+     bind *:80
+     redirect scheme https code 301 if !{ ssl_fc }
+   ```
 
 ### Health Checks Avanzados
 
