@@ -1,5 +1,13 @@
 # Terraform & OpenTofu - Infraestructura como Código
 
+## 🚀 Iniciar con Terraform en 15 minutos
+
+¿Nuevo en Terraform? Comienza aquí:
+
+- **[Tutorial: Primeros pasos con Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/infrastructure-as-code)** - Crea tu primera infraestructura en AWS
+- **[Guía de instalación rápida](https://developer.hashicorp.com/terraform/install)** - Instala Terraform en tu sistema
+- **[Tutorial interactivo](https://learn.hashicorp.com/terraform)** - Aprende con ejemplos prácticos
+
 ## Introducción a Terraform
 
 Terraform es una herramienta de Infraestructura como Código (IaC) desarrollada por HashiCorp que permite definir y gestionar infraestructura de manera declarativa usando archivos de configuración.

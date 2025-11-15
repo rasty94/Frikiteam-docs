@@ -16,6 +16,14 @@ tags: [docker, contenedores, base, virtualización]
 
 Docker es una plataforma de contenedores que permite empaquetar aplicaciones y sus dependencias en contenedores ligeros y portables. Esto facilita el desarrollo, despliegue y escalado de aplicaciones.
 
+## 🚀 Iniciar con Docker en 10 minutos
+
+¿Nuevo en Docker? Comienza aquí:
+
+- **[Tutorial oficial: Get started](https://docs.docker.com/get-started/)** - Tu primer contenedor en minutos
+- **[Play with Docker](https://labs.play-with-docker.com/)** - Entorno interactivo online gratuito
+- **[Docker Cheat Sheet](https://dockerlabs.collabnix.com/docker/cheatsheet/)** - Comandos esenciales
+
 ## Conceptos fundamentales
 
 ### Contenedores

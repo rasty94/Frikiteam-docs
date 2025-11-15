@@ -4,6 +4,14 @@
 
 Kubernetes (K8s) es una plataforma de orquestación de contenedores de código abierto que automatiza el despliegue, escalado y gestión de aplicaciones contenerizadas.
 
+## 🚀 Iniciar con Kubernetes en 20 minutos
+
+¿Nuevo en Kubernetes? Comienza aquí:
+
+- **[Tutorial oficial: Primeros pasos](https://kubernetes.io/docs/tutorials/kubernetes-basics/)** - Crea tu primer cluster y despliega una app
+- **[Play with Kubernetes](https://labs.play-with-k8s.com/)** - Entorno interactivo online gratuito
+- **[Katacoda Kubernetes scenarios](https://www.katacoda.com/courses/kubernetes)** - Tutoriales interactivos paso a paso
+
 ## Arquitectura de Kubernetes
 
 ### Componentes del plano de control

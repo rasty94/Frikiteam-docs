@@ -24,6 +24,14 @@ HAProxy es un balanceador de carga y proxy de alto rendimiento para TCP/HTTP que
 - **Confiabilidad**: Health checks automáticos y failover
 - **Seguridad**: Terminación TLS, rate limiting, y cabeceras de seguridad
 
+## 🚀 Iniciar con HAProxy en 10 minutos
+
+¿Nuevo en HAProxy? Comienza aquí:
+
+- **[Tutorial oficial: Get started](https://www.haproxy.com/documentation/hapee/latest/getting-started/)** - Configuración básica paso a paso
+- **[HAProxy Wizard](https://www.haproxy.com/blog/haproxy-configuration-basics-load-balancing/)** - Generador de configuración online
+- **[Load Balancing 101](https://www.haproxy.com/blog/load-balancing-101/)** - Conceptos fundamentales
+
 ## Instalación
 
 ### Instalación Básica
