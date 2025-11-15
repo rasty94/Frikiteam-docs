@@ -119,3 +119,53 @@ Instrucciones:
 ---
 
 Si estás de acuerdo con esta lista te genero los stubs (post y doc) y puedo crear PR o aplicar cambios directos al repo. Si quieres cambiar prioridades o añadir otros temas, dímelo y adapto el TODO.
+
+---
+
+## Mejoras de UX y Navegación (Nuevas Sugerencias)
+
+- Navegación y Crosslinking — Enlaces internos visibles (IMPLEMENTADO PARCIALMENTE)
+  - Descripción: Añadir enlaces internos entre recetas rápidas, troubleshooting y guías completas. Ej: "¿Buscas comandos rápidos? Mira [Recetas rápidas]" y viceversa.
+  - Estado: Añadidos enlaces en recipes.md y algunas guías base (Docker, Kubernetes). Pendiente: Completar en todas las guías restantes.
+  - Audiencia: Todos los usuarios
+  - Estimado: 1-2h
+
+- Destacar FAQs recurrentes y errores/trucos (PENDIENTE)
+  - Descripción: Resaltar preguntas frecuentes o errores comunes en cada área tecnológica con admonitions o secciones destacadas.
+  - Audiencia: Usuarios principiantes
+  - Estimado: 2-3h
+
+- Visual / Layout — Paneles laterales con TOC anidado (CONFIGURADO)
+  - Descripción: Extender tablas de contenido anidadas en guías extensas (OpenStack, Proxmox). Ya configurado con toc.integrate.
+  - Estado: Configuración existente es suficiente.
+  - Audiencia: Lectores de guías largas
+
+- Resaltar mensajes de alerta con iconos/paneles (DISPONIBLE)
+  - Descripción: Usar admonitions (!!! tip, !!! warning, !!! note) para precauciones, tips y recomendaciones críticas.
+  - Estado: Sistema ya soporta admonitions en MkDocs.
+  - Audiencia: Todos
+
+- Homogeneizar metadatos (description, keywords, opengraph) (PENDIENTE)
+  - Descripción: Verificar y estandarizar metadatos en todas las páginas, especialmente portada y quickstart.
+  - Audiencia: SEO y accesibilidad
+  - Estimado: 1h
+
+- Comprobar contraste y alt-text en imágenes/diagramas (PENDIENTE)
+  - Descripción: Revisar contraste de colores y añadir alt-text descriptivo a todas las imágenes y diagramas Mermaid.
+  - Audiencia: Accesibilidad
+  - Estimado: 2h
+
+- Página legal de privacidad y cookies (IMPLEMENTADO)
+  - Descripción: Añadir página con política de privacidad y cookies, especialmente si se usan analytics.
+  - Estado: Creada docs/privacy.md y añadida a navegación.
+  - Audiencia: Cumplimiento legal
+
+- Contenido adicional — Mini-retos técnicos en curiosidades (IMPLEMENTADO)
+  - Descripción: Enriquecer sección curiosidades con "mini-retos técnicos" y opiniones comparadas de la comunidad.
+  - Estado: Añadidos retos para Docker, Kubernetes, Terraform y opiniones comparadas.
+  - Audiencia: Usuarios avanzados
+
+- Glosario expandido con términos cloud/devops/k8s (IMPLEMENTADO)
+  - Descripción: Crecer glosario con más términos y referencias a secciones donde se usan.
+  - Estado: Expandido con términos clave (Container, Pod, Service, etc.) y enlaces a guías.
+  - Audiencia: Nuevos usuarios
