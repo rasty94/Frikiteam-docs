@@ -84,7 +84,7 @@ Instrucciones:
 
 ## Nice-to-have (Prioridad Baja)
 
-12. Ceph: optimización y planificación de capacidad — docs/doc/ceph/ceph_tuning.md (CREADO)
+12. Ceph: optimización y planificación de capacidad — docs/doc/storage/ceph/ceph_tuning.md (CREADO)
    - Estimado: 4h
 
 13. Proxmox: migraciones (VMs y contenedores) — docs/doc/proxmox/migration_guide.md (CREADO)
@@ -169,3 +169,14 @@ Si estás de acuerdo con esta lista te genero los stubs (post y doc) y puedo cre
   - Descripción: Crecer glosario con más términos y referencias a secciones donde se usan.
   - Estado: Expandido con términos clave (Container, Pod, Service, etc.) y enlaces a guías.
   - Audiencia: Nuevos usuarios
+
+## Progreso de Publicación
+
+- terraform_base.md - Publicado el 2025-11-19
+- Ceph — Optimización y Planificación de Capacidad - Publicado el 2025-11-16
+- Ceph Storage Guide: Distributed Storage System Overview - Publicado el 2025-11-16
+- Proxmox VE Complete Guide: Enterprise Virtualization Platform - Publicado el 2025-11-16
+- Docker — Seguridad y Scanning - Publicado el 2025-11-16
+- Docker — Optimización y Buenas Prácticas - Publicado el 2025-11-16
+- Docker - Contenedores - Publicado el 2025-11-16
+- docker_kubernetes_vm_comparison.md - Publicado el 2025-11-16

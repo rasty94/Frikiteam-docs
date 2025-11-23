@@ -18,7 +18,10 @@ My idea is to provide practical, clear, and useful documentation about the techn
 
 ### 🐳 **Containers & Storage**
 - **[Docker](doc/docker/docker_base.md)** - Containers and virtualization
-- **[Ceph](doc/ceph/ceph_base.md)** - Scalable distributed storage
+- **[Kubernetes](doc/kubernetes/kubernetes_base.md)** - Container orchestration
+- **[Ceph](doc/storage/ceph/ceph_base.md)** - Scalable distributed storage
+- **[Pure Storage](doc/storage/pure_storage/pure_storage_base.md)** - Enterprise all-flash storage
+- **[NetApp](doc/storage/netapp/netapp_base.md)** - Enterprise storage solutions
 
 ### 🌐 **Networking & Connectivity**
 - **[Networking](doc/networking/index.md)** - VPN and networking solutions (NetBird, Tailscale, ZeroTier)

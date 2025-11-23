@@ -16,7 +16,7 @@ Este glosario recoge términos técnicos y definiciones usadas en la documentaci
 ## C
 
 - **Container**: Entorno aislado que ejecuta una aplicación y sus dependencias. Ver [Docker Base](doc/docker/docker_base.md).
-- **Ceph**: Sistema de almacenamiento distribuido. Ver [Ceph Base](doc/ceph/ceph_base.md).
+- **Ceph**: Sistema de almacenamiento distribuido. Ver [Ceph Base](doc/storage/ceph/ceph_base.md).
 
 ## D
 
@@ -44,11 +44,11 @@ Este glosario recoge términos técnicos y definiciones usadas en la documentaci
 ## O
 
 - **OpenStack**: Plataforma de cloud computing. Ver [OpenStack Base](doc/openstack/openstack_base.md).
-- **OSD**: Object Storage Daemon (Ceph). Ver [Ceph Base](doc/ceph/ceph_base.md).
+- **OSD**: Object Storage Daemon (Ceph). Ver [Ceph Base](doc/storage/ceph/ceph_base.md).
 
 ## P
 
-- **PG**: Placement Group (Ceph). Ver [Ceph Base](doc/ceph/ceph_base.md).
+- **PG**: Placement Group (Ceph). Ver [Ceph Base](doc/storage/ceph/ceph_base.md).
 - **Pod**: Unidad más pequeña en Kubernetes, contiene uno o más contenedores. Ver [Kubernetes Base](doc/kubernetes/kubernetes_base.md).
 - **Proxmox VE**: Plataforma de virtualización. Ver [Proxmox Base](doc/proxmox/proxmox_base.md).
 - **Probe**: Comprobación de salud en Kubernetes (readiness/liveness). Ver [Kubernetes Probes](doc/kubernetes/probes.md).

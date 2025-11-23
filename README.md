@@ -203,15 +203,20 @@ Notas CI/CD:
 - Para previsualización en PRs, añade un job que suba `site/` como artifact.
 - Si usas otra plataforma (Cloudflare Pages, Netlify), configura el build command `mkdocs build` y output `site/`.
 
-## Soporte
+## Sincronización con WordPress
 
-- Issues y PRs en `https://github.com/rasty94/Frikiteam-docs`.
+Para sincronizar artículos de la documentación a WordPress:
 
-## Recursos internos (Mermaid)
+1. Configura las variables de entorno (copia `.env.example` a `.env` y edita):
 
-Las guías y utilidades de Mermaid se han movido fuera del contenido público del sitio:
+   ```bash
+   export WP_SITE_URL=https://frikiteam.es
+   export WP_USERNAME=tu_usuario
+   export WP_APP_PASSWORD=tu_app_password
+   ```
 
-- Guías: `internal/mermaid/diagramas_guia.md`, `internal/mermaid/solucion_problemas_mermaid.md`
-- Herramientas: `internal/mermaid/tools/check_diagrams.py`, `internal/mermaid/tools/debug_mermaid.py`
+2. Ejecuta el script:
+   - Modo interactivo: `python wordpress_sync.py --interactive` (permite buscar por título o nombre de archivo)
+   - Archivo específico: `python wordpress_sync.py --file docs/doc/docker/docker_base.md --status draft`
 
-Estas referencias son solo para uso interno y no se publican en el sitio.
+El script actualizará automáticamente `TODO.md` con el progreso de publicación.

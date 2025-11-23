@@ -27,7 +27,9 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 ### 🐳 **Contenedores y Almacenamiento**
 - **[Docker](doc/docker/docker_base.md)** - Contenedores y virtualización
 - **[Kubernetes](doc/kubernetes/kubernetes_base.md)** - Orquestación de contenedores
-- **[Ceph](doc/ceph/ceph_base.md)** - Almacenamiento distribuido escalable
+- **[Ceph](doc/storage/ceph/ceph_base.md)** - Almacenamiento distribuido escalable
+- **[Pure Storage](doc/storage/pure_storage/pure_storage_base.md)** - Almacenamiento All‑Flash empresarial
+- **[NetApp](doc/storage/netapp/netapp_base.md)** - Soluciones de almacenamiento empresarial
 
 ### 🌐 **Redes y Conectividad**
 - **[Networking](doc/networking/index.md)** - VPN y soluciones de red (NetBird, Tailscale, ZeroTier)
