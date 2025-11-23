@@ -30,6 +30,7 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 - **[Ceph](doc/storage/ceph/ceph_base.md)** - Almacenamiento distribuido escalable
 - **[Pure Storage](doc/storage/pure_storage/pure_storage_base.md)** - Almacenamiento All‑Flash empresarial
 - **[NetApp](doc/storage/netapp/netapp_base.md)** - Soluciones de almacenamiento empresarial
+- **[Protocols & Metrics](doc/storage/protocols/protocols.md)** - Protocolos (iSCSI/NFS/SMB/S3) y métricas (IOPS, latencia, throughput)
 
 ### 🌐 **Redes y Conectividad**
 - **[Networking](doc/networking/index.md)** - VPN y soluciones de red (NetBird, Tailscale, ZeroTier)

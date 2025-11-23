@@ -22,6 +22,7 @@ My idea is to provide practical, clear, and useful documentation about the techn
 - **[Ceph](doc/storage/ceph/ceph_base.md)** - Scalable distributed storage
 - **[Pure Storage](doc/storage/pure_storage/pure_storage_base.md)** - Enterprise all-flash storage
 - **[NetApp](doc/storage/netapp/netapp_base.md)** - Enterprise storage solutions
+- **[Protocols & Metrics](doc/storage/protocols/protocols.md)** - Protocols (iSCSI/NFS/SMB/S3) and metrics (IOPS, latency, throughput)
 
 ### 🌐 **Networking & Connectivity**
 - **[Networking](doc/networking/index.md)** - VPN and networking solutions (NetBird, Tailscale, ZeroTier)
