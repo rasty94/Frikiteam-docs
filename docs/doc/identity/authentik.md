@@ -1,3 +1,10 @@
+---
+tags:
+  - identity
+  - security
+  - sso
+---
+
 # Authentik
 
 Una alternativa moderna y ligera a Keycloak, popular en entornos self-hosted.

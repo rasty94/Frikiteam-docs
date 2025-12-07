@@ -1,3 +1,10 @@
+---
+tags:
+  - backups
+  - linux
+  - cli
+---
+
 # Backups Agnósticos: Restic y Borg
 
 Herramientas para hacer backup de archivos de cualquier sistema Linux/Unix (incluyendo contenedores).

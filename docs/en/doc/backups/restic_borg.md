@@ -1,3 +1,10 @@
+---
+tags:
+  - backups
+  - linux
+  - cli
+---
+
 # Agnostic Backups: Restic and Borg
 
 Tools for backing up files on any Linux/Unix system (including containers).

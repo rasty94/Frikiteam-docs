@@ -1,3 +1,10 @@
+---
+tags:
+  - databases
+  - redis
+  - cache
+---
+
 # Redis: High Performance Cache
 
 Redis is an in-memory data structure store, used as a database, cache, and message broker.

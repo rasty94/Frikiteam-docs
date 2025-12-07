@@ -1,3 +1,10 @@
+---
+tags:
+  - identity
+  - security
+  - oidc
+---
+
 # Keycloak: Identity Management
 
 The de-facto open source standard for IAM (Identity and Access Management).
@@ -19,3 +26,15 @@ docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin
 1. Create client in Keycloak.
 2. Get `Client ID` and `Client Secret`.
 3. Configure Redirect URLs (`https://my-app.com/callback`).
+
+## OIDC Authentication Flow
+
+```mermaid
+sequenceDiagram
+    User->>App: Access Application
+    App->>Keycloak: Redirect to Login
+    Keycloak->>User: Show Login Form
+    User->>Keycloak: Credentials
+    Keycloak->>App: Return Token (JWT)
+    App->>User: Access Granted
+```

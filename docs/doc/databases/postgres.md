@@ -1,3 +1,10 @@
+---
+tags:
+  - databases
+  - postgres
+  - docker
+---
+
 # PostgreSQL en Docker
 
 PostgreSQL es el sistema de gestión de bases de datos relacional de objetos más avanzado del mundo. Ejecutarlo en Docker simplifica su despliegue y mantenimiento.

@@ -1,3 +1,10 @@
+---
+tags:
+  - databases
+  - redis
+  - cache
+---
+
 # Redis: Caché de Alto Rendimiento
 
 Redis es un almacén de estructura de datos en memoria, utilizado como base de datos, caché y broker de mensajería.

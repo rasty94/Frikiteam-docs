@@ -1,3 +1,9 @@
+---
+tags:
+  - identity
+  - openstack
+---
+
 # OpenStack Keystone
 
 Keystone is the OpenStack Identity service. It provides authentication, service discovery, and multi-tenant authorization.

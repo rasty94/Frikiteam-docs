@@ -1,3 +1,10 @@
+---
+tags:
+  - databases
+  - postgres
+  - docker
+---
+
 # PostgreSQL on Docker
 
 PostgreSQL is the world's most advanced open source relational database. Running it in Docker simplifies deployment and maintenance.

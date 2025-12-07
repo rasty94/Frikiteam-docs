@@ -1,3 +1,10 @@
+---
+tags:
+  - backups
+  - proxmox
+  - pbs
+---
+
 # Proxmox Backup Server (PBS)
 
 The perfect companion for Proxmox VE. Enables ultra-fast deduplicated incremental backups.
@@ -21,3 +28,12 @@ apt install proxmox-backup-server
 
 In Proxmox VE: `Datacenter -> Storage -> Add -> Proxmox Backup Server`.
 Enter the IP and the `Fingerprint` (copied from the PBS Dashboard).
+
+## Example Topology
+
+```mermaid
+graph TD
+    PVE[Proxmox VE] -->|Backup| PBS[Local PBS]
+    PBS -->|Sync| Rem[Remote PBS]
+    Client[Backup Client] -->|Upload| PBS
+```
