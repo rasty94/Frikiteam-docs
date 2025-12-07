@@ -219,6 +219,7 @@ python3 scripts/check_diagrams.py
 ## Ejemplos en la Documentación
 
 Puedes encontrar ejemplos de diagramas Mermaid en:
+
 - `docs/test_diagrams.md` - Ejemplos de todos los tipos de diagramas
 - `docs/doc/haproxy/haproxy_base.md` - Diagramas de arquitectura de HAProxy
 

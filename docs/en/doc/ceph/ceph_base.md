@@ -8,6 +8,7 @@ sync_date: "2025-11-15"
 Ceph is a distributed storage system that provides highly scalable and reliable storage for large amounts of data. It is designed to be self-managing, self-healing, and self-optimizing, making it ideal for cloud storage environments and data centers.
 
 ![Ceph Logo](ceph_logo.png){width=50%}
+
 ## Main Features
 
 - **Scalability**: Ceph can scale from a few nodes to thousands of nodes, allowing for seamless growth.

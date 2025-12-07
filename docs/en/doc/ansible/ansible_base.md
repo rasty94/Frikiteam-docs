@@ -65,6 +65,7 @@ Roles allow organizing playbooks and other files in a modular way.
 ## Next steps
 
 In the following sections we will explore:
+
 - Advanced Ansible configuration
 - Creating custom roles
 - CI/CD integration

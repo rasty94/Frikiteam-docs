@@ -1,3 +1,28 @@
+---
+title: "NetApp — Introducción"
+date: 2025-12-07
+tags: [storage, netapp]
+draft: true
+---
+
+# NetApp — Guía base (stub)
+
+Este fichero es un stub para comenzar la documentación sobre soluciones NetApp enfocadas a infraestructuras on-prem y cloud-hybrid.
+
+Estado: borrador.
+
+Secciones sugeridas:
+
+- Resumen y casos de uso
+- Arquitectura y componentes principales
+- Integración con Ceph / Kubernetes / Terraform
+- Ejemplos de configuración y comandos básicos
+- Referencias y enlaces
+
+Tareas siguientes:
+
+- Añadir ejemplos reales de volúmenes y políticas.
+- Documentar operaciones de snapshot y replicación.
 ```markdown
 ---
 title: NetApp — Guía Rápida

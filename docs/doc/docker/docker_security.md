@@ -28,5 +28,3 @@ trivy image --severity CRITICAL,HIGH myregistry/myimage:tag
 - Aplicar políticas de pull/scan en el registry.
 
 ---
-
-Si quieres, añado ejemplos concretos de policies y comandos para CI.

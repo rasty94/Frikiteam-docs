@@ -62,5 +62,3 @@ Este glosario recoge términos técnicos y definiciones usadas en la documentaci
 - **Terraform**: Herramienta de IaC. Ver [Terraform Base](doc/terraform/terraform_base.md).
 
 ---
-
-Si quieres, amplio el glosario con más entradas y referencias.

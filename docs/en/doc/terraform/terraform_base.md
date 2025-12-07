@@ -158,6 +158,7 @@ terraform state list
 ## Next steps
 
 In the following sections we will explore:
+
 - Terraform modules
 - Workspaces and remote states
 - CI/CD integration

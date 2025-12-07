@@ -13,7 +13,7 @@ Bienvenido a la sección técnica. Selecciona un tema:
 ## Tecnologías disponibles
 
 - [Ansible](ansible/ansible_base.md)
-- [Ceph](ceph/ceph_base.md)
+- [Ceph](storage/ceph/ceph_base.md)
 - [Docker](docker/docker_base.md)
 - [Kubernetes](kubernetes/kubernetes_base.md)
 - [HAProxy](haproxy/haproxy_base.md)

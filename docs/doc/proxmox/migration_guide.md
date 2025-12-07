@@ -16,5 +16,3 @@ Pasos prácticos para migrar máquinas virtuales y contenedores entre hosts o ha
 - IPs y networking, snapshots, backups y tiempos de inactividad.
 
 ---
-
-Si quieres, añado comandos `qm`/`pct` y ejemplos de conversión.

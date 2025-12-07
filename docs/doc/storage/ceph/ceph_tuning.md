@@ -19,5 +19,4 @@ Consejos para dimensionar y tunear un clúster Ceph: OSDs, CRUSH map, réplicas 
 
 ---
 
-Si quieres, añado scripts de tuning y ejemplos de configuración para OSDs y pools.
 ```

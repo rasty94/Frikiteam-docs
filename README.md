@@ -44,6 +44,7 @@ scripts/new_post.sh        # Script para crear posts
 ```
 
 Notas clave:
+
 - Idioma por defecto: Español en la raíz `docs/`. Inglés bajo `docs/en/`.
 - Rutas internas consistentes: usa `doc/...` en ambos idiomas para facilitar enlaces.
 - El blog no requiere plugin externo: se generan listados con `macros.py`.
@@ -87,6 +88,7 @@ mkdocs serve
 ## Blog (automático)
 
 El blog lista entradas y categorías automáticamente mediante macros Jinja en `macros.py`:
+
 - `docs/blog/index.md` y `docs/en/blog/index.md` usan: `{{ blog_list(group_by_category=True) }}`
 - `docs/blog/archive.md` y `docs/en/blog/archive.md` usan: `{{ blog_archive() }}`
 - `docs/blog/categories.md` y `docs/en/blog/categories.md` usan: `{{ blog_categories() }}`
@@ -101,12 +103,14 @@ scripts/new_post.sh "Post title" 2025-08-24 general en
 ```
 
 Parámetros:
+
 - Título (obligatorio)
 - Fecha `YYYY-MM-DD` (obligatorio)
 - Categoría (opcional, por defecto `General`)
 - Idioma `es` | `en` (opcional, por defecto `es`)
 
 Ubicación de los posts:
+
 - ES: `docs/blog/posts/YYYY/`
 - EN: `docs/en/blog/posts/YYYY/`
 
@@ -157,6 +161,7 @@ Consulta la [Guía de Diagramas Mermaid](diagramas_guia.md) para más informaci�
 5. Al aprobarse, se fusiona en `main` para desplegar.
 
 Convenciones:
+
 - Enlaces relativos consistentes (no usar rutas absolutas del sitio).
 - Mantén el mismo árbol en ES y EN cuando apliquen traducciones.
 - Verifica la sintaxis de diagramas Mermaid antes de hacer commit.
@@ -199,6 +204,7 @@ jobs:
 ```
 
 Notas CI/CD:
+
 - `--strict` ayuda a detectar enlaces rotos en CI.
 - Para previsualización en PRs, añade un job que suba `site/` como artifact.
 - Si usas otra plataforma (Cloudflare Pages, Netlify), configura el build command `mkdocs build` y output `site/`.
@@ -216,6 +222,7 @@ Para sincronizar artículos de la documentación a WordPress:
    ```
 
 2. Ejecuta el script:
+
    - Modo interactivo: `python wordpress_sync.py --interactive` (permite buscar por título o nombre de archivo)
    - Archivo específico: `python wordpress_sync.py --file docs/doc/docker/docker_base.md --status draft`
 

@@ -26,5 +26,3 @@ frontend http_front
 ```
 
 ---
-
-Si quieres, añado ejemplos para certificados con `certbot` y configuración de healthchecks avanzados.

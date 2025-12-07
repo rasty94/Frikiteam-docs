@@ -102,6 +102,7 @@ services:
 ## Próximos pasos
 
 En las siguientes secciones exploraremos:
+
 - Optimización de imágenes
 - Redes de Docker
 - Volúmenes y persistencia
@@ -120,14 +121,16 @@ En las siguientes secciones exploraremos:
     Verifica la configuración de red con `docker network ls` e `docker inspect <container>`. Asegúrate de que Docker esté usando el DNS correcto o configura `--dns` en el comando `docker run`.
 
 !!! question "¿Cómo reducir el tamaño de mis imágenes Docker?"
-    - Usa imágenes base pequeñas (alpine)
-    - Combina comandos RUN en capas
-    - Elimina archivos temporales en el mismo layer
-    - Usa .dockerignore para excluir archivos innecesarios
+
+  - Usa imágenes base pequeñas (alpine)
+  - Combina comandos RUN en capas
+  - Elimina archivos temporales en el mismo layer
+  - Usa .dockerignore para excluir archivos innecesarios
 
 !!! question "¿Cuál es la diferencia entre CMD y ENTRYPOINT?"
-    - **CMD**: Define el comando por defecto que se ejecuta cuando el contenedor inicia. Puede ser sobreescrito.
-    - **ENTRYPOINT**: Define el ejecutable principal. Los argumentos de CMD se pasan como parámetros al ENTRYPOINT.
+
+  - **CMD**: Define el comando por defecto que se ejecuta cuando el contenedor inicia. Puede ser sobreescrito.
+  - **ENTRYPOINT**: Define el ejecutable principal. Los argumentos de CMD se pasan como parámetros al ENTRYPOINT.
 
 ## Recursos adicionales
 
@@ -156,4 +159,4 @@ En las siguientes secciones exploraremos:
     Consulta nuestras **[Recetas rápidas](../recipes.md#docker)** para comandos copy-paste comunes.
 
 !!! warning "¿Problemas con Docker?"
-    Revisa nuestra **[sección de troubleshooting](../troubleshooting.md)** para soluciones a errores comunes.
+  Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md)** para soluciones a errores comunes.

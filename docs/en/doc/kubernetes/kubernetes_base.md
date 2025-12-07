@@ -115,6 +115,7 @@ kubectl scale deployment my-deployment --replicas=5
 ## Next steps
 
 In the following sections we will explore:
+
 - Advanced cluster configuration
 - Storage management
 - Networking and security policies

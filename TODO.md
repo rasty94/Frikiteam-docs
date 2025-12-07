@@ -1,182 +1,162 @@
-# TODO — Posts y Temas Prioritarios
+# Roadmap de Documentación Frikiteam
 
-Este documento recoge propuestas de posts y artículos para ampliar la documentación de FrikiTeam. Está basada en la revisión del contenido actual en `docs/` y `docs/doc/`, los scripts internos (`scripts/new_post.sh`) y herramientas (Mermaid, macros).
+Este documento rastrea el estado de la documentación, tareas pendientes y mejoras planificadas.
 
-Instrucciones:
-- Si quieres que cree stubs de los posts automáticamente, responde "si crear stubs".
-- Podemos priorizar y dividir temas en series si lo prefieres.
+## 🚀 Estado Actual (Q4 2025)
 
----
+### ✅ Completado / En Producción
 
-## Must-have (Prioridad Alta)
+- [x] Quickstart (`docs/quickstart.md`)
+- [x] Guía de Contribución (`CONTRIBUTING.md`)
+- [x] Troubleshooting (`docs/troubleshooting.md`)
+- [x] Mermaid Tools (`docs/dev/mermaid.md`)
+- [x] Docker: Optimización y Seguridad
+- [x] Kubernetes: Probes
+- [x] Storage: Estructura base (Ceph, Pure, NetApp, Protocolos)
 
-1. Quickstart: "Arranca y contribuye" — docs/quickstart.md (CREADO)
-   - Descripción: Instrucciones para instalar dependencias (venv, pip), ejecutar `mkdocs serve`, generar la build, y un ejemplo mínimo con Docker y un contenedor `nginx` para ver contenido.
-   - Audiencia: Nuevos contribuidores
-   - Estimado: 1h
-   - Ruta sugerida: `docs/quickstart.md`
+### 🚧 Pendiente de Integración (Creado pero no en Nav)
 
-2. Contribuir: "CONTRIBUTING.md" — root (CREADO)
-   - Descripción: Cómo usar `scripts/new_post.sh`, normas de formato de posts, cómo probar localmente, PR checklist y estilo.
-   - Audiencia: Contribuidores/Authors
-   - Estimado: 1h
-   - Ruta sugerida: `CONTRIBUTING.md`
+Estos archivos existen en el repositorio pero no están visibles en el menú de navegación (`mkdocs.yml`).
 
-3. Troubleshooting MkDocs y plugins — docs/troubleshooting.md (CREADO)
-   - Descripción: Lista de errores comunes (plugins faltantes, rutas de recursos, minify plugin), comandos y soluciones. Ejemplos: error `minify` plugin.
-   - Audiencia: Admins / Maintainers
-   - Estimado: 2h
-   - Ruta sugerida: `docs/troubleshooting.md`
+#### DevOps & Automation
 
-4. Mermaid: verificación y automatización — docs/dev/mermaid.md (CREADO)
-   - Descripción: Documentar el script de verificación (`internal/mermaid/tools/check_diagrams.py`), añadir cómo integrarlo en CI, y ejemplos de diagramas y mejores prácticas.
-   - Audiencia: Redactores técnicos
-   - Estimado: 2h
-   - Ruta sugerida: `docs/dev/mermaid.md`
+- [ ] **Ansible:** `doc/ansible/roles_testing.md`
+- [ ] **Terraform:** `doc/terraform/terraform_state.md`
 
-5. Docker: Dockerfile optimizado (multi-stage) y buenas prácticas — docs/doc/docker/docker_optimizations.md (CREADO)
-   - Descripción: Multi-stage build, imagen mínima (slim/alpine), manejo de cache, usuarios no root, recomendación de scanning (trivy), ejemplos.
-   - Audiencia: Desarrolladores/DevOps
-   - Estimado: 3h
-   - Ruta sugerida: `docs/doc/docker/docker_optimizations.md`
+#### Infraestructura & Virtualización
 
-6. Kubernetes: readiness/liveness/health-checks y patterns — docs/doc/kubernetes/probes.md (CREADO)
-   - Descripción: Explicar readiness vs liveness, ejemplos con `kubectl` y YAML, casos prácticos y debugging.
-   - Audiencia: DevOps/Administradores K8s
-   - Estimado: 3h
-   - Ruta sugerida: `docs/doc/kubernetes/probes.md`
+- [ ] **Proxmox:** `doc/proxmox/migration_guide.md`
+- [ ] **OpenStack:** `doc/openstack/day2.md`
+- [ ] **HAProxy:** `doc/haproxy/haproxy_advanced.md`
 
----
+#### Storage
 
-## Recommended (Prioridad Media)
+- [ ] **Ceph:** `doc/storage/ceph/ceph_tuning.md`
 
-7. CI/CD: GitHub Actions para MkDocs + build de contenedores — docs/blog/posts/2025/ci-cd-mkdocs-build.md (CREADO)
-   - Descripción: Ejemplo de workflow que instala deps, valida con `mkdocs build`, ejecuta verificación de mermaid y despliega al sitio (o PR preview).
-   - Audiencia: Maintainers
-   - Estimado: 3h
-   - Ruta sugerida: `docs/blog/posts/2025/ci-cd-mkdocs-build.md`
+#### Curiosidades & Blog
 
-8. Docker: Seguridad (hardening, secrets y scanning) — docs/doc/docker/docker_security.md (CREADO)
-   - Descripción: Manejo de secretos, no almacenar credenciales en images, scanning con `trivy`, autenticación a registries y hardening.
-   - Audiencia: DevOps
-   - Estimado: 3h
-   - Ruta sugerida: `docs/doc/docker/docker_security.md`
+- [ ] **Curiosidades:**
+  - `doc/curiosidades/docker_kubernetes_vm_comparison.md`
+  - `doc/curiosidades/proxmox_en_debian13.md`
+  - `doc/curiosidades/proxmox_vmware_openstack_migration.md`
+  - `doc/curiosidades/upgrade_pve8_a_pve9.md`
 
-9. Terraform: Backend de estado, locking y migración — docs/doc/terraform/terraform_state.md (CREADO)
-   - Descripción: Ejemplos con S3/Dynamo/consul, migrar state, mantenimiento, `terraform fmt` y `terraform validate`.
-   - Audiencia: Infra/DevOps
-   - Estimado: 3h
-   - Ruta sugerida: `docs/doc/terraform/terraform_state.md`
+> Nota: el blog está publicado externamente en `https://frikiteam.es` y por ahora **no** queremos incluir las entradas del blog interno en la navegación del sitio de documentación.
 
-10. Ansible: buenas prácticas y testing con Molecule — docs/doc/ansible/roles_testing.md (CREADO)
-    - Descripción: Organización de roles, pruebas unitarias con `molecule`, y CI de roles.
-    - Audiencia: Infra/DevOps
-    - Estimado: 3h
-    - Ruta sugerida: `docs/doc/ansible/roles_testing.md`
+- [ ] **Blog (interno, excluido del nav):**
+  - `blog/posts/2025/ci-cd-mkdocs-build.md`
+  - `blog/posts/2025/network-compare-practical.md`
 
-11. HAProxy: TLS y escalado — docs/doc/haproxy/haproxy_advanced.md (CREADO)
-    - Descripción: TLS termination, certificados y balanceo formado por niveles, configuración para alta disponibilidad.
-    - Audiencia: Admins de red
-    - Estimado: 3h
-    - Ruta sugerida: `docs/doc/haproxy/haproxy_advanced.md`
+Opciones para manejar los archivos del blog interno:
 
----
+1. Mantenerlos en `blog/` en el repositorio y no incluirlos en `nav` (estado actual).
+2. Moverlos a `docs/internal_blog/` para dejarlos disponibles pero fuera del nav principal.
+3. Añadir frontmatter `draft: true` o marcarlos con `exclude: true` si se desea que herramientas CI los ignoren (requiere soporte en CI).
 
-## Nice-to-have (Prioridad Baja)
+Indica si quieres que aplique la opción 2 (mover a `docs/internal_blog/`) o que los deje tal cual.
 
-12. Ceph: optimización y planificación de capacidad — docs/doc/storage/ceph/ceph_tuning.md (CREADO)
-   - Estimado: 4h
+### 🌍 Localización (i18n)
 
-13. Proxmox: migraciones (VMs y contenedores) — docs/doc/proxmox/migration_guide.md (CREADO)
-   - Estimado: 3h
+Estado de la traducción y paridad entre Español (`docs/`) e Inglés (`docs/en/`).
 
-14. Networking práctico: casos de uso y comparativa con ejemplos (Tailscale/NetBird/ZeroTier) — docs/blog/posts/2025/network-compare-practical.md (CREADO)
-   - Estimado: 2h
+- [ ] **Inconsistencia de Directorios:** Existe `docs/en/doc/curiosidades/` y `docs/en/doc/curiosities/`. Unificar en `curiosities`.
+- [ ] **Paridad de Contenido:** Verificar que los artículos nuevos en `docs/doc/storage/` tengan su contraparte en `docs/en/doc/storage/`.
+- [ ] **Navegación EN:** Asegurar que `mkdocs.yml` tenga la estructura de navegación correcta para la versión en inglés. *Nota: mkdocs-static-i18n suele requerir configuración cuidadosa del nav si los archivos no son simétricos.*
 
-15. OpenStack: Day-2 operations y backup — docs/doc/openstack/day2.md (CREADO)
-   - Estimado: 4h
+### 📝 Pendiente de Revisión de Contenido
 
-16. Glosario: conceptos comunes — docs/glossary.md (CREADO)
-   - Beneficio: ayuda a nuevos usuarios.
+Archivos generados o stubs que requieren revisión humana y expansión.
+
+- [x] `doc/storage/netapp/netapp_base.md` (Stub creado)
+- [x] `doc/storage/pure_storage/pure_storage_base.md` (Stub creado)
+- [ ] `doc/storage/protocols/protocols.md` (Añadir más ejemplos reales)
+- [x] `doc/storage/protocols/examples/fio_example.md` (Ejemplo `fio` creado)
+
+## 📅 Backlog y Futuras Mejoras
+
+### Infraestructura y CI/CD
+
+- [ ] Implementar GitHub Actions para validación automática (`mkdocs build`).
+- [ ] Script de validación de enlaces rotos.
+- [ ] Automatizar chequeo de diagramas Mermaid en CI.
+
+### Contenido Nuevo (Propuestas)
+
+- [ ] **Series de Storage:** Profundizar en casos de uso específicos.
+- [ ] **Networking:** Comparativas de rendimiento (Tailscale vs NetBird).
+- [ ] **Observabilidad:** Guías sobre Prometheus/Grafana en este stack.
+
+## 🛠 Mantenimiento
+
+- [ ] Revisar advertencias de linter (MD0xx) en archivos existentes.
+- [ ] Unificar estilo de encabezados (Setext vs ATX).
 
 ---
 
-## Propuestas técnicas y meta-requisitos
-- Añadir `CONTRIBUTING.md` al root (importante para mantener consistencia en nuevas entradas).
-- Asegurar `requirements.txt` en la raíz y crear un script `dev_setup.sh` para preparar venv, deps y comandos básicos.
-- Crear un workflow de GitHub Actions para:
-  - Instalar deps y ejecutar `mkdocs build`.
-  - Ejecutar `scripts/check_diagrams.py` (si existe) o una verificación equivalente.
-  - Validar enlaces con un comprobador de enlaces (mkdocs plugin o `html-proofer` en GH Actions).
+## Gobernanza del contenido (propuesta)
+
+- **Owner por área:** asignar un responsable breve por sección (ej. `storage`, `docker`, `kubernetes`) para revisión y merge.
+- **Cadencia:** ciclo mínimo de revisión mensual para áreas activas.
+- **Etiquetas de PR:** usar `docs`, `docs-review` y `docs-ready` para filtrar PRs.
+
+### Convenciones para nuevas páginas
+
+- Frontmatter mínimo:
+
+    ```yaml
+    title: "Título claro"
+    date: 2025-11-23
+    tags: [storage, ceph]
+    draft: true # o false si listo para publicar
+    ```
+
+- Estructura recomendada del MD:
+    1. Resumen (1–2 líneas)
+    2. Prerrequisitos / audiencias
+    3. Pasos o explicación técnica
+    4. Ejemplos reproducibles (si aplica)
+    5. Links relacionados y referencias
+
+### Checklist de publicación (PR)
+
+- [ ] `mkdocs build` local: no errores.
+- [ ] No enlaces rotos (usar plugin o comprobador externo).
+- [ ] Imágenes con `alt`.
+- [ ] Metadatos (description/keywords) añadidos cuando aplique.
+- [ ] Revisado por el owner del área.
 
 ---
 
-## Acciones siguientes sugeridas
-1. Priorizar 3 posts Must-have y crear stubs Markdown (usar `scripts/new_post.sh` para posts del blog) — ¿quieres que los cree ahora?
-2. Añadir PR template y CONTRIBUTING.md — ¿confirmas el texto base?
-3. Añadir workflow GH Actions para validar `mkdocs build` — ¿prefieres que lo añada en `.github/workflows/mkdocs.yml`?
+## Integración al `nav` (propuesta de proceso)
+
+1. Añadir los archivos que se consideran estables a `mkdocs.yml` en una rama de trabajo.
+2. Ejecutar `mkdocs build` en CI y revisar advertencias.
+3. Abrir PR con la modificación de `mkdocs.yml` y asignar al owner del área.
+
+Si quieres, puedo generar un parche propuesto para `mkdocs.yml` que incluya las páginas hoy listadas como "exist but not in nav".
 
 ---
 
-Si estás de acuerdo con esta lista te genero los stubs (post y doc) y puedo crear PR o aplicar cambios directos al repo. Si quieres cambiar prioridades o añadir otros temas, dímelo y adapto el TODO.
+## Comandos útiles para editores
+
+```bash
+# crear/activar venv
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# servir sitio localmente
+mkdocs serve -a 0.0.0.0:8000
+
+# generar build para ver advertencias
+mkdocs build
+```
 
 ---
 
-## Mejoras de UX y Navegación (Nuevas Sugerencias)
+## Próximos pasos sugeridos (elige una)
 
-- Navegación y Crosslinking — Enlaces internos visibles (COMPLETADO)
-  - Descripción: Añadir enlaces internos entre recetas rápidas, troubleshooting y guías completas. Ej: "¿Buscas comandos rápidos? Mira [Recetas rápidas]" y viceversa.
-  - Estado: Añadidos enlaces en recipes.md y TODAS las guías base (Docker, Kubernetes, Ansible, HAProxy, Terraform, Proxmox, OpenStack, Ceph).
-  - Audiencia: Todos los usuarios
-  - Estimado: 1-2h
+1. Aplico los cambios propuestos en `mkdocs.yml` (incluir páginas huérfanas).
+2. Creo stubs para X items prioritarios y abro PR(s) de ejemplo.
+3. Implemento un workflow de GitHub Actions `docs-ci.yml` que ejecuta `mkdocs build` y la comprobación de diagramas.
 
-- Destacar FAQs recurrentes y errores/trucos (COMPLETADO PARCIALMENTE)
-  - Descripción: Resaltar preguntas frecuentes o errores comunes en cada área tecnológica con admonitions o secciones destacadas.
-  - Audiencia: Usuarios principiantes
-  - Estimado: 2-3h
-
-- Visual / Layout — Paneles laterales con TOC anidado (CONFIGURADO)
-  - Descripción: Extender tablas de contenido anidadas en guías extensas (OpenStack, Proxmox). Ya configurado con toc.integrate.
-  - Estado: Configuración existente es suficiente.
-  - Audiencia: Lectores de guías largas
-
-- Resaltar mensajes de alerta con iconos/paneles (DISPONIBLE)
-  - Descripción: Usar admonitions (!!! tip, !!! warning, !!! note) para precauciones, tips y recomendaciones críticas.
-  - Estado: Sistema ya soporta admonitions en MkDocs.
-  - Audiencia: Todos
-
-- Homogeneizar metadatos (description, keywords, opengraph) (COMPLETADO)
-  - Descripción: Verificar y estandarizar metadatos en todas las páginas, especialmente portada y quickstart.
-  - Audiencia: SEO y accesibilidad
-  - Estimado: 1h
-
-- Comprobar contraste y alt-text en imágenes/diagramas (VERIFICADO)
-  - Descripción: Revisar contraste de colores y añadir alt-text descriptivo a todas las imágenes y diagramas Mermaid.
-  - Audiencia: Accesibilidad
-  - Estimado: 2h
-
-- Página legal de privacidad y cookies (IMPLEMENTADO)
-  - Descripción: Añadir página con política de privacidad y cookies, especialmente si se usan analytics.
-  - Estado: Creada docs/privacy.md y añadida a navegación.
-  - Audiencia: Cumplimiento legal
-
-- Contenido adicional — Mini-retos técnicos en curiosidades (IMPLEMENTADO)
-  - Descripción: Enriquecer sección curiosidades con "mini-retos técnicos" y opiniones comparadas de la comunidad.
-  - Estado: Añadidos retos para Docker, Kubernetes, Terraform y opiniones comparadas.
-  - Audiencia: Usuarios avanzados
-
-- Glosario expandido con términos cloud/devops/k8s (IMPLEMENTADO)
-  - Descripción: Crecer glosario con más términos y referencias a secciones donde se usan.
-  - Estado: Expandido con términos clave (Container, Pod, Service, etc.) y enlaces a guías.
-  - Audiencia: Nuevos usuarios
-
-## Progreso de Publicación
-
-- terraform_base.md - Publicado el 2025-11-19
-- Ceph — Optimización y Planificación de Capacidad - Publicado el 2025-11-16
-- Ceph Storage Guide: Distributed Storage System Overview - Publicado el 2025-11-16
-- Proxmox VE Complete Guide: Enterprise Virtualization Platform - Publicado el 2025-11-16
-- Docker — Seguridad y Scanning - Publicado el 2025-11-16
-- Docker — Optimización y Buenas Prácticas - Publicado el 2025-11-16
-- Docker - Contenedores - Publicado el 2025-11-16
-- docker_kubernetes_vm_comparison.md - Publicado el 2025-11-16

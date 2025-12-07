@@ -43,5 +43,3 @@ spec:
 - Usa `kubectl logs -f <pod>` para revisar fallos en la app.
 
 ---
-
-Si quieres, añado ejemplos con `exec` y `tcpSocket` y casos reales según lenguaje/framework (Node/Go/Python).

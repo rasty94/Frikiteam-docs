@@ -50,5 +50,3 @@ jobs:
 - Para previews, usar acciones que desplieguen en entornos temporales.
 
 ---
-
-Si quieres, creo el archivo `.github/workflows/docs-ci.yml` con esta configuración de ejemplo.

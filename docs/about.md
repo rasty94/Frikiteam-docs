@@ -14,6 +14,7 @@ Si quieres estar en contacto con nosotros, aquí tienes nuestras redes sociales:
 <!-- - 📧 **Email:** contacto@ejemplo.com -->
 <!-- - 🐦 **Twitter:** [@ejemplo](https://twitter.com/frikiteam_es) -->
 <!-- - 💼 **LinkedIn:** [linkedin.com/in/ejemplo](https://linkedin.com/in/ejemplo) -->
+
 - 💻 **GitHub:** [github.com/rasty94](https://github.com/rasty94)
 
 ## ¿Por qué seguirnos? 🎯
@@ -26,5 +27,5 @@ Si tienes alguna duda, sugerencia o simplemente quieres saludar, ¡escríbenos! 
 
 ---
 
-➡️ [Inicio](index.md)  
+➡️ [Inicio](index.md)
 ➡️ [Documentación Técnica](doc/ansible/ansible_base.md)

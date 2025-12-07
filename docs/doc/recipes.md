@@ -143,6 +143,6 @@ Para explicaciones detalladas y guías completas, consulta:
 - **[Proxmox VE](proxmox/proxmox_base.md)** - Guía completa de Proxmox
 - **[OpenStack](openstack/openstack_base.md)** - Guía completa de OpenStack
 - **[Terraform Base](terraform/terraform_base.md)** - Guía completa de Terraform
-- **[Ceph Base](ceph/ceph_base.md)** - Guía completa de Ceph
+- **[Ceph Base](storage/ceph/ceph_base.md)** - Guía completa de Ceph
 
 ¿Necesitas ayuda con troubleshooting? Consulta nuestra **[sección de troubleshooting](../troubleshooting.md)**.

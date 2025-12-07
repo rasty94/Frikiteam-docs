@@ -136,6 +136,7 @@ A virtual machine is an emulation of a computer system that runs programs as if 
 
 ### Convergence
 Technologies are converging:
+
 - Docker now includes integrated Kubernetes
 - Modern VMs can run containers
 - Kubernetes can manage VMs with extensions

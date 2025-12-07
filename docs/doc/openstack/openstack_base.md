@@ -88,6 +88,7 @@ Estos casos de uso demuestran la versatilidad y capacidad de OpenStack para adap
 - **SUSE OpenStack Cloud:** [suse.com/products/openstack-cloud](https://www.suse.com/products/openstack-cloud/)
 
 ### Comunidad y soporte
+
 ### Videos tutoriales
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">

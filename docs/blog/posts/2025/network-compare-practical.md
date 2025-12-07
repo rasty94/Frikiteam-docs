@@ -20,5 +20,3 @@ tailscale up
 ```
 
 ---
-
-Si quieres, amplio con ejemplos de NetBird y ZeroTier y tablas comparativas.

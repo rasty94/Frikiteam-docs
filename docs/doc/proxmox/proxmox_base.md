@@ -144,6 +144,7 @@ nameserver 8.8.4.4
 
 1. **Navegar** a Datacenter → Nodo → Create VM
 2. **Configurar** parámetros básicos:
+
    - **General**: Nombre, ID, OS Type
    - **OS**: ISO image, OS version
    - **System**: SCSI controller, Qemu agent

@@ -28,6 +28,7 @@ Frikiteam Docs es un sitio web estático que proporciona documentación técnica
 ## Uso de Datos
 
 Utilizamos la información recopilada para:
+
 - Mantener y mejorar el sitio web
 - Analizar el tráfico y popularidad de contenido
 - Prevenir abusos y ataques
@@ -45,6 +46,7 @@ Si en el futuro implementamos analytics, te informaremos claramente y obtendremo
 ## Tus Derechos
 
 Tienes derecho a:
+
 - Acceder a tus datos personales
 - Corregir información inexacta
 - Solicitar la eliminación de tus datos

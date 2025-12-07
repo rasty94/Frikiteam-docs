@@ -158,6 +158,7 @@ terraform state list
 ## Próximos pasos
 
 En las siguientes secciones exploraremos:
+
 - Módulos de Terraform
 - Workspaces y estados remotos
 - Integración con CI/CD
@@ -180,6 +181,7 @@ En las siguientes secciones exploraremos:
 - **Migración:** [opentofu.org/docs/intro/migration](https://opentofu.org/docs/intro/migration)
 
 ### Comunidad
+
 ### Videos tutoriales
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">

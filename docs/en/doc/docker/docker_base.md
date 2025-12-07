@@ -1,4 +1,4 @@
-# Docker - Containers 
+# Docker - Containers
 
 ## Introduction to Docker
 
@@ -90,6 +90,7 @@ services:
 ## Next steps
 
 In the following sections we will explore:
+
 - Image optimization
 - Docker networks
 - Volumes and persistence

@@ -15,5 +15,3 @@ Buenas prácticas para operaciones Day-2: upgrades, backups y mantenimiento de u
 - Upgrades controlados, migración de servicios y verificación de integridad.
 
 ---
-
-Si quieres, añado ejemplos con `openstack` CLI y scripts de backup.

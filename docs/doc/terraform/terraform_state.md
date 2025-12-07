@@ -20,5 +20,3 @@ Buenas prácticas para gestionar el estado de Terraform en equipos: backends rem
 - Ejecutar `terraform validate` y `terraform plan` en CI.
 
 ---
-
-Si quieres, añado ejemplos paso a paso para migrar un state S3.

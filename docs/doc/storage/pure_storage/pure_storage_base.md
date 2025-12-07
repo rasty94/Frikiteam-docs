@@ -1,3 +1,21 @@
+---
+title: "Pure Storage — Guía base"
+date: 2025-12-07
+tags: [storage, pure_storage]
+draft: true
+---
+
+# Pure Storage — Guía base (stub)
+
+Este fichero es un stub para documentar integraciones y buenas prácticas con arrays Pure Storage.
+
+Estado: borrador. Contenido mínimo para empezar.
+
+Contenido recomendado:
+
+- Conceptos básicos y licenciamiento
+- Integración con orquestadores y backups
+- Ejemplos de provisioning y tuning
 ```markdown
 ---
 title: Pure Storage — Guía Rápida
@@ -18,5 +36,5 @@ Breve introducción a Pure Storage (FlashArray/FlashBlade), casos de uso, diseñ
 
 ---
 
-Si quieres, amplío el contenido con ejemplos de configuración y comandos.
+ 
 ```

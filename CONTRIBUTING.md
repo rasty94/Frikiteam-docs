@@ -34,7 +34,7 @@ mkdocs build
 - Front-matter básico debe contener `date`, `title` y `categories`.
 
 ## Plantilla de PR (sugerida)
-- Resumen del cambio: 
+- Resumen del cambio:
 - Objetivo: (Bugfix / Feature / Docs)
 - Checklist:
   - [ ] He probado los cambios localmente (`mkdocs build`)

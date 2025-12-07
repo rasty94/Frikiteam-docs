@@ -38,5 +38,3 @@ ENTRYPOINT ["/usr/local/bin/myapp"]
 - Añade un Dockerfile multi-stage, build y tag en CI, y publica la imagen a un registry.
 
 ---
-
-Si quieres, puedo añadir ejemplos para Node.js, Python y PHP (multi-stage build + dependencias minimizadas).

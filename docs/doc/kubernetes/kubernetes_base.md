@@ -115,6 +115,7 @@ kubectl scale deployment mi-deployment --replicas=5
 ## Próximos pasos
 
 En las siguientes secciones exploraremos:
+
 - Configuración avanzada de clusters
 - Gestión de almacenamiento
 - Redes y políticas de seguridad

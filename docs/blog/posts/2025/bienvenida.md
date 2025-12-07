@@ -2,11 +2,14 @@
 date: 2025-08-24
 title: "Bienvenida"
 categories:
+
   - General
 tags:
+
   - general
 authors:
-    - Rasty94
+
+  - Rasty94
 ---
 
 # ¡Hola a todos y bienvenidos a este nuevo blog dedicado a la tecnología! 🚀

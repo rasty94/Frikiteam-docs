@@ -136,6 +136,7 @@ Una máquina virtual es una emulación de un sistema informático que ejecuta pr
 
 ### Convergencia
 Las tecnologías están convergiendo:
+
 - Docker ahora incluye Kubernetes integrado
 - Las VMs modernas pueden ejecutar contenedores
 - Kubernetes puede gestionar VMs con extensiones
