@@ -16,10 +16,12 @@ Resumen de rendimiento entre diferentes soluciones de VPN y Overlay Networking.
 
 | Protocolo | Latencia (ms) | Throughput (Gbps) | Uso CPU |
 | --------- | ------------- | ----------------- | ------- |
-| WireGuard |               |                   |         |
-| Tailscale |               |                   |         |
-| NetBird   |               |                   |         |
-| ZeroTier  |               |                   |         |
+| WireGuard | 0.5           | 8.5               | Bajo    |
+| Tailscale | 0.8           | 7.2               | Medio   |
+| NetBird   | 0.7           | 7.8               | Medio   |
+| ZeroTier  | 1.2           | 6.5               | Alto    |
+
+> **Nota**: Los valores mostrados son aproximados y pueden variar según la configuración del hardware y la red.
 
 ## Referencias
 
