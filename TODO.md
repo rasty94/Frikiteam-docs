@@ -14,6 +14,7 @@ Este documento rastrea el estado de la documentación, tareas pendientes y mejor
 - [x] Kubernetes: Probes
 - [x] Storage: Estructura base (Ceph, Pure, NetApp, Protocolos)
 - [x] Networking: 12 guías completas (Fundamentos, Seguridad/DNS, Operaciones)
+- [x] Cybersecurity: 8 guías completas (DevSecOps, herramientas, monitoreo)
 
 ### 🚧 Pendiente de Integración (Creado pero no en Nav)
 
@@ -29,17 +30,6 @@ Estos archivos existen en el repositorio pero no están visibles en el menú de 
 - [ ] **Proxmox:** `doc/proxmox/migration_guide.md`
 - [ ] **OpenStack:** `doc/openstack/day2.md`
 - [ ] **HAProxy:** `doc/haproxy/haproxy_advanced.md`
-
-#### Ciberseguridad
-
-- [ ] **Cybersecurity:** `docs/doc/cybersecurity/introduccion_devsecops.md`
-- [ ] **Cybersecurity:** `docs/doc/cybersecurity/modelo_amenazas.md`
-- [ ] **Cybersecurity:** `docs/doc/cybersecurity/principios_seguridad.md`
-- [ ] **Cybersecurity:** `docs/doc/cybersecurity/escaneo_vulnerabilidades.md`
-- [ ] **Cybersecurity:** `docs/doc/cybersecurity/gestion_secretos.md`
-- [ ] **Cybersecurity:** `docs/doc/cybersecurity/firewall_red.md`
-- [ ] **Cybersecurity:** `docs/doc/cybersecurity/autenticacion_autorizacion.md`
-- [ ] **Cybersecurity:** `docs/doc/cybersecurity/monitoreo_seguridad.md`
 
 #### Curiosidades & Blog
 
