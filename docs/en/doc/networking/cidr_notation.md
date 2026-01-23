@@ -1,128 +1,130 @@
 ---
-
+title: CIDR Notation
+description: Detailed explanation of Classless Inter-Domain Routing notation and how to calculate IP ranges.
+draft: false
 ---
 
 # CIDR Notation
 
-La notación CIDR (Classless Inter-Domain Routing) es un método para asignar direcciones IP y definir rutas en redes IP. Reemplaza el sistema de clases fijas (A, B, C) con un enfoque más flexible basado en prefijos.
+CIDR (Classless Inter-Domain Routing) notation is a method for assigning IP addresses and defining routes in IP networks. It replaces the fixed class system (A, B, C) with a more flexible prefix-based approach.
 
-## Conceptos Básicos
+## Basic Concepts
 
-### Sintaxis
-Una dirección CIDR se escribe como: `dirección_IP/prefijo`
+### Syntax
+A CIDR address is written as: `IP_address/prefix`
 
-- **Dirección IP:** La dirección base de la red
-- **Prefijo:** Número de bits consecutivos que representan la parte de red (de 0 a 32 para IPv4)
+- **IP Address:** The network base address
+- **Prefix:** Number of consecutive bits representing the network portion (0 to 32 for IPv4)
 
-### Ejemplo
+### Example
 `192.168.1.0/24`
 
-- Red: 192.168.1.0
-- Máscara: 255.255.255.0
-- Hosts disponibles: 256 - 2 = 254 (excluyendo red y broadcast)
+- Network: 192.168.1.0
+- Netmask: 255.255.255.0
+- Available hosts: 256 - 2 = 254 (excluding network and broadcast addresses)
 
-## Cálculo de Rangos
+## Range Calculation
 
-### Conversión de Prefijo a Máscara
-El prefijo indica cuántos bits son de red. Los bits restantes son de host.
+### Converting Prefix to Netmask
+The prefix indicates how many bits are for the network. Remaining bits are for hosts.
 
-**Fórmula:** Máscara = 2^(32-prefijo) - 1 en los octetos correspondientes
+**Formula:** Netmask = 2^(32-prefix) - 1 in corresponding octets
 
-### Tabla de Prefijos Comunes
+### Common Prefix Table
 
-| Prefijo | Máscara | Hosts | Uso Típico |
+| Prefix | Netmask | Hosts | Typical Use |
 |---------|---------|-------|------------|
-| /8 | 255.0.0.0 | 16M | Grandes organizaciones |
-| /16 | 255.255.0.0 | 65K | Redes empresariales |
-| /24 | 255.255.255.0 | 254 | Subredes LAN |
-| /25 | 255.255.255.128 | 126 | Subredes pequeñas |
-| /26 | 255.255.255.192 | 62 | Subredes muy pequeñas |
-| /27 | 255.255.255.224 | 30 | Subredes punto a punto |
-| /28 | 255.255.255.240 | 14 | Subredes mínimas |
-| /29 | 255.255.255.248 | 6 | Subredes para routers |
-| /30 | 255.255.255.252 | 2 | Enlaces punto a punto |
-| /31 | 255.255.255.254 | 2* | Enlaces punto a punto (RFC 3021) |
-| /32 | 255.255.255.255 | 1 | Host específico |
+| /8 | 255.0.0.0 | 16M | Large organizations |
+| /16 | 255.255.0.0 | 65K | Enterprise networks |
+| /24 | 255.255.255.0 | 254 | LAN subnets |
+| /25 | 255.255.255.128 | 126 | Small subnets |
+| /26 | 255.255.255.192 | 62 | Very small subnets |
+| /27 | 255.255.255.224 | 30 | Point-to-point subnets |
+| /28 | 255.255.255.240 | 14 | Minimal subnets |
+| /29 | 255.255.255.248 | 6 | Router subnets |
+| /30 | 255.255.255.252 | 2 | Point-to-point links |
+| /31 | 255.255.255.254 | 2* | Point-to-point links (RFC 3021) |
+| /32 | 255.255.255.255 | 1 | Specific host |
 
-*Nota: /31 permite 2 hosts sin broadcast, útil para enlaces punto a punto.
+*Note: /31 allows 2 hosts without broadcast, useful for point-to-point links.
 
-### Cálculo Manual
+### Manual Calculation
 
-Para calcular el rango de una red CIDR:
+To calculate a CIDR network range:
 
-1. **Convertir IP a binario**
-2. **Identificar bits de red y host**
-3. **Calcular dirección de red:** AND bit a bit con la máscara
-4. **Calcular broadcast:** OR bit a bit con el complemento de la máscara
-5. **Rango de hosts:** De red+1 a broadcast-1
+1. **Convert IP to binary**
+2. **Identify network and host bits**
+3. **Calculate network address:** Bitwise AND with mask
+4. **Calculate broadcast:** Bitwise OR with mask complement
+5. **Host range:** From network+1 to broadcast-1
 
-#### Ejemplo: 192.168.1.100/25
+#### Example: 192.168.1.100/25
 
 ```
 IP: 192.168.1.100 = 11000000.10101000.00000001.01100100
-Máscara /25: 11111111.11111111.11111111.10000000
+Mask /25: 11111111.11111111.11111111.10000000
 
-Red: 192.168.1.0 (AND)
-Broadcast: 192.168.1.127 (OR con ~máscara)
+Network: 192.168.1.0 (AND operation)
+Broadcast: 192.168.1.127 (OR with ~mask)
 Hosts: 192.168.1.1 - 192.168.1.126
 ```
 
-## Ventajas de CIDR
+## CIDR Advantages
 
-- **Eficiencia:** Mejor uso del espacio de direcciones IP
-- **Flexibilidad:** Subredes de cualquier tamaño
-- **Agregación:** Facilita el enrutamiento jerárquico
-- **Escalabilidad:** Reduce el tamaño de las tablas de rutas
+- **Efficiency:** Better use of IP address space
+- **Flexibility:** Subnets of any size
+- **Aggregation:** Facilitates hierarchical routing
+- **Scalability:** Reduces routing table sizes
 
-## Herramientas Prácticas
+## Practical Tools
 
-### Calculadoras Online
+### Online Calculators
 - IP Calculator (ipleak.net)
 - Subnet Calculator (subnet-calculator.com)
 
-### Comandos Linux
+### Linux Commands
 ```bash
-# Calcular subredes
+# Calculate subnets
 ipcalc 192.168.1.0/24
 
-# Mostrar información de red
+# Show network information
 ip route show
 ```
 
-### Scripts Python
+### Python Scripts
 ```python
 import ipaddress
 
-# Crear objeto de red
-red = ipaddress.ip_network('192.168.1.0/24')
+# Create network object
+network = ipaddress.ip_network('192.168.1.0/24')
 
-print(f"Red: {red.network_address}")
-print(f"Broadcast: {red.broadcast_address}")
-print(f"Hosts: {list(red.hosts())[:5]}...")  # Primeros 5 hosts
+print(f"Network: {network.network_address}")
+print(f"Broadcast: {network.broadcast_address}")
+print(f"Hosts: {list(network.hosts())[:5]}...")  # First 5 hosts
 ```
 
-## Casos de Uso Comunes
+## Common Use Cases
 
-### Subredes Empresariales
-- `/24` para oficinas pequeñas
-- `/23` o `/22` para campus
-- `/16` para redes corporativas grandes
+### Enterprise Subnets
+- `/24` for small offices
+- `/23` or `/22` for campuses
+- `/16` for large corporate networks
 
 ### Cloud Computing
-- AWS VPC: Típicamente `/16` o `/24`
-- Subnets: `/24` a `/28` según necesidades
+- AWS VPC: Typically `/16` or `/24`
+- Subnets: `/24` to `/28` depending on needs
 
-### VPN y Remote Access
-- `/30` para enlaces punto a punto
-- `/24` para redes de usuarios remotos
+### VPN and Remote Access
+- `/30` for point-to-point links
+- `/24` for remote user networks
 
-## Consideraciones de Seguridad
+## Security Considerations
 
-- **Filtrado:** Asegurar que las ACLs usen notación CIDR
-- **Monitoreo:** Detectar cambios en subredes
-- **Documentación:** Mantener actualizado el mapa de red
+- **Filtering:** Ensure ACLs use CIDR notation
+- **Monitoring:** Detect subnet changes
+- **Documentation:** Keep network map updated
 
-## Referencias
+## References
 
 - RFC 4632: Classless Inter-domain Routing (CIDR)
 - RFC 1918: Address Allocation for Private Internets
