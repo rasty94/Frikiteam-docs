@@ -34,8 +34,8 @@ Este documento rastrea el estado de la documentación, tareas pendientes y mejor
 
 **C) Pendiente para Próximas Sesiones**
 - [ ] Traducir 40+ archivos del header EN al inglés (actualmente solo tienen contenido ES + header pending)
-- [ ] Validar compilación con `mkdocs build` en local
-- [ ] Verificar que no haya enlaces rotos en EN
+- [x] **Validar compilación con `mkdocs build`** ✅ **OK**: Build completado sin errores en 16.37s
+- [ ] Verificar que no haya enlaces rotos en EN (usar plugin o validador externo)
 - [ ] Crear PR con cambios de i18n
 
 ### 🚧 Pendiente de Integración (Creado pero no en Nav)
