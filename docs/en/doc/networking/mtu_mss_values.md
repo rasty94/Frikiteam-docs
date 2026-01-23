@@ -1,13 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: MTU/MSS Values
-description: Valores típicos de Maximum Transmission Unit para diferentes medios (Ethernet, PPPoE, Jumbo Frames).
-draft: false
 ---
 
 # MTU/MSS Values

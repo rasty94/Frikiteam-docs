@@ -1,13 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: Reserved IP Ranges
-description: Bloques de direcciones privadas (RFC 1918), de documentación y reservadas (CG-NAT, Loopback).
-draft: false
 ---
 
 # Reserved IP Ranges

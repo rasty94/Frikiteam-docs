@@ -1,13 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: CIDR Notation
-description: Explicación detallada de la notación Classless Inter-Domain Routing y cómo calcular rangos.
-draft: false
 ---
 
 # CIDR Notation

@@ -1,9 +1,4 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
-
 # Networking: Comparativa de Rendimiento
 
 Resumen de rendimiento entre diferentes soluciones de VPN y Overlay Networking.
@@ -21,7 +16,10 @@ Resumen de rendimiento entre diferentes soluciones de VPN y Overlay Networking.
 ## Resultados
 
 | Protocolo | Latencia (ms) | Throughput (Gbps) | Uso CPU |
-| --------- | ------------- | ----------------- | ------- |
+|
+---
+
+--- | ------------- | ----------------- | ------- |
 | WireGuard | 0.5           | 8.5               | Bajo    |
 | Tailscale | 0.8           | 7.2               | Medio   |
 | NetBird   | 0.7           | 7.8               | Medio   |

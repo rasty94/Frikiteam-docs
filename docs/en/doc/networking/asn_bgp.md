@@ -1,13 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: ASN & BGP
-description: Conceptos sobre Sistemas Autónomos y enrutamiento global mediante BGP.
-draft: false
 ---
 
 # ASN & BGP

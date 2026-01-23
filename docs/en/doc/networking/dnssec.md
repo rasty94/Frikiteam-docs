@@ -1,13 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: DNSSEC
-description: Introducción a la firma criptográfica de zonas DNS para evitar envenenamiento de caché.
-draft: false
 ---
 
 # DNSSEC (Domain Name System Security Extensions)

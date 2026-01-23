@@ -1,11 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: Cloud-native GitOps with ArgoCD
 ---
 
 # Cloud-native GitOps with ArgoCD

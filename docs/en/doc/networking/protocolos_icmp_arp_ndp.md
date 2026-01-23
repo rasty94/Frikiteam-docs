@@ -1,13 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: Protocolos ICMP/ARP/NDP
-description: Diferencias clave entre IPv4 (ARP) e IPv6 (NDP) y tipos de mensajes ICMP para diagnóstico.
-draft: false
 ---
 
 # Protocolos ICMP/ARP/NDP

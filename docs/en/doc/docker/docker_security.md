@@ -1,11 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: Docker — Security and Scanning
 ---
 
 # Docker — Security (Hardening, Secrets, and Scanning)

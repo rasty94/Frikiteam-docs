@@ -1,13 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: VLSM en Profundidad
-description: Guía sobre Variable Length Subnet Masking para optimizar el uso de direcciones IP.
-draft: false
 ---
 
 # VLSM (Variable Length Subnet Masking)

@@ -1,14 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: "Monitoreo de Seguridad"
-date: 2026-01-09
-tags: [cybersecurity, monitoring, falco, wazuh, siem]
-draft: false
 ---
 
 ## Resumen

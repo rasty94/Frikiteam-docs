@@ -1,13 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: Registros PTR y Zonas Inversas
-description: Cómo funcionan las búsquedas inversas (in-addr.arpa) y su importancia para la reputación de IP.
-draft: false
 ---
 
 # Registros PTR y Zonas Inversas

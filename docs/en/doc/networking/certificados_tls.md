@@ -1,13 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: Certificados TLS
-description: Tipos de validación (DV, OV, EV), cadenas de confianza y buenas prácticas de configuración.
-draft: false
 ---
 
 # Certificados TLS

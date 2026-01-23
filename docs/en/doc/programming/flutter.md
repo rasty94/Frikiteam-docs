@@ -1,12 +1,10 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
+---
+title: Flutter
 ---
 
 # Flutter
 
-Flutter es un framework de código abierto desarrollado por Google para crear aplicaciones multiplataforma (iOS, Android, Web y Desktop) a partir de una única base de código.
+Flutter is an open-source framework desarrollado por Google para crear aplicaciones multiplataforma (iOS, Android, Web y Desktop) a partir de una única base de código.
 
 ## ¿Por qué Flutter?
 

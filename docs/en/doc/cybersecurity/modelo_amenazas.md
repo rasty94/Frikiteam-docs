@@ -1,14 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: "Modelo de Amenazas"
-date: 2026-01-09
-tags: [cybersecurity, threat-modeling, owasp, mitre]
-draft: false
 ---
 
 ## Resumen

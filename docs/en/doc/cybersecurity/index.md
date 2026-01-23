@@ -1,13 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: "Ciberseguridad"
-description: "Guías completas de ciberseguridad para entornos DevOps e infraestructura"
-draft: false
 ---
 
 # Ciberseguridad en DevOps e Infraestructura

@@ -1,11 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: Proxmox — Guía de Migración (VMs y Contenedores)
 ---
 
 # Proxmox — Guía de Migración (VMs y Contenedores)

@@ -1,14 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: "Autenticación y Autorización"
-date: 2026-01-09
-tags: [cybersecurity, authentication, authorization, ldap, oauth, keycloak]
-draft: false
 ---
 
 ## Resumen

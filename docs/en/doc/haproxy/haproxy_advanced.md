@@ -1,11 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
 
----
-title: HAProxy — TLS y Escalado Avanzado
 ---
 
 # HAProxy — TLS y Escalado Avanzado

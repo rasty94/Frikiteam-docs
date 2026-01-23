@@ -1,12 +1,5 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
 ---
-
 ```markdown
----
-title: Ceph — Optimización y Planificación de Capacidad
 ---
 
 # Ceph — Optimización y Planificación de Capacidad
