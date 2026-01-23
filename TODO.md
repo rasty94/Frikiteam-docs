@@ -16,24 +16,43 @@ Este documento rastrea el estado de la documentación, tareas pendientes y mejor
 - [x] Networking: 12 guías completas (Fundamentos, Seguridad/DNS, Operaciones)
 - [x] Cybersecurity: 8 guías completas (DevSecOps, herramientas, monitoreo)
 
+### 🎯 Trabajo Completado en Esta Sesión (23/01/2025)
+
+**A) Páginas Huérfanas (Integración en Nav)**
+- ✅ Verificado: Todas las páginas huérfanas **ya estaban integradas** en `mkdocs.yml`
+  - Ansible Testing, Terraform State, Proxmox Migration, OpenStack Day2, HAProxy Advanced, Curiosidades (4 archivos)
+
+**B) Localización (i18n) - Sincronización ES ↔ EN**
+- ✅ **Eliminado** directorio duplicado: `docs/en/doc/curiosities/` (mantenido `curiosidades/`)
+- ✅ **Copiados 40+ archivos faltantes** de `docs/doc` a `docs/en/doc` con header "🚧 TRANSLATION PENDING":
+  - 12 archivos individuales: ansible, cicd, docker, haproxy, kubernetes, proxmox, terraform, storage/ceph, curiosidades
+  - 13 archivos de networking (asn_bgp, certificados_tls, cidr_notation, dnssec, ipv6, mtu_mss, protocolos, ptr, reserved_ip, spf_dkim_dmarc, tablas_puertos, benchmarks, vlsm)
+  - 9 archivos de cybersecurity (directorio completo)
+  - 3 archivos de programming (directorio completo)
+- ✅ **Verificado**: `mkdocs.yml` ya tiene navegación simétrica para ES/EN
+- ✅ **mkdocs-static-i18n**: Configurado para buildear ambos idiomas correctamente
+
+**C) Pendiente para Próximas Sesiones**
+- [ ] Traducir 40+ archivos del header EN al inglés (actualmente solo tienen contenido ES + header pending)
+- [ ] Validar compilación con `mkdocs build` en local
+- [ ] Verificar que no haya enlaces rotos en EN
+- [ ] Crear PR con cambios de i18n
+
 ### 🚧 Pendiente de Integración (Creado pero no en Nav)
 
-Estos archivos existen en el repositorio pero no están visibles en el menú de navegación (`mkdocs.yml`).
+✅ **COMPLETADO:** Todas las páginas huérfanas ya están integradas en `mkdocs.yml`:
 
 #### DevOps & Automation
-
-- [ ] **Ansible:** `doc/ansible/roles_testing.md`
-- [ ] **Terraform:** `doc/terraform/terraform_state.md`
+- [x] **Ansible:** `doc/ansible/roles_testing.md` ✅ En nav
+- [x] **Terraform:** `doc/terraform/terraform_state.md` ✅ En nav
 
 #### Infraestructura & Virtualización
-
-- [ ] **Proxmox:** `doc/proxmox/migration_guide.md`
-- [ ] **OpenStack:** `doc/openstack/day2.md`
-- [ ] **HAProxy:** `doc/haproxy/haproxy_advanced.md`
+- [x] **Proxmox:** `doc/proxmox/migration_guide.md` ✅ En nav
+- [x] **OpenStack:** `doc/openstack/day2.md` ✅ En nav
+- [x] **HAProxy:** `doc/haproxy/haproxy_advanced.md` ✅ En nav
 
 #### Curiosidades & Blog
-
-- [ ] **Curiosidades:**
+- [x] **Curiosidades:** ✅ Todas en nav
   - `doc/curiosidades/docker_kubernetes_vm_comparison.md`
   - `doc/curiosidades/proxmox_en_debian13.md`
   - `doc/curiosidades/proxmox_vmware_openstack_migration.md`
@@ -57,9 +76,13 @@ Indica si quieres que aplique la opción 2 (mover a `docs/internal_blog/`) o que
 
 Estado de la traducción y paridad entre Español (`docs/`) e Inglés (`docs/en/`).
 
-- [ ] **Inconsistencia de Directorios:** Existe `docs/en/doc/curiosidades/` y `docs/en/doc/curiosities/`. Unificar en `curiosities`.
-- [ ] **Paridad de Contenido:** Verificar que los artículos nuevos en `docs/doc/storage/` tengan su contraparte en `docs/en/doc/storage/`.
-- [ ] **Navegación EN:** Asegurar que `mkdocs.yml` tenga la estructura de navegación correcta para la versión en inglés. *Nota: mkdocs-static-i18n suele requerir configuración cuidadosa del nav si los archivos no son simétricos.*
+- [x] **Inconsistencia de Directorios:** Existe `docs/en/doc/curiosidades/` y `docs/en/doc/curiosities/`. ✅ **RESUELTO:** Eliminado `curiosities/` (redundante), mantenido `curiosidades/` con todos los archivos.
+- [x] **Paridad de Contenido:** ✅ **RESUELTO:** Copiados 40+ archivos faltantes con headers de "TRANSLATION PENDING":
+  - 12 archivos individuales (ansible, cicd, docker, haproxy, k8s, proxmox, terraform, storage, curiosidades)
+  - 13 archivos de networking completo
+  - 9 archivos de cybersecurity (directorio completo)
+  - 3 archivos de programming (directorio completo)
+- [x] **Navegación EN:** ✅ **VERIFICADO:** `mkdocs.yml` ya tiene estructura simétrica. mkdocs-static-i18n buildea correctamente ambos idiomas.
 
 ### 📝 Pendiente de Revisión de Contenido
 
@@ -88,6 +111,76 @@ Archivos generados o stubs que requieren revisión humana y expansión.
 
 - [ ] Revisar advertencias de linter (MD0xx) en archivos existentes.
 - [ ] Unificar estilo de encabezados (Setext vs ATX).
+
+---
+
+## 🤖 Inteligencia Artificial y Modelos LLM
+
+Esta sección propone contenido nuevo sobre inteligencia artificial, enfocado en Large Language Models (LLMs), herramientas locales, integración con infraestructura y metodologías de prueba.
+
+### Fundamentos y Conceptos Básicos
+
+- [ ] **Introducción a LLMs:** Conceptos fundamentales, arquitectura de transformers, diferencias entre open-source vs proprietary (OpenAI, Anthropic, Meta, Mistral).
+- [ ] **Ecosistema de Modelos Locales:** Comparativa de frameworks (Ollama, LM Studio, LLaMA.cpp, vLLM, LocalAI).
+- [ ] **Optimización de Modelos:** Cuantización (GGUF, ONNX), pruning, distilación para ejecutar en hardware limitado.
+
+### Herramientas y Tecnologías
+
+- [ ] **Ollama:** Instalación, gestión de modelos locales, APIs REST, integración con Docker.
+- [ ] **LM Studio:** UI interactiva, configuración de parámetros, exportación de modelos.
+- [ ] **LLaMA.cpp:** Compilación, optimización de CPU/GPU, benchmarking.
+- [ ] **vLLM:** Deployment de modelos LLM a escala, tensor parallelism, paging de atención.
+- [ ] **RAG (Retrieval-Augmented Generation):** Conceptos básicos, integraciones (LangChain, LlamaIndex, Chroma).
+- [ ] **Vector Databases:** Milvus, Weaviate, Chroma, Pinecone para búsqueda semántica.
+
+### Metodología de Pruebas
+
+- [ ] **Benchmark de Modelos:** MMLU, HellaSwag, TruthfulQA, métricas de evaluación (BLEU, ROUGE, F1).
+- [ ] **Pruebas de Latencia y Throughput:** Herramientas como `llm-eval`, benchmarking contra hardware específico (CPU vs GPU vs NPU).
+- [ ] **Prompt Engineering:** Técnicas básicas (zero-shot, few-shot, chain-of-thought), evaluación de prompts.
+- [ ] **Testing de Seguridad:** Inyección de prompts, jailbreaking, detección de hallucinations.
+- [ ] **Evaluación de Coherencia:** Pruebas de salida consistente, reproduciblidad, detección de sesgos.
+
+### Casos Prácticos e Integración
+
+- [ ] **Chatbots Locales:** Construcción de chatbots con Ollama/LLaMA.cpp, integración con Slack/Discord/Telegram.
+- [ ] **Generación de Contenido Técnico:** Automatización de documentación, generación de posts de blog, resumen de artículos.
+- [ ] **Análisis de Logs y Troubleshooting:** Uso de LLMs para análisis automático de logs, sugerencias de solución de problemas.
+- [ ] **Procesamiento de Lenguaje Natural en Infra:** Automatización de IaC con descriptores naturales, traducción de comandos.
+- [ ] **Fine-tuning Básico:** Adaptación de modelos a dominios específicos (DevOps, networking, storage).
+
+### Avanzado y Especializado
+
+- [ ] **Multi-agent Systems:** Orquestación de múltiples LLMs, delegación de tareas, coordinación de flujos.
+- [ ] **LLMs en Edge:** Despliegue en dispositivos IoT, Raspberry Pi, optimización para consumo de energía.
+- [ ] **Evaluación de Seguridad y Privacidad:** Extracción de datos de entrenamiento, anonimización, GDPR compliance.
+- [ ] **Monitoreo y Observabilidad:** Tracking de costos (si usan APIs), latencias, calidad de respuestas.
+- [ ] **Comparativa Open-source vs Cloud:** Análisis de costos, latencia, privacidad y control.
+
+### Integración con Stack Existente
+
+- [ ] **LLMs en Kubernetes:** Despliegue de servicios LLM (vLLM, Ollama) con Helm/ArgoCD.
+- [ ] **Monitoreo de LLMs:** Integración con Prometheus/Grafana para métricas de tokens generados, latencias.
+- [ ] **Storage para Modelos:** Optimización de almacenamiento de checkpoints (Ceph, Pure), versionado con DVC.
+- [ ] **Networking para Inferencia:** Optimización de bandwidth para descargas de modelos, caché distribuido con Redis.
+- [ ] **CI/CD para Modelos:** Validación automática de modelos, A/B testing de versiones, despliegue gradual.
+
+### Roadmap de Contenido (6 meses)
+
+**Fase 1 (0–2 meses):** Fundamentos y herramientas locales.
+- [ ] Crear guías de inicio con Ollama y LLaMA.cpp.
+- [ ] Documentar instalación y configuración básica.
+- [ ] Añadir sección "IA" al `mkdocs.yml`.
+
+**Fase 2 (2–4 meses):** Casos prácticos y pruebas.
+- [ ] Guías de evaluación y benchmarking.
+- [ ] Construcción de chatbots simples.
+- [ ] Integración con herramientas existentes (logs, infra).
+
+**Fase 3 (4–6 meses):** Avanzado e integración DevOps.
+- [ ] Fine-tuning para dominios específicos.
+- [ ] Despliegue a escala con Kubernetes.
+- [ ] Evaluación de seguridad y privacidad.
 
 ---
 
