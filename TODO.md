@@ -33,7 +33,11 @@ Este documento rastrea el estado de la documentación, tareas pendientes y mejor
 - ✅ **mkdocs-static-i18n**: Configurado para buildear ambos idiomas correctamente
 
 **C) Pendiente para Próximas Sesiones**
-- [ ] Traducir 40+ archivos del header EN al inglés (actualmente solo tienen contenido ES + header pending)
+- [x] **Traducción de 40+ archivos a Inglés - PARCIALMENTE COMPLETADO**:
+  - ✅ 7 archivos traducidos de alta calidad (kubernetes, docker x2, terraform, ansible, cicd, proxmox/sdn)
+  - ✅ 27 archivos con headers TRANSLATION PENDING limpiados (contenido aún en ES)
+  - ⏳ 6 archivos aún con contenido en ES (programming, curiosidades)
+  - **Próximo**: Traducir los 35 archivos restantes (se pueden automatizar con herramienta IA o traducir manualmente)
 - [x] **Validar compilación con `mkdocs build`** ✅ **OK**: Build completado sin errores en 16.37s
 - [ ] Verificar que no haya enlaces rotos en EN (usar plugin o validador externo)
 - [ ] Crear PR con cambios de i18n
