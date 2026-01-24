@@ -36,9 +36,15 @@ Este documento rastrea el estado de la documentación, tareas pendientes y mejor
 - [x] **Traducción de 40+ archivos a Inglés - PARCIALMENTE COMPLETADO**:
   - ✅ 7 archivos traducidos de alta calidad (kubernetes, docker x2, terraform, ansible, cicd, proxmox/sdn)
   - ✅ 27 archivos con headers TRANSLATION PENDING limpiados (contenido aún en ES)
+  - ✅ **NUEVO: 5 archivos críticos traducidos completamente (24/01/2026)**:
+    - `docs/en/doc/networking/ipv6_addressing.md` - Dirección IPv6 completa
+    - `docs/en/doc/networking/asn_bgp.md` - ASN y BGP completo
+    - `docs/en/doc/networking/dnssec.md` - DNSSEC completo
+    - `docs/en/doc/cybersecurity/introduccion_devsecops.md` - Introducción DevSecOps
+    - `docs/en/doc/cybersecurity/gestion_secretos.md` - Gestión de Secretos
   - ⏳ 6 archivos aún con contenido en ES (programming, curiosidades)
-  - **Próximo**: Traducir los 35 archivos restantes (se pueden automatizar con herramienta IA o traducir manualmente)
-- [x] **Validar compilación con `mkdocs build`** ✅ **OK**: Build completado sin errores en 16.37s
+  - **Próximo**: Traducir los 30 archivos restantes (se pueden automatizar con herramienta IA o traducir manualmente)
+- [x] **Validar compilación con `mkdocs build`** ✅ **OK**: Build completado sin errores en 16.37s (23/01) y 16.27s (24/01)
 - [ ] Verificar que no haya enlaces rotos en EN (usar plugin o validador externo)
 - [ ] Crear PR con cambios de i18n
 
