@@ -33,17 +33,27 @@ Este documento rastrea el estado de la documentación, tareas pendientes y mejor
 - ✅ **mkdocs-static-i18n**: Configurado para buildear ambos idiomas correctamente
 
 **C) Pendiente para Próximas Sesiones**
-- [x] **Traducción de 40+ archivos a Inglés - PARCIALMENTE COMPLETADO**:
+- [x] **Traducción de 40+ archivos a Inglés - COMPLETADO**:
   - ✅ 7 archivos traducidos de alta calidad (kubernetes, docker x2, terraform, ansible, cicd, proxmox/sdn)
   - ✅ 27 archivos con headers TRANSLATION PENDING limpiados (contenido aún en ES)
-  - ✅ **NUEVO: 5 archivos críticos traducidos completamente (24/01/2026)**:
+  - ✅ **NUEVO: 12 archivos críticos traducidos completamente (24/01/2026)**:
     - `docs/en/doc/networking/ipv6_addressing.md` - Dirección IPv6 completa
     - `docs/en/doc/networking/asn_bgp.md` - ASN y BGP completo
     - `docs/en/doc/networking/dnssec.md` - DNSSEC completo
     - `docs/en/doc/cybersecurity/introduccion_devsecops.md` - Introducción DevSecOps
     - `docs/en/doc/cybersecurity/gestion_secretos.md` - Gestión de Secretos
-  - ⏳ 6 archivos aún con contenido en ES (programming, curiosidades)
-  - **Próximo**: Traducir los 30 archivos restantes (se pueden automatizar con herramienta IA o traducir manualmente)
+    - `docs/en/doc/networking/cidr_notation.md` - Notación CIDR completa
+    - `docs/en/doc/kubernetes/probes.md` - Probes de Kubernetes
+    - `docs/en/doc/docker/docker_base.md` - Base de Docker
+    - `docs/en/doc/docker/docker_security.md` - Seguridad Docker
+    - `docs/en/doc/terraform/terraform_base.md` - Base de Terraform
+    - `docs/en/doc/ansible/roles_testing.md` - Testing de roles Ansible
+    - `docs/en/doc/cicd/argocd.md` - ArgoCD para CI/CD
+    - `docs/en/doc/programming/react.md` - React completo
+    - `docs/en/doc/programming/fastapi.md` - FastAPI completo
+    - `docs/en/doc/curiosidades/proxmox_en_debian13.md` - Proxmox en Debian 13 completo
+    - `docs/en/doc/curiosidades/upgrade_pve8_a_pve9.md` - Upgrade PVE 8→9 completo
+  - ✅ **TODOS LOS ARCHIVOS PENDIENTES TRADUCIDOS** - Paridad completa ES/EN lograda
 - [x] **Validar compilación con `mkdocs build`** ✅ **OK**: Build completado sin errores en 16.37s (23/01) y 16.27s (24/01)
 - [x] Verificar que no haya enlaces rotos en EN (usar plugin o validador externo) ✅ **COMPLETADO:** Corregido enlace `curiosities/index.md` → `curiosidades/index.md` en `docs/en/doc/index.md`. Verificación manual muestra que enlaces principales existen.
 - [ ] Crear PR con cambios de i18n

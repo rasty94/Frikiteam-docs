@@ -1,30 +1,24 @@
-# 🚧 TRANSLATION PENDING
+# Install Proxmox VE 9 on Debian 13 (Trixie)
 
-> Pending translation. Original:
+> This guide describes how to install Proxmox VE 9.x on a minimal Debian 13 (Trixie) installation. It is oriented towards home and lab environments. For production, follow the official Proxmox documentation.
 
----
+## Prerequisites
 
-# Instalar Proxmox VE 9 sobre Debian 13 (Trixie)
+- **Base system**: Debian 13 minimal (amd64) with network and sudo access
+- **Hostname** configured (FQDN recommended)
+- **Updates applied** and reboot if kernel requires it
+- **Root access** or user with sudo
 
-> Esta guía describe cómo instalar Proxmox VE 9.x sobre una instalación mínima de Debian 13 (Trixie). Está orientada a entornos caseros y de laboratorio. Para producción, sigue la documentación oficial de Proxmox.
+## 1) Prepare the system
 
-## Requisitos previos
-
-- **Sistema base**: Debian 13 minimal (amd64) con red y acceso sudo
-- **Nombre de host** configurado (FQDN recomendado)
-- **Actualizaciones aplicadas** y reinicio si el kernel lo requiere
-- **Acceso root** o usuario con sudo
-
-## 1) Preparar el sistema
-
-Actualiza el sistema y paquetes esenciales:
+Update the system and essential packages:
 
 ```bash
 sudo apt update && sudo apt full-upgrade -y
 sudo apt install -y curl gnupg lsb-release ca-certificates apt-transport-https
 ```
 
-Configura el hostname y `/etc/hosts` (ajusta `pve01` y el dominio):
+Configure the hostname and `/etc/hosts` (adjust `pve01` and the domain):
 
 ```bash
 echo "pve01.example.lan" | sudo tee /etc/hostname
@@ -35,23 +29,23 @@ cat <<'EOF' | sudo tee -a /etc/hosts
 EOF
 ```
 
-Deshabilita `swap` (Proxmox lo recomienda para rendimiento):
+Disable `swap` (Proxmox recommends it for performance):
 
 ```bash
 sudo swapoff -a
 sudo sed -i.bak '/\sswap\s/s/^/#/' /etc/fstab
 ```
 
-Configura la zona horaria y NTP:
+Configure timezone and NTP:
 
 ```bash
 sudo timedatectl set-timezone Europe/Madrid
 sudo apt install -y systemd-timesyncd && sudo timedatectl set-ntp true
 ```
 
-## 2) Repositorios Proxmox
+## 2) Proxmox Repositories
 
-Añade el repositorio `pve-no-subscription` (adecuado para lab) para Proxmox 9 en Debian 13 (trixie):
+Add the `pve-no-subscription` repository (suitable for lab) for Proxmox 9 on Debian 13 (trixie):
 
 ```bash
 sudo install -d -m 0755 /etc/apt/keyrings
@@ -60,52 +54,52 @@ curl -fsSL https://enterprise.proxmox.com/debian/proxmox-release-trixie.gpg | su
 echo "deb [signed-by=/etc/apt/keyrings/proxmox-release.gpg] http://download.proxmox.com/debian/pve trixie pve-no-subscription" | sudo tee /etc/apt/sources.list.d/pve-no-subscription.list
 ```
 
-## 3) Instalar Proxmox VE
+## 3) Install Proxmox VE
 
-Actualiza índices e instala:
+Update indexes and install:
 
 ```bash
 sudo apt update
 sudo apt install -y proxmox-ve postfix open-iscsi
 ```
 
-- Selecciona `No configuration` en Postfix si no enviarás correo desde el host.
-- El instalador puede eliminar `os-prober` y otros paquetes; acepta si es solicitado.
+- Select `No configuration` in Postfix if you won't send mail from the host.
+- The installer may remove `os-prober` and other packages; accept if requested.
 
-Tras la instalación, reinicia:
+After installation, reboot:
 
 ```bash
 sudo reboot
 ```
 
-## 4) Primer acceso Web UI
+## 4) First Web UI Access
 
-Accede vía navegador a:
+Access via browser at:
 
 - https://pve01.example.lan:8006
-- Usuario: `root`
-- Autenticación: `PAM` (por defecto)
+- User: `root`
+- Authentication: `PAM` (default)
 
-Si aparece un aviso de suscripción, puedes ocultarlo instalando el paquete alternativo de la comunidad o dejando el aviso (recomendado dejarlo tal cual en lab).
+If a subscription notice appears, you can hide it by installing the community alternative package or leave the notice (recommended to leave as is in lab).
 
-## 5) Ajustes recomendados
+## 5) Recommended Settings
 
-- Actualiza el sistema desde `Shell` o la UI.
-- Configura `Datacenter → Storage` según tus discos (LVM-Thin, ZFS, NFS, CIFS).
-- Habilita `open-iscsi` al arranque:
+- Update the system from `Shell` or the UI.
+- Configure `Datacenter → Storage` according to your disks (LVM-Thin, ZFS, NFS, CIFS).
+- Enable `open-iscsi` at boot:
 
 ```bash
 sudo systemctl enable --now iscsid
 ```
 
-- Si usas ZFS, ajusta ARC si la RAM es limitada:
+- If using ZFS, adjust ARC if RAM is limited:
 
 ```bash
 echo "options zfs zfs_arc_max=$((4*1024*1024*1024))" | sudo tee /etc/modprobe.d/zfs.conf
 sudo update-initramfs -u
 ```
 
-- Crea puentes de red (`vmbr0`) si no fueron creados automáticamente. Ejemplo (systemd-networkd):
+- Create network bridges (`vmbr0`) if not created automatically. Example (systemd-networkd):
 
 ```bash
 cat <<'EOF' | sudo tee /etc/systemd/network/10-ens18.network
@@ -135,28 +129,28 @@ EOF
 sudo systemctl restart systemd-networkd
 ```
 
-### Posibles fallos o cambios necesarios (ifupdown: /etc/network/interfaces)
+### Possible failures or necessary changes (ifupdown: /etc/network/interfaces)
 
-En Proxmox es habitual gestionar la red con `ifupdown`, editando `/etc/network/interfaces`. Si tu sistema no usa `systemd-networkd` o prefieres el método clásico, estos ejemplos te servirán.
+In Proxmox it's common to manage networking with `ifupdown`, editing `/etc/network/interfaces`. If your system doesn't use `systemd-networkd` or you prefer the classic method, these examples will serve you.
 
-- Asegúrate de tener incluida la línea para directorio de `interfaces.d` (opcional):
+- Make sure to include the line for `interfaces.d` directory (optional):
 
 ```bash
 sudo mkdir -p /etc/network/interfaces.d
 printf "source /etc/network/interfaces.d/*\n" | sudo tee -a /etc/network/interfaces >/dev/null
 ```
 
-- Ejemplo 1: interfaz física en modo manual + puente `vmbr0` con IP estática:
+- Example 1: physical interface in manual mode + `vmbr0` bridge with static IP:
 
 ```text
 auto lo
 iface lo inet loopback
 
-# Interfaz física sin IP; la IP va en el bridge
+# Physical interface without IP; IP goes in the bridge
 auto eno1
 iface eno1 inet manual
 
-# Bridge principal para VMs/CTs
+# Main bridge for VMs/CTs
 auto vmbr0
 iface vmbr0 inet static
     address 192.168.1.10/24
@@ -166,10 +160,10 @@ iface vmbr0 inet static
     bridge-fd 0
 ```
 
-- Ejemplo 2: bonding 802.3ad (LACP) sobre dos NICs y bridge encima:
+- Example 2: 802.3ad bonding (LACP) over two NICs and bridge on top:
 
 ```text
-# Bond LACP
+# LACP Bond
 auto bond0
 iface bond0 inet manual
     bond-slaves eno1 eno2
@@ -178,7 +172,7 @@ iface bond0 inet manual
     bond-xmit-hash-policy layer3+4
     lacp-rate 1
 
-# Bridge con IP sobre el bond
+# Bridge with IP over the bond
 auto vmbr0
 iface vmbr0 inet static
     address 192.168.1.10/24
@@ -188,10 +182,10 @@ iface vmbr0 inet static
     bridge-fd 0
 ```
 
-- Opcional: bridge consciente de VLANs (gestión sin IP o con IP en una VLAN):
+- Optional: VLAN-aware bridge (management without IP or with IP in a VLAN):
 
 ```text
-# Bridge VLAN-aware (sin IP)
+# VLAN-aware bridge (no IP)
 auto vmbr0
 iface vmbr0 inet manual
     bridge-ports bond0
@@ -199,14 +193,14 @@ iface vmbr0 inet manual
     bridge-fd 0
     bridge-vlan-aware yes
 
-# Interfaz VLAN para la gestión (ej. VLAN 10)
+# VLAN interface for management (e.g. VLAN 10)
 auto vmbr0.10
 iface vmbr0.10 inet static
     address 192.168.10.10/24
     gateway 192.168.10.1
 ```
 
-- Recarga de red y utilidades:
+- Network reload and utilities:
 
 ```bash
 sudo ifreload -a || sudo systemctl restart networking
@@ -214,49 +208,49 @@ ip -br a
 bridge link
 ```
 
-- Consejos de resolución de problemas:
+- Troubleshooting tips:
 
-- Verifica nombres de interfaz (ej. `ip -br a`), pueden variar (`ens18`, `enp3s0`, etc.)
-- Comprueba que no haya dos puertas de enlace simultáneas o DHCP activo en la misma red
-- Si usas LACP, configura el puerto del switch como LAG/802.3ad y que todos los miembros del bond coincidan
-- Evita conflictos con NetworkManager: deshabilítalo si gestiona las mismas NICs (`systemctl disable --now NetworkManager`)
+- Verify interface names (e.g. `ip -br a`), they may vary (`ens18`, `enp3s0`, etc.)
+- Check that there are no two simultaneous gateways or active DHCP on the same network
+- If using LACP, configure the switch port as LAG/802.3ad and ensure all bond members match
+- Avoid conflicts with NetworkManager: disable it if it manages the same NICs (`systemctl disable --now NetworkManager`)
 
-## 6) Limpieza del repositorio enterprise (opcional)
+## 6) Enterprise Repository Cleanup (optional)
 
-Para evitar avisos de repos Enterprise sin suscripción:
+To avoid Enterprise repo notices without subscription:
 
 ```bash
 sudo sed -i.bak 's/^deb /# deb /' /etc/apt/sources.list.d/pve-enterprise.list || true
 sudo apt update
 ```
 
-## 7) Backup y snapshots
+## 7) Backup and snapshots
 
-- Configura `Datacenter → Backup` con almacenamiento local o remoto
-- Prueba un `backup` manual y la restauración de una VM de prueba
-- Habilita `Guest Agent` en VMs para mejores integraciones
+- Configure `Datacenter → Backup` with local or remote storage
+- Test a manual `backup` and restoration of a test VM
+- Enable `Guest Agent` in VMs for better integrations
 
-## 8) CLI útil
+## 8) Useful CLI
 
 ```bash
-# Estado de clúster y servicios
+# Cluster and services status
 pveversion -v
 systemctl status pvedaemon pve-cluster pveproxy
 
-# Discos y ZFS
+# Disks and ZFS
 lsblk
 zpool status
 
-# Redes
+# Networks
 ip -br a
 bridge link
 
-# Gestionar repos
+# Manage repos
 proxmox-backup-manager datastore list || true
 ```
 
-## 9) Referencias
+## 9) References
 
-- Documentación oficial: https://pve.proxmox.com/wiki/Main_Page
-- Repos Proxmox: https://enterprise.proxmox.com/debian/pve
-- Guía Proxmox 9 en Debian: https://pve.proxmox.com/wiki/Install_Proxmox_VE_on_Debian_13_Trixie
+- Official documentation: https://pve.proxmox.com/wiki/Main_Page
+- Proxmox repos: https://enterprise.proxmox.com/debian/pve
+- Proxmox 9 on Debian guide: https://pve.proxmox.com/wiki/Install_Proxmox_VE_on_Debian_13_Trixie

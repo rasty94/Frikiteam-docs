@@ -1,25 +1,19 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
----
-
 # FastAPI
 
-FastAPI es un framework web moderno y rápido (de alto rendimiento) para construir APIs con Python 3.8+ basado en las sugerencias de tipo estándar de Python.
+FastAPI is a modern, fast (high-performance) web framework for building APIs with Python 3.8+ based on Python's standard type hints.
 
-## Ventajas Clave
+## Key Advantages
 
-- **Rápido**: Muy alto rendimiento, a la par con **NodeJS** y **Go** (gracias a Starlette y Pydantic). Uno de los frameworks de Python más rápidos disponibles.
-- **Rápido de programar**: Aumenta la velocidad de desarrollo de funciones entre un 200% y un 300%.
-- **Menos errores**: Reduce los errores inducidos por el desarrollador en aproximadamente un 40%.
-- **Intuitivo**: Gran soporte de editores (autocompletado, etc.) y menos tiempo leyendo documentación.
-- **Fácil**: Diseñado para ser fácil de usar y aprender. Menos tiempo leyendo documentación.
-- **Corto**: Minimiza la duplicación de código. Múltiples funciones de cada declaración de parámetro.
-- **Robusto**: Obtén código listo para producción. Con documentación interactiva automática.
-- **Basado en estándares**: Basado en (y totalmente compatible con) los estándares abiertos para APIs: OpenAPI y JSON Schema.
+- **Fast**: Very high performance, on par with **NodeJS** and **Go** (thanks to Starlette and Pydantic). One of the fastest Python frameworks available.
+- **Fast to code**: Increase the speed of developing features by 200% to 300%.
+- **Fewer bugs**: Reduce human-induced errors by about 40%.
+- **Intuitive**: Great editor support (autocomplete, etc.) and less time reading documentation.
+- **Easy**: Designed to be easy to use and learn. Less time reading documentation.
+- **Short**: Minimize code duplication. Multiple features from each parameter declaration.
+- **Robust**: Get production-ready code. With automatic interactive documentation.
+- **Standards-based**: Based on (and fully compatible with) the open standards for APIs: OpenAPI and JSON Schema.
 
-## Ejemplo Básico
+## Basic Example
 
 ```python
 from fastapi import FastAPI
@@ -31,7 +25,7 @@ def read_root():
     return {"Hello": "World"}
 ```
 
-## Enlaces de Interés
+## Links of Interest
 
-- [Documentación oficial](https://fastapi.tiangolo.com/)
-- [GitHub de FastAPI](https://github.com/tiangolo/fastapi)
+- [Official Documentation](https://fastapi.tiangolo.com/)
+- [FastAPI GitHub](https://github.com/tiangolo/fastapi)

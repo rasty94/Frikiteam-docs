@@ -1,42 +1,36 @@
-# 🚧 TRANSLATION PENDING
+# Upgrade Proxmox VE 8 to Proxmox VE 9 (Debian 13 Trixie)
 
-> Pending translation. Original:
+> Practical guide to upgrade a node or cluster from Proxmox VE 8 (Debian 12) to Proxmox VE 9 (Debian 13). Recommended to test first in lab or have backups and maintenance window.
 
----
+## 1) Pre-upgrade Checklist (essential)
 
-# Actualizar Proxmox VE 8 a Proxmox VE 9 (Debian 13 Trixie)
+- **Complete backup** of VMs/CTs and configuration (`/etc/pve`, `/etc/network/interfaces`, storage, etc.)
+- **Cluster health OK**: `pvecm status`, `systemctl status pve*`, `journalctl -p err -b`
+- **Free space** sufficient (min. 5-10 GB in `/` and `/var`)
+- **Clean repositories**: no broken external repos, enterprise commented if no subscription
+- **Kernel and packages updated** in PVE 8: `apt update && apt full-upgrade -y` and reboot
+- **CPU/BIOS/firmware versions** up to date if applicable (especially for ZFS)
+- **Maintenance window**: planned; service interruption likely
 
-> Guía práctica para actualizar un nodo o clúster de Proxmox VE 8 (Debian 12) a Proxmox VE 9 (Debian 13). Recomendado probar primero en laboratorio o tener backups y ventana de mantenimiento.
+## 2) Preparation in PVE 8 (Bookworm)
 
-## 1) Checklist previo (imprescindible)
-
-- **Backup completo** de VMs/CTs y de la configuración (`/etc/pve`, `/etc/network/interfaces`, almacenamiento, etc.)
-- **Salud del clúster OK**: `pvecm status`, `systemctl status pve*`, `journalctl -p err -b`
-- **Espacio libre** suficiente (mín. 5-10 GB en `/` y en `/var`)
-- **Repositorios limpios**: sin repos externos rotos, enterprise comentado si no hay suscripción
-- **Kernel y paquetes actualizados** en PVE 8: `apt update && apt full-upgrade -y` y reboot
-- **Versiones de CPU/BIOS/firmware** al día si aplican (especialmente para ZFS)
-- **Ventana de mantenimiento**: planificada; interrupción de servicio probable
-
-## 2) Preparación en PVE 8 (Bookworm)
-
-Asegúrate de estar totalmente al día en PVE 8:
+Make sure you're fully up to date in PVE 8:
 
 ```bash
 apt update && apt full-upgrade -y
 reboot
 ```
 
-Deshabilita repos enterprise si no tienes suscripción:
+Disable enterprise repos if you don't have subscription:
 
 ```bash
 sed -i.bak 's/^deb /# deb /' /etc/apt/sources.list.d/pve-enterprise.list || true
 apt update
 ```
 
-## 3) Cambiar a repos Proxmox 9 (Trixie)
+## 3) Switch to Proxmox 9 repos (Trixie)
 
-Crea keyring y repos `trixie`:
+Create keyring and `trixie` repos:
 
 ```bash
 install -d -m 0755 /etc/apt/keyrings
@@ -47,87 +41,87 @@ deb [signed-by=/etc/apt/keyrings/proxmox-release.gpg] http://download.proxmox.co
 EOF
 ```
 
-Ajusta otros repos a `trixie` (Debian base):
+Adjust other repos to `trixie` (Debian base):
 
 ```bash
 sed -ri 's/bookworm/trixie/g' /etc/apt/sources.list
 ```
 
-Revisa archivos en `/etc/apt/sources.list.d/` y elimina/ajusta entradas antiguas.
+Review files in `/etc/apt/sources.list.d/` and remove/adjust old entries.
 
-## 4) Realizar la actualización mayor
+## 4) Perform the major upgrade
 
-Actualiza índices y realiza dist-upgrade:
+Update indexes and perform dist-upgrade:
 
 ```bash
 apt update
 apt dist-upgrade -y
 ```
 
-Resuelve prompts de configuración si aparecen (mantener ficheros locales salvo que sepas lo contrario). Cuando finalice, reinicia:
+Resolve configuration prompts if they appear (keep local files unless you know otherwise). When finished, reboot:
 
 ```bash
 reboot
 ```
 
-Verifica versión tras el reinicio:
+Verify version after reboot:
 
 ```bash
 pveversion -v
 cat /etc/os-release | grep PRETTY_NAME
 ```
 
-## 5) Validaciones post-upgrade
+## 5) Post-upgrade validations
 
-- UI en `https://<host>:8006` funcional y sin errores
-- Servicios OK:
+- UI at `https://<host>:8006` functional and without errors
+- Services OK:
 
 ```bash
 systemctl status pvedaemon pve-cluster pveproxy
 journalctl -p err -b | tail -n +1
 ```
 
-- Red operativa; si usabas `ifupdown`, confirma `/etc/network/interfaces` y puentes/bonds
-- Almacenamientos montados y accesibles (LVM, ZFS, NFS, CIFS)
-- ZFS saludable:
+- Network operational; if using `ifupdown`, confirm `/etc/network/interfaces` and bridges/bonds
+- Storages mounted and accessible (LVM, ZFS, NFS, CIFS)
+- ZFS healthy:
 
 ```bash
 zpool status
 ```
 
-- Backups programados activos y probados
+- Scheduled backups active and tested
 
-## 6) Notas y cambios frecuentes de PVE 9
+## 6) Notes and common changes in PVE 9
 
-- Base Debian 13 (trixie), paquetes y kernels más recientes
-- Posibles cambios en controladores de red/almacenamiento; verifica nombres de interfaz
-- Si usas `networkd` vs `ifupdown`, asegúrate de usar un solo stack de red
-- El repos enterprise puede venir habilitado; comenta si no tienes suscripción
+- Base Debian 13 (trixie), newer packages and kernels
+- Possible changes in network/storage drivers; verify interface names
+- If using `networkd` vs `ifupdown`, make sure to use only one network stack
+- Enterprise repo may come enabled; comment if you don't have subscription
 
-## 7) Rollback (opciones y advertencias)
+## 7) Rollback (options and warnings)
 
-No existe rollback soportado automático entre versiones mayores. Opciones:
+No supported automatic rollback exists between major versions. Options:
 
-- Restaurar desde backup completo de sistema (imagen o snapshot del host)
-- Reinstalar PVE 8 y restaurar backups de VMs/CTs
-- Si falla por red, conserva acceso físico para corregir `/etc/network/interfaces`
+- Restore from complete system backup (host image or snapshot)
+- Reinstall PVE 8 and restore VM/CT backups
+- If network fails, maintain physical access to correct `/etc/network/interfaces`
 
-## 8) Comandos útiles
+## 8) Useful commands
 
 ```bash
-# Simular antes (opcional)
+# Simulate before (optional)
 apt -o APT::Get::Trivial-Only=true dist-upgrade
 
-# Ver paquetes retenidos
+# See held packages
 apt-mark showhold || true
 
-# Limpiar paquetes obsoletos
+# Clean obsolete packages
 autoremove --purge -y || true
 apt clean
 ```
 
-## 9) Referencias
+## 9) References
 
-- Upgrade oficial PVE 9: https://pve.proxmox.com/wiki/Upgrade_from_8_to_9
-- Notas de lanzamiento: https://pve.proxmox.com/wiki/Roadmap
-- Repos Debian 13: https://www.debian.org/releases/trixie/
+- Official PVE 9 upgrade: https://pve.proxmox.com/wiki/Upgrade_from_8_to_9
+- Release notes: https://pve.proxmox.com/wiki/Roadmap
+- Debian 13 repos: https://www.debian.org/releases/trixie/

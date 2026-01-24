@@ -1,28 +1,22 @@
-# 🚧 TRANSLATION PENDING
-
-> Pending translation. Original:
-
----
-
 # React
 
-React es una biblioteca de JavaScript para construir interfaces de usuario basada en componentes. Es mantenida por Meta y una comunidad de desarrolladores.
+React is a JavaScript library for building user interfaces based on components. It is maintained by Meta and a community of developers.
 
-## Características Principales
+## Main Features
 
-- **Basado en Componentes**: Crea componentes encapsulados que manejan su propio estado y combínalos para crear interfaces complejas.
-- **Declarativo**: React hace que sea muy sencillo crear interfaces de usuario interactivas. Diseña vistas simples para cada estado de tu aplicación y React se encargará de actualizar y renderizar de manera eficiente los componentes correctos cuando los datos cambien.
-- **Un Idilio con el DOM**: Gracias al Virtual DOM, React minimiza las actualizaciones costosas en el DOM real.
+- **Component-Based**: Create encapsulated components that manage their own state and combine them to create complex interfaces.
+- **Declarative**: React makes it very easy to create interactive user interfaces. Design simple views for each state of your application and React will efficiently update and render the correct components when data changes.
+- **Virtual DOM**: Thanks to the Virtual DOM, React minimizes costly updates to the real DOM.
 
 ## Hooks
 
-Los Hooks permiten usar el estado y otras características de React sin escribir una clase.
+Hooks allow you to use state and other React features without writing a class.
 
-- `useState`: Para el manejo de estado local.
-- `useEffect`: Para manejar efectos secundarios (llamadas a APIs, suscripciones).
-- `useContext`: Para acceder al contexto sin necesidad de nesting.
+- `useState`: For local state management.
+- `useEffect`: For handling side effects (API calls, subscriptions).
+- `useContext`: For accessing context without nesting.
 
-## Enlaces de Interés
+## Links of Interest
 
-- [Documentación de React](https://react.dev/)
-- [Next.js](https://nextjs.org/) (Framework popular basado en React)
+- [React Documentation](https://react.dev/)
+- [Next.js](https://nextjs.org/) (Popular framework based on React)
