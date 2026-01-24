@@ -119,8 +119,8 @@ Archivos generados o stubs que requieren revisión humana y expansión.
 
 ## 🛠 Mantenimiento
 
-- [ ] Revisar advertencias de linter (MD0xx) en archivos existentes.
-- [ ] Unificar estilo de encabezados (Setext vs ATX).
+- [x] **PARCIALMENTE COMPLETADO**: Revisar advertencias de linter (MD0xx) en archivos existentes - Convertidos 2 archivos que usaban Setext H1 (====) a ATX (#).
+- [ ] **PENDIENTE**: Unificar estilo de encabezados (Setext vs ATX) - Aún quedan ~128 archivos usando Setext H2 (---) que deberían convertirse a ATX (##).
 
 ---
 

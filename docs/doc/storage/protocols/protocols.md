@@ -3,13 +3,11 @@ description: Resumen de protocolos (iSCSI, NFS, SMB, Ceph RBD, S3), métricas cl
 keywords: iops, latencia, throughput, iSCSI, NFS, SMB, rbd, s3, storage protocols, métricas
 ---
 
-Protocolos y Métricas de Almacenamiento
-=====================================
+# Protocolos y Métricas de Almacenamiento
 
 Este documento recoge una visión práctica sobre protocolos de almacenamiento comunes y las métricas que debes medir para dimensionar y operar sistemas de almacenamiento:
 
-Protocolos comunes
-------------------
+## Protocolos comunes
 
 - **iSCSI**: Bloque sobre IP, uso típico en entornos VM y bases de datos.
 - **NFS**: Sistema de archivos en red, usado por aplicaciones que necesitan compartir ficheros.
@@ -17,8 +15,7 @@ Protocolos comunes
 - **RBD (Ceph RADOS Block Device)**: Bloque distribuido nativo de Ceph.
 - **S3 / Object Storage**: Interfaz de objetos, adecuada para backups, datos no estructurados y lakes.
 
-Métricas clave
--------------
+## Métricas clave
 
 - **IOPS** (operaciones por segundo): mide la cantidad de operaciones de E/S.
 - **Latencia** (ms): tiempo medio de respuesta por operación (p99, p95).
@@ -26,23 +23,20 @@ Métricas clave
 - **Queue depth**: profundidad de colas en hosts y controladoras.
 - **Utilización**: uso de CPU/Red/Disco en nodos de almacenamiento.
 
-Buenas prácticas de medición
----------------------------
+## Buenas prácticas de medición
 
 - Establecer picos y patrones: medir tanto cargas sostenidas como picos.
 - Usar herramientas: `fio` para bloque, `rclone`/`s3bench` para object, `iperf` para red.
 - Medir percentiles de latencia (p50/p95/p99) no sólo medias.
 - Correlacionar con métricas de red y CPU para identificar cuellos de botella.
 
-Recomendaciones operativas
---------------------------
+## Recomendaciones operativas
 
 - Reservar headroom para picos (ej. +30% IOPS/throughput).
 - Evitar sobreaproporcionamiento en capas críticas.
 - Usar QoS/limits cuando sea necesario para aislar cargas.
 
-Profundización en NFS: versiones y pNFS
--------------------------------------
+## Profundización en NFS: versiones y pNFS
 
 - **NFSv3**: muy extendido, diseño esencialmente stateless (locks se manejan via lockd), sencillo pero limitado en features como delegations y sesiones.
 
@@ -54,8 +48,7 @@ Profundización en NFS: versiones y pNFS
 
 > pNFS (Parallel NFS): permite escalar I/O repartiendo datos en múltiples servidores de datos. Requiere soporte en cliente, metadata server y data servers; existen layouts de tipo **FILE**, **BLOCK** y **OBJECT**. Es útil para cargas con alto paralelismo (HPC, grandes clústeres de datos).
 
-`fio` — ejemplos prácticos
-------------------------
+## `fio` — ejemplos prácticos
 
 Ejecuta `fio` contra un punto de montaje NFS o un dispositivo de bloque para medir comportamiento. Ejemplos comunes:
 
