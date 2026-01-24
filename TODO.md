@@ -344,3 +344,23 @@ mkdocs build
 2. Creo stubs para X items prioritarios y abro PR(s) de ejemplo.
 3. Implemento un workflow de GitHub Actions `docs-ci.yml` que ejecuta `mkdocs build` y la comprobación de diagramas.
 
+---
+
+## ✅ Actualización 25/01/2025 - Corrección de Build y Navegación
+
+**Problemas identificados y resueltos:**
+- ❌ **Build fallando** con 11 advertencias en modo estricto por enlaces a archivos inexistentes en `docs/doc/ai/index.md`
+- ❌ **Páginas nuevas no incluidas** en navegación de `mkdocs.yml`
+
+**Soluciones implementadas:**
+- ✅ **Actualizado `docs/doc/ai/index.md`** y `docs/en/doc/ai/index.md` para solo enlazar archivos existentes
+- ✅ **Agregado navegación completa** para páginas de IA: `llms_fundamentals.md`, `ollama_basics.md`, `model_evaluation.md`
+- ✅ **Agregado navegación** para `postgresql_ceph.md` en sección Storage
+- ✅ **Build exitoso** en modo estricto sin advertencias (15.12s)
+
+**Estado actual:**
+- ✅ Fase 3.1 (IA fundamentals) - **COMPLETADO**
+- ✅ Parte de Fase 2.1 (Storage avanzado: PostgreSQL+Ceph) - **COMPLETADO**
+- ✅ CI/CD funcionando correctamente
+- ✅ Documentación bilingüe actualizada
+

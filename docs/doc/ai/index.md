@@ -20,24 +20,13 @@ Si eres nuevo en LLMs, comienza con:
 ## 📚 Contenido principal
 
 ### Fundamentos
-- [Arquitectura de Transformers](transformers_architecture.md)
-- [Open-source vs Proprietary](open_source_vs_proprietary.md)
-- [Casos de uso en DevOps](llms_devops_use_cases.md)
+- [Introducción a LLMs](llms_fundamentals.md)
 
-### Herramientas locales
+### Herramientas
 - [Ollama](ollama_basics.md)
-- [LM Studio](lm_studio_guide.md)
-- [LLaMA.cpp](llama_cpp_optimization.md)
-
-### Integración con infraestructura
-- [LLMs en Kubernetes](llms_kubernetes_deployment.md)
-- [Storage para modelos](ai_storage_solutions.md)
-- [Networking para IA](ai_networking.md)
 
 ### Testing y evaluación
-- [Benchmarks estándar](model_benchmarks.md)
-- [Testing de latencia](latency_throughput_testing.md)
-- [Prompt engineering](prompt_engineering_basics.md)
+- [Evaluación de modelos](model_evaluation.md)
 
 ## 🔗 Enlaces relacionados
 
