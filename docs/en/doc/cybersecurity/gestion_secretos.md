@@ -1,59 +1,53 @@
 ---
-
+title: Secrets Management
+date: 2026-01-09
+tags: [cybersecurity, secrets-management, vault, kubernetes, aws]
+draft: false
 ---
 
-## Resumen
+## Overview
 
-Esta guía compara soluciones para gestión de secretos en entornos DevOps: HashiCorp Vault, AWS Secrets Manager y Kubernetes Secrets. Explica cuándo usar cada uno y mejores prácticas para seguridad.
+This guide compares secrets management options in DevOps: HashiCorp Vault, AWS Secrets Manager, and Kubernetes Secrets. It explains when to use each and the main best practices.
 
-## Prerrequisitos
+## Prerequisites
 
-- Conocimientos básicos de Kubernetes y cloud providers (AWS/Azure/GCP).
-- Entendimiento de conceptos de encriptación y autenticación.
+- Basic Kubernetes and cloud (AWS/Azure/GCP) knowledge.
+- Understanding of encryption and authentication fundamentals.
 
-## Soluciones Principales
+## Main Solutions
 
 ### HashiCorp Vault
 
-Vault es una herramienta open-source para gestión centralizada de secretos, con encriptación, auditoría y rotación automática.
+Vault is an open-source, central secrets manager with encryption, auditing, and automatic rotation.
 
-#### Características
+#### Features
+- **Secret engines:** KV, databases, cloud providers.
+- **Auth methods:** LDAP, JWT, certificates, cloud IAM.
+- **Encryption:** In transit and at rest with rotating keys.
+- **Auditing:** Detailed access logs.
 
-- **Motores de secretos:** KV, databases, cloud providers.
-- **Autenticación:** LDAP, JWT, certificates, cloud IAM.
-- **Encriptación:** En tránsito y at-rest con claves rotativas.
-- **Auditoría:** Logs detallados de acceso.
-
-#### Instalación
+#### Installation
 
 ```bash
-# Usando Helm en Kubernetes
 helm repo add hashicorp https://helm.releases.hashicorp.com
 helm install vault hashicorp/vault
 
-# O binario
 wget https://releases.hashicorp.com/vault/1.15.0/vault_1.15.0_linux_amd64.zip
 unzip vault_*.zip
 sudo mv vault /usr/local/bin/
 ```
 
-#### Uso Básico
+#### Basic Usage
 
 ```bash
-# Iniciar servidor
 vault server -dev
-
-# Almacenar secreto
 vault kv put secret/myapp db_password="supersecret"
-
-# Leer secreto
 vault kv get secret/myapp
 ```
 
-#### Integración con K8s
+#### K8s Integration
 
 ```yaml
-# vault-secrets-operator
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultStaticSecret
 metadata:
@@ -69,44 +63,41 @@ spec:
 
 ### AWS Secrets Manager
 
-Servicio gestionado de AWS para almacenar y rotar secretos.
+Managed AWS service for storing and rotating secrets.
 
-#### Características
+#### Features
+- **Native integration:** Lambda, RDS, ECS.
+- **Automatic rotation:** Databases and credentials.
+- **Encryption:** Backed by KMS.
+- **Access:** IAM policies.
 
-- **Integración nativa:** Con Lambda, RDS, ECS.
-- **Rotación automática:** Para bases de datos y credenciales.
-- **Encriptación:** Usando KMS.
-- **Acceso:** IAM policies.
-
-#### Uso
+#### Usage
 
 ```bash
-# CLI
 aws secretsmanager create-secret --name my-secret --secret-string '{"username":"admin","password":"secret"}'
+```
 
-# SDK (Python)
+```python
 import boto3
 client = boto3.client('secretsmanager')
-response = client.get_secret_value(SecretId='my-secret')
+secret = client.get_secret_value(SecretId='my-secret')
 ```
 
 ### Kubernetes Secrets
 
-Mecanismo nativo de K8s para almacenar datos sensibles.
+Native K8s resource for sensitive data.
 
-#### Tipos
+#### Types
+- **Opaque:** Arbitrary data.
+- **TLS:** Certificates.
+- **Docker-registry:** Registry credentials.
 
-- **Opaque:** Datos arbitrarios.
-- **TLS:** Certificados.
-- **Docker-registry:** Credenciales de registry.
+#### Limitations
+- Not encrypted at rest in etcd by default.
+- Access via RBAC, but limited auditing.
+- Best for low-sensitivity data or when paired with external managers.
 
-#### Limitaciones
-
-- No encriptados por defecto (etcd).
-- Acceso vía RBAC, pero no auditoría avanzada.
-- Recomendado solo para no-sensibles o con external secret managers.
-
-#### Ejemplo
+#### Example
 
 ```yaml
 apiVersion: v1
@@ -115,36 +106,29 @@ metadata:
   name: my-secret
 type: Opaque
 data:
-  username: YWRtaW4=  # base64 encoded
+  username: YWRtaW4=
   password: c2VjcmV0
 ```
 
-#### Mejores Prácticas
+## Comparison
 
-- Usar `external-secrets-operator` para integrar con Vault/AWS.
-- No almacenar secretos en Git.
-- Rotar periódicamente.
+| Aspect | Vault | AWS Secrets Manager | K8s Secrets |
+|--------|-------|---------------------|-------------|
+| Cost | Free (open source) | Pay-per-use | Free |
+| Scalability | High | High | Medium |
+| Cloud integration | Good | Excellent (AWS) | Good |
+| Auditing | Advanced | Basic | Limited |
+| Complexity | High | Low | Medium |
 
-## Comparativa
+## Best Practices
 
-| Aspecto | Vault | AWS Secrets Manager | K8s Secrets |
-|---------|-------|---------------------|-------------|
-| Costo | Gratuito (open-source) | Pay-per-use | Gratuito |
-| Escalabilidad | Alta | Alta | Media |
-| Integración Cloud | Buena | Excelente (AWS) | Buena |
-| Auditoría | Avanzada | Básica | Limitada |
-| Complejidad | Alta | Baja | Media |
+- **Least privilege:** Scope access tightly.
+- **Rotation:** Automate secret rotation.
+- **Monitoring:** Alert on unusual access.
+- **Backup:** Have a recovery plan.
+- **Avoid Git:** Never commit secrets; use External Secrets Operator or similar.
 
-## Mejores Prácticas Generales
-
-- **Principio de Least Privilege:** Solo acceso necesario.
-- **Rotación:** Automatizar rotación de secretos.
-- **Monitoreo:** Alertas en accesos no autorizados.
-- **Backup:** Plan de recuperación de secretos.
-
-## Ejemplos de Arquitectura
-
-### Patrón con External Secrets
+## Architecture Example (External Secrets)
 
 ```mermaid
 graph TD
@@ -154,7 +138,7 @@ graph TD
     D --> E[K8s Secret]
 ```
 
-## Referencias
+## References
 
 - [HashiCorp Vault](https://www.vaultproject.io/)
 - [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/)

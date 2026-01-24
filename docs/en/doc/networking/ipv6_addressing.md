@@ -1,143 +1,142 @@
 ---
-
+title: IPv6 Addressing
+description: IPv6 address structure, types (Link-Local, Global Unicast, Multicast), abbreviation rules, and migration patterns from IPv4.
+draft: false
 ---
 
 # IPv6 Addressing
 
-IPv6 es el protocolo de Internet de sexta generación diseñado para reemplazar IPv4. Ofrece un espacio de direcciones masivo (2^128 direcciones) y características avanzadas para el futuro de Internet.
+IPv6 is the sixth-generation Internet protocol designed to replace IPv4. It provides a massive address space ($2^{128}$ addresses) and modern capabilities for the future of the Internet.
 
-## Estructura de Direcciones
+## Address Structure
 
-### Formato Básico
+### Basic Format
 
-Una dirección IPv6 consta de 128 bits, representados como 8 grupos de 4 dígitos hexadecimales separados por dos puntos:
+An IPv6 address has 128 bits, represented as 8 groups of 4 hexadecimal digits separated by colons:
 
 ```
 2001:0db8:85a3:0000:0000:8a2e:0370:7334
 ```
 
-### Reglas de Abreviación
+### Abbreviation Rules
 
-#### Regla 1: Omitir Ceros Iniciales
-Los ceros iniciales en cada grupo pueden omitirse:
+#### Rule 1: Omit Leading Zeros
+Leading zeros in each group can be removed:
 
 ```
 2001:db8:85a3:0:0:8a2e:370:7334
 ```
 
-#### Regla 2: Compresión de Ceros Consecutivos
-Un grupo de ceros consecutivos puede reemplazarse por `::` (solo una vez por dirección):
+#### Rule 2: Compress Consecutive Zeros
+One consecutive block of zeros can be replaced by `::` (only once per address):
 
 ```
 2001:db8:85a3::8a2e:370:7334
 ```
 
-#### Ejemplos de Abreviación
+#### Abbreviation Examples
 
-| Dirección Completa | Abreviada | Notas |
-|-------------------|-----------|-------|
+| Full Address | Shortened | Notes |
+|--------------|-----------|-------|
 | 2001:0db8:0000:0000:0000:0000:0000:0001 | 2001:db8::1 | Loopback |
-| 0000:0000:0000:0000:0000:0000:0000:0001 | ::1 | Loopback abreviado |
-| 0000:0000:0000:0000:0000:0000:0000:0000 | :: | Dirección no especificada |
+| 0000:0000:0000:0000:0000:0000:0000:0001 | ::1 | Short loopback |
+| 0000:0000:0000:0000:0000:0000:0000:0000 | :: | Unspecified address |
 
-## Tipos de Direcciones IPv6
+## IPv6 Address Types
 
 ### 1. Unicast
 
-Direcciones que identifican una única interfaz:
+Addresses that identify a single interface.
 
 #### Global Unicast
-- **Rango:** 2000::/3
-- **Uso:** Internet público
-- **Ejemplo:** 2001:db8:85a3::8a2e:370:7334
+- **Range:** 2000::/3
+- **Use:** Public Internet
+- **Example:** 2001:db8:85a3::8a2e:370:7334
 
-Estructura de una dirección Global Unicast:
+Global Unicast structure:
 ```
 | 3 bits | 13 bits | 32 bits | 16 bits | 64 bits |
 | Prefix | TLA ID | Reserved | SLA ID | Interface ID |
 ```
 
 #### Link-Local Unicast
-- **Rango:** fe80::/10
-- **Uso:** Comunicación dentro del mismo enlace
-- **Ejemplo:** fe80::1%eth0
-- **Autoconfiguración:** Generadas automáticamente por hosts
+- **Range:** fe80::/10
+- **Use:** Communication on the same link
+- **Example:** fe80::1%eth0
+- **Autoconfiguration:** Generated automatically by hosts
 
 #### Unique Local Unicast (ULA)
-- **Rango:** fc00::/7
-- **Uso:** Redes privadas locales
-- **Ejemplo:** fd12:3456:789a::1
-- **No enrutable:** Similar a RFC 1918 en IPv4
+- **Range:** fc00::/7
+- **Use:** Private local networks
+- **Example:** fd12:3456:789a::1
+- **Not routable on the Internet:** Similar to RFC 1918 in IPv4
 
 ### 2. Multicast
 
-Direcciones que identifican múltiples interfaces:
+Addresses that identify multiple interfaces.
 
-- **Rango:** ff00::/8
-- **Grupos predefinidos:**
-  - ff02::1 - Todos los nodos en el enlace
-  - ff02::2 - Todos los routers en el enlace
-  - ff05::2 - Todos los routers OSPF
-  - ff02::1:ffxx:xxxx - Solicitud de vecino (solicited-node)
+- **Range:** ff00::/8
+- **Common groups:**
+  - ff02::1 — All nodes on the link
+  - ff02::2 — All routers on the link
+  - ff05::2 — All OSPF routers
+  - ff02::1:ffxx:xxxx — Solicited-node (neighbor solicitation)
 
 ### 3. Anycast
 
-Direcciones asignadas a múltiples interfaces, donde el paquete se entrega a la más cercana:
+Addresses assigned to multiple interfaces where traffic is delivered to the nearest one.
 
-- **Uso:** Servicios distribuidos (DNS, NTP)
-- **Identificación:** No distinguible de unicast por sintaxis
+- **Use:** Distributed services (DNS, NTP)
+- **Syntax:** Indistinguishable from unicast
 
-## Interface ID y EUI-64
+## Interface ID and EUI-64
 
-### Generación de Interface ID
+### Generating an Interface ID
 
-En IPv6, los 64 bits menos significativos identifican la interfaz. Se pueden generar de varias formas:
+In IPv6, the lower 64 bits identify the interface. They can be generated in several ways.
 
 #### EUI-64 (Extended Unique Identifier)
-1. Tomar dirección MAC (48 bits)
-2. Insertar ffff en el medio: `aa:bb:cc:ff:ff:dd:ee:ff`
-3. Invertir el bit U/L del primer octeto
+1. Take the MAC address (48 bits).
+2. Insert ffff in the middle: `aa:bb:cc:ff:ff:dd:ee:ff`.
+3. Flip the U/L bit of the first octet.
 
 ```python
 def eui64_from_mac(mac):
-    # Ejemplo: 00:1B:44:11:3A:B7
     mac_parts = mac.split(':')
-    # Insertar ffff
     eui64 = mac_parts[:3] + ['ff', 'ff'] + mac_parts[3:]
-    # Invertir bit 7 del primer byte
     first_byte = int(eui64[0], 16)
-    first_byte ^= 0x02  # Invertir bit 1 (U/L bit)
+    first_byte ^= 0x02  # Flip U/L bit
     eui64[0] = f"{first_byte:02x}"
     return ':'.join(eui64)
 
 print(eui64_from_mac("00:1B:44:11:3A:B7"))  # 021b:44ff:fe11:3ab7
 ```
 
-#### Autoconfiguración Stateless (SLAAC)
-- Hosts generan Interface ID automáticamente
-- Basado en MAC o aleatorio para privacidad
+#### Stateless Autoconfiguration (SLAAC)
+- Hosts generate the Interface ID automatically.
+- Based on MAC or random value for privacy.
 
-## Configuración IPv6
+## IPv6 Configuration
 
-### Comandos Linux
+### Linux Commands
 
-#### Ver direcciones IPv6
+#### Show IPv6 addresses
 ```bash
 ip -6 addr show
 ip addr show dev eth0
 ```
 
-#### Configurar dirección estática
+#### Configure static address
 ```bash
 ip addr add 2001:db8::1/64 dev eth0
 ```
 
-#### Configurar gateway
+#### Configure gateway
 ```bash
 ip -6 route add default via 2001:db8::1 dev eth0
 ```
 
-### Configuración en /etc/network/interfaces
+### Configure /etc/network/interfaces
 ```
 iface eth0 inet6 static
     address 2001:db8:85a3::8a2e:370:7334
@@ -145,39 +144,39 @@ iface eth0 inet6 static
     gateway 2001:db8:85a3::1
 ```
 
-### Router Advertisement (RA)
-Los routers anuncian prefijos automáticamente:
+### Router Advertisements (RA)
+Routers announce prefixes automatically:
 ```bash
-# Ver RAs recibidos
+# View received RAs
 radvdump
 ```
 
-## Transición IPv4/IPv6
+## IPv4/IPv6 Migration
 
-### Técnicas de Transición
+### Transition Techniques
 
 #### Dual Stack
-- Hosts con ambas direcciones IPv4 e IPv6
-- Aplicaciones eligen protocolo
+- Hosts have both IPv4 and IPv6 addresses.
+- Applications choose the protocol.
 
 #### Tunneling
 - 6to4: `2002:ipv4_addr::/48`
-- Teredo: Para hosts detrás de NAT IPv4
-- ISATAP: Tunneling intra-site
+- Teredo: Hosts behind IPv4 NAT
+- ISATAP: Intra-site tunneling
 
 #### Translation
-- NAT64/DNS64: Traducción de protocolos
-- SIIT: Stateless IP/ICMP Translation
+- NAT64/DNS64: Protocol translation
+- SIIT: Stateless IP/ICMP translation
 
-### Ejemplos de Configuración
+### Configuration Examples
 
-#### Dual Stack en Apache
+#### Dual Stack in Apache
 ```
 Listen [::]:80
 Listen 0.0.0.0:80
 ```
 
-#### IPv6 en Docker
+#### IPv6 in Docker
 ```yaml
 version: '3.8'
 services:
@@ -188,38 +187,38 @@ services:
       - "[::]:80:80"  # IPv6
 ```
 
-## Seguridad IPv6
+## IPv6 Security
 
-### Consideraciones Específicas
+### IPv6-Specific Considerations
 
-- **Autoconfiguración:** Riesgo de spoofing
-- **Extension Headers:** Posibles ataques de fragmentación
-- **Multicast:** Amplificación de ataques
-- **Privacy Extensions:** Direcciones temporales
+- **Autoconfiguration:** Spoofing risk.
+- **Extension Headers:** Possible fragmentation abuse.
+- **Multicast:** Amplification vector.
+- **Privacy Extensions:** Temporary addresses.
 
-### Mejores Prácticas
+### Best Practices
 
-- **Filtrado:** Implementar ACLs IPv6
-- **Monitoreo:** Usar herramientas como tcpdump
-- **Actualizaciones:** Mantener sistemas actualizados
+- **Filtering:** Apply IPv6 ACLs.
+- **Monitoring:** Use tools such as tcpdump.
+- **Patching:** Keep systems updated.
 
-### Herramientas de Diagnóstico
+### Diagnostic Tools
 
 ```bash
-# Ping IPv6
+# IPv6 ping
 ping6 2001:db8::1
 
-# Traceroute IPv6
+# IPv6 traceroute
 traceroute6 google.com
 
-# Ver tabla de rutas IPv6
+# Show IPv6 routes
 ip -6 route show
 
-# Ver neighbors IPv6
+# Show IPv6 neighbors
 ip -6 neigh show
 ```
 
-## Referencias
+## References
 
 - RFC 4291: IP Version 6 Addressing Architecture
 - RFC 4862: IPv6 Stateless Address Autoconfiguration

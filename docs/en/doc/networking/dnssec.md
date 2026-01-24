@@ -1,89 +1,68 @@
 ---
-
+title: DNSSEC
+description: DNS Security Extensions to authenticate DNS data, avoid cache poisoning, and prove non-existence.
+draft: false
 ---
 
 # DNSSEC (Domain Name System Security Extensions)
 
-DNSSEC extiende el protocolo DNS para proporcionar autenticación de origen de datos, integridad de datos y autenticación de existencia (o no existencia) de datos, previniendo ataques como el envenenamiento de caché DNS.
+DNSSEC extends DNS with origin authentication, data integrity, and authenticated denial of existence, preventing cache-poisoning attacks.
 
-## Conceptos Básicos
+## Why DNSSEC?
 
-### ¿Por qué DNSSEC?
+Traditional DNS lacks:
 
-El DNS tradicional no proporciona:
+- **Authentication:** Verify the response comes from an authorized server.
+- **Integrity:** Ensure data has not been modified.
+- **Authenticated denial:** Prove that a name does not exist.
 
-- **Autenticación:** Verificar que la respuesta viene del servidor autorizado
-- **Integridad:** Garantizar que los datos no han sido modificados
-- **Negación de existencia:** Probar que un nombre no existe
+DNSSEC solves this with public-key cryptography.
 
-DNSSEC resuelve estos problemas mediante criptografía de clave pública.
+## Core Components
 
-### Componentes Principales
+- **ZSK (Zone Signing Key):** Signs zone records (shorter rotation).
+- **KSK (Key Signing Key):** Signs ZSK and DS records (rotates less frequently).
+- **DS (Delegation Signer):** Hash of the KSK published in the parent zone to chain trust.
 
-#### ZSK (Zone Signing Key)
-- **Propósito:** Firmar registros de zona
-- **Tamaño:** 1024-4096 bits
-- **Rotación:** Periódica (3-12 meses)
+## How DNSSEC Validation Works
 
-#### KSK (Key Signing Key)
-- **Propósito:** Firmar ZSK y DS records
-- **Tamaño:** Mayor que ZSK (2048-4096 bits)
-- **Rotación:** Menos frecuente (1-5 años)
+1. **DNS query:** Client asks for `www.example.com`.
+2. **Signed response:** Server returns RRsets plus `RRSIG`.
+3. **Chain validation:**
+   - Validate `RRSIG` using public key in `DNSKEY`.
+   - Validate `DS` in the parent zone.
+   - Follow the chain of trust to the root.
+4. **Outcome:** Authenticated data or validation failure.
 
-#### DS (Delegation Signer) Record
-- **Propósito:** Conecta zona padre con hija
-- **Contenido:** Hash de la KSK pública
-- **Publicación:** En zona padre
+## DNSSEC Record Types
 
-## Cómo Funciona DNSSEC
+| Record | Purpose | Description |
+|--------|---------|-------------|
+| DNSKEY | Public keys | Contains public ZSK and KSK |
+| RRSIG | Signatures | Signatures over RRsets |
+| NSEC | Denial of existence | Lists next existing name |
+| NSEC3 | Denial of existence | Hashed version of NSEC |
+| DS | Delegation Signer | Links parent and child zones |
+| CDS/CDNSKEY | Key change automation | Automates DS updates |
 
-### Proceso de Validación
+## Enabling DNSSEC in BIND9
 
-1. **Consulta DNS:** Cliente solicita `www.example.com`
-2. **Respuesta firmada:** Servidor devuelve registros + firma RRSIG
-3. **Validación de cadena:**
-   - Verificar firma con clave pública (DNSKEY)
-   - Validar DS record en zona padre
-   - Confirmar confianza hasta root
-4. **Resultado:** Datos autenticados o error
-
-### Tipos de Registros DNSSEC
-
-| Registro | Propósito | Descripción |
-|----------|-----------|-------------|
-| DNSKEY | Claves públicas | Contiene ZSK y KSK públicas |
-| RRSIG | Firmas | Firma de registros RRSET |
-| NSEC | Prueba de no existencia | Lista siguiente nombre existente |
-| NSEC3 | Prueba de no existencia | Versión hasheada de NSEC |
-| DS | Delegation Signer | Conecta zonas padre-hija |
-| CDS/CDNSKEY | Cambio de claves | Automatiza actualización DS |
-
-## Configuración DNSSEC
-
-### En BIND9
-
-#### 1. Generar Claves
+### 1) Generate Keys
 ```bash
-# Crear directorio KSK/ZSK
 mkdir -p /etc/bind/keys/example.com
 
-# Generar KSK (Key Signing Key)
-dnssec-keygen -a RSASHA256 -b 2048 -n ZONE -f KSK example.com
-
-# Generar ZSK (Zone Signing Key)
-dnssec-keygen -a RSASHA256 -b 1024 -n ZONE example.com
+dnssec-keygen -a RSASHA256 -b 2048 -n ZONE -f KSK example.com  # KSK
+dnssec-keygen -a RSASHA256 -b 1024 -n ZONE example.com         # ZSK
 ```
 
-#### 2. Firmar Zona
+### 2) Sign the Zone
 ```bash
-# Firmar zona con claves generadas
 dnssec-signzone -o example.com -k Kexample.com.+008+12345 example.com Kexample.com.+008+67890
 
-# Verificar firma
 dnssec-verify example.com.signed
 ```
 
-#### 3. Configurar named.conf
+### 3) named.conf
 ```bind
 zone "example.com" {
     type master;
@@ -92,226 +71,138 @@ zone "example.com" {
 };
 ```
 
-#### 4. Publicar DS Record
+### 4) Publish the DS Record
 ```bash
-# Extraer DS record
 dnssec-dsfromkey Kexample.com.+008+12345
-
-# Publicar en registrador
-# ds1.example.com. IN DS 12345 8 2 1234567890ABCDEF...
+# Publish DS with the registrar
 ```
 
-### Automatización con Scripts
-
+### Automation Example
 ```bash
 #!/bin/bash
-# Script para firmar zona automáticamente
-
 ZONE="example.com"
 ZONEDIR="/etc/bind/zones"
 KEYDIR="/etc/bind/keys/$ZONE"
 
-# Firmar zona
-dnssec-signzone -o $ZONE -d $ZONEDIR -k $KEYDIR/K${ZONE}.+008+$(cat $KEYDIR/K${ZONE}.+008+*.key | grep -o 'key [0-9]*' | cut -d' ' -f2) $ZONEDIR/$ZONE
+# Sign zone
+DNSKEY=$(ls $KEYDIR/K${ZONE}.+008+*.key | head -n1 | xargs -I{} basename {} .key)
+dnssec-signzone -o $ZONE -d $ZONEDIR -k $KEYDIR/$DNSKEY $ZONEDIR/$ZONE
 
-# Recargar zona
+# Reload
 rndc reload $ZONE
 ```
 
-## Validación del Lado Cliente
+## Validating on the Client Side
 
-### Configuración del Resolver
+### Resolver Configuration
 
-#### En /etc/resolv.conf
+- **/etc/resolv.conf**
 ```
-nameserver 8.8.8.8  # Google DNS (soporta DNSSEC)
-nameserver 1.1.1.1  # Cloudflare DNS (soporta DNSSEC)
+nameserver 8.8.8.8  # Google (DNSSEC capable)
+nameserver 1.1.1.1  # Cloudflare (DNSSEC capable)
 ```
 
-#### En BIND Local
+- **BIND local resolver**
 ```bind
 options {
     dnssec-enable yes;
     dnssec-validation yes;
-    dnssec-lookaside auto;
 };
 ```
 
-#### En Unbound
+- **Unbound**
 ```unbound
 server:
     do-dnssec: yes
     trust-anchor-file: "/etc/unbound/root.key"
 ```
 
-### Verificación de Validación
-
+### Validation Checks
 ```bash
-# Verificar soporte DNSSEC
 dig @8.8.8.8 www.dnssec-failed.org +dnssec
-
-# Ver registros DNSSEC
 dig example.com DNSKEY +dnssec
-
-# Ver firma
 dig example.com A +dnssec
 ```
 
 ## NSEC vs NSEC3
 
-### NSEC (Next Secure)
+- **NSEC:** Lists the next existing name; simple and efficient but allows zone enumeration.
+- **NSEC3:** Uses hashed names; prevents easy enumeration with extra overhead.
 
-- **Funcionamiento:** Lista el siguiente nombre existente
-- **Ventaja:** Simple y eficiente
-- **Desventaja:** Permite enumeración de zona
-
-```
+```text
 www.example.com. NSEC mail.example.com. A RRSIG NSEC
+7P5G...example.com. NSEC3 1 0 10 SALT NEXT-HASHED-NAME
 ```
 
-### NSEC3
+## Key Rotation
 
-- **Funcionamiento:** Usa hash del nombre de dominio
-- **Ventaja:** Previene enumeración de zona
-- **Desventaja:** Más complejo y overhead
+### ZSK Rotation
+1. Generate new ZSK.
+2. Publish alongside the old one and sign.
+3. Wait for TTL to expire.
+4. Remove old ZSK.
 
-```
-7P5G3N8A1E8B4C2D6F9H0J5K.example.com. NSEC3 1 0 10 1234567890ABCDEF L8R4M6N2P0Q5S7T9V1W3X5Y7Z
-```
+### KSK Rotation
+1. Generate new KSK.
+2. Create and publish the new DS.
+3. Wait for DS propagation.
+4. Remove old KSK.
 
-### Configuración NSEC3
+## Monitoring and Troubleshooting
+
+### Diagnostic Commands
 ```bash
-# Firmar con NSEC3
-dnssec-signzone -o example.com -3 $(head -c 1000 /dev/random | sha1sum | cut -b 1-16) -H 10 example.com
-```
-
-## Rotación de Claves
-
-### Proceso de Rotación ZSK
-
-1. **Generar nueva ZSK**
-2. **Añadir a zona y firmar**
-3. **Esperar propagación (TTL)**
-4. **Remover antigua ZSK**
-
-### Proceso de Rotación KSK
-
-1. **Generar nueva KSK**
-2. **Crear nuevo DS record**
-3. **Publicar DS en zona padre**
-4. **Esperar propagación DS (2 días)**
-5. **Remover antigua KSK**
-
-### Automatización
-```bash
-# Usando dnssec-tools
-dnssec-tools rollover example.com ZSK
-dnssec-tools rollover example.com KSK
-```
-
-## Monitoreo y Troubleshooting
-
-### Herramientas de Diagnóstico
-
-#### Verificación Básica
-```bash
-# Verificar firma de zona
 dnssec-verify example.com.signed
-
-# Probar resolución DNSSEC
 dig @127.0.0.1 example.com A +dnssec
-
-# Ver estado de validación
 drill -D example.com
 ```
 
-#### Scripts de Monitoreo
+### Simple Health Script
 ```bash
 #!/bin/bash
-# Verificar DNSSEC para dominio
-
 DOMAIN="example.com"
 DNSSEC_OK=0
 
-# Verificar DNSKEY
 if dig $DOMAIN DNSKEY +short | grep -q "DNSKEY"; then
-    echo "✓ DNSKEY presente"
-    DNSSEC_OK=$((DNSSEC_OK+1))
-else
-    echo "✗ Falta DNSKEY"
-fi
-
-# Verificar RRSIG
+    echo "✓ DNSKEY present"; DNSSEC_OK=$((DNSSEC_OK+1)); else echo "✗ Missing DNSKEY"; fi
 if dig $DOMAIN A +dnssec | grep -q "RRSIG"; then
-    echo "✓ RRSIG presente"
-    DNSSEC_OK=$((DNSSEC_OK+1))
-else
-    echo "✗ Falta RRSIG"
-fi
-
-# Verificar DS
+    echo "✓ RRSIG present"; DNSSEC_OK=$((DNSSEC_OK+1)); else echo "✗ Missing RRSIG"; fi
 if dig $DOMAIN DS +short | grep -q "DS"; then
-    echo "✓ DS presente"
-    DNSSEC_OK=$((DNSSEC_OK+1))
-else
-    echo "✗ Falta DS"
-fi
+    echo "✓ DS present"; DNSSEC_OK=$((DNSSEC_OK+1)); else echo "✗ Missing DS"; fi
 
 if [ $DNSSEC_OK -eq 3 ]; then
-    echo "✓ DNSSEC configurado correctamente"
+    echo "✓ DNSSEC OK"
 else
-    echo "✗ Problemas con DNSSEC"
+    echo "✗ DNSSEC issues detected"
 fi
 ```
 
-### Problemas Comunes
+### Common Problems
+- **SERVFAIL:** Validation error; check keys and signatures.
+- **Missing DS:** Not published at registrar; publish DS.
+- **Expired signatures:** RRSIG expired; resign the zone.
+- **Serial mismatch:** Serial not incremented before signing.
 
-#### 1. SERVFAIL
-- **Causa:** Error de validación
-- **Solución:** Verificar claves y firmas
+## Practical Use Cases
 
-#### 2. Falta DS Record
-- **Causa:** No publicado en zona padre
-- **Solución:** Contactar registrador
+- **Public domains:** Protect against cache poisoning.
+- **Corporate networks:** Internal DNSSEC for AD/LDAP.
+- **Cloud services:** Route 53 and Cloudflare provide managed DNSSEC.
 
-#### 3. Claves Expiradas
-- **Causa:** RRSIG expirado
-- **Solución:** Refirmar zona
+## Best Practices
 
-#### 4. Inconsistencia de Serial
-- **Causa:** Serial no incrementado
-- **Solución:** Actualizar serial antes de firmar
+1. Start with a subdomain to test.
+2. Automate key rollover.
+3. Monitor validation errors.
+4. Document recovery procedures.
 
-## DNSSEC en la Práctica
+## Performance Considerations
 
-### Casos de Uso
+- **Overhead:** Responses are larger (~20-30%).
+- **Latency:** Extra validation lookups.
+- **CPU:** Cryptographic cost on authoritative servers.
 
-#### Dominios Públicos
-- **Ventaja:** Protección contra cache poisoning
-- **Complejidad:** Requiere coordinación con registrador
-
-#### Redes Corporativas
-- **Uso:** DNSSEC interno para Active Directory
-- **Implementación:** Políticas de grupo
-
-#### Servicios Cloud
-- **AWS Route 53:** Soporte nativo DNSSEC
-- **Cloudflare:** DNSSEC automático
-
-### Mejores Prácticas
-
-1. **Empezar pequeño:** Probar con subdominio
-2. **Automatizar:** Scripts para rotación de claves
-3. **Monitorear:** Alertas de fallos de validación
-4. **Documentar:** Procedimientos de recuperación
-
-### Consideraciones de Rendimiento
-
-- **Overhead:** Aumento de tamaño de respuestas (~20-30%)
-- **Latencia:** Consultas adicionales para validación
-- **CPU:** Costo criptográfico en servidores
-
-## Referencias
+## References
 
 - RFC 4033: DNS Security Introduction and Requirements
 - RFC 4034: Resource Records for the DNS Security Extensions

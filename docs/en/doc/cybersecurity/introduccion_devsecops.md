@@ -1,53 +1,54 @@
 ---
-
+title: Introduction to Cybersecurity in DevOps
+date: 2026-01-09
+tags: [cybersecurity, devsecops, devops]
+draft: false
 ---
 
-## Resumen
+## Overview
 
-Esta guía introduce los conceptos básicos de DevSecOps, la integración de prácticas de seguridad en el ciclo de vida de desarrollo de software (DevOps). Explica cómo incorporar la seguridad desde el inicio, en lugar de tratarla como un paso separado al final.
+This guide introduces DevSecOps—the integration of security into every stage of the software delivery lifecycle. Security shifts left: it starts at planning and coding, not just in production.
 
-## Prerrequisitos
+## Prerequisites
 
-- Conocimientos básicos de DevOps (CI/CD, contenedores, infraestructura como código).
-- Familiaridad con conceptos de seguridad informática (autenticación, encriptación, vulnerabilidades).
+- Basic DevOps knowledge (CI/CD, containers, infrastructure as code).
+- Basic security concepts (authentication, encryption, vulnerabilities).
 
-## ¿Qué es DevSecOps?
+## What Is DevSecOps?
 
-DevSecOps es una evolución de DevOps que integra la seguridad ("Sec") en cada etapa del proceso de desarrollo. En lugar de "shift left" para testing, DevSecOps aplica "shift left" a la seguridad, incorporándola desde la planificación y codificación, no solo en producción.
+DevSecOps evolves DevOps by embedding security into each step.
 
-### Principios clave
+### Core Principles
 
-- **Seguridad como responsabilidad compartida:** Todos los equipos (desarrollo, operaciones, seguridad) son responsables de la seguridad.
-- **Automatización:** Escaneos de seguridad automatizados en pipelines CI/CD.
-- **Cultura de seguridad:** Entrenamiento continuo y conciencia en el equipo.
+- **Security is shared:** Dev, Ops, and Security are all accountable.
+- **Automation-first:** Security scans baked into CI/CD.
+- **Security culture:** Ongoing training and awareness.
 
-## Integración en Pipelines CI/CD
+## Integrating Security in CI/CD Pipelines
 
-### Etapas típicas
+### Typical Stages
 
-1. **Planificación:** Análisis de riesgos y definición de requisitos de seguridad.
-2. **Codificación:** Uso de herramientas como SAST (Static Application Security Testing) para revisar código.
-3. **Build/Test:** Escaneo de dependencias (SCA), pruebas de seguridad en contenedores.
-4. **Despliegue:** Verificación de configuraciones seguras, compliance checks.
-5. **Monitoreo:** Detección continua de amenazas en producción.
+1. **Plan:** Threat modeling and security requirements.
+2. **Code:** SAST during development.
+3. **Build/Test:** Dependency scanning (SCA) and container scanning.
+4. **Deploy:** Configuration hardening and compliance checks.
+5. **Monitor:** Continuous detection in production.
 
-### Herramientas comunes
+### Common Tools
 
 - **SAST:** SonarQube, Checkmarx.
 - **DAST:** OWASP ZAP, Burp Suite.
 - **SCA:** Snyk, Dependabot.
-- **Escaneo de contenedores:** Trivy, Clair.
+- **Container scanning:** Trivy, Clair.
 
-## Beneficios
+## Benefits
 
-- Reducción de vulnerabilidades en producción.
-- Menor costo de corrección (más barato arreglar temprano).
-- Mayor velocidad de entrega sin sacrificar seguridad.
-- Mejora la confianza en el producto.
+- Fewer vulnerabilities in production.
+- Lower remediation cost (fix early).
+- Faster delivery without sacrificing security.
+- Higher product trust.
 
-## Ejemplos
-
-### Pipeline básico con GitHub Actions
+## Example CI Workflow (GitHub Actions)
 
 ```yaml
 name: DevSecOps Pipeline
@@ -63,8 +64,8 @@ jobs:
         uses: dependency-check/Dependency-Check_Action@main
 ```
 
-## Referencias y lecturas adicionales
+## Further Reading
 
 - [OWASP DevSecOps Guideline](https://owasp.org/www-project-devsecops-guideline/)
 - [Microsoft DevSecOps](https://learn.microsoft.com/en-us/devops/develop/security/devsecops)
-- Libros: "The DevOps Handbook" (incluye capítulos de seguridad).
+- Book: *The DevOps Handbook* (security chapters)
