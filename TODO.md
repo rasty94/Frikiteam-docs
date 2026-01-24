@@ -45,7 +45,7 @@ Este documento rastrea el estado de la documentación, tareas pendientes y mejor
   - ⏳ 6 archivos aún con contenido en ES (programming, curiosidades)
   - **Próximo**: Traducir los 30 archivos restantes (se pueden automatizar con herramienta IA o traducir manualmente)
 - [x] **Validar compilación con `mkdocs build`** ✅ **OK**: Build completado sin errores en 16.37s (23/01) y 16.27s (24/01)
-- [ ] Verificar que no haya enlaces rotos en EN (usar plugin o validador externo)
+- [x] Verificar que no haya enlaces rotos en EN (usar plugin o validador externo) ✅ **COMPLETADO:** Corregido enlace `curiosities/index.md` → `curiosidades/index.md` en `docs/en/doc/index.md`. Verificación manual muestra que enlaces principales existen.
 - [ ] Crear PR con cambios de i18n
 
 ### 🚧 Pendiente de Integración (Creado pero no en Nav)
@@ -107,7 +107,7 @@ Archivos generados o stubs que requieren revisión humana y expansión.
 
 ### Infraestructura y CI/CD
 
-- [ ] Implementar GitHub Actions para validación automática (`mkdocs build`).
+- [x] Implementar GitHub Actions para validación automática (`mkdocs build`) ✅ **COMPLETADO:** Creado `.github/workflows/mkdocs-build.yml` con validación de build y chequeo básico de enlaces rotos.
 - [ ] Script de validación de enlaces rotos.
 - [ ] Automatizar chequeo de diagramas Mermaid en CI.
 

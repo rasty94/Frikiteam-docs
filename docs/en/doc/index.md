@@ -20,4 +20,4 @@ Welcome to the technical section. Choose a topic:
 - [Networking](networking/index.md)
 - [OpenStack](openstack/openstack_base.md)
 - [Terraform & OpenTofu](terraform/terraform_base.md)
-- [Curiosities](curiosities/index.md)
+- [Curiosities](curiosidades/index.md)
