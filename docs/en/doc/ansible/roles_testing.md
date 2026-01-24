@@ -159,6 +159,7 @@ verifier:
 
 ### GitHub Actions Example
 
+{% raw %}
 ```yaml
 name: Molecule Test
 
@@ -186,6 +187,7 @@ jobs:
       - name: Run Molecule tests
         run: molecule test -s ${{ matrix.scenario }}
 ```
+{% endraw %}
 
 ### GitLab CI Example
 

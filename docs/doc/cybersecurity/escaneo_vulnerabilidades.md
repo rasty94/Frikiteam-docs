@@ -116,6 +116,7 @@ snyk monitor
 
 ### Script de escaneo completo
 
+{% raw %}
 ```text
 #!/bin/bash
 # scan.sh
@@ -135,6 +136,7 @@ fi
 
 echo "Escaneo completado"
 ```
+{% endraw %}
 
 ## Referencias
 

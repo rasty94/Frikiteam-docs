@@ -136,6 +136,7 @@ docker scan myimage:latest
 
 ### In CI/CD Pipeline
 
+{% raw %}
 ```yaml
 # GitHub Actions
 - name: Scan Docker image
@@ -145,6 +146,7 @@ docker scan myimage:latest
       --no-progress \
       myregistry/myimage:${{ github.sha }}
 ```
+{% endraw %}
 
 ## Supply Chain Security
 
