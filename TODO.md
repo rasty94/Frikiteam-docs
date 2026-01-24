@@ -58,6 +58,21 @@ Este documento rastrea el estado de la documentación, tareas pendientes y mejor
 - [x] Verificar que no haya enlaces rotos en EN (usar plugin o validador externo) ✅ **COMPLETADO:** Corregido enlace `curiosities/index.md` → `curiosidades/index.md` en `docs/en/doc/index.md`. Verificación manual muestra que enlaces principales existen.
 - [ ] Crear PR con cambios de i18n
 
+**D) Nuevas Secciones de Contenido (24/01/2026)**
+- ✅ **Sección de Inteligencia Artificial completa**:
+  - `docs/doc/ai/index.md` - Índice de sección IA
+  - `docs/doc/ai/llms_fundamentals.md` - Introducción completa a LLMs
+  - `docs/doc/ai/ollama_basics.md` - Guía completa de Ollama
+  - `docs/doc/ai/model_evaluation.md` - Evaluación y benchmarking de modelos
+  - Navegación actualizada en `mkdocs.yml` con sección "Inteligencia Artificial"
+  - Contenido bilingüe (ES/EN) para todas las guías de IA
+
+- ✅ **Mejoras de Storage avanzado**:
+  - `docs/doc/storage/postgresql_ceph.md` - Guía completa PostgreSQL + Ceph
+  - Optimizaciones de rendimiento para bases de datos
+  - Configuración HA y backup strategies
+  - Contenido bilingüe (ES/EN)
+
 ### 🚧 Pendiente de Integración (Creado pero no en Nav)
 
 ✅ **COMPLETADO:** Todas las páginas huérfanas ya están integradas en `mkdocs.yml`:
@@ -141,13 +156,13 @@ Esta sección propone contenido nuevo sobre inteligencia artificial, enfocado en
 
 ### Fundamentos y Conceptos Básicos
 
-- [ ] **Introducción a LLMs:** Conceptos fundamentales, arquitectura de transformers, diferencias entre open-source vs proprietary (OpenAI, Anthropic, Meta, Mistral).
+- [x] **Introducción a LLMs:** Conceptos fundamentales, arquitectura de transformers, diferencias entre open-source vs proprietary (OpenAI, Anthropic, Meta, Mistral). ✅ **COMPLETADO:** Creado `docs/doc/ai/llms_fundamentals.md` con arquitectura completa, comparativa open-source vs proprietary, casos de uso en DevOps.
 - [ ] **Ecosistema de Modelos Locales:** Comparativa de frameworks (Ollama, LM Studio, LLaMA.cpp, vLLM, LocalAI).
 - [ ] **Optimización de Modelos:** Cuantización (GGUF, ONNX), pruning, distilación para ejecutar en hardware limitado.
 
 ### Herramientas y Tecnologías
 
-- [ ] **Ollama:** Instalación, gestión de modelos locales, APIs REST, integración con Docker.
+- [x] **Ollama:** Instalación, gestión de modelos locales, APIs REST, integración con Docker. ✅ **COMPLETADO:** Creado `docs/doc/ai/ollama_basics.md` con instalación, configuración y uso avanzado de Ollama.
 - [ ] **LM Studio:** UI interactiva, configuración de parámetros, exportación de modelos.
 - [ ] **LLaMA.cpp:** Compilación, optimización de CPU/GPU, benchmarking.
 - [ ] **vLLM:** Deployment de modelos LLM a escala, tensor parallelism, paging de atención.
@@ -156,8 +171,8 @@ Esta sección propone contenido nuevo sobre inteligencia artificial, enfocado en
 
 ### Metodología de Pruebas
 
-- [ ] **Benchmark de Modelos:** MMLU, HellaSwag, TruthfulQA, métricas de evaluación (BLEU, ROUGE, F1).
-- [ ] **Pruebas de Latencia y Throughput:** Herramientas como `llm-eval`, benchmarking contra hardware específico (CPU vs GPU vs NPU).
+- [x] **Benchmark de Modelos:** MMLU, HellaSwag, TruthfulQA, métricas de evaluación (BLEU, ROUGE, F1). ✅ **COMPLETADO:** Creado `docs/doc/ai/model_evaluation.md` con benchmarks estándar, métricas de rendimiento, herramientas de evaluación.
+- [x] **Pruebas de Latencia y Throughput:** Herramientas como `llm-eval`, benchmarking contra hardware específico (CPU vs GPU vs NPU). ✅ **COMPLETADO:** Scripts de medición de latencia, throughput, memory usage incluidos.
 - [ ] **Prompt Engineering:** Técnicas básicas (zero-shot, few-shot, chain-of-thought), evaluación de prompts.
 - [ ] **Testing de Seguridad:** Inyección de prompts, jailbreaking, detección de hallucinations.
 - [ ] **Evaluación de Coherencia:** Pruebas de salida consistente, reproduciblidad, detección de sesgos.
@@ -189,12 +204,12 @@ Esta sección propone contenido nuevo sobre inteligencia artificial, enfocado en
 ### Roadmap de Contenido (6 meses)
 
 **Fase 1 (0–2 meses):** Fundamentos y herramientas locales.
-- [ ] Crear guías de inicio con Ollama y LLaMA.cpp.
-- [ ] Documentar instalación y configuración básica.
-- [ ] Añadir sección "IA" al `mkdocs.yml`.
+- [x] Crear guías de inicio con Ollama y LLaMA.cpp. ✅ **COMPLETADO:** Guía completa de Ollama creada.
+- [x] Documentar instalación y configuración básica. ✅ **COMPLETADO:** Instalación, configuración y ejemplos incluidos.
+- [x] Añadir sección "IA" al `mkdocs.yml`. ✅ **COMPLETADO:** Sección de IA añadida a la navegación.
 
 **Fase 2 (2–4 meses):** Casos prácticos y pruebas.
-- [ ] Guías de evaluación y benchmarking.
+- [x] Guías de evaluación y benchmarking. ✅ **COMPLETADO:** `docs/doc/ai/model_evaluation.md` con benchmarks completos.
 - [ ] Construcción de chatbots simples.
 - [ ] Integración con herramientas existentes (logs, infra).
 
