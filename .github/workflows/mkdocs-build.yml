@@ -28,7 +28,15 @@ jobs:
       run: |
         mkdocs build --strict
 
-    - name: Check for broken links (basic)
+    - name: Validate links
       run: |
-        # Simple check for obvious broken internal links
-        find site -name "*.html" -exec grep -l "404\|Not Found" {} \; || true
+        echo "🔍 Running comprehensive link validation..."
+        ./validate_links.sh site
+      continue-on-error: false
+
+    - name: Upload link checker results
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: linkchecker-results
+        path: linkchecker_output.txt
