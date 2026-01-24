@@ -118,7 +118,7 @@ Archivos generados o stubs que requieren revisión humana y expansión.
 ### Infraestructura y CI/CD
 
 - [x] Implementar GitHub Actions para validación automática (`mkdocs build`) ✅ **COMPLETADO:** Creado `.github/workflows/mkdocs-build.yml` con validación de build y chequeo básico de enlaces rotos.
-- [ ] Script de validación de enlaces rotos.
+- [x] Script de validación de enlaces rotos. ✅ **COMPLETADO:** Implementado sistema completo de validación con LinkChecker, configuración personalizada y integración en CI.
 - [ ] Automatizar chequeo de diagramas Mermaid en CI.
 
 ### Contenido Nuevo (Propuestas)
