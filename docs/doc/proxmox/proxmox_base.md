@@ -3,6 +3,14 @@ title: "Proxmox VE Complete Guide: Enterprise Virtualization Platform"
 description: "Comprehensive guide to Proxmox Virtual Environment. Learn KVM virtualization, LXC containers, clustering, storage, networking, backup, and management tools for enterprise-grade virtualization."
 keywords: Proxmox VE, virtualization, KVM, QEMU, LXC containers, clustering, high availability, backup, storage, networking, enterprise, open source, Debian, virtual machines, containers
 updated: 2026-01-25
+difficulty: beginner
+estimated_time: 9 min
+category: Virtualización
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Ninguno"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Proxmox VE

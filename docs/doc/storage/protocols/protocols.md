@@ -2,6 +2,14 @@
 description: Resumen de protocolos (iSCSI, NFS, SMB, Ceph RBD, S3), métricas clave (IOPS, latencia, throughput), y buenas prácticas de medición.
 keywords: iops, latencia, throughput, iSCSI, NFS, SMB, rbd, s3, storage protocols, métricas
 updated: 2026-01-25
+difficulty: advanced
+estimated_time: 3 min
+category: Almacenamiento
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Conocimientos básicos de DevOps"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Protocolos y Métricas de Almacenamiento

@@ -3,6 +3,16 @@ title: Certificados TLS
 description: Tipos de validación (DV, OV, EV), cadenas de confianza y buenas prácticas de configuración.
 draft: false
 updated: 2026-01-25
+difficulty: intermediate
+estimated_time: 6 min
+category: Redes
+status: published
+last_reviewed: 2026-01-25
+prerequisites:
+  - "Conocimientos básicos de DevOps"
+  - "Fundamentos de redes"
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Certificados TLS

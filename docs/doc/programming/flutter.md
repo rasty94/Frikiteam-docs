@@ -3,6 +3,14 @@ title: "Flutter"
 description: "Documentación sobre flutter"
 tags: ['documentation']
 updated: 2026-01-25
+difficulty: intermediate
+estimated_time: 1 min
+category: Desarrollo
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Conocimientos básicos de DevOps"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Flutter

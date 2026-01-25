@@ -4,6 +4,16 @@ date: 2026-01-09
 tags: [cybersecurity, firewall, networking, iptables, suricata]
 draft: false
 updated: 2026-01-25
+difficulty: intermediate
+estimated_time: 3 min
+category: Ciberseguridad
+status: published
+last_reviewed: 2026-01-25
+prerequisites:
+  - "Conocimientos básicos de DevOps"
+  - "Linux intermedio"
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 ## Resumen

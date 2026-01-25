@@ -3,6 +3,16 @@ title: "Load Balancing Avanzado: HAProxy vs NGINX vs Traefik"
 description: "Documentación sobre load balancing avanzado: haproxy vs nginx vs traefik"
 tags: ['networking']
 updated: 2026-01-25
+difficulty: intermediate
+estimated_time: 8 min
+category: Redes
+status: published
+last_reviewed: 2026-01-25
+prerequisites:
+  - "Conocimientos básicos de DevOps"
+  - "Fundamentos de redes"
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Load Balancing Avanzado: HAProxy vs NGINX vs Traefik

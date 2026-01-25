@@ -3,6 +3,14 @@ title: "Infraestructura: Proxmox SDN"
 description: "Documentación sobre infraestructura: proxmox sdn"
 tags: ['documentation']
 updated: 2026-01-25
+difficulty: advanced
+estimated_time: 1 min
+category: Virtualización
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Conocimientos básicos de DevOps"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Infraestructura: Proxmox SDN

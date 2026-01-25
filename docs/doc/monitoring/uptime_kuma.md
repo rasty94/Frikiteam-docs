@@ -4,6 +4,14 @@ description: "Guía de Uptime Kuma: monitorización auto-hospedada para servicio
 keywords: "uptime kuma, monitoring, status pages, notifications, self-hosted"
 tags: [monitoring, uptime, status-pages, notifications]
 updated: 2026-01-25
+difficulty: intermediate
+estimated_time: 1 min
+category: Monitoreo
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Conocimientos básicos de DevOps"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Monitorización con Uptime Kuma

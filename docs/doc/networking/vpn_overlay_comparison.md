@@ -3,6 +3,16 @@ title: "Comparación VPN Overlay: Tailscale vs NetBird vs ZeroTier"
 description: "Documentación sobre comparación vpn overlay: tailscale vs netbird vs zerotier"
 tags: ['networking']
 updated: 2026-01-25
+difficulty: advanced
+estimated_time: 5 min
+category: Redes
+status: published
+last_reviewed: 2026-01-25
+prerequisites:
+  - "Conocimientos básicos de DevOps"
+  - "Fundamentos de redes"
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Comparación VPN Overlay: Tailscale vs NetBird vs ZeroTier

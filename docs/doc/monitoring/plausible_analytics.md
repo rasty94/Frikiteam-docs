@@ -4,6 +4,14 @@ description: "Guía completa para implementar Plausible Analytics auto-hospedado
 keywords: "analytics, plausible, privacy, gdpr, self-hosted, docker"
 tags: [monitoring, analytics, privacy, plausible]
 updated: 2026-01-25
+difficulty: intermediate
+estimated_time: 4 min
+category: Monitoreo
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Conocimientos básicos de DevOps"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Plausible Analytics Self-Hosted

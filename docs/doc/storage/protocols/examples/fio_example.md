@@ -4,6 +4,14 @@ date: 2025-12-07
 tags: [storage, fio, benchmarks]
 draft: true
 updated: 2026-01-25
+difficulty: intermediate
+estimated_time: 1 min
+category: Almacenamiento
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Conocimientos básicos de DevOps"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Ejemplo: uso de `fio` para medir IOPS y latencia

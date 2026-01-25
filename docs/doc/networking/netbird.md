@@ -3,6 +3,16 @@ title: "NetBird: instalación y configuración básica"
 description: "Documentación sobre netbird: instalación y configuración básica"
 tags: ['networking']
 updated: 2026-01-25
+difficulty: advanced
+estimated_time: 3 min
+category: Redes
+status: published
+last_reviewed: 2026-01-25
+prerequisites:
+  - "Conocimientos básicos de DevOps"
+  - "Fundamentos de redes"
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # NetBird: instalación y configuración básica

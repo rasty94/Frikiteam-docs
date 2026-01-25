@@ -3,6 +3,14 @@ title: "Ansible - Automatización de Infraestructura"
 description: "Documentación sobre ansible - automatización de infraestructura"
 tags: ['ansible']
 updated: 2026-01-25
+difficulty: beginner
+estimated_time: 2 min
+category: Automatización
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["SSH y Linux básico"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Ansible - Automatización de Infraestructura

@@ -4,6 +4,14 @@ description: "Conceptos fundamentales de LLMs, arquitectura transformers, difere
 keywords: "llms, transformers, openai, anthropic, meta, mistral, devops, ia"
 tags: [ai, llms, transformers, devops]
 updated: 2026-01-25
+difficulty: beginner
+estimated_time: 3 min
+category: Inteligencia Artificial
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Python básico"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Introducción a Large Language Models (LLMs)

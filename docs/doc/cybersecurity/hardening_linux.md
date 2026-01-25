@@ -3,6 +3,16 @@ title: "Hardening de Servidores Linux"
 date: 2025-01-25
 updated: 2026-01-25
 tags: [security, linux, hardening, ssh, firewall]
+difficulty: intermediate
+estimated_time: 8 min
+category: Ciberseguridad
+status: published
+last_reviewed: 2026-01-25
+prerequisites:
+  - "Conocimientos básicos de DevOps"
+  - "Linux intermedio"
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Hardening de Servidores Linux

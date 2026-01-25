@@ -4,6 +4,14 @@ description: "Integración de logs de aplicaciones en Wazuh SIEM: configuración
 keywords: "wazuh, logs, siem, security, monitoring"
 tags: [monitoring, logs, wazuh, siem, security]
 updated: 2026-01-25
+difficulty: intermediate
+estimated_time: 1 min
+category: Monitoreo
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Conocimientos básicos de DevOps"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Observabilidad: Centralización de Logs con Wazuh

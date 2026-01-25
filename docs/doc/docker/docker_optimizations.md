@@ -1,6 +1,14 @@
 ---
 title: Docker — Optimización y Buenas Prácticas
 updated: 2026-01-25
+difficulty: expert
+estimated_time: 1 min
+category: Contenedores
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Conocimientos básicos de DevOps"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Docker — Optimización y Buenas Prácticas

@@ -3,6 +3,14 @@ title: "Recetas Rápidas"
 description: "Documentación sobre recetas rápidas"
 tags: ['documentation']
 updated: 2026-01-25
+difficulty: intermediate
+estimated_time: 2 min
+category: General
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Conocimientos básicos de DevOps"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Recetas Rápidas

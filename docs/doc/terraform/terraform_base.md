@@ -3,6 +3,14 @@ title: "Terraform & OpenTofu - Infraestructura como Código"
 description: "Documentación sobre terraform & opentofu - infraestructura como código"
 tags: ['terraform']
 updated: 2026-01-25
+difficulty: beginner
+estimated_time: 4 min
+category: Infraestructura como Código
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Conceptos de cloud"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Terraform & OpenTofu - Infraestructura como Código

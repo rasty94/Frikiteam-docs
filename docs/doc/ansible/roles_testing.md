@@ -1,6 +1,16 @@
 ---
 title: Ansible — Roles y Testing con Molecule
 updated: 2026-01-25
+difficulty: intermediate
+estimated_time: 1 min
+category: Automatización
+status: published
+last_reviewed: 2026-01-25
+prerequisites:
+  - "Conocimientos básicos de DevOps"
+  - "SSH y Linux básico"
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Ansible — Roles y Testing con Molecule

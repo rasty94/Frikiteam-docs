@@ -1,6 +1,16 @@
 ---
 title: Kubernetes — Readiness y Liveness Probes
 updated: 2026-01-25
+difficulty: expert
+estimated_time: 1 min
+category: Orquestación
+status: published
+last_reviewed: 2026-01-25
+prerequisites:
+  - "Conocimientos básicos de DevOps"
+  - "Docker básico"
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Kubernetes — Readiness y Liveness Probes

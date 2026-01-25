@@ -3,6 +3,14 @@ title: "Vector Databases para IA"
 date: 2025-01-25
 updated: 2026-01-25
 tags: [ai, vector-db, chroma, milvus, weaviate, qdrant]
+difficulty: beginner
+estimated_time: 7 min
+category: Inteligencia Artificial
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Python básico"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Bases de Datos Vectoriales

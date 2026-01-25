@@ -3,6 +3,14 @@ title: "HAProxy"
 description: "Documentación sobre haproxy"
 tags: ['documentation']
 updated: 2026-01-25
+difficulty: beginner
+estimated_time: 5 min
+category: Load Balancing
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Ninguno"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # HAProxy

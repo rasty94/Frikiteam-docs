@@ -4,6 +4,14 @@ description: "Guía completa para evaluar rendimiento de LLMs: benchmarks MMLU, 
 keywords: "llm evaluation, benchmarks, mmlu, hellaswag, bleu, rouge, latency testing"
 tags: [ai, llm, evaluation, benchmarks, testing]
 updated: 2026-01-25
+difficulty: beginner
+estimated_time: 6 min
+category: Inteligencia Artificial
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Python básico"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Evaluación y Testing de Modelos LLM

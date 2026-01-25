@@ -3,6 +3,16 @@ title: "Seguridad en Kubernetes"
 date: 2025-01-25
 updated: 2026-01-25
 tags: [security, kubernetes, rbac, network-policies, pod-security]
+difficulty: intermediate
+estimated_time: 5 min
+category: Ciberseguridad
+status: published
+last_reviewed: 2026-01-25
+prerequisites:
+  - "Conocimientos básicos de DevOps"
+  - "Docker básico"
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Seguridad en Kubernetes: RBAC y Mejores Prácticas

@@ -4,6 +4,16 @@ description: "Guía completa de Ollama: instalación, gestión de modelos locale
 keywords: "ollama, llm, local models, docker, api, devops"
 tags: [ai, ollama, llm, docker, api]
 updated: 2026-01-25
+difficulty: intermediate
+estimated_time: 4 min
+category: Inteligencia Artificial
+status: published
+last_reviewed: 2026-01-25
+prerequisites:
+  - "Conocimientos básicos de DevOps"
+  - "Python básico"
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Ollama: Instalación y primeros pasos

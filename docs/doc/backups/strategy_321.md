@@ -4,6 +4,14 @@ tags:
   - theory
   - best-practices
 updated: 2026-01-25
+difficulty: advanced
+estimated_time: 1 min
+category: Copias de Seguridad
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Conocimientos básicos de DevOps"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Estrategia de Backup 3-2-1

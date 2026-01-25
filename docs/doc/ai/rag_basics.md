@@ -3,6 +3,16 @@ title: "RAG - Retrieval-Augmented Generation"
 date: 2025-01-25
 updated: 2026-01-25
 tags: [ai, rag, llm, langchain, vector-db]
+difficulty: intermediate
+estimated_time: 4 min
+category: Inteligencia Artificial
+status: published
+last_reviewed: 2026-01-25
+prerequisites:
+  - "Conocimientos básicos de DevOps"
+  - "Python básico"
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # RAG: Retrieval-Augmented Generation

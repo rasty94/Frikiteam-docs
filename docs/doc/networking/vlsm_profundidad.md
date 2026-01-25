@@ -3,6 +3,16 @@ title: VLSM en Profundidad
 description: Guía sobre Variable Length Subnet Masking para optimizar el uso de direcciones IP.
 draft: false
 updated: 2026-01-25
+difficulty: intermediate
+estimated_time: 4 min
+category: Redes
+status: published
+last_reviewed: 2026-01-25
+prerequisites:
+  - "Conocimientos básicos de DevOps"
+  - "Fundamentos de redes"
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # VLSM (Variable Length Subnet Masking)

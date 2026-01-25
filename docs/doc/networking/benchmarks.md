@@ -3,6 +3,16 @@ title: "Networking: Comparativa de Rendimiento"
 description: "Documentación sobre networking: comparativa de rendimiento"
 tags: ['networking']
 updated: 2026-01-25
+difficulty: intermediate
+estimated_time: 1 min
+category: Redes
+status: published
+last_reviewed: 2026-01-25
+prerequisites:
+  - "Conocimientos básicos de DevOps"
+  - "Fundamentos de redes"
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Networking: Comparativa de Rendimiento

@@ -4,6 +4,14 @@ description: "Comprehensive troubleshooting guide for OpenStack. Diagnose and fi
 keywords: OpenStack, troubleshooting, debugging, errors, Nova, Neutron, Cinder, Glance, Keystone, logs, diagnostics
 date: 2026-01-25
 updated: 2026-01-25
+difficulty: intermediate
+estimated_time: 10 min
+category: Cloud Computing
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Conocimientos básicos de DevOps"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Troubleshooting OpenStack

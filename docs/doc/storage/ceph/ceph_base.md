@@ -3,6 +3,14 @@ title: "Ceph"
 description: "Documentación sobre ceph"
 tags: ['storage']
 updated: 2026-01-25
+difficulty: beginner
+estimated_time: 3 min
+category: Almacenamiento
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Ninguno"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 ````markdown

@@ -4,6 +4,14 @@ tags:
   - redis
   - cache
 updated: 2026-01-25
+difficulty: beginner
+estimated_time: 1 min
+category: Bases de Datos
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Ninguno"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Redis: Caché de Alto Rendimiento

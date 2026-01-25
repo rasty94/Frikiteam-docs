@@ -3,6 +3,14 @@ title: "Kubernetes - Orquestación de Contenedores"
 description: "Documentación sobre kubernetes - orquestación de contenedores"
 tags: ['kubernetes']
 updated: 2026-01-25
+difficulty: beginner
+estimated_time: 3 min
+category: Orquestación
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Docker básico"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Kubernetes - Orquestación de Contenedores

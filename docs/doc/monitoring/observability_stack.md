@@ -4,6 +4,14 @@ description: "Stack completo de observabilidad: métricas, logs, trazas y alerta
 keywords: "observability, prometheus, grafana, loki, tempo, alertmanager, monitoring"
 tags: [monitoring, observability, prometheus, grafana, loki, tempo]
 updated: 2026-01-25
+difficulty: advanced
+estimated_time: 3 min
+category: Monitoreo
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Conocimientos básicos de DevOps"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # Observabilidad: Prometheus + Grafana + Loki/Tempo + Alertmanager

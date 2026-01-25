@@ -4,6 +4,14 @@ date: 2025-12-07
 tags: [storage, netapp]
 draft: true
 updated: 2026-01-25
+difficulty: beginner
+estimated_time: 1 min
+category: Almacenamiento
+status: published
+last_reviewed: 2026-01-25
+prerequisites: ["Ninguno"]
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
 # NetApp — Guía base (stub)
