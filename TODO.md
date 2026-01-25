@@ -93,19 +93,13 @@ Este documento rastrea el estado de la documentación, tareas pendientes y mejor
   - `doc/curiosidades/proxmox_vmware_openstack_migration.md`
   - `doc/curiosidades/upgrade_pve8_a_pve9.md`
 
-> Nota: el blog está publicado externamente en `https://frikiteam.es` y por ahora **no** queremos incluir las entradas del blog interno en la navegación del sitio de documentación.
+> Nota: el blog está publicado externamente en `https://frikiteam.es`. Los posts técnicos del blog ahora se mantienen como borradores en `internal/drafts/blog/` antes de publicarlos en WordPress.
 
-- [ ] **Blog (interno, excluido del nav):**
-  - `blog/posts/2025/ci-cd-mkdocs-build.md`
-  - `blog/posts/2025/network-compare-practical.md`
-
-Opciones para manejar los archivos del blog interno:
-
-1. Mantenerlos en `blog/` en el repositorio y no incluirlos en `nav` (estado actual).
-2. Moverlos a `docs/internal_blog/` para dejarlos disponibles pero fuera del nav principal.
-3. Añadir frontmatter `draft: true` o marcarlos con `exclude: true` si se desea que herramientas CI los ignoren (requiere soporte en CI).
-
-Indica si quieres que aplique la opción 2 (mover a `docs/internal_blog/`) o que los deje tal cual.
+- [x] **Blog (interno, movido a drafts):** ✅ **COMPLETADO**
+  - Posts movidos a `internal/drafts/blog/2025/`
+  - `ci-cd-mkdocs-build.md` - Borrador sobre CI/CD con MkDocs
+  - `network-compare-practical.md` - Borrador sobre comparativas de networking
+  - Esta carpeta sirve como área de trabajo para contenido antes de publicar en WordPress
 
 ### 🌍 Localización (i18n)
 
