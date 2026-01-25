@@ -13,6 +13,45 @@ tags: [inicio, documentacion, devops, infraestructura]
 
 Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnologías que utilizo día a día. Quiero compartir no solo la teoría, sino también las experiencias reales, los trucos y las mejores prácticas que he aprendido en la "trinchera" tecnológica.
 
+## 🆕 Últimas Novedades
+
+### 📅 **25 de enero de 2026**
+
+#### 🚀 **Documentación Completa OpenStack + Ceph**
+- **Nueva guía de despliegue**: [Despliegue con Kolla-Ansible](doc/openstack/kolla_deployment.md) - Instalación completa de OpenStack en producción
+- **Integración storage**: [OpenStack + Ceph](doc/openstack/openstack_ceph_integration.md) - Backend Ceph para Glance, Cinder y Nova
+- **Troubleshooting avanzado**: [Problemas OpenStack](doc/openstack/troubleshooting_openstack.md) y [Problemas Ceph](doc/storage/ceph/troubleshooting_ceph.md)
+- **Operaciones producción**: [Day-2 Operations](doc/openstack/day2.md) expandido con upgrades, backups, monitorización y DR
+
+#### 📊 **Analytics Respetuoso con Privacidad**
+- **Plausible Analytics**: Guía completa de [auto-hosting](doc/monitoring/plausible_analytics.md) (GDPR-compliant, sin cookies)
+- **Script de logs**: Análisis de acceso para monitorizar sin tracking invasivo
+- **Configuración preparada**: MkDocs listo para integrar analytics cuando se despliegue
+
+#### 🔧 **Mejoras de Mantenibilidad**
+- **Freshness tracking**: Script que detecta documentación obsoleta (>90 días)
+- **Checklist simplificado**: Guía de contribución actualizada con 5 puntos esenciales
+- **Roadmap de mejoras**: TODO.md con plan de mantenibilidad práctica
+
+#### 🤖 **Sección de Inteligencia Artificial**
+- **Fundamentos LLMs**: [Introducción completa](doc/ai/llms_fundamentals.md) a modelos de lenguaje
+- **Ollama**: [Guía práctica](doc/ai/ollama_basics.md) de IA local
+- **Modelos y evaluación**: [Benchmarking](doc/ai/model_evaluation.md) y comparación de modelos
+
+### 📅 **24 de enero de 2026**
+- **Paridad ES/EN completa**: Traducción de 40+ archivos críticos (Kubernetes, Docker, networking, cybersecurity)
+- **Nueva documentación IA**: Ecosistemas locales, RAG, vector databases
+- **Mejoras de storage**: PostgreSQL + Ceph, Pure Storage, NetApp
+
+### 📅 **23 de enero de 2026**
+- **Reorganización blog**: Posts técnicos movidos a drafts para publicación en WordPress
+- **Corrección enlaces i18n**: Navegación simétrica español/inglés
+- **Validación build**: MkDocs build limpio sin errores
+
+---
+
+*[Ver todas las actualizaciones →](https://github.com/rasty94/Frikiteam-docs/commits/main)*
+
 ## 📚 Documentación Técnica Disponible
 
 ### 🔧 **Automatización e Infraestructura**
