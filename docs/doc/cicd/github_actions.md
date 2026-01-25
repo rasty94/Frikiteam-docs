@@ -1,3 +1,10 @@
+---
+title: "Introducción a GitHub Actions"
+description: "Documentación sobre introducción a github actions"
+tags: ['documentation']
+updated: 2026-01-25
+---
+
 # Introducción a GitHub Actions
 
 GitHub Actions es una plataforma de Integración Continua y Despliegue Continuo (CI/CD) que permite automatizar tu flujo de trabajo de construcción, pruebas y despliegue.

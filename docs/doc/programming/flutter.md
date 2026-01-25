@@ -1,3 +1,10 @@
+---
+title: "Flutter"
+description: "Documentación sobre flutter"
+tags: ['documentation']
+updated: 2026-01-25
+---
+
 # Flutter
 
 Flutter es un framework de código abierto desarrollado por Google para crear aplicaciones multiplataforma (iOS, Android, Web y Desktop) a partir de una única base de código.

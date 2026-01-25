@@ -3,6 +3,7 @@ title: "Ejemplo fio — pruebas de I/O"
 date: 2025-12-07
 tags: [storage, fio, benchmarks]
 draft: true
+updated: 2026-01-25
 ---
 
 # Ejemplo: uso de `fio` para medir IOPS y latencia

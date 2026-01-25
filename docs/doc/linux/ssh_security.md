@@ -1,3 +1,10 @@
+---
+title: "Seguridad SSH"
+description: "Documentación sobre seguridad ssh"
+tags: ['documentation']
+updated: 2026-01-25
+---
+
 # Seguridad SSH
 
 Asegurar el acceso SSH es el primer paso crítico en cualquier servidor Linux.

@@ -1,3 +1,10 @@
+---
+title: "FastAPI"
+description: "Documentación sobre fastapi"
+tags: ['documentation']
+updated: 2026-01-25
+---
+
 # FastAPI
 
 FastAPI es un framework web moderno y rápido (de alto rendimiento) para construir APIs con Python 3.8+ basado en las sugerencias de tipo estándar de Python.

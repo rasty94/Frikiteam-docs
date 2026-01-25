@@ -1,3 +1,10 @@
+---
+title: "HAProxy"
+description: "Documentación sobre haproxy"
+tags: ['documentation']
+updated: 2026-01-25
+---
+
 # HAProxy
 
 Guía completa de HAProxy: balanceador de carga y proxy de alto rendimiento para TCP/HTTP.

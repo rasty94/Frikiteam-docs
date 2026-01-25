@@ -1,3 +1,10 @@
+---
+title: "WireGuard VPN"
+description: "Documentación sobre wireguard vpn"
+tags: ['documentation']
+updated: 2026-01-25
+---
+
 # WireGuard VPN
 
 WireGuard es una VPN extremadamente simple pero rápida y moderna.

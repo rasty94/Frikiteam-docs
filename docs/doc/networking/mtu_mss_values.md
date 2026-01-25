@@ -2,6 +2,7 @@
 title: MTU/MSS Values
 description: Valores típicos de Maximum Transmission Unit para diferentes medios (Ethernet, PPPoE, Jumbo Frames).
 draft: false
+updated: 2026-01-25
 ---
 
 # MTU/MSS Values

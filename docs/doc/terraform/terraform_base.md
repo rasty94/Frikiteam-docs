@@ -1,3 +1,10 @@
+---
+title: "Terraform & OpenTofu - Infraestructura como Código"
+description: "Documentación sobre terraform & opentofu - infraestructura como código"
+tags: ['terraform']
+updated: 2026-01-25
+---
+
 # Terraform & OpenTofu - Infraestructura como Código
 
 ## 🚀 Iniciar con Terraform en 15 minutos

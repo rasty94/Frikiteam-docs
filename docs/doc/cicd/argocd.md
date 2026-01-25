@@ -1,3 +1,10 @@
+---
+title: "Cloud-native: GitOps con ArgoCD"
+description: "Documentación sobre cloud-native: gitops con argocd"
+tags: ['documentation']
+updated: 2026-01-25
+---
+
 # Cloud-native: GitOps con ArgoCD
 
 Gestión del ciclo de vida de aplicaciones en Kubernetes mediante GitOps.

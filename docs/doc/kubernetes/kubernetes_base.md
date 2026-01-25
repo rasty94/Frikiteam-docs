@@ -1,3 +1,10 @@
+---
+title: "Kubernetes - Orquestación de Contenedores"
+description: "Documentación sobre kubernetes - orquestación de contenedores"
+tags: ['kubernetes']
+updated: 2026-01-25
+---
+
 # Kubernetes - Orquestación de Contenedores
 
 ## Introducción a Kubernetes

@@ -1,3 +1,10 @@
+---
+title: "Ceph — Optimización y Planificación de Capacidad"
+description: "Documentación sobre ceph — optimización y planificación de capacidad"
+tags: ['storage']
+updated: 2026-01-25
+---
+
 ```markdown
 ---
 title: Ceph — Optimización y Planificación de Capacidad

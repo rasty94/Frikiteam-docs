@@ -3,6 +3,7 @@ title: "Escaneo de Vulnerabilidades"
 date: 2026-01-09
 tags: [cybersecurity, vulnerability-scanning, trivy, clair, snyk]
 draft: false
+updated: 2026-01-25
 ---
 
 ## Resumen

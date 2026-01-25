@@ -2,6 +2,7 @@
 title: DNSSEC
 description: Introducción a la firma criptográfica de zonas DNS para evitar envenenamiento de caché.
 draft: false
+updated: 2026-01-25
 ---
 
 # DNSSEC (Domain Name System Security Extensions)

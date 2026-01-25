@@ -1,5 +1,6 @@
 ---
 title: Proxmox — Guía de Migración (VMs y Contenedores)
+updated: 2026-01-25
 ---
 
 # Proxmox — Guía de Migración (VMs y Contenedores)

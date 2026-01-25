@@ -3,6 +3,7 @@ tags:
   - databases
   - redis
   - cache
+updated: 2026-01-25
 ---
 
 # Redis: Caché de Alto Rendimiento

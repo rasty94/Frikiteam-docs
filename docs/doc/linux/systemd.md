@@ -1,3 +1,10 @@
+---
+title: "Systemd: Gestión de Servicios"
+description: "Documentación sobre systemd: gestión de servicios"
+tags: ['documentation']
+updated: 2026-01-25
+---
+
 # Systemd: Gestión de Servicios
 
 Systemd es el sistema de inicio y gestor de servicios estándar en la mayoría de distribuciones Linux modernas.

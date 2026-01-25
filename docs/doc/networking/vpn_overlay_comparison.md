@@ -1,3 +1,10 @@
+---
+title: "Comparación VPN Overlay: Tailscale vs NetBird vs ZeroTier"
+description: "Documentación sobre comparación vpn overlay: tailscale vs netbird vs zerotier"
+tags: ['networking']
+updated: 2026-01-25
+---
+
 # Comparación VPN Overlay: Tailscale vs NetBird vs ZeroTier
 
 Esta guía compara las tres soluciones VPN overlay más populares para redes empresariales modernas: Tailscale, NetBird y ZeroTier. Cada herramienta tiene fortalezas específicas y casos de uso ideales.

@@ -3,6 +3,7 @@ tags:
   - backups
   - proxmox
   - pbs
+updated: 2026-01-25
 ---
 
 # Proxmox Backup Server (PBS)

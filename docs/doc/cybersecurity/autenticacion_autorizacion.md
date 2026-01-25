@@ -3,6 +3,7 @@ title: "Autenticación y Autorización"
 date: 2026-01-09
 tags: [cybersecurity, authentication, authorization, ldap, oauth, keycloak]
 draft: false
+updated: 2026-01-25
 ---
 
 ## Resumen

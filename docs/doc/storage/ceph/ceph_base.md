@@ -1,3 +1,10 @@
+---
+title: "Ceph"
+description: "Documentación sobre ceph"
+tags: ['storage']
+updated: 2026-01-25
+---
+
 ````markdown
 ---
 title: "Ceph Storage Guide: Distributed Storage System Overview"

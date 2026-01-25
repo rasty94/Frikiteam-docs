@@ -2,6 +2,7 @@
 title: IPv6 Addressing
 description: Estructura de direcciones IPv6, tipos (Link-Local, Global Unicast, Multicast) y reglas de abreviación.
 draft: false
+updated: 2026-01-25
 ---
 
 # IPv6 Addressing

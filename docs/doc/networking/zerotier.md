@@ -1,3 +1,10 @@
+---
+title: "ZeroTier: instalación y configuración básica"
+description: "Documentación sobre zerotier: instalación y configuración básica"
+tags: ['networking']
+updated: 2026-01-25
+---
+
 # ZeroTier: instalación y configuración básica
 
 > ZeroTier proporciona redes virtuales L2/L3 fáciles de desplegar entre dispositivos.

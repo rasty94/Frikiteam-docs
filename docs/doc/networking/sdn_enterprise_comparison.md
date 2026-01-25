@@ -1,3 +1,10 @@
+---
+title: "SDN Empresarial: OpenStack Neutron vs VMware NSX vs Cisco ACI"
+description: "Documentación sobre sdn empresarial: openstack neutron vs vmware nsx vs cisco aci"
+tags: ['networking']
+updated: 2026-01-25
+---
+
 # SDN Empresarial: OpenStack Neutron vs VMware NSX vs Cisco ACI
 
 Esta guía compara las tres soluciones SDN empresariales más importantes: OpenStack Neutron, VMware NSX y Cisco ACI. Cada plataforma tiene fortalezas específicas para diferentes entornos empresariales.

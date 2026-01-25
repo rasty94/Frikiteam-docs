@@ -1,3 +1,10 @@
+---
+title: "Networking: Comparativa de Rendimiento"
+description: "Documentación sobre networking: comparativa de rendimiento"
+tags: ['networking']
+updated: 2026-01-25
+---
+
 # Networking: Comparativa de Rendimiento
 
 Resumen de rendimiento entre diferentes soluciones de VPN y Overlay Networking.

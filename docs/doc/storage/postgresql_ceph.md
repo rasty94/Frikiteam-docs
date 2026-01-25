@@ -1,3 +1,10 @@
+---
+title: "Storage para bases de datos: PostgreSQL + Ceph"
+description: "Documentación sobre storage para bases de datos: postgresql + ceph"
+tags: ['storage']
+updated: 2026-01-25
+---
+
 # Storage para bases de datos: PostgreSQL + Ceph
 
 Esta guía explica cómo configurar PostgreSQL con Ceph como storage backend, optimizando rendimiento y alta disponibilidad para bases de datos críticas.

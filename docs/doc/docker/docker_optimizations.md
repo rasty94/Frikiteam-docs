@@ -1,5 +1,6 @@
 ---
 title: Docker — Optimización y Buenas Prácticas
+updated: 2026-01-25
 ---
 
 # Docker — Optimización y Buenas Prácticas

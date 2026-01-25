@@ -1,5 +1,6 @@
 ---
 title: Docker — Seguridad y Scanning
+updated: 2026-01-25
 ---
 
 # Docker — Seguridad (hardening, secrets y scanning)

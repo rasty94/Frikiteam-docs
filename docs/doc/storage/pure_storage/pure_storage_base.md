@@ -3,6 +3,7 @@ title: "Pure Storage — Guía base"
 date: 2025-12-07
 tags: [storage, pure_storage]
 draft: true
+updated: 2026-01-25
 ---
 
 # Pure Storage — Guía base (stub)

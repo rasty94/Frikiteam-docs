@@ -1,3 +1,10 @@
+---
+title: "Resolución de problemas (Networking)"
+description: "Documentación sobre resolución de problemas (networking)"
+tags: ['networking']
+updated: 2026-01-25
+---
+
 # Resolución de problemas (Networking)
 
 ## Conectividad entre peers no funciona

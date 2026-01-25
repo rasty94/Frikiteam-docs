@@ -1,5 +1,6 @@
 ---
 title: Terraform — Backend de Estado y Migración
+updated: 2026-01-25
 ---
 
 # Terraform — Backend de Estado y Migración

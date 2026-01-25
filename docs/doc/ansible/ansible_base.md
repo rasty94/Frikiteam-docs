@@ -1,3 +1,10 @@
+---
+title: "Ansible - Automatización de Infraestructura"
+description: "Documentación sobre ansible - automatización de infraestructura"
+tags: ['ansible']
+updated: 2026-01-25
+---
+
 # Ansible - Automatización de Infraestructura
 
 ## Introducción a Ansible

@@ -1,3 +1,10 @@
+---
+title: "Tailscale: instalación y configuración básica"
+description: "Documentación sobre tailscale: instalación y configuración básica"
+tags: ['networking']
+updated: 2026-01-25
+---
+
 # Tailscale: instalación y configuración básica
 
 > Tailscale crea una red mesh segura basada en WireGuard y autenticación SSO.

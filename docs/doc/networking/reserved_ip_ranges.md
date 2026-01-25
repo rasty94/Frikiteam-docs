@@ -2,6 +2,7 @@
 title: Reserved IP Ranges
 description: Bloques de direcciones privadas (RFC 1918), de documentación y reservadas (CG-NAT, Loopback).
 draft: false
+updated: 2026-01-25
 ---
 
 # Reserved IP Ranges

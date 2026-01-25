@@ -1,5 +1,6 @@
 ---
 title: HAProxy — TLS y Escalado Avanzado
+updated: 2026-01-25
 ---
 
 # HAProxy — TLS y Escalado Avanzado

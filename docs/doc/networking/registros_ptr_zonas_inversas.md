@@ -2,6 +2,7 @@
 title: Registros PTR y Zonas Inversas
 description: Cómo funcionan las búsquedas inversas (in-addr.arpa) y su importancia para la reputación de IP.
 draft: false
+updated: 2026-01-25
 ---
 
 # Registros PTR y Zonas Inversas

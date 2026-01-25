@@ -1,3 +1,10 @@
+---
+title: "Infraestructura: Proxmox SDN"
+description: "Documentación sobre infraestructura: proxmox sdn"
+tags: ['documentation']
+updated: 2026-01-25
+---
+
 # Infraestructura: Proxmox SDN
 
 Configuración avanzada de redes definidas por software en Proxmox VE.

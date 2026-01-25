@@ -2,6 +2,7 @@
 title: VLSM en Profundidad
 description: Guía sobre Variable Length Subnet Masking para optimizar el uso de direcciones IP.
 draft: false
+updated: 2026-01-25
 ---
 
 # VLSM (Variable Length Subnet Masking)

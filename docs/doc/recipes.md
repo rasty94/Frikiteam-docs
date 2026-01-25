@@ -1,3 +1,10 @@
+---
+title: "Recetas Rápidas"
+description: "Documentación sobre recetas rápidas"
+tags: ['documentation']
+updated: 2026-01-25
+---
+
 # Recetas Rápidas
 
 Bienvenido a la sección de **Recetas Rápidas**. Aquí encontrarás soluciones rápidas y comandos copy-paste para problemas comunes en las tecnologías que cubrimos.

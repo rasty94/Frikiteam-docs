@@ -2,6 +2,7 @@
 title: SPF/DKIM/DMARC
 description: Tríada de seguridad del correo electrónico para prevenir spoofing y asegurar la entregabilidad.
 draft: false
+updated: 2026-01-25
 ---
 
 # SPF/DKIM/DMARC

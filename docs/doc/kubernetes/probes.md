@@ -1,5 +1,6 @@
 ---
 title: Kubernetes — Readiness y Liveness Probes
+updated: 2026-01-25
 ---
 
 # Kubernetes — Readiness y Liveness Probes

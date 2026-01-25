@@ -3,6 +3,7 @@ title: "Principios de Seguridad"
 date: 2026-01-09
 tags: [cybersecurity, principles, defense-in-depth, zero-trust, least-privilege]
 draft: false
+updated: 2026-01-25
 ---
 
 ## Resumen

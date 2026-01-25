@@ -1,3 +1,10 @@
+---
+title: "NetBird: instalación y configuración básica"
+description: "Documentación sobre netbird: instalación y configuración básica"
+tags: ['networking']
+updated: 2026-01-25
+---
+
 # NetBird: instalación y configuración básica
 
 > NetBird es una solución de VPN mesh basada en WireGuard con control de acceso.
