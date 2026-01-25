@@ -551,6 +551,7 @@ service:
 
 ### Reglas de Alerting para Kubernetes
 
+{% raw %}
 ```yaml
 # alert-rules.yaml
 groups:
@@ -619,9 +620,11 @@ groups:
       summary: "Slow response time on {{ $labels.service }}"
       description: "95th percentile response time is {{ $value }}s for service {{ $labels.service }}."
 ```
+{% endraw %}
 
 ### Configuración Avanzada de Alertmanager
 
+{% raw %}
 ```yaml
 # alertmanager-config.yaml
 global:
@@ -703,6 +706,7 @@ inhibit_rules:
       alertname: 'PodNotReady|HighMemoryUsage|HighCPUUsage'
     equal: ['instance']
 ```
+{% endraw %}
 
 ## � Monitoreo de Storage (Ceph, Pure Storage, NetApp)
 
