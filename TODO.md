@@ -183,16 +183,16 @@ Esta sección propone contenido nuevo sobre inteligencia artificial, enfocado en
 - [x] **Benchmark de Modelos:** MMLU, HellaSwag, TruthfulQA, métricas de evaluación (BLEU, ROUGE, F1). ✅ **COMPLETADO:** Creado `docs/doc/ai/model_evaluation.md` con benchmarks estándar, métricas de rendimiento, herramientas de evaluación.
 - [x] **Pruebas de Latencia y Throughput:** Herramientas como `llm-eval`, benchmarking contra hardware específico (CPU vs GPU vs NPU). ✅ **COMPLETADO:** Scripts de medición de latencia, throughput, memory usage incluidos.
 - [x] **Prompt Engineering:** Técnicas básicas (zero-shot, few-shot, chain-of-thought), evaluación de prompts. ✅ **COMPLETADO:** Creado `docs/doc/ai/prompt_engineering.md` con técnicas avanzadas, templates, evaluación automatizada y mejores prácticas.
-- [ ] **Testing de Seguridad:** Inyección de prompts, jailbreaking, detección de hallucinations.
-- [ ] **Evaluación de Coherencia:** Pruebas de salida consistente, reproduciblidad, detección de sesgos.
+- [x] **Testing de Seguridad:** Inyección de prompts, jailbreaking, detección de hallucinations. ✅ **COMPLETADO (25/01/2026):** Creado `docs/doc/ai/testing_seguridad.md` con framework completo de evaluación de seguridad, técnicas de jailbreaking, detección de alucinaciones, data leakage protection y mejores prácticas de producción.
+- [x] **Evaluación de Coherencia:** Pruebas de salida consistente, reproduciblidad, detección de sesgos. ✅ **COMPLETADO (25/01/2026):** Creado `docs/doc/ai/evaluacion_coherencia.md` con métricas de estabilidad, consistencia factual, detección de sesgos, estabilidad temporal y estrategias de mejora.
 
 ### Casos Prácticos e Integración
 
 - [x] **Chatbots Locales:** Construcción de chatbots con Ollama/LLaMA.cpp, integración con Slack/Discord/Telegram. ✅ **COMPLETADO:** Creado `docs/doc/ai/chatbots_locales.md` con implementaciones completas para Slack, Discord y Telegram, incluyendo memoria conversacional, integración con RAG y despliegue en producción.
 - [x] **Generación de Contenido Técnico:** Automatización de documentación, generación de posts de blog, resumen de artículos. ✅ **COMPLETADO:** Creado `docs/doc/ai/contenido_tecnico.md` con generación automática de docstrings, README, blogs, changelogs e integración CI/CD.
 - [x] **Análisis de Logs y Troubleshooting:** Uso de LLMs para análisis automático de logs, sugerencias de solución de problemas. ✅ **COMPLETADO:** Creado `docs/doc/ai/analisis_logs.md` con análisis de stack traces, monitoreo Kubernetes, detección de ataques y remediación automática.
-- [ ] **Procesamiento de Lenguaje Natural en Infra:** Automatización de IaC con descriptores naturales, traducción de comandos.
-- [ ] **Fine-tuning Básico:** Adaptación de modelos a dominios específicos (DevOps, networking, storage).
+- [x] **Procesamiento de Lenguaje Natural en Infra:** Automatización de IaC con descriptores naturales, traducción de comandos. ✅ **COMPLETADO (25/01/2026):** Creado `docs/doc/ai/procesamiento_nlp_infra.md` con framework NLP-IaC completo, generadores para Terraform/Ansible/Kubernetes, validación automática, seguridad integrada y optimización basada en feedback.
+- [x] **Fine-tuning Básico:** Adaptación de modelos a dominios específicos (DevOps, networking, storage). ✅ **COMPLETADO (25/01/2026):** Creado `docs/doc/ai/fine_tuning_basico.md` con pipeline completo de fine-tuning, preparación de datos, técnicas LoRA/QAT, evaluación comprehensiva, deployment y monitoreo en producción.
 
 ### Avanzado y Especializado
 
