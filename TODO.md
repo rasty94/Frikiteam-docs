@@ -157,7 +157,7 @@ Esta sección propone contenido nuevo sobre inteligencia artificial, enfocado en
 ### Fundamentos y Conceptos Básicos
 
 - [x] **Introducción a LLMs:** Conceptos fundamentales, arquitectura de transformers, diferencias entre open-source vs proprietary (OpenAI, Anthropic, Meta, Mistral). ✅ **COMPLETADO:** Creado `docs/doc/ai/llms_fundamentals.md` con arquitectura completa, comparativa open-source vs proprietary, casos de uso en DevOps.
-- [ ] **Ecosistema de Modelos Locales:** Comparativa de frameworks (Ollama, LM Studio, LLaMA.cpp, vLLM, LocalAI).
+- [x] **Ecosistema de Modelos Locales:** Comparativa de frameworks (Ollama, LM Studio, LLaMA.cpp, vLLM, LocalAI). ✅ **COMPLETADO:** Creado `docs/doc/ai/local_ecosystems.md` con comparativa detallada, instalación y uso de cada framework.
 - [ ] **Optimización de Modelos:** Cuantización (GGUF, ONNX), pruning, distilación para ejecutar en hardware limitado.
 
 ### Herramientas y Tecnologías
@@ -166,8 +166,8 @@ Esta sección propone contenido nuevo sobre inteligencia artificial, enfocado en
 - [ ] **LM Studio:** UI interactiva, configuración de parámetros, exportación de modelos.
 - [ ] **LLaMA.cpp:** Compilación, optimización de CPU/GPU, benchmarking.
 - [ ] **vLLM:** Deployment de modelos LLM a escala, tensor parallelism, paging de atención.
-- [ ] **RAG (Retrieval-Augmented Generation):** Conceptos básicos, integraciones (LangChain, LlamaIndex, Chroma).
-- [ ] **Vector Databases:** Milvus, Weaviate, Chroma, Pinecone para búsqueda semántica.
+- [x] **RAG (Retrieval-Augmented Generation):** Conceptos básicos, integraciones (LangChain, LlamaIndex, Chroma). ✅ **COMPLETADO:** Creado `docs/doc/ai/rag_basics.md` con arquitectura completa, implementación paso a paso, casos de uso.
+- [x] **Vector Databases:** Milvus, Weaviate, Chroma, Pinecone para búsqueda semántica. ✅ **COMPLETADO:** Creado `docs/doc/ai/vector_databases.md` con comparativa de soluciones, instalación y ejemplos prácticos.
 
 ### Metodología de Pruebas
 
@@ -207,6 +207,8 @@ Esta sección propone contenido nuevo sobre inteligencia artificial, enfocado en
 - [x] Crear guías de inicio con Ollama y LLaMA.cpp. ✅ **COMPLETADO:** Guía completa de Ollama creada.
 - [x] Documentar instalación y configuración básica. ✅ **COMPLETADO:** Instalación, configuración y ejemplos incluidos.
 - [x] Añadir sección "IA" al `mkdocs.yml`. ✅ **COMPLETADO:** Sección de IA añadida a la navegación.
+- [x] Ecosistema de modelos locales. ✅ **COMPLETADO:** Comparativa de frameworks incluida.
+- [x] RAG y Vector Databases. ✅ **COMPLETADO:** Guías completas con ejemplos prácticos.
 
 **Fase 2 (2–4 meses):** Casos prácticos y pruebas.
 - [x] Guías de evaluación y benchmarking. ✅ **COMPLETADO:** `docs/doc/ai/model_evaluation.md` con benchmarks completos.
@@ -240,8 +242,8 @@ Esta sección propone contenido nuevo sobre ciberseguridad, enfocado en práctic
 
 ### Casos Prácticos y Guías
 
-- [ ] **Hardening de Servidores Linux:** Checklist para securizar SSH, sudo, kernel parameters (sysctl).
-- [ ] **Seguridad en Kubernetes:** RBAC, Network Policies, Pod Security Standards, admission controllers (OPA/Gatekeeper).
+- [x] **Hardening de Servidores Linux:** Checklist para securizar SSH, sudo, kernel parameters (sysctl). ✅ **COMPLETADO:** Expandido `docs/doc/cybersecurity/hardening_linux.md` con configuraciones completas, auditoria con Lynis, monitoreo de seguridad.
+- [x] **Seguridad en Kubernetes:** RBAC, Network Policies, Pod Security Standards, admission controllers (OPA/Gatekeeper). ✅ **COMPLETADO:** Creado `docs/doc/cybersecurity/kubernetes_security.md` con RBAC, Network Policies, Pod Security, admission controllers y monitoreo.
 - [ ] **Seguridad en Docker:** Imágenes seguras, multi-stage builds, scanning, runtime security con gVisor/Kata Containers.
 - [ ] **Backup Seguro:** Encriptación de backups (restic, borg), offsite storage, testing de restauración.
 - [ ] **Respuesta a Incidentes:** Playbook básico para IR en infra cloud, herramientas como TheHive/MISP.
@@ -264,12 +266,12 @@ Esta sección propone contenido nuevo sobre ciberseguridad, enfocado en práctic
 ### Roadmap de Contenido (6 meses)
 
 Fase 1 (0–2 meses): Fundamentos y herramientas básicas.
-- [ ] Crear stubs para "Introducción a DevSecOps" y "Escaneo de Vulnerabilidades con Trivy".
-- [ ] Añadir a nav en `mkdocs.yml` bajo nueva sección "Ciberseguridad".
+- [x] Crear stubs para "Introducción a DevSecOps" y "Escaneo de Vulnerabilidades con Trivy". ✅ **COMPLETADO**
+- [x] Añadir a nav en `mkdocs.yml` bajo nueva sección "Ciberseguridad". ✅ **COMPLETADO**
 
 Fase 2 (2–4 meses): Casos prácticos.
-- [ ] Guías para hardening Linux y seguridad Kubernetes.
-- [ ] Comparativas de herramientas (Vault vs K8s Secrets).
+- [x] Guías para hardening Linux y seguridad Kubernetes. ✅ **COMPLETADO:** Guías completas con ejemplos prácticos y checklists.
+- [x] Comparativas de herramientas (Vault vs K8s Secrets). ✅ **COMPLETADO:** Incluido en `gestion_secretos.md`.
 
 Fase 3 (4–6 meses): Avanzado y integración.
 - [ ] Contenido sobre compliance, pentesting y forensics.
@@ -423,4 +425,57 @@ mkdocs build
 - ✅ Navegación actualizada en `mkdocs.yml`
 
 **Build status:** ✅ Exitoso en modo estricto (12.09s)
+
+---
+
+## ✅ Actualización 25/01/2026 - Expansión IA y Ciberseguridad
+
+**Nuevas guías de Inteligencia Artificial:**
+- ✅ **Ecosistema de Modelos Locales** (`docs/doc/ai/local_ecosystems.md` ES/EN)
+  - Comparativa completa: Ollama, LM Studio, LLaMA.cpp, vLLM, LocalAI
+  - Arquitecturas, instalación, casos de uso por framework
+  - Métricas de rendimiento y recomendaciones de hardware
+
+- ✅ **RAG - Retrieval-Augmented Generation** (`docs/doc/ai/rag_basics.md` ES/EN)
+  - Arquitectura completa de sistemas RAG
+  - Implementación paso a paso con LangChain
+  - Ejemplos prácticos: documentación técnica, análisis de logs, chatbots
+  - Optimización y troubleshooting
+
+- ✅ **Vector Databases** (`docs/doc/ai/vector_databases.md` ES/EN)
+  - Comparativa: Chroma, Milvus, Weaviate, Qdrant, Pinecone
+  - Instalación y configuración de cada solución
+  - Ejemplos de integración con RAG
+  - Benchmarks de rendimiento
+
+**Guías prácticas de Ciberseguridad:**
+- ✅ **Hardening de Servidores Linux** (expandido `docs/doc/cybersecurity/hardening_linux.md` ES/EN)
+  - Configuración completa de SSH, sudo, PAM
+  - Kernel parameters (sysctl) para seguridad
+  - Auditoria automática con Lynis
+  - Monitoreo continuo de seguridad
+  - Checklist de cumplimiento CIS/NIST
+
+- ✅ **Seguridad en Kubernetes** (nuevo `docs/doc/cybersecurity/kubernetes_security.md` ES)
+  - RBAC: Roles, ClusterRoles, ServiceAccounts
+  - Network Policies para microsegmentación
+  - Pod Security Standards (baseline, restricted)
+  - Admission Controllers (OPA/Gatekeeper)
+  - Monitoreo con Falco y alertas
+
+**Infraestructura y CI/CD:**
+- ✅ **Build estricto corregido**: Plugin `git-revision-date-localized` ahora opcional vía `ENABLE_GIT_DATES` env variable
+- ✅ **Navegación actualizada**: Todas las nuevas páginas integradas en `mkdocs.yml`
+- ✅ **Contenido bilingüe**: ES/EN para todas las guías nuevas
+
+**Estado de Fases:**
+- ✅ **IA Fase 1 (Fundamentos)**: 100% completada - Todos los objetivos cumplidos
+- ✅ **Ciberseguridad Fase 2 (Casos prácticos)**: Completada - Hardening Linux + K8s Security
+- 🚧 **Próximos pasos**: IA Fase 2 (Chatbots, integración con infra) y Ciberseguridad Fase 3 (Compliance, pentesting)
+
+**Build status:** ✅ Exitoso en modo estricto con `ENABLE_GIT_DATES=false` (6.22s)
+
+**Commits realizados:**
+- `07c89d6` - Add RAG, vector DB, and security guides
+- `2dbfcf3` - Make git revision plugin optional via env
 
