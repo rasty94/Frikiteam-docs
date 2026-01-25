@@ -17,7 +17,7 @@ while IFS= read -r file; do
       tmp_out=$(mktemp /tmp/mermaid-XXXXXX.png)
       tmp_err=$(mktemp)
       # Render to a temp file to catch syntax errors; discard image, surface errors.
-      if ! printf "%b" "$diagram" | mmdc -i /dev/stdin -o "$tmp_out" >/dev/null 2>"$tmp_err"; then
+      if ! printf "%b" "$diagram" | mmdc -i /dev/stdin -o "$tmp_out" -p puppeteer-config.json >/dev/null 2>"$tmp_err"; then
         echo "[mermaid] Validation failed for $file"
         echo "[mermaid] Error output:" >&2
         cat "$tmp_err" >&2
