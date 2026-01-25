@@ -5,6 +5,9 @@ updated: 2025-01-25
 tags: [security, linux, hardening, ssh, firewall]
 ---
 
+🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25
+
+
 # Linux Server Hardening
 
 ## Introduction

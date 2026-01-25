@@ -1,5 +1,8 @@
 # Monitoring with Uptime Kuma
 
+🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25
+
+
 Uptime Kuma is a self-hosted monitoring tool that is easy to use and features a modern interface. It is ideal for homelabs and small/medium environments.
 
 ## Features

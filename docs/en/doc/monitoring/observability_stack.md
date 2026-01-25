@@ -1,5 +1,8 @@
 # Observability: Prometheus + Grafana + Loki/Tempo + Alertmanager
 
+🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25
+
+
 Practical guide to deploy a unified observability stack covering metrics, logs, traces, and alerts. Includes architecture, reference docker-compose, retention, and security tips.
 
 ## 🎯 Goal

@@ -3,6 +3,9 @@ title: Quickstart — Get Started and Contribute
 summary: Quick guide to get the site up and running and contribute content.
 ---
 
+🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25
+
+
 # Quickstart — Get Started and Contribute
 
 This document helps new contributors get the site up and running and contribute content in less than 10 minutes.

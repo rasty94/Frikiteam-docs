@@ -15,6 +15,14 @@ Este documento rastrea el estado de la documentación, tareas pendientes y mejor
 - [x] Storage: Estructura base (Ceph, Pure, NetApp, Protocolos)
 - [x] Networking: 12 guías completas (Fundamentos, Seguridad/DNS, Operaciones)
 - [x] Cybersecurity: 8 guías completas (DevSecOps, herramientas, monitoreo)
+- [x] **Sistema de Metadatos Automático** ✅ **COMPLETADO (25/01/2026)**:
+  - Implementado sistema automático de visualización de metadatos en todas las páginas
+  - Campos soportados: dificultad, tiempo estimado, categoría, estado, prerrequisitos
+  - Badges color-coded con Material Design (verde=principiante, amarillo=intermedio, etc.)
+  - Soporte multilingüe (ES/EN) con traducciones automáticas
+  - Hook `on_post_build` que inyecta metadatos en HTML generado
+  - Verificado funcionamiento en **89 páginas** con metadatos
+  - CSS personalizado en `docs/stylesheets/extra.css` para styling profesional
 
 ### 🎯 Trabajo Completado en Esta Sesión (23/01/2025)
 
@@ -130,6 +138,13 @@ Archivos generados o stubs que requieren revisión humana y expansión.
 - [x] Script de validación de enlaces rotos. ✅ **COMPLETADO:** Implementado sistema completo de validación con LinkChecker, configuración personalizada y integración en CI.
 - [x] Resolver fallos de build en modo estricto. ✅ **COMPLETADO:** Arreglados conflictos de macros Jinja2, deshabilitado temporalmente RSS plugin problemático.
 - [x] Automatizar chequeo de diagramas Mermaid en CI.
+- [x] **Sistema de Metadatos Automático** ✅ **COMPLETADO (25/01/2026)**:
+  - **Arquitectura**: Hook `on_post_build` en `macros.py` que procesa HTML post-build
+  - **Funcionalidad**: Inyección automática de badges con dificultad, tiempo, categoría, estado, prerrequisitos
+  - **Styling**: CSS personalizado en `docs/stylesheets/extra.css` con colores diferenciados
+  - **Multilingüe**: Soporte automático ES/EN basado en estructura de directorios
+  - **Cobertura**: Verificado en 89 páginas con metadatos YAML válidos
+  - **Rendimiento**: Operación silenciosa, sin impacto en tiempo de build
 
 ### Contenido Nuevo (Propuestas)
 

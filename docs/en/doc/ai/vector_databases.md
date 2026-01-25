@@ -5,6 +5,9 @@ updated: 2025-01-25
 tags: [ai, vector-db, chroma, milvus, weaviate, qdrant]
 ---
 
+🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25
+
+
 # Vector Databases
 
 ## Introduction

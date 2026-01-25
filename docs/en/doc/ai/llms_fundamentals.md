@@ -1,5 +1,8 @@
 # Introduction to Large Language Models (LLMs)
 
+🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25
+
+
 Large Language Models (LLMs) are AI models capable of understanding and generating human-like text. This guide explains fundamental concepts and their application in DevOps environments.
 
 ## 🤔 What are LLMs?

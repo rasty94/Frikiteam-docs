@@ -5,6 +5,9 @@ updated: 2025-01-25
 tags: [ai, llm, ollama, llama.cpp, vllm]
 ---
 
+🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25
+
+
 # Local Model Ecosystems
 
 🚧 **TRANSLATION PENDING** - Content under development

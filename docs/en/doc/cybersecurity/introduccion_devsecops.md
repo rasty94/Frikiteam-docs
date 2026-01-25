@@ -5,6 +5,9 @@ tags: [cybersecurity, devsecops, devops]
 draft: false
 ---
 
+🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25
+
+
 ## Overview
 
 This guide introduces DevSecOps—the integration of security into every stage of the software delivery lifecycle. Security shifts left: it starts at planning and coding, not just in production.

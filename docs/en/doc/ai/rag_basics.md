@@ -5,6 +5,9 @@ updated: 2025-01-25
 tags: [ai, rag, llm, langchain, vector-db]
 ---
 
+🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25
+
+
 # RAG: Retrieval-Augmented Generation
 
 ## Introduction
