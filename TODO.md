@@ -63,7 +63,7 @@ Este documento rastrea el estado de la documentación, tareas pendientes y mejor
     - `docs/en/doc/curiosidades/upgrade_pve8_a_pve9.md` - Upgrade PVE 8→9 completo
   - ✅ **TODOS LOS ARCHIVOS PENDIENTES TRADUCIDOS** - Paridad completa ES/EN lograda
 - [x] **Validar compilación con `mkdocs build`** ✅ **OK**: Build completado sin errores en 16.37s (23/01) y 16.27s (24/01)
-- [x] Verificar que no haya enlaces rotos en EN (usar plugin o validador externo) ✅ **COMPLETADO:** Corregido enlace `curiosities/index.md` → `curiosidades/index.md` en `docs/en/doc/index.md`. Verificación manual muestra que enlaces principales existen.
+- [x] Verificar que no haya enlaces rotos en EN (usar plugin o validador externo) ✅ **COMPLETADO (25/01/2026):** Validación completa con LinkChecker - 1611 enlaces verificados, 0 errores, 0 advertencias. Todos los enlaces válidos.
 - [ ] Crear PR con cambios de i18n
 
 **D) Nuevas Secciones de Contenido (24/01/2026)**
@@ -222,11 +222,12 @@ Esta sección propone contenido nuevo sobre inteligencia artificial, enfocado en
 **Fase 2 (2–4 meses):** Casos prácticos y pruebas.
 - [x] Guías de evaluación y benchmarking. ✅ **COMPLETADO:** `docs/doc/ai/model_evaluation.md` con benchmarks completos.
 - [x] Construcción de chatbots simples. ✅ **COMPLETADO:** `docs/doc/ai/chatbots_locales.md` con implementaciones completas para múltiples plataformas.
-- [ ] Integración con herramientas existentes (logs, infra).
+- [x] Integración con herramientas existentes (logs, infra). ✅ **COMPLETADO (25/01/2026):** Creado `docs/doc/ai/analisis_logs.md` y `docs/doc/ai/procesamiento_nlp_infra.md` con integración completa de LLMs en análisis de logs y automatización de IaC.
 
 **Fase 3 (4–6 meses):** Avanzado e integración DevOps.
-- [ ] Fine-tuning para dominios específicos.
-- [ ] Despliegue a escala con Kubernetes.
+- [x] Fine-tuning básico. ✅ **COMPLETADO (25/01/2026):** Creado `docs/doc/ai/fine_tuning_basico.md` con pipeline completo de fine-tuning, LoRA/QAT, evaluación y deployment.
+- [ ] Fine-tuning avanzado para dominios específicos (DevOps, networking, storage).
+- [x] Despliegue a escala con Kubernetes. ✅ **COMPLETADO (25/01/2026):** Creado `docs/doc/ai/despliegue_kubernetes.md` con guía completa de despliegue vLLM, auto-scaling, optimizaciones y monitoreo.
 - [ ] Evaluación de seguridad y privacidad.
 
 ---
