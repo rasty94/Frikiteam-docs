@@ -135,7 +135,7 @@ Archivos generados o stubs que requieren revisión humana y expansión.
 - [x] Implementar GitHub Actions para validación automática (`mkdocs build`) ✅ **COMPLETADO:** Creado `.github/workflows/mkdocs-build.yml` con validación de build y chequeo básico de enlaces rotos.
 - [x] Script de validación de enlaces rotos. ✅ **COMPLETADO:** Implementado sistema completo de validación con LinkChecker, configuración personalizada y integración en CI.
 - [x] Resolver fallos de build en modo estricto. ✅ **COMPLETADO:** Arreglados conflictos de macros Jinja2, deshabilitado temporalmente RSS plugin problemático.
-- [ ] Automatizar chequeo de diagramas Mermaid en CI.
+- [x] Automatizar chequeo de diagramas Mermaid en CI.
 
 ### Contenido Nuevo (Propuestas)
 
@@ -277,11 +277,26 @@ Fase 3 (4–6 meses): Avanzado y integración.
 
 ---
 
-## Gobernanza del contenido (propuesta)
+### Gobernanza del contenido (owners por área)
 
-- **Owner por área:** asignar un responsable breve por sección (ej. `storage`, `docker`, `kubernetes`) para revisión y merge.
-- **Cadencia:** ciclo mínimo de revisión mensual para áreas activas.
-- **Etiquetas de PR:** usar `docs`, `docs-review` y `docs-ready` para filtrar PRs.
+Para asegurar calidad y consistencia, asignamos responsables (owners) por sección principal:
+
+- **Storage**: @rasty94 - Responsable de Ceph, Pure, NetApp, protocolos
+- **Networking**: @rasty94 - Responsable de fundamentos, seguridad, operaciones, comparaciones
+- **Docker/Kubernetes**: @rasty94 - Responsable de contenedores y orquestación
+- **DevOps (Ansible/Terraform/CI/CD)**: @rasty94 - Responsable de automatización e IaC
+- **Cybersecurity**: @rasty94 - Responsable de seguridad, hardening, monitoreo
+- **Monitoring/Observability**: @rasty94 - Responsable de Prometheus, Grafana, logs
+- **AI/LLMs**: @rasty94 - Responsable de modelos, herramientas locales, evaluación
+- **Programming**: @rasty94 - Responsable de guías de desarrollo
+- **Linux/Identity/Backups**: @rasty94 - Responsable de sistema operativo y servicios
+
+**Proceso de contribución:**
+1. PRs requieren revisión del owner del área
+2. Owners revisan contenido técnico y consistencia
+3. Ciclo mínimo de revisión: semanal para áreas activas
+
+Etiquetas de PR: `docs`, `docs-review`, `docs-ready`
 
 ### Convenciones para nuevas páginas
 

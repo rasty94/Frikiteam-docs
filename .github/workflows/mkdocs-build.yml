@@ -24,6 +24,20 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install Mermaid CLI
+      run: npm install -g @mermaid-js/mermaid-cli
+
+    - name: Validate Mermaid diagrams
+      run: |
+        echo "🔍 Validating Mermaid diagrams..."
+        ./validate_mermaid.sh
+      continue-on-error: false
+
     - name: Build MkDocs site
       run: |
         mkdocs build --strict
