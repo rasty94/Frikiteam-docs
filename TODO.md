@@ -167,7 +167,7 @@ Esta sección propone contenido nuevo sobre inteligencia artificial, enfocado en
 
 - [x] **Introducción a LLMs:** Conceptos fundamentales, arquitectura de transformers, diferencias entre open-source vs proprietary (OpenAI, Anthropic, Meta, Mistral). ✅ **COMPLETADO:** Creado `docs/doc/ai/llms_fundamentals.md` con arquitectura completa, comparativa open-source vs proprietary, casos de uso en DevOps.
 - [x] **Ecosistema de Modelos Locales:** Comparativa de frameworks (Ollama, LM Studio, LLaMA.cpp, vLLM, LocalAI). ✅ **COMPLETADO:** Creado `docs/doc/ai/local_ecosystems.md` con comparativa detallada, instalación y uso de cada framework.
-- [ ] **Optimización de Modelos:** Cuantización (GGUF, ONNX), pruning, distilación para ejecutar en hardware limitado.
+- [x] **Optimización de Modelos:** Cuantización (GGUF, ONNX), pruning, distilación para ejecutar en hardware limitado. ✅ **COMPLETADO:** Creado `docs/doc/ai/model_optimization.md` con técnicas completas de cuantización, pruning, distilación y estrategias de deployment.
 
 ### Herramientas y Tecnologías
 
@@ -188,7 +188,7 @@ Esta sección propone contenido nuevo sobre inteligencia artificial, enfocado en
 
 ### Casos Prácticos e Integración
 
-- [ ] **Chatbots Locales:** Construcción de chatbots con Ollama/LLaMA.cpp, integración con Slack/Discord/Telegram.
+- [x] **Chatbots Locales:** Construcción de chatbots con Ollama/LLaMA.cpp, integración con Slack/Discord/Telegram. ✅ **COMPLETADO:** Creado `docs/doc/ai/chatbots_locales.md` con implementaciones completas para Slack, Discord y Telegram, incluyendo memoria conversacional, integración con RAG y despliegue en producción.
 - [ ] **Generación de Contenido Técnico:** Automatización de documentación, generación de posts de blog, resumen de artículos.
 - [ ] **Análisis de Logs y Troubleshooting:** Uso de LLMs para análisis automático de logs, sugerencias de solución de problemas.
 - [ ] **Procesamiento de Lenguaje Natural en Infra:** Automatización de IaC con descriptores naturales, traducción de comandos.
@@ -221,7 +221,7 @@ Esta sección propone contenido nuevo sobre inteligencia artificial, enfocado en
 
 **Fase 2 (2–4 meses):** Casos prácticos y pruebas.
 - [x] Guías de evaluación y benchmarking. ✅ **COMPLETADO:** `docs/doc/ai/model_evaluation.md` con benchmarks completos.
-- [ ] Construcción de chatbots simples.
+- [x] Construcción de chatbots simples. ✅ **COMPLETADO:** `docs/doc/ai/chatbots_locales.md` con implementaciones completas para múltiples plataformas.
 - [ ] Integración con herramientas existentes (logs, infra).
 
 **Fase 3 (4–6 meses):** Avanzado e integración DevOps.
