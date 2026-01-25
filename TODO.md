@@ -160,7 +160,7 @@ Archivos generados o stubs que requieren revisión humana y expansión.
 #### Networking Avanzado
 - [x] **Comparativas de Rendimiento y Seguridad:**
   - ✅ Benchmarking detallado: Tailscale vs NetBird (latencia, throughput, CPU/memory usage). **COMPLETADO (25/01/2026)**: Creado `docs/doc/networking/tailscale_netbird_performance.md` con benchmarks reales, scripts de medición y análisis detallado.
-  - Guía de migración de VPN tradicionales a mesh networking (WireGuard vs ZeroTier).
+  - ✅ Guía de migración de VPN tradicionales a mesh networking (WireGuard vs ZeroTier). **COMPLETADO (25/01/2026)**: Creado `docs/doc/networking/vpn_to_mesh_migration.md` con estrategia completa de migración, scripts automatizados y mejores prácticas.
   - Configuración de networking zero-trust con Cilium en Kubernetes clusters.
   - Optimización de MTU y MSS para redes de alto rendimiento (10G/40G).
   - Implementación de BGP avanzado para multi-homing y load balancing.
