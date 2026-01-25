@@ -501,10 +501,12 @@ Implementando mejoras prácticas para que la documentación escale sin volverse 
 ### 🚧 Próximos Pasos (Prioridad)
 
 #### 4. **Analytics Básico**
-- [ ] **Opción A (Simple):** Revisar logs de acceso del servidor web
-- [ ] **Opción B (Avanzado):** Deploy de Umami/Matomo self-hosted
-- [ ] Añadir botón "¿Te ayudó?" 👍👎 al final de cada página
-- **Beneficio:** Saber qué contenido es más útil
+- ✅ **Opción A (Simple):** Script de análisis de logs (`scripts/analyze_logs.py`)
+- ✅ **Opción B (Avanzado):** Documentación de Plausible Analytics self-hosted
+- ✅ Configuración preparada en `mkdocs.yml` (comentada hasta despliegue)
+- ✅ Guía completa: `docs/doc/monitoring/plausible_analytics.md`
+- [ ] **Próximo:** Desplegar Plausible en servidor o revisar logs existentes
+- **Beneficio:** Saber qué contenido es más útil sin invadir privacidad
 
 #### 5. **Traducción ES/EN Sin Fricción**
 - [ ] Script que detecta cuando ES se actualiza sin actualizar EN
@@ -516,12 +518,13 @@ Implementando mejoras prácticas para que la documentación escale sin volverse 
 
 | Cuándo | Qué | Tiempo Estimado |
 |--------|-----|----------------|
-| ✅ **Esta semana** | Script freshness + Checklist simple | 40 min |
+| ✅ **Completado** | Script freshness + Checklist simple | 40 min |
+| ✅ **Completado** | Analytics: Plausible docs + script logs | 30 min |
 | 📋 **Esta semana** | Añadir `updated` a archivos principales | 30 min |
-| 📋 **Próximas 2 semanas** | Analytics básico (logs o self-hosted) | 20-120 min |
 | 📋 **Este mes** | Automatizar notificación de traducción | 2h |
 
-**Total estimado:** ~3-4 horas en el primer mes. Después es automático.
+**Total invertido:** ~1h 10min  
+**Total estimado restante:** ~2h 30min
 
 ### ❌ Lo Que NO Necesitamos (Todavía)
 
@@ -539,7 +542,11 @@ Implementando mejoras prácticas para que la documentación escale sin volverse 
 # Detectar documentos obsoletos
 python scripts/check_freshness.py --days 90
 
-# Ver logs de acceso (si usas nginx)
+# Analizar logs de acceso (Nginx/Apache)
+python scripts/analyze_logs.py /var/log/nginx/access.log
+python scripts/analyze_logs.py --days 30 --top 20 /var/log/nginx/access.log
+
+# Ver logs en tiempo real (si usas nginx)
 tail -f /var/log/nginx/access.log | grep docs
 
 # Verificar build sin errores
