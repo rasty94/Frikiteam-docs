@@ -1,3 +1,10 @@
+---
+title: "Hardening de Servidores Linux"
+date: 2025-01-25
+updated: 2025-01-25
+tags: [security, linux, hardening, ssh, firewall]
+---
+
 # Hardening de Servidores Linux
 
 ## Introducción

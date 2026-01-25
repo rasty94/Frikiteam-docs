@@ -1,3 +1,10 @@
+---
+title: "RAG - Retrieval-Augmented Generation"
+date: 2025-01-25
+updated: 2025-01-25
+tags: [ai, rag, llm, langchain, vector-db]
+---
+
 # RAG: Retrieval-Augmented Generation
 
 ## Introduction

@@ -472,4 +472,81 @@ mkdocs build
 **Commits realizados:**
 - `07c89d6` - Add RAG, vector DB, and security guides
 - `2dbfcf3` - Make git revision plugin optional via env
+- `3c223cd` - Update TODO.md and move blog posts to internal drafts
+
+---
+
+## 🔧 Mejoras de Mantenibilidad (25/01/2026)
+
+Implementando mejoras prácticas para que la documentación escale sin volverse burocrática.
+
+### ✅ Implementado
+
+#### 1. **Freshness Tracking**
+- ✅ Script `scripts/check_freshness.py` creado
+- ✅ Detecta archivos sin actualizar en >90 días
+- ✅ Identifica archivos sin campo `updated` en frontmatter
+- 📋 **Próximo paso:** Añadir campo `updated: YYYY-MM-DD` a todos los archivos principales
+
+#### 2. **Checklist Simplificado**
+- ✅ Actualizado `CONTRIBUTING.md` con checklist simple
+- ✅ Eliminada burocracia innecesaria
+- ✅ Solo 5 puntos esenciales antes de publicar
+
+#### 3. **Roles Claros**
+- ✅ Ya documentado en TODO.md (sección "Gobernanza del contenido")
+- ✅ @rasty94 como owner de todas las áreas
+- ✅ Proceso de contribución claro
+
+### 🚧 Próximos Pasos (Prioridad)
+
+#### 4. **Analytics Básico**
+- [ ] **Opción A (Simple):** Revisar logs de acceso del servidor web
+- [ ] **Opción B (Avanzado):** Deploy de Umami/Matomo self-hosted
+- [ ] Añadir botón "¿Te ayudó?" 👍👎 al final de cada página
+- **Beneficio:** Saber qué contenido es más útil
+
+#### 5. **Traducción ES/EN Sin Fricción**
+- [ ] Script que detecta cuando ES se actualiza sin actualizar EN
+- [ ] Añadir nota automática en EN: "Versión en español actualizada, revisar"
+- [ ] Priorizar traducción de páginas críticas (Quickstart, Getting Started)
+- **Beneficio:** Evitar que usuarios EN sigan guías obsoletas
+
+### 📅 Roadmap de Mejoras
+
+| Cuándo | Qué | Tiempo Estimado |
+|--------|-----|----------------|
+| ✅ **Esta semana** | Script freshness + Checklist simple | 40 min |
+| 📋 **Esta semana** | Añadir `updated` a archivos principales | 30 min |
+| 📋 **Próximas 2 semanas** | Analytics básico (logs o self-hosted) | 20-120 min |
+| 📋 **Este mes** | Automatizar notificación de traducción | 2h |
+
+**Total estimado:** ~3-4 horas en el primer mes. Después es automático.
+
+### ❌ Lo Que NO Necesitamos (Todavía)
+
+- ❌ Comités de gobernanza mensual
+- ❌ Métricas sofisticadas de readability
+- ❌ Workflow de 5 etapas de revisión
+- ❌ Versionado de documentación
+- ❌ Herramientas de pago (Analytics premium, etc.)
+
+> **Filosofía:** Mantener simple. Estas herramientas son para cuando haya 10+ personas escribiendo docs.
+
+### 🛠️ Comandos Útiles
+
+```bash
+# Detectar documentos obsoletos
+python scripts/check_freshness.py --days 90
+
+# Ver logs de acceso (si usas nginx)
+tail -f /var/log/nginx/access.log | grep docs
+
+# Verificar build sin errores
+export ENABLE_GIT_DATES=false
+mkdocs build --strict
+
+# Añadir campo 'updated' a un archivo
+# (Hacerlo manualmente es más seguro que sed masivo)
+```
 

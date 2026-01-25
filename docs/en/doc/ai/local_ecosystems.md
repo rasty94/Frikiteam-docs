@@ -1,3 +1,10 @@
+---
+title: "Local Model Ecosystem"
+date: 2025-01-25
+updated: 2025-01-25
+tags: [ai, llm, ollama, llama.cpp, vllm]
+---
+
 # Local Model Ecosystems
 
 🚧 **TRANSLATION PENDING** - Content under development

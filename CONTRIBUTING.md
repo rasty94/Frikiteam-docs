@@ -33,13 +33,15 @@ mkdocs build
 - Usa `scripts/new_post.sh "Titulo" YYYY-MM-DD [categoria] [es|en]` para crear un post en `docs/blog/posts/` o `docs/en/blog/posts/`.
 - Front-matter básico debe contener `date`, `title` y `categories`.
 
-## Plantilla de PR (sugerida)
-- Resumen del cambio:
-- Objetivo: (Bugfix / Feature / Docs)
-- Checklist:
-  - [ ] He probado los cambios localmente (`mkdocs build`)
-  - [ ] He añadido documentación relevante
-  - [ ] He ejecutado `scripts/check_diagrams.py` (si aplica)
+## Checklist Antes de Publicar
+
+Mantén simple. Solo lo esencial:
+
+- [ ] **El contenido es correcto** (revisado personalmente)
+- [ ] **Los enlaces internos funcionan** (probado localmente)
+- [ ] **Tiene ejemplos o código** si aplica
+- [ ] **Frontmatter actualizado** (title, date, updated, tags)
+- [ ] **Build sin errores**: `mkdocs build --strict`
 
 ## Código de conducta
 - Mantén el respeto hacia otros colaboradores.
