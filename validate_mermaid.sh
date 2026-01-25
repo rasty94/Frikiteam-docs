@@ -1,24 +1,17 @@
 #!/bin/bash
+set -euo pipefail
 
-# Script to validate Mermaid diagrams in Markdown files
-# Usage: ./validate_mermaid.sh
+echo "[mermaid] Validating diagrams..."
 
-set -e
-
-echo "🔍 Validating Mermaid diagrams..."
-
-# Check if mmdc is available
-if ! command -v mmdc &> /dev/null; then
-    echo "⚠️  Mermaid CLI (mmdc) not found. Install with: npm install -g @mermaid-js/mermaid-cli"
-    echo "⏭️  Skipping Mermaid validation..."
-    exit 0
+if ! command -v mmdc >/dev/null 2>&1; then
+  echo "[mermaid] Mermaid CLI (mmdc) not found. Install with: npm install -g @mermaid-js/mermaid-cli"
+  echo "[mermaid] Skipping Mermaid validation"
+  exit 0
 fi
 
-# Find all .md files containing ```mermaid
-find docs -name "*.md" -exec grep -l "```mermaid" {} \; | while read -r file; do
-    echo "Validating $file"
-    # Extract mermaid blocks and validate
-    awk '/```mermaid/,/```/' "$file" | grep -v '```' | mmdc --validate
-done
+while IFS= read -r file; do
+  echo "[mermaid] Validating $file"
+  awk '/```mermaid/,/```/' "$file" | grep -v '```' | mmdc --validate
+done < <(find docs -name "*.md" -exec grep -l '```mermaid' {} +)
 
-echo "✅ All Mermaid diagrams are valid!"
+echo "[mermaid] All Mermaid diagrams are valid"
