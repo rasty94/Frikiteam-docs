@@ -760,11 +760,13 @@ Considera:
 - Consistencia con hechos conocidos
 
 Responde en JSON:
-{{
+{% raw %}
+{
   "confidence": 0.0,
   "reason": "explicación breve",
   "source": "cómo lo sabes"
-}}
+}
+{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -1124,9 +1126,8 @@ class ProductionSecurityLayer:
 
 Después de implementar testing de seguridad, considera:
 
-1. **[Evaluación de Coherencia](../evaluacion_coherencia/)** - Consistencia y reproducibilidad
-2. **[Monitoreo de LLMs](../monitoreo_llms/)** - Observabilidad en producción
-3. **[Fine-tuning Seguro](../fine_tuning_seguro/)** - Personalización sin riesgos
+1. **[Evaluación de Coherencia](evaluacion_coherencia.md)** - Consistencia y reproducibilidad
+2. **[Evaluación de Modelos](model_evaluation.md)** - Métricas de rendimiento y seguridad
 
 ---
 

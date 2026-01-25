@@ -81,13 +81,15 @@ Context:
 {context}
 
 Provide analysis in JSON format:
-{{
+{% raw %}
+{
   "error_type": "Type of error (Exception, Timeout, Database, etc.)",
   "severity": "CRITICAL|HIGH|MEDIUM|LOW",
   "root_cause": "Most likely cause of the error",
   "suggestions": ["Step 1", "Step 2", "Step 3"],
   "confidence": 0.0-1.0
-}}
+}
+{% endraw %}
 
 Focus on:
 - Identifying the exact error type
@@ -222,13 +224,15 @@ SIMILAR PAST INCIDENTS:
                for i, inc in enumerate(similar_incidents[:3])])}
 
 Provide analysis in JSON:
-{{
+{% raw %}
+{
   "pattern_recognized": "Is this a recurring pattern?",
   "historical_solutions": ["Solution 1", "Solution 2"],
   "recommended_action": "Immediate action to take",
   "preventive_measures": ["Measure 1", "Measure 2"],
   "escalation_needed": true/false
-}}
+}
+{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -299,20 +303,22 @@ Common CrashLoopBackOff causes:
 6. Image issues (corrupted, wrong architecture)
 
 Provide detailed analysis in JSON:
-{{
+{% raw %}
+{
   "root_cause_category": "Category from the list above",
   "specific_error": "Exact error or symptom identified",
   "confidence_level": 0.0-1.0,
   "immediate_actions": ["kubectl describe pod", "kubectl logs --previous"],
   "solutions": [
-    {{
+    {
       "description": "Solution description",
       "commands": ["kubectl command 1", "kubectl command 2"],
       "priority": "HIGH|MEDIUM|LOW"
-    }}
+    }
   ],
   "preventive_measures": ["Measure 1", "Measure 2"]
-}}
+}
+{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -427,24 +433,26 @@ Look for:
 - Node problems
 
 Provide analysis in JSON:
-{{
+{% raw %}
+{
   "overall_health": "HEALTHY|WARNING|CRITICAL",
   "issues_found": [
-    {{
+    {
       "type": "pod|node|resource|network",
       "severity": "HIGH|MEDIUM|LOW",
       "description": "Issue description",
       "affected_resources": ["resource1", "resource2"],
       "recommended_actions": ["action1", "action2"]
-    }}
+    }
   ],
-  "resource_utilization": {{
+  "resource_utilization": {
     "cpu_percent": 0,
     "memory_percent": 0,
     "storage_percent": 0
-  }},
+  },
   "summary": "Brief summary of cluster status"
-}}
+}
+{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -557,7 +565,8 @@ Detected patterns so far:
 {detected}
 
 Provide detailed security analysis in JSON:
-{{
+{% raw %}
+{
   "attack_summary": "Summary of detected attacks",
   "threat_level": "LOW|MEDIUM|HIGH|CRITICAL",
   "attack_vectors": ["vector1", "vector2"],
@@ -566,7 +575,8 @@ Provide detailed security analysis in JSON:
   "timeline_analysis": "How attacks evolved over time",
   "false_positives": ["potential false positive 1"],
   "escalation_recommendations": ["immediate action 1", "immediate action 2"]
-}}
+}
+{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -811,7 +821,8 @@ SYSTEM CONTEXT:
 {context}
 
 Provide analysis in JSON format:
-{{
+{% raw %}
+{
   "error_type": "Type of error/incident",
   "severity": "CRITICAL|HIGH|MEDIUM|LOW",
   "root_cause": "Most likely root cause",
@@ -819,7 +830,8 @@ Provide analysis in JSON format:
   "contributing_factors": ["factor1", "factor2"],
   "similar_past_incidents": "Any similar incidents found",
   "confidence": 0.0-1.0
-}}
+}
+{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -843,26 +855,28 @@ ANALYSIS:
 {analysis}
 
 Generate response plan in JSON:
-{{
+{% raw %}
+{
   "immediate_actions": [
-    {{
+    {
       "action": "Action description",
       "command": "CLI command or API call",
       "priority": "CRITICAL|HIGH|MEDIUM|LOW",
       "estimated_time": "time estimate",
       "risk_level": "LOW|MEDIUM|HIGH"
-    }}
+    }
   ],
   "investigation_steps": ["step1", "step2"],
   "long_term_fixes": ["fix1", "fix2"],
   "monitoring_improvements": ["improvement1"],
-  "communication_plan": {{
+  "communication_plan": {
     "stakeholders": ["team1", "team2"],
     "updates_frequency": "frequency",
     "escalation_criteria": ["criteria1"]
-  }},
+  },
   "rollback_plan": "How to rollback if needed"
-}}
+}
+{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -1237,9 +1251,9 @@ for cmd in safe_commands + dangerous_commands:
 
 After implementing log analysis, consider:
 
-1. **[Testing de Seguridad](../testing_seguridad/)** - Inyección de prompts y jailbreaking
-2. **[Evaluación de Coherencia](../evaluacion_coherencia/)** - Consistencia de respuestas
-3. **[Monitoreo de LLMs](../monitoreo_llms/)** - Métricas y observabilidad
+1. **[Testing de Seguridad](testing_seguridad.md)** - Inyección de prompts y jailbreaking
+2. **[Evaluación de Coherencia](evaluacion_coherencia.md)** - Consistencia de respuestas
+3. **[Monitoreo de LLMs](model_evaluation.md)** - Métricas y observabilidad
 
 ---
 

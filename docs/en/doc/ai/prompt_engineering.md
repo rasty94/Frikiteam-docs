@@ -237,15 +237,15 @@ Extract technical entities from incident descriptions.
 
 Example 1:
 Text: "PostgreSQL database on srv-db-01 is experiencing high CPU usage"
-Entities: {{"technology": "PostgreSQL", "resource": "database", "server": "srv-db-01", "metric": "CPU usage", "status": "high"}}
+Entities: {% raw %}{"technology": "PostgreSQL", "resource": "database", "server": "srv-db-01", "metric": "CPU usage", "status": "high"}{% endraw %}
 
 Example 2:
 Text: "Nginx reverse proxy returning 502 errors for api.example.com"
-Entities: {{"technology": "Nginx", "resource": "reverse proxy", "error": "502", "domain": "api.example.com"}}
+Entities: {% raw %}{"technology": "Nginx", "resource": "reverse proxy", "error": "502", "domain": "api.example.com"}{% endraw %}
 
 Example 3:
 Text: "Kubernetes pod web-frontend-abc123 is in CrashLoopBackOff state"
-Entities: {{"technology": "Kubernetes", "resource": "pod", "name": "web-frontend-abc123", "status": "CrashLoopBackOff"}}
+Entities: {% raw %}{"technology": "Kubernetes", "resource": "pod", "name": "web-frontend-abc123", "status": "CrashLoopBackOff"}{% endraw %}
 
 Now extract entities from this text:
 Text: "{text}"
@@ -411,13 +411,15 @@ Step 5 - Conclusion and solution:
 [Your reasoning here]
 
 Final format in JSON:
-{{
+{% raw %}
+{
   "error_type": "...",
   "root_cause": "...",
   "reasoning_steps": ["step 1", "step 2", ...],
   "solution": "...",
   "confidence": 0.0-1.0
-}}
+}
+{% endraw %}
 """
     
     response = requests.post("http://localhost:11434/api/generate", json={
@@ -924,12 +926,14 @@ Analyze the responses and determine:
 3. Final synthesized answer (combine the best from all)
 
 JSON format:
-{{
+{% raw %}
+{
   "consensus_points": ["..."],
   "divergence_points": ["..."],
   "final_answer": "...",
   "confidence": 0.0-1.0
-}}
+}
+{% endraw %}
 """
     
     consensus_response = requests.post("http://localhost:11434/api/generate", json={
@@ -1120,9 +1124,9 @@ print(final_result["final_output"])
 
 After mastering prompt engineering, consider:
 
-1. **[Fine-tuning Basics](../fine_tuning_basics/)** - Customize models for your domain
-2. **[Model Evaluation](../model_evaluation/)** - Metrics and benchmarks
-3. **[LLMs in Production](../llms_kubernetes/)** - Deploy at scale
+1. **[Fine-tuning Basics](fine_tuning_basico.md)** - Customize models for your domain
+2. **[Model Evaluation](model_evaluation.md)** - Metrics and benchmarks
+3. **[LLMs in Production](despliegue_kubernetes.md)** - Deploy at scale
 
 ---
 

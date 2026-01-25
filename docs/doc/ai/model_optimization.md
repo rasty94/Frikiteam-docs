@@ -321,9 +321,9 @@ print(f'Memory: {torch.cuda.memory_allocated()/1e9:.2f}GB')
 
 Después de optimizar modelos, considera:
 
-1. **[Chatbots Locales](../chatbots_locales/)** - Construir interfaces conversacionales
-2. **[Prompt Engineering](../prompt_engineering/)** - Técnicas para mejores resultados
-3. **[Deployment en Producción](../llms_kubernetes/)** - Servir modelos optimizados a escala
+1. **[Chatbots Locales](chatbots_locales.md)** - Construir interfaces conversacionales
+2. **[Prompt Engineering](prompt_engineering.md)** - Técnicas para mejores resultados
+3. **[Deployment en Producción](despliegue_kubernetes.md)** - Servir modelos optimizados a escala
 
 ---
 

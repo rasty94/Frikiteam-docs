@@ -1246,9 +1246,9 @@ class ContentMetrics:
 
 After mastering content generation, consider:
 
-1. **[Log Analysis](../analisis_logs/)** - Troubleshooting with LLMs
-2. **[Prompt Engineering](../prompt_engineering/)** - Advanced techniques
-3. **[Model Optimization](../model_optimization/)** - Improve performance
+1. **[Log Analysis](analisis_logs.md)** - Troubleshooting with LLMs
+2. **[Prompt Engineering](prompt_engineering.md)** - Advanced techniques
+3. **[Model Optimization](model_optimization.md)** - Improve performance
 
 ---
 

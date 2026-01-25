@@ -119,5 +119,42 @@ Recomendaciones para pruebas en NFS
 - Realizar pruebas desde varios clientes para simular concurrencia real.
 - Asegurarse de que la red (MTU, switch buffers) no se convierta en cuello de botella.
 
+## Elección rápida: iSCSI vs NFS vs SMB
+- **Bases de datos/VMs**: iSCSI/RBD (bloque) para latencia y control de colas; multipath y ALUA habilitados.
+- **Compartido entre apps**: NFSv4.1 (pNFS si aplica) para workloads de ficheros o RWX en contenedores.
+- **Usuarios/Ofimática**: SMB para escritorio y perfiles; habilitar firmas/cifrado según políticas.
+- **Contenedores RWX**: NFS (CSI) o SMB CSI si la app requiere ACLs de Windows.
+- **Contenedores RWO**: RBD/iSCSI CSI para bases de datos en Kubernetes.
+
+## Restic/Borg con storage distribuido (Ceph/MinIO)
+- **Repositorio**: S3 (Ceph RGW/MinIO) con versionado activado; usar buckets dedicados por entorno.
+- **Concurrencia**: limitar `--limit-upload`/`--max-repack-size` para no saturar OSDs en recompactaciones.
+- **Cifrado**: llaves gestionadas fuera del clúster; rotación periódica y pruebas de restore.
+- **Retención**: políticas `keep-daily/weekly/monthly`; programar `restic forget --prune` fuera de horas pico.
+- **Health**: pruebas de restore mensuales en un bucket aislado; validar latencia/throughput del backend.
+
+## Optimización de storage para contenedores (Kubernetes + CSI)
+- **StorageClasses**: definir por tier (`gold/silver/bronze`) con `reclaimPolicy` adecuada (`Retain` prod, `Delete` dev).
+- **Binding**: `volumeBindingMode: WaitForFirstConsumer` para evitar scheduling en nodos sin conectividad a storage.
+- **RWX**: NFS/SMB CSI o soluciones tipo RWX provisioner; validar `fsGroup` y permisos.
+- **Snapshots/clones**: crear `VolumeSnapshotClass` y usar clones para pruebas rápidas.
+- **Topología**: usar `allowedTopologies` y etiquetas de zona/rack para evitar montajes cross-rack innecesarios.
+
+Ejemplo de StorageClass (bloque):
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gold-rbd
+provisioner: rook-ceph.rbd.csi.ceph.com
+parameters:
+  pool: rbd-gold
+  imageFeatures: layering,exclusive-lock,object-map,fast-diff,deep-flatten
+allowVolumeExpansion: true
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+```
+
 ---
 

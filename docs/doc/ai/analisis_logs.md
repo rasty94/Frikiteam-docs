@@ -91,13 +91,15 @@ Proporciona:
 5. **Severidad:** critical/high/medium/low
 
 Formato JSON:
-{{
+{% raw %}
+{
   "error_type": "...",
   "root_cause": "...",
   "affected_components": ["...", "..."],
   "suggested_fix": "...",
   "severity": "..."
-}}
+}
+{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -223,13 +225,15 @@ Identifica:
 5. **Fix permanente:** Solución definitiva
 
 Formato JSON:
-{{
+{% raw %}
+{
   "crash_reason": "...",
   "error_line": "...",
   "missing_dependencies": ["..."],
   "immediate_fix": "...",
   "permanent_fix": "..."
-}}
+}
+{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -430,17 +434,19 @@ Para cada IP sospechosa, determina:
 4. **Regla de firewall:** Comando específico para bloquear
 
 Formato JSON:
-{{
+{% raw %}
+{
   "threats": [
-    {{
+    {
       "ip": "...",
       "attack_type": "...",
       "threat_level": "...",
       "recommended_action": "...",
       "firewall_rule": "..."
-    }}
+    }
   ]
-}}
+}
+{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -627,19 +633,21 @@ Analiza estos logs y detecta SOLO anomalías reales (errores, warnings críticos
 {logs[-3000:]}  # Últimos 3000 chars
 
 Para cada anomalía encontrada, responde en JSON:
-{{
+{% raw %}
+{
   "anomalies": [
-    {{
+    {
       "type": "error|warning|performance|security",
       "severity": "critical|high|medium|low",
       "description": "...",
       "affected_component": "...",
       "evidence": "línea específica del log"
-    }}
+    }
   ]
-}}
+}
+{% endraw %}
 
-Si NO hay anomalías, responde: {{"anomalies": []}}
+Si NO hay anomalías, responde: {% raw %}{"anomalies": []}{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -683,17 +691,21 @@ Dado este incidente, sugiere comandos específicos para auto-remediar:
 **Servicios afectados:** {', '.join(incident.affected_services)}
 
 Si es posible auto-remediar, responde:
-{{
+{% raw %}
+{
   "can_auto_fix": true,
   "commands": ["comando1", "comando2"],
   "explanation": "qué hacen los comandos"
-}}
+}
+{% endraw %}
 
 Si requiere intervención humana:
-{{
+{% raw %}
+{
   "can_auto_fix": false,
   "reason": "por qué no se puede auto-fix"
-}}
+}
+{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -915,9 +927,9 @@ def sanitize_logs(logs: str) -> str:
 
 Después de implementar análisis de logs, considera:
 
-1. **[Prompt Engineering](../prompt_engineering/)** - Técnicas para mejores diagnósticos
-2. **[Monitoreo de LLMs](../llms_monitoring/)** - Métricas del sistema de análisis
-3. **[Fine-tuning](../fine_tuning_basics/)** - Personalizar para tus sistemas específicos
+1. **[Prompt Engineering](prompt_engineering.md)** - Técnicas para mejores diagnósticos
+2. **[Monitoreo de LLMs](model_evaluation.md)** - Métricas del sistema de análisis
+3. **[Fine-tuning](fine_tuning_basico.md)** - Personalizar para tus sistemas específicos
 
 ---
 

@@ -149,7 +149,7 @@ Archivos generados o stubs que requieren revisión humana y expansión.
 ### Contenido Nuevo (Propuestas)
 
 #### Storage Avanzado
-- [ ] **Casos de Uso Específicos de Storage:**
+- [x] **Casos de Uso Específicos de Storage:** (nuevas secciones en [docs/doc/storage/ceph/ceph_tuning.md](docs/doc/storage/ceph/ceph_tuning.md), [docs/doc/storage/pure_storage/pure_storage_base.md](docs/doc/storage/pure_storage/pure_storage_base.md), [docs/doc/storage/netapp/netapp_base.md](docs/doc/storage/netapp/netapp_base.md) y [docs/doc/storage/protocols/protocols.md](docs/doc/storage/protocols/protocols.md))
   - Guía de configuración de Ceph para bases de datos (PostgreSQL/MySQL) con optimizaciones de rendimiento.
   - Implementación de storage híbrido (SSD + HDD) en Pure Storage para workloads mixtos.
   - Configuración de NetApp ONTAP para virtualización (VMware/Proxmox) con deduplicación y compresión.

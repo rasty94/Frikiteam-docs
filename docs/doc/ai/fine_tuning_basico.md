@@ -1359,11 +1359,7 @@ print(f"Resultados: {results}")
 
 ## 🔄 Próximos Pasos
 
-Después del fine-tuning básico, considera:
-
-1. **[Fine-tuning Avanzado](../fine_tuning_avanzado/)** - Técnicas más sofisticadas
-2. **[Model Distillation](../model_distillation/)** - Compresión de modelos
-3. **[Multi-task Learning](../multi_task_learning/)** - Entrenamiento multitarea
+Después del fine-tuning básico, considera explorar técnicas más avanzadas de optimización de modelos y evaluación de rendimiento.
 
 ---
 

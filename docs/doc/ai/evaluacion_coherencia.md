@@ -1126,9 +1126,8 @@ Directrices de neutralidad:
 
 Después de implementar evaluación de coherencia, considera:
 
-1. **[Procesamiento de Lenguaje Natural en Infra](../procesamiento_nlp_infra/)** - Automatización IaC con NLP
-2. **[Fine-tuning Básico](../fine_tuning_basico/)** - Personalización de modelos
-3. **[Monitoreo de LLMs](../monitoreo_llms/)** - Observabilidad en producción
+1. **[Fine-tuning Básico](fine_tuning_basico.md)** - Personalización de modelos
+2. **[Evaluación de Modelos](model_evaluation.md)** - Métricas completas de rendimiento
 
 ---
 

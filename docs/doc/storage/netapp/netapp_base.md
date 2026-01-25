@@ -14,43 +14,28 @@ reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
 
-# NetApp — Guía base (stub)
+# NetApp — Guía base
 
-Este fichero es un stub para comenzar la documentación sobre soluciones NetApp enfocadas a infraestructuras on-prem y cloud-hybrid.
+## Resumen
+Diseños rápidos para virtualización (VMware/Proxmox) y optimización de capacidad con deduplicación y compresión en ONTAP.
 
-Estado: borrador.
+## Virtualización (VMware / Proxmox)
+- **Protocolos**: NFSv3/v4.1 para simplicidad y clones rápidos; iSCSI multipath para bases de datos o VMs sensibles a latencia.
+- **Datastores**: un FlexVol por datastore; export-policy específica; `volume autosize` habilitado con límites.
+- **VMware**: activar VAAI y NFSv4.1 con sesiones múltiples; usar `snapmirror-label` en snapshots para DR.
+- **Proxmox**: NFS con `no_root_squash` y `rsize/wsize` altos; iSCSI con `multipath` y `queue_depth` ajustado en hosts.
 
-Secciones sugeridas:
+## Eficiencia (dedupe/compresión) y snapshots
+- Habilitar **inline dedupe + inline compression** en FlexVol; usar `storage efficiency` en AFF/ASA.
+- Snapshots por política: por ejemplo `cada hora 24`, `diario 7`, `semanal 4`; etiquetar para SnapMirror/Backup.
+- Thin provisioning habilitado; controlar crecimiento con cuotas en qtrees si compartes datasets.
 
-- Resumen y casos de uso
-- Arquitectura y componentes principales
-- Integración con Ceph / Kubernetes / Terraform
-- Ejemplos de configuración y comandos básicos
-- Referencias y enlaces
+## DR y replicación
+- **SnapMirror** asíncrono entre clústeres; usar etiquetas de snapshots para seleccionar qué replicar.
+- **SnapVault** para retención larga; programar `Update` después de snapshots críticos (post-backup DB).
+- **FabricPool**: tiering a S3 (on-prem o cloud) para datos fríos; políticas `auto` o `snapshot-only` según el workload.
 
-Tareas siguientes:
-
-- Añadir ejemplos reales de volúmenes y políticas.
-- Documentar operaciones de snapshot y replicación.
-```markdown
----
-title: NetApp — Guía Rápida
-description: Introducción a NetApp, características principales, integración y casos de uso.
-keywords: netapp, ontap, almacenamiento, nfs, smb, cifs, enterprise storage
----
-
-# NetApp
-
-Resumen de NetApp (ONTAP), protocolos soportados, integración con Kubernetes y estrategias de backup y DR.
-
-## Contenido sugerido
-- Arquitectura ONTAP
-- Protocolos (NFS, SMB, iSCSI)
-- Integración con Kubernetes (FlexVolume/CSI)
-- Replicación y SnapMirror
-- Buenas prácticas y mantenimiento
-
----
-
-Puedo añadir ejemplos de comandos y configuraciones si lo deseas.
-```
+## Kubernetes (CSI Astra Trident)
+- Usar Trident CSI con StorageClasses por tier (`ontap-san`, `ontap-nas`, `ontap-san-economy`).
+- `volumeBindingMode: WaitForFirstConsumer` y `allowVolumeExpansion: true` para crecimiento online.
+- Export-policies dedicadas para nodos de Kubernetes; QoS adaptado por StorageClass (`gold/silver/bronze`).

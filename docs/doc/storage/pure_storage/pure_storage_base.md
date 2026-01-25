@@ -14,36 +14,33 @@ reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
 
-# Pure Storage — Guía base (stub)
+# Pure Storage — Guía base
 
-Este fichero es un stub para documentar integraciones y buenas prácticas con arrays Pure Storage.
+## Resumen rápido
+Diseños de referencia para workloads mixtos usando arrays Pure Storage y prácticas para integrarlos con Kubernetes y virtualización.
 
-Estado: borrador. Contenido mínimo para empezar.
+## Arquitectura en breve
+- **FlashArray//X o //XL**: tier de alto rendimiento NVMe para bases de datos, VMs y latency-sensitive.
+- **FlashArray//C**: tier de capacidad (QLC) para datos fríos o réplicas; útil como “HDD-like” para coste por TB.
+- **FlashBlade/Objetos**: repositorio S3/NFS para backups, logs y analítica.
+- **ActiveCluster / ActiveDR**: protección síncrona o asíncrona multi-site.
 
-Contenido recomendado:
+## Implementación híbrida (SSD + HDD/QLC) para workloads mixtos
+1) **Tier caliente (SSD/NVMe)**: volúmenes en FlashArray//X, `thin provisioning`, `data reduction` activo, QoS opcional.
+2) **Tier capacidad (QLC o destino HDD externo)**: snapshots y réplicas programadas desde FlashArray hacia FlashArray//C o repositorio NFS/S3 de bajo coste.
+3) **Políticas**: grupos de protección con snapshots horarios + réplicas diarias; retención diferenciada por workload.
+4) **VMware/Proxmox**: usar `iSCSI` con multipath o `NFSv3/v4.1` según preferencia; habilitar `VMware VAAI` / `vSphere Plugin` para offload de clones.
 
-- Conceptos básicos y licenciamiento
-- Integración con orquestadores y backups
-- Ejemplos de provisioning y tuning
-```markdown
----
-title: Pure Storage — Guía Rápida
-description: Introducción a Pure Storage, casos de uso, buenas prácticas y enlaces de referencia.
-keywords: pure storage, flasharray, almacenamiento, all-flash, uso empresarial
----
+## Buenas prácticas rápidas
+- **Kubernetes**: usar el CSI oficial; `volumeBindingMode: WaitForFirstConsumer` para evitar scheduling en nodos sin conectividad; `allowVolumeExpansion: true` para crecimiento online.
+- **Volúmenes**: etiquetar por performance (`gold/silver/bronze`) con QoS en FlashArray y mapear a StorageClasses.
+- **Reclamación**: snapshots frecuentes y clones (`purevol copy`) para entornos de pruebas; limpiar con `reclaimPolicy: Delete` en dev y `Retain` en prod.
+- **Monitoreo**: Purity+Prometheus exporter para latencias, IOPS y data reduction.
 
-# Pure Storage
+## Ejemplo mínimo de provisioning CLI
 
-Breve introducción a Pure Storage (FlashArray/FlashBlade), casos de uso, diseño y consideraciones de integración con infraestructuras cloud/híbridas.
-
-## Contenido sugerido
-- Arquitectura básica
-- Modelos (FlashArray / FlashBlade)
-- Integración con Kubernetes (CSI)
-- Backup y replicación
-- Buenas prácticas y rendimiento
-
----
-
- 
+```bash
+purevol create db-prod 2T --thin
+purevol setattr --qos 20000 --latency 1ms db-prod
+purevol connect --host esx01 db-prod
 ```

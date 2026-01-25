@@ -757,7 +757,7 @@ jobs:
         run: python scripts/generate_docs.py --input src/ --output docs/api/
       
       - name: Generate changelog
-        run: python scripts/generate_changelog.py --version ${{ github.ref_name }}
+        run: python scripts/generate_changelog.py --version {% raw %}${{ github.ref_name }}{% endraw %}
       
       - name: Commit changes
         run: |
@@ -876,9 +876,9 @@ metrics = DocumentationMetrics()
 
 Después de automatizar documentación, considera:
 
-1. **[Análisis de Logs](../analisis_logs/)** - Troubleshooting asistido por IA
-2. **[Prompt Engineering](../prompt_engineering/)** - Técnicas para mejores resultados
-3. **[Fine-tuning](../fine_tuning_basics/)** - Personalizar modelos para tu dominio
+1. **[Análisis de Logs](analisis_logs.md)** - Troubleshooting asistido por IA
+2. **[Prompt Engineering](prompt_engineering.md)** - Técnicas para mejores resultados
+3. **[Fine-tuning](fine_tuning_basico.md)** - Personalizar modelos para tu dominio
 
 ---
 

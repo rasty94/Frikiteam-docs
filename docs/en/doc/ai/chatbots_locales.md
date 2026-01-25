@@ -678,9 +678,9 @@ sudo certbot --nginx -d chatbot.mydomain.com
 
 After implementing basic chatbots, consider:
 
-1. **[Prompt Engineering](../prompt_engineering/)** - Techniques for better responses
-2. **[Basic Fine-tuning](../fine_tuning_basics/)** - Customize models for your domain
-3. **[LLM Monitoring](../llms_monitoring/)** - Metrics and observability
+1. **[Prompt Engineering](prompt_engineering.md)** - Techniques for better responses
+2. **[Basic Fine-tuning](fine_tuning_basico.md)** - Customize models for your domain
+3. **[LLM Monitoring](model_evaluation.md)** - Metrics and observability
 
 ---
 
