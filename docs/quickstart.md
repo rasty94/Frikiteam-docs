@@ -3,6 +3,7 @@ title: Empezando — Primeros pasos en Frikiteam
 description: Guía completa para nuevos usuarios de Frikiteam. Aprende a elegir tu camino, instala herramientas básicas y comienza con ejemplos prácticos.
 keywords: primeros pasos, guía inicial, roadmap, docker, kubernetes, devops
 tags: [empezando, guia, roadmap, primeros-pasos]
+updated: 2026-01-25
 ---
 
 # Empezando — Primeros pasos en Frikiteam

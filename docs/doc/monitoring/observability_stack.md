@@ -1,3 +1,11 @@
+---
+title: "Observabilidad: Prometheus + Grafana + Loki/Tempo + Alertmanager"
+description: "Stack completo de observabilidad: métricas, logs, trazas y alertas. Docker-compose, configuración y mejores prácticas para producción"
+keywords: "observability, prometheus, grafana, loki, tempo, alertmanager, monitoring"
+tags: [monitoring, observability, prometheus, grafana, loki, tempo]
+updated: 2026-01-25
+---
+
 # Observabilidad: Prometheus + Grafana + Loki/Tempo + Alertmanager
 
 Guía práctica para desplegar un stack de observabilidad unificado con métricas, logs, trazas y alertas. Incluye arquitectura, docker-compose de referencia, ajustes de retención y seguridad.

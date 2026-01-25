@@ -1,7 +1,7 @@
 ---
 title: "Seguridad en Kubernetes"
 date: 2025-01-25
-updated: 2025-01-25
+updated: 2026-01-25
 tags: [security, kubernetes, rbac, network-policies, pod-security]
 ---
 

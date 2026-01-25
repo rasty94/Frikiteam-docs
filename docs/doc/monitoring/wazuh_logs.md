@@ -1,3 +1,11 @@
+---
+title: "Observabilidad: Centralización de Logs con Wazuh"
+description: "Integración de logs de aplicaciones en Wazuh SIEM: configuración de agentes, análisis de seguridad y auditoría"
+keywords: "wazuh, logs, siem, security, monitoring"
+tags: [monitoring, logs, wazuh, siem, security]
+updated: 2026-01-25
+---
+
 # Observabilidad: Centralización de Logs con Wazuh
 
 Guía para integrar logs de aplicaciones en la plataforma SIEM Wazuh.

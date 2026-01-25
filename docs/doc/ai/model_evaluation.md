@@ -1,3 +1,11 @@
+---
+title: "Evaluación y Testing de Modelos LLM"
+description: "Guía completa para evaluar rendimiento de LLMs: benchmarks MMLU, HellaSwag, métricas BLEU/ROUGE, testing de latencia y herramientas de evaluación"
+keywords: "llm evaluation, benchmarks, mmlu, hellaswag, bleu, rouge, latency testing"
+tags: [ai, llm, evaluation, benchmarks, testing]
+updated: 2026-01-25
+---
+
 # Evaluación y Testing de Modelos LLM
 
 Esta guía explica cómo evaluar el rendimiento de Large Language Models (LLMs), incluyendo benchmarks estándar, métricas de evaluación y metodologías de testing.

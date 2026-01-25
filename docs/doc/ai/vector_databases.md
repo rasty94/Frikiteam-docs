@@ -1,7 +1,7 @@
 ---
 title: "Vector Databases para IA"
 date: 2025-01-25
-updated: 2025-01-25
+updated: 2026-01-25
 tags: [ai, vector-db, chroma, milvus, weaviate, qdrant]
 ---
 

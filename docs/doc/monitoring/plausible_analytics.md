@@ -1,3 +1,11 @@
+---
+title: "Plausible Analytics Self-Hosted"
+description: "Guía completa para implementar Plausible Analytics auto-hospedado: alternativa ligera y respetuosa con la privacidad a Google Analytics"
+keywords: "analytics, plausible, privacy, gdpr, self-hosted, docker"
+tags: [monitoring, analytics, privacy, plausible]
+updated: 2026-01-25
+---
+
 # Plausible Analytics Self-Hosted
 
 **Fecha de creación**: 2026-01-25  

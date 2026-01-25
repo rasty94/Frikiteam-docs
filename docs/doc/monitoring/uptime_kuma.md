@@ -1,3 +1,11 @@
+---
+title: "Monitorización con Uptime Kuma"
+description: "Guía de Uptime Kuma: monitorización auto-hospedada para servicios, páginas de estado y notificaciones"
+keywords: "uptime kuma, monitoring, status pages, notifications, self-hosted"
+tags: [monitoring, uptime, status-pages, notifications]
+updated: 2026-01-25
+---
+
 # Monitorización con Uptime Kuma
 
 Uptime Kuma es una herramienta de monitorización auto-hospedada, fácil de usar y con una interfaz moderna. Es ideal para "homelabs" y entornos pequeños/medianos.

@@ -1,3 +1,11 @@
+---
+title: "Introducción a Large Language Models (LLMs)"
+description: "Conceptos fundamentales de LLMs, arquitectura transformers, diferencias entre modelos open-source vs proprietary y aplicaciones en DevOps"
+keywords: "llms, transformers, openai, anthropic, meta, mistral, devops, ia"
+tags: [ai, llms, transformers, devops]
+updated: 2026-01-25
+---
+
 # Introducción a Large Language Models (LLMs)
 
 Los Large Language Models (LLMs) son modelos de inteligencia artificial capaces de comprender y generar texto de manera similar a los humanos. Esta guía explica los conceptos fundamentales y su aplicación en entornos DevOps.

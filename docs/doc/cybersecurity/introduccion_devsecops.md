@@ -3,6 +3,7 @@ title: "Introducción a Ciberseguridad en DevOps"
 date: 2026-01-09
 tags: [cybersecurity, devsecops, devops]
 draft: false
+updated: 2026-01-25
 ---
 
 ## Resumen
