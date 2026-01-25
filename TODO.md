@@ -148,9 +148,33 @@ Archivos generados o stubs que requieren revisión humana y expansión.
 
 ### Contenido Nuevo (Propuestas)
 
-- [ ] **Series de Storage:** Profundizar en casos de uso específicos.
-- [ ] **Networking:** Comparativas de rendimiento (Tailscale vs NetBird).
-- [ ] **Observabilidad:** Guías sobre Prometheus/Grafana en este stack.
+#### Storage Avanzado
+- [ ] **Casos de Uso Específicos de Storage:**
+  - Guía de configuración de Ceph para bases de datos (PostgreSQL/MySQL) con optimizaciones de rendimiento.
+  - Implementación de storage híbrido (SSD + HDD) en Pure Storage para workloads mixtos.
+  - Configuración de NetApp ONTAP para virtualización (VMware/Proxmox) con deduplicación y compresión.
+  - Estrategias de backup y recuperación con Restic/Borg integradas con storage distribuido.
+  - Comparativa de protocolos de storage (iSCSI vs NFS vs SMB) para diferentes escenarios.
+  - Optimización de storage para contenedores (CSI drivers, persistent volumes en Kubernetes).
+
+#### Networking Avanzado
+- [x] **Comparativas de Rendimiento y Seguridad:**
+  - ✅ Benchmarking detallado: Tailscale vs NetBird (latencia, throughput, CPU/memory usage). **COMPLETADO (25/01/2026)**: Creado `docs/doc/networking/tailscale_netbird_performance.md` con benchmarks reales, scripts de medición y análisis detallado.
+  - Guía de migración de VPN tradicionales a mesh networking (WireGuard vs ZeroTier).
+  - Configuración de networking zero-trust con Cilium en Kubernetes clusters.
+  - Optimización de MTU y MSS para redes de alto rendimiento (10G/40G).
+  - Implementación de BGP avanzado para multi-homing y load balancing.
+  - Seguridad en redes overlay: encriptación, segmentación y monitoreo.
+
+#### Observabilidad y Monitoreo
+- [ ] **Stack Completo de Observabilidad:**
+  - Instalación y configuración de Prometheus + Grafana + Alertmanager desde cero.
+  - Dashboards personalizados para Kubernetes (pods, nodes, ingress, services).
+  - Integración de Loki para logging centralizado con Grafana.
+  - Monitoreo de aplicaciones con OpenTelemetry (traces, metrics, logs).
+  - Alerting avanzado: reglas de Prometheus, notificaciones (Slack/Email/PagerDuty).
+  - Observabilidad en storage (Ceph/Pure metrics) y networking (bandwidth, latencia).
+  - Troubleshooting con Jaeger para distributed tracing en microservicios.
 
 ## 🛠 Mantenimiento
 
