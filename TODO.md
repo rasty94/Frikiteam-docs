@@ -597,3 +597,201 @@ mkdocs build --strict
 # (Hacerlo manualmente es más seguro que sed masivo)
 ```
 
+
+## Progreso de Publicación
+
+- Troubleshooting — Errores Comunes y Soluciones - Publicado el 2026-02-03
+- Empezando — Primeros pasos en Frikiteam - Publicado el 2026-02-03
+- Política de Privacidad - Publicado el 2026-02-03
+- Inicio - Frikiteam Docs - Publicado el 2026-02-03
+- Glosario — Términos comunes - Publicado el 2026-02-03
+- Troubleshooting — Common Errors and Solutions - Publicado el 2026-02-03
+- Quickstart — Get Started and Contribute - Publicado el 2026-02-03
+- Glossary — Common Terms - Publicado el 2026-02-03
+- Terraform — State Backend and Migration - Publicado el 2026-02-03
+- terraform_base.md - Publicado el 2026-02-03
+- pure_storage_base.md - Publicado el 2026-02-03
+- postgresql_ceph.md - Publicado el 2026-02-03
+- netapp_base.md - Publicado el 2026-02-03
+- Ceph — Optimization and Capacity Planning - Publicado el 2026-02-03
+- ceph_base.md - Publicado el 2026-02-03
+- Proxmox — Software-Defined Networking (SDN) - Publicado el 2026-02-03
+- Proxmox VE - Complete Enterprise Virtualization Guide - Publicado el 2026-02-03
+- migration_guide.md - Publicado el 2026-02-03
+- react.md - Publicado el 2026-02-03
+- fastapi.md - Publicado el 2026-02-03
+- OpenStack - Open and Scalable Cloud Infrastructure - Publicado el 2026-02-03
+- zerotier.md - Publicado el 2026-02-03
+- Migration from Traditional VPN to Mesh Networking - Publicado el 2026-02-03
+- vpn_overlay_comparison.md - Publicado el 2026-02-03
+- vlsm_profundidad.md - Publicado el 2026-02-03
+- troubleshooting.md - Publicado el 2026-02-03
+- Performance Benchmarks: Tailscale vs NetBird - Publicado el 2026-02-03
+- tailscale.md - Publicado el 2026-02-03
+- tablas_puertos_comunes.md - Publicado el 2026-02-03
+- spf_dkim_dmarc.md - Publicado el 2026-02-03
+- sdn_enterprise_comparison.md - Publicado el 2026-02-03
+- reserved_ip_ranges.md - Publicado el 2026-02-03
+- registros_ptr_zonas_inversas.md - Publicado el 2026-02-03
+- protocolos_icmp_arp_ndp.md - Publicado el 2026-02-03
+- netbird.md - Publicado el 2026-02-03
+- mtu_mss_values.md - Publicado el 2026-02-03
+- load_balancer_comparison.md - Publicado el 2026-02-03
+- compare.md - Publicado el 2026-02-03
+- certificados_tls.md - Publicado el 2026-02-03
+- benchmarks.md - Publicado el 2026-02-03
+- uptime_kuma.md - Publicado el 2026-02-03
+- Complete Observability Stack - Publicado el 2026-02-03
+- wireguard.md - Publicado el 2026-02-03
+- systemd.md - Publicado el 2026-02-03
+- ssh_security.md - Publicado el 2026-02-03
+- Kubernetes — Readiness and Liveness Probes - Publicado el 2026-02-03
+- kubernetes_base.md - Publicado el 2026-02-03
+- haproxy_base.md - Publicado el 2026-02-03
+- haproxy_advanced.md - Publicado el 2026-02-03
+- docker_security.md - Publicado el 2026-02-03
+- Docker — Optimization and Best Practices - Publicado el 2026-02-03
+- docker_base.md - Publicado el 2026-02-03
+- principios_seguridad.md - Publicado el 2026-02-03
+- monitoreo_seguridad.md - Publicado el 2026-02-03
+- modelo_amenazas.md - Publicado el 2026-02-03
+- Introduction to Cybersecurity in DevOps - Publicado el 2026-02-03
+- Linux Server Hardening - Publicado el 2026-02-03
+- Secrets Management - Publicado el 2026-02-03
+- firewall_red.md - Publicado el 2026-02-03
+- escaneo_vulnerabilidades.md - Publicado el 2026-02-03
+- autenticacion_autorizacion.md - Publicado el 2026-02-03
+- upgrade_pve8_a_pve9.md - Publicado el 2026-02-03
+- proxmox_vmware_openstack_migration.md - Publicado el 2026-02-03
+- proxmox_en_debian13.md - Publicado el 2026-02-03
+- docker_kubernetes_vm_comparison.md - Publicado el 2026-02-03
+- github_actions.md - Publicado el 2026-02-03
+- argocd.md - Publicado el 2026-02-03
+- Ceph - Scalable Distributed Storage System - Publicado el 2026-02-03
+- Ansible — Roles and Testing with Molecule - Publicado el 2026-02-03
+- ansible_base.md - Publicado el 2026-02-03
+- Vector Databases for AI - Publicado el 2026-02-03
+- Advanced Prompt Engineering for LLMs - Publicado el 2026-02-03
+- ollama_basics.md - Publicado el 2026-02-03
+- model_evaluation.md - Publicado el 2026-02-03
+- Local Model Ecosystem - Publicado el 2026-02-03
+- llms_fundamentals.md - Publicado el 2026-02-03
+- deployment_kubernetes.md - Publicado el 2026-02-03
+- Automated Technical Content Generation with LLMs - Publicado el 2026-02-03
+- Local Chatbots with LLMs - Publicado el 2026-02-03
+- Log Analysis and Troubleshooting with LLMs - Publicado el 2026-02-03
+- Categories - Publicado el 2026-02-03
+- Archive - Publicado el 2026-02-03
+- about.md - Publicado el 2026-02-03
+- Terraform — Backend de Estado y Migración - Publicado el 2026-02-03
+- Terraform & OpenTofu - Infraestructura como Código - Publicado el 2026-02-03
+- Pure Storage — Guía base - Publicado el 2026-02-03
+- protocols.md - Publicado el 2026-02-03
+- Ejemplo fio — pruebas de I/O - Publicado el 2026-02-03
+- Storage para bases de datos: PostgreSQL + Ceph - Publicado el 2026-02-03
+- NetApp — Introducción - Publicado el 2026-02-03
+- Ceph Troubleshooting: Common Issues and Solutions - Publicado el 2026-02-03
+- Ceph — Optimización y Planificación de Capacidad - Publicado el 2026-02-03
+- Ceph - Publicado el 2026-02-03
+- Recetas Rápidas - Publicado el 2026-02-03
+- Infraestructura: Proxmox SDN - Publicado el 2026-02-03
+- Proxmox VE Complete Guide: Enterprise Virtualization Platform - Publicado el 2026-02-03
+- Proxmox — Guía de Migración (VMs y Contenedores) - Publicado el 2026-02-03
+- React - Publicado el 2026-02-03
+- Flutter - Publicado el 2026-02-03
+- FastAPI - Publicado el 2026-02-03
+- OpenStack Troubleshooting: Common Issues and Solutions - Publicado el 2026-02-03
+- OpenStack + Ceph Integration: Complete Storage Backend Guide - Publicado el 2026-02-03
+- OpenStack Guide: Complete Cloud Platform Overview - Publicado el 2026-02-03
+- OpenStack Deployment with Kolla-Ansible: Complete Production Guide - Publicado el 2026-02-03
+- OpenStack Day-2 Operations: Maintenance and Production Management - Publicado el 2026-02-03
+- ZeroTier: instalación y configuración básica - Publicado el 2026-02-03
+- Migración de VPN Tradicionales a Mesh Networking - Publicado el 2026-02-03
+- Comparación VPN Overlay: Tailscale vs NetBird vs ZeroTier - Publicado el 2026-02-03
+- VLSM en Profundidad - Publicado el 2026-02-03
+- Resolución de problemas (Networking) - Publicado el 2026-02-03
+- Benchmarks de Rendimiento: Tailscale vs NetBird - Publicado el 2026-02-03
+- Tailscale: instalación y configuración básica - Publicado el 2026-02-03
+- Tablas de Puertos Comunes - Publicado el 2026-02-03
+- SPF/DKIM/DMARC - Publicado el 2026-02-03
+- SDN Empresarial: OpenStack Neutron vs VMware NSX vs Cisco ACI - Publicado el 2026-02-03
+- Reserved IP Ranges - Publicado el 2026-02-03
+- Registros PTR y Zonas Inversas - Publicado el 2026-02-03
+- Protocolos ICMP/ARP/NDP - Publicado el 2026-02-03
+- NetBird: instalación y configuración básica - Publicado el 2026-02-03
+- MTU/MSS Values - Publicado el 2026-02-03
+- Load Balancing Avanzado: HAProxy vs NGINX vs Traefik - Publicado el 2026-02-03
+- IPv6 Addressing - Publicado el 2026-02-03
+- DNSSEC - Publicado el 2026-02-03
+- Comparativa rápida: NetBird vs Tailscale vs ZeroTier - Publicado el 2026-02-03
+- CIDR Notation - Publicado el 2026-02-03
+- Certificados TLS - Publicado el 2026-02-03
+- Networking: Comparativa de Rendimiento - Publicado el 2026-02-03
+- ASN & BGP - Publicado el 2026-02-03
+- Observabilidad: Centralización de Logs con Wazuh - Publicado el 2026-02-03
+- Monitorización con Uptime Kuma - Publicado el 2026-02-03
+- Plausible Analytics Self-Hosted - Publicado el 2026-02-03
+- Stack Completo de Observabilidad - Publicado el 2026-02-03
+- WireGuard VPN - Publicado el 2026-02-03
+- Systemd: Gestión de Servicios - Publicado el 2026-02-03
+- Seguridad SSH - Publicado el 2026-02-03
+- Kubernetes — Readiness y Liveness Probes - Publicado el 2026-02-03
+- Kubernetes - Orquestación de Contenedores - Publicado el 2026-02-03
+- keystone.md - Publicado el 2026-02-03
+- keycloak.md - Publicado el 2026-02-03
+- authentik.md - Publicado el 2026-02-03
+- HAProxy - Publicado el 2026-02-03
+- HAProxy — TLS y Escalado Avanzado - Publicado el 2026-02-03
+- Docker — Optimización y Buenas Prácticas - Publicado el 2026-02-03
+- Docker - Contenedores - Publicado el 2026-02-03
+- redis.md - Publicado el 2026-02-03
+- postgres.md - Publicado el 2026-02-03
+- Zero Trust en Práctica - Publicado el 2026-02-03
+- Trivy Operator: Escaneo Continuo en Kubernetes - Publicado el 2026-02-03
+- Supply Chain Security: SBOM, SLSA y Firma de Imágenes - Publicado el 2026-02-03
+- Principios de Seguridad - Publicado el 2026-02-03
+- Monitoreo de Seguridad - Publicado el 2026-02-03
+- Modelo de Amenazas - Publicado el 2026-02-03
+- Seguridad en Kubernetes - Publicado el 2026-02-03
+- Introducción a Ciberseguridad en DevOps - Publicado el 2026-02-03
+- Ciberseguridad - Publicado el 2026-02-03
+- Hardening de Servidores Linux - Publicado el 2026-02-03
+- Gestión de Secretos - Publicado el 2026-02-03
+- Firewall y Seguridad de Red - Publicado el 2026-02-03
+- Escaneo de Vulnerabilidades - Publicado el 2026-02-03
+- CI Security Scanning: SAST, DAST y Contenedores - Publicado el 2026-02-03
+- Autenticación y Autorización - Publicado el 2026-02-03
+- Actualizar Proxmox VE 8 a Proxmox VE 9 (Debian 13 Trixie) - Publicado el 2026-02-03
+- Proxmox vs VMware vs OpenStack: Migración hacia Soluciones Open Source - Publicado el 2026-02-03
+- Instalar Proxmox VE 9 sobre Debian 13 (Trixie) - Publicado el 2026-02-03
+- Docker vs Kubernetes vs Máquinas Virtuales: Una Comparación Curiosa - Publicado el 2026-02-03
+- Introducción a GitHub Actions - Publicado el 2026-02-03
+- Cloud-native: GitOps con ArgoCD - Publicado el 2026-02-03
+- strategy_321.md - Publicado el 2026-02-03
+- restic_borg.md - Publicado el 2026-02-03
+- pbs.md - Publicado el 2026-02-03
+- Ansible — Roles y Testing con Molecule - Publicado el 2026-02-03
+- Ansible - Automatización de Infraestructura - Publicado el 2026-02-03
+- Vector Databases para IA - Publicado el 2026-02-03
+- Testing de Seguridad en LLMs - Publicado el 2026-02-03
+- RAG - Retrieval-Augmented Generation - Publicado el 2026-02-03
+- Prompt Engineering Avanzado para LLMs - Publicado el 2026-02-03
+- Ollama: Instalación y primeros pasos - Publicado el 2026-02-03
+- Optimización de Modelos LLM - Publicado el 2026-02-03
+- Evaluación y Testing de Modelos LLM - Publicado el 2026-02-03
+- Ecosistema de Modelos Locales - Publicado el 2026-02-03
+- Introducción a Large Language Models (LLMs) - Publicado el 2026-02-03
+- index.md - Publicado el 2026-02-03
+- Fine-tuning Básico de LLMs - Publicado el 2026-02-03
+- Evaluación de Coherencia en LLMs - Publicado el 2026-02-03
+- Despliegue de LLMs a Escala con Kubernetes - Publicado el 2026-02-03
+- Generación de Contenido Técnico con LLMs - Publicado el 2026-02-03
+- Chatbots Locales con LLMs - Publicado el 2026-02-03
+- Análisis de Logs y Troubleshooting con LLMs - Publicado el 2026-02-03
+- Mermaid — Verificación y uso - Publicado el 2026-02-03
+- Bienvenida - Publicado el 2026-02-03
+- Blog - Publicado el 2026-02-03
+- Categorías - Publicado el 2026-02-03
+- Archivo - Publicado el 2026-02-03
+- Acerca de - Frikiteam - Publicado el 2026-02-03
+- Docker — Seguridad y Scanning - Publicado el 2026-02-03

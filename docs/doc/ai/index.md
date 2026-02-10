@@ -25,6 +25,9 @@ Si eres nuevo en LLMs, comienza con:
 ### Herramientas
 - [Ollama](ollama_basics.md)
 
+### Protocolos y APIs
+- [MCP — Model Context Protocol & FastMCP (guía rápida)](mcp_fastmcp.md)
+
 ### Testing y evaluación
 - [Evaluación de modelos](model_evaluation.md)
 

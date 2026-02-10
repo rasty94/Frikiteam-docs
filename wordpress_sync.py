@@ -5,11 +5,12 @@ import markdown
 from datetime import datetime
 import argparse
 import glob
+from constants import WP_SITE_URL_DEFAULT, WP_USERNAME_DEFAULT, WP_APP_PASSWORD_DEFAULT
 
 # Configuración desde variables de entorno
-wp_site_url = os.getenv('WP_SITE_URL', 'https://frikiteam.es')
-wp_username = os.getenv('WP_USERNAME', 'antonio')
-wp_app_password = os.getenv('WP_APP_PASSWORD', 'jP4SKqPfR0btF9XUIUB7JMt7')
+wp_site_url = os.getenv('WP_SITE_URL', WP_SITE_URL_DEFAULT)
+wp_username = os.getenv('WP_USERNAME', WP_USERNAME_DEFAULT)
+wp_app_password = os.getenv('WP_APP_PASSWORD', WP_APP_PASSWORD_DEFAULT)
 
 # Endpoint para crear un post
 endpoint = f'{wp_site_url}/wp-json/wp/v2/posts'
@@ -71,7 +72,7 @@ def create_post_from_md(file_path, status='draft'):
         'content': html_content,
         'status': status,
         'excerpt': metadata.get('description', ''),
-        # 'tags': generate_wp_tags(metadata)  # Removido: WordPress espera IDs de tags, no nombres
+        'tag_names': generate_wp_tags(metadata)
     }
 
     return post_data
@@ -120,6 +121,130 @@ def publish_post(post_data):
     else:
         print(f'Error: {response.status_code} - {response.text}')
         return False
+
+# Función para actualizar post existente
+def update_post(post_id, post_data):
+    headers = {
+        'Content-Type': 'application/json',
+        'X-HTTP-Method-Override': 'PUT'
+    }
+
+    url = f'{endpoint}/{post_id}'
+    response = requests.post(url, auth=(wp_username, wp_app_password), headers=headers, data=json.dumps(post_data))
+
+    if response.status_code == 200:
+        print(f'Post actualizado exitosamente.')
+        return True
+    else:
+        print(f'Error al actualizar: {response.status_code} - {response.text}')
+        return False
+
+# Función para sincronizar todos los posts existentes
+def sync_all_posts(status_new='draft'):
+    # Verificar autenticación
+    auth_check = requests.get(f'{wp_site_url}/wp-json/wp/v2/users/me', auth=(wp_username, wp_app_password))
+    if auth_check.status_code != 200:
+        print(f'Error de autenticación: {auth_check.status_code} - {auth_check.text}')
+        return
+
+    print("Autenticación exitosa.")
+
+    # Obtener todos los posts
+    response = requests.get(endpoint, auth=(wp_username, wp_app_password), params={'per_page': 100})
+    if response.status_code != 200:
+        print(f'Error al obtener posts: {response.status_code} - {response.text}')
+        return
+
+    posts = response.json()
+    print(f'Encontrados {len(posts)} posts en WordPress.')
+
+    # Obtener todos los tags
+    tags_response = requests.get(f'{wp_site_url}/wp-json/wp/v2/tags', auth=(wp_username, wp_app_password), params={'per_page': 100})
+    if tags_response.status_code != 200:
+        print(f'Error al obtener tags: {tags_response.status_code} - {tags_response.text}')
+        return
+
+    tags = tags_response.json()
+    tag_dict = {tag['name']: tag['id'] for tag in tags}
+    print(f'Encontrados {len(tags)} tags en WordPress.')
+
+    # Crear diccionario de títulos a archivos MD
+    md_files = list_md_files()
+    md_dict = {}
+    for f in md_files:
+        title = get_md_title(f)
+        md_dict[title] = f
+
+    updated_posts = []
+    for post in posts:
+        title = post['title']['rendered']
+        if title in md_dict:
+            file_path = md_dict[title]
+            print(f'Procesando post: {title} ({file_path})')
+            post_data = create_post_from_md(file_path, post['status'])  # Mantener status actual
+            html_content = post_data['content']
+            current_content = post['content']['rendered']
+            current_excerpt = post.get('excerpt', {}).get('rendered', '')
+            current_title = title
+            current_tag_ids = post.get('tags', [])
+
+            tag_names = post_data.get('tag_names', [])
+            tag_ids = [tag_dict[name] for name in tag_names if name in tag_dict]
+            missing_tags = [name for name in tag_names if name not in tag_dict]
+            if missing_tags:
+                print(f'Tags no encontrados en WP (se omitirán): {missing_tags}')
+
+            # Verificar si hay cambios
+            changed = False
+            update_data = {}
+
+            if html_content.strip() != current_content.strip():
+                update_data['content'] = html_content
+                changed = True
+
+            if post_data['title'] != current_title:
+                update_data['title'] = post_data['title']
+                changed = True
+
+            if post_data.get('excerpt', '') != current_excerpt:
+                update_data['excerpt'] = post_data.get('excerpt', '')
+                changed = True
+
+            if set(tag_ids) != set(current_tag_ids):
+                update_data['tags'] = tag_ids
+                changed = True
+
+            if changed:
+                if update_post(post['id'], update_data):
+                    updated_posts.append(post_data)
+                    print(f'Actualizado: {title}')
+                else:
+                    print(f'Error al actualizar: {title}')
+            else:
+                print(f'No cambios necesarios: {title}')
+        else:
+            print(f'No encontrado archivo MD para: {title}')
+
+    # Crear nuevos posts para MD sin post correspondiente
+    existing_titles = {post['title']['rendered'] for post in posts}
+    for title, file_path in md_dict.items():
+        if title not in existing_titles:
+            print(f'Creando nuevo post: {title} ({file_path})')
+            post_data = create_post_from_md(file_path, status_new)  # Usar status_new
+            tag_names = post_data.get('tag_names', [])
+            tag_ids = [tag_dict[name] for name in tag_names if name in tag_dict]
+            post_data['tags'] = tag_ids
+            if publish_post(post_data):
+                updated_posts.append(post_data)
+                print(f'Creado: {title}')
+            else:
+                print(f'Error al crear: {title}')
+
+    if updated_posts:
+        update_todo_md(updated_posts)
+        print(f"\nProcesados {len(updated_posts)} posts (actualizados o creados). TODO.md actualizado.")
+    else:
+        print("\nNo se procesó ningún post.")
 
 # Función para listar archivos MD
 def list_md_files(base_path='docs'):
@@ -199,10 +324,15 @@ if __name__ == '__main__':
     parser.add_argument('--file', help='Archivo Markdown específico a sincronizar')
     parser.add_argument('--status', choices=['draft', 'publish'], default='draft', help='Estado del post')
     parser.add_argument('--interactive', action='store_true', help='Modo interactivo para seleccionar archivos')
+    parser.add_argument('--all', action='store_true', help='Sincronizar todos los posts existentes con archivos Markdown')
+    parser.add_argument('--publish', action='store_true', help='Publicar nuevos posts en lugar de dejarlos como draft (solo para --all)')
 
     args = parser.parse_args()
 
-    if args.interactive:
+    if args.all:
+        status_new = 'publish' if args.publish else 'draft'
+        sync_all_posts(status_new)
+    elif args.interactive:
         interactive_mode()
     elif args.file:
         if not os.path.exists(args.file):
@@ -213,4 +343,4 @@ if __name__ == '__main__':
                 update_todo_md([post_data])
                 print("TODO.md actualizado.")
     else:
-        print("Usa --file para especificar un archivo o --interactive para modo interactivo.")
+        print("Usa --file para especificar un archivo, --interactive para modo interactivo o --all para sincronizar todos.")
