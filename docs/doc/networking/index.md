@@ -5,6 +5,12 @@ En esta sección encontrarás guías prácticas y concisas para desplegar y conf
 - [NetBird: instalación y configuración básica](netbird.md)
 - [Tailscale: instalación y configuración básica](tailscale.md)
 - [ZeroTier: instalación y configuración básica](zerotier.md)
+- [vRouters y firewalls virtuales: OPNsense, pfSense, MikroTik CHR y VyOS](vrouters.md)
+- [Plantilla de benchmark de vRouters](vrouter_benchmark_template.md)
+- [OPNsense: guía rápida para homelab y edge](vrouter_opnsense.md)
+- [pfSense: guía rápida para producción tradicional](vrouter_pfsense.md)
+- [MikroTik CHR: guía rápida para routing L3](vrouter_mikrotik_chr.md)
+- [VyOS: guía rápida para automatización y BGP/OSPF](vrouter_vyos.md)
 - [Resolución de problemas](troubleshooting.md)
 - [Comparativa rápida: NetBird vs Tailscale vs ZeroTier](compare.md)
 
