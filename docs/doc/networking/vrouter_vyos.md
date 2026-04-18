@@ -1,7 +1,7 @@
 ---
 title: "VyOS (vRouter orientado a automatización)"
 description: "Guía rápida para desplegar VyOS con enfoque en BGP/OSPF y automatización"
-tags: ['networking', 'vyos', 'automation']
+tags: ['networking', 'vyos', 'automatizacion']
 updated: 2026-04-18
 difficulty: advanced
 estimated_time: 10 min
@@ -11,7 +11,7 @@ last_reviewed: 2026-04-18
 prerequisites:
   - "Fundamentos de redes"
   - "Conocimientos básicos de virtualización"
-  - "Conceptos de routing dinámico"
+  - "Conceptos de enrutamiento dinámico"
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
@@ -22,7 +22,7 @@ VyOS encaja muy bien en equipos que trabajan con automatización, GitOps e infra
 
 - Necesitas BGP/OSPF con automatización declarativa
 - Quieres versionar configuración de red como código
-- Tu operación se apoya en pipelines DevOps/NetOps
+- Tu operación se apoya en canalizaciones de desarrollo y operaciones de red
 
 ## Despliegue recomendado
 
@@ -35,15 +35,15 @@ VyOS encaja muy bien en equipos que trabajan con automatización, GitOps e infra
 1. Define interfaces y direccionamiento.
 2. Endurece acceso SSH y cuentas administrativas.
 3. Configura políticas firewall por zonas.
-4. Implementa routing estático o dinámico (FRR).
-5. Automatiza backups y validaciones de configuración.
+4. Implementa enrutamiento estático o dinámico (FRR).
+5. Automatiza copias de seguridad y validaciones de configuración.
 
 ## Buenas prácticas
 
 - Usa plantillas y repositorio Git para la configuración.
-- Introduce cambios por pull request y revisión técnica.
-- Separa entornos lab/preprod/prod cuando sea posible.
-- Ejecuta pruebas de convergencia y failover periódicas.
+- Introduce cambios mediante solicitudes de cambio (pull request) y revisión técnica.
+- Separa entornos de laboratorio/preproducción/producción cuando sea posible.
+- Ejecuta pruebas periódicas de convergencia y conmutación por error.
 
 ## Riesgos comunes
 
@@ -51,9 +51,9 @@ VyOS encaja muy bien en equipos que trabajan con automatización, GitOps e infra
 - Falta de validaciones previas al despliegue.
 - No medir tiempos de convergencia ante fallos.
 
-## Checklist operativo
+## Lista de comprobación operativa
 
 - ¿Toda la configuración crítica está versionada?
-- ¿Existe pipeline de validación sintáctica y funcional?
-- ¿Se han probado escenarios de caída de enlace/peer?
-- ¿Hay snapshots o backups listos para rollback?
+- ¿Existe canalización de validación sintáctica y funcional?
+- ¿Se han probado escenarios de caída de enlace/vecino?
+- ¿Hay instantáneas o copias de seguridad listas para reversión?

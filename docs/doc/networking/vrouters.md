@@ -15,65 +15,65 @@ reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
 
-Cuando necesitas enrutamiento avanzado, firewalling y servicios de red en formato virtual, las opciones más comunes son **OPNsense**, **pfSense**, **MikroTik CHR** y **VyOS**.
+Cuando necesitas enrutamiento avanzado, funciones de cortafuegos y servicios de red en formato virtual, las opciones más comunes son **OPNsense**, **pfSense**, **MikroTik CHR** y **VyOS**.
 
 Este documento resume diferencias clave y te ayuda a elegir según el escenario.
 
 ## Guías por plataforma
 
-- [Plantilla de benchmark de vRouters](vrouter_benchmark_template.md)
-- [OPNsense: guía rápida para homelab y edge](vrouter_opnsense.md)
+- [Plantilla de pruebas de rendimiento de vRouters](vrouter_benchmark_template.md)
+- [OPNsense: guía rápida para laboratorio doméstico y perímetro](vrouter_opnsense.md)
 - [pfSense: guía rápida para producción tradicional](vrouter_pfsense.md)
-- [MikroTik CHR: guía rápida para routing L3](vrouter_mikrotik_chr.md)
+- [MikroTik CHR: guía rápida para enrutamiento L3](vrouter_mikrotik_chr.md)
 - [VyOS: guía rápida para automatización y BGP/OSPF](vrouter_vyos.md)
 
 ## Casos de uso típicos
 
 - Laboratorios de redes y ciberseguridad
-- Routers virtuales en homelab o edge
+- Routers virtuales en laboratorio doméstico o perímetro
 - Firewall perimetral en infraestructura on-prem
 - BGP/OSPF estático-dinámico en entornos híbridos
-- VPN site-to-site y acceso remoto
+- VPN de sede a sede y acceso remoto
 
 ## Comparativa rápida
 
 | Solución | Base tecnológica | Fortalezas | Limitaciones | Escenario recomendado |
 | -------- | ---------------- | ---------- | ------------ | --------------------- |
-| **OPNsense** | FreeBSD + pf | UI moderna, buen ecosistema de plugins, actualizaciones frecuentes | Menos documentación histórica que pfSense | Homelab, pyme, edge con foco en seguridad |
-| **pfSense** | FreeBSD + pf | Muy estable, comunidad amplia, gran madurez operativa | Cambios de licensing/ecosistema según edición | Producción tradicional y entornos consolidados |
-| **MikroTik CHR** | RouterOS | Alto rendimiento por costo, features de routing muy amplias | Curva de aprendizaje de RouterOS, licencia por throughput | ISP/WISP, routing L3 intensivo, laboratorios de carrier |
-| **VyOS** | Linux + FRR + nftables/iptables | CLI declarativa, fuerte en automatización IaC y routing avanzado | Menos amigable para quien prefiera GUI completa | Automatización, BGP/OSPF, backbone virtual |
+| **OPNsense** | FreeBSD + pf | Interfaz moderna, buen ecosistema de complementos, actualizaciones frecuentes | Menos documentación histórica que pfSense | Laboratorio doméstico, pyme, perímetro con foco en seguridad |
+| **pfSense** | FreeBSD + pf | Muy estable, comunidad amplia, gran madurez operativa | Cambios de licenciamiento/ecosistema según edición | Producción tradicional y entornos consolidados |
+| **MikroTik CHR** | RouterOS | Alto rendimiento por coste, funcionalidades de enrutamiento muy amplias | Curva de aprendizaje de RouterOS, licencia por rendimiento | ISP/WISP, enrutamiento L3 intensivo, laboratorios de operador |
+| **VyOS** | Linux + FRR + nftables/iptables | CLI declarativa, fuerte en automatización IaC y enrutamiento avanzado | Menos amigable para quien prefiera interfaz gráfica completa | Automatización, BGP/OSPF, red troncal virtual |
 
 ## Tabla técnica avanzada
 
 | Criterio | OPNsense | pfSense | MikroTik CHR | VyOS |
 | -------- | -------- | ------- | ------------ | ---- |
-| Plano de gestión | GUI web + CLI limitada | GUI web + shell | GUI WinBox/WebFig + CLI RouterOS | CLI declarativa + API/automatización |
-| Routing dinámico (BGP/OSPF) | Soportado (plugins/FRR) | Soportado (FRR paquete) | Muy robusto en RouterOS | Muy robusto con FRR nativo |
-| Enfoque principal | Firewall/UTM moderno | Firewall estable y maduro | Routing de alto rendimiento | Routing + automatización infra as code |
-| VPN habitual | IPsec, OpenVPN, WireGuard | IPsec, OpenVPN, WireGuard | IPsec, WireGuard, L2TP/PPTP legacy | IPsec, OpenVPN, WireGuard |
-| Alta disponibilidad | CARP/failover y sync de config | CARP/failover y sync de config | VRRP/failover según diseño | VRRP/HA según arquitectura |
+| Plano de gestión | Interfaz web + CLI limitada | Interfaz web + shell | Interfaz WinBox/WebFig + CLI RouterOS | CLI declarativa + API/automatización |
+| Enrutamiento dinámico (BGP/OSPF) | Soportado (complementos/FRR) | Soportado (paquete FRR) | Muy robusto en RouterOS | Muy robusto con FRR nativo |
+| Enfoque principal | Cortafuegos/UTM moderno | Cortafuegos estable y maduro | Enrutamiento de alto rendimiento | Enrutamiento + automatización como código |
+| VPN habitual | IPsec, OpenVPN, WireGuard | IPsec, OpenVPN, WireGuard | IPsec, WireGuard, L2TP/PPTP heredado | IPsec, OpenVPN, WireGuard |
+| Alta disponibilidad | CARP/conmutación por error y sincronización de configuración | CARP/conmutación por error y sincronización de configuración | VRRP/conmutación por error según diseño | VRRP/alta disponibilidad según arquitectura |
 | Curva de aprendizaje | Baja-media | Baja-media | Media-alta | Media-alta |
-| Automatización | Media (API/plugins) | Media (API/backup config) | Alta (scripts/Ansible/API RouterOS) | Alta (GitOps + plantillas CLI) |
-| Perfil recomendado | SMB, edge seguro, homelab | Producción clásica y conservadora | ISP/WISP y laboratorios carrier | Entornos DevOps/NetOps automatizados |
+| Automatización | Media (API/complementos) | Media (API/copia de configuración) | Alta (scripts/Ansible/API RouterOS) | Alta (GitOps + plantillas CLI) |
+| Perfil recomendado | Pyme, perímetro seguro, laboratorio doméstico | Producción clásica y conservadora | ISP/WISP y laboratorios de operador | Entornos de automatización de redes y seguridad |
 
-## Benchmarks objetivo (laboratorio inicial)
+## Objetivos de rendimiento (laboratorio inicial)
 
 | KPI | Objetivo base | Cómo medirlo | Criterio de aceptación |
 | --- | ------------- | ------------ | ---------------------- |
-| Throughput L3 (sin cifrado) | >= 1 Gbps sostenido | `iperf3` TCP/UDP entre segmentos | Variación < 15% entre 3 corridas |
-| Throughput VPN site-to-site | >= 300 Mbps sostenido | `iperf3` a través del túnel | Uso CPU < 80% promedio |
+| Rendimiento L3 (sin cifrado) | >= 1 Gbps sostenido | `iperf3` TCP/UDP entre segmentos | Variación < 15% entre 3 corridas |
+| Rendimiento VPN de sede a sede | >= 300 Mbps sostenido | `iperf3` a través del túnel | Uso CPU < 80% promedio |
 | Latencia intra-sede | <= 5 ms adicional | `ping` baseline vs con vRouter | Delta estable sin picos anómalos |
 | Pérdida de paquetes | <= 0.5% | `mtr`/`ping -f` controlado | Sin pérdida sostenida > 1 minuto |
-| Convergencia de failover | <= 30 s | Corte controlado de enlace/peer | Recuperación sin intervención manual |
+| Convergencia de conmutación por error | <= 30 s | Corte controlado de enlace/vecino | Recuperación sin intervención manual |
 | Estabilidad de sesiones | 0 reinicios no planificados | Monitorización 24-72 h | Sin caída de plano de control |
 
 Notas:
 
-- Ejecuta tests en hora valle y hora pico para detectar degradación por carga.
+- Ejecuta pruebas en hora valle y hora punta para detectar degradación por carga.
 - Mantén el mismo tamaño de paquete y paralelismo al comparar plataformas.
-- Repite pruebas tras cambios de versión, drivers o tipo de hipervisor.
-- Si necesitas objetivos por contexto (homelab, pyme, ISP/WISP), usa la [Plantilla de benchmark de vRouters](vrouter_benchmark_template.md).
+- Repite pruebas tras cambios de versión, controladores o tipo de hipervisor.
+- Si necesitas objetivos por contexto (laboratorio doméstico, pyme, ISP/WISP), usa la [Plantilla de pruebas de rendimiento de vRouters](vrouter_benchmark_template.md).
 
 ## Hardening mínimo homogéneo (todas las plataformas)
 
@@ -85,8 +85,8 @@ Notas:
 - Separa redes de gestión, usuarios y servidores (VLAN/zonas).
 - Activa logs de seguridad y envíalos a un colector central.
 - Configura NTP fiable para trazabilidad de eventos y auditoría.
-- Cifra y valida backups de configuración; prueba restore periódicamente.
-- Define proceso de parcheo con ventana de mantenimiento y rollback.
+- Cifra y valida copias de seguridad de configuración; prueba la restauración de forma periódica.
+- Define proceso de parcheado con ventana de mantenimiento y plan de reversión.
 
 ## Qué elegir según prioridad
 
@@ -99,11 +99,11 @@ flowchart TD
 
     C -->|Firewall moderno + plugins| E[OPNsense]
     C -->|Estabilidad tradicional| F[pfSense]
-    C -->|Routing agresivo + costo| G[MikroTik CHR]
+    C -->|Enrutamiento agresivo + coste| G[MikroTik CHR]
 
-    E --> H[Homelab / SMB / Edge]
+    E --> H[Laboratorio doméstico / pyme / perímetro]
     F --> I[Producción clásica]
-    G --> J[ISP / WISP / Lab carrier]
+    G --> J[ISP / WISP / Lab de operador]
     D --> K[Automatización y BGP]
 
     style E fill:#4caf50,color:#ffffff
@@ -114,10 +114,10 @@ flowchart TD
 
 ## Criterios técnicos clave
 
-### 1) Routing dinámico
+### 1) Enrutamiento dinámico
 
 - **VyOS** y **MikroTik CHR** destacan en BGP/OSPF para topologías complejas.
-- **OPNsense/pfSense** cubren routing dinámico, pero suelen brillar más como firewall/UTM.
+- **OPNsense/pfSense** cubren enrutamiento dinámico, pero suelen brillar más como cortafuegos/UTM.
 
 ### 2) Operación diaria
 
@@ -126,28 +126,28 @@ flowchart TD
 
 ### 3) VPN y acceso remoto
 
-- Todas soportan VPN site-to-site y acceso remoto (IPsec/WireGuard/OpenVPN según versión y paquetes).
+- Todas soportan VPN de sede a sede y acceso remoto (IPsec/WireGuard/OpenVPN según versión y paquetes).
 - Verifica compatibilidad exacta por versión antes de estandarizar en producción.
 
 ### 4) Licenciamiento y soporte
 
-- Revisa siempre edición/comercialización vigente para evitar sorpresas en upgrades.
-- En entornos críticos, valida soporte enterprise o partner local.
+- Revisa siempre la edición/comercialización vigente para evitar sorpresas en actualizaciones.
+- En entornos críticos, valida soporte empresarial o socio local.
 
 ## Recomendaciones prácticas
 
-- Empieza con una **prueba de concepto** con tráfico realista (north-south y east-west).
-- Define KPIs: latencia, throughput, failover, tiempo de recuperación.
-- Documenta backup/restore de configuración y procedimiento de rollback.
+- Empieza con una **prueba de concepto** con tráfico realista (norte-sur y este-oeste).
+- Define indicadores clave (KPI): latencia, rendimiento, conmutación por error, tiempo de recuperación.
+- Documenta copia/restauración de configuración y procedimiento de reversión.
 - Versiona la configuración (cuando sea posible) para auditar cambios.
 - Cierra cada evaluación con informe ejecutivo corto (riesgos, acciones 7/30 días y decisión final).
 
-## Checklist de decisión
+## Lista de comprobación de decisión
 
 - ¿Necesitas GUI o CLI declarativa?
-- ¿La prioridad es firewall, routing avanzado o ambos?
+- ¿La prioridad es cortafuegos, enrutamiento avanzado o ambos?
 - ¿Cuántos túneles VPN y peers BGP vas a mantener?
-- ¿Qué capacidad de operación tiene el equipo (NetOps/SecOps)?
+- ¿Qué capacidad de operación tiene el equipo de redes y seguridad?
 - ¿Hay requisitos de soporte comercial y SLA?
 
 Si dudas entre dos opciones, compara ambas en el mismo laboratorio durante una semana y decide por métricas, no por preferencia personal.

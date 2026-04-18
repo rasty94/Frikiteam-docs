@@ -1,5 +1,5 @@
 ---
-title: "pfSense (vRouter/firewall virtual)"
+title: "pfSense (vRouter/cortafuegos virtual)"
 description: "Guía rápida para desplegar pfSense como firewall y router virtual"
 tags: ['networking', 'security', 'pfsense']
 updated: 2026-04-18
@@ -20,8 +20,8 @@ pfSense es una plataforma madura y estable, especialmente útil para entornos qu
 ## Cuándo elegir pfSense
 
 - Necesitas estabilidad y una base muy extendida en producción
-- Tu equipo prefiere operación por GUI con flujos tradicionales
-- Quieres políticas firewall/NAT claras y conocidas
+- Tu equipo prefiere operar desde interfaz gráfica con flujos tradicionales
+- Quieres políticas de cortafuegos/NAT claras y conocidas
 
 ## Despliegue recomendado (producción tradicional)
 
@@ -34,28 +34,28 @@ pfSense es una plataforma madura y estable, especialmente útil para entornos qu
 
 ## Configuración base
 
-1. Asigna interfaces y define gateways.
+1. Asigna interfaces y define puertas de enlace.
 2. Configura alias de red para simplificar reglas.
 3. Implementa firewall por zonas (LAN/DMZ/WAN).
-4. Ajusta NAT de salida y port forwarding mínimo.
+4. Ajusta NAT de salida y redirección de puertos mínima.
 5. Habilita NTP, DNS Resolver y copias de seguridad.
 
 ## Buenas prácticas
 
-- Usa aliases en vez de IPs sueltas en reglas.
+- Usa alias en vez de IP sueltas en reglas.
 - Etiqueta reglas por servicio/equipo para auditoría.
 - Valida cambios en ventana de mantenimiento.
-- Monitoriza estados de firewall y consumo de recursos.
+- Monitoriza estados del cortafuegos y consumo de recursos.
 
 ## Riesgos comunes
 
 - Reglas acumuladas sin limpieza periódica.
 - Dependencia excesiva de reglas temporales.
-- No probar restore de backup antes de incidentes.
+- No probar restauración de copias de seguridad antes de incidentes.
 
-## Checklist operativo
+## Lista de comprobación operativa
 
 - ¿Política WAN está cerrada por defecto?
 - ¿Reglas LAN/DMZ siguen mínimo privilegio?
-- ¿Backup y restore están verificados?
-- ¿El equipo conoce runbook de caída?
+- ¿Copia y restauración están verificadas?
+- ¿El equipo conoce el procedimiento de caída?
