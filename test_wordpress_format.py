@@ -2,7 +2,12 @@
 
 Ejecutar: python test_wordpress_format.py
 """
-from wordpress_sync import markdown_to_html, rewrite_image_srcs
+import os
+from wordpress_sync import (
+    markdown_to_html, rewrite_image_srcs,
+    render_mermaid_to_png, inline_admonition_styles,
+    _strip_code_fence, enhance_markdown, _strip_html,
+)
 
 
 def test_admonition_renders_as_div():
@@ -36,6 +41,39 @@ def test_missing_local_image_left_untouched():
     # imagen inexistente: se deja tal cual, sin subir (no hace red)
     html = '<img src="no_existe_12345.png">'
     assert rewrite_image_srcs(html, '.') == html
+
+
+def test_admonition_gets_inline_styles():
+    html = markdown_to_html('!!! warning "Ojo"\n    contenido')
+    styled = inline_admonition_styles(html)
+    assert 'style="background:#fff6ec' in styled, styled  # color de warning
+
+
+def test_mermaid_renders_to_png():
+    import shutil
+    if not shutil.which('mmdc'):
+        print('  (mmdc no disponible, se omite render de mermaid)')
+        return
+    png = render_mermaid_to_png('graph TD; A-->B;')
+    assert png and os.path.isfile(png), png
+
+
+def test_strip_code_fence():
+    assert _strip_code_fence('```markdown\n# H\ntxt\n```') == '# H\ntxt'
+    assert _strip_code_fence('# sin fence') == '# sin fence'
+
+
+def test_enhance_without_model_returns_original():
+    # sin OLLAMA_MODEL no toca la red y devuelve el original
+    os.environ.pop('OLLAMA_MODEL', None)
+    orig = '# Doc\ncontenido'
+    assert enhance_markdown(orig) == orig
+
+
+def test_strip_html_removes_tags_and_scripts():
+    h = '<p>Hola <b>mundo</b></p><script>alert(1)</script>'
+    out = _strip_html(h)
+    assert 'alert' not in out and 'Hola mundo' in out, out
 
 
 if __name__ == '__main__':
