@@ -1,7 +1,11 @@
 import requests
 import json
 import os
+import re
+import mimetypes
 import markdown
+import pymdownx.superfences
+import pymdownx.emoji
 from datetime import datetime
 import argparse
 import glob
@@ -15,9 +19,103 @@ wp_app_password = os.getenv('WP_APP_PASSWORD', WP_APP_PASSWORD_DEFAULT)
 # Endpoint para crear un post
 endpoint = f'{wp_site_url}/wp-json/wp/v2/posts'
 
+# Extensiones alineadas con markdown_extensions de mkdocs.yml, para que el HTML
+# publicado en WordPress conserve el mismo formato que la web (admonitions,
+# mermaid, tablas, footnotes, mark, keys, emoji, magiclink...).
+MD_EXTENSIONS = [
+    'admonition', 'attr_list', 'def_list', 'footnotes', 'md_in_html',
+    'sane_lists', 'tables', 'toc',
+    'pymdownx.highlight', 'pymdownx.superfences', 'pymdownx.inlinehilite',
+    'pymdownx.details', 'pymdownx.emoji', 'pymdownx.keys', 'pymdownx.mark',
+    'pymdownx.tilde', 'pymdownx.magiclink', 'pymdownx.smartsymbols',
+]
+MD_EXTENSION_CONFIGS = {
+    # noclasses=True incrusta los estilos de Pygments inline: el código sale
+    # resaltado en WordPress sin necesidad de cargar un CSS de Pygments aparte.
+    'pymdownx.highlight': {'use_pygments': True, 'noclasses': True},
+    'pymdownx.superfences': {'custom_fences': [
+        {'name': 'mermaid', 'class': 'mermaid',
+         'format': pymdownx.superfences.fence_code_format}]},
+    'pymdownx.emoji': {'emoji_index': pymdownx.emoji.twemoji,
+                       'emoji_generator': pymdownx.emoji.to_svg},
+}
+
 # Función para convertir Markdown a HTML
 def markdown_to_html(markdown_content):
-    return markdown.markdown(markdown_content, extensions=['extra', 'codehilite'])
+    return markdown.markdown(
+        markdown_content,
+        extensions=MD_EXTENSIONS,
+        extension_configs=MD_EXTENSION_CONFIGS,
+    )
+
+
+# Cache de imágenes ya subidas en esta ejecución: ruta local -> URL en WP.
+_media_cache = {}
+
+
+# Sube una imagen local a la biblioteca de medios de WordPress y devuelve su URL.
+# Reutiliza medios existentes (por slug) para no duplicar en cada sync.
+def upload_image_to_wp(local_path):
+    if local_path in _media_cache:
+        return _media_cache[local_path]
+
+    filename = os.path.basename(local_path)
+    slug = os.path.splitext(filename)[0]
+
+    # ¿Ya existe en WP? Evita re-subir en syncs repetidos.
+    try:
+        existing = requests.get(
+            f'{wp_site_url}/wp-json/wp/v2/media',
+            auth=(wp_username, wp_app_password),
+            params={'slug': slug},
+        )
+        if existing.status_code == 200 and existing.json():
+            url = existing.json()[0]['source_url']
+            _media_cache[local_path] = url
+            return url
+    except requests.RequestException as e:
+        print(f'  Aviso: no se pudo consultar medios existentes ({e})')
+
+    content_type = mimetypes.guess_type(local_path)[0] or 'application/octet-stream'
+    with open(local_path, 'rb') as f:
+        data = f.read()
+
+    resp = requests.post(
+        f'{wp_site_url}/wp-json/wp/v2/media',
+        auth=(wp_username, wp_app_password),
+        headers={
+            'Content-Type': content_type,
+            'Content-Disposition': f'attachment; filename="{filename}"',
+        },
+        data=data,
+    )
+    if resp.status_code in (200, 201):
+        url = resp.json()['source_url']
+        _media_cache[local_path] = url
+        print(f'  Imagen subida: {filename} -> {url}')
+        return url
+
+    print(f'  Error al subir imagen {filename}: {resp.status_code} - {resp.text[:120]}')
+    return None
+
+
+# Reescribe los src de <img> relativos (locales) apuntándolos a WordPress.
+# base_dir es la carpeta del .md, para resolver rutas relativas.
+def rewrite_image_srcs(html, base_dir):
+    def replace(match):
+        src = match.group('src')
+        if src.startswith(('http://', 'https://', 'data:')):
+            return match.group(0)
+        local_path = os.path.normpath(os.path.join(base_dir, src))
+        if not os.path.isfile(local_path):
+            print(f'  Aviso: imagen no encontrada, se deja tal cual: {src}')
+            return match.group(0)
+        url = upload_image_to_wp(local_path)
+        if not url:
+            return match.group(0)
+        return match.group(0).replace(f'src="{src}"', f'src="{url}"')
+
+    return re.sub(r'<img[^>]*\bsrc="(?P<src>[^"]+)"[^>]*>', replace, html)
 
 # Función para extraer metadatos del frontmatter
 def extract_frontmatter(content):
@@ -65,6 +163,9 @@ def create_post_from_md(file_path, status='draft'):
 
     # Convertir Markdown a HTML
     html_content = markdown_to_html(body)
+
+    # Subir imágenes locales a WordPress y reescribir sus rutas (relativas al .md)
+    html_content = rewrite_image_srcs(html_content, os.path.dirname(file_path))
 
     # Preparar datos del post
     post_data = {
