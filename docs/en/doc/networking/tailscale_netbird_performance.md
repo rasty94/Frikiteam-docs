@@ -5,7 +5,7 @@ date: 2026-01-25
 tags: [networking, vpn, overlay, benchmarks, tailscale, netbird]
 difficulty: intermediate
 time: "45 minutes"
-category: networking
+category: Networking
 state: stable
 prerequisites: [docker, linux-basics]
 ---

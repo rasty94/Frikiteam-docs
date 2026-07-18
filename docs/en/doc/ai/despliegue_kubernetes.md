@@ -1,38 +1,38 @@
 ---
-title: "Despliegue de LLMs a Escala con Kubernetes"
+title: "Deploying LLMs at Scale with Kubernetes"
 date: 2026-01-25
 tags: [ai, kubernetes, vllm, helm, scaling, production]
 draft: false
-difficulty: avanzado
-time: 45 minutos
-category: Inteligencia Artificial
+difficulty: advanced
+time: 45 minutes
+category: Artificial Intelligence
 prerequisites: [ollama_basics, model_evaluation, fine_tuning_basico]
 ---
 
-# Despliegue de LLMs a Escala con Kubernetes
+# Deploying LLMs at Scale with Kubernetes
 
-Guía completa para desplegar y escalar modelos de lenguaje grandes (LLMs) en entornos de producción usando Kubernetes, vLLM y estrategias de optimización avanzadas.
+A complete guide to deploying and scaling large language models (LLMs) in production using Kubernetes, vLLM and advanced optimization strategies.
 
-## 🎯 Objetivos de Aprendizaje
+## 🎯 Learning Objectives
 
-Después de completar esta guía, podrás:
+By the end of this guide you will be able to:
 
-- Desplegar LLMs usando vLLM en Kubernetes
-- Configurar auto-scaling basado en métricas de GPU
-- Implementar estrategias de caching y optimización
-- Gestionar múltiples modelos en producción
-- Monitorear rendimiento y costos de inferencia
+- Deploy LLMs with vLLM on Kubernetes
+- Set up auto-scaling driven by GPU metrics
+- Apply caching and optimization strategies
+- Run several models side by side in production
+- Track inference performance and cost
 
-## 📋 Prerrequisitos
+## 📋 Prerequisites
 
-- Conocimientos básicos de Kubernetes
-- Experiencia con Docker y Helm
-- Familiaridad con LLMs y vLLM
-- Cluster Kubernetes con GPUs (opcional pero recomendado)
+- Working knowledge of Kubernetes
+- Hands-on experience with Docker and Helm
+- Familiarity with LLMs and vLLM
+- A Kubernetes cluster with GPUs (optional, but recommended)
 
-## 🏗️ Arquitectura de Despliegue
+## 🏗️ Deployment Architecture
 
-### Componentes Principales
+### Core Components
 
 ```mermaid
 graph TB
@@ -55,22 +55,22 @@ graph TB
     K --> C
 ```
 
-### Estrategias de Despliegue
+### Deployment Strategies
 
-1. **Single Model per Pod**: Aislamiento completo
-2. **Multi-Model per Pod**: Optimización de recursos
-3. **Model Sharding**: Distribución de modelos grandes
-4. **Dynamic Loading**: Carga bajo demanda
+1. **Single Model per Pod**: full isolation
+2. **Multi-Model per Pod**: better resource utilization
+3. **Model Sharding**: splitting large models across nodes
+4. **Dynamic Loading**: load models on demand
 
-## 🚀 Despliegue Básico con vLLM
+## 🚀 Basic Deployment with vLLM
 
-### 1. Preparación del Cluster
+### 1. Preparing the Cluster
 
 ```bash
-# Verificar GPUs disponibles
+# Check which GPUs are available
 kubectl get nodes -o json | jq '.items[].status.capacity."nvidia.com/gpu"'
 
-# Instalar NVIDIA GPU Operator (si no está instalado)
+# Install the NVIDIA GPU Operator (if it isn't already installed)
 helm repo add nvidia https://nvidia.github.io/gpu-operator
 helm repo update
 helm install gpu-operator nvidia/gpu-operator \
@@ -78,7 +78,7 @@ helm install gpu-operator nvidia/gpu-operator \
   --namespace gpu-operator
 ```
 
-### 2. Crear Namespace y ConfigMaps
+### 2. Creating the Namespace and ConfigMaps
 
 ```yaml
 # vllm-namespace.yaml
@@ -107,7 +107,7 @@ data:
   TENSOR_PARALLEL_SIZE: "1"
 ```
 
-### 3. Despliegue con Helm
+### 3. Deploying with Helm
 
 ```yaml
 # vllm-deployment.yaml
@@ -153,7 +153,7 @@ spec:
           periodSeconds: 5
 ```
 
-### 4. Servicio y Ingress
+### 4. Service and Ingress
 
 ```yaml
 # vllm-service.yaml
@@ -194,12 +194,12 @@ spec:
               number: 80
 ```
 
-## 📊 Auto-Scaling con HPA
+## 📊 Auto-Scaling with HPA
 
-### Configuración de Métricas
+### Metrics Configuration
 
 ```yaml
-# metrics-server.yaml (si no está instalado)
+# metrics-server.yaml (if it isn't already installed)
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -222,7 +222,7 @@ spec:
         - --kubelet-preferred-address-types=InternalIP
 ```
 
-### HPA para vLLM
+### HPA for vLLM
 
 ```yaml
 # vllm-hpa.yaml
@@ -263,9 +263,9 @@ spec:
         averageValue: 80
 ```
 
-## 🔧 Optimizaciones Avanzadas
+## 🔧 Advanced Optimizations
 
-### 1. Model Caching y Warm-up
+### 1. Model Caching and Warm-up
 
 ```yaml
 # vllm-deployment-optimized.yaml
@@ -362,9 +362,9 @@ spec:
             memory: 16Gi
 ```
 
-## 📈 Monitoreo y Observabilidad
+## 📈 Monitoring and Observability
 
-### Métricas de vLLM
+### vLLM Metrics
 
 ```yaml
 # prometheus-service-monitor.yaml
@@ -383,7 +383,7 @@ spec:
     interval: 30s
 ```
 
-### Dashboard de Grafana
+### Grafana Dashboard
 
 ```json
 {
@@ -415,7 +415,7 @@ spec:
 }
 ```
 
-## 🔄 Estrategias de Actualización
+## 🔄 Update Strategies
 
 ### Rolling Updates
 
@@ -433,7 +433,7 @@ spec:
       maxSurge: 1
       maxUnavailable: 0
   template:
-    # ... resto de la configuración
+    # ... rest of the configuration
 ```
 
 ### Blue-Green Deployment
@@ -442,23 +442,23 @@ spec:
 # blue-green-deployment.sh
 #!/bin/bash
 
-# Crear nueva versión (green)
+# Create the new version (green)
 kubectl apply -f vllm-deployment-green.yaml
 
-# Esperar a que esté listo
+# Wait until it is ready
 kubectl wait --for=condition=available --timeout=300s deployment/vllm-deployment-green -n vllm-system
 
-# Cambiar el servicio al green
+# Point the service at green
 kubectl patch service vllm-service -n vllm-system -p '{"spec":{"selector":{"version":"green"}}}'
 
-# Verificar que funciona
+# Confirm everything works
 # ... tests ...
 
-# Eliminar blue
+# Remove blue
 kubectl delete deployment vllm-deployment-blue -n vllm-system
 ```
 
-## 🛡️ Seguridad y Compliance
+## 🛡️ Security and Compliance
 
 ### Network Policies
 
@@ -511,7 +511,7 @@ data:
 
 ## 📊 Cost Optimization
 
-### Spot Instances y Preemptible
+### Spot and Preemptible Instances
 
 ```yaml
 # spot-deployment.yaml
@@ -530,10 +530,10 @@ spec:
         effect: "NoSchedule"
       nodeSelector:
         cloud.google.com/gke-spot: "true"
-      # ... resto de configuración
+      # ... rest of the configuration
 ```
 
-### Auto-scaling basado en costos
+### Cost-Driven Auto-scaling
 
 ```yaml
 # cost-based-hpa.yaml
@@ -561,20 +561,20 @@ spec:
 
 ## 🔍 Troubleshooting
 
-### Problemas Comunes
+### Common Problems
 
 1. **Out of Memory (OOM)**:
    ```bash
-   # Verificar logs
+   # Check the logs
    kubectl logs -f deployment/vllm-deployment -n vllm-system
 
-   # Ajustar configuración
+   # Tune the configuration
    kubectl edit configmap vllm-config -n vllm-system
    ```
 
 2. **GPU Not Available**:
    ```bash
-   # Verificar GPU allocation
+   # Check GPU allocation
    kubectl describe node <node-name>
 
    # Check GPU operator
@@ -583,52 +583,52 @@ spec:
 
 3. **Slow Inference**:
    ```bash
-   # Verificar métricas
+   # Check the metrics
    kubectl exec -it deployment/vllm-deployment -n vllm-system -- curl http://localhost:8000/metrics
 
-   # Ajustar batch size
+   # Tune the batch size
    kubectl edit configmap vllm-config -n vllm-system
    ```
 
-## 🎯 Mejores Prácticas
+## 🎯 Best Practices
 
 ### Performance
-- Usa GPU A100/H100 para mejor rendimiento
-- Configura `tensor_parallel_size` para múltiples GPUs
-- Implementa caching de modelos
-- Monitorea constantemente métricas
+- Use A100/H100 GPUs for the best throughput
+- Set `tensor_parallel_size` when running on multiple GPUs
+- Cache models ahead of time
+- Keep an eye on metrics continuously
 
 ### Reliability
-- Implementa health checks apropiados
-- Usa rolling updates para zero-downtime
-- Configura resource limits y requests
-- Implementa circuit breakers
+- Define meaningful health checks
+- Use rolling updates for zero-downtime releases
+- Set resource limits and requests
+- Add circuit breakers
 
 ### Security
-- Usa secrets para tokens de API
-- Implementa network policies
-- Audita logs de acceso
-- Mantén modelos actualizados
+- Store API tokens in secrets
+- Enforce network policies
+- Audit access logs
+- Keep models up to date
 
 ### Cost Management
-- Usa spot instances cuando sea posible
-- Implementa auto-scaling inteligente
-- Monitorea costos en tiempo real
-- Optimiza uso de GPU
+- Use spot instances wherever it makes sense
+- Implement smart auto-scaling
+- Track costs in real time
+- Squeeze the most out of every GPU
 
-## 📚 Recursos Adicionales
+## 📚 Further Reading
 
 - [vLLM Documentation](https://vllm.readthedocs.io/)
 - [Kubernetes GPU Guide](https://kubernetes.io/docs/tasks/manage-gpus/)
 - [NVIDIA GPU Operator](https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/)
 - [Prometheus Metrics](https://prometheus.io/docs/)
 
-## 🤝 Contribuir
+## 🤝 Contributing
 
-Esta guía es parte del proyecto Frikiteam Docs. Si encuentras errores o quieres contribuir mejoras:
+This guide is part of the Frikiteam Docs project. If you spot an error or want to contribute improvements:
 
-1. Fork el repositorio
-2. Crea una rama para tu feature
-3. Envía un Pull Request
+1. Fork the repository
+2. Create a branch for your feature
+3. Open a Pull Request
 
-¡Gracias por contribuir al conocimiento compartido!
+Thanks for helping grow shared knowledge!

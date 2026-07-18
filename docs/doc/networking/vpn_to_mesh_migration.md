@@ -5,7 +5,7 @@ date: 2026-01-25
 tags: [networking, vpn, mesh, migration, wireguard, zerotier, openvpn, ipsec]
 difficulty: intermedia
 time: "60 minutos"
-category: networking
+category: Redes
 state: stable
 prerequisites: [linux-basics, networking-fundamentals]
 ---

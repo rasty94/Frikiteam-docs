@@ -5,7 +5,7 @@ date: 2026-01-25
 tags: [ai, llm, optimization, quantization, pruning, distillation]
 difficulty: intermediate
 estimated_time: "25 min"
-category: ai
+category: Inteligencia Artificial
 status: published
 prerequisites: ["llms_fundamentals", "ollama_basics"]
 ---

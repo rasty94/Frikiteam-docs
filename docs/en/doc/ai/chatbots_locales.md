@@ -5,7 +5,7 @@ date: 2026-01-25
 tags: [ai, llm, chatbots, ollama, slack, discord, telegram]
 difficulty: intermediate
 estimated_time: "30 min"
-category: ai
+category: Artificial Intelligence
 status: published
 prerequisites: ["ollama_basics", "model_optimization"]
 ---

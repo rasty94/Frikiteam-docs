@@ -641,8 +641,15 @@ mkdocs build --strict
 ### 🚧 Pendiente destacado (contenido)
 
 - [x] **i18n - Paridad EN (parcial, 18/07/2026):** traducidos los 6 enlazados desde la home — `kolla_deployment.md`, `openstack_ceph_integration.md`, `troubleshooting_openstack.md`, `day2.md` (OpenStack), `mcp_fastmcp.md` y `plausible_analytics.md`. Verificada integridad estructural (encabezados y bloques de código idénticos a ES). Paridad: 127/138
-- [ ] **i18n - Paridad EN (resto):** quedan 11 archivos. El mayor: `kubernetes_security.md` (524 líneas), señalado por dos agentes al enlazarlo
-- [ ] **i18n - Categorías inconsistentes en árbol EN:** conviven `category: ai` (5 archivos) y `Artificial Intelligence`, `networking` en minúscula frente a otras capitalizadas. Los badges de metadatos se ven descuadrados entre páginas
+- [x] **i18n - PARIDAD ES/EN COMPLETA (18/07/2026):** traducidos los 13 archivos restantes (~5.600 líneas), incluidos `fine_tuning_basico.md` (1365), `evaluacion_coherencia.md` (1133), `testing_seguridad.md` (1133) y `kubernetes_security.md` (524). Verificada la integridad estructural de los 13 (encabezados y bloques de código idénticos al original). **0 archivos ES sin equivalente EN**
+- [x] **i18n - Categorías normalizadas (18/07/2026):** corregidos 11 archivos ES (`ai` → `Inteligencia Artificial`, `networking` → `Redes`) y 7 EN (`ai` → `Artificial Intelligence`, `networking` → `Networking`). Ambos árboles coherentes
+
+### 🧹 Deuda detectada (pendiente de decisión)
+
+- [ ] **Ficheros excluidos del build en `mkdocs.yml` (`exclude_docs`)**, en lugar de resolverlos:
+    - `en/doc/ai/deployment_kubernetes.md` (536 líneas): contenido **en español** dentro del árbol inglés, sin frontmatter. Duplica `despliegue_kubernetes.md`, ya traducido correctamente
+    - `en/doc/ceph/ceph_base.md` (64 líneas): ruta antigua que duplica la canónica `en/doc/storage/ceph/ceph_base.md`
+- [ ] **Metadatos `updated` ausentes en 81 archivos EN:** `scripts/check_sync.py` no puede comparar fechas y los reporta como desincronizados (falsos positivos). Sincronizados: 27 de 112
 - [ ] **i18n - Metadatos:** solo 15 de 118 archivos EN tienen campo `updated`, lo que deja `scripts/check_sync.py` medio ciego (81 falsos positivos)
 - [ ] **i18n - Desincronizados reales (4):** `hardening_linux.md`, `rag_basics.md`, `local_ecosystems.md`, `vector_databases.md`
 - [ ] **Ciberseguridad:** Backup Seguro (restic/borg + restore testing), Respuesta a Incidentes (TheHive/MISP)

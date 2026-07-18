@@ -5,7 +5,7 @@ date: 2026-01-25
 tags: [ai, llm, automation, documentation, content-generation]
 difficulty: intermediate
 estimated_time: "30 min"
-category: ai
+category: Artificial Intelligence
 status: published
 prerequisites: ["llms_fundamentals", "ollama_basics", "chatbots_locales"]
 ---

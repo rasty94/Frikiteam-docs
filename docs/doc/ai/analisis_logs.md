@@ -5,7 +5,7 @@ date: 2026-01-25
 tags: [ai, llm, logs, troubleshooting, observability, debugging]
 difficulty: intermediate
 estimated_time: "35 min"
-category: ai
+category: Inteligencia Artificial
 status: published
 prerequisites: ["ollama_basics", "chatbots_locales"]
 ---
