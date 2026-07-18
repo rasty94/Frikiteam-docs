@@ -640,7 +640,9 @@ mkdocs build --strict
 
 ### 🚧 Pendiente destacado (contenido)
 
-- [ ] **i18n - Paridad EN:** faltan 19 archivos EN (~9.000 líneas). El mayor: `kubernetes_security.md` (524 líneas), señalado por dos agentes al enlazarlo
+- [x] **i18n - Paridad EN (parcial, 18/07/2026):** traducidos los 6 enlazados desde la home — `kolla_deployment.md`, `openstack_ceph_integration.md`, `troubleshooting_openstack.md`, `day2.md` (OpenStack), `mcp_fastmcp.md` y `plausible_analytics.md`. Verificada integridad estructural (encabezados y bloques de código idénticos a ES). Paridad: 127/138
+- [ ] **i18n - Paridad EN (resto):** quedan 11 archivos. El mayor: `kubernetes_security.md` (524 líneas), señalado por dos agentes al enlazarlo
+- [ ] **i18n - Categorías inconsistentes en árbol EN:** conviven `category: ai` (5 archivos) y `Artificial Intelligence`, `networking` en minúscula frente a otras capitalizadas. Los badges de metadatos se ven descuadrados entre páginas
 - [ ] **i18n - Metadatos:** solo 15 de 118 archivos EN tienen campo `updated`, lo que deja `scripts/check_sync.py` medio ciego (81 falsos positivos)
 - [ ] **i18n - Desincronizados reales (4):** `hardening_linux.md`, `rag_basics.md`, `local_ecosystems.md`, `vector_databases.md`
 - [ ] **Ciberseguridad:** Backup Seguro (restic/borg + restore testing), Respuesta a Incidentes (TheHive/MISP)

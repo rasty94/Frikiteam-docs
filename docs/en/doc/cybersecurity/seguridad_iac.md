@@ -6,7 +6,7 @@ tags: [cybersecurity, iac, terraform, ansible, checkov, tflint, devsecops]
 updated: 2026-07-18
 difficulty: intermediate
 estimated_time: 8 min
-category: Ciberseguridad
+category: Cybersecurity
 status: published
 last_reviewed: 2026-07-18
 prerequisites:
