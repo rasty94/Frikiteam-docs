@@ -650,6 +650,7 @@ mkdocs build --strict
 
 ## Progreso de Publicación
 
+- LM Studio: LLMs locales con interfaz gráfica - Publicado el 2026-07-18
 - Comparativa rápida: NetBird vs Tailscale vs ZeroTier - Publicado el 2026-07-18
 - Troubleshooting — Errores Comunes y Soluciones - Publicado el 2026-02-03
 - Empezando — Primeros pasos en Frikiteam - Publicado el 2026-02-03

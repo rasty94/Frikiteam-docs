@@ -16,6 +16,26 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 
 ## 🆕 Últimas Novedades
 
+### 📅 **18 de julio de 2026**
+
+#### 🤖 **Ecosistema completo de LLMs locales (ES/EN)**
+
+- **Motores de inferencia**: [LLaMA.cpp](doc/ai/llama_cpp.md) (compilación, cuantización GGUF y benchmarking), [LM Studio](doc/ai/lm_studio.md) (interfaz gráfica) y [vLLM](doc/ai/vllm.md) (serving a escala con alto throughput).
+- **Gateway unificado**: [LiteLLM](doc/ai/litellm.md) como capa única OpenAI-compatible ante modelos locales y proveedores cloud, con control de presupuesto y fallbacks.
+- **Inferencia distribuida**: [MeshLLM](doc/ai/meshllm.md), malla P2P que agrupa GPUs de varias máquinas tras un solo endpoint.
+- **Protocolo MCP**: [MCP y FastMCP](doc/ai/mcp_fastmcp.md) integrado en la navegación.
+
+#### 🔒 **Seguridad: runtime, IaC y GitOps (ES/EN)**
+
+- **Aislamiento de contenedores**: [Seguridad Runtime en Docker](doc/docker/docker_runtime_security.md) con gVisor y Kata Containers, complemento del [hardening de imágenes](doc/docker/docker_security.md).
+- **Infraestructura como Código**: [Seguridad en IaC](doc/cybersecurity/seguridad_iac.md) con Checkov y TFLint, integrado en pre-commit y CI/CD.
+- **Secretos versionados**: [Secretos en GitOps](doc/cybersecurity/secrets_gitops.md) comparando SOPS, Sealed Secrets y External Secrets Operator.
+
+#### ☸️ **Kubernetes y almacenamiento (ES/EN)**
+
+- **Service Mesh**: [comparativa Istio vs Linkerd vs Cilium](doc/kubernetes/service_mesh.md), con sección honesta sobre cuándo *no* necesitas un service mesh.
+- **Almacenamiento persistente**: [Storage en Kubernetes](doc/storage/kubernetes_csi.md) comparando Ceph RBD, Longhorn y OpenEBS, con metodología de benchmark reproducible.
+
 ### 📅 **18 de abril de 2026**
 
 #### 🌐 **Nueva sección de vRouters (ES/EN)**
