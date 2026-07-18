@@ -187,7 +187,7 @@ def analyze_metadata(docs_path, category_filter=None):
                     # Solo minutos
                     total_minutes = int(time_str.replace('min', ''))
                 stats['estimated_times'].append(total_minutes)
-            except:
+            except (ValueError, AttributeError):
                 pass  # Ignorar errores de parsing
 
         # Verificar si metadata está completo

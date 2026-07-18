@@ -263,7 +263,7 @@ def get_md_title(file_path):
         frontmatter, _ = extract_frontmatter(content)
         metadata = parse_frontmatter(frontmatter)
         return metadata.get('title', os.path.basename(file_path))
-    except:
+    except Exception:
         return os.path.basename(file_path)
 
 # Función interactiva para seleccionar archivos

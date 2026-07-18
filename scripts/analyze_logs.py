@@ -149,7 +149,7 @@ class LogAnalyzer:
                     try:
                         parsed = urllib.parse.urlparse(referrer)
                         domain = parsed.netloc or 'Direct'
-                    except:
+                    except (ValueError, AttributeError):
                         domain = 'Unknown'
                     self.referrers[domain] += 1
     
