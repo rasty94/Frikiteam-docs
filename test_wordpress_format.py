@@ -76,6 +76,26 @@ def test_strip_html_removes_tags_and_scripts():
     assert 'alert' not in out and 'Hola mundo' in out, out
 
 
+def test_todo_log_distingue_borrador_de_publicado():
+    # el histórico no debe decir "Publicado" cuando es un borrador
+    import tempfile, os as _os, shutil
+    from wordpress_sync import update_todo_md
+    tmp = tempfile.mkdtemp()
+    cwd = _os.getcwd()
+    try:
+        _os.chdir(tmp)
+        with open('TODO.md', 'w', encoding='utf-8') as f:
+            f.write('# T\n\n## Progreso de Publicación\n\n')
+        update_todo_md([{'title': 'Doc A', 'status': 'draft'},
+                        {'title': 'Doc B', 'status': 'publish'}])
+        out = open('TODO.md', encoding='utf-8').read()
+        assert 'Doc A - Borrador creado el' in out, out
+        assert 'Doc B - Publicado el' in out, out
+    finally:
+        _os.chdir(cwd)
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 if __name__ == '__main__':
     for name, fn in sorted(globals().items()):
         if name.startswith('test_'):

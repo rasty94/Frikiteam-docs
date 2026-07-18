@@ -404,7 +404,10 @@ def update_todo_md(published_posts):
         content += '\n## Progreso de Publicación\n\n'
 
     for post in published_posts:
-        entry = f'- {post["title"]} - Publicado el {datetime.now().strftime("%Y-%m-%d")}\n'
+        # Distinguir borrador de publicado: registrar "Publicado" un draft
+        # induce a error al releer el histórico meses después.
+        estado = 'Publicado' if post.get('status') == 'publish' else 'Borrador creado'
+        entry = f'- {post["title"]} - {estado} el {datetime.now().strftime("%Y-%m-%d")}\n'
         if entry not in content:
             content = content.replace('## Progreso de Publicación\n\n', f'## Progreso de Publicación\n\n{entry}')
 
