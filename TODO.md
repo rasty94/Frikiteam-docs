@@ -628,10 +628,13 @@ mkdocs build --strict
 - [x] **Docker - Seguridad Runtime (gVisor/Kata):** `docs/doc/docker/docker_runtime_security.md` (ES/EN)
 - [x] **Ciberseguridad - Seguridad en IaC (Checkov/TFLint):** `docs/doc/cybersecurity/seguridad_iac.md` (ES/EN)
 
+- [x] **IA - LiteLLM (gateway):** `docs/doc/ai/litellm.md` (ES/EN)
+- [x] **IA - MeshLLM (inferencia distribuida P2P):** `docs/doc/ai/meshllm.md` (ES/EN)
+- [x] **Storage - Kubernetes CSI:** `docs/doc/storage/kubernetes_csi.md` (ES/EN) — cierra el ítem de CSI/persistent volumes
+
 ### 🚧 Pendiente destacado (contenido)
 
 - [ ] **IA - vLLM:** guía dedicada de despliegue a escala (guía LLaMA.cpp y LM Studio ya hechas)
-- [ ] **IA - Integrar en nav:** `doc/ai/mcp_fastmcp.md` existe pero no está en `mkdocs.yml`
 - [ ] **Ciberseguridad:** Backup Seguro (restic/borg + restore testing), Respuesta a Incidentes (TheHive/MISP)
 - [ ] **i18n:** Script que detecta ES actualizado sin actualizar EN
 
