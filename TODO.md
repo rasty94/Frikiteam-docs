@@ -196,8 +196,8 @@ Esta sección propone contenido nuevo sobre inteligencia artificial, enfocado en
 ### Herramientas y Tecnologías
 
 - [x] **Ollama:** Instalación, gestión de modelos locales, APIs REST, integración con Docker. ✅ **COMPLETADO:** Creado `docs/doc/ai/ollama_basics.md` con instalación, configuración y uso avanzado de Ollama.
-- [ ] **LM Studio:** UI interactiva, configuración de parámetros, exportación de modelos.
-- [ ] **LLaMA.cpp:** Compilación, optimización de CPU/GPU, benchmarking.
+- [x] **LM Studio:** UI interactiva, configuración de parámetros, exportación de modelos. ✅ **COMPLETADO (18/07/2026):** Creado `docs/doc/ai/lm_studio.md` (ES/EN).
+- [x] **LLaMA.cpp:** Compilación, optimización de CPU/GPU, benchmarking. ✅ **COMPLETADO (18/07/2026):** Creado `docs/doc/ai/llama_cpp.md` (ES/EN).
 - [ ] **vLLM:** Deployment de modelos LLM a escala, tensor parallelism, paging de atención.
 - [x] **RAG (Retrieval-Augmented Generation):** Conceptos básicos, integraciones (LangChain, LlamaIndex, Chroma). ✅ **COMPLETADO:** Creado `docs/doc/ai/rag_basics.md` con arquitectura completa, implementación paso a paso, casos de uso.
 - [x] **Vector Databases:** Milvus, Weaviate, Chroma, Pinecone para búsqueda semántica. ✅ **COMPLETADO:** Creado `docs/doc/ai/vector_databases.md` con comparativa de soluciones, instalación y ejemplos prácticos.
@@ -278,7 +278,7 @@ Esta sección propone contenido nuevo sobre ciberseguridad, enfocado en práctic
 
 - [x] **Hardening de Servidores Linux:** Checklist para securizar SSH, sudo, kernel parameters (sysctl). ✅ **COMPLETADO:** Expandido `docs/doc/cybersecurity/hardening_linux.md` con configuraciones completas, auditoria con Lynis, monitoreo de seguridad.
 - [x] **Seguridad en Kubernetes:** RBAC, Network Policies, Pod Security Standards, admission controllers (OPA/Gatekeeper). ✅ **COMPLETADO:** Creado `docs/doc/cybersecurity/kubernetes_security.md` con RBAC, Network Policies, Pod Security, admission controllers y monitoreo.
-- [ ] **Seguridad en Docker:** Imágenes seguras, multi-stage builds, scanning, runtime security con gVisor/Kata Containers.
+- [x] **Seguridad en Docker (runtime):** Aislamiento con gVisor/Kata Containers. ✅ **COMPLETADO (18/07/2026):** Creado `docs/doc/docker/docker_runtime_security.md` (ES/EN). Imágenes seguras/scanning ya cubierto en `docker_security.md`.
 - [ ] **Backup Seguro:** Encriptación de backups (restic, borg), offsite storage, testing de restauración.
 - [ ] **Respuesta a Incidentes:** Playbook básico para IR en infra cloud, herramientas como TheHive/MISP.
 - [ ] **Cumplimiento y Auditoría:** Guías para GDPR, ISO 27001 en entornos DevOps; herramientas como OpenSCAP para compliance.
@@ -286,7 +286,7 @@ Esta sección propone contenido nuevo sobre ciberseguridad, enfocado en práctic
 ### Avanzado y Especializado
 
 - [ ] **Criptografía Aplicada:** TLS/SSL, certificados Let's Encrypt, VPNs (WireGuard, OpenVPN).
-- [ ] **Seguridad en IaC:** Escaneo de Terraform/Ansible con Checkov/TFLint para detectar misconfigurations.
+- [x] **Seguridad en IaC:** Escaneo de Terraform/Ansible con Checkov/TFLint para detectar misconfigurations. ✅ **COMPLETADO (18/07/2026):** Creado `docs/doc/cybersecurity/seguridad_iac.md` (ES/EN).
 - [ ] **Cloud Security:** Posturas de seguridad en AWS/Azure/GCP (CIS Benchmarks), IAM best practices.
 - [ ] **Pentesting Básico:** Herramientas open-source como Metasploit, Nmap, Burp Suite para ethical hacking.
 - [ ] **Forensics Digital:** Recolección de logs, chain of custody, herramientas como Volatility para memory forensics.
@@ -598,8 +598,48 @@ mkdocs build --strict
 ```
 
 
+## ✅ Actualización 18/07/2026 - vRouters, Dex IdP y Pipeline WordPress
+
+**Nuevo contenido de Networking (vRouters virtualizados):**
+
+- ✅ `docs/doc/networking/vrouters.md` - Índice y comparativa de routers virtuales
+- ✅ `docs/doc/networking/vrouter_pfsense.md` - pfSense
+- ✅ `docs/doc/networking/vrouter_opnsense.md` - OPNsense
+- ✅ `docs/doc/networking/vrouter_vyos.md` - VyOS
+- ✅ `docs/doc/networking/vrouter_mikrotik_chr.md` - MikroTik CHR
+- ✅ `docs/doc/networking/vrouter_benchmark_template.md` - Plantilla de benchmark
+- ✅ Contenido bilingüe (ES/EN)
+
+**Identidad:**
+
+- ✅ `docs/doc/identity/dex.md` - Dex como Identity Provider (OIDC)
+
+**Pipeline de publicación a WordPress (`wordpress_sync.py`):**
+
+- ✅ Conversión Markdown→HTML alineada con mkdocs (admonitions, mermaid, tablas, footnotes)
+- ✅ Código con resaltado inline (self-contained) y subida automática de imágenes a medios
+- ✅ Diagramas Mermaid renderizados a PNG (mmdc) y admonitions con estilos inline
+- ✅ Mejora opcional de estilo "blog" vía Ollama (local/cloud) usando posts publicados como referencia de tono
+
+### ✅ Documentación generada (18/07/2026)
+
+- [x] **IA - LLaMA.cpp:** `docs/doc/ai/llama_cpp.md` (ES/EN)
+- [x] **IA - LM Studio:** `docs/doc/ai/lm_studio.md` (ES/EN)
+- [x] **Docker - Seguridad Runtime (gVisor/Kata):** `docs/doc/docker/docker_runtime_security.md` (ES/EN)
+- [x] **Ciberseguridad - Seguridad en IaC (Checkov/TFLint):** `docs/doc/cybersecurity/seguridad_iac.md` (ES/EN)
+
+### 🚧 Pendiente destacado (contenido)
+
+- [ ] **IA - vLLM:** guía dedicada de despliegue a escala (guía LLaMA.cpp y LM Studio ya hechas)
+- [ ] **IA - Integrar en nav:** `doc/ai/mcp_fastmcp.md` existe pero no está en `mkdocs.yml`
+- [ ] **Ciberseguridad:** Backup Seguro (restic/borg + restore testing), Respuesta a Incidentes (TheHive/MISP)
+- [ ] **i18n:** Script que detecta ES actualizado sin actualizar EN
+
+---
+
 ## Progreso de Publicación
 
+- Comparativa rápida: NetBird vs Tailscale vs ZeroTier - Publicado el 2026-07-18
 - Troubleshooting — Errores Comunes y Soluciones - Publicado el 2026-02-03
 - Empezando — Primeros pasos en Frikiteam - Publicado el 2026-02-03
 - Política de Privacidad - Publicado el 2026-02-03
