@@ -632,9 +632,17 @@ mkdocs build --strict
 - [x] **IA - MeshLLM (inferencia distribuida P2P):** `docs/doc/ai/meshllm.md` (ES/EN)
 - [x] **Storage - Kubernetes CSI:** `docs/doc/storage/kubernetes_csi.md` (ES/EN) — cierra el ítem de CSI/persistent volumes
 
+- [x] **IA - vLLM:** `docs/doc/ai/vllm.md` (ES/EN)
+- [x] **Kubernetes - Service Mesh:** `docs/doc/kubernetes/service_mesh.md` (ES/EN)
+- [x] **Ciberseguridad - Secretos en GitOps:** `docs/doc/cybersecurity/secrets_gitops.md` (ES/EN)
+- [x] **Higiene:** frontmatter en `mcp_fastmcp.md` (+ arreglado bug de render `<SESSION>`), EN de `troubleshooting_ceph.md` y `fio_example.md`
+- [x] **Validación:** LinkChecker sobre las 11 páginas nuevas — 225 enlaces, 0 errores
+
 ### 🚧 Pendiente destacado (contenido)
 
-- [ ] **IA - vLLM:** guía dedicada de despliegue a escala (guía LLaMA.cpp y LM Studio ya hechas)
+- [ ] **i18n - Paridad EN:** faltan 19 archivos EN (~9.000 líneas). El mayor: `kubernetes_security.md` (524 líneas), señalado por dos agentes al enlazarlo
+- [ ] **i18n - Metadatos:** solo 15 de 118 archivos EN tienen campo `updated`, lo que deja `scripts/check_sync.py` medio ciego (81 falsos positivos)
+- [ ] **i18n - Desincronizados reales (4):** `hardening_linux.md`, `rag_basics.md`, `local_ecosystems.md`, `vector_databases.md`
 - [ ] **Ciberseguridad:** Backup Seguro (restic/borg + restore testing), Respuesta a Incidentes (TheHive/MISP)
 - [ ] **i18n:** Script que detecta ES actualizado sin actualizar EN
 
