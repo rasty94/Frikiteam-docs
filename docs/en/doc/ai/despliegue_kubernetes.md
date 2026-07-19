@@ -140,19 +140,31 @@ spec:
             nvidia.com/gpu: 1
           requests:
             nvidia.com/gpu: 1
+        # startupProbe: covers model loading. Until it succeeds,
+        # liveness and readiness are not even evaluated.
+        # 60 failures x 10s = 10 minutes of headroom to load the weights.
+        startupProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          failureThreshold: 60
+          periodSeconds: 10
         livenessProbe:
           httpGet:
             path: /health
             port: 8000
-          initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /health
             port: 8000
-          initialDelaySeconds: 5
           periodSeconds: 5
 ```
+
+!!! danger "Without `startupProbe` the pod ends up in CrashLoopBackOff"
+    A `livenessProbe` with `initialDelaySeconds: 30` declares the container dead after 30 seconds. Loading the weights of a 13B model from disk into the GPU takes **several minutes**, so Kubernetes kills it right before it finishes starting, restarts it, and kills it again: an infinite loop that also burns GPU time on every attempt.
+
+    The `startupProbe` exists precisely for this: while it has not succeeded, the other two probes stay suspended. Tune `failureThreshold` to your model's real load time with room to spare — overshooting is safer than falling short.
 
 ### 4. Service and Ingress
 
@@ -240,29 +252,37 @@ spec:
   minReplicas: 1
   maxReplicas: 10
   metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 70
-  - type: Resource
-    resource:
-      name: memory
-      target:
-        type: Utilization
-        averageUtilization: 80
-  - type: External
-    external:
+  # Primary metric: requests waiting in the scheduler queue.
+  # This is what actually reflects the service falling behind.
+  - type: Pods
+    pods:
       metric:
-        name: nvidia_com_gpu_utilization
-        selector:
-          matchLabels:
-            app: vllm
+        name: vllm:num_requests_waiting
       target:
         type: AverageValue
-        averageValue: 80
+        averageValue: "5"
+  # Secondary: KV cache occupancy. Close to 100% means no more
+  # concurrent requests fit, however much GPU headroom is left.
+  - type: Pods
+    pods:
+      metric:
+        name: vllm:kv_cache_usage_perc
+      target:
+        type: AverageValue
+        averageValue: "900m"   # 0.9 = 90%
+  behavior:
+    scaleUp:
+      # A new pod takes minutes to load the model: scaling aggressively
+      # buys nothing and just doubles GPU consumption.
+      stabilizationWindowSeconds: 120
+    scaleDown:
+      stabilizationWindowSeconds: 600
 ```
+
+!!! warning "Do not scale an inference service by CPU"
+    This is the most common mistake when reusing a web application's HPA. During token generation the process is **waiting on the GPU**, not computing: CPU stays low even while the service is saturated and the queue is growing. An HPA on CPU at 70% simply never fires, or fires when it no longer matters.
+
+    The two metrics that do correlate with real saturation are queue length (`vllm:num_requests_waiting`) and KV cache occupancy, which is what actually caps concurrency. Both need [prometheus-adapter](https://github.com/kubernetes-sigs/prometheus-adapter) to be exposed to the HPA. Details on both in [LLM Monitoring](monitoreo_llms.md).
 
 ## 🔧 Advanced Optimizations
 
@@ -497,17 +517,29 @@ spec:
 
 ### Secret Management
 
+!!! danger "base64 is not encryption"
+    A Kubernetes `Secret` stores the value in base64, which is **encoding, not encryption**: anyone who can read the YAML decodes it with a single command. A manifest like that is **never** committed to Git.
+
+    For GitOps use SOPS, Sealed Secrets or External Secrets Operator. A comparison of all three is in [Secrets in GitOps](../cybersecurity/secrets_gitops.md).
+
+Object reference (to create it from the command line, not to commit it):
+
+```bash
+# Create the Secret without the token ever touching a file in the repo
+kubectl create secret generic vllm-secrets \
+  --namespace vllm-system \
+  --from-literal=huggingface-token="$HF_TOKEN" \
+  --from-literal=api-key="$VLLM_API_KEY"
+```
+
 ```yaml
-# vllm-secrets.yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: vllm-secrets
-  namespace: vllm-system
-type: Opaque
-data:
-  huggingface-token: <base64-encoded-token>
-  api-key: <base64-encoded-key>
+# How the Deployment consumes it: by reference, without exposing the value
+env:
+  - name: HUGGING_FACE_HUB_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: vllm-secrets
+        key: huggingface-token
 ```
 
 ## 📊 Cost Optimization
