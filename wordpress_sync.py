@@ -511,10 +511,17 @@ def enhance_markdown(md_text):
         print(f'  Aviso: reescritura completa descartada ({perdido or "enlaces malformados"}); '
               f'se prueba solo la introducción')
 
-    # Intento 2: solo la prosa introductoria, donde no hay estructura que romper
-    h1 = re.match(r'\s*#\s[^\n]*\n', md_text)
-    cabecera = h1.group(0) if h1 else ''
-    cuerpo = md_text[h1.end():] if h1 else md_text
+    # Intento 2: la primera prosa del documento, donde no hay estructura que
+    # romper. Puede ir suelta tras el título o dentro de la primera sección
+    # ("## Introducción", "## El problema"...), así que se saltan ambos
+    # encabezados antes de buscarla.
+    cabecera, cuerpo = '', md_text
+    for patron in (r'\s*#\s[^\n]*\n', r'\s*#{2,6}\s[^\n]*\n'):
+        salto = re.match(patron, cuerpo)
+        if salto:
+            cabecera += salto.group(0)
+            cuerpo = cuerpo[salto.end():]
+
     corte = re.search(r'^(?:#{1,6} |```|\s*(?:!!!|\?\?\?) |\|)', cuerpo, re.M)
     intro = cuerpo[:corte.start()] if corte else cuerpo
     resto = cuerpo[corte.start():] if corte else ''

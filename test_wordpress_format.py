@@ -111,6 +111,25 @@ def test_enhance_rechaza_enlace_malformado(monkeypatch=None):
         w.requests.post, w.get_style_references, w._SERVIDOR = post_real, refs_real, srv_real
 
 
+def test_intro_detectada_dentro_de_la_primera_seccion():
+    # dos documentos reales cuya prosa vive dentro de "## Introducción" /
+    # "## El problema" en vez de suelta tras el título; antes se daban por
+    # "sin introducción" y se publicaban sin mejorar
+    import re as _re
+    from wordpress_sync import extract_frontmatter
+    for path in ['docs/doc/docker/docker_runtime_security.md',
+                 'docs/doc/cybersecurity/secrets_gitops.md']:
+        _, md = extract_frontmatter(open(path, encoding='utf-8').read())
+        cuerpo = md
+        for patron in (r'\s*#\s[^\n]*\n', r'\s*#{2,6}\s[^\n]*\n'):
+            salto = _re.match(patron, cuerpo)
+            if salto:
+                cuerpo = cuerpo[salto.end():]
+        corte = _re.search(r'^(?:#{1,6} |```|\s*(?:!!!|\?\?\?) |\|)', cuerpo, _re.M)
+        intro = (cuerpo[:corte.start()] if corte else cuerpo).strip()
+        assert len(intro) >= 80, f'{path}: intro no detectada ({len(intro)} chars)'
+
+
 def test_restore_detecta_marcador_borrado():
     orig = 'Texto\n\n```bash\nls\n```\n\nfin\n'
     protegido, bloques = _protect_structure(orig)
