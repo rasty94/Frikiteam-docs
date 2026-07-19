@@ -3,7 +3,7 @@ title: "Observability: Centralized Logging with Wazuh"
 description: "Integrating application logs into the Wazuh SIEM: agent configuration, security analysis and auditing"
 keywords: "wazuh, logs, siem, security, monitoring"
 tags: [monitoring, logs, wazuh, siem, security]
-updated: 2026-01-25
+updated: 2026-07-18
 difficulty: intermediate
 estimated_time: 1 min
 category: Monitoring

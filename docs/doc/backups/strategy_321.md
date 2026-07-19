@@ -3,7 +3,7 @@ tags:
   - backups
   - theory
   - best-practices
-updated: 2026-01-25
+updated: 2025-12-08
 difficulty: advanced
 estimated_time: 1 min
 category: Copias de Seguridad

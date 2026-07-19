@@ -1,7 +1,7 @@
 ---
 title: "Trivy Operator: Continuous Scanning in Kubernetes"
 date: 2026-01-25
-updated: 2026-01-25
+updated: 2026-07-18
 tags: [security, kubernetes, trivy, vulnerability-scanning, opa, alerts]
 difficulty: intermediate
 estimated_time: 5 min

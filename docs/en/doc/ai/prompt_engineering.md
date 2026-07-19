@@ -8,7 +8,7 @@ estimated_time: "40 min"
 category: Artificial Intelligence
 status: published
 prerequisites: ["llms_fundamentals", "ollama_basics"]
-updated: 2026-07-18
+updated: 2026-01-25
 ---
 
 # Advanced Prompt Engineering for LLMs

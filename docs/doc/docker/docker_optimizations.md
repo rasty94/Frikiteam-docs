@@ -1,6 +1,6 @@
 ---
 title: Docker — Optimización y Buenas Prácticas
-updated: 2026-01-25
+updated: 2025-12-07
 difficulty: expert
 estimated_time: 1 min
 category: Contenedores

@@ -3,7 +3,7 @@ title: "OpenStack + Ceph Integration: Complete Storage Backend Guide"
 description: "Comprehensive guide to integrate Ceph as storage backend for OpenStack. Configure Glance, Cinder, and Nova to use Ceph RBD pools with best practices."
 keywords: OpenStack, Ceph, RBD, integration, Glance, Cinder, Nova, storage backend, cephx, pools, images, volumes
 date: 2026-01-25
-updated: 2026-01-25
+updated: 2026-07-18
 difficulty: intermediate
 estimated_time: 10 min
 category: Cloud Computing

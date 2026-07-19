@@ -3,7 +3,7 @@ title: "fio Example — I/O Testing"
 date: 2025-12-07
 tags: [storage, fio, benchmarks]
 draft: true
-updated: 2026-01-25
+updated: 2026-07-18
 difficulty: intermediate
 estimated_time: 1 min
 category: Storage

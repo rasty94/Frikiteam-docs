@@ -1,6 +1,6 @@
 ---
 title: Kubernetes — Readiness y Liveness Probes
-updated: 2026-01-25
+updated: 2025-12-07
 difficulty: expert
 estimated_time: 1 min
 category: Orquestación

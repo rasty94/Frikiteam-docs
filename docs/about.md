@@ -3,6 +3,7 @@ title: Acerca de - Frikiteam
 description: Información sobre Frikiteam, contacto y redes sociales. Conoce al equipo detrás de la documentación técnica.
 keywords: acerca de, contacto, redes sociales, equipo, frikiteam
 tags: [acerca, contacto, equipo]
+updated: 2025-12-07
 ---
 
 # Acerca de 📬

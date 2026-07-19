@@ -2,7 +2,7 @@
 title: "Recetas Rápidas"
 description: "Documentación sobre recetas rápidas"
 tags: ['documentation']
-updated: 2026-01-25
+updated: 2025-12-07
 difficulty: intermediate
 estimated_time: 2 min
 category: General

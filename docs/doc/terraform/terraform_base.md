@@ -2,7 +2,7 @@
 title: "Terraform & OpenTofu - Infraestructura como Código"
 description: "Documentación sobre terraform & opentofu - infraestructura como código"
 tags: ['terraform']
-updated: 2026-01-25
+updated: 2025-11-15
 difficulty: beginner
 estimated_time: 4 min
 category: Infraestructura como Código

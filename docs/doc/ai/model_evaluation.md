@@ -3,7 +3,7 @@ title: "Evaluación y Testing de Modelos LLM"
 description: "Guía completa para evaluar rendimiento de LLMs: benchmarks MMLU, HellaSwag, métricas BLEU/ROUGE, testing de latencia y herramientas de evaluación"
 keywords: "llm evaluation, benchmarks, mmlu, hellaswag, bleu, rouge, latency testing"
 tags: [ai, llm, evaluation, benchmarks, testing]
-updated: 2026-01-25
+updated: 2026-01-24
 difficulty: beginner
 estimated_time: 6 min
 category: Inteligencia Artificial

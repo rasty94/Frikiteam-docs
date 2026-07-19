@@ -2,7 +2,7 @@
 title: "Comparativa rápida: NetBird vs Tailscale vs ZeroTier"
 description: "Documentación sobre comparativa rápida: netbird vs tailscale vs zerotier"
 tags: ['networking']
-updated: 2026-01-25
+updated: 2025-11-15
 difficulty: beginner
 estimated_time: 2 min
 category: Redes

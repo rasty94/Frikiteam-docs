@@ -8,6 +8,7 @@ time: "45 minutos"
 category: Redes
 state: stable
 prerequisites: [docker, linux-basics]
+updated: 2026-01-25
 ---
 
 # Benchmarks de Rendimiento: Tailscale vs NetBird

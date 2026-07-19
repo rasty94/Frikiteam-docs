@@ -2,7 +2,7 @@
 title: "React"
 description: "Documentación sobre react"
 tags: ['documentation']
-updated: 2026-01-25
+updated: 2026-01-04
 difficulty: intermediate
 estimated_time: 1 min
 category: Desarrollo

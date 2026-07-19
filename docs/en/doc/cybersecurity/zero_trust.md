@@ -1,7 +1,7 @@
 ---
 title: "Zero Trust in Practice"
 date: 2026-01-25
-updated: 2026-01-25
+updated: 2026-07-18
 tags: [security, zero-trust, mtls, spiffe, opa, network-policies]
 difficulty: intermediate
 estimated_time: 6 min

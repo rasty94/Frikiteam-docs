@@ -2,7 +2,7 @@
 title: "HAProxy"
 description: "Documentación sobre haproxy"
 tags: ['documentation']
-updated: 2026-01-25
+updated: 2025-11-15
 difficulty: beginner
 estimated_time: 5 min
 category: Load Balancing

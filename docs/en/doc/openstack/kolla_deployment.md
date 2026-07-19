@@ -3,7 +3,7 @@ title: "OpenStack Deployment with Kolla-Ansible: Complete Production Guide"
 description: "Step-by-step guide to deploying OpenStack in production with Kolla-Ansible. Hardware requirements, network design, installation, and post-deployment verification."
 keywords: OpenStack, Kolla-Ansible, deployment, production, containers, Docker, infrastructure, cloud, installation guide
 date: 2026-01-25
-updated: 2026-01-25
+updated: 2026-07-18
 difficulty: intermediate
 estimated_time: 8 min
 category: Cloud Computing

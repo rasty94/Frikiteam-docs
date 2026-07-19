@@ -2,7 +2,7 @@
 tags:
   - identity
   - openstack
-updated: 2026-01-25
+updated: 2025-12-07
 difficulty: beginner
 estimated_time: 1 min
 category: Gestión de Identidad

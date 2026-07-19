@@ -8,7 +8,7 @@ estimated_time: "35 min"
 category: Artificial Intelligence
 status: published
 prerequisites: ["ollama_basics", "chatbots_locales"]
-updated: 2026-07-18
+updated: 2026-01-25
 ---
 
 # Log Analysis and Troubleshooting with LLMs

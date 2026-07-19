@@ -3,7 +3,7 @@ title: "Observabilidad: Centralización de Logs con Wazuh"
 description: "Integración de logs de aplicaciones en Wazuh SIEM: configuración de agentes, análisis de seguridad y auditoría"
 keywords: "wazuh, logs, siem, security, monitoring"
 tags: [monitoring, logs, wazuh, siem, security]
-updated: 2026-01-25
+updated: 2025-12-25
 difficulty: intermediate
 estimated_time: 1 min
 category: Monitoreo

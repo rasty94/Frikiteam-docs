@@ -2,7 +2,7 @@
 title: "FastAPI"
 description: "Documentación sobre fastapi"
 tags: ['documentation']
-updated: 2026-01-25
+updated: 2026-01-04
 difficulty: advanced
 estimated_time: 1 min
 category: Desarrollo

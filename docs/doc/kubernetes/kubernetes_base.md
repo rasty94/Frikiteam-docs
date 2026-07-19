@@ -2,7 +2,7 @@
 title: "Kubernetes - Orquestación de Contenedores"
 description: "Documentación sobre kubernetes - orquestación de contenedores"
 tags: ['kubernetes']
-updated: 2026-01-25
+updated: 2025-11-15
 difficulty: beginner
 estimated_time: 3 min
 category: Orquestación

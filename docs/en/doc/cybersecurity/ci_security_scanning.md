@@ -1,7 +1,7 @@
 ---
 title: "CI Security Scanning: SAST, DAST and Containers"
 date: 2026-01-25
-updated: 2026-01-25
+updated: 2026-07-18
 tags: [security, ci, sast, dast, containers, trivy, grype]
 difficulty: intermediate
 estimated_time: 5 min

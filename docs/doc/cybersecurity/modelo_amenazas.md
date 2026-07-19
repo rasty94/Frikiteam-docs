@@ -3,7 +3,7 @@ title: "Modelo de Amenazas"
 date: 2026-01-09
 tags: [cybersecurity, threat-modeling, owasp, mitre]
 draft: false
-updated: 2026-01-25
+updated: 2026-01-09
 difficulty: intermediate
 estimated_time: 2 min
 category: Ciberseguridad

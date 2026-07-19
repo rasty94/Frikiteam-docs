@@ -3,7 +3,7 @@ title: "MeshLLM: distributed LLM inference over a P2P mesh"
 description: "Mesh LLM guide: pool GPUs from several machines into a P2P mesh on iroh and expose a single OpenAI-compatible endpoint at localhost:9337/v1"
 keywords: "meshllm, mesh-llm, distributed llm, p2p, iroh, gpu, inference, openai compatible, skippy"
 tags: [ai, llm, meshllm, distributed, p2p, gpu]
-updated: 2026-07-18
+updated: 2026-07-19
 difficulty: advanced
 estimated_time: 9 min
 category: Artificial Intelligence

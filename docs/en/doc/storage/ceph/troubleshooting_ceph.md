@@ -3,7 +3,7 @@ title: "Ceph Troubleshooting: Common Issues and Solutions"
 description: "Comprehensive guide to diagnose and fix common Ceph problems. OSDs down, PG issues, slow operations, and cluster health recovery."
 keywords: Ceph, troubleshooting, debugging, OSD down, PG stuck, slow ops, cluster health, recovery, ceph health
 date: 2026-01-25
-updated: 2026-01-25
+updated: 2026-07-18
 difficulty: intermediate
 estimated_time: 8 min
 category: Storage

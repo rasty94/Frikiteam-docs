@@ -1,5 +1,6 @@
 ---
 title: Mermaid — Verificación y uso
+updated: 2025-11-15
 ---
 
 # Mermaid — Verificación y uso

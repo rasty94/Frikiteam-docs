@@ -2,7 +2,7 @@
 title: "NetBird: instalación y configuración básica"
 description: "Documentación sobre netbird: instalación y configuración básica"
 tags: ['networking']
-updated: 2026-01-25
+updated: 2025-11-15
 difficulty: advanced
 estimated_time: 3 min
 category: Redes

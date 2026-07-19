@@ -3,7 +3,7 @@ title: "Monitorización con Uptime Kuma"
 description: "Guía de Uptime Kuma: monitorización auto-hospedada para servicios, páginas de estado y notificaciones"
 keywords: "uptime kuma, monitoring, status pages, notifications, self-hosted"
 tags: [monitoring, uptime, status-pages, notifications]
-updated: 2026-01-25
+updated: 2025-12-07
 difficulty: intermediate
 estimated_time: 1 min
 category: Monitoreo

@@ -2,7 +2,7 @@
 title: "Ansible - Automatización de Infraestructura"
 description: "Documentación sobre ansible - automatización de infraestructura"
 tags: ['ansible']
-updated: 2026-01-25
+updated: 2025-11-15
 difficulty: beginner
 estimated_time: 2 min
 category: Automatización

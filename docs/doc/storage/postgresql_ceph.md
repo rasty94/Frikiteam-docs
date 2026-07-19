@@ -2,7 +2,7 @@
 title: "Storage para bases de datos: PostgreSQL + Ceph"
 description: "Documentación sobre storage para bases de datos: postgresql + ceph"
 tags: ['storage']
-updated: 2026-01-25
+updated: 2026-01-24
 difficulty: advanced
 estimated_time: 6 min
 category: Almacenamiento

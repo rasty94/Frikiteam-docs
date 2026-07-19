@@ -10,6 +10,7 @@ tags:
 authors:
 
   - Rasty94
+updated: 2025-08-25
 ---
 
 # ¡Hola a todos y bienvenidos a este nuevo blog dedicado a la tecnología! 🚀

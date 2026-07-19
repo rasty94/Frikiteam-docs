@@ -2,7 +2,7 @@
 title: "Networking: Comparativa de Rendimiento"
 description: "Documentación sobre networking: comparativa de rendimiento"
 tags: ['networking']
-updated: 2026-01-25
+updated: 2026-01-04
 difficulty: intermediate
 estimated_time: 1 min
 category: Redes

@@ -3,7 +3,7 @@ title: "OpenStack Day-2 Operations: Maintenance and Production Management"
 description: "Complete guide for Day-2 operations in OpenStack: upgrades, backups, monitoring, capacity planning, and incident response."
 keywords: OpenStack, Day-2, operations, maintenance, upgrades, backups, monitoring, capacity planning, production, ops
 date: 2026-01-25
-updated: 2026-01-25
+updated: 2026-07-18
 difficulty: intermediate
 estimated_time: 11 min
 category: Cloud Computing

@@ -2,7 +2,7 @@
 title: "Docker vs Kubernetes vs Máquinas Virtuales: Una Comparación Curiosa"
 description: "Documentación sobre docker vs kubernetes vs máquinas virtuales: una comparación curiosa"
 tags: ['documentation']
-updated: 2026-01-25
+updated: 2025-09-03
 difficulty: advanced
 estimated_time: 5 min
 category: General

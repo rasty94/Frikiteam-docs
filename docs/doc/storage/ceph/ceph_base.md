@@ -2,7 +2,7 @@
 title: "Ceph"
 description: "Documentación sobre ceph"
 tags: ['storage']
-updated: 2026-01-25
+updated: 2026-07-19
 difficulty: beginner
 estimated_time: 3 min
 category: Almacenamiento

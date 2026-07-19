@@ -3,7 +3,7 @@ title: "Gestión de Secretos"
 date: 2026-01-09
 tags: [cybersecurity, secrets-management, vault, kubernetes, aws]
 draft: false
-updated: 2026-01-25
+updated: 2026-01-09
 difficulty: intermediate
 estimated_time: 2 min
 category: Ciberseguridad

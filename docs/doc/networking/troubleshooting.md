@@ -2,7 +2,7 @@
 title: "Resolución de problemas (Networking)"
 description: "Documentación sobre resolución de problemas (networking)"
 tags: ['networking']
-updated: 2026-01-25
+updated: 2025-09-10
 difficulty: intermediate
 estimated_time: 1 min
 category: Redes

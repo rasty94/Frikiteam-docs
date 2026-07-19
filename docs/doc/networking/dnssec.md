@@ -2,7 +2,7 @@
 title: DNSSEC
 description: Introducción a la firma criptográfica de zonas DNS para evitar envenenamiento de caché.
 draft: false
-updated: 2026-01-25
+updated: 2026-01-09
 difficulty: intermediate
 estimated_time: 5 min
 category: Redes

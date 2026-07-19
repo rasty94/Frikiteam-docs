@@ -3,7 +3,7 @@ title: "vLLM: serving LLMs at scale with high throughput"
 description: "Advanced vLLM guide: PagedAttention, continuous batching, OpenAI-compatible server, multi-GPU tensor parallelism, AWQ/GPTQ/FP8 quantization, memory tuning and benchmarking"
 keywords: "vllm, llm serving, paged attention, continuous batching, tensor parallelism, gpu, inference, throughput"
 tags: [ai, llm, vllm, inference, gpu, paged-attention]
-updated: 2026-07-18
+updated: 2026-07-19
 difficulty: advanced
 estimated_time: 12 min
 category: Artificial Intelligence

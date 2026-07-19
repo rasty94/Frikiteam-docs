@@ -2,7 +2,7 @@
 title: "Quick Recipes"
 description: "Documentation on quick recipes"
 tags: ['documentation']
-updated: 2026-01-25
+updated: 2026-07-18
 difficulty: intermediate
 estimated_time: 2 min
 category: General
