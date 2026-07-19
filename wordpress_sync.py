@@ -1038,8 +1038,43 @@ def interactive_mode():
         update_todo_md(published_posts)
         print("\nTODO.md actualizado con posts publicados.")
 
+# Duplica cada línea de stdout a un archivo de log con timestamp, sin tocar
+# los `print()` existentes. Un archivo por ejecución en logs/ (gitignored).
+class _Tee:
+    def __init__(self, stream, log_file):
+        self._stream = stream
+        self._log_file = log_file
+        self._al_inicio_de_linea = True
+
+    def write(self, texto):
+        self._stream.write(texto)
+        for linea in texto.splitlines(keepends=True):
+            if self._al_inicio_de_linea and linea.strip():
+                ts = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                self._log_file.write(f'[{ts}] {linea}')
+            else:
+                self._log_file.write(linea)
+            self._al_inicio_de_linea = linea.endswith('\n')
+
+    def flush(self):
+        self._stream.flush()
+        self._log_file.flush()
+
+
+def setup_process_log():
+    logs_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs')
+    os.makedirs(logs_dir, exist_ok=True)
+    ruta = os.path.join(logs_dir, f'wordpress_sync_{datetime.now().strftime("%Y%m%d_%H%M%S")}.log')
+    f = open(ruta, 'a', encoding='utf-8')
+    sys.stdout = _Tee(sys.stdout, f)
+    sys.stderr = _Tee(sys.stderr, f)
+    print(f'--- Inicio: {" ".join(sys.argv)} ---')
+    return ruta
+
+
 # CLI
 if __name__ == '__main__':
+    log_path = setup_process_log()
     parser = argparse.ArgumentParser(description='Sincronizar documentación Markdown a WordPress')
     parser.add_argument('--file', help='Archivo Markdown específico a sincronizar')
     parser.add_argument('--status', choices=['draft', 'publish'], default='draft', help='Estado del post')
@@ -1092,3 +1127,5 @@ if __name__ == '__main__':
                 print("TODO.md actualizado.")
     else:
         print("Usa --file para especificar un archivo, --interactive para modo interactivo o --all para sincronizar todos.")
+
+    print(f'--- Fin. Log guardado en {log_path} ---')
