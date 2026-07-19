@@ -1,3 +1,10 @@
+---
+title: "HAProxy"
+tags: ['documentation']
+category: Load Balancing
+updated: 2025-11-15
+---
+
 # HAProxy
 
 Complete guide to HAProxy: high-performance load balancer and proxy for TCP/HTTP.

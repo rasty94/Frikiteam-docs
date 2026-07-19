@@ -1,3 +1,10 @@
+---
+title: "VyOS (automation-first virtual router)"
+tags: ['networking', 'vyos', 'automatizacion']
+category: Networking
+updated: 2026-04-18
+---
+
 # VyOS (automation-first virtual router)
 
 VyOS works especially well for teams using automation, GitOps and reproducible network infrastructure.

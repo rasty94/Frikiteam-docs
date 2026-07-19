@@ -1,3 +1,8 @@
+---
+title: "Networking"
+updated: 2026-04-18
+---
+
 # Networking
 
 Find practical, concise guides to deploy and configure VPN and networking tools.

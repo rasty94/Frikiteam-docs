@@ -1,3 +1,8 @@
+---
+title: "Documentation"
+updated: 2026-01-24
+---
+
 # Documentation
 
 Welcome to the technical section. Choose a topic:

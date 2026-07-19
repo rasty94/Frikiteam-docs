@@ -1,3 +1,10 @@
+---
+title: "ZeroTier: basic install and setup"
+tags: ['networking']
+category: Networking
+updated: 2025-09-10
+---
+
 # ZeroTier: basic install and setup
 
 > ZeroTier provides easy L2/L3 virtual networks across devices.

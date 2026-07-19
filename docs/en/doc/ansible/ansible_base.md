@@ -1,3 +1,10 @@
+---
+title: "Ansible - Infrastructure Automation"
+tags: ['ansible']
+category: Automation
+updated: 2025-12-07
+---
+
 # Ansible - Infrastructure Automation
 
 ## Introduction to Ansible

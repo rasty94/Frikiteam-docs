@@ -1,3 +1,10 @@
+---
+title: "SSH Security"
+tags: ['documentation']
+category: Operating System
+updated: 2025-12-07
+---
+
 # SSH Security
 
 Securing SSH access is the critical first step for any Linux server.

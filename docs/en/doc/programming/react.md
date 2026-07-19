@@ -1,3 +1,10 @@
+---
+title: "React"
+tags: ['documentation']
+category: Development
+updated: 2026-01-24
+---
+
 # React
 
 React is a JavaScript library for building user interfaces based on components. It is maintained by Meta and a community of developers.

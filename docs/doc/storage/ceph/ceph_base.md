@@ -13,7 +13,6 @@ reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
 
-````markdown
 ---
 title: "Ceph Storage Guide: Distributed Storage System Overview"
 description: "Complete guide to Ceph, the distributed storage system. Learn about architecture, installation with cephadm, use cases, and resources for scalable and reliable data storage."
@@ -102,9 +101,8 @@ Para instalar Ceph versión Reef utilizando `cephadm`, se pueden seguir los sigu
 ---
 
 !!! tip "¿Buscas comandos rápidos?"
-    Consulta nuestras **[Recetas rápidas](../recipes.md#ceph)** para comandos copy-paste comunes.
+    Consulta nuestras **[Recetas rápidas](../../recipes.md#ceph)** para comandos copy-paste comunes.
 
 !!! warning "¿Problemas con Ceph?"
-    Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md)** para soluciones a errores comunes.
+    Revisa nuestra **[sección de troubleshooting](../../../troubleshooting.md)** para soluciones a errores comunes.
 
-````

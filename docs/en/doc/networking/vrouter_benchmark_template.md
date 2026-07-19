@@ -1,3 +1,10 @@
+---
+title: "vRouter benchmark template"
+tags: ['networking', 'rendimiento', 'vrouter']
+category: Networking
+updated: 2026-04-18
+---
+
 # vRouter benchmark template
 
 Use this reusable template to compare vRouters under equivalent conditions and make metric-driven decisions.

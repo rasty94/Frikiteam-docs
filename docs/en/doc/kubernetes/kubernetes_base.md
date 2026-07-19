@@ -1,3 +1,10 @@
+---
+title: "Kubernetes - Container Orchestration"
+tags: ['kubernetes']
+category: Orchestration
+updated: 2025-12-07
+---
+
 # Kubernetes - Container Orchestration
 
 ## Introduction to Kubernetes

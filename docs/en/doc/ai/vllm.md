@@ -24,7 +24,7 @@ vLLM is not "yet another inference runtime": it is an engine designed from the g
 
 !!! info "Where this guide fits"
     - Local single-node / desktop inference → [Ollama](ollama_basics.md), [llama.cpp](llama_cpp.md), [LM Studio](lm_studio.md)
-    - Deploying vLLM on Kubernetes with auto-scaling → [Deployment at scale with Kubernetes](deployment_kubernetes.md)
+    - Deploying vLLM on Kubernetes with auto-scaling → [Deployment at scale with Kubernetes](despliegue_kubernetes.md)
     - Gateway, routing and fallback in front of vLLM → [LiteLLM](litellm.md)
     - General quantization theory → [Model optimization](model_optimization.md)
 
@@ -350,7 +350,7 @@ Sensible procedure: fix the load, vary **one** parameter at a time (`max-num-bat
 - **Health checks**: use `/health` as liveness. Be careful with readiness: loading a 70B model can take several minutes, so tune `initialDelaySeconds` or you will be using CrashLoopBackOff as a deployment method.
 - **Authentication**: `--api-key` is a single shared static token. For per-user key management, quotas and budgets, that responsibility belongs to the gateway ([LiteLLM](litellm.md)).
 - **Weight downloads**: preload the model onto a persistent volume. Downloading 140 GB on every pod start is the most expensive and least interesting mistake you can make.
-- **Horizontal scaling**: vLLM scales by replicating instances behind a load balancer, not by making one instance bigger. HPA, probes and node affinity details are in [Deployment at scale with Kubernetes](deployment_kubernetes.md).
+- **Horizontal scaling**: vLLM scales by replicating instances behind a load balancer, not by making one instance bigger. HPA, probes and node affinity details are in [Deployment at scale with Kubernetes](despliegue_kubernetes.md).
 
 !!! success "Operational summary"
     1. Start with Docker, `--gpu-memory-utilization 0.90` and `--max-model-len` matched to your real case.
@@ -361,7 +361,7 @@ Sensible procedure: fix the load, vary **one** parameter at a time (`max-num-bat
 
 ## 🔗 Related resources
 
-- [Deployment at scale with Kubernetes](deployment_kubernetes.md) — HPA, probes and operating vLLM in a cluster
+- [Deployment at scale with Kubernetes](despliegue_kubernetes.md) — HPA, probes and operating vLLM in a cluster
 - [LiteLLM (Gateway)](litellm.md) — routing, fallback and cost control in front of vLLM
 - [Model optimization](model_optimization.md) — quantization and compression fundamentals
 - [Ollama](ollama_basics.md) · [llama.cpp](llama_cpp.md) · [LM Studio](lm_studio.md) — single-node local inference

@@ -1,3 +1,10 @@
+---
+title: "NetApp — Quick Guide"
+tags: [storage, netapp]
+category: Storage
+updated: 2026-01-25
+---
+
 # NetApp — Quick Guide
 
 ## Summary

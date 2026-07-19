@@ -1,3 +1,10 @@
+---
+title: "OPNsense (virtual router/firewall)"
+tags: ['networking', 'security', 'opnsense']
+category: Networking
+updated: 2026-04-18
+---
+
 # OPNsense (virtual router/firewall)
 
 OPNsense is a strong choice when you prioritize firewalling, segmentation and day-to-day operations through a clear web UI.

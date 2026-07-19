@@ -1,3 +1,10 @@
+---
+title: "Introduction to Large Language Models (LLMs)"
+tags: [ai, llms, transformers, devops]
+category: Artificial Intelligence
+updated: 2026-01-25
+---
+
 # Introduction to Large Language Models (LLMs)
 
 🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25

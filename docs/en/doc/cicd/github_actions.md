@@ -1,3 +1,10 @@
+---
+title: "Introduction to GitHub Actions"
+tags: ['documentation']
+category: CI/CD
+updated: 2025-12-07
+---
+
 # Introduction to GitHub Actions
 
 GitHub Actions is a Continuous Integration and Continuous Deployment (CI/CD) platform that allows you to automate your build, test, and deployment pipeline.

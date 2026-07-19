@@ -1,3 +1,8 @@
+---
+title: "Curiosities"
+updated: 2025-09-03
+---
+
 # Curiosities
 
 Welcome to the technical curiosities section. Here you'll find interesting comparisons and curious facts about different technologies:

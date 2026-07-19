@@ -1,3 +1,10 @@
+---
+title: "WireGuard VPN"
+tags: ['documentation']
+category: Operating System
+updated: 2025-12-07
+---
+
 # WireGuard VPN
 
 WireGuard is an extremely simple but fast and modern VPN.

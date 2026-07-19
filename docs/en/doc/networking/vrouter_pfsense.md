@@ -1,3 +1,10 @@
+---
+title: "pfSense (virtual router/firewall)"
+tags: ['networking', 'security', 'pfsense']
+category: Networking
+updated: 2026-04-18
+---
+
 # pfSense (virtual router/firewall)
 
 pfSense is a mature and stable platform, especially useful for teams that value predictable operations.

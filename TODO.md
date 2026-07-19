@@ -644,12 +644,20 @@ mkdocs build --strict
 - [x] **i18n - PARIDAD ES/EN COMPLETA (18/07/2026):** traducidos los 13 archivos restantes (~5.600 líneas), incluidos `fine_tuning_basico.md` (1365), `evaluacion_coherencia.md` (1133), `testing_seguridad.md` (1133) y `kubernetes_security.md` (524). Verificada la integridad estructural de los 13 (encabezados y bloques de código idénticos al original). **0 archivos ES sin equivalente EN**
 - [x] **i18n - Categorías normalizadas (18/07/2026):** corregidos 11 archivos ES (`ai` → `Inteligencia Artificial`, `networking` → `Redes`) y 7 EN (`ai` → `Artificial Intelligence`, `networking` → `Networking`). Ambos árboles coherentes
 
-### 🧹 Deuda detectada (pendiente de decisión)
+### 🧹 Deuda resuelta (18/07/2026)
 
-- [ ] **Ficheros excluidos del build en `mkdocs.yml` (`exclude_docs`)**, en lugar de resolverlos:
-    - `en/doc/ai/deployment_kubernetes.md` (536 líneas): contenido **en español** dentro del árbol inglés, sin frontmatter. Duplica `despliegue_kubernetes.md`, ya traducido correctamente
-    - `en/doc/ceph/ceph_base.md` (64 líneas): ruta antigua que duplica la canónica `en/doc/storage/ceph/ceph_base.md`
-- [ ] **Metadatos `updated` ausentes en 81 archivos EN:** `scripts/check_sync.py` no puede comparar fechas y los reporta como desincronizados (falsos positivos). Sincronizados: 27 de 112
+- [x] **Bug de renderizado en `ceph_base.md` (ES y EN):** todo el contenido estaba envuelto en un fence ` ````markdown `, así que la página se mostraba como un bloque de código gigante en el sitio publicado. En el EN el fence englobaba incluso el frontmatter, dejando la página sin metadatos. Corregido en ambos idiomas
+- [x] **Enlaces rotos que el fence ocultaba:** `../recipes.md#ceph` y `../../troubleshooting.md` apuntaban a rutas inexistentes; al no validarse dentro del bloque de código, nadie los detectó
+- [x] **Ficheros excluidos del build eliminados:** `en/doc/ai/deployment_kubernetes.md` (borrador antiguo en español, superado por la traducción actual) y `en/doc/ceph/ceph_base.md` (ruta antigua). Limpiado `exclude_docs` en `mkdocs.yml`
+- [x] **Frontmatter generado para 42 archivos EN** que no tenían ninguno (`scripts/backfill_frontmatter_en.py`): título del H1 inglés, tags del ES, categoría mapeada y fecha de git. Ningún campo inventado
+- [x] **Campo `updated` rellenado en 65 archivos EN** con la fecha real de git (`scripts/backfill_updated_from_git.py`)
+- [x] **`scripts/add_updated_field.py`:** eliminada la fecha hardcodeada `2026-01-25`, que falseaba el estado de sincronización. Ahora usa git
+
+### 🚧 Deuda pendiente
+
+- [ ] **28 traducciones EN por detrás del original.** Medido comparando fecha de commit ES vs EN (no el campo `updated`). Muestreo confirma cambios de contenido real, aunque en algunos casos mínimos
+- [ ] **El campo `updated` del árbol ES no es fiable:** 95 archivos comparten `2026-01-25` por un sellado masivo de metadatos, no por cambios reales. Por eso `check_sync.py` reporta 68 desincronizados cuando en realidad son 28. **No ejecutar `--fix`** hasta corregir esto: marcaría 40 páginas correctas con un aviso falso de traducción pendiente
+- [ ] **11 archivos ES sin campo `updated`** (detectados por `add_updated_field.py --dry-run`)
 - [ ] **i18n - Metadatos:** solo 15 de 118 archivos EN tienen campo `updated`, lo que deja `scripts/check_sync.py` medio ciego (81 falsos positivos)
 - [ ] **i18n - Desincronizados reales (4):** `hardening_linux.md`, `rag_basics.md`, `local_ecosystems.md`, `vector_databases.md`
 - [ ] **Ciberseguridad:** Backup Seguro (restic/borg + restore testing), Respuesta a Incidentes (TheHive/MISP)

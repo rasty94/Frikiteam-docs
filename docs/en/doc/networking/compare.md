@@ -1,3 +1,10 @@
+---
+title: "Quick comparison: NetBird vs Tailscale vs ZeroTier"
+tags: ['networking']
+category: Networking
+updated: 2025-09-10
+---
+
 # Quick comparison: NetBird vs Tailscale vs ZeroTier
 
 - Purpose:

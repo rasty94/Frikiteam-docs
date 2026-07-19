@@ -1,3 +1,10 @@
+---
+title: "Pure Storage — Quick Guide"
+tags: [storage, pure_storage]
+category: Storage
+updated: 2026-01-25
+---
+
 # Pure Storage — Quick Guide
 
 ## Summary

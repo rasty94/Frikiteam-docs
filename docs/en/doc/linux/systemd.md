@@ -1,3 +1,10 @@
+---
+title: "Systemd: Service Management"
+tags: ['documentation']
+category: Operating System
+updated: 2025-12-07
+---
+
 # Systemd: Service Management
 
 Systemd is the standard init system and service manager for most modern Linux distributions.

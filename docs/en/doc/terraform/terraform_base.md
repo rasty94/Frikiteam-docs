@@ -1,3 +1,10 @@
+---
+title: "Terraform & OpenTofu - Infrastructure as Code"
+tags: ['terraform']
+category: Infrastructure as Code
+updated: 2025-12-07
+---
+
 # Terraform & OpenTofu - Infrastructure as Code
 
 ## Introduction to Terraform

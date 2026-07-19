@@ -1,3 +1,10 @@
+---
+title: "Monitoring with Uptime Kuma"
+tags: [monitoring, uptime, status-pages, notifications]
+category: Monitoring
+updated: 2026-01-25
+---
+
 # Monitoring with Uptime Kuma
 
 🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25

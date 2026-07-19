@@ -1,3 +1,10 @@
+---
+title: "Advanced Load Balancing: HAProxy vs NGINX vs Traefik"
+tags: ['networking']
+category: Networking
+updated: 2026-01-24
+---
+
 # Advanced Load Balancing: HAProxy vs NGINX vs Traefik
 
 This guide compares the three most advanced load balancing solutions: HAProxy, NGINX, and Traefik. Includes detailed benchmarks and specific use cases for each tool.

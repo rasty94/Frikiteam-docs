@@ -1,3 +1,10 @@
+---
+title: "FastAPI"
+tags: ['documentation']
+category: Development
+updated: 2026-01-24
+---
+
 # FastAPI
 
 FastAPI is a modern, fast (high-performance) web framework for building APIs with Python 3.8+ based on Python's standard type hints.

@@ -1,3 +1,10 @@
+---
+title: "NetBird: basic install and setup"
+tags: ['networking']
+category: Networking
+updated: 2025-09-10
+---
+
 # NetBird: basic install and setup
 
 > NetBird is a WireGuard-based mesh VPN with access control.

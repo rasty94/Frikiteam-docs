@@ -1,4 +1,3 @@
-````markdown
 ---
 title: "Ceph - Scalable Distributed Storage System"
 description: "Discover Ceph: highly scalable and reliable distributed storage system. Learn about its architecture, installation and use cases in cloud and data center environments."
@@ -63,4 +62,3 @@ To install Ceph Reef version using `cephadm`, you can follow these basic steps:
 
 For more details, you can refer to the [official Ceph documentation](https://docs.ceph.com/en/latest/).
 
-````

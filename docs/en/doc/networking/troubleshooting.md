@@ -1,3 +1,10 @@
+---
+title: "Troubleshooting (Networking)"
+tags: ['networking']
+category: Networking
+updated: 2025-09-10
+---
+
 # Troubleshooting (Networking)
 
 ## No connectivity between peers

@@ -1,3 +1,9 @@
+---
+title: "🚀 Welcome to Frikiteam Docs 🚀"
+tags: [inicio, documentacion, devops, infraestructura]
+updated: 2026-07-18
+---
+
 # 🚀 Welcome to Frikiteam Docs 🚀
 
 Welcome to Frikiteam's technical documentation! I am a professional passionate about technology who shares knowledge and experiences in the world of infrastructure, cloud, and automation.

@@ -1,3 +1,8 @@
+---
+title: "Artificial Intelligence and LLMs"
+updated: 2026-01-24
+---
+
 # Artificial Intelligence and LLMs
 
 This section covers the use of Artificial Intelligence, specifically Large Language Models (LLMs), in DevOps and infrastructure environments.

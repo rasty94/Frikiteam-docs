@@ -1,3 +1,10 @@
+---
+title: "Upgrade Proxmox VE 8 to Proxmox VE 9 (Debian 13 Trixie)"
+tags: ['documentation']
+category: General
+updated: 2026-01-24
+---
+
 # Upgrade Proxmox VE 8 to Proxmox VE 9 (Debian 13 Trixie)
 
 > Practical guide to upgrade a node or cluster from Proxmox VE 8 (Debian 12) to Proxmox VE 9 (Debian 13). Recommended to test first in lab or have backups and maintenance window.

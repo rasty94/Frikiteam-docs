@@ -43,7 +43,7 @@ The project's own tagline sums it up: *"run bigger models without buying bigger 
 
 - [Ollama](ollama_basics.md) and [LM Studio](lm_studio.md): a single node, no networking, instant start. The right answer for 90 % of cases.
 - [llama.cpp](llama_cpp.md): the inference engine. Mesh LLM tracks llama.cpp model-family parity with GGUF.
-- [Kubernetes deployment](deployment_kubernetes.md): inference on a managed cluster (vLLM and friends), with homogeneous nodes, an orchestrator and datacenter networking.
+- [Kubernetes deployment](despliegue_kubernetes.md): inference on a managed cluster (vLLM and friends), with homogeneous nodes, an orchestrator and datacenter networking.
 - **Mesh LLM**: distributed compute **across your own heterogeneous machines**, with no central orchestrator or coordination server in the data plane.
 
 See also [Local ecosystems](local_ecosystems.md) to place all these pieces in context.
@@ -271,7 +271,7 @@ A packaged release binary reports `valid`, an unstamped local or dev build repor
 **Do not use it if**:
 
 - The model you need **fits on a single machine**: use [Ollama](ollama_basics.md) or [llama.cpp](llama_cpp.md) and skip the networking entirely.
-- You need **production throughput with an SLA**: use vLLM on [Kubernetes](deployment_kubernetes.md) with homogeneous nodes.
+- You need **production throughput with an SLA**: use vLLM on [Kubernetes](despliegue_kubernetes.md) with homogeneous nodes.
 - Your data is **sensitive and you do not control every node**: the public mesh is out; at minimum use a private mesh with tokens and your own nodes.
 - You only have **one machine**: there is no mesh to form.
 
@@ -284,7 +284,7 @@ A packaged release binary reports `valid`, an unstamped local or dev build repor
 - [llama.cpp](llama_cpp.md) — the GGUF engine whose family parity Skippy tracks.
 - [LM Studio](lm_studio.md) — graphical single-node alternative.
 - [Local ecosystems](local_ecosystems.md) — overview of local LLM tooling.
-- [Scaling deployment with Kubernetes](deployment_kubernetes.md) — the other end of the spectrum.
+- [Scaling deployment with Kubernetes](despliegue_kubernetes.md) — the other end of the spectrum.
 
 ## 📚 References
 

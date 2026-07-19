@@ -1,3 +1,10 @@
+---
+title: "Proxmox vs VMware vs OpenStack: Migration to Open Source Solutions"
+tags: ['documentation']
+category: General
+updated: 2025-09-03
+---
+
 # Proxmox vs VMware vs OpenStack: Migration to Open Source Solutions
 
 ## 🚨 The Context: VMware Changes

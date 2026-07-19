@@ -1,3 +1,10 @@
+---
+title: "MikroTik CHR (Cloud Hosted Router)"
+tags: ['networking', 'mikrotik', 'chr']
+category: Networking
+updated: 2026-04-18
+---
+
 # MikroTik CHR (Cloud Hosted Router)
 
 MikroTik CHR is a strong fit when you need high-performance L3 routing with a tight cost envelope.

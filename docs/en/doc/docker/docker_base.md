@@ -1,3 +1,10 @@
+---
+title: "Docker - Containers"
+tags: [docker, contenedores, base, virtualización]
+category: Containers
+updated: 2025-12-07
+---
+
 # Docker - Containers
 
 ## Introduction to Docker

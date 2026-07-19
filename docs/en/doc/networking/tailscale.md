@@ -1,3 +1,10 @@
+---
+title: "Tailscale: basic install and setup"
+tags: ['networking']
+category: Networking
+updated: 2025-09-10
+---
+
 # Tailscale: basic install and setup
 
 > Tailscale builds a secure WireGuard-based mesh with SSO.

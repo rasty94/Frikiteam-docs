@@ -1,3 +1,10 @@
+---
+title: "vRouters and virtual firewalls"
+tags: ['networking', 'security', 'vrouter']
+category: Networking
+updated: 2026-04-18
+---
+
 # vRouters and virtual firewalls
 
 When you need advanced routing, firewalling and virtual network services, the most common choices are **OPNsense**, **pfSense**, **MikroTik CHR** and **VyOS**.

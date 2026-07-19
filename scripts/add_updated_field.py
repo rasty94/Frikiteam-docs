@@ -8,6 +8,7 @@ Uso:
 
 import os
 import re
+import subprocess
 from datetime import datetime
 from pathlib import Path
 import argparse
@@ -29,6 +30,22 @@ def extract_title_from_content(content):
             return title_match.group(1).strip().strip('"').strip("'")
 
     return None
+
+
+def get_git_date(file_path):
+    """Fecha (YYYY-MM-DD) del último commit que tocó el archivo.
+
+    Se usa en vez de una fecha fija: escribir una fecha inventada haría que
+    scripts/check_sync.py diera por sincronizadas traducciones que no lo están.
+    Si el archivo no está en git, cae a la fecha de modificación del fichero.
+    """
+    result = subprocess.run(
+        ['git', 'log', '-1', '--format=%ad', '--date=short', '--', str(file_path)],
+        capture_output=True, text=True)
+    date = result.stdout.strip() if result.returncode == 0 else ''
+    if date:
+        return date
+    return datetime.fromtimestamp(os.path.getmtime(file_path)).strftime('%Y-%m-%d')
 
 
 def generate_frontmatter(title, file_path):
@@ -66,7 +83,7 @@ def generate_frontmatter(title, file_path):
 title: "{title}"
 description: "{description}"
 tags: {tags}
-updated: 2026-01-25
+updated: {get_git_date(file_path)}
 ---
 """
     return frontmatter
@@ -94,7 +111,7 @@ def add_updated_field_to_file(file_path, dry_run=False):
                 return False, "Ya tiene campo updated en frontmatter"
 
             # Añadir campo updated al final del frontmatter
-            new_frontmatter = frontmatter.rstrip() + f"\nupdated: 2026-01-25\n"
+            new_frontmatter = frontmatter.rstrip() + f"\nupdated: {get_git_date(file_path)}\n"
             new_content = content.replace(frontmatter_match.group(0), f"---\n{new_frontmatter}---")
             action = "Añadido campo updated a frontmatter existente"
         else:
