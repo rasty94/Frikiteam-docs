@@ -64,7 +64,7 @@ Este documento rastrea el estado de la documentación, tareas pendientes y mejor
   - ✅ **TODOS LOS ARCHIVOS PENDIENTES TRADUCIDOS** - Paridad completa ES/EN lograda
 - [x] **Validar compilación con `mkdocs build`** ✅ **OK**: Build completado sin errores en 16.37s (23/01) y 16.27s (24/01)
 - [x] Verificar que no haya enlaces rotos en EN (usar plugin o validador externo) ✅ **COMPLETADO (25/01/2026):** Validación completa con LinkChecker - 1611 enlaces verificados, 0 errores, 0 advertencias. Todos los enlaces válidos.
-- [ ] Crear PR con cambios de i18n
+- [x] ~~Crear PR con cambios de i18n~~ — obsoleto: el trabajo de i18n se fue integrando directamente en `main` a lo largo de varias sesiones
 
 **D) Nuevas Secciones de Contenido (24/01/2026)**
 - ✅ **Sección de Inteligencia Artificial completa**:
@@ -198,7 +198,7 @@ Esta sección propone contenido nuevo sobre inteligencia artificial, enfocado en
 - [x] **Ollama:** Instalación, gestión de modelos locales, APIs REST, integración con Docker. ✅ **COMPLETADO:** Creado `docs/doc/ai/ollama_basics.md` con instalación, configuración y uso avanzado de Ollama.
 - [x] **LM Studio:** UI interactiva, configuración de parámetros, exportación de modelos. ✅ **COMPLETADO (18/07/2026):** Creado `docs/doc/ai/lm_studio.md` (ES/EN).
 - [x] **LLaMA.cpp:** Compilación, optimización de CPU/GPU, benchmarking. ✅ **COMPLETADO (18/07/2026):** Creado `docs/doc/ai/llama_cpp.md` (ES/EN).
-- [ ] **vLLM:** Deployment de modelos LLM a escala, tensor parallelism, paging de atención.
+- [x] **vLLM:** Deployment de modelos LLM a escala, tensor parallelism, paging de atención. ✅ **COMPLETADO (18/07/2026):** Creado `docs/doc/ai/vllm.md` (ES/EN).
 - [x] **RAG (Retrieval-Augmented Generation):** Conceptos básicos, integraciones (LangChain, LlamaIndex, Chroma). ✅ **COMPLETADO:** Creado `docs/doc/ai/rag_basics.md` con arquitectura completa, implementación paso a paso, casos de uso.
 - [x] **Vector Databases:** Milvus, Weaviate, Chroma, Pinecone para búsqueda semántica. ✅ **COMPLETADO:** Creado `docs/doc/ai/vector_databases.md` con comparativa de soluciones, instalación y ejemplos prácticos.
 
@@ -653,15 +653,24 @@ mkdocs build --strict
 - [x] **Campo `updated` rellenado en 65 archivos EN** con la fecha real de git (`scripts/backfill_updated_from_git.py`)
 - [x] **`scripts/add_updated_field.py`:** eliminada la fecha hardcodeada `2026-01-25`, que falseaba el estado de sincronización. Ahora usa git
 
-### 🚧 Deuda pendiente
+### ✅ Deuda de i18n cerrada (19/07/2026)
 
-- [ ] **28 traducciones EN por detrás del original.** Medido comparando fecha de commit ES vs EN (no el campo `updated`). Muestreo confirma cambios de contenido real, aunque en algunos casos mínimos
-- [ ] **El campo `updated` del árbol ES no es fiable:** 95 archivos comparten `2026-01-25` por un sellado masivo de metadatos, no por cambios reales. Por eso `check_sync.py` reporta 68 desincronizados cuando en realidad son 28. **No ejecutar `--fix`** hasta corregir esto: marcaría 40 páginas correctas con un aviso falso de traducción pendiente
-- [ ] **11 archivos ES sin campo `updated`** (detectados por `add_updated_field.py --dry-run`)
-- [ ] **i18n - Metadatos:** solo 15 de 118 archivos EN tienen campo `updated`, lo que deja `scripts/check_sync.py` medio ciego (81 falsos positivos)
-- [ ] **i18n - Desincronizados reales (4):** `hardening_linux.md`, `rag_basics.md`, `local_ecosystems.md`, `vector_databases.md`
+Verificado ejecutando los scripts, no por inspección manual:
+
+- [x] **`check_sync.py`: 0 desincronizados, 128 sincronizados, 0 errores.** La cifra de 68 (y luego 28) desincronizados venía de fechas falsas, no de contenido divergente. La cadena de correcciones fue: 68 (sellado masivo `2026-01-25`) → 28 (fechas reales de git) → 6 (fechas del último cambio de *contenido*, ignorando commits solo-frontmatter) → 0 (tras retraducir esos 6, que además estaban **incompletos**, no obsoletos: el `glossary.md` EN tenía 16 líneas frente a 65 en ES)
+- [x] **138/138 archivos EN con campo `updated`.** Era 15/118
+- [x] **0 archivos ES sin `updated`** (`add_updated_field.py --dry-run` lo confirma). Era 11
+- [x] **Los 4 "desincronizados reales"** (`hardening_linux`, `rag_basics`, `local_ecosystems`, `vector_databases`) están al día
+- [x] **Script de detección ES→EN:** es `scripts/check_sync.py`, ya operativo ahora que los metadatos son fiables. `--fix` ya se puede ejecutar sin riesgo de falsos positivos
+- [x] **vLLM:** `docs/doc/ai/vllm.md` (ES/EN) — la casilla de la sección "Herramientas y Tecnologías" quedó sin marcar por despiste
+
+### 🚧 Deuda pendiente (real)
+
 - [ ] **Ciberseguridad:** Backup Seguro (restic/borg + restore testing), Respuesta a Incidentes (TheHive/MISP)
-- [ ] **i18n:** Script que detecta ES actualizado sin actualizar EN
+- [ ] **Huecos de roadmap sin empezar:** eBPF, Podman rootless, PostgreSQL HA, Chaos Engineering, optimización de costes en K8s
+- [ ] **11 borradores en WordPress esperando revisión humana** en `frikiteam.es/wp-admin`. El pipeline no los publica: el paso a `publish` es decisión manual
+- [ ] **4 `index.md` del árbol ES sin frontmatter.** Es deliberado — `add_updated_field.py` excluye los índices por convención del proyecto. Si se quiere cambiar, hay que tocar el script, no los archivos
+- [ ] **Servidor de inferencia principal en `http://` sobre IP desnuda:** la clave de API y el contenido enviado viajan sin cifrar. Cambiar la URL en `.env` basta si el servidor admite https o está tras VPN
 
 ---
 
