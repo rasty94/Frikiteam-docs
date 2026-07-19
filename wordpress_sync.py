@@ -669,9 +669,20 @@ def publish_post(post_data):
         print(f'Error: {response.status_code} - {response.text}')
         return False
 
-# Busca un post existente por título exacto (en cualquier estado) y devuelve su
-# id, o None. Evita que --file cree un duplicado de algo ya sincronizado.
+# WordPress "texturiza" los títulos al renderizar: & -> &#038;, y un guion
+# " - " lo convierte en guion largo (–, &#8211;). Comparar el título tal cual
+# del .md contra el renderizado de WP falla y crea duplicados. Normalizamos
+# ambos lados: deshacemos entidades HTML y unificamos los guiones.
+def _normalize_title(title):
+    t = html_lib.unescape(title or '')
+    t = t.replace('—', '-').replace('–', '-')  # em/en dash -> guion
+    return ' '.join(t.split()).strip()
+
+
+# Busca un post existente por título (en cualquier estado) y devuelve su id, o
+# None. Evita que --file cree un duplicado de algo ya sincronizado.
 def find_post_by_title(title):
+    objetivo = _normalize_title(title)
     try:
         resp = requests.get(
             endpoint,
@@ -681,7 +692,7 @@ def find_post_by_title(title):
         )
         resp.raise_for_status()
         for post in resp.json():
-            if post['title']['rendered'].strip() == title.strip():
+            if _normalize_title(post['title']['rendered']) == objetivo:
                 return post['id']
     except (requests.RequestException, ValueError, KeyError) as e:
         print(f'  Aviso: no se pudo buscar el post existente ({e})')
@@ -756,13 +767,13 @@ def fetch_all_wp_posts():
 # para que el siguiente --all sea de verdad incremental.
 def reindex_sync_state():
     posts = fetch_all_wp_posts()
-    by_title = {p['title']['rendered'].strip(): p for p in posts}
+    by_title = {_normalize_title(p['title']['rendered']): p for p in posts}
     state = load_sync_state()
     md_files = list_md_files()
     n = 0
     for f in md_files:
         title = get_md_title(f).strip()
-        post = by_title.get(title)
+        post = by_title.get(_normalize_title(title))
         state[f] = {
             'sha1': _md_hash(f),
             'post_id': post['id'] if post else None,
@@ -790,7 +801,7 @@ def sync_all_posts(status_new='draft', force=False):
     # Obtener todos los posts (paginado) y mapear por título e id
     posts = fetch_all_wp_posts()
     print(f'Encontrados {len(posts)} posts en WordPress.')
-    posts_by_title = {p['title']['rendered'].strip(): p for p in posts}
+    posts_by_title = {_normalize_title(p['title']['rendered']): p for p in posts}
     posts_by_id = {p['id']: p for p in posts}
 
     # Obtener todos los tags
@@ -820,7 +831,7 @@ def sync_all_posts(status_new='draft', force=False):
 
         title = get_md_title(file_path).strip()
         # Localizar el post existente: primero por id guardado, luego por título
-        existing = posts_by_id.get(prev.get('post_id')) or posts_by_title.get(title)
+        existing = posts_by_id.get(prev.get('post_id')) or posts_by_title.get(_normalize_title(title))
 
         estado_actual = existing['status'] if existing else status_new
         print(f'Procesando: {title} ({file_path})')
