@@ -951,7 +951,8 @@ if __name__ == '__main__':
 
     ENHANCE_BLOG = args.enhance
     if ENHANCE_BLOG:
-        print(f"Mejora 'blog' con Ollama ACTIVADA (modelo: {os.getenv('OLLAMA_MODEL', 'no definido')})")
+        servidores = ' > '.join(s['modelo'] for s in SERVIDORES) or 'ninguno configurado'
+        print(f"Mejora 'blog' ACTIVADA (servidores por prioridad: {servidores})")
 
     if args.all:
         status_new = 'publish' if args.publish else 'draft'
