@@ -7,6 +7,7 @@ from wordpress_sync import (
     markdown_to_html, rewrite_image_srcs,
     render_mermaid_to_png, inline_admonition_styles,
     _strip_code_fence, enhance_markdown, _strip_html, _structure_lost,
+    _protect_structure, _restore_structure,
 )
 
 
@@ -68,6 +69,53 @@ def test_enhance_without_model_returns_original():
     os.environ.pop('OLLAMA_MODEL', None)
     orig = '# Doc\ncontenido'
     assert enhance_markdown(orig) == orig
+
+
+def test_protect_restore_es_identidad_en_docs_reales():
+    # roundtrip sobre los documentos donde el modelo destrozó la estructura
+    import glob
+    for path in ['docs/doc/storage/kubernetes_csi.md',
+                 'docs/doc/ai/llama_cpp.md',
+                 'docs/doc/kubernetes/service_mesh.md']:
+        orig = open(path, encoding='utf-8').read()
+        protegido, bloques = _protect_structure(orig)
+        assert bloques, f'{path}: no protegió nada'
+        # el modelo no ve código ni admonitions
+        assert '```' not in protegido, path
+        assert not [l for l in protegido.split('\n') if l.lstrip().startswith('!!!')], path
+        restaurado, faltan = _restore_structure(protegido, bloques)
+        assert not faltan, path
+        assert restaurado == orig, f'{path}: el roundtrip no es idéntico'
+
+
+def test_enhance_rechaza_enlace_malformado(monkeypatch=None):
+    # caso real: gemma4 escribió "[llama.cpp]" sin URL en la reescritura
+    import wordpress_sync as w
+    orig = ('# T\n\nMira [llama.cpp](https://x.dev) si quieres entender cómo funciona '
+            'la inferencia local por debajo, sin depender de servicios externos ni '
+            'de APIs de pago para tus pruebas.\n\n## Sec\n\ntexto\n')
+    reescrito = ('Mira [llama.cpp] si quieres entender cómo funciona la inferencia '
+                 'local por debajo, sin depender de nada externo en tus pruebas.')
+    class _Resp:
+        status_code = 200
+        def raise_for_status(self): pass
+        def json(self): return {'message': {'content': reescrito}}
+    post_real, refs_real = w.requests.post, w.get_style_references
+    w.requests.post = lambda *a, **k: _Resp()
+    w.get_style_references = lambda *a, **k: []
+    os.environ['OLLAMA_MODEL'] = 'test'
+    try:
+        assert w.enhance_markdown(orig) == orig  # descartada, se publica el original
+    finally:
+        w.requests.post, w.get_style_references = post_real, refs_real
+        os.environ.pop('OLLAMA_MODEL', None)
+
+
+def test_restore_detecta_marcador_borrado():
+    orig = 'Texto\n\n```bash\nls\n```\n\nfin\n'
+    protegido, bloques = _protect_structure(orig)
+    _, faltan = _restore_structure(protegido.replace('⟦0⟧', ''), bloques)
+    assert faltan == [0], faltan
 
 
 def test_structure_lost_detecta_admonition_perdido():

@@ -667,6 +667,15 @@ mkdocs build --strict
 
 ## Progreso de Publicación
 
+- vLLM: servir LLMs a escala con alto throughput - Borrador creado el 2026-07-19
+- MeshLLM: inferencia LLM distribuida en malla P2P - Borrador creado el 2026-07-19
+- LiteLLM: gateway unificado para LLMs - Borrador creado el 2026-07-19
+- LLaMA.cpp: Compilación, cuantización y benchmarking - Borrador creado el 2026-07-19
+- Storage en Kubernetes: Ceph RBD vs Longhorn vs OpenEBS - Borrador creado el 2026-07-19
+- Service Mesh en Kubernetes: Istio vs Linkerd vs Cilium - Borrador creado el 2026-07-19
+- Secretos en GitOps: SOPS, Sealed Secrets y External Secrets Operator - Borrador creado el 2026-07-19
+- Seguridad en IaC (Checkov y TFLint) - Borrador creado el 2026-07-19
+- Docker — Seguridad Runtime (gVisor y Kata Containers) - Borrador creado el 2026-07-19
 - LM Studio: LLMs locales con interfaz gráfica - Borrador creado el 2026-07-19
 - LM Studio: LLMs locales con interfaz gráfica - Borrador creado el 2026-07-18
 - Comparativa rápida: NetBird vs Tailscale vs ZeroTier - Publicado el 2026-07-18

@@ -209,17 +209,78 @@ def inline_admonition_styles(html):
 # OLLAMA_HOST=https://ollama.com y OLLAMA_API_KEY.
 ENHANCE_BLOG = False
 
+# Solo se reescribe la introducción: pedirle el documento entero a un modelo
+# local pequeño falla siempre (gemma4:e4b-mlx perdía estructura en el 100% de
+# los casos, incluso ocultándosela tras marcadores). La intro es donde está el
+# tono y no tiene estructura que perder.
 _BLOG_SYSTEM_PROMPT = (
-    "Eres un editor técnico. Reescribe el siguiente documento Markdown para que "
-    "se lea como un buen artículo de blog: un párrafo de introducción que enganche, "
-    "transiciones naturales entre secciones y un cierre breve. REGLAS ESTRICTAS: "
-    "1) Conserva LITERALMENTE todo bloque de código, comando, salida de terminal, "
-    "diagrama ```mermaid```, enlace, imagen y tabla; no los edites ni traduzcas. "
-    "2) No inventes datos técnicos ni cambies versiones, comandos o parámetros. "
-    "3) Mantén los encabezados y su jerarquía; puedes mejorar su redacción. "
-    "4) No añadas frontmatter YAML. 5) Responde SOLO con el Markdown resultante, "
-    "sin comentarios ni explicaciones."
+    "Eres un editor técnico. Reescribe la introducción de este artículo para que "
+    "enganche desde la primera frase, en el tono del autor. REGLAS ESTRICTAS: "
+    "1) No añadas encabezados, listas, tablas, código ni frontmatter. "
+    "2) Conserva los enlaces Markdown tal cual. "
+    "3) No inventes datos técnicos ni cambies versiones, comandos o parámetros. "
+    "4) Mantén una longitud similar a la original. "
+    "5) Responde SOLO con el párrafo reescrito, sin comentarios ni explicaciones."
 )
+
+
+# Saca de la vista del modelo todo lo que no debe tocar (bloques de código,
+# admonitions y tablas) sustituyéndolo por marcadores. Así no puede alterarlo:
+# gemma4:e4b-mlx perdía estructura en el 100% de los documentos aunque el prompt
+# se lo prohibiera. Devuelve (texto_con_marcadores, bloques).
+def _protect_structure(md):
+    lines = md.split('\n')
+    out, blocks = [], []
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        if line.lstrip().startswith('```'):          # bloque de código o mermaid
+            chunk = [line]
+            i += 1
+            while i < len(lines):
+                chunk.append(lines[i])
+                cerrado = lines[i].lstrip().startswith('```')
+                i += 1
+                if cerrado:
+                    break
+        elif re.match(r'^\s*(?:!!!|\?\?\?)\s', line):  # admonition + cuerpo indentado
+            chunk = [line]
+            i += 1
+            while i < len(lines) and (lines[i].startswith((' ', '\t')) or not lines[i].strip()):
+                if not lines[i].strip():
+                    siguiente = lines[i + 1] if i + 1 < len(lines) else ''
+                    if siguiente and not siguiente.startswith((' ', '\t')):
+                        break
+                chunk.append(lines[i])
+                i += 1
+        elif line.startswith('|'):                    # tabla
+            chunk = [line]
+            i += 1
+            while i < len(lines) and lines[i].startswith('|'):
+                chunk.append(lines[i])
+                i += 1
+        elif re.match(r'^#{1,6} ', line):             # encabezado
+            # ponytail: se protegen en vez de dejar que el modelo los reescriba;
+            # gemma4:e4b-mlx se comía 7 de ellos por documento. Si algún día se
+            # usa un modelo fiable, quitar esta rama para que mejore los títulos.
+            chunk = [line]
+            i += 1
+        else:
+            out.append(line)
+            i += 1
+            continue
+        blocks.append('\n'.join(chunk))
+        out.append(f'⟦{len(blocks) - 1}⟧')
+    return '\n'.join(out), blocks
+
+
+# Devuelve los bloques originales a su sitio. Si el modelo se comió algún
+# marcador, lo indica para poder descartar la reescritura.
+def _restore_structure(md, blocks):
+    faltan = [i for i in range(len(blocks)) if f'⟦{i}⟧' not in md]
+    for i, bloque in enumerate(blocks):
+        md = md.replace(f'⟦{i}⟧', bloque)
+    return md, faltan
 
 
 # Comprueba que la reescritura no haya perdido elementos estructurales.
@@ -315,12 +376,28 @@ def enhance_markdown(md_text):
             "introducciones y cierres, uso de segunda persona) SIN copiar su "
             "contenido ni su tema:\n\n" + ejemplos)
 
+    # Solo la prosa introductoria: lo que va tras el título H1 y antes del primer
+    # encabezado, bloque de código, aviso o tabla. Así no hay nada estructural
+    # que el modelo pueda romper.
+    h1 = re.match(r'\s*#\s[^\n]*\n', md_text)
+    cabecera = h1.group(0) if h1 else ''
+    cuerpo = md_text[h1.end():] if h1 else md_text
+
+    corte = re.search(r'^(?:#{1,6} |```|\s*(?:!!!|\?\?\?) |\|)', cuerpo, re.M)
+    intro = cuerpo[:corte.start()] if corte else cuerpo
+    resto = cuerpo[corte.start():] if corte else ''
+    if len(intro.strip()) < 80:
+        print('  Aviso: sin introducción que reescribir; se publica tal cual')
+        return md_text
+
+    protegido, bloques = intro, []
+
     payload = {
         'model': model,
         'stream': False,
         'messages': [
             {'role': 'system', 'content': system_prompt},
-            {'role': 'user', 'content': md_text},
+            {'role': 'user', 'content': protegido},
         ],
     }
     try:
@@ -338,14 +415,32 @@ def enhance_markdown(md_text):
 
     content = _strip_code_fence(content)
 
-    perdido = _structure_lost(md_text, content)
-    if perdido:
-        print(f'  Aviso: el modelo perdió {perdido}; se publica el Markdown '
-              f'original sin reescribir')
+    content, faltan = _restore_structure(content, bloques)
+    if faltan:
+        print(f'  Aviso: el modelo borró {len(faltan)} marcador(es); '
+              f'se publica el Markdown original sin reescribir')
         return md_text
 
-    print(f'  Estilo blog aplicado con Ollama ({model})')
-    return content
+    # Corchetes sueltos: el modelo escribe "[llama.cpp]" sin URL y queda como
+    # texto literal en la web.
+    def _colgantes(t):
+        return len(re.findall(r'\[[^\]]+\](?!\()', t))
+    if _colgantes(content) > _colgantes(intro):
+        print('  Aviso: la reescritura dejó enlaces Markdown malformados; '
+              'se publica el Markdown original')
+        return md_text
+
+    # La intro reescrita no debe traer estructura nueva ni perder la que había
+    perdido = _structure_lost(intro, content)
+    invento = _structure_lost(content, intro)
+    if perdido or invento:
+        print(f'  Aviso: la reescritura alteró la estructura de la introducción '
+              f'({perdido or invento}); se publica el Markdown original')
+        return md_text
+
+    print(f'  Introducción reescrita con Ollama ({model})')
+    reescrito = cabecera + content.strip() + '\n'
+    return reescrito + '\n' + resto if resto else reescrito
 
 # Función para extraer metadatos del frontmatter
 def extract_frontmatter(content):
