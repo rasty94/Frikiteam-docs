@@ -885,10 +885,13 @@ def sync_all_posts(status_new='draft', force=False):
     if updated_posts:
         print("TODO.md actualizado.")
 
-# Función para listar archivos MD
+# Función para listar archivos MD. Solo español: WordPress no tiene traducción
+# de posts, así que subir también docs/en/ crearía contenido duplicado en
+# inglés en el mismo blog. --file sigue permitiendo forzar un archivo EN a mano.
 def list_md_files(base_path='docs'):
     md_files = []
     for root, dirs, files in os.walk(base_path):
+        dirs[:] = [d for d in dirs if d != 'en']
         for file in files:
             if file.endswith('.md'):
                 md_files.append(os.path.join(root, file))
