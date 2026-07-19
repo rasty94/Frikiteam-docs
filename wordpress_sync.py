@@ -6,6 +6,7 @@ import html as html_lib
 import hashlib
 import tempfile
 import subprocess
+import sys
 import mimetypes
 import markdown
 import pymdownx.superfences
@@ -13,7 +14,31 @@ import pymdownx.emoji
 from datetime import datetime
 import argparse
 import glob
-from constants import WP_SITE_URL_DEFAULT, WP_USERNAME_DEFAULT, WP_APP_PASSWORD_DEFAULT
+
+# Carga .env sin depender de python-dotenv: son cuatro líneas y evita añadir
+# una dependencia al proyecto. Lo ya definido en el entorno tiene prioridad.
+def cargar_env(ruta='.env'):
+    ruta = os.path.join(os.path.dirname(os.path.abspath(__file__)), ruta)
+    if not os.path.isfile(ruta):
+        return
+    with open(ruta, encoding='utf-8') as f:
+        for linea in f:
+            linea = linea.strip()
+            if not linea or linea.startswith('#') or '=' not in linea:
+                continue
+            clave, valor = linea.split('=', 1)
+            os.environ.setdefault(clave.strip(), valor.strip().strip('"').strip("'"))
+
+
+cargar_env()
+
+# constants.py es el método antiguo de guardar credenciales; se mantiene como
+# respaldo para no romper instalaciones existentes, pero .env es lo preferente.
+try:
+    from constants import (WP_SITE_URL_DEFAULT, WP_USERNAME_DEFAULT,
+                           WP_APP_PASSWORD_DEFAULT)
+except ImportError:
+    WP_SITE_URL_DEFAULT = WP_USERNAME_DEFAULT = WP_APP_PASSWORD_DEFAULT = None
 
 # Configuración desde variables de entorno
 wp_site_url = os.getenv('WP_SITE_URL', WP_SITE_URL_DEFAULT)
@@ -209,6 +234,51 @@ def inline_admonition_styles(html):
 # OLLAMA_HOST=https://ollama.com y OLLAMA_API_KEY.
 ENHANCE_BLOG = False
 
+# Endpoints leídos de .env: el remoto descarga el trabajo del portátil; si no
+# responde, se ofrece caer al local. Sin OLLAMA_REMOTE definido se usa solo el
+# local, así el script no lleva ninguna URL de infraestructura escrita dentro.
+OLLAMA_REMOTE_DEFAULT = os.getenv('OLLAMA_REMOTE', '')
+OLLAMA_LOCAL_DEFAULT = os.getenv('OLLAMA_LOCAL', 'http://localhost:11434')
+
+# Host elegido en esta ejecución (se resuelve una sola vez, no por documento).
+_SIN_RESOLVER = object()
+_HOST_RESUELTO = _SIN_RESOLVER
+
+
+# ¿Responde un servidor Ollama en ese host?
+def ollama_disponible(host, timeout=8):
+    try:
+        r = requests.get(f'{host.rstrip("/")}/api/tags', timeout=timeout)
+        return r.status_code == 200
+    except requests.RequestException:
+        return False
+
+
+# Elige el host a usar: el remoto si responde; si no, pregunta si tirar del
+# local. En modo no interactivo (--file/--all sin tty) cae al local sin más.
+def resolver_host_ollama(interactivo=True):
+    host = os.getenv('OLLAMA_HOST')
+    if host:
+        return host  # elección explícita del usuario: se respeta
+
+    if not OLLAMA_REMOTE_DEFAULT:
+        return OLLAMA_LOCAL_DEFAULT if ollama_disponible(OLLAMA_LOCAL_DEFAULT, 3) else None
+
+    if ollama_disponible(OLLAMA_REMOTE_DEFAULT):
+        return OLLAMA_REMOTE_DEFAULT
+
+    print(f'  Aviso: {OLLAMA_REMOTE_DEFAULT} no responde.')
+    if not ollama_disponible(OLLAMA_LOCAL_DEFAULT, timeout=3):
+        print('  Tampoco hay Ollama local; se publicará el Markdown sin reescribir.')
+        return None
+    if interactivo and sys.stdin.isatty():
+        resp = input('  ¿Ejecutar en local? (S/n): ').strip().lower()
+        if resp in ('n', 'no'):
+            return None
+    else:
+        print('  Se usa el Ollama local.')
+    return OLLAMA_LOCAL_DEFAULT
+
 # Solo se reescribe la introducción: pedirle el documento entero a un modelo
 # local pequeño falla siempre (gemma4:e4b-mlx perdía estructura en el 100% de
 # los casos, incluso ocultándosela tras marcadores). La intro es donde está el
@@ -354,11 +424,18 @@ def get_style_references(count=6, max_chars=1200):
 # Reescribe el cuerpo Markdown con Ollama. Ante cualquier fallo devuelve el
 # original para no bloquear la publicación.
 def enhance_markdown(md_text):
-    host = os.getenv('OLLAMA_HOST', 'http://localhost:11434').rstrip('/')
+    global _HOST_RESUELTO
     model = os.getenv('OLLAMA_MODEL')
     if not model:
         print('  Aviso: OLLAMA_MODEL no definido; se publica el Markdown original')
         return md_text
+
+    # Se resuelve una vez por ejecución para no preguntar en cada documento
+    if _HOST_RESUELTO is _SIN_RESOLVER:
+        _HOST_RESUELTO = resolver_host_ollama()
+    if not _HOST_RESUELTO:
+        return md_text
+    host = _HOST_RESUELTO.rstrip('/')
 
     headers = {'Content-Type': 'application/json'}
     api_key = os.getenv('OLLAMA_API_KEY')
