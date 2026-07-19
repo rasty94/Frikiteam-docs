@@ -2,6 +2,7 @@
 title: DNSSEC
 description: DNS Security Extensions to authenticate DNS data, avoid cache poisoning, and prove non-existence.
 draft: false
+updated: 2026-01-24
 ---
 
 # DNSSEC (Domain Name System Security Extensions)

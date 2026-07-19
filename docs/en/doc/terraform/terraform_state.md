@@ -1,5 +1,6 @@
 ---
 title: Terraform — State Backend and Migration
+updated: 2026-01-23
 ---
 
 # Terraform — State Backend and Migration

@@ -3,6 +3,7 @@ tags:
   - identity
   - security
   - sso
+updated: 2025-12-08
 ---
 
 # Authentik

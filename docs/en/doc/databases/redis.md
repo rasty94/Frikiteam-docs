@@ -3,6 +3,7 @@ tags:
   - databases
   - redis
   - cache
+updated: 2025-12-08
 ---
 
 # Redis: High Performance Cache

@@ -3,6 +3,7 @@ title: "OpenStack - Open and Scalable Cloud Infrastructure"
 description: "Discover OpenStack: open-source platform for cloud computing. Learn about its modules, deployments and use cases in public and private cloud infrastructures."
 keywords: "OpenStack, cloud computing, cloud infrastructure, virtualization, Nova, Neutron, Cinder, Swift, Glance, Keystone, Horizon"
 sync_date: "2025-11-15"
+updated: 2025-11-15
 ---
 
 ![OpenStack Logo](openstack_logo.png){width=35%}

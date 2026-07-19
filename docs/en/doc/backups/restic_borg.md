@@ -3,6 +3,7 @@ tags:
   - backups
   - linux
   - cli
+updated: 2025-12-08
 ---
 
 # Agnostic Backups: Restic and Borg

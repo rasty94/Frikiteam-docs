@@ -3,6 +3,7 @@ tags:
   - databases
   - postgres
   - docker
+updated: 2025-12-08
 ---
 
 # PostgreSQL on Docker

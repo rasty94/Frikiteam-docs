@@ -4,6 +4,7 @@ tags:
   - security
   - oidc
   - dex
+updated: 2026-03-01
 ---
 
 # Dex IdP (Federated OIDC)

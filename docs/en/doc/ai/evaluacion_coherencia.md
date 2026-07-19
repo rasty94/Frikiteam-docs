@@ -8,6 +8,7 @@ estimated_time: "40 min"
 category: Artificial Intelligence
 status: published
 prerequisites: ["llms_fundamentals", "model_evaluation"]
+updated: 2026-07-18
 ---
 
 # Coherence Evaluation in LLMs

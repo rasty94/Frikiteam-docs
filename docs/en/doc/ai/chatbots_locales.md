@@ -8,6 +8,7 @@ estimated_time: "30 min"
 category: Artificial Intelligence
 status: published
 prerequisites: ["ollama_basics", "model_optimization"]
+updated: 2026-07-18
 ---
 
 # Local Chatbots with LLMs

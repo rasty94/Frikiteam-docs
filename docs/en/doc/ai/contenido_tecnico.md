@@ -8,6 +8,7 @@ estimated_time: "30 min"
 category: Artificial Intelligence
 status: published
 prerequisites: ["llms_fundamentals", "ollama_basics", "chatbots_locales"]
+updated: 2026-07-18
 ---
 
 # Automated Technical Content Generation with LLMs

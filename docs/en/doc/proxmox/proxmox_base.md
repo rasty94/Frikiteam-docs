@@ -3,6 +3,7 @@ title: "Proxmox VE - Complete Enterprise Virtualization Guide"
 description: "Learn to install, configure and manage Proxmox Virtual Environment. Complete virtualization guide with KVM, LXC, clustering and high availability."
 keywords: "Proxmox VE, virtualization, KVM, LXC, clustering, high availability, Debian, open source"
 sync_date: "2025-11-15"
+updated: 2025-12-07
 ---
 
 Complete guide to Proxmox Virtual Environment: enterprise-grade open-source virtualization platform.

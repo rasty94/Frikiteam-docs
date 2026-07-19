@@ -1,5 +1,6 @@
 ---
 title: Proxmox — Software-Defined Networking (SDN)
+updated: 2026-01-23
 ---
 
 # Proxmox — Software-Defined Networking

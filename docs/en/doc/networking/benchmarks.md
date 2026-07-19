@@ -17,6 +17,7 @@ Resumen de rendimiento entre diferentes soluciones de VPN y Overlay Networking.
 
 | Protocolo | Latencia (ms) | Throughput (Gbps) | Uso CPU |
 |
+updated: 2026-01-23
 ---
 
 --- | ------------- | ----------------- | ------- |

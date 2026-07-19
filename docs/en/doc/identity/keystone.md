@@ -2,6 +2,7 @@
 tags:
   - identity
   - openstack
+updated: 2025-12-08
 ---
 
 # OpenStack Keystone

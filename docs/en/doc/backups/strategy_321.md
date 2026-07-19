@@ -3,6 +3,7 @@ tags:
   - backups
   - theory
   - best-practices
+updated: 2025-12-08
 ---
 
 # 3-2-1 Backup Strategy

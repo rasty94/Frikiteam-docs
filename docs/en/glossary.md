@@ -1,5 +1,6 @@
 ---
 title: Glossary — Common Terms
+updated: 2025-11-15
 ---
 
 # Glossary

@@ -2,6 +2,7 @@
 title: CIDR Notation
 description: Detailed explanation of Classless Inter-Domain Routing notation and how to calculate IP ranges.
 draft: false
+updated: 2026-01-23
 ---
 
 # CIDR Notation

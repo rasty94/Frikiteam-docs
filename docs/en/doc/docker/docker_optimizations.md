@@ -1,5 +1,6 @@
 ---
 title: Docker — Optimization and Best Practices
+updated: 2026-01-23
 ---
 
 # Docker — Optimization and Best Practices

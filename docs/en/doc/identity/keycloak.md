@@ -3,6 +3,7 @@ tags:
   - identity
   - security
   - oidc
+updated: 2025-12-08
 ---
 
 # Keycloak: Identity Management

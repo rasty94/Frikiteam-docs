@@ -8,6 +8,7 @@ estimated_time: "45 min"
 category: Artificial Intelligence
 status: published
 prerequisites: ["llms_fundamentals", "prompt_engineering"]
+updated: 2026-07-18
 ---
 
 # LLM Security Testing

@@ -1,5 +1,6 @@
 ---
 title: Troubleshooting — Common Errors and Solutions
+updated: 2025-11-15
 ---
 
 # Troubleshooting — Common Errors and Solutions

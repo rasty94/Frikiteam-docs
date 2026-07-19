@@ -7,6 +7,7 @@ difficulty: advanced
 time: 45 minutes
 category: Artificial Intelligence
 prerequisites: [ollama_basics, model_evaluation, fine_tuning_basico]
+updated: 2026-07-18
 ---
 
 # Deploying LLMs at Scale with Kubernetes

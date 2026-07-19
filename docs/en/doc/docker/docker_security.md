@@ -1,5 +1,6 @@
 ---
 
+updated: 2026-01-24
 ---
 
 # Docker — Security (Hardening, Secrets, and Scanning)

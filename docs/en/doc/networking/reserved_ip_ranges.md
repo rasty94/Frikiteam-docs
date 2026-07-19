@@ -1,5 +1,6 @@
 ---
 
+updated: 2026-01-23
 ---
 
 # Reserved IP Ranges

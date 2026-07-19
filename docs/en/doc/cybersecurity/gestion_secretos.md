@@ -3,6 +3,7 @@ title: Secrets Management
 date: 2026-01-09
 tags: [cybersecurity, secrets-management, vault, kubernetes, aws]
 draft: false
+updated: 2026-01-24
 ---
 
 ## Overview

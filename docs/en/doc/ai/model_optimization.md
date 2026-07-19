@@ -8,6 +8,7 @@ estimated_time: "25 min"
 category: Artificial Intelligence
 status: published
 prerequisites: ["llms_fundamentals", "ollama_basics"]
+updated: 2026-07-18
 ---
 
 # Optimización de Modelos LLM
