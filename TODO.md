@@ -695,6 +695,14 @@ Verificado ejecutando los scripts, no por inspección manual:
 
 ## Progreso de Publicación
 
+- Rootless Podman — Containers without a daemon or root - Borrador creado el 2026-07-19
+- PostgreSQL High Availability: replication, Patroni and tested failover - Borrador creado el 2026-07-19
+- Basic Pentesting: an ethical hacking methodology to audit your own infrastructure - Borrador creado el 2026-07-19
+- Applied Cryptography: primitives, hashing and key management - Borrador creado el 2026-07-19
+- Podman Rootless — Contenedores sin daemon ni root - Borrador creado el 2026-07-19
+- PostgreSQL en Alta Disponibilidad: replicación, Patroni y failover probado - Borrador creado el 2026-07-19
+- Pentesting Básico: metodología de ethical hacking para auditar tu propia infraestructura - Borrador creado el 2026-07-19
+- Criptografía Aplicada: primitivas, hashing y gestión de claves - Borrador creado el 2026-07-19
 - Troubleshooting — Errores Comunes y Soluciones - Borrador creado el 2026-07-19
 - Empezando — Primeros pasos en Frikiteam - Borrador creado el 2026-07-19
 - Política de Privacidad - Borrador creado el 2026-07-19
