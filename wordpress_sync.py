@@ -885,6 +885,18 @@ def sync_all_posts(status_new='draft', force=False):
     if updated_posts:
         print("TODO.md actualizado.")
 
+# Páginas de navegación/meta del sitio (índices de sección, glosario, legal,
+# meta-doc sobre el propio MkDocs) sin valor como artículo de blog. Rutas
+# exactas, no basenames: doc/networking/troubleshooting.md sí es contenido real.
+PAGINAS_NO_ARTICULO = {
+    os.path.join('docs', 'about.md'),
+    os.path.join('docs', 'privacy.md'),
+    os.path.join('docs', 'glossary.md'),
+    os.path.join('docs', 'quickstart.md'),
+    os.path.join('docs', 'troubleshooting.md'),
+}
+
+
 # Función para listar archivos MD. Solo español: WordPress no tiene traducción
 # de posts, así que subir también docs/en/ crearía contenido duplicado en
 # inglés en el mismo blog. --file sigue permitiendo forzar un archivo EN a mano.
@@ -893,8 +905,14 @@ def list_md_files(base_path='docs'):
     for root, dirs, files in os.walk(base_path):
         dirs[:] = [d for d in dirs if d != 'en']
         for file in files:
-            if file.endswith('.md'):
-                md_files.append(os.path.join(root, file))
+            if not file.endswith('.md'):
+                continue
+            if file == 'index.md':
+                continue
+            path = os.path.join(root, file)
+            if path in PAGINAS_NO_ARTICULO:
+                continue
+            md_files.append(path)
     return sorted(md_files)
 
 # Función para obtener título de un archivo MD
