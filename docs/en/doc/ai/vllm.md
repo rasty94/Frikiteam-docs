@@ -346,7 +346,7 @@ Sensible procedure: fix the load, vary **one** parameter at a time (`max-num-bat
 
 ## 🏭 Production notes
 
-- **Observability**: `/metrics` exposes Prometheus metrics ready to scrape. The key ones are `vllm:num_requests_running`, `vllm:num_requests_waiting` and `vllm:gpu_cache_usage_perc`. If the waiting queue grows steadily while cache usage sits at 100%, you need more replicas, not more tuning.
+- **Observability**: `/metrics` exposes Prometheus metrics ready to scrape. The key ones are `vllm:num_requests_running`, `vllm:num_requests_waiting` and `vllm:kv_cache_usage_perc`. If the waiting queue grows steadily while cache usage sits at 100%, you need more replicas, not more tuning.
 - **Health checks**: use `/health` as liveness. Be careful with readiness: loading a 70B model can take several minutes, so tune `initialDelaySeconds` or you will be using CrashLoopBackOff as a deployment method.
 - **Authentication**: `--api-key` is a single shared static token. For per-user key management, quotas and budgets, that responsibility belongs to the gateway ([LiteLLM](litellm.md)).
 - **Weight downloads**: preload the model onto a persistent volume. Downloading 140 GB on every pod start is the most expensive and least interesting mistake you can make.

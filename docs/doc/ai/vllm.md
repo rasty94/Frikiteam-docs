@@ -346,7 +346,7 @@ Procedimiento sensato: fija la carga, varía **un** parámetro cada vez (`max-nu
 
 ## 🏭 Notas de producción
 
-- **Observabilidad**: `/metrics` expone métricas Prometheus listas para scrapear. Las clave son `vllm:num_requests_running`, `vllm:num_requests_waiting` y `vllm:gpu_cache_usage_perc`. Si la cola de espera crece de forma sostenida y el uso de cache está al 100%, necesitas más réplicas, no más tuning.
+- **Observabilidad**: `/metrics` expone métricas Prometheus listas para scrapear. Las clave son `vllm:num_requests_running`, `vllm:num_requests_waiting` y `vllm:kv_cache_usage_perc`. Si la cola de espera crece de forma sostenida y el uso de cache está al 100%, necesitas más réplicas, no más tuning.
 - **Health checks**: usa `/health` como liveness. Ojo con el readiness: cargar un modelo de 70B puede tardar varios minutos, así que ajusta los `initialDelaySeconds` o usarás un CrashLoopBackOff como método de despliegue.
 - **Autenticación**: `--api-key` es un token estático compartido. Para gestión de claves por usuario, cuotas y presupuestos, esa responsabilidad es del gateway ([LiteLLM](litellm.md)).
 - **Descarga de pesos**: precarga el modelo en un volumen persistente. Descargar 140 GB en cada arranque de pod es el error más caro y menos interesante que puedes cometer.

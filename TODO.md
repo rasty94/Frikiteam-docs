@@ -167,7 +167,7 @@ Archivos generados o stubs que requieren revisión humana y expansión.
   - Seguridad en redes overlay: encriptación, segmentación y monitoreo.
 
 #### Observabilidad y Monitoreo
-- [ ] **Stack Completo de Observabilidad:**
+- [x] **Stack Completo de Observabilidad:** ✅ **COMPLETADO (26/01/2025):** `docs/doc/monitoring/observability_stack.md` (ES/EN). Ver la sección "Fase 2.3 Observabilidad Completada" más abajo.
   - Instalación y configuración de Prometheus + Grafana + Alertmanager desde cero.
   - Dashboards personalizados para Kubernetes (pods, nodes, ingress, services).
   - Integración de Loki para logging centralizado con Grafana.
@@ -224,12 +224,12 @@ Esta sección propone contenido nuevo sobre inteligencia artificial, enfocado en
 - [ ] **LLMs en Edge:** Despliegue en dispositivos IoT, Raspberry Pi, optimización para consumo de energía.
 - [ ] **Evaluación de Seguridad y Privacidad:** Extracción de datos de entrenamiento, anonimización, GDPR compliance.
 - [ ] **Monitoreo y Observabilidad:** Tracking de costos (si usan APIs), latencias, calidad de respuestas.
-- [ ] **Comparativa Open-source vs Cloud:** Análisis de costos, latencia, privacidad y control.
+- [x] **Comparativa Open-source vs Cloud:** Análisis de costos, latencia, privacidad y control. ✅ **COMPLETADO (19/07/2026):** `docs/doc/ai/opensource_vs_cloud.md` (ES/EN).
 
 ### Integración con Stack Existente
 
-- [ ] **LLMs en Kubernetes:** Despliegue de servicios LLM (vLLM, Ollama) con Helm/ArgoCD.
-- [ ] **Monitoreo de LLMs:** Integración con Prometheus/Grafana para métricas de tokens generados, latencias.
+- [x] **LLMs en Kubernetes:** Despliegue de servicios LLM (vLLM, Ollama) con Helm/ArgoCD. ✅ **COMPLETADO (19/07/2026):** `docs/doc/ai/llms_kubernetes.md` (ES/EN).
+- [x] **Monitoreo de LLMs:** Integración con Prometheus/Grafana para métricas de tokens generados, latencias. ✅ **COMPLETADO (19/07/2026):** `docs/doc/ai/monitoreo_llms.md` (ES/EN).
 - [ ] **Storage para Modelos:** Optimización de almacenamiento de checkpoints (Ceph, Pure), versionado con DVC.
 - [ ] **Networking para Inferencia:** Optimización de bandwidth para descargas de modelos, caché distribuido con Redis.
 - [ ] **CI/CD para Modelos:** Validación automática de modelos, A/B testing de versiones, despliegue gradual.
@@ -279,9 +279,9 @@ Esta sección propone contenido nuevo sobre ciberseguridad, enfocado en práctic
 - [x] **Hardening de Servidores Linux:** Checklist para securizar SSH, sudo, kernel parameters (sysctl). ✅ **COMPLETADO:** Expandido `docs/doc/cybersecurity/hardening_linux.md` con configuraciones completas, auditoria con Lynis, monitoreo de seguridad.
 - [x] **Seguridad en Kubernetes:** RBAC, Network Policies, Pod Security Standards, admission controllers (OPA/Gatekeeper). ✅ **COMPLETADO:** Creado `docs/doc/cybersecurity/kubernetes_security.md` con RBAC, Network Policies, Pod Security, admission controllers y monitoreo.
 - [x] **Seguridad en Docker (runtime):** Aislamiento con gVisor/Kata Containers. ✅ **COMPLETADO (18/07/2026):** Creado `docs/doc/docker/docker_runtime_security.md` (ES/EN). Imágenes seguras/scanning ya cubierto en `docker_security.md`.
-- [ ] **Backup Seguro:** Encriptación de backups (restic, borg), offsite storage, testing de restauración.
-- [ ] **Respuesta a Incidentes:** Playbook básico para IR en infra cloud, herramientas como TheHive/MISP.
-- [ ] **Cumplimiento y Auditoría:** Guías para GDPR, ISO 27001 en entornos DevOps; herramientas como OpenSCAP para compliance.
+- [x] **Backup Seguro:** Encriptación de backups (restic, borg), offsite storage, testing de restauración. ✅ **COMPLETADO (19/07/2026):** `docs/doc/cybersecurity/backup_seguro.md` (ES/EN).
+- [x] **Respuesta a Incidentes:** Playbook básico para IR en infra cloud, herramientas como TheHive/MISP. ✅ **COMPLETADO (19/07/2026):** `docs/doc/cybersecurity/respuesta_incidentes.md` (ES/EN).
+- [x] **Cumplimiento y Auditoría:** Guías para GDPR, ISO 27001 en entornos DevOps; herramientas como OpenSCAP para compliance. ✅ **COMPLETADO (19/07/2026):** `docs/doc/cybersecurity/cumplimiento_auditoria.md` (ES/EN).
 
 ### Avanzado y Especializado
 
@@ -549,9 +549,9 @@ Implementando mejoras prácticas para que la documentación escale sin volverse 
 - **Beneficio:** Saber qué contenido es más útil sin invadir privacidad
 
 #### 5. **Traducción ES/EN Sin Fricción**
-- [ ] Script que detecta cuando ES se actualiza sin actualizar EN
-- [ ] Añadir nota automática en EN: "Versión en español actualizada, revisar"
-- [ ] Priorizar traducción de páginas críticas (Quickstart, Getting Started)
+- [x] Script que detecta cuando ES se actualiza sin actualizar EN ✅ Es `scripts/check_sync.py`, fiable desde que los metadatos `updated` reflejan cambios reales
+- [x] Añadir nota automática en EN: "Versión en español actualizada, revisar" ✅ Lo hace `check_sync.py --fix`
+- [x] Priorizar traducción de páginas críticas (Quickstart, Getting Started) ✅ Superado: paridad ES/EN completa, 138/138
 - **Beneficio:** Evitar que usuarios EN sigan guías obsoletas
 
 ### 📅 Roadmap de Mejoras
@@ -664,9 +664,28 @@ Verificado ejecutando los scripts, no por inspección manual:
 - [x] **Script de detección ES→EN:** es `scripts/check_sync.py`, ya operativo ahora que los metadatos son fiables. `--fix` ya se puede ejecutar sin riesgo de falsos positivos
 - [x] **vLLM:** `docs/doc/ai/vllm.md` (ES/EN) — la casilla de la sección "Herramientas y Tecnologías" quedó sin marcar por despiste
 
+### ✅ Paquetes A y B completados (19/07/2026)
+
+**A — Ciberseguridad Fase 3 (cierra la sección):**
+
+- [x] **Backup Seguro:** `docs/doc/cybersecurity/backup_seguro.md` (ES/EN, 530 líneas). Capa de seguridad sobre los `backups/` existentes, sin duplicarlos: modelo de amenaza (ransomware que cifra los backups), inmutabilidad con `borg serve --append-only` y S3 Object Lock, y testing de restauración con script de verificación automatizado
+- [x] **Respuesta a Incidentes:** `docs/doc/cybersecurity/respuesta_incidentes.md` (ES/EN, 655 líneas). Ciclo NIST SP 800-61, preservación de evidencia antes de tocar nada, TheHive + MISP, y 3 playbooks reales (credencial en Git, minero de cripto, SSH no autorizado)
+- [x] **Cumplimiento y Auditoría:** `docs/doc/cybersecurity/cumplimiento_auditoria.md` (ES/EN, 650 líneas). GDPR e ISO 27001 traducidos a controles técnicos con evidencia comprobable; OpenSCAP en profundidad (perfiles, `xccdf eval`, remediación Ansible, tailoring)
+
+**B — IA en producción:**
+
+- [x] **LLMs en Kubernetes:** `docs/doc/ai/llms_kubernetes.md` (ES/EN, 646 líneas). Ángulo GitOps (Helm + ArgoCD, sync waves, ApplicationSet), complementario a `despliegue_kubernetes.md` — ~30% de solape medido, y corrige tres errores del existente: HPA por CPU, `initialDelaySeconds: 30` sin `startupProbe`, y Secret en YAML plano
+- [x] **Monitoreo de LLMs:** `docs/doc/ai/monitoreo_llms.md` (ES/EN, 623 líneas). TTFT/TPOT, KV cache como límite real de concurrencia, 16 métricas de vLLM verificadas contra la documentación oficial, coste como fórmula (sin precios que caduquen)
+- [x] **Open-source vs Cloud:** `docs/doc/ai/opensource_vs_cloud.md` (ES/EN, 550 líneas). Documenta como caso real la cadena de inferencia con fallback de `wordpress_sync.py`, citando el código del propio repo
+
+**Verificado:** `mkdocs build --strict` limpio (10,48 s), paridad ES/EN exacta en los 6 (mismas líneas, encabezados y bloques de código), `check_sync.py` 134/134, sin credenciales en los documentos.
+
+**Corregido de paso:** `vllm:gpu_cache_usage_perc` → `vllm:kv_cache_usage_perc` en `vllm.md` y `llms_kubernetes.md` (ES y EN). El nombre antiguo es del motor V0 de vLLM, ya deprecado; el documento nuevo lo había heredado del viejo.
+
 ### 🚧 Deuda pendiente (real)
 
-- [ ] **Ciberseguridad:** Backup Seguro (restic/borg + restore testing), Respuesta a Incidentes (TheHive/MISP)
+- [ ] **Sin ejecutar:** el `docker-compose` de TheHive/MISP y los comandos de `oscap` están escritos de conocimiento, no probados contra un despliegue real. Los tags de imagen (`strangebee/thehive:5.3`, `cassandra:4.1`, `elasticsearch:8.14.3`) y los paquetes SSG de Debian conviene contrastarlos antes de seguir la guía al pie de la letra
+- [ ] **Sin verificar al 100%:** 4 métricas de vLLM en `monitoreo_llms.md` (el sufijo `_total` de algunos counters y `num_requests_waiting`) son extrapolaciones coherentes pero no confirmadas carácter a carácter. El documento avisa de ello e incluye un `curl /metrics | grep` para comprobarlas en tu propio despliegue
 - [ ] **Huecos de roadmap sin empezar:** eBPF, Podman rootless, PostgreSQL HA, Chaos Engineering, optimización de costes en K8s
 - [ ] **11 borradores en WordPress esperando revisión humana** en `frikiteam.es/wp-admin`. El pipeline no los publica: el paso a `publish` es decisión manual
 - [ ] **4 `index.md` del árbol ES sin frontmatter.** Es deliberado — `add_updated_field.py` excluye los índices por convención del proyecto. Si se quiere cambiar, hay que tocar el script, no los archivos
