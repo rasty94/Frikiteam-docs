@@ -6,7 +6,7 @@ import os
 from wordpress_sync import (
     markdown_to_html, rewrite_image_srcs,
     render_mermaid_to_png, inline_admonition_styles,
-    _strip_code_fence, enhance_markdown, _strip_html,
+    _strip_code_fence, enhance_markdown, _strip_html, _structure_lost,
 )
 
 
@@ -68,6 +68,20 @@ def test_enhance_without_model_returns_original():
     os.environ.pop('OLLAMA_MODEL', None)
     orig = '# Doc\ncontenido'
     assert enhance_markdown(orig) == orig
+
+
+def test_structure_lost_detecta_admonition_perdido():
+    # caso real: gemma4:e4b-mlx absorbió 6 admonitions en la prosa
+    orig = '## T\n\n!!! note "Aviso"\n    ojo\n\n```bash\nls\n```\n'
+    mala = '## T\n\nUn texto cualquiera.\n\n```bash\nls\n```\n'
+    perdido = _structure_lost(orig, mala)
+    assert perdido and 'admonitions' in perdido, perdido
+
+
+def test_structure_lost_acepta_reescritura_fiel():
+    orig = '## T\n\n!!! note "Aviso"\n    ojo\n\n```bash\nls\n```\n'
+    buena = '## Titulo mejor\n\n!!! note "Aviso"\n    ojo con esto\n\n```bash\nls\n```\n'
+    assert _structure_lost(orig, buena) is None
 
 
 def test_strip_html_removes_tags_and_scripts():

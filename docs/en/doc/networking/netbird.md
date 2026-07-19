@@ -1,62 +1,140 @@
 ---
-title: "NetBird: basic install and setup"
+title: "NetBird: basic installation and configuration"
+description: "Documentation on netbird: basic installation and configuration"
 tags: ['networking']
+updated: 2025-11-15
+difficulty: advanced
+estimated_time: 3 min
 category: Networking
-updated: 2025-09-10
+status: published
+last_reviewed: 2026-01-25
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Networking fundamentals"
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
 ---
 
-# NetBird: basic install and setup
+# NetBird: basic installation and configuration
 
-> NetBird is a WireGuard-based mesh VPN with access control.
+> NetBird is a WireGuard-based mesh VPN solution with access control.
+
+## NetBird architecture
+
+```mermaid
+graph TB
+    subgraph "Control Plane"
+        CP[NetBird Management<br/>app.netbird.io]
+        CP --> DB[(Database)]
+        CP --> API[REST API]
+        CP --> TURN[TURN Servers<br/>optional]
+    end
+    
+    subgraph "Peers/Nodes"
+        P1[Peer 1<br/>Linux Server]
+        P2[Peer 2<br/>Windows Desktop]
+        P3[Peer 3<br/>Mobile iOS]
+        P4[Peer 4<br/>Gateway<br/>with routes]
+    end
+    
+    CP -->|Access policies| P1
+    CP -->|Access policies| P2
+    CP -->|Access policies| P3
+    CP -->|Access policies| P4
+    
+    P1 -->|WireGuard Mesh| P2
+    P1 -->|WireGuard Mesh| P3
+    P1 -->|WireGuard Mesh| P4
+    P2 -->|WireGuard Mesh| P3
+    P2 -->|WireGuard Mesh| P4
+    P3 -->|WireGuard Mesh| P4
+    
+    P4 -->|LAN access| LAN[(Local Network<br/>192.168.1.0/24)]
+    
+    style CP fill:#e1f5fe
+    style P1 fill:#f3e5f5
+    style P2 fill:#f3e5f5
+    style P3 fill:#f3e5f5
+    style P4 fill:#fff3e0
+```
+
+## Connection flow
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant P as Peer (Client)
+    participant CP as Control Plane
+    participant T as TURN Server
+    
+    P->>CP: Initial registration (netbird up)
+    CP-->>P: Authentication link
+    U->>CP: Authentication via browser
+    CP-->>P: WireGuard credentials
+    
+    P->>CP: Peer request
+    CP-->>P: List of authorized peers
+    
+    P->>P: Establish WireGuard connections
+    P->>T: Use TURN if NAT traversal fails
+    
+    Note over P: Connected to the VPN mesh
+```
 
 ## Requirements
 
-- Debian/Ubuntu with `curl` and `sudo`
-- Outbound HTTP/HTTPS allowed
+- Debian/Ubuntu or equivalent with `curl` and `sudo`
+- Outbound HTTP/HTTPS ports allowed
 
-## Quick install (official script)
+## Quick installation (official script)
 
 ```bash
 curl -fsSL https://pkgs.netbird.io/install.sh | sudo bash
 ```
 
-Check service:
+Check the service:
 
 ```bash
 sudo systemctl status netbird
 netbird --version
 ```
 
-## Join the network
+## Joining the network
+
+1. Create an account/tenant in the dashboard (`https://app.netbird.io` or your self-hosted dashboard)
+2. Run the login and follow the browser flow:
 
 ```bash
 netbird up
 ```
-Follow the browser flow, then verify:
+
+3. Check status and peers:
 
 ```bash
 netbird status
 netbird peers
 ```
 
-## Autostart and logs
+## Startup and logs
 
 ```bash
 sudo systemctl enable --now netbird
 journalctl -u netbird -f
 ```
 
-## Hardening and useful config
+## Hardening and useful configuration
 
-- ACLs: restrict traffic to required groups only (configure in the dashboard).
-- DNS: set per-peer or network DNS; ensure `systemd-resolved` is active on Linux:
+- Basic ACLs (dashboard):
+  - Create a policy that only allows traffic between the groups you actually need (e.g. `role:admin` ↔ `role:infra`).
+  - Deny by default and allow through explicit lists.
+- DNS: configure per-peer or per-network DNS in the dashboard; on Linux hosts using `systemd-resolved`, make sure it is active:
 
 ```bash
 sudo systemctl enable --now systemd-resolved
 resolvectl status
 ```
 
-- Routes: advertise routes via the dashboard to reach LANs behind a gateway peer.
+- Routes: use advertised routes in the dashboard to reach subnets behind a gateway peer.
 
 ### systemd override (boot order)
 
@@ -71,23 +149,28 @@ After=network-online.target
 Wants=network-online.target
 ```
 
-Apply:
+Apply the changes:
 
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl restart netbird
 ```
 
-## Containerized examples (Docker)
+## Notes
 
-### Connect your app containers to the VPN
+- NetBird relies on WireGuard; avoid conflicts with other active VPNs
+- Review the access policies in the dashboard so traffic between peers is allowed
 
-- Option 1 (host networking): run NetBird with `--network host` and apps use the host stack.
-- Option 2 (sidecar): share network namespace with your app:
+## Container examples (Docker)
+
+### Connecting your containers to the VPN
+
+- Option 1 (host networking): run NetBird on the host or in a container with `--network host`, so your apps use the host stack.
+- Option 2 (sidecar namespace): share the network namespace with your app:
 
 ```bash
 docker run -d --name netbird --cap-add NET_ADMIN --device /dev/net/tun \
   -v netbird_state:/var/lib/netbird --network container:myapp netbird:latest
 ```
 
-- Option 3 (dedicated Docker network + NAT): route via the NetBird container (requires iptables/MASQUERADE inside the VPN container).
+- Option 3 (dedicated Docker network): create a Docker network and route through the NetBird container (requires iptables/masquerade inside the VPN container).

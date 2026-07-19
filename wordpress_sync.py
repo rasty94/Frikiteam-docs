@@ -222,6 +222,25 @@ _BLOG_SYSTEM_PROMPT = (
 )
 
 
+# Comprueba que la reescritura no haya perdido elementos estructurales.
+# Un modelo pequeño puede absorber admonitions o bloques de código en la prosa
+# pese a que el prompt lo prohíba; publicar eso sería perder contenido.
+# Devuelve una descripción de lo perdido, o None si está todo.
+def _structure_lost(original, rewritten):
+    checks = (
+        ('bloques de código', lambda t: t.count('```')),
+        ('admonitions', lambda t: len(re.findall(r'^\s*(?:!!!|\?\?\?) ', t, re.M))),
+        ('encabezados', lambda t: len(re.findall(r'^#{1,6} ', t, re.M))),
+        ('tablas', lambda t: len(re.findall(r'^\|', t, re.M))),
+    )
+    perdidos = []
+    for nombre, contar in checks:
+        antes, despues = contar(original), contar(rewritten)
+        if despues < antes:
+            perdidos.append(f'{antes - despues} {nombre}')
+    return ', '.join(perdidos) if perdidos else None
+
+
 # Quita fences ```markdown ... ``` con que el modelo a veces envuelve su salida.
 def _strip_code_fence(text):
     text = re.sub(r'^\s*```(?:markdown|md)?\s*\n', '', text)
@@ -316,8 +335,17 @@ def enhance_markdown(md_text):
     if not content:
         print('  Aviso: Ollama devolvió vacío; se publica el Markdown original')
         return md_text
+
+    content = _strip_code_fence(content)
+
+    perdido = _structure_lost(md_text, content)
+    if perdido:
+        print(f'  Aviso: el modelo perdió {perdido}; se publica el Markdown '
+              f'original sin reescribir')
+        return md_text
+
     print(f'  Estilo blog aplicado con Ollama ({model})')
-    return _strip_code_fence(content)
+    return content
 
 # Función para extraer metadatos del frontmatter
 def extract_frontmatter(content):
