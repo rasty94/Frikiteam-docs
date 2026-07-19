@@ -3,7 +3,7 @@ title: Inicio - Frikiteam Docs
 description: Documentación técnica completa sobre DevOps, infraestructura, contenedores y nube. Guías prácticas de Ansible, Docker, Kubernetes, OpenStack y más.
 keywords: devops, infraestructura, docker, kubernetes, ansible, terraform, openstack, proxmox, haproxy, ceph, networking
 tags: [inicio, documentacion, devops, infraestructura]
-updated: 2026-07-18
+updated: 2026-07-19
 ---
 
 ## 🚀 Bienvenido a Frikiteam Docs 🚀
@@ -15,6 +15,27 @@ updated: 2026-07-18
 Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnologías que utilizo día a día. Quiero compartir no solo la teoría, sino también las experiencias reales, los trucos y las mejores prácticas que he aprendido en la "trinchera" tecnológica.
 
 ## 🆕 Últimas Novedades
+
+### 📅 **19 de julio de 2026**
+
+#### 🔒 **Ciberseguridad: backup, respuesta a incidentes, cumplimiento y auditoría ofensiva (ES/EN)**
+
+- **Backup seguro**: [cifrado, inmutabilidad y testing de restauración](doc/cybersecurity/backup_seguro.md) frente a ransomware, con script de verificación de restore.
+- **Respuesta a incidentes**: [playbook práctico con TheHive y MISP](doc/cybersecurity/respuesta_incidentes.md) siguiendo el ciclo de vida NIST SP 800-61.
+- **Cumplimiento y auditoría**: [GDPR, ISO 27001 y OpenSCAP](doc/cybersecurity/cumplimiento_auditoria.md) como controles técnicos con evidencia reproducible.
+- **Criptografía aplicada**: [primitivas, hashing de contraseñas y gestión de claves](doc/cybersecurity/criptografia_aplicada.md), complemento conceptual de [TLS](doc/networking/certificados_tls.md) y las VPN existentes.
+- **Pentesting básico**: [metodología de auditoría de infraestructura propia](doc/cybersecurity/pentesting_basico.md) con Nmap, Burp Suite y Metasploit, encuadrada en autorización y alcance legal.
+
+#### 🤖 **IA en producción: Kubernetes, observabilidad y coste (ES/EN)**
+
+- **LLMs en Kubernetes**: [despliegue GitOps con Helm y ArgoCD](doc/ai/llms_kubernetes.md), y tres correcciones de fiabilidad en el [despliegue existente](doc/ai/despliegue_kubernetes.md) (startupProbe, HPA sobre métricas de vLLM, gestión de secretos).
+- **Monitoreo de LLMs**: [observabilidad de inferencia](doc/ai/monitoreo_llms.md) con TTFT/TPOT, saturación de KV cache y métricas de vLLM verificadas.
+- **Open-source vs cloud**: [coste, latencia, privacidad y control](doc/ai/opensource_vs_cloud.md), con el pipeline multi-servidor de este mismo repo como caso de estudio real.
+
+#### 🐳 **Contenedores y bases de datos (ES/EN)**
+
+- **Podman rootless**: [contenedores sin daemon ni root](doc/docker/podman_rootless.md), modelo de amenaza frente a Docker y migración práctica.
+- **PostgreSQL en Alta Disponibilidad**: [replicación, Patroni y failover probado](doc/databases/postgresql_ha.md), ampliando la sección de HA de la [guía base de PostgreSQL](doc/databases/postgres.md).
 
 ### 📅 **18 de julio de 2026**
 

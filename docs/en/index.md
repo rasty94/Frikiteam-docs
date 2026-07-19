@@ -1,7 +1,7 @@
 ---
 title: "🚀 Welcome to Frikiteam Docs 🚀"
 tags: [inicio, documentacion, devops, infraestructura]
-updated: 2026-07-18
+updated: 2026-07-19
 ---
 
 # 🚀 Welcome to Frikiteam Docs 🚀
@@ -13,6 +13,27 @@ Welcome to Frikiteam's technical documentation! I am a professional passionate a
 My idea is to provide practical, clear, and useful documentation about the technologies I use daily. I want to share not only theory but also real experiences, tricks, and best practices I've learned in the technological "trenches."
 
 ## 🆕 Latest Updates
+
+### 📅 **July 19, 2026**
+
+#### 🔒 **Cybersecurity: backup, incident response, compliance and offensive auditing (ES/EN)**
+
+- **Secure backup**: [encryption, immutability and restore testing](doc/cybersecurity/backup_seguro.md) against ransomware, with a restore-verification script.
+- **Incident response**: [a practical playbook with TheHive and MISP](doc/cybersecurity/respuesta_incidentes.md) following the NIST SP 800-61 lifecycle.
+- **Compliance and auditing**: [GDPR, ISO 27001 and OpenSCAP](doc/cybersecurity/cumplimiento_auditoria.md) as technical controls with reproducible evidence.
+- **Applied cryptography**: [primitives, password hashing and key management](doc/cybersecurity/criptografia_aplicada.md), the conceptual companion to [TLS](doc/networking/certificados_tls.md) and the existing VPN guides.
+- **Basic pentesting**: [a methodology for auditing your own infrastructure](doc/cybersecurity/pentesting_basico.md) with Nmap, Burp Suite and Metasploit, framed around authorization and legal scope.
+
+#### 🤖 **LLMs in production: Kubernetes, observability and cost (ES/EN)**
+
+- **LLMs on Kubernetes**: [GitOps deployment with Helm and ArgoCD](doc/ai/llms_kubernetes.md), plus three reliability fixes to the [existing deployment guide](doc/ai/despliegue_kubernetes.md) (startupProbe, HPA on vLLM metrics, secrets management).
+- **LLM monitoring**: [inference observability](doc/ai/monitoreo_llms.md) covering TTFT/TPOT, KV cache saturation and verified vLLM metrics.
+- **Open-source vs cloud**: [cost, latency, privacy and control](doc/ai/opensource_vs_cloud.md), using this repo's own multi-server inference pipeline as a real case study.
+
+#### 🐳 **Containers and databases (ES/EN)**
+
+- **Rootless Podman**: [containers without a daemon or root](doc/docker/podman_rootless.md), threat model versus Docker and a practical migration path.
+- **PostgreSQL High Availability**: [replication, Patroni and tested failover](doc/databases/postgresql_ha.md), expanding the HA section of the [base PostgreSQL guide](doc/databases/postgres.md).
 
 ### 📅 **July 18, 2026**
 
