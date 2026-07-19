@@ -466,6 +466,25 @@ def publish_post(post_data):
         print(f'Error: {response.status_code} - {response.text}')
         return False
 
+# Busca un post existente por título exacto (en cualquier estado) y devuelve su
+# id, o None. Evita que --file cree un duplicado de algo ya sincronizado.
+def find_post_by_title(title):
+    try:
+        resp = requests.get(
+            endpoint,
+            auth=(wp_username, wp_app_password),
+            params={'search': title, 'per_page': 20,
+                    'status': 'publish,draft,pending,private'},
+        )
+        resp.raise_for_status()
+        for post in resp.json():
+            if post['title']['rendered'].strip() == title.strip():
+                return post['id']
+    except (requests.RequestException, ValueError, KeyError) as e:
+        print(f'  Aviso: no se pudo buscar el post existente ({e})')
+    return None
+
+
 # Función para actualizar post existente
 def update_post(post_id, post_data):
     headers = {
@@ -748,7 +767,15 @@ if __name__ == '__main__':
             print(f"Archivo no encontrado: {args.file}")
         else:
             post_data = create_post_from_md(args.file, args.status)
-            if publish_post(post_data):
+            # Si ya existe un post con ese título, actualizarlo en vez de
+            # crear un duplicado.
+            existing_id = find_post_by_title(post_data['title'])
+            if existing_id:
+                print(f"Ya existe un post con ese título (id {existing_id}): se actualiza.")
+                ok = update_post(existing_id, post_data)
+            else:
+                ok = publish_post(post_data)
+            if ok:
                 update_todo_md([post_data])
                 print("TODO.md actualizado.")
     else:
