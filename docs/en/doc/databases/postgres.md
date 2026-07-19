@@ -33,6 +33,8 @@ services:
 For critical production environments, **Patroni** or **CloudNativePG** (on Kubernetes) is recommended.
 A simple Master-Replica setup requires manual configuration of `primary_conninfo` on the replica and `wal_level=replica` on the primary.
 
+Automatic failover, synchronous vs asynchronous replication, routing with HAProxy/PgBouncer, split-brain prevention and failover testing are covered in depth in [PostgreSQL High Availability](postgresql_ha.md).
+
 ## Backups
 
 Regular use of `pg_dump` is fundamental:

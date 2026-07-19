@@ -695,6 +695,254 @@ Verificado ejecutando los scripts, no por inspección manual:
 
 ## Progreso de Publicación
 
+- Troubleshooting — Errores Comunes y Soluciones - Borrador creado el 2026-07-19
+- Empezando — Primeros pasos en Frikiteam - Borrador creado el 2026-07-19
+- Política de Privacidad - Borrador creado el 2026-07-19
+- Inicio - Frikiteam Docs - Borrador creado el 2026-07-19
+- Glosario — Términos comunes - Borrador creado el 2026-07-19
+- Troubleshooting — Common Errors and Solutions - Borrador creado el 2026-07-19
+- Quickstart — Get Started and Contribute - Borrador creado el 2026-07-19
+- Privacy Policy - Borrador creado el 2026-07-19
+- 🚀 Welcome to Frikiteam Docs 🚀 - Borrador creado el 2026-07-19
+- Glossary — Common Terms - Borrador creado el 2026-07-19
+- Terraform — State Backend and Migration - Borrador creado el 2026-07-19
+- Terraform & OpenTofu - Infrastructure as Code - Borrador creado el 2026-07-19
+- Pure Storage — Quick Guide - Borrador creado el 2026-07-19
+- fio Example — I/O Testing - Borrador creado el 2026-07-19
+- Storage for Databases: PostgreSQL + Ceph - Borrador creado el 2026-07-19
+- NetApp — Quick Guide - Borrador creado el 2026-07-19
+- Kubernetes Storage: Ceph RBD vs Longhorn vs OpenEBS - Borrador creado el 2026-07-19
+- Ceph — Optimization and Capacity Planning - Borrador creado el 2026-07-19
+- Ceph - Scalable Distributed Storage System - Borrador creado el 2026-07-19
+- Quick Recipes - Borrador creado el 2026-07-19
+- Proxmox — Software-Defined Networking (SDN) - Borrador creado el 2026-07-19
+- Proxmox VE - Complete Enterprise Virtualization Guide - Borrador creado el 2026-07-19
+- migration_guide.md - Borrador creado el 2026-07-19
+- OpenStack - Open and Scalable Cloud Infrastructure - Borrador creado el 2026-07-19
+- ZeroTier: installation and basic configuration - Borrador creado el 2026-07-19
+- vRouters and virtual firewalls - Borrador creado el 2026-07-19
+- VyOS (automation-first virtual router) - Borrador creado el 2026-07-19
+- pfSense (virtual router/firewall) - Borrador creado el 2026-07-19
+- OPNsense (virtual router/firewall) - Borrador creado el 2026-07-19
+- MikroTik CHR (Cloud Hosted Router) - Borrador creado el 2026-07-19
+- vRouter benchmark template - Borrador creado el 2026-07-19
+- Migration from Traditional VPN to Mesh Networking - Borrador creado el 2026-07-19
+- VPN Overlay Comparison: Tailscale vs NetBird vs ZeroTier - Borrador creado el 2026-07-19
+- vlsm_profundidad.md - Borrador creado el 2026-07-19
+- Troubleshooting (Networking) - Borrador creado el 2026-07-19
+- Performance Benchmarks: Tailscale vs NetBird - Borrador creado el 2026-07-19
+- Tailscale: installation and basic configuration - Borrador creado el 2026-07-19
+- tablas_puertos_comunes.md - Borrador creado el 2026-07-19
+- spf_dkim_dmarc.md - Borrador creado el 2026-07-19
+- Enterprise SDN: OpenStack Neutron vs VMware NSX vs Cisco ACI - Borrador creado el 2026-07-19
+- reserved_ip_ranges.md - Borrador creado el 2026-07-19
+- registros_ptr_zonas_inversas.md - Borrador creado el 2026-07-19
+- protocolos_icmp_arp_ndp.md - Borrador creado el 2026-07-19
+- NetBird: basic installation and configuration - Borrador creado el 2026-07-19
+- mtu_mss_values.md - Borrador creado el 2026-07-19
+- Advanced Load Balancing: HAProxy vs NGINX vs Traefik - Borrador creado el 2026-07-19
+- Networking - Borrador creado el 2026-07-19
+- Quick comparison: NetBird vs Tailscale vs ZeroTier - Borrador creado el 2026-07-19
+- certificados_tls.md - Borrador creado el 2026-07-19
+- benchmarks.md - Borrador creado el 2026-07-19
+- Observability: Centralized Logging with Wazuh - Borrador creado el 2026-07-19
+- Monitoring with Uptime Kuma - Borrador creado el 2026-07-19
+- Complete Observability Stack - Borrador creado el 2026-07-19
+- Systemd: Service Management - Borrador creado el 2026-07-19
+- SSH Security - Borrador creado el 2026-07-19
+- Service Mesh on Kubernetes: Istio vs Linkerd vs Cilium - Borrador creado el 2026-07-19
+- Kubernetes — Readiness and Liveness Probes - Borrador creado el 2026-07-19
+- Kubernetes - Container Orchestration - Borrador creado el 2026-07-19
+- Documentation - Borrador creado el 2026-07-19
+- haproxy_advanced.md - Borrador creado el 2026-07-19
+- docker_security.md - Borrador creado el 2026-07-19
+- Docker — Runtime Security (gVisor and Kata Containers) - Borrador creado el 2026-07-19
+- Docker — Optimization and Best Practices - Borrador creado el 2026-07-19
+- Docker - Containers - Borrador creado el 2026-07-19
+- Zero Trust in Practice - Borrador creado el 2026-07-19
+- Trivy Operator: Continuous Scanning in Kubernetes - Borrador creado el 2026-07-19
+- Supply Chain Security: SBOM, SLSA and Image Signing - Borrador creado el 2026-07-19
+- IaC Security (Checkov and TFLint) - Borrador creado el 2026-07-19
+- Secrets in GitOps: SOPS, Sealed Secrets and External Secrets Operator - Borrador creado el 2026-07-19
+- Incident Response: a practical playbook with TheHive and MISP - Borrador creado el 2026-07-19
+- principios_seguridad.md - Borrador creado el 2026-07-19
+- monitoreo_seguridad.md - Borrador creado el 2026-07-19
+- modelo_amenazas.md - Borrador creado el 2026-07-19
+- Kubernetes Security - Borrador creado el 2026-07-19
+- Introduction to Cybersecurity in DevOps - Borrador creado el 2026-07-19
+- Linux Server Hardening - Borrador creado el 2026-07-19
+- Secrets Management - Borrador creado el 2026-07-19
+- firewall_red.md - Borrador creado el 2026-07-19
+- escaneo_vulnerabilidades.md - Borrador creado el 2026-07-19
+- Compliance and Auditing in DevOps: GDPR, ISO 27001 and OpenSCAP - Borrador creado el 2026-07-19
+- CI Security Scanning: SAST, DAST and Containers - Borrador creado el 2026-07-19
+- Secure Backup: encryption, immutability and restore testing - Borrador creado el 2026-07-19
+- autenticacion_autorizacion.md - Borrador creado el 2026-07-19
+- Upgrade Proxmox VE 8 to Proxmox VE 9 (Debian 13 Trixie) - Borrador creado el 2026-07-19
+- Proxmox vs VMware vs OpenStack: Migration to Open Source Solutions - Borrador creado el 2026-07-19
+- Install Proxmox VE 9 on Debian 13 (Trixie) - Borrador creado el 2026-07-19
+- Curiosities - Borrador creado el 2026-07-19
+- Docker vs Kubernetes vs Virtual Machines: An Interesting Comparison - Borrador creado el 2026-07-19
+- Introduction to GitHub Actions - Borrador creado el 2026-07-19
+- argocd.md - Borrador creado el 2026-07-19
+- Ansible — Roles and Testing with Molecule - Borrador creado el 2026-07-19
+- Ansible - Infrastructure Automation - Borrador creado el 2026-07-19
+- vLLM: serving LLMs at scale with high throughput - Borrador creado el 2026-07-19
+- Vector Databases for AI - Borrador creado el 2026-07-19
+- LLM Security Testing - Borrador creado el 2026-07-19
+- Advanced Prompt Engineering for LLMs - Borrador creado el 2026-07-19
+- Open-source vs cloud LLMs: cost, latency, privacy and control - Borrador creado el 2026-07-19
+- Ollama: Installation and Getting Started - Borrador creado el 2026-07-19
+- LLM Monitoring and Observability - Borrador creado el 2026-07-19
+- LLM Model Evaluation and Testing - Borrador creado el 2026-07-19
+- MeshLLM: distributed LLM inference over a P2P mesh - Borrador creado el 2026-07-19
+- MCP (Model Context Protocol) and FastMCP - Borrador creado el 2026-07-19
+- Local Model Ecosystem - Borrador creado el 2026-07-19
+- LM Studio: local LLMs with a graphical interface - Borrador creado el 2026-07-19
+- LLMs on Kubernetes with Helm and ArgoCD - Borrador creado el 2026-07-19
+- Introduction to Large Language Models (LLMs) - Borrador creado el 2026-07-19
+- LLaMA.cpp: Compilation, quantization and benchmarking - Borrador creado el 2026-07-19
+- LiteLLM: unified LLM gateway - Borrador creado el 2026-07-19
+- Artificial Intelligence and LLMs - Borrador creado el 2026-07-19
+- Basic LLM Fine-tuning - Borrador creado el 2026-07-19
+- Coherence Evaluation in LLMs - Borrador creado el 2026-07-19
+- Deploying LLMs at Scale with Kubernetes - Borrador creado el 2026-07-19
+- Automated Technical Content Generation with LLMs - Borrador creado el 2026-07-19
+- Local Chatbots with LLMs - Borrador creado el 2026-07-19
+- Log Analysis and Troubleshooting with LLMs - Borrador creado el 2026-07-19
+- Mermaid — Validation and usage - Borrador creado el 2026-07-19
+- Categories - Borrador creado el 2026-07-19
+- Archive - Borrador creado el 2026-07-19
+- About - Frikiteam - Borrador creado el 2026-07-19
+- Terraform — Backend de Estado y Migración - Borrador creado el 2026-07-19
+- Terraform & OpenTofu - Infraestructura como Código - Borrador creado el 2026-07-19
+- Pure Storage — Guía base - Borrador creado el 2026-07-19
+- protocols.md - Borrador creado el 2026-07-19
+- Ejemplo fio — pruebas de I/O - Borrador creado el 2026-07-19
+- Storage para bases de datos: PostgreSQL + Ceph - Borrador creado el 2026-07-19
+- NetApp — Introducción - Borrador creado el 2026-07-19
+- Ceph Troubleshooting: Common Issues and Solutions - Borrador creado el 2026-07-19
+- Ceph — Optimización y Planificación de Capacidad - Borrador creado el 2026-07-19
+- Ceph - Borrador creado el 2026-07-19
+- Recetas Rápidas - Borrador creado el 2026-07-19
+- Infraestructura: Proxmox SDN - Borrador creado el 2026-07-19
+- Proxmox VE Complete Guide: Enterprise Virtualization Platform - Borrador creado el 2026-07-19
+- Proxmox — Guía de Migración (VMs y Contenedores) - Borrador creado el 2026-07-19
+- React - Borrador creado el 2026-07-19
+- Flutter - Borrador creado el 2026-07-19
+- FastAPI - Borrador creado el 2026-07-19
+- OpenStack Troubleshooting: Common Issues and Solutions - Borrador creado el 2026-07-19
+- OpenStack + Ceph Integration: Complete Storage Backend Guide - Borrador creado el 2026-07-19
+- OpenStack Guide: Complete Cloud Platform Overview - Borrador creado el 2026-07-19
+- OpenStack Deployment with Kolla-Ansible: Complete Production Guide - Borrador creado el 2026-07-19
+- OpenStack Day-2 Operations: Maintenance and Production Management - Borrador creado el 2026-07-19
+- ZeroTier: instalación y configuración básica - Borrador creado el 2026-07-19
+- vRouters y firewalls virtuales - Borrador creado el 2026-07-19
+- VyOS (vRouter orientado a automatización) - Borrador creado el 2026-07-19
+- pfSense (vRouter/cortafuegos virtual) - Borrador creado el 2026-07-19
+- OPNsense (vRouter/cortafuegos virtual) - Borrador creado el 2026-07-19
+- MikroTik CHR (enrutador en la nube) - Borrador creado el 2026-07-19
+- Plantilla de pruebas de rendimiento de vRouters - Borrador creado el 2026-07-19
+- Migración de VPN Tradicionales a Mesh Networking - Borrador creado el 2026-07-19
+- Comparación VPN Overlay: Tailscale vs NetBird vs ZeroTier - Borrador creado el 2026-07-19
+- VLSM en Profundidad - Borrador creado el 2026-07-19
+- Resolución de problemas (Networking) - Borrador creado el 2026-07-19
+- Benchmarks de Rendimiento: Tailscale vs NetBird - Borrador creado el 2026-07-19
+- Tailscale: instalación y configuración básica - Borrador creado el 2026-07-19
+- Tablas de Puertos Comunes - Borrador creado el 2026-07-19
+- SPF/DKIM/DMARC - Borrador creado el 2026-07-19
+- SDN Empresarial: OpenStack Neutron vs VMware NSX vs Cisco ACI - Borrador creado el 2026-07-19
+- Reserved IP Ranges - Borrador creado el 2026-07-19
+- Registros PTR y Zonas Inversas - Borrador creado el 2026-07-19
+- Protocolos ICMP/ARP/NDP - Borrador creado el 2026-07-19
+- NetBird: instalación y configuración básica - Borrador creado el 2026-07-19
+- MTU/MSS Values - Borrador creado el 2026-07-19
+- Load Balancing Avanzado: HAProxy vs NGINX vs Traefik - Borrador creado el 2026-07-19
+- IPv6 Addressing - Borrador creado el 2026-07-19
+- DNSSEC - Borrador creado el 2026-07-19
+- CIDR Notation - Borrador creado el 2026-07-19
+- Certificados TLS - Borrador creado el 2026-07-19
+- Networking: Comparativa de Rendimiento - Borrador creado el 2026-07-19
+- ASN & BGP - Borrador creado el 2026-07-19
+- Observabilidad: Centralización de Logs con Wazuh - Borrador creado el 2026-07-19
+- Monitorización con Uptime Kuma - Borrador creado el 2026-07-19
+- Plausible Analytics Self-Hosted - Borrador creado el 2026-07-19
+- Stack Completo de Observabilidad - Borrador creado el 2026-07-19
+- WireGuard VPN - Borrador creado el 2026-07-19
+- Systemd: Gestión de Servicios - Borrador creado el 2026-07-19
+- Seguridad SSH - Borrador creado el 2026-07-19
+- Kubernetes — Readiness y Liveness Probes - Borrador creado el 2026-07-19
+- Kubernetes - Orquestación de Contenedores - Borrador creado el 2026-07-19
+- keystone.md - Borrador creado el 2026-07-19
+- keycloak.md - Borrador creado el 2026-07-19
+- dex.md - Borrador creado el 2026-07-19
+- authentik.md - Borrador creado el 2026-07-19
+- HAProxy - Borrador creado el 2026-07-19
+- HAProxy — TLS y Escalado Avanzado - Borrador creado el 2026-07-19
+- Docker — Seguridad y Scanning - Borrador creado el 2026-07-19
+- Docker — Optimización y Buenas Prácticas - Borrador creado el 2026-07-19
+- Docker - Contenedores - Borrador creado el 2026-07-19
+- redis.md - Borrador creado el 2026-07-19
+- postgres.md - Borrador creado el 2026-07-19
+- Zero Trust en Práctica - Borrador creado el 2026-07-19
+- Trivy Operator: Escaneo Continuo en Kubernetes - Borrador creado el 2026-07-19
+- Supply Chain Security: SBOM, SLSA y Firma de Imágenes - Borrador creado el 2026-07-19
+- Respuesta a Incidentes: playbook práctico con TheHive y MISP - Borrador creado el 2026-07-19
+- Principios de Seguridad - Borrador creado el 2026-07-19
+- Monitoreo de Seguridad - Borrador creado el 2026-07-19
+- Modelo de Amenazas - Borrador creado el 2026-07-19
+- Seguridad en Kubernetes - Borrador creado el 2026-07-19
+- Introducción a Ciberseguridad en DevOps - Borrador creado el 2026-07-19
+- Ciberseguridad - Borrador creado el 2026-07-19
+- Hardening de Servidores Linux - Borrador creado el 2026-07-19
+- Gestión de Secretos - Borrador creado el 2026-07-19
+- Firewall y Seguridad de Red - Borrador creado el 2026-07-19
+- Escaneo de Vulnerabilidades - Borrador creado el 2026-07-19
+- Cumplimiento y Auditoría en DevOps: GDPR, ISO 27001 y OpenSCAP - Borrador creado el 2026-07-19
+- CI Security Scanning: SAST, DAST y Contenedores - Borrador creado el 2026-07-19
+- Backup Seguro: cifrado, inmutabilidad y testing de restauración - Borrador creado el 2026-07-19
+- Autenticación y Autorización - Borrador creado el 2026-07-19
+- Actualizar Proxmox VE 8 a Proxmox VE 9 (Debian 13 Trixie) - Borrador creado el 2026-07-19
+- Proxmox vs VMware vs OpenStack: Migración hacia Soluciones Open Source - Borrador creado el 2026-07-19
+- Instalar Proxmox VE 9 sobre Debian 13 (Trixie) - Borrador creado el 2026-07-19
+- Docker vs Kubernetes vs Máquinas Virtuales: Una Comparación Curiosa - Borrador creado el 2026-07-19
+- Introducción a GitHub Actions - Borrador creado el 2026-07-19
+- Cloud-native: GitOps con ArgoCD - Borrador creado el 2026-07-19
+- strategy_321.md - Borrador creado el 2026-07-19
+- restic_borg.md - Borrador creado el 2026-07-19
+- pbs.md - Borrador creado el 2026-07-19
+- Ansible — Roles y Testing con Molecule - Borrador creado el 2026-07-19
+- Ansible - Automatización de Infraestructura - Borrador creado el 2026-07-19
+- Vector Databases para IA - Borrador creado el 2026-07-19
+- Testing de Seguridad en LLMs - Borrador creado el 2026-07-19
+- RAG - Retrieval-Augmented Generation - Borrador creado el 2026-07-19
+- Prompt Engineering Avanzado para LLMs - Borrador creado el 2026-07-19
+- LLMs open-source vs cloud: coste, latencia, privacidad y control - Borrador creado el 2026-07-19
+- Ollama: Instalación y primeros pasos - Borrador creado el 2026-07-19
+- Monitoreo y Observabilidad de LLMs - Borrador creado el 2026-07-19
+- Optimización de Modelos LLM - Borrador creado el 2026-07-19
+- Evaluación y Testing de Modelos LLM - Borrador creado el 2026-07-19
+- MCP (Model Context Protocol) y FastMCP - Borrador creado el 2026-07-19
+- Ecosistema de Modelos Locales - Borrador creado el 2026-07-19
+- LLMs en Kubernetes con Helm y ArgoCD - Borrador creado el 2026-07-19
+- Introducción a Large Language Models (LLMs) - Borrador creado el 2026-07-19
+- index.md - Borrador creado el 2026-07-19
+- Fine-tuning Básico de LLMs - Borrador creado el 2026-07-19
+- Evaluación de Coherencia en LLMs - Borrador creado el 2026-07-19
+- Despliegue de LLMs a Escala con Kubernetes - Borrador creado el 2026-07-19
+- Generación de Contenido Técnico con LLMs - Borrador creado el 2026-07-19
+- Chatbots Locales con LLMs - Borrador creado el 2026-07-19
+- Análisis de Logs y Troubleshooting con LLMs - Borrador creado el 2026-07-19
+- Mermaid — Verificación y uso - Borrador creado el 2026-07-19
+- Bienvenida - Borrador creado el 2026-07-19
+- Blog - Borrador creado el 2026-07-19
+- Categorías - Borrador creado el 2026-07-19
+- Archivo - Borrador creado el 2026-07-19
+- Acerca de - Frikiteam - Borrador creado el 2026-07-19
+- Comparativa rápida: NetBird vs Tailscale vs ZeroTier - Publicado el 2026-07-19
+- LLaMA.cpp: Compilación, cuantización y benchmarking - Publicado el 2026-07-19
+- LM Studio: LLMs locales con interfaz gráfica - Publicado el 2026-07-19
+- LiteLLM: gateway unificado para LLMs - Publicado el 2026-07-19
 - vLLM: servir LLMs a escala con alto throughput - Borrador creado el 2026-07-19
 - MeshLLM: inferencia LLM distribuida en malla P2P - Borrador creado el 2026-07-19
 - LiteLLM: gateway unificado para LLMs - Borrador creado el 2026-07-19
