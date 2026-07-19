@@ -705,8 +705,80 @@ def update_post(post_id, post_data):
         print(f'Error al actualizar: {response.status_code} - {response.text}')
         return False
 
+# Estado incremental: guarda el hash del .md ya sincronizado y su post_id, para
+# saltarnos el render+enhance (caro: LLM + Mermaid) de lo que no ha cambiado.
+STATE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                          '.wp_sync_state.json')
+
+
+def _md_hash(file_path):
+    with open(file_path, 'rb') as f:
+        return hashlib.sha1(f.read()).hexdigest()
+
+
+def load_sync_state():
+    try:
+        with open(STATE_FILE, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except (FileNotFoundError, ValueError):
+        return {}
+
+
+def save_sync_state(state):
+    with open(STATE_FILE, 'w', encoding='utf-8') as f:
+        json.dump(state, f, ensure_ascii=False, indent=2, sort_keys=True)
+
+
+# Trae TODOS los posts paginando: con per_page=100 se perdían los posts 101+ y
+# se recreaban como duplicados. Necesario para mapear título -> post existente.
+def fetch_all_wp_posts():
+    posts, page = [], 1
+    while True:
+        resp = requests.get(endpoint, auth=(wp_username, wp_app_password),
+                            params={'per_page': 100, 'page': page,
+                                    'status': 'publish,draft,pending,private'})
+        if resp.status_code != 200:
+            if page == 1:
+                print(f'Error al obtener posts: {resp.status_code} - {resp.text}')
+            break
+        lote = resp.json()
+        if not lote:
+            break
+        posts.extend(lote)
+        if len(lote) < 100:
+            break
+        page += 1
+    return posts
+
+
+# Rellena el estado con los hashes actuales SIN publicar nada, mapeando cada .md
+# a su post por título. Útil justo tras un sync completo: deja el terreno listo
+# para que el siguiente --all sea de verdad incremental.
+def reindex_sync_state():
+    posts = fetch_all_wp_posts()
+    by_title = {p['title']['rendered'].strip(): p for p in posts}
+    state = load_sync_state()
+    md_files = list_md_files()
+    n = 0
+    for f in md_files:
+        title = get_md_title(f).strip()
+        post = by_title.get(title)
+        state[f] = {
+            'sha1': _md_hash(f),
+            'post_id': post['id'] if post else None,
+            'title': title,
+            'synced_at': datetime.now().strftime('%Y-%m-%d'),
+        }
+        n += 1
+    save_sync_state(state)
+    sin_post = sum(1 for v in state.values() if not v.get('post_id'))
+    print(f'Reindexado: {n} archivos en {STATE_FILE}.')
+    if sin_post:
+        print(f'  Aviso: {sin_post} sin post en WP todavía (se crearán en el próximo --all).')
+
+
 # Función para sincronizar todos los posts existentes
-def sync_all_posts(status_new='draft'):
+def sync_all_posts(status_new='draft', force=False):
     # Verificar autenticación
     auth_check = requests.get(f'{wp_site_url}/wp-json/wp/v2/users/me', auth=(wp_username, wp_app_password))
     if auth_check.status_code != 200:
@@ -715,14 +787,11 @@ def sync_all_posts(status_new='draft'):
 
     print("Autenticación exitosa.")
 
-    # Obtener todos los posts
-    response = requests.get(endpoint, auth=(wp_username, wp_app_password), params={'per_page': 100})
-    if response.status_code != 200:
-        print(f'Error al obtener posts: {response.status_code} - {response.text}')
-        return
-
-    posts = response.json()
+    # Obtener todos los posts (paginado) y mapear por título e id
+    posts = fetch_all_wp_posts()
     print(f'Encontrados {len(posts)} posts en WordPress.')
+    posts_by_title = {p['title']['rendered'].strip(): p for p in posts}
+    posts_by_id = {p['id']: p for p in posts}
 
     # Obtener todos los tags
     tags_response = requests.get(f'{wp_site_url}/wp-json/wp/v2/tags', auth=(wp_username, wp_app_password), params={'per_page': 100})
@@ -734,83 +803,76 @@ def sync_all_posts(status_new='draft'):
     tag_dict = {tag['name']: tag['id'] for tag in tags}
     print(f'Encontrados {len(tags)} tags en WordPress.')
 
-    # Crear diccionario de títulos a archivos MD
+    state = load_sync_state()
     md_files = list_md_files()
-    md_dict = {}
-    for f in md_files:
-        title = get_md_title(f)
-        md_dict[title] = f
 
     updated_posts = []
-    for post in posts:
-        title = post['title']['rendered']
-        if title in md_dict:
-            file_path = md_dict[title]
-            print(f'Procesando post: {title} ({file_path})')
-            post_data = create_post_from_md(file_path, post['status'])  # Mantener status actual
-            html_content = post_data['content']
-            current_content = post['content']['rendered']
-            current_excerpt = post.get('excerpt', {}).get('rendered', '')
-            current_title = title
-            current_tag_ids = post.get('tags', [])
+    saltados = 0
+    for file_path in md_files:
+        current_hash = _md_hash(file_path)
+        prev = state.get(file_path, {})
 
-            tag_names = post_data.get('tag_names', [])
-            tag_ids = [tag_dict[name] for name in tag_names if name in tag_dict]
-            missing_tags = [name for name in tag_names if name not in tag_dict]
-            if missing_tags:
-                print(f'Tags no encontrados en WP (se omitirán): {missing_tags}')
+        # Incremental: si el .md no cambió desde el último sync, ni renderizamos
+        # ni llamamos al LLM. Esto es lo que evita reprocesar cientos de posts.
+        if not force and prev.get('sha1') == current_hash and prev.get('post_id'):
+            saltados += 1
+            continue
 
-            # Verificar si hay cambios
-            changed = False
-            update_data = {}
+        title = get_md_title(file_path).strip()
+        # Localizar el post existente: primero por id guardado, luego por título
+        existing = posts_by_id.get(prev.get('post_id')) or posts_by_title.get(title)
 
-            if html_content.strip() != current_content.strip():
-                update_data['content'] = html_content
-                changed = True
+        estado_actual = existing['status'] if existing else status_new
+        print(f'Procesando: {title} ({file_path})')
+        post_data = create_post_from_md(file_path, estado_actual)
 
-            if post_data['title'] != current_title:
-                update_data['title'] = post_data['title']
-                changed = True
+        tag_names = post_data.get('tag_names', [])
+        tag_ids = [tag_dict[name] for name in tag_names if name in tag_dict]
+        missing_tags = [name for name in tag_names if name not in tag_dict]
+        if missing_tags:
+            print(f'  Tags no encontrados en WP (se omitirán): {missing_tags}')
 
-            if post_data.get('excerpt', '') != current_excerpt:
-                update_data['excerpt'] = post_data.get('excerpt', '')
-                changed = True
-
-            if set(tag_ids) != set(current_tag_ids):
-                update_data['tags'] = tag_ids
-                changed = True
-
-            if changed:
-                if update_post(post['id'], update_data):
-                    updated_posts.append(post_data)
-                    print(f'Actualizado: {title}')
-                else:
-                    print(f'Error al actualizar: {title}')
+        ok = False
+        post_id = existing['id'] if existing else None
+        if existing:
+            update_data = {
+                'content': post_data['content'],
+                'title': post_data['title'],
+                'excerpt': post_data.get('excerpt', ''),
+                'tags': tag_ids,
+            }
+            if update_post(existing['id'], update_data):
+                ok = True
+                print(f'Actualizado: {title}')
             else:
-                print(f'No cambios necesarios: {title}')
+                print(f'Error al actualizar: {title}')
         else:
-            print(f'No encontrado archivo MD para: {title}')
-
-    # Crear nuevos posts para MD sin post correspondiente
-    existing_titles = {post['title']['rendered'] for post in posts}
-    for title, file_path in md_dict.items():
-        if title not in existing_titles:
-            print(f'Creando nuevo post: {title} ({file_path})')
-            post_data = create_post_from_md(file_path, status_new)  # Usar status_new
-            tag_names = post_data.get('tag_names', [])
-            tag_ids = [tag_dict[name] for name in tag_names if name in tag_dict]
             post_data['tags'] = tag_ids
             if publish_post(post_data):
-                updated_posts.append(post_data)
+                ok = True
+                # Recuperar el id del recién creado para el estado incremental
+                post_id = find_post_by_title(post_data['title'])
                 print(f'Creado: {title}')
             else:
                 print(f'Error al crear: {title}')
 
+        if ok:
+            updated_posts.append(post_data)
+            # Guardar estado tras cada post: si el proceso se corta, lo hecho
+            # queda registrado y no se reprocesa en la siguiente ejecución.
+            state[file_path] = {
+                'sha1': current_hash,
+                'post_id': post_id,
+                'title': title,
+                'synced_at': datetime.now().strftime('%Y-%m-%d'),
+            }
+            save_sync_state(state)
+
     if updated_posts:
         update_todo_md(updated_posts)
-        print(f"\nProcesados {len(updated_posts)} posts (actualizados o creados). TODO.md actualizado.")
-    else:
-        print("\nNo se procesó ningún post.")
+    print(f"\nProcesados {len(updated_posts)} posts. Saltados sin cambios: {saltados}.")
+    if updated_posts:
+        print("TODO.md actualizado.")
 
 # Función para listar archivos MD
 def list_md_files(base_path='docs'):
@@ -953,6 +1015,8 @@ if __name__ == '__main__':
     parser.add_argument('--all', action='store_true', help='Sincronizar todos los posts existentes con archivos Markdown')
     parser.add_argument('--publish', action='store_true', help='Publicar nuevos posts en lugar de dejarlos como draft (solo para --all)')
     parser.add_argument('--enhance', action='store_true', help='Reescribir el cuerpo con Ollama para darle tono blog (usa OLLAMA_MODEL/OLLAMA_HOST/OLLAMA_API_KEY)')
+    parser.add_argument('--force', action='store_true', help='Con --all: reprocesar todos, ignorando el estado incremental')
+    parser.add_argument('--reindex', action='store_true', help='Registrar los hashes actuales sin publicar, para dejar --all incremental desde ya')
 
     args = parser.parse_args()
 
@@ -961,9 +1025,11 @@ if __name__ == '__main__':
         servidores = ' > '.join(s['modelo'] for s in SERVIDORES) or 'ninguno configurado'
         print(f"Mejora 'blog' ACTIVADA (servidores por prioridad: {servidores})")
 
-    if args.all:
+    if args.reindex:
+        reindex_sync_state()
+    elif args.all:
         status_new = 'publish' if args.publish else 'draft'
-        sync_all_posts(status_new)
+        sync_all_posts(status_new, force=args.force)
     elif args.interactive:
         interactive_mode()
     elif args.file:
@@ -979,7 +1045,17 @@ if __name__ == '__main__':
                 ok = update_post(existing_id, post_data)
             else:
                 ok = publish_post(post_data)
+                existing_id = find_post_by_title(post_data['title']) if ok else None
             if ok:
+                # Mantener el estado incremental al día también con --file
+                state = load_sync_state()
+                state[args.file] = {
+                    'sha1': _md_hash(args.file),
+                    'post_id': existing_id,
+                    'title': post_data['title'],
+                    'synced_at': datetime.now().strftime('%Y-%m-%d'),
+                }
+                save_sync_state(state)
                 update_todo_md([post_data])
                 print("TODO.md actualizado.")
     else:
