@@ -234,55 +234,110 @@ def inline_admonition_styles(html):
 # OLLAMA_HOST=https://ollama.com y OLLAMA_API_KEY.
 ENHANCE_BLOG = False
 
-# Endpoints leídos de .env: el remoto descarga el trabajo del portátil; si no
-# responde, se ofrece caer al local. Sin OLLAMA_REMOTE definido se usa solo el
-# local, así el script no lleva ninguna URL de infraestructura escrita dentro.
-OLLAMA_REMOTE_DEFAULT = os.getenv('OLLAMA_REMOTE', '')
-OLLAMA_LOCAL_DEFAULT = os.getenv('OLLAMA_LOCAL', 'http://localhost:11434')
+# Servidores de inferencia por orden de prioridad, leídos de .env para no dejar
+# ninguna URL de infraestructura en el código. Formato de INFERENCE_SERVERS:
+#   url|modelo|clave_opcional ; url|modelo ; ...
+# Una URL con /v1 habla el dialecto OpenAI (vLLM); el resto, el de Ollama.
+def _parsear_servidores():
+    servidores = []
+    for entrada in os.getenv('INFERENCE_SERVERS', '').split(';'):
+        partes = [p.strip() for p in entrada.split('|')]
+        if len(partes) >= 2 and partes[0]:
+            servidores.append({
+                'url': partes[0].rstrip('/'),
+                'modelo': partes[1],
+                'clave': os.getenv(partes[2], partes[2]) if len(partes) > 2 and partes[2] else '',
+            })
+    return servidores
 
-# Host elegido en esta ejecución (se resuelve una sola vez, no por documento).
+
+SERVIDORES = _parsear_servidores()
+
+# Servidor elegido en esta ejecución (se resuelve una vez, no por documento).
 _SIN_RESOLVER = object()
-_HOST_RESUELTO = _SIN_RESOLVER
+_SERVIDOR = _SIN_RESOLVER
 
 
-# ¿Responde un servidor Ollama en ese host?
-def ollama_disponible(host, timeout=8):
+# ¿Responde el servidor? Prueba el endpoint que corresponda a su dialecto.
+def servidor_disponible(srv, timeout=8):
+    es_openai = '/v1' in srv['url']
+    url = f"{srv['url']}/models" if es_openai else f"{srv['url']}/api/tags"
+    cabeceras = {'Authorization': f"Bearer {srv['clave']}"} if srv['clave'] else {}
     try:
-        r = requests.get(f'{host.rstrip("/")}/api/tags', timeout=timeout)
-        return r.status_code == 200
+        return requests.get(url, headers=cabeceras, timeout=timeout).status_code == 200
     except requests.RequestException:
         return False
 
 
-# Elige el host a usar: el remoto si responde; si no, pregunta si tirar del
-# local. En modo no interactivo (--file/--all sin tty) cae al local sin más.
-def resolver_host_ollama(interactivo=True):
-    host = os.getenv('OLLAMA_HOST')
-    if host:
-        return host  # elección explícita del usuario: se respeta
-
-    if not OLLAMA_REMOTE_DEFAULT:
-        return OLLAMA_LOCAL_DEFAULT if ollama_disponible(OLLAMA_LOCAL_DEFAULT, 3) else None
-
-    if ollama_disponible(OLLAMA_REMOTE_DEFAULT):
-        return OLLAMA_REMOTE_DEFAULT
-
-    print(f'  Aviso: {OLLAMA_REMOTE_DEFAULT} no responde.')
-    if not ollama_disponible(OLLAMA_LOCAL_DEFAULT, timeout=3):
-        print('  Tampoco hay Ollama local; se publicará el Markdown sin reescribir.')
+# Recorre los servidores por prioridad. Si el primero (el potente) no responde,
+# avisa y sigue; antes de caer al último (local) pregunta, porque ahí la carga
+# la soporta la máquina del usuario.
+def resolver_servidor(interactivo=True):
+    if not SERVIDORES:
+        print('  Aviso: INFERENCE_SERVERS no configurado en .env')
         return None
-    if interactivo and sys.stdin.isatty():
-        resp = input('  ¿Ejecutar en local? (S/n): ').strip().lower()
-        if resp in ('n', 'no'):
-            return None
+
+    for i, srv in enumerate(SERVIDORES):
+        es_ultimo_local = 'localhost' in srv['url'] or '127.0.0.1' in srv['url']
+        if not servidor_disponible(srv):
+            print(f"  Aviso: {srv['url']} no responde.")
+            continue
+        if es_ultimo_local and i > 0 and interactivo and sys.stdin.isatty():
+            if input('  ¿Ejecutar en local? (S/n): ').strip().lower() in ('n', 'no'):
+                return None
+        return srv
+
+    print('  Ningún servidor de inferencia disponible; se publica sin reescribir.')
+    return None
+
+
+# Una sola llamada de chat, hablando el dialecto que toque.
+def chat_inferencia(srv, system_prompt, user_content, timeout=600):
+    es_openai = '/v1' in srv['url']
+    cabeceras = {'Content-Type': 'application/json'}
+    if srv['clave']:
+        cabeceras['Authorization'] = f"Bearer {srv['clave']}"
+    mensajes = [{'role': 'system', 'content': system_prompt},
+                {'role': 'user', 'content': user_content}]
+
+    if es_openai:
+        url = f"{srv['url']}/chat/completions"
+        payload = {'model': srv['modelo'], 'messages': mensajes, 'max_tokens': 32000}
     else:
-        print('  Se usa el Ollama local.')
-    return OLLAMA_LOCAL_DEFAULT
+        url = f"{srv['url']}/api/chat"
+        payload = {'model': srv['modelo'], 'messages': mensajes, 'stream': False}
+
+    resp = requests.post(url, headers=cabeceras, json=payload, timeout=timeout)
+    resp.raise_for_status()
+    datos = resp.json()
+    if es_openai:
+        return datos['choices'][0]['message']['content'].strip()
+    return datos.get('message', {}).get('content', '').strip()
 
 # Solo se reescribe la introducción: pedirle el documento entero a un modelo
 # local pequeño falla siempre (gemma4:e4b-mlx perdía estructura en el 100% de
 # los casos, incluso ocultándosela tras marcadores). La intro es donde está el
 # tono y no tiene estructura que perder.
+# Corchetes sueltos: el modelo escribe "[llama.cpp]" sin URL y queda como texto
+# literal en la web.
+def _colgantes(texto):
+    return len(re.findall(r'\[[^\]]+\](?!\()', texto))
+
+
+# Intento ambicioso: documento entero. Solo lo logran los modelos potentes; la
+# validación posterior decide si se acepta.
+_DOC_SYSTEM_PROMPT = (
+    "Eres un editor técnico. Reescribe el siguiente documento Markdown para que "
+    "se lea como un buen artículo de blog: introducción que enganche, transiciones "
+    "naturales entre secciones y un cierre breve. REGLAS ESTRICTAS: "
+    "1) Conserva LITERALMENTE todo bloque de código, comando, salida de terminal, "
+    "diagrama ```mermaid```, enlace, imagen y tabla. "
+    "2) No inventes datos técnicos ni cambies versiones, comandos o parámetros. "
+    "3) Mantén TODOS los encabezados y su jerarquía exacta. "
+    "4) No añadas frontmatter YAML. "
+    "5) Responde SOLO con el Markdown resultante, sin comentarios."
+)
+
 _BLOG_SYSTEM_PROMPT = (
     "Eres un editor técnico. Reescribe la introducción de este artículo para que "
     "enganche desde la primera frase, en el tono del autor. REGLAS ESTRICTAS: "
@@ -424,42 +479,42 @@ def get_style_references(count=6, max_chars=1200):
 # Reescribe el cuerpo Markdown con Ollama. Ante cualquier fallo devuelve el
 # original para no bloquear la publicación.
 def enhance_markdown(md_text):
-    global _HOST_RESUELTO
-    model = os.getenv('OLLAMA_MODEL')
-    if not model:
-        print('  Aviso: OLLAMA_MODEL no definido; se publica el Markdown original')
+    global _SERVIDOR
+    if _SERVIDOR is _SIN_RESOLVER:
+        _SERVIDOR = resolver_servidor()
+    if not _SERVIDOR:
         return md_text
+    srv = _SERVIDOR
 
-    # Se resuelve una vez por ejecución para no preguntar en cada documento
-    if _HOST_RESUELTO is _SIN_RESOLVER:
-        _HOST_RESUELTO = resolver_host_ollama()
-    if not _HOST_RESUELTO:
-        return md_text
-    host = _HOST_RESUELTO.rstrip('/')
-
-    headers = {'Content-Type': 'application/json'}
-    api_key = os.getenv('OLLAMA_API_KEY')
-    if api_key:
-        headers['Authorization'] = f'Bearer {api_key}'
-
-    # Inyectar ejemplos del estilo del autor (posts publicados) si están disponibles
-    system_prompt = _BLOG_SYSTEM_PROMPT
     refs = get_style_references()
+    estilo = ''
     if refs:
-        ejemplos = "\n\n--- EJEMPLO ---\n\n".join(refs)
-        system_prompt += (
-            "\n\nA continuación tienes ejemplos REALES de artículos del autor. "
-            "Imita su tono, voz y ritmo (longitud de frases, cercanía, tipo de "
-            "introducciones y cierres, uso de segunda persona) SIN copiar su "
-            "contenido ni su tema:\n\n" + ejemplos)
+        estilo = ("\n\nA continuación tienes ejemplos REALES de artículos del autor. "
+                  "Imita su tono, voz y ritmo (longitud de frases, cercanía, tipo de "
+                  "introducciones y cierres, uso de segunda persona) SIN copiar su "
+                  "contenido ni su tema:\n\n" + "\n\n--- EJEMPLO ---\n\n".join(refs))
 
-    # Solo la prosa introductoria: lo que va tras el título H1 y antes del primer
-    # encabezado, bloque de código, aviso o tabla. Así no hay nada estructural
-    # que el modelo pueda romper.
+    # Intento 1: documento completo. Solo los modelos potentes lo consiguen; la
+    # validación decide, no la fe en el modelo.
+    try:
+        salida = chat_inferencia(srv, _DOC_SYSTEM_PROMPT + estilo, md_text)
+    except (requests.RequestException, ValueError, KeyError) as e:
+        print(f'  Aviso: inferencia no disponible ({str(e)[:70]}); se publica el original')
+        return md_text
+
+    if salida:
+        completo = _strip_code_fence(salida)
+        perdido = _structure_lost(md_text, completo)
+        if not perdido and _colgantes(completo) <= _colgantes(md_text):
+            print(f"  Documento reescrito con {srv['modelo']}")
+            return completo
+        print(f'  Aviso: reescritura completa descartada ({perdido or "enlaces malformados"}); '
+              f'se prueba solo la introducción')
+
+    # Intento 2: solo la prosa introductoria, donde no hay estructura que romper
     h1 = re.match(r'\s*#\s[^\n]*\n', md_text)
     cabecera = h1.group(0) if h1 else ''
     cuerpo = md_text[h1.end():] if h1 else md_text
-
     corte = re.search(r'^(?:#{1,6} |```|\s*(?:!!!|\?\?\?) |\|)', cuerpo, re.M)
     intro = cuerpo[:corte.start()] if corte else cuerpo
     resto = cuerpo[corte.start():] if corte else ''
@@ -467,57 +522,26 @@ def enhance_markdown(md_text):
         print('  Aviso: sin introducción que reescribir; se publica tal cual')
         return md_text
 
-    protegido, bloques = intro, []
-
-    payload = {
-        'model': model,
-        'stream': False,
-        'messages': [
-            {'role': 'system', 'content': system_prompt},
-            {'role': 'user', 'content': protegido},
-        ],
-    }
     try:
-        resp = requests.post(f'{host}/api/chat', headers=headers,
-                             json=payload, timeout=180)
-        resp.raise_for_status()
-        content = resp.json().get('message', {}).get('content', '').strip()
+        nueva = _strip_code_fence(chat_inferencia(srv, _BLOG_SYSTEM_PROMPT + estilo, intro))
     except (requests.RequestException, ValueError, KeyError) as e:
-        print(f'  Aviso: Ollama no disponible ({e}); se publica el Markdown original')
+        print(f'  Aviso: inferencia no disponible ({str(e)[:70]}); se publica el original')
+        return md_text
+    if not nueva:
         return md_text
 
-    if not content:
-        print('  Aviso: Ollama devolvió vacío; se publica el Markdown original')
+    if _colgantes(nueva) > _colgantes(intro):
+        print('  Aviso: la reescritura dejó enlaces Markdown malformados; se publica el original')
+        return md_text
+    perdido = _structure_lost(intro, nueva) or _structure_lost(nueva, intro)
+    if perdido:
+        print(f'  Aviso: la introducción alteró la estructura ({perdido}); se publica el original')
         return md_text
 
-    content = _strip_code_fence(content)
-
-    content, faltan = _restore_structure(content, bloques)
-    if faltan:
-        print(f'  Aviso: el modelo borró {len(faltan)} marcador(es); '
-              f'se publica el Markdown original sin reescribir')
-        return md_text
-
-    # Corchetes sueltos: el modelo escribe "[llama.cpp]" sin URL y queda como
-    # texto literal en la web.
-    def _colgantes(t):
-        return len(re.findall(r'\[[^\]]+\](?!\()', t))
-    if _colgantes(content) > _colgantes(intro):
-        print('  Aviso: la reescritura dejó enlaces Markdown malformados; '
-              'se publica el Markdown original')
-        return md_text
-
-    # La intro reescrita no debe traer estructura nueva ni perder la que había
-    perdido = _structure_lost(intro, content)
-    invento = _structure_lost(content, intro)
-    if perdido or invento:
-        print(f'  Aviso: la reescritura alteró la estructura de la introducción '
-              f'({perdido or invento}); se publica el Markdown original')
-        return md_text
-
-    print(f'  Introducción reescrita con Ollama ({model})')
-    reescrito = cabecera + content.strip() + '\n'
+    print(f"  Introducción reescrita con {srv['modelo']}")
+    reescrito = cabecera + nueva.strip() + '\n'
     return reescrito + '\n' + resto if resto else reescrito
+
 
 # Función para extraer metadatos del frontmatter
 def extract_frontmatter(content):

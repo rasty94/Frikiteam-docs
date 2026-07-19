@@ -100,15 +100,15 @@ def test_enhance_rechaza_enlace_malformado(monkeypatch=None):
         status_code = 200
         def raise_for_status(self): pass
         def json(self): return {'message': {'content': reescrito}}
-    post_real, refs_real = w.requests.post, w.get_style_references
+    post_real, refs_real, srv_real = w.requests.post, w.get_style_references, w._SERVIDOR
     w.requests.post = lambda *a, **k: _Resp()
     w.get_style_references = lambda *a, **k: []
-    os.environ['OLLAMA_MODEL'] = 'test'
+    # servidor falso de dialecto Ollama, acorde con lo que devuelve el mock
+    w._SERVIDOR = {'url': 'http://fake:11434', 'modelo': 'test', 'clave': ''}
     try:
         assert w.enhance_markdown(orig) == orig  # descartada, se publica el original
     finally:
-        w.requests.post, w.get_style_references = post_real, refs_real
-        os.environ.pop('OLLAMA_MODEL', None)
+        w.requests.post, w.get_style_references, w._SERVIDOR = post_real, refs_real, srv_real
 
 
 def test_restore_detecta_marcador_borrado():
