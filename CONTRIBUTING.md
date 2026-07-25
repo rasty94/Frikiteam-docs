@@ -29,10 +29,6 @@ mkdocs build
 
 6. Crea un PR y espera revisión. Añade descripción clara y uno o dos puntos que el revisor debe verificar.
 
-## Formato de posts
-- Usa `scripts/new_post.sh "Titulo" YYYY-MM-DD [categoria] [es|en]` para crear un post en `docs/blog/posts/` o `docs/en/blog/posts/`.
-- Front-matter básico debe contener `date`, `title` y `categories`.
-
 ## Checklist Antes de Publicar
 
 Mantén simple. Solo lo esencial:

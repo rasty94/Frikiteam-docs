@@ -1,6 +1,6 @@
 # FrikiTeam Docs
 
-Documentación técnica multi‑idioma (ES/EN) basada en MkDocs Material, con blog automático por categorías, archivo temporal y despliegue continuo.
+Documentación técnica multi‑idioma (ES/EN) basada en MkDocs Material, con despliegue continuo. Las entradas de blog se publican en frikiteam.es vía `wordpress_sync.py`.
 
 ## Estructura del proyecto
 
@@ -8,13 +8,6 @@ Documentación técnica multi‑idioma (ES/EN) basada en MkDocs Material, con bl
 docs/
   index.md                 # Página de inicio (ES)
   about.md                 # Acerca de (ES)
-  blog/
-    index.md               # Índice del blog (listado automático por categorías)
-    archive.md             # Archivo por año/mes (automático)
-    categories.md          # Listado de categorías (automático)
-    posts/
-      YYYY/
-        tu-post.md         # Entrada de blog (ES)
   doc/                     # Documentación técnica (ES)
     ansible/...
     ceph/...
@@ -26,28 +19,19 @@ docs/
 docs/en/
   index.md                 # Home (EN)
   about.md                 # About (EN)
-  blog/
-    index.md               # Blog index (auto categories)
-    archive.md             # Archive (auto)
-    categories.md          # Categories (auto)
-    posts/
-      YYYY/
-        your-post.md       # Blog post (EN)
   doc/                     # Technical docs (EN)
     ansible/...
     ceph/...
     ...
 
 mkdocs.yml                 # Configuración del sitio
-macros.py                  # Macros para blog automático (listados, archivo, categorías)
-scripts/new_post.sh        # Script para crear posts
+macros.py                  # Macros (metadatos, badges de sincronización)
 ```
 
 Notas clave:
 
 - Idioma por defecto: Español en la raíz `docs/`. Inglés bajo `docs/en/`.
 - Rutas internas consistentes: usa `doc/...` en ambos idiomas para facilitar enlaces.
-- El blog no requiere plugin externo: se generan listados con `macros.py`.
 
 ## Requisitos
 
@@ -57,7 +41,6 @@ Notas clave:
 ## Características
 
 - **Multi-idioma**: Soporte completo para español e inglés
-- **Blog automático**: Generación automática de listados, archivos y categorías
 - **Diagramas Mermaid**: Soporte completo para diagramas técnicos
 - **Tema responsive**: Adaptado para dispositivos móviles y escritorio
 - **Navegación avanzada**: Tabs, búsqueda y navegación instantánea
@@ -85,46 +68,6 @@ mkdocs serve
   - ES: `docs/doc/docker/docker_base.md`
   - EN: `docs/en/doc/docker/docker_base.md`
 
-## Blog (automático)
-
-El blog lista entradas y categorías automáticamente mediante macros Jinja en `macros.py`:
-
-- `docs/blog/index.md` y `docs/en/blog/index.md` usan: `{{ blog_list(group_by_category=True) }}`
-- `docs/blog/archive.md` y `docs/en/blog/archive.md` usan: `{{ blog_archive() }}`
-- `docs/blog/categories.md` y `docs/en/blog/categories.md` usan: `{{ blog_categories() }}`
-
-### Crear un nuevo post de blog
-
-Usa el script para generar la estructura y el front‑matter:
-
-```bash
-scripts/new_post.sh "Título del post" 2025-08-24 general es
-scripts/new_post.sh "Post title" 2025-08-24 general en
-```
-
-Parámetros:
-
-- Título (obligatorio)
-- Fecha `YYYY-MM-DD` (obligatorio)
-- Categoría (opcional, por defecto `General`)
-- Idioma `es` | `en` (opcional, por defecto `es`)
-
-Ubicación de los posts:
-
-- ES: `docs/blog/posts/YYYY/`
-- EN: `docs/en/blog/posts/YYYY/`
-
-Front‑matter mínimo del post:
-
-```yaml
----
-date: 2025-08-24
-title: "Bienvenida"
-categories:
-  - General
----
-```
-
 ## Diagramas Mermaid
 
 La documentación incluye soporte completo para diagramas Mermaid, permitiendo crear diagramas técnicos directamente en Markdown.
@@ -145,7 +88,7 @@ La documentación incluye soporte completo para diagramas Mermaid, permitiendo c
 Usa el script incluido para verificar la sintaxis de todos los diagramas:
 
 ```bash
-python3 scripts/check_diagrams.py
+python3 internal/mermaid/tools/check_diagrams.py
 ```
 
 ### Documentación
@@ -156,7 +99,7 @@ Consulta la [Guía de Diagramas Mermaid](diagramas_guia.md) para más informaci�
 
 1. Crea una rama desde `main`: `feat/...`, `fix/...` o `docs/...`.
 2. Edítalo en local y verifica con `mkdocs serve`.
-3. Para diagramas, verifica la sintaxis con `python3 scripts/check_diagrams.py`.
+3. Para diagramas, verifica la sintaxis con `python3 internal/mermaid/tools/check_diagrams.py`.
 4. Sube la rama y abre un Pull Request.
 5. Al aprobarse, se fusiona en `main` para desplegar.
 
