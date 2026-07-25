@@ -32,18 +32,11 @@ def cargar_env(ruta='.env'):
 
 cargar_env()
 
-# constants.py es el método antiguo de guardar credenciales; se mantiene como
-# respaldo para no romper instalaciones existentes, pero .env es lo preferente.
-try:
-    from constants import (WP_SITE_URL_DEFAULT, WP_USERNAME_DEFAULT,
-                           WP_APP_PASSWORD_DEFAULT)
-except ImportError:
-    WP_SITE_URL_DEFAULT = WP_USERNAME_DEFAULT = WP_APP_PASSWORD_DEFAULT = None
-
-# Configuración desde variables de entorno
-wp_site_url = os.getenv('WP_SITE_URL', WP_SITE_URL_DEFAULT)
-wp_username = os.getenv('WP_USERNAME', WP_USERNAME_DEFAULT)
-wp_app_password = os.getenv('WP_APP_PASSWORD', WP_APP_PASSWORD_DEFAULT)
+# Credenciales solo desde el entorno o .env. Sin valores por defecto en código:
+# un default hardcodeado ya se filtró una vez al historial de git.
+wp_site_url = os.getenv('WP_SITE_URL')
+wp_username = os.getenv('WP_USERNAME')
+wp_app_password = os.getenv('WP_APP_PASSWORD')
 
 # Endpoint para crear un post
 endpoint = f'{wp_site_url}/wp-json/wp/v2/posts'
@@ -1074,6 +1067,9 @@ def setup_process_log():
 
 # CLI
 if __name__ == '__main__':
+    if not (wp_site_url and wp_username and wp_app_password):
+        sys.exit('Faltan WP_SITE_URL, WP_USERNAME o WP_APP_PASSWORD. '
+                 'Copia .env.example a .env y rellénalos.')
     log_path = setup_process_log()
     parser = argparse.ArgumentParser(description='Sincronizar documentación Markdown a WordPress')
     parser.add_argument('--file', help='Archivo Markdown específico a sincronizar')
