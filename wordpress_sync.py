@@ -614,9 +614,9 @@ def create_post_from_md(file_path, status='draft'):
 
     return post_data
 
-# Función para actualizar TODO.md con posts publicados
+# Función para actualizar done.md con posts publicados
 def update_todo_md(published_posts):
-    todo_file = 'TODO.md'
+    todo_file = 'done.md'
     if not os.path.exists(todo_file):
         return
 
@@ -876,7 +876,7 @@ def sync_all_posts(status_new='draft', force=False):
         update_todo_md(updated_posts)
     print(f"\nProcesados {len(updated_posts)} posts. Saltados sin cambios: {saltados}.")
     if updated_posts:
-        print("TODO.md actualizado.")
+        print("done.md actualizado.")
 
 # Páginas de navegación/meta del sitio (índices de sección, glosario, legal,
 # meta-doc sobre el propio MkDocs) sin valor como artículo de blog. Rutas
@@ -1029,7 +1029,7 @@ def interactive_mode():
 
     if published_posts:
         update_todo_md(published_posts)
-        print("\nTODO.md actualizado con posts publicados.")
+        print("\ndone.md actualizado con posts publicados.")
 
 # Duplica cada línea de stdout a un archivo de log con timestamp, sin tocar
 # los `print()` existentes. Un archivo por ejecución en logs/ (gitignored).
@@ -1120,7 +1120,7 @@ if __name__ == '__main__':
                 }
                 save_sync_state(state)
                 update_todo_md([post_data])
-                print("TODO.md actualizado.")
+                print("done.md actualizado.")
     else:
         print("Usa --file para especificar un archivo, --interactive para modo interactivo o --all para sincronizar todos.")
 

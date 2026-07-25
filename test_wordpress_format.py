@@ -165,11 +165,11 @@ def test_todo_log_distingue_borrador_de_publicado():
     cwd = _os.getcwd()
     try:
         _os.chdir(tmp)
-        with open('TODO.md', 'w', encoding='utf-8') as f:
+        with open('done.md', 'w', encoding='utf-8') as f:
             f.write('# T\n\n## Progreso de Publicación\n\n')
         update_todo_md([{'title': 'Doc A', 'status': 'draft'},
                         {'title': 'Doc B', 'status': 'publish'}])
-        out = open('TODO.md', encoding='utf-8').read()
+        out = open('done.md', encoding='utf-8').read()
         assert 'Doc A - Borrador creado el' in out, out
         assert 'Doc B - Publicado el' in out, out
     finally:

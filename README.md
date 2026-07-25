@@ -169,4 +169,4 @@ Para sincronizar artículos de la documentación a WordPress:
    - Modo interactivo: `python wordpress_sync.py --interactive` (permite buscar por título o nombre de archivo)
    - Archivo específico: `python wordpress_sync.py --file docs/doc/docker/docker_base.md --status draft`
 
-El script actualizará automáticamente `TODO.md` con el progreso de publicación.
+El script actualizará automáticamente `done.md` con el progreso de publicación.
