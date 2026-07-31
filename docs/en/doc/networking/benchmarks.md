@@ -1,4 +1,20 @@
 ---
+title: "Networking: Comparativa de Rendimiento"
+description: "Documentación sobre networking: comparativa de rendimiento"
+tags: ['networking']
+updated: 2026-01-23
+difficulty: intermediate
+estimated_time: 1 min
+category: Networking
+status: published
+last_reviewed: 2026-01-23
+prerequisites:
+  - "Conocimientos básicos de DevOps"
+  - "Fundamentos de redes"
+reviewers: ["@rasty94"]
+contributors: ["@rasty94"]
+---
+
 # Networking: Comparativa de Rendimiento
 
 Resumen de rendimiento entre diferentes soluciones de VPN y Overlay Networking.
@@ -16,11 +32,7 @@ Resumen de rendimiento entre diferentes soluciones de VPN y Overlay Networking.
 ## Resultados
 
 | Protocolo | Latencia (ms) | Throughput (Gbps) | Uso CPU |
-|
-updated: 2026-01-23
----
-
---- | ------------- | ----------------- | ------- |
+| --------- | ------------- | ----------------- | ------- |
 | WireGuard | 0.5           | 8.5               | Bajo    |
 | Tailscale | 0.8           | 7.2               | Medio   |
 | NetBird   | 0.7           | 7.8               | Medio   |
