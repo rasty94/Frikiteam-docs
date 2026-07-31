@@ -100,8 +100,8 @@ def validate_metadata_fields(fields):
     return missing_required, missing_recommended
 
 
-def analyze_metadata(docs_path, category_filter=None):
-    """Analiza metadatos de todos los archivos."""
+def analyze_metadata(docs_paths, category_filter=None):
+    """Analiza metadatos de todos los archivos de los árboles indicados."""
     stats = {
         'total_files': 0,
         'files_with_frontmatter': 0,
@@ -115,7 +115,9 @@ def analyze_metadata(docs_path, category_filter=None):
         'issues': []
     }
 
-    for md_file in Path(docs_path).rglob('*.md'):
+    md_files = sorted(f for p in docs_paths for f in Path(p).rglob('*.md'))
+
+    for md_file in md_files:
         # Ignorar archivos de blog e índices
         if 'blog' in str(md_file) or 'index.md' in str(md_file):
             continue
@@ -261,8 +263,9 @@ def print_report(stats):
 
 def main():
     parser = argparse.ArgumentParser(description='Validar metadatos de documentación')
-    parser.add_argument('--docs-path', type=str, default='docs/doc',
-                        help='Ruta a la documentación (default: docs/doc)')
+    parser.add_argument('--docs-path', type=str, nargs='+',
+                        default=['docs/doc', 'docs/en/doc'],
+                        help='Rutas a la documentación (default: ambos árboles, ES y EN)')
     parser.add_argument('--category', type=str,
                         help='Analizar solo archivos de una categoría específica')
     parser.add_argument('--report', action='store_true',
@@ -271,12 +274,12 @@ def main():
     args = parser.parse_args()
 
     print("🔍 Analizando metadatos de documentación...")
-    print(f"   Ruta: {args.docs_path}")
+    print(f"   Rutas: {', '.join(args.docs_path)}")
     if args.category:
         print(f"   Categoría: {args.category}")
     print()
 
-    stats = analyze_metadata(Path(args.docs_path), args.category)
+    stats = analyze_metadata(args.docs_path, args.category)
 
     if args.report:
         print_report(stats)
