@@ -1,6 +1,11 @@
 ---
+title: "Tablas de Puertos Comunes"
 
 updated: 2026-01-23
+difficulty: intermediate
+category: Networking
+status: published
+estimated_time: 9 min
 ---
 
 # Tablas de Puertos Comunes

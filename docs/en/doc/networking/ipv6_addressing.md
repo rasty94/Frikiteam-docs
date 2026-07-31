@@ -3,6 +3,10 @@ title: IPv6 Addressing
 description: IPv6 address structure, types (Link-Local, Global Unicast, Multicast), abbreviation rules, and migration patterns from IPv4.
 draft: false
 updated: 2026-01-24
+difficulty: advanced
+category: Networking
+status: published
+estimated_time: 4 min
 ---
 
 # IPv6 Addressing

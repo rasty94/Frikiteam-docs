@@ -1,6 +1,11 @@
 ---
+title: "Docker — Security (Hardening, Secrets, and Scanning)"
 
 updated: 2026-01-24
+difficulty: intermediate
+category: Containers
+status: published
+estimated_time: 1 min
 ---
 
 # Docker — Security (Hardening, Secrets, and Scanning)

@@ -3,6 +3,10 @@ title: "Local Model Ecosystem"
 date: 2025-01-25
 updated: 2026-01-25
 tags: [ai, llm, ollama, llama.cpp, vllm]
+difficulty: intermediate
+category: Artificial Intelligence
+status: published
+estimated_time: 2 min
 ---
 
 🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25

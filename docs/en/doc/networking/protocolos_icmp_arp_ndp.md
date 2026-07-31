@@ -1,6 +1,11 @@
 ---
+title: "Protocolos ICMP/ARP/NDP"
 
 updated: 2026-01-23
+difficulty: advanced
+category: Networking
+status: published
+estimated_time: 5 min
 ---
 
 # Protocolos ICMP/ARP/NDP

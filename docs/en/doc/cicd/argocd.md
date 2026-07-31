@@ -1,6 +1,11 @@
 ---
+title: "Cloud-native GitOps with ArgoCD"
 
 updated: 2026-01-23
+difficulty: beginner
+category: CI/CD
+status: published
+estimated_time: 1 min
 ---
 
 # Cloud-native GitOps with ArgoCD

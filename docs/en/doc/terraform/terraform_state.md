@@ -1,6 +1,10 @@
 ---
 title: Terraform — State Backend and Migration
 updated: 2026-01-23
+difficulty: intermediate
+category: Infrastructure as Code
+status: published
+estimated_time: 1 min
 ---
 
 # Terraform — State Backend and Migration

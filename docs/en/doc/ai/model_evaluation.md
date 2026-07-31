@@ -3,6 +3,9 @@ title: "LLM Model Evaluation and Testing"
 tags: [ai, llm, evaluation, benchmarks, testing]
 category: Artificial Intelligence
 updated: 2026-01-25
+difficulty: beginner
+status: published
+estimated_time: 6 min
 ---
 
 # LLM Model Evaluation and Testing

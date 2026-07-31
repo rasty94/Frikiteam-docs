@@ -1,6 +1,10 @@
 ---
 title: Proxmox — Software-Defined Networking (SDN)
 updated: 2026-01-23
+difficulty: advanced
+category: Virtualization
+status: published
+estimated_time: 1 min
 ---
 
 # Proxmox — Software-Defined Networking

@@ -3,6 +3,9 @@ title: "Pure Storage — Quick Guide"
 tags: [storage, pure_storage]
 category: Storage
 updated: 2026-01-25
+difficulty: beginner
+status: published
+estimated_time: 1 min
 ---
 
 # Pure Storage — Quick Guide

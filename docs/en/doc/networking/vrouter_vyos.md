@@ -3,6 +3,9 @@ title: "VyOS (automation-first virtual router)"
 tags: ['networking', 'vyos', 'automatizacion']
 category: Networking
 updated: 2026-04-18
+difficulty: advanced
+status: published
+estimated_time: 10 min
 ---
 
 # VyOS (automation-first virtual router)

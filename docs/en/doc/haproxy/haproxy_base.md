@@ -3,6 +3,9 @@ title: "HAProxy"
 tags: ['documentation']
 category: Load Balancing
 updated: 2025-11-15
+difficulty: beginner
+status: published
+estimated_time: 5 min
 ---
 
 # HAProxy

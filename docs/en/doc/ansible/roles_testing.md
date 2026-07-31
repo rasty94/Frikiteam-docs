@@ -1,6 +1,10 @@
 ---
 title: Ansible — Roles and Testing with Molecule
 updated: 2026-01-24
+difficulty: intermediate
+category: Automation
+status: published
+estimated_time: 1 min
 ---
 
 # Ansible — Roles and Testing with Molecule

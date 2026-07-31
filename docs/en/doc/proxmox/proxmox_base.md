@@ -4,6 +4,10 @@ description: "Learn to install, configure and manage Proxmox Virtual Environment
 keywords: "Proxmox VE, virtualization, KVM, LXC, clustering, high availability, Debian, open source"
 sync_date: "2025-11-15"
 updated: 2025-11-15
+difficulty: beginner
+category: Virtualization
+status: published
+estimated_time: 9 min
 ---
 
 Complete guide to Proxmox Virtual Environment: enterprise-grade open-source virtualization platform.

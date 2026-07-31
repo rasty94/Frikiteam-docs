@@ -3,6 +3,9 @@ title: "Docker vs Kubernetes vs Virtual Machines: An Interesting Comparison"
 tags: ['documentation']
 category: General
 updated: 2025-09-03
+difficulty: advanced
+status: published
+estimated_time: 5 min
 ---
 
 # Docker vs Kubernetes vs Virtual Machines: An Interesting Comparison

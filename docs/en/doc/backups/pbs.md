@@ -1,9 +1,14 @@
 ---
+title: "Proxmox Backup Server (PBS)"
 tags:
   - backups
   - proxmox
   - pbs
 updated: 2025-12-08
+difficulty: intermediate
+category: Backups
+status: published
+estimated_time: 1 min
 ---
 
 # Proxmox Backup Server (PBS)

@@ -1,6 +1,11 @@
 ---
+title: "MTU/MSS Values"
 
 updated: 2026-01-23
+difficulty: intermediate
+category: Networking
+status: published
+estimated_time: 6 min
 ---
 
 # MTU/MSS Values

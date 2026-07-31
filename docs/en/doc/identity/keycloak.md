@@ -1,9 +1,14 @@
 ---
+title: "Keycloak: Identity Management"
 tags:
   - identity
   - security
   - oidc
 updated: 2025-12-08
+difficulty: intermediate
+category: Identity Management
+status: published
+estimated_time: 1 min
 ---
 
 # Keycloak: Identity Management

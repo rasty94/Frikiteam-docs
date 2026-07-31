@@ -4,6 +4,10 @@ description: "Discover Ceph: highly scalable and reliable distributed storage sy
 keywords: "Ceph, distributed storage, storage, OSD, MON, MGR, MDS, cloud storage, big data"
 sync_date: "2025-11-15"
 updated: 2026-07-19
+difficulty: beginner
+category: Storage
+status: published
+estimated_time: 3 min
 ---
 
 Ceph is a distributed storage system that provides highly scalable and reliable storage for large amounts of data. It is designed to be self-managing, self-healing, and self-optimizing, making it ideal for cloud storage environments and data centers.

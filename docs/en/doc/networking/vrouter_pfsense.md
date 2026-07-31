@@ -3,6 +3,9 @@ title: "pfSense (virtual router/firewall)"
 tags: ['networking', 'security', 'pfsense']
 category: Networking
 updated: 2026-04-18
+difficulty: intermediate
+status: published
+estimated_time: 8 min
 ---
 
 # pfSense (virtual router/firewall)

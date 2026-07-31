@@ -1,6 +1,10 @@
 ---
 title: Flutter
 updated: 2026-01-23
+difficulty: intermediate
+category: Development
+status: published
+estimated_time: 1 min
 ---
 
 # Flutter

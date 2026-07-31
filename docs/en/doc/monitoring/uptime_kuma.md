@@ -3,6 +3,9 @@ title: "Monitoring with Uptime Kuma"
 tags: [monitoring, uptime, status-pages, notifications]
 category: Monitoring
 updated: 2026-01-25
+difficulty: intermediate
+status: published
+estimated_time: 1 min
 ---
 
 # Monitoring with Uptime Kuma

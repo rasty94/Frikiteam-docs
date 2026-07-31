@@ -3,6 +3,9 @@ title: "Storage for Databases: PostgreSQL + Ceph"
 tags: ['storage']
 category: Storage
 updated: 2026-01-24
+difficulty: advanced
+status: published
+estimated_time: 6 min
 ---
 
 # Storage for Databases: PostgreSQL + Ceph

@@ -3,6 +3,9 @@ title: "Kubernetes - Container Orchestration"
 tags: ['kubernetes']
 category: Orchestration
 updated: 2025-11-15
+difficulty: beginner
+status: published
+estimated_time: 3 min
 ---
 
 # Kubernetes - Container Orchestration

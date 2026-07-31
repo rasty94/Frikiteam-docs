@@ -1,6 +1,10 @@
 ---
 title: Docker — Optimization and Best Practices
 updated: 2026-01-23
+difficulty: expert
+category: Containers
+status: published
+estimated_time: 1 min
 ---
 
 # Docker — Optimization and Best Practices

@@ -1,6 +1,11 @@
 ---
+title: "VLSM (Variable Length Subnet Masking)"
 
 updated: 2026-01-23
+difficulty: intermediate
+category: Networking
+status: published
+estimated_time: 4 min
 ---
 
 # VLSM (Variable Length Subnet Masking)

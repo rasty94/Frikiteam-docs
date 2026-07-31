@@ -3,6 +3,9 @@ title: "vRouter benchmark template"
 tags: ['networking', 'rendimiento', 'vrouter']
 category: Networking
 updated: 2026-04-18
+difficulty: intermediate
+status: published
+estimated_time: 12 min
 ---
 
 # vRouter benchmark template

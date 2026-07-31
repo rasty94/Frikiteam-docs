@@ -1,9 +1,14 @@
 ---
+title: "Authentik"
 tags:
   - identity
   - security
   - sso
 updated: 2025-12-07
+difficulty: intermediate
+category: Identity Management
+status: published
+estimated_time: 1 min
 ---
 
 # Authentik

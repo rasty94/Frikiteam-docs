@@ -1,9 +1,14 @@
 ---
+title: "Redis: High Performance Cache"
 tags:
   - databases
   - redis
   - cache
 updated: 2025-12-07
+difficulty: beginner
+category: Databases
+status: published
+estimated_time: 1 min
 ---
 
 # Redis: High Performance Cache

@@ -1,6 +1,11 @@
 ---
+title: "Proxmox — Guía de Migración (VMs y Contenedores)"
 
 updated: 2026-01-23
+difficulty: intermediate
+category: Virtualization
+status: published
+estimated_time: 1 min
 ---
 
 # Proxmox — Guía de Migración (VMs y Contenedores)

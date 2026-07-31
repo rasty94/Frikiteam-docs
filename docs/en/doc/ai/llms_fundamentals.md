@@ -3,6 +3,9 @@ title: "Introduction to Large Language Models (LLMs)"
 tags: [ai, llms, transformers, devops]
 category: Artificial Intelligence
 updated: 2026-01-25
+difficulty: beginner
+status: published
+estimated_time: 3 min
 ---
 
 # Introduction to Large Language Models (LLMs)

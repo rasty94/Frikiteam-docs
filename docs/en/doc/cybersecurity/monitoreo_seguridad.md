@@ -1,6 +1,11 @@
 ---
+title: "Usando Helm"
 
 updated: 2026-01-23
+difficulty: intermediate
+category: Cybersecurity
+status: published
+estimated_time: 3 min
 ---
 
 ## Resumen

@@ -3,6 +3,9 @@ title: "MikroTik CHR (Cloud Hosted Router)"
 tags: ['networking', 'mikrotik', 'chr']
 category: Networking
 updated: 2026-04-18
+difficulty: advanced
+status: published
+estimated_time: 10 min
 ---
 
 # MikroTik CHR (Cloud Hosted Router)

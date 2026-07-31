@@ -9,6 +9,8 @@ category: Networking
 state: stable
 prerequisites: [linux-basics, networking-fundamentals]
 updated: 2026-01-25
+status: published
+estimated_time: "60 minutes"
 ---
 
 # Migration from Traditional VPN to Mesh Networking

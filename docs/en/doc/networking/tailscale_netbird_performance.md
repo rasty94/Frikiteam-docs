@@ -9,6 +9,8 @@ category: Networking
 state: stable
 prerequisites: [docker, linux-basics]
 updated: 2026-01-25
+status: published
+estimated_time: "45 minutes"
 ---
 
 # Performance Benchmarks: Tailscale vs NetBird

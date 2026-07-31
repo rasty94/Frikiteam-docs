@@ -3,6 +3,9 @@ title: "OPNsense (virtual router/firewall)"
 tags: ['networking', 'security', 'opnsense']
 category: Networking
 updated: 2026-04-18
+difficulty: intermediate
+status: published
+estimated_time: 8 min
 ---
 
 # OPNsense (virtual router/firewall)

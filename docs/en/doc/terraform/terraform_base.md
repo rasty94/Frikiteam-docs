@@ -3,6 +3,9 @@ title: "Terraform & OpenTofu - Infrastructure as Code"
 tags: ['terraform']
 category: Infrastructure as Code
 updated: 2025-11-15
+difficulty: beginner
+status: published
+estimated_time: 4 min
 ---
 
 # Terraform & OpenTofu - Infrastructure as Code

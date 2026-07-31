@@ -3,6 +3,9 @@ title: "NetApp — Quick Guide"
 tags: [storage, netapp]
 category: Storage
 updated: 2026-01-25
+difficulty: beginner
+status: published
+estimated_time: 1 min
 ---
 
 # NetApp — Quick Guide

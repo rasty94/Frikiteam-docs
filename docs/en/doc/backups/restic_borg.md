@@ -1,9 +1,14 @@
 ---
+title: "Agnostic Backups: Restic and Borg"
 tags:
   - backups
   - linux
   - cli
 updated: 2025-12-07
+difficulty: intermediate
+category: Backups
+status: published
+estimated_time: 1 min
 ---
 
 # Agnostic Backups: Restic and Borg

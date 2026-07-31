@@ -1,6 +1,11 @@
 ---
+title: "Security Principles"
 
 updated: 2026-01-23
+difficulty: intermediate
+category: Cybersecurity
+status: published
+estimated_time: 2 min
 ---
 
 ## Resumen

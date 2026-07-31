@@ -3,6 +3,9 @@ title: "React"
 tags: ['documentation']
 category: Development
 updated: 2026-01-24
+difficulty: intermediate
+status: published
+estimated_time: 1 min
 ---
 
 # React

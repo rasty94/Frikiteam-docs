@@ -3,6 +3,9 @@ title: "vRouters and virtual firewalls"
 tags: ['networking', 'security', 'vrouter']
 category: Networking
 updated: 2026-04-18
+difficulty: intermediate
+status: published
+estimated_time: 6 min
 ---
 
 # vRouters and virtual firewalls

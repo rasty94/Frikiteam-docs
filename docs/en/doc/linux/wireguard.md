@@ -3,6 +3,9 @@ title: "WireGuard VPN"
 tags: ['documentation']
 category: Operating System
 updated: 2025-12-07
+difficulty: intermediate
+status: published
+estimated_time: 1 min
 ---
 
 # WireGuard VPN

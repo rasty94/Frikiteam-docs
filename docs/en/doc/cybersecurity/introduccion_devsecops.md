@@ -4,6 +4,10 @@ date: 2026-01-09
 tags: [cybersecurity, devsecops, devops]
 draft: false
 updated: 2026-01-25
+difficulty: intermediate
+category: Cybersecurity
+status: published
+estimated_time: 2 min
 ---
 
 🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25

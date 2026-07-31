@@ -3,6 +3,9 @@ title: "Docker - Containers"
 tags: [docker, contenedores, base, virtualización]
 category: Containers
 updated: 2025-12-07
+difficulty: beginner
+status: published
+estimated_time: 3 min
 ---
 
 # Docker - Containers

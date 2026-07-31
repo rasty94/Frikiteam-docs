@@ -1,7 +1,12 @@
 ---
+title: "Storage Protocols and Metrics"
 description: Overview of common storage protocols (iSCSI, NFS, SMB, RBD, S3), key metrics (IOPS, latency, throughput), and measurement best practices.
 keywords: iops, latency, throughput, iSCSI, NFS, SMB, rbd, s3, storage protocols, metrics
 updated: 2026-01-25
+difficulty: advanced
+category: Storage
+status: published
+estimated_time: 3 min
 ---
 
 # Storage Protocols and Metrics

@@ -3,6 +3,9 @@ title: "Enterprise SDN: OpenStack Neutron vs VMware NSX vs Cisco ACI"
 tags: ['networking']
 category: Networking
 updated: 2026-01-24
+difficulty: advanced
+status: published
+estimated_time: 6 min
 ---
 
 # Enterprise SDN: OpenStack Neutron vs VMware NSX vs Cisco ACI

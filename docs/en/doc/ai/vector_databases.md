@@ -3,6 +3,10 @@ title: "Vector Databases for AI"
 date: 2025-01-25
 updated: 2026-01-25
 tags: [ai, vector-db, chroma, milvus, weaviate, qdrant]
+difficulty: beginner
+category: Artificial Intelligence
+status: published
+estimated_time: 7 min
 ---
 
 🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25

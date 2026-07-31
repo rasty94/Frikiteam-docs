@@ -8,6 +8,8 @@ time: 45 minutes
 category: Artificial Intelligence
 prerequisites: [ollama_basics, model_evaluation, fine_tuning_basico]
 updated: 2026-07-18
+status: published
+estimated_time: 45 minutes
 ---
 
 # Deploying LLMs at Scale with Kubernetes

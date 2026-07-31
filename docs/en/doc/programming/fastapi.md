@@ -3,6 +3,9 @@ title: "FastAPI"
 tags: ['documentation']
 category: Development
 updated: 2026-01-24
+difficulty: advanced
+status: published
+estimated_time: 1 min
 ---
 
 # FastAPI

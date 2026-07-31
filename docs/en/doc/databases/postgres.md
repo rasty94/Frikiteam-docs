@@ -1,9 +1,14 @@
 ---
+title: "PostgreSQL on Docker"
 tags:
   - databases
   - postgres
   - docker
 updated: 2025-12-07
+difficulty: beginner
+category: Databases
+status: published
+estimated_time: 1 min
 ---
 
 # PostgreSQL on Docker

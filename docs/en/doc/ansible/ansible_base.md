@@ -3,6 +3,9 @@ title: "Ansible - Infrastructure Automation"
 tags: ['ansible']
 category: Automation
 updated: 2025-11-15
+difficulty: beginner
+status: published
+estimated_time: 2 min
 ---
 
 # Ansible - Infrastructure Automation

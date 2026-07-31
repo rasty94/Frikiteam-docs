@@ -3,6 +3,10 @@ title: ASN & BGP
 description: Autonomous Systems, ASN ranges, BGP fundamentals, policies, security, and troubleshooting.
 draft: false
 updated: 2026-01-24
+difficulty: intermediate
+category: Networking
+status: published
+estimated_time: 8 min
 ---
 
 # ASN & BGP

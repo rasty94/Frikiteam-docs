@@ -3,6 +3,9 @@ title: "Introduction to GitHub Actions"
 tags: ['documentation']
 category: CI/CD
 updated: 2025-12-07
+difficulty: intermediate
+status: published
+estimated_time: 1 min
 ---
 
 # Introduction to GitHub Actions

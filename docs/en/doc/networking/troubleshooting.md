@@ -3,6 +3,9 @@ title: "Troubleshooting (Networking)"
 tags: ['networking']
 category: Networking
 updated: 2025-09-10
+difficulty: intermediate
+status: published
+estimated_time: 1 min
 ---
 
 # Troubleshooting (Networking)

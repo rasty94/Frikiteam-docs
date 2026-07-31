@@ -3,6 +3,10 @@ title: "Linux Server Hardening"
 date: 2025-01-25
 updated: 2026-01-25
 tags: [security, linux, hardening, ssh, firewall]
+difficulty: intermediate
+category: Cybersecurity
+status: published
+estimated_time: 8 min
 ---
 
 🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25

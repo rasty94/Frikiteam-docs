@@ -3,6 +3,10 @@ title: "RAG - Retrieval-Augmented Generation"
 date: 2025-01-25
 updated: 2026-01-25
 tags: [ai, rag, llm, langchain, vector-db]
+difficulty: intermediate
+category: Artificial Intelligence
+status: published
+estimated_time: 4 min
 ---
 
 🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25
