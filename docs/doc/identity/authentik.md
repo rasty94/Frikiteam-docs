@@ -1,4 +1,5 @@
 ---
+title: "Authentik"
 tags:
   - identity
   - security

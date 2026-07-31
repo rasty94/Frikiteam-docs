@@ -1,4 +1,5 @@
 ---
+title: "Proxmox Backup Server (PBS)"
 tags:
   - backups
   - proxmox

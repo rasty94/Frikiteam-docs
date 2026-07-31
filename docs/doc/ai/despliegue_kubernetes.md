@@ -2,9 +2,9 @@
 title: "Despliegue de LLMs a Escala con Kubernetes"
 date: 2026-01-25
 tags: [ai, kubernetes, vllm, helm, scaling, production]
-draft: false
-difficulty: avanzado
-time: 45 minutos
+status: published
+difficulty: advanced
+estimated_time: 45 minutos
 category: Inteligencia Artificial
 prerequisites: [ollama_basics, model_evaluation, fine_tuning_basico]
 updated: 2026-01-25

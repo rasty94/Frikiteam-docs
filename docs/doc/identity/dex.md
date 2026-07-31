@@ -1,4 +1,5 @@
 ---
+title: "Dex IdP (OIDC Federado)"
 tags:
   - identity
   - security

@@ -1,4 +1,5 @@
 ---
+title: "Estrategia de Backup 3-2-1"
 tags:
   - backups
   - theory
