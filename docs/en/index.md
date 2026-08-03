@@ -16,6 +16,12 @@ My idea is to provide practical, clear, and useful documentation about the techn
 
 ### 📅 **August 3, 2026**
 
+#### 🛡️ **Linux operations: firewall, scripting and diagnosis (ES/EN)**
+
+- **nftables + fail2ban**: [a persistent ruleset and real integration](doc/cybersecurity/nftables_fail2ban.md) — sets with expiry, a safety net so you don't lock yourself out, `backend = systemd` and `banaction = nftables-*` (the values in older guides leave the jail silently idle), the `recidive` jail and custom filters.
+- **Bash and REST APIs**: [curl and jq without scripts that lie](doc/linux/bash_apis_rest.md) — separating body/status/network errors, exponential backoff, pagination, secrets off the command line and a tested service checker.
+- **Terminal monitoring**: [btop, glances, ctop, lazydocker and k9s](doc/linux/tui_monitoring.md) — how to read load average and PSI correctly, plus a diagnostic order for "the server is slow".
+
 #### 🐋 **Podman Quadlet: containers as systemd services (ES/EN)**
 
 - **Quadlet**: [declaring containers as systemd units](doc/docker/quadlets.md) — `.container`/`.volume`/`.network`/`.pod` files, healthchecks with automatic restart, startup dependencies, auto-update with rollback and a translation table from Docker Compose.
