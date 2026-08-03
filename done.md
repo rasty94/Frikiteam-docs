@@ -586,6 +586,25 @@ Verificado ejecutando los scripts, no por inspección manual:
 
 ## Progreso de Publicación
 
+- Traefik - Borrador creado el 2026-08-03
+- Protocolos y Métricas de Almacenamiento - Borrador creado el 2026-08-03
+- Migración de VPN Tradicionales a Mesh Networking - Borrador creado el 2026-08-03
+- Benchmarks de Rendimiento: Tailscale vs NetBird - Borrador creado el 2026-08-03
+- Monitorización desde la terminal — TUIs para diagnóstico en vivo - Borrador creado el 2026-08-03
+- Bash y APIs REST — curl, jq y scripts que no mienten - Borrador creado el 2026-08-03
+- OpenStack Keystone - Borrador creado el 2026-08-03
+- Keycloak: Gestión de Identidad - Borrador creado el 2026-08-03
+- Dex IdP (OIDC Federado) - Borrador creado el 2026-08-03
+- Authentik - Borrador creado el 2026-08-03
+- Podman Quadlet — Contenedores como servicios de systemd - Borrador creado el 2026-08-03
+- Podman Rootless — Contenedores sin daemon ni root - Borrador creado el 2026-08-03
+- Redis: Caché de Alto Rendimiento - Borrador creado el 2026-08-03
+- PostgreSQL en Docker - Borrador creado el 2026-08-03
+- nftables + fail2ban — Muralla y portero - Borrador creado el 2026-08-03
+- Estrategia de Backup 3-2-1 - Borrador creado el 2026-08-03
+- Backups Agnósticos: Restic y Borg - Borrador creado el 2026-08-03
+- Proxmox Backup Server (PBS) - Borrador creado el 2026-08-03
+- Despliegue de LLMs a Escala con Kubernetes - Borrador creado el 2026-08-03
 - Rootless Podman — Containers without a daemon or root - Borrador creado el 2026-07-19
 - PostgreSQL High Availability: replication, Patroni and tested failover - Borrador creado el 2026-07-19
 - Basic Pentesting: an ethical hacking methodology to audit your own infrastructure - Borrador creado el 2026-07-19
