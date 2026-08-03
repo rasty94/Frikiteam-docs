@@ -14,6 +14,13 @@ My idea is to provide practical, clear, and useful documentation about the techn
 
 ## 🆕 Latest Updates
 
+### 📅 **August 3, 2026**
+
+#### 🚦 **Traefik: dynamic reverse proxy (ES/EN)**
+
+- **Traefik**: [base guide to the reverse proxy with automatic discovery](doc/traefik/traefik_base.md) — static vs dynamic configuration, automatic HTTPS with Let's Encrypt (HTTP-01 and DNS-01 for wildcards), middlewares, secure dashboard and Prometheus metrics.
+- Rounds out the load-balancing section alongside [HAProxy](doc/haproxy/haproxy_base.md) and the [load balancer comparison](doc/networking/load_balancer_comparison.md), with explicit criteria for choosing between them.
+
 ### 📅 **July 19, 2026**
 
 #### 🔒 **Cybersecurity: backup, incident response, compliance and offensive auditing (ES/EN)**

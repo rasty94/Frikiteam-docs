@@ -16,6 +16,13 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 
 ## 🆕 Últimas Novedades
 
+### 📅 **3 de agosto de 2026**
+
+#### 🚦 **Traefik: proxy inverso dinámico (ES/EN)**
+
+- **Traefik**: [guía base del proxy inverso con descubrimiento automático](doc/traefik/traefik_base.md) — configuración estática vs dinámica, HTTPS automático con Let's Encrypt (HTTP-01 y DNS-01 para wildcards), middlewares, dashboard seguro y métricas Prometheus.
+- Completa la sección de balanceo junto a [HAProxy](doc/haproxy/haproxy_base.md) y la [comparativa de balanceadores](doc/networking/load_balancer_comparison.md), con criterio explícito de cuándo elegir cada uno.
+
 ### 📅 **19 de julio de 2026**
 
 #### 🔒 **Ciberseguridad: backup, respuesta a incidentes, cumplimiento y auditoría ofensiva (ES/EN)**
