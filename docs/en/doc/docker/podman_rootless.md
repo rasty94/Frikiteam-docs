@@ -200,6 +200,8 @@ systemctl --user status myapp.service
 !!! warning "Quadlet services are not enabled with enable"
     The unit is produced by the systemd generator on `daemon-reload`; it does not exist as a file that `systemctl enable` could link. Automatic startup is declared with `[Install] WantedBy=` inside the `.container` file itself.
 
+This is only the entry point. `.volume`, `.network` and `.pod` files, healthchecks with automatic restart, startup dependencies, updates with rollback and the translation table from Compose are all in [Podman Quadlet](quadlets.md).
+
 ### Linger: surviving logout
 
 By default, systemd tears down the user session on logout, and your containers with it. On a server that will not do:

@@ -16,6 +16,11 @@ My idea is to provide practical, clear, and useful documentation about the techn
 
 ### 📅 **August 3, 2026**
 
+#### 🐋 **Podman Quadlet: containers as systemd services (ES/EN)**
+
+- **Quadlet**: [declaring containers as systemd units](doc/docker/quadlets.md) — `.container`/`.volume`/`.network`/`.pod` files, healthchecks with automatic restart, startup dependencies, auto-update with rollback and a translation table from Docker Compose.
+- Expands the Quadlet section of [Rootless Podman](doc/docker/podman_rootless.md), which now links here for the full lifecycle.
+
 #### 🚦 **Traefik: dynamic reverse proxy (ES/EN)**
 
 - **Traefik**: [base guide to the reverse proxy with automatic discovery](doc/traefik/traefik_base.md) — static vs dynamic configuration, automatic HTTPS with Let's Encrypt (HTTP-01 and DNS-01 for wildcards), middlewares, secure dashboard and Prometheus metrics.

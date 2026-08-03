@@ -18,6 +18,11 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 
 ### 📅 **3 de agosto de 2026**
 
+#### 🐋 **Podman Quadlet: contenedores como servicios de systemd (ES/EN)**
+
+- **Quadlet**: [declarar contenedores como units de systemd](doc/docker/quadlets.md) — ficheros `.container`/`.volume`/`.network`/`.pod`, healthchecks con reinicio automático, dependencias de arranque, auto-update con rollback y tabla de traducción desde Docker Compose.
+- Amplía la sección de Quadlet de [Podman Rootless](doc/docker/podman_rootless.md), que ahora enlaza aquí para el ciclo de vida completo.
+
 #### 🚦 **Traefik: proxy inverso dinámico (ES/EN)**
 
 - **Traefik**: [guía base del proxy inverso con descubrimiento automático](doc/traefik/traefik_base.md) — configuración estática vs dinámica, HTTPS automático con Let's Encrypt (HTTP-01 y DNS-01 para wildcards), middlewares, dashboard seguro y métricas Prometheus.

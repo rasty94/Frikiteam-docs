@@ -200,6 +200,8 @@ systemctl --user status miapp.service
 !!! warning "Los servicios Quadlet no se habilitan con enable"
     La unit la genera el generador de systemd al hacer `daemon-reload`; no existe como fichero que `systemctl enable` pueda enlazar. El arranque automático se declara con `[Install] WantedBy=` dentro del propio `.container`.
 
+Esto es solo la entrada. Ficheros `.volume`, `.network` y `.pod`, healthchecks con reinicio automático, dependencias de arranque, actualizaciones con rollback y la tabla de traducción desde Compose están en [Podman Quadlet](quadlets.md).
+
 ### Linger: sobrevivir al logout
 
 Por defecto, systemd mata la sesión de usuario al cerrar sesión, y con ella tus contenedores. Para un servidor eso no vale:
