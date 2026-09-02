@@ -1,7 +1,7 @@
 ---
 title: "Ejemplo fio — pruebas de I/O"
 date: 2025-12-07
-tags: [storage, fio, benchmarks]
+tags: ['storage', 'benchmarks']
 draft: true
 updated: 2025-12-07
 difficulty: intermediate

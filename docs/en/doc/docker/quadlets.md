@@ -2,11 +2,11 @@
 title: "Podman Quadlet — Containers as systemd services"
 description: "Declaring containers as systemd units: .container, .volume, .network and .pod files, healthchecks, startup dependencies, auto-update and migrating from Compose."
 keywords: "podman, quadlet, systemd, containers, .container, healthcheck, auto-update, rootless, compose"
-tags: [containers, podman, systemd, quadlet]
+tags: ['containers', 'podman', 'systemd']
 updated: 2026-08-03
 difficulty: intermediate
 estimated_time: 20 min
-category: Contenedores
+category: Containers
 status: published
 last_reviewed: 2026-08-03
 prerequisites:

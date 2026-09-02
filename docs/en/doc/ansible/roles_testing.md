@@ -1,8 +1,9 @@
 ---
 title: Ansible — Roles and Testing with Molecule
+tags: ['ansible']
 updated: 2026-01-24
 difficulty: intermediate
-category: Automation
+category: DevOps
 status: published
 estimated_time: 1 min
 ---

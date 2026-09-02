@@ -1,10 +1,6 @@
 ---
 title: "Dex IdP (Federated OIDC)"
-tags:
-  - identity
-  - security
-  - oidc
-  - dex
+tags: ['identity', 'cybersecurity']
 updated: 2026-03-01
 difficulty: intermediate
 category: Identity Management

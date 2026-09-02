@@ -1,5 +1,6 @@
 ---
 title: "Curiosities"
+tags: ['documentation']
 updated: 2025-09-03
 ---
 

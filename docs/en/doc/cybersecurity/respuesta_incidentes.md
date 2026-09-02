@@ -3,7 +3,7 @@ title: "Incident Response: a practical playbook with TheHive and MISP"
 description: "What to do once the alert has already fired. The NIST SP 800-61 lifecycle grounded in real infrastructure: evidence preservation, Kubernetes containment, case management with TheHive, threat intel with MISP and blameless post-mortems."
 keywords: "incident response, thehive, misp, cortex, nist 800-61, forensics, memory dump, chain of custody, post-mortem, kubernetes, ioc"
 date: 2026-07-19
-tags: [cybersecurity, incident-response, thehive, misp, forensics, kubernetes, post-mortem]
+tags: ['cybersecurity', 'incident-response', 'siem', 'forensics', 'kubernetes']
 draft: false
 updated: 2026-07-19
 difficulty: advanced

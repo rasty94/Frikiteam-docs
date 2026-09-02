@@ -1,11 +1,11 @@
 ---
 title: "Systemd: Gestión de Servicios"
 description: "Documentación sobre systemd: gestión de servicios"
-tags: ['documentation']
+tags: ['linux', 'systemd']
 updated: 2025-12-07
 difficulty: intermediate
 estimated_time: 1 min
-category: Sistema Operativo
+category: Linux
 status: published
 last_reviewed: 2026-01-25
 prerequisites: ["Conocimientos básicos de DevOps"]

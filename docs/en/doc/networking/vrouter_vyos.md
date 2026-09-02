@@ -1,6 +1,6 @@
 ---
 title: "VyOS (automation-first virtual router)"
-tags: ['networking', 'vyos', 'automatizacion']
+tags: ['networking', 'vrouter', 'automation']
 category: Networking
 updated: 2026-04-18
 difficulty: advanced

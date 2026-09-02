@@ -2,7 +2,7 @@
 title: "Seguridad en IaC (Checkov y TFLint)"
 description: "Guía práctica para escanear Infraestructura como Código (Terraform, Ansible, Kubernetes, Dockerfile) con Checkov y TFLint, detectar misconfigurations e integrar seguridad shift-left en pre-commit y CI/CD."
 keywords: [iac security, checkov, tflint, terraform, ansible, devsecops, misconfiguration, shift-left]
-tags: [cybersecurity, iac, terraform, ansible, checkov, tflint, devsecops]
+tags: ['cybersecurity', 'devops', 'terraform', 'ansible', 'devsecops']
 updated: 2026-07-18
 difficulty: intermediate
 estimated_time: 8 min

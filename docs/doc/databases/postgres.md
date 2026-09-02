@@ -1,9 +1,6 @@
 ---
 title: "PostgreSQL en Docker"
-tags:
-  - databases
-  - postgres
-  - docker
+tags: ['databases', 'docker']
 updated: 2025-12-07
 difficulty: beginner
 estimated_time: 1 min

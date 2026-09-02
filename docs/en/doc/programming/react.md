@@ -1,6 +1,6 @@
 ---
 title: "React"
-tags: ['documentation']
+tags: ['programming']
 category: Development
 updated: 2026-01-24
 difficulty: intermediate

@@ -1,9 +1,6 @@
 ---
 title: "Redis: High Performance Cache"
-tags:
-  - databases
-  - redis
-  - cache
+tags: ['databases']
 updated: 2025-12-07
 difficulty: beginner
 category: Databases

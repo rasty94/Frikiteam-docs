@@ -1,5 +1,6 @@
 ---
 title: "SPF/DKIM/DMARC"
+tags: ['networking']
 
 updated: 2026-01-23
 difficulty: intermediate

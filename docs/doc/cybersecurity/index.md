@@ -1,5 +1,6 @@
 ---
 title: "Ciberseguridad"
+tags: ['cybersecurity']
 description: "Guías completas de ciberseguridad para entornos DevOps e infraestructura"
 draft: false
 updated: 2026-01-09

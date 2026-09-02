@@ -1,6 +1,6 @@
 ---
 title: "vRouters and virtual firewalls"
-tags: ['networking', 'security', 'vrouter']
+tags: ['networking', 'cybersecurity', 'vrouter']
 category: Networking
 updated: 2026-04-18
 difficulty: intermediate

@@ -1,7 +1,7 @@
 ---
 title: "Terraform & OpenTofu - Infrastructure as Code"
 tags: ['terraform']
-category: Infrastructure as Code
+category: DevOps
 updated: 2025-11-15
 difficulty: beginner
 status: published

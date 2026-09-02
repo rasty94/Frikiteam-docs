@@ -1,5 +1,6 @@
 ---
 title: Certificados TLS
+tags: ['networking']
 description: Tipos de validación (DV, OV, EV), cadenas de confianza y buenas prácticas de configuración.
 draft: false
 updated: 2026-01-09

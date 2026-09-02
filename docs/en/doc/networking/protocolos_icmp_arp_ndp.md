@@ -1,5 +1,6 @@
 ---
 title: "Protocolos ICMP/ARP/NDP"
+tags: ['networking']
 
 updated: 2026-01-23
 difficulty: advanced

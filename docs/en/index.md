@@ -1,6 +1,6 @@
 ---
 title: "🚀 Welcome to Frikiteam Docs 🚀"
-tags: [inicio, documentacion, devops, infraestructura]
+tags: ['documentation', 'devops']
 updated: 2026-07-19
 ---
 

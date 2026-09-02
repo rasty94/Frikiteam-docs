@@ -2,7 +2,7 @@
 title: "Ecosistema de Modelos Locales"
 date: 2025-01-25
 updated: 2026-01-25
-tags: [ai, llm, ollama, llama.cpp, vllm]
+tags: ['ai', 'llm', 'ollama', 'vllm']
 difficulty: intermediate
 estimated_time: 2 min
 category: Inteligencia Artificial

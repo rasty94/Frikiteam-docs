@@ -2,7 +2,7 @@
 title: "Monitorización desde la terminal — TUIs para diagnóstico en vivo"
 description: "btop, glances, ctop, lazydocker y k9s para el diagnóstico en caliente: qué mira cada uno, cómo leer load average y PSI sin equivocarse, y dónde acaba la terminal y empieza Prometheus."
 keywords: "btop, htop, glances, ctop, lazydocker, k9s, iotop, nethogs, psi, load average, terminal, monitorizacion"
-tags: [linux, monitoring, terminal, tui]
+tags: ['linux', 'monitoring']
 updated: 2026-08-03
 difficulty: beginner
 estimated_time: 15 min

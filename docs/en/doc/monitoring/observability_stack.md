@@ -2,7 +2,7 @@
 title: "Complete Observability Stack"
 description: "Complete guide to implement a modern observability system with Prometheus, Grafana, Loki, Tempo, Jaeger and OpenTelemetry in Kubernetes and cloud environments"
 keywords: "observability, prometheus, grafana, loki, tempo, jaeger, opentelemetry, kubernetes, monitoring, alerting"
-tags: [monitoring, observability, prometheus, grafana, loki, tempo, jaeger, opentelemetry]
+tags: ['monitoring', 'observability', 'prometheus', 'grafana', 'loki']
 updated: 2026-01-25
 difficulty: advanced
 estimated_time: 45 min

@@ -1,5 +1,6 @@
 ---
 title: "Networking"
+tags: ['networking']
 updated: 2026-04-18
 ---
 

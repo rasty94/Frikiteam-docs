@@ -1,9 +1,6 @@
 ---
 title: "Keycloak: Identity Management"
-tags:
-  - identity
-  - security
-  - oidc
+tags: ['identity', 'cybersecurity']
 updated: 2025-12-08
 difficulty: intermediate
 category: Identity Management

@@ -2,7 +2,7 @@
 title: "LiteLLM: unified LLM gateway"
 description: "LiteLLM guide: one OpenAI-compatible API for 100+ providers, proxy server with config.yaml, virtual keys, budgets, cost tracking, fallbacks, load balancing and Docker/Kubernetes deployment"
 keywords: "litellm, llm gateway, llm proxy, openai compatible, cost tracking, fallbacks, load balancing, devops"
-tags: [ai, llm, litellm, gateway, proxy, devops]
+tags: ['ai', 'llm', 'networking', 'devops']
 updated: 2026-07-18
 difficulty: intermediate
 estimated_time: 8 min

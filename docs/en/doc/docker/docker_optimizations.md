@@ -1,5 +1,6 @@
 ---
 title: Docker — Optimization and Best Practices
+tags: ['docker']
 updated: 2026-01-23
 difficulty: expert
 category: Containers

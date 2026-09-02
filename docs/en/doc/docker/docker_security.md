@@ -1,5 +1,6 @@
 ---
 title: "Docker — Security (Hardening, Secrets, and Scanning)"
+tags: ['docker']
 
 updated: 2026-01-24
 difficulty: intermediate

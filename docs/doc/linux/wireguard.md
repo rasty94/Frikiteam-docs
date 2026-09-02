@@ -1,11 +1,11 @@
 ---
 title: "WireGuard VPN"
 description: "Documentación sobre wireguard vpn"
-tags: ['documentation']
+tags: ['linux', 'vpn', 'wireguard']
 updated: 2025-12-07
 difficulty: intermediate
 estimated_time: 1 min
-category: Sistema Operativo
+category: Linux
 status: published
 last_reviewed: 2026-01-25
 prerequisites: ["Conocimientos básicos de DevOps"]

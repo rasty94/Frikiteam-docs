@@ -1,9 +1,10 @@
 ---
 title: "HAProxy — TLS y Escalado Avanzado"
+tags: ['networking']
 
 updated: 2026-01-23
 difficulty: intermediate
-category: Load Balancing
+category: Networking
 status: published
 estimated_time: 1 min
 ---

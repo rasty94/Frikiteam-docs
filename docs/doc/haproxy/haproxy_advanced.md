@@ -1,9 +1,10 @@
 ---
 title: HAProxy — TLS y Escalado Avanzado
+tags: ['networking']
 updated: 2025-12-07
 difficulty: intermediate
 estimated_time: 1 min
-category: Load Balancing
+category: Redes
 status: published
 last_reviewed: 2026-01-25
 prerequisites: ["Conocimientos básicos de DevOps"]

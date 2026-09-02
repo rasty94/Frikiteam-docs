@@ -2,7 +2,7 @@
 title: "Supply Chain Security: SBOM, SLSA and Image Signing"
 date: 2026-01-25
 updated: 2026-07-18
-tags: [security, supply-chain, sbom, slsa, sigstore, cosign]
+tags: ['cybersecurity', 'supply-chain']
 difficulty: intermediate
 estimated_time: 6 min
 category: Cybersecurity

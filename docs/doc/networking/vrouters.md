@@ -1,7 +1,7 @@
 ---
 title: "vRouters y firewalls virtuales"
 description: "Comparativa práctica de OPNsense, pfSense, MikroTik CHR y VyOS para laboratorios y producción"
-tags: ['networking', 'security', 'vrouter']
+tags: ['networking', 'cybersecurity', 'vrouter']
 updated: 2026-04-18
 difficulty: intermediate
 estimated_time: 6 min

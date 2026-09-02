@@ -1,9 +1,6 @@
 ---
 title: "Proxmox Backup Server (PBS)"
-tags:
-  - backups
-  - proxmox
-  - pbs
+tags: ['backups', 'proxmox']
 updated: 2025-12-08
 difficulty: intermediate
 category: Backups

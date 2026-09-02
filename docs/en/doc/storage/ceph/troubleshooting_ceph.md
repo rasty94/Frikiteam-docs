@@ -1,5 +1,6 @@
 ---
 title: "Ceph Troubleshooting: Common Issues and Solutions"
+tags: ['storage', 'ceph']
 description: "Comprehensive guide to diagnose and fix common Ceph problems. OSDs down, PG issues, slow operations, and cluster health recovery."
 keywords: Ceph, troubleshooting, debugging, OSD down, PG stuck, slow ops, cluster health, recovery, ceph health
 date: 2026-01-25

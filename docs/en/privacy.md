@@ -1,5 +1,6 @@
 ---
 title: Privacy Policy
+tags: ['documentation']
 description: Information about how we handle your personal data and cookies on Frikiteam Docs.
 keywords: privacy, cookies, personal data, policy
 updated: 2026-07-18

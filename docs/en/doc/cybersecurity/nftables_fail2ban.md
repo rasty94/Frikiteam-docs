@@ -2,11 +2,11 @@
 title: "nftables + fail2ban — Wall and doorman"
 description: "A persistent nftables ruleset with sets and verdict maps, real fail2ban integration (systemd backend, nftables banaction), the recidive jail and custom filters."
 keywords: "nftables, fail2ban, firewall, linux, banaction, recidive, journald, sets, hardening"
-tags: [security, firewall, nftables, fail2ban, linux]
+tags: ['cybersecurity', 'firewall', 'linux']
 updated: 2026-08-03
 difficulty: intermediate
 estimated_time: 22 min
-category: Seguridad
+category: Cybersecurity
 status: published
 last_reviewed: 2026-08-03
 prerequisites:

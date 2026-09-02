@@ -1,11 +1,11 @@
 ---
 title: "Traefik"
 description: "Proxy inverso dinámico con descubrimiento automático de servicios, TLS y middlewares"
-tags: ['documentation']
+tags: ['networking', 'containers']
 updated: 2026-08-03
 difficulty: intermediate
 estimated_time: 25 min
-category: Load Balancing
+category: Redes
 status: published
 last_reviewed: 2026-08-03
 prerequisites: ["Docker", "DNS básico", "Certificados TLS"]

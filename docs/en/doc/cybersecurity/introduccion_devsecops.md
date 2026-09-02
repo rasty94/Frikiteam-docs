@@ -1,7 +1,7 @@
 ---
 title: Introduction to Cybersecurity in DevOps
 date: 2026-01-09
-tags: [cybersecurity, devsecops, devops]
+tags: ['cybersecurity', 'devsecops', 'devops']
 draft: false
 updated: 2026-01-25
 difficulty: intermediate

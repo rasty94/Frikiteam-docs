@@ -1,6 +1,6 @@
 ---
 title: "Ollama: Installation and Getting Started"
-tags: [ai, ollama, llm, docker, api]
+tags: ['ai', 'ollama', 'llm', 'docker', 'api']
 category: Artificial Intelligence
 updated: 2026-01-25
 difficulty: intermediate

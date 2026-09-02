@@ -5,7 +5,7 @@ tags: ['kubernetes']
 updated: 2025-11-15
 difficulty: beginner
 estimated_time: 3 min
-category: Orquestación
+category: Contenedores
 status: published
 last_reviewed: 2026-01-25
 prerequisites: ["Docker básico"]

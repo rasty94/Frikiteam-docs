@@ -1,9 +1,6 @@
 ---
 title: "Backups Agnósticos: Restic y Borg"
-tags:
-  - backups
-  - linux
-  - cli
+tags: ['backups', 'linux']
 updated: 2025-12-07
 difficulty: intermediate
 estimated_time: 1 min

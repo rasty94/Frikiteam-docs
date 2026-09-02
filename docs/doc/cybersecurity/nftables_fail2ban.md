@@ -2,11 +2,11 @@
 title: "nftables + fail2ban — Muralla y portero"
 description: "Ruleset nftables persistente con sets y verdict maps, integración real con fail2ban (backend systemd, banaction nftables), jail recidive y filtros propios."
 keywords: "nftables, fail2ban, firewall, linux, banaction, recidive, journald, sets, hardening"
-tags: [security, firewall, nftables, fail2ban, linux]
+tags: ['cybersecurity', 'firewall', 'linux']
 updated: 2026-08-03
 difficulty: intermediate
 estimated_time: 22 min
-category: Seguridad
+category: Ciberseguridad
 status: published
 last_reviewed: 2026-08-03
 prerequisites:

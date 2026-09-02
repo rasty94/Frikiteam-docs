@@ -1,7 +1,7 @@
 ---
 title: "Plantilla de pruebas de rendimiento de vRouters"
 description: "Plantilla reutilizable para medir rendimiento y estabilidad en OPNsense, pfSense, MikroTik CHR y VyOS"
-tags: ['networking', 'rendimiento', 'vrouter']
+tags: ['networking', 'performance', 'vrouter']
 updated: 2026-04-18
 difficulty: intermediate
 estimated_time: 12 min

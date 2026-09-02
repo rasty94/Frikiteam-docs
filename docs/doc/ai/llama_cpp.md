@@ -2,7 +2,7 @@
 title: "LLaMA.cpp: Compilación, cuantización y benchmarking"
 description: "Guía práctica de llama.cpp: compilación para CPU, CUDA, Metal y Vulkan, formato GGUF y cuantización, uso de llama-cli y llama-server con API compatible OpenAI, y benchmarking con llama-bench"
 keywords: "llama.cpp, llm, gguf, quantization, cuda, metal, vulkan, llama-server, benchmarking"
-tags: [ai, llm, llama-cpp, gguf, quantization]
+tags: ['ai', 'llm', 'quantization']
 updated: 2026-07-18
 difficulty: intermediate
 estimated_time: 8 min

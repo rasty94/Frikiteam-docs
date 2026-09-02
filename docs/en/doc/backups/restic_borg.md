@@ -1,9 +1,6 @@
 ---
 title: "Agnostic Backups: Restic and Borg"
-tags:
-  - backups
-  - linux
-  - cli
+tags: ['backups', 'linux']
 updated: 2025-12-07
 difficulty: intermediate
 category: Backups

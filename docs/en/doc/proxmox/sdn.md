@@ -1,5 +1,6 @@
 ---
 title: Proxmox — Software-Defined Networking (SDN)
+tags: ['proxmox', 'networking', 'virtualization']
 updated: 2026-01-23
 difficulty: advanced
 category: Virtualization

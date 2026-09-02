@@ -1,9 +1,6 @@
 ---
 title: "3-2-1 Backup Strategy"
-tags:
-  - backups
-  - theory
-  - best-practices
+tags: ['backups', 'best-practices']
 updated: 2025-12-08
 difficulty: advanced
 category: Backups

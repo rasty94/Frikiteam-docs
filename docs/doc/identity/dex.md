@@ -1,10 +1,6 @@
 ---
 title: "Dex IdP (OIDC Federado)"
-tags:
-  - identity
-  - security
-  - oidc
-  - dex
+tags: ['identity', 'cybersecurity']
 updated: 2026-03-01
 difficulty: intermediate
 estimated_time: 3 min

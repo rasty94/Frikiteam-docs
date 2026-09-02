@@ -1,5 +1,6 @@
 ---
 title: "Ciberseguridad en DevOps e Infraestructura"
+tags: ['cybersecurity']
 
 updated: 2026-01-23
 ---

@@ -1,7 +1,7 @@
 ---
 title: "pfSense (vRouter/cortafuegos virtual)"
 description: "Guía rápida para desplegar pfSense como firewall y router virtual"
-tags: ['networking', 'security', 'pfsense']
+tags: ['networking', 'cybersecurity', 'vrouter']
 updated: 2026-04-18
 difficulty: intermediate
 estimated_time: 8 min

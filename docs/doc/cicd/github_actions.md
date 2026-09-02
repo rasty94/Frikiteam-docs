@@ -1,11 +1,11 @@
 ---
 title: "Introducción a GitHub Actions"
 description: "Documentación sobre introducción a github actions"
-tags: ['documentation']
+tags: ['ci-cd', 'automation']
 updated: 2025-12-07
 difficulty: intermediate
 estimated_time: 1 min
-category: CI/CD
+category: DevOps
 status: published
 last_reviewed: 2026-01-25
 prerequisites: ["Conocimientos básicos de DevOps"]

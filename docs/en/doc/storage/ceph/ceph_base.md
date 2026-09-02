@@ -1,5 +1,6 @@
 ---
 title: "Ceph - Scalable Distributed Storage System"
+tags: ['storage', 'ceph']
 description: "Discover Ceph: highly scalable and reliable distributed storage system. Learn about its architecture, installation and use cases in cloud and data center environments."
 keywords: "Ceph, distributed storage, storage, OSD, MON, MGR, MDS, cloud storage, big data"
 sync_date: "2025-11-15"

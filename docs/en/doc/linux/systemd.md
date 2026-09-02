@@ -1,7 +1,7 @@
 ---
 title: "Systemd: Service Management"
-tags: ['documentation']
-category: Operating System
+tags: ['linux', 'systemd']
+category: Linux
 updated: 2025-12-07
 difficulty: intermediate
 status: published

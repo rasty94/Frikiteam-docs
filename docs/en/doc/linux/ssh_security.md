@@ -1,7 +1,7 @@
 ---
 title: "SSH Security"
-tags: ['documentation']
-category: Operating System
+tags: ['linux', 'hardening']
+category: Linux
 updated: 2025-12-07
 difficulty: intermediate
 status: published

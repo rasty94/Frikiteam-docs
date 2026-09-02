@@ -3,7 +3,7 @@
 title: "Introducción a Large Language Models (LLMs)"
 description: "Conceptos fundamentales de LLMs, arquitectura transformers, diferencias entre modelos open-source vs proprietary y aplicaciones en DevOps"
 keywords: "llms, transformers, openai, anthropic, meta, mistral, devops, ia"
-tags: [ai, llms, transformers, devops]
+tags: ['ai', 'llm', 'devops']
 updated: 2026-01-24
 difficulty: beginner
 estimated_time: 3 min

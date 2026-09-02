@@ -1,11 +1,11 @@
 ---
 title: "HAProxy"
 description: "Documentación sobre haproxy"
-tags: ['documentation']
+tags: ['networking', 'high-availability']
 updated: 2025-11-15
 difficulty: beginner
 estimated_time: 5 min
-category: Load Balancing
+category: Redes
 status: published
 last_reviewed: 2026-01-25
 prerequisites: ["Ninguno"]

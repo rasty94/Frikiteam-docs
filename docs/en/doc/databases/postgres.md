@@ -1,9 +1,6 @@
 ---
 title: "PostgreSQL on Docker"
-tags:
-  - databases
-  - postgres
-  - docker
+tags: ['databases', 'docker']
 updated: 2025-12-07
 difficulty: beginner
 category: Databases

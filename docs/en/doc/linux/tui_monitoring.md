@@ -2,7 +2,7 @@
 title: "Terminal monitoring — TUIs for live diagnosis"
 description: "btop, glances, ctop, lazydocker and k9s for hot diagnosis: what each one answers, how to read load average and PSI correctly, and where the terminal ends and Prometheus begins."
 keywords: "btop, htop, glances, ctop, lazydocker, k9s, iotop, nethogs, psi, load average, terminal, monitoring"
-tags: [linux, monitoring, terminal, tui]
+tags: ['linux', 'monitoring']
 updated: 2026-08-03
 difficulty: beginner
 estimated_time: 15 min

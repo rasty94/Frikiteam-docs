@@ -1,7 +1,7 @@
 ---
 title: "Introduction to GitHub Actions"
-tags: ['documentation']
-category: CI/CD
+tags: ['ci-cd', 'automation']
+category: DevOps
 updated: 2025-12-07
 difficulty: intermediate
 status: published

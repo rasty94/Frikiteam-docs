@@ -1,5 +1,6 @@
 ---
 title: "Registros PTR y Zonas Inversas"
+tags: ['networking']
 
 updated: 2026-01-23
 difficulty: intermediate

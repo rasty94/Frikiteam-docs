@@ -1,11 +1,11 @@
 ---
 title: "Cloud-native: GitOps con ArgoCD"
 description: "Documentación sobre cloud-native: gitops con argocd"
-tags: ['documentation']
+tags: ['ci-cd', 'gitops', 'argocd', 'kubernetes']
 updated: 2025-12-25
 difficulty: beginner
 estimated_time: 1 min
-category: CI/CD
+category: DevOps
 status: published
 last_reviewed: 2026-01-25
 prerequisites: ["Ninguno"]

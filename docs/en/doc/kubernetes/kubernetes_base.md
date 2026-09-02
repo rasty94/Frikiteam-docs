@@ -1,7 +1,7 @@
 ---
 title: "Kubernetes - Container Orchestration"
 tags: ['kubernetes']
-category: Orchestration
+category: Containers
 updated: 2025-11-15
 difficulty: beginner
 status: published

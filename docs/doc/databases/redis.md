@@ -1,9 +1,6 @@
 ---
 title: "Redis: Caché de Alto Rendimiento"
-tags:
-  - databases
-  - redis
-  - cache
+tags: ['databases']
 updated: 2025-12-07
 difficulty: beginner
 estimated_time: 1 min

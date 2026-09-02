@@ -5,7 +5,7 @@ tags: ['ansible']
 updated: 2025-11-15
 difficulty: beginner
 estimated_time: 2 min
-category: Automatización
+category: DevOps
 status: published
 last_reviewed: 2026-01-25
 prerequisites: ["SSH y Linux básico"]

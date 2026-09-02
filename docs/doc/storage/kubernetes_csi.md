@@ -2,7 +2,7 @@
 title: "Storage en Kubernetes: Ceph RBD vs Longhorn vs OpenEBS"
 description: "Comparativa práctica de almacenamiento persistente en Kubernetes vía CSI: Ceph RBD/CephFS con Rook, Longhorn y OpenEBS. Arquitectura, StorageClasses, snapshots, expansión, benchmarks fio reproducibles y operación día 2."
 keywords: "Kubernetes, CSI, storage, PersistentVolume, StorageClass, Ceph, Rook, RBD, CephFS, Longhorn, OpenEBS, Mayastor, snapshots, Velero, fio"
-tags: [storage, kubernetes, csi, ceph, longhorn, openebs]
+tags: ['storage', 'kubernetes', 'ceph']
 updated: 2026-07-18
 difficulty: advanced
 estimated_time: 18 min

@@ -1,5 +1,6 @@
 ---
 title: "Tablas de Puertos Comunes"
+tags: ['networking']
 
 updated: 2026-01-23
 difficulty: intermediate

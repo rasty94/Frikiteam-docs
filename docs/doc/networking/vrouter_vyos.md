@@ -1,7 +1,7 @@
 ---
 title: "VyOS (vRouter orientado a automatización)"
 description: "Guía rápida para desplegar VyOS con enfoque en BGP/OSPF y automatización"
-tags: ['networking', 'vyos', 'automatizacion']
+tags: ['networking', 'vrouter', 'automation']
 updated: 2026-04-18
 difficulty: advanced
 estimated_time: 10 min

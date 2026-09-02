@@ -2,7 +2,7 @@
 title: "Fine-tuning Básico de LLMs"
 description: "Introducción completa al fine-tuning de modelos de lenguaje: preparación de datos, técnicas de entrenamiento, evaluación y deployment"
 date: 2026-01-25
-tags: [ai, llm, fine-tuning, training, machine-learning, optimization]
+tags: ['ai', 'llm', 'fine-tuning', 'performance']
 difficulty: advanced
 estimated_time: "55 min"
 category: Inteligencia Artificial

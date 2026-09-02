@@ -1,5 +1,6 @@
 ---
 title: "Usando brew (macOS)"
+tags: ['cybersecurity']
 
 updated: 2026-01-24
 difficulty: intermediate

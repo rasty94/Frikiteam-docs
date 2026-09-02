@@ -3,7 +3,7 @@ title: "Secure Backup: encryption, immutability and restore testing"
 description: "The security layer your backup is missing: threat model against ransomware, encryption in restic and borg, append-only and immutable repositories, and above all how to actually prove that restoring works."
 keywords: "backup seguro, ransomware, restic, borg, append-only, s3 object lock, immutable backup, restore testing, rto, rpo, disaster recovery"
 date: 2026-07-19
-tags: [cybersecurity, backups, ransomware, restic, borg, immutability, disaster-recovery]
+tags: ['cybersecurity', 'backups']
 draft: false
 updated: 2026-07-19
 difficulty: intermediate

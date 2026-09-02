@@ -1,7 +1,7 @@
 ---
 title: "Principios de Seguridad"
 date: 2026-01-09
-tags: [cybersecurity, principles, defense-in-depth, zero-trust, least-privilege]
+tags: ['cybersecurity', 'best-practices', 'hardening', 'zero-trust']
 draft: false
 updated: 2026-01-09
 difficulty: intermediate

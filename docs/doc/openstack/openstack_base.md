@@ -1,5 +1,6 @@
 ---
 title: "OpenStack Guide: Complete Cloud Platform Overview"
+tags: ['openstack']
 description: "Comprehensive guide to OpenStack, the open-source cloud computing platform. Learn about modules, deployments, use cases, and resources for building private and public clouds."
 keywords: OpenStack, cloud computing, Nova, Neutron, Cinder, Swift, Glance, Keystone, Horizon, Heat, Ceilometer, IaaS, PaaS, private cloud, public cloud, infrastructure as a service
 updated: 2025-11-15

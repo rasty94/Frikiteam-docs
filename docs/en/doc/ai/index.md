@@ -1,5 +1,6 @@
 ---
 title: "Artificial Intelligence and LLMs"
+tags: ['ai']
 updated: 2026-01-24
 ---
 

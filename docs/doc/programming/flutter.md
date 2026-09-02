@@ -1,7 +1,7 @@
 ---
 title: "Flutter"
 description: "Documentación sobre flutter"
-tags: ['documentation']
+tags: ['programming']
 updated: 2026-01-04
 difficulty: intermediate
 estimated_time: 1 min

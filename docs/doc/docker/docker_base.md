@@ -2,7 +2,7 @@
 title: Docker - Contenedores
 description: Guía básica de Docker para principiantes, incluyendo conceptos fundamentales y comandos básicos.
 keywords: docker, contenedores, imágenes, dockerfile, comandos
-tags: [docker, contenedores, base, virtualización]
+tags: ['docker', 'containers', 'virtualization']
 updated: 2025-12-07
 difficulty: beginner
 estimated_time: 3 min

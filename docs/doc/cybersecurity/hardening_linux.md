@@ -2,7 +2,7 @@
 title: "Hardening de Servidores Linux"
 date: 2025-01-25
 updated: 2026-01-25
-tags: [security, linux, hardening, ssh, firewall]
+tags: ['cybersecurity', 'linux', 'hardening', 'firewall']
 difficulty: intermediate
 estimated_time: 8 min
 category: Ciberseguridad

@@ -3,7 +3,7 @@ title: "Respuesta a Incidentes: playbook práctico con TheHive y MISP"
 description: "Qué hacer cuando la alerta ya ha saltado. Ciclo NIST SP 800-61 aterrizado en infraestructura real: preservación de evidencia, contención en Kubernetes, gestión de casos con TheHive, threat intel con MISP y post-mortem sin culpa."
 keywords: "incident response, thehive, misp, cortex, nist 800-61, forensics, memory dump, chain of custody, post-mortem, kubernetes, ioc"
 date: 2026-07-19
-tags: [cybersecurity, incident-response, thehive, misp, forensics, kubernetes, post-mortem]
+tags: ['cybersecurity', 'incident-response', 'siem', 'forensics', 'kubernetes']
 draft: false
 updated: 2026-07-19
 difficulty: advanced

@@ -2,7 +2,7 @@
 title: "Bash y APIs REST — curl, jq y scripts que no mienten"
 description: "Consumir APIs REST desde Bash con curl y jq: manejo real de errores HTTP, paginación, reintentos con backoff, secretos fuera del script y un checker de servicios como ejemplo completo."
 keywords: "bash, curl, jq, api rest, scripting, http, retry, backoff, monitorizacion, shell"
-tags: [linux, bash, scripting, api]
+tags: ['linux', 'bash', 'api']
 updated: 2026-08-03
 difficulty: intermediate
 estimated_time: 18 min

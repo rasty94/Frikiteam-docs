@@ -2,7 +2,7 @@
 title: "Automated Technical Content Generation with LLMs"
 description: "Complete guide to generating technical documentation, READMEs, blog posts, and changelogs using local LLMs"
 date: 2026-01-25
-tags: [ai, llm, automation, documentation, content-generation]
+tags: ['ai', 'llm', 'automation']
 difficulty: intermediate
 estimated_time: "30 min"
 category: Artificial Intelligence

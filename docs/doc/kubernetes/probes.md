@@ -1,9 +1,10 @@
 ---
 title: Kubernetes — Readiness y Liveness Probes
+tags: ['kubernetes']
 updated: 2025-12-07
 difficulty: expert
 estimated_time: 1 min
-category: Orquestación
+category: Contenedores
 status: published
 last_reviewed: 2026-01-25
 prerequisites:

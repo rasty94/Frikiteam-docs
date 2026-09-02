@@ -2,7 +2,7 @@
 title: About - Frikiteam
 description: Information about Frikiteam, contact details and social media. Meet the team behind the technical documentation.
 keywords: about, contact, social media, team, frikiteam
-tags: [about, contact, team]
+tags: ['documentation']
 updated: 2025-12-07
 ---
 

@@ -2,7 +2,7 @@
 title: "Linux Server Hardening"
 date: 2025-01-25
 updated: 2026-01-25
-tags: [security, linux, hardening, ssh, firewall]
+tags: ['cybersecurity', 'linux', 'hardening', 'firewall']
 difficulty: intermediate
 category: Cybersecurity
 status: published

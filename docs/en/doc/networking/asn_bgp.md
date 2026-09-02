@@ -1,5 +1,6 @@
 ---
 title: ASN & BGP
+tags: ['networking']
 description: Autonomous Systems, ASN ranges, BGP fundamentals, policies, security, and troubleshooting.
 draft: false
 updated: 2026-01-24

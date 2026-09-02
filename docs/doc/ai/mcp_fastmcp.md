@@ -2,7 +2,7 @@
 title: "MCP (Model Context Protocol) y FastMCP"
 description: "Guía rápida de MCP: protocolo para compartir contexto entre clientes y servidores de modelos, y FastMCP como implementación ligera"
 keywords: "mcp, model context protocol, fastmcp, llm, api, devops"
-tags: [ai, llm, mcp, fastmcp, api]
+tags: ['ai', 'llm', 'mcp', 'api']
 updated: 2026-07-18
 difficulty: intermediate
 estimated_time: 5 min

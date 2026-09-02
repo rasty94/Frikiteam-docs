@@ -1,5 +1,6 @@
 ---
 title: "OpenStack Troubleshooting: Common Issues and Solutions"
+tags: ['openstack']
 description: "Comprehensive troubleshooting guide for OpenStack. Diagnose and fix common problems with Nova, Neutron, Cinder, Glance, and more."
 keywords: OpenStack, troubleshooting, debugging, errors, Nova, Neutron, Cinder, Glance, Keystone, logs, diagnostics
 date: 2026-01-25

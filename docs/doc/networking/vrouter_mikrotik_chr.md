@@ -1,7 +1,7 @@
 ---
 title: "MikroTik CHR (enrutador en la nube)"
 description: "Guía rápida para desplegar MikroTik CHR orientado a enrutamiento L3 y laboratorios ISP/WISP"
-tags: ['networking', 'mikrotik', 'chr']
+tags: ['networking', 'vrouter']
 updated: 2026-04-18
 difficulty: advanced
 estimated_time: 10 min

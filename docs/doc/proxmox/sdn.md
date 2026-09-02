@@ -1,7 +1,7 @@
 ---
 title: "Infraestructura: Proxmox SDN"
 description: "Documentación sobre infraestructura: proxmox sdn"
-tags: ['documentation']
+tags: ['proxmox', 'networking', 'virtualization']
 updated: 2025-12-25
 difficulty: advanced
 estimated_time: 1 min

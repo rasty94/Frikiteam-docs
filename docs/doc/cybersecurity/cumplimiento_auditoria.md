@@ -3,7 +3,7 @@ title: "Cumplimiento y Auditoría en DevOps: GDPR, ISO 27001 y OpenSCAP"
 description: "Cómo demostrar cumplimiento con evidencia técnica en vez de con documentos. GDPR e ISO 27001 traducidos a controles de infraestructura, escaneo con OpenSCAP, remediación automática y compliance as code."
 keywords: "gdpr, iso 27001, openscap, oscap, scap security guide, compliance as code, auditd, cis-cat, lynis, evidencia auditoria"
 date: 2026-07-19
-tags: [cybersecurity, compliance, gdpr, iso27001, openscap, auditd, audit, devsecops]
+tags: ['cybersecurity', 'compliance', 'logs', 'devsecops']
 draft: false
 updated: 2026-07-19
 difficulty: intermediate

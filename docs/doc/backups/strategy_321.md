@@ -1,9 +1,6 @@
 ---
 title: "Estrategia de Backup 3-2-1"
-tags:
-  - backups
-  - theory
-  - best-practices
+tags: ['backups', 'best-practices']
 updated: 2025-12-08
 difficulty: advanced
 estimated_time: 1 min

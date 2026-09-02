@@ -3,7 +3,7 @@ title: "Backup Seguro: cifrado, inmutabilidad y testing de restauración"
 description: "La capa de seguridad que le falta a tu backup: modelo de amenaza frente a ransomware, cifrado en restic y borg, repositorios append-only e inmutables, y sobre todo cómo probar de verdad que la restauración funciona."
 keywords: "backup seguro, ransomware, restic, borg, append-only, s3 object lock, immutable backup, restore testing, rto, rpo, disaster recovery"
 date: 2026-07-19
-tags: [cybersecurity, backups, ransomware, restic, borg, immutability, disaster-recovery]
+tags: ['cybersecurity', 'backups']
 draft: false
 updated: 2026-07-19
 difficulty: intermediate

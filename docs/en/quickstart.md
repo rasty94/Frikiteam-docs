@@ -1,5 +1,6 @@
 ---
 title: Quickstart — Get Started and Contribute
+tags: ['documentation']
 summary: Quick guide to get the site up and running and contribute content.
 updated: 2026-01-25
 ---

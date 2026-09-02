@@ -3,7 +3,7 @@ title: "Open-source vs cloud LLMs: cost, latency, privacy and control"
 description: "A practical analysis of when to use a local LLM and when to use a cloud API: real cost formula, TTFT versus tokens/s, legal privacy requirements, model versioning and a multi-server fallback architecture implemented in this repository"
 keywords: "llm local, llm cloud, open source llm, coste inferencia, ttft, latencia, privacidad, fallback, vllm, ollama"
 date: 2026-07-19
-tags: [ai, llm, arquitectura, coste, privacidad, fallback]
+tags: ['ai', 'llm', 'devops', 'cost', 'compliance', 'high-availability']
 draft: false
 updated: 2026-07-19
 difficulty: intermediate

@@ -1,5 +1,6 @@
 ---
 title: "Proxmox — Guía de Migración (VMs y Contenedores)"
+tags: ['proxmox']
 
 updated: 2026-01-23
 difficulty: intermediate

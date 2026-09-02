@@ -2,7 +2,7 @@
 title: "Plausible Analytics Self-Hosted"
 description: "Complete guide to deploying self-hosted Plausible Analytics: a lightweight, privacy-friendly alternative to Google Analytics"
 keywords: "analytics, plausible, privacy, gdpr, self-hosted, docker"
-tags: [monitoring, analytics, privacy, plausible]
+tags: ['monitoring', 'compliance']
 updated: 2026-07-18
 difficulty: intermediate
 estimated_time: 4 min

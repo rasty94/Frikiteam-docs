@@ -1,7 +1,7 @@
 ---
 title: "WireGuard VPN"
-tags: ['documentation']
-category: Operating System
+tags: ['linux', 'vpn', 'wireguard']
+category: Linux
 updated: 2025-12-07
 difficulty: intermediate
 status: published

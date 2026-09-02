@@ -2,7 +2,7 @@
 title: "Coherence Evaluation in LLMs"
 description: "Evaluating consistency, reproducibility and bias detection in language models"
 date: 2026-01-25
-tags: [ai, llm, evaluation, consistency, bias, reproducibility]
+tags: ['ai', 'llm', 'evaluation', 'best-practices']
 difficulty: advanced
 estimated_time: "40 min"
 category: Artificial Intelligence

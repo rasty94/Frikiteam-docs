@@ -2,7 +2,7 @@
 title: "Benchmarks de Rendimiento: Tailscale vs NetBird"
 description: "Comparativa detallada de rendimiento entre Tailscale y NetBird: latencia, throughput, uso de recursos y escenarios prácticos"
 date: 2026-01-25
-tags: [networking, vpn, overlay, benchmarks, tailscale, netbird]
+tags: ['networking', 'vpn', 'benchmarks']
 difficulty: intermediate
 estimated_time: "45 minutos"
 category: Redes

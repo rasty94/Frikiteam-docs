@@ -1,8 +1,6 @@
 ---
 title: "OpenStack Keystone"
-tags:
-  - identity
-  - openstack
+tags: ['identity', 'openstack']
 updated: 2025-12-07
 difficulty: beginner
 estimated_time: 1 min

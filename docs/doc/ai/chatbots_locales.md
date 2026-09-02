@@ -2,7 +2,7 @@
 title: "Chatbots Locales con LLMs"
 description: "Construcción de chatbots conversacionales usando Ollama y LLaMA.cpp, con integración a Slack, Discord y Telegram"
 date: 2026-01-25
-tags: [ai, llm, chatbots, ollama, slack, discord, telegram]
+tags: ['ai', 'llm', 'ollama', 'monitoring']
 difficulty: intermediate
 estimated_time: "30 min"
 category: Inteligencia Artificial

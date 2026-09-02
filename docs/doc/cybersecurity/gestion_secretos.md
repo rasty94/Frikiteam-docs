@@ -1,7 +1,7 @@
 ---
 title: "Gestión de Secretos"
 date: 2026-01-09
-tags: [cybersecurity, secrets-management, vault, kubernetes, aws]
+tags: ['cybersecurity', 'secrets', 'kubernetes', 'devops']
 draft: false
 updated: 2026-01-09
 difficulty: intermediate

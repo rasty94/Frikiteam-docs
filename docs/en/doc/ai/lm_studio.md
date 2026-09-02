@@ -2,7 +2,7 @@
 title: "LM Studio: local LLMs with a graphical interface"
 description: "Practical guide to LM Studio: installation, downloading and managing models, configuring context length and GPU offload, a local OpenAI-compatible API server, and the lms CLI"
 keywords: "lm studio, llm, local models, gguf, mlx, openai api, lms cli, gpu offload"
-tags: [ai, llm, lm-studio, local-models]
+tags: ['ai', 'llm']
 updated: 2026-07-18
 difficulty: intermediate
 estimated_time: 6 min

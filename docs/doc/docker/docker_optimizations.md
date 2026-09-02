@@ -1,5 +1,6 @@
 ---
 title: Docker — Optimización y Buenas Prácticas
+tags: ['docker']
 updated: 2025-12-07
 difficulty: expert
 estimated_time: 1 min

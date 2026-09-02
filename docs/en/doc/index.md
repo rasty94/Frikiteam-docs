@@ -1,5 +1,6 @@
 ---
 title: "Documentation"
+tags: ['documentation']
 updated: 2026-01-24
 ---
 

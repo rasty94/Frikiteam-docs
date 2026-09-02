@@ -1,6 +1,6 @@
 ---
 title: "OPNsense (virtual router/firewall)"
-tags: ['networking', 'security', 'opnsense']
+tags: ['networking', 'cybersecurity', 'vrouter']
 category: Networking
 updated: 2026-04-18
 difficulty: intermediate

@@ -3,7 +3,7 @@ title: "LLMs en Kubernetes con Helm y ArgoCD"
 description: "Empaquetar un servicio de inferencia (vLLM, Ollama) como chart de Helm y desplegarlo por GitOps con ArgoCD: values, probes para modelos que tardan minutos en cargar, gestión de pesos, secretos, multi-release y escalado por cola."
 keywords: "kubernetes, helm, argocd, gitops, vllm, ollama, inference, gpu, startupprobe, applicationset"
 date: 2026-07-19
-tags: [ai, kubernetes, helm, argocd, gitops, vllm, ollama, gpu]
+tags: ['ai', 'kubernetes', 'helm', 'argocd', 'gitops', 'vllm', 'ollama', 'gpu']
 draft: false
 updated: 2026-07-19
 difficulty: advanced

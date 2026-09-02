@@ -2,7 +2,7 @@
 title: "Seguridad en Kubernetes"
 date: 2025-01-25
 updated: 2026-01-25
-tags: [security, kubernetes, rbac, network-policies, pod-security]
+tags: ['cybersecurity', 'kubernetes', 'rbac', 'hardening']
 difficulty: intermediate
 estimated_time: 5 min
 category: Ciberseguridad

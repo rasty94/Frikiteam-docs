@@ -1,9 +1,6 @@
 ---
 title: "Keycloak: Gestión de Identidad"
-tags:
-  - identity
-  - security
-  - oidc
+tags: ['identity', 'cybersecurity']
 updated: 2025-12-08
 difficulty: intermediate
 estimated_time: 1 min

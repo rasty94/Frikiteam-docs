@@ -1,6 +1,6 @@
 ---
 title: "Pure Storage — Quick Guide"
-tags: [storage, pure_storage]
+tags: ['storage', 'pure-storage']
 category: Storage
 updated: 2026-01-25
 difficulty: beginner

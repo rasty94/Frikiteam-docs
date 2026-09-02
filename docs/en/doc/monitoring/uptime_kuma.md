@@ -1,6 +1,6 @@
 ---
 title: "Monitoring with Uptime Kuma"
-tags: [monitoring, uptime, status-pages, notifications]
+tags: ['monitoring']
 category: Monitoring
 updated: 2026-01-25
 difficulty: intermediate

@@ -1,6 +1,6 @@
 ---
 title: "FastAPI"
-tags: ['documentation']
+tags: ['programming', 'api']
 category: Development
 updated: 2026-01-24
 difficulty: advanced

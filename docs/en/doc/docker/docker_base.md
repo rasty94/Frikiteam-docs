@@ -1,6 +1,6 @@
 ---
 title: "Docker - Containers"
-tags: [docker, contenedores, base, virtualización]
+tags: ['docker', 'containers', 'virtualization']
 category: Containers
 updated: 2025-12-07
 difficulty: beginner

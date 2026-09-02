@@ -2,7 +2,7 @@
 title: Troubleshooting — Errores Comunes y Soluciones
 description: Soluciones a problemas comunes en MkDocs, Docker, Kubernetes, Ansible y otras tecnologías. Guía de debugging y resolución de errores.
 keywords: troubleshooting, errores, debugging, problemas comunes, soluciones, mkdocs, docker, kubernetes
-tags: [troubleshooting, errores, debugging, soporte]
+tags: ['troubleshooting', 'documentation']
 updated: 2025-11-15
 ---
 

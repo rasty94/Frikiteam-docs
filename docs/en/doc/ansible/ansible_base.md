@@ -1,7 +1,7 @@
 ---
 title: "Ansible - Infrastructure Automation"
 tags: ['ansible']
-category: Automation
+category: DevOps
 updated: 2025-11-15
 difficulty: beginner
 status: published

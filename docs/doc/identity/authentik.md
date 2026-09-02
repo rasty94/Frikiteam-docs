@@ -1,9 +1,6 @@
 ---
 title: "Authentik"
-tags:
-  - identity
-  - security
-  - sso
+tags: ['identity', 'cybersecurity']
 updated: 2025-12-07
 difficulty: intermediate
 estimated_time: 1 min

@@ -3,7 +3,7 @@ title: "Secretos en GitOps: SOPS, Sealed Secrets y External Secrets Operator"
 description: "Cómo versionar secretos en Git sin exponerlos. Comparativa práctica de SOPS, Sealed Secrets y External Secrets Operator: modelo de amenaza, rotación, disaster recovery e integración con ArgoCD."
 keywords: "sops, sealed secrets, external secrets operator, gitops, argocd, kubernetes secrets, age, kubeseal, vault"
 date: 2026-07-18
-tags: [cybersecurity, gitops, secrets, sops, sealed-secrets, external-secrets, argocd]
+tags: ['cybersecurity', 'gitops', 'secrets', 'argocd']
 draft: false
 updated: 2026-07-18
 difficulty: intermediate

@@ -2,7 +2,7 @@
 title: "Podman Quadlet — Contenedores como servicios de systemd"
 description: "Declarar contenedores como units de systemd: ficheros .container, .volume, .network y .pod, healthchecks, dependencias de arranque, auto-update y migración desde Compose."
 keywords: "podman, quadlet, systemd, contenedores, .container, healthcheck, auto-update, rootless, compose"
-tags: [containers, podman, systemd, quadlet]
+tags: ['containers', 'podman', 'systemd']
 updated: 2026-08-03
 difficulty: intermediate
 estimated_time: 20 min

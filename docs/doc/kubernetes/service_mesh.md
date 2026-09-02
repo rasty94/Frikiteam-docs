@@ -2,11 +2,11 @@
 title: "Service Mesh en Kubernetes: Istio vs Linkerd vs Cilium"
 description: "Comparativa práctica de Istio, Linkerd y Cilium Service Mesh: arquitectura, instalación real, mTLS, traffic splitting, overhead y cuándo NO necesitas un service mesh"
 keywords: "service mesh, istio, linkerd, cilium, ebpf, kubernetes, mtls, ambient mode, ztunnel, sidecar, traffic splitting, canary"
-tags: ['kubernetes', 'service-mesh', 'istio', 'linkerd', 'cilium', 'ebpf']
+tags: ['kubernetes', 'service-mesh', 'ebpf']
 updated: 2026-07-18
 difficulty: advanced
 estimated_time: 25 min
-category: Orquestación
+category: Contenedores
 status: published
 last_reviewed: 2026-07-18
 prerequisites:

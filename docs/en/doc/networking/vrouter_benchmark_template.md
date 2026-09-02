@@ -1,6 +1,6 @@
 ---
 title: "vRouter benchmark template"
-tags: ['networking', 'rendimiento', 'vrouter']
+tags: ['networking', 'performance', 'vrouter']
 category: Networking
 updated: 2026-04-18
 difficulty: intermediate

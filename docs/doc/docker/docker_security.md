@@ -1,5 +1,6 @@
 ---
 title: Docker — Seguridad y Scanning
+tags: ['docker']
 updated: 2026-01-24
 difficulty: intermediate
 estimated_time: 1 min

@@ -1,5 +1,6 @@
 ---
 title: Mermaid — Validation and usage
+tags: ['documentation']
 updated: 2026-07-18
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: Troubleshooting — Common Errors and Solutions
+tags: ['documentation']
 updated: 2025-11-15
 ---
 
