@@ -2,47 +2,78 @@
 
 Este documento rastrea las tareas pendientes y mejoras planificadas. El historial de tareas completadas y los logs de progreso de publicación viven en [`done.md`](done.md).
 
-## 📅 Pendiente de Contenido
+## 🔍 Diagnóstico (2026-09-02)
+
+La estructura está sana y el problema real es de mantenimiento, no de contenido nuevo.
+
+**Lo que ya está bien (no tocar):**
+- 149 páginas ES y 149 EN, sincronizadas al 100%, todas en el `nav` y todas con frontmatter.
+- CI con `mkdocs build --strict`, validación de Mermaid, enlaces rotos, vocabulario de tags y sincronía ES/EN. El checklist de publicación lo cumple la CI sola.
+- Vocabularios cerrados y validados en CI: 76 tags y 15 categorías, estas últimas con comprobación de que la traducción EN coincide. Señal de frescura derivada de `git log`.
+
+## 🎯 Plan de mejora (por orden de retorno)
+
+### 1. Engordar stubs antes que abrir temas nuevos
+Hay 17 páginas ES con menos de 40 líneas, ya enlazadas en el `nav` y por tanto visibles. Una página "avanzada" de 37 líneas hace más daño a la credibilidad que una página ausente. Prioridad por distancia entre título y contenido:
+- [ ] `doc/proxmox/migration_guide.md` (27 líneas)
+- [ ] `doc/terraform/terraform_state.md` (33)
+- [ ] `doc/haproxy/haproxy_advanced.md` (37)
+- [ ] `doc/ansible/roles_testing.md` (37)
+- [ ] `doc/docker/docker_security.md` (39)
+- [ ] `doc/identity/authentik.md` (38)
+- [ ] `doc/identity/keystone.md` (39)
+- [ ] `doc/monitoring/wazuh_logs.md` (39)
+- [ ] `doc/proxmox/sdn.md` (38)
+- [ ] `doc/programming/flutter.md` (35) y `doc/programming/react.md` (37)
+- [ ] `doc/storage/protocols/examples/fio_example.md` (30)
+- [ ] `troubleshooting.md` (37)
+
+Cada stub que se amplíe debe tocar también su gemelo en `docs/en/` y añadir entrada en Novedades de `docs/index.md` y `docs/en/index.md`.
+
+### 2. Cerrar la deuda "sin ejecutar"
+Vale más verificar estos tres puntos en un despliegue real que escribir un doc nuevo.
+- [ ] **TheHive/MISP:** el `docker-compose` está escrito de conocimiento. Contrastar al menos los tags de imagen (`strangebee/thehive:5.3`, `cassandra:4.1`, `elasticsearch:8.14.3`) contra los registries.
+- [ ] **OpenSCAP:** los comandos `oscap` y los paquetes SSG de Debian no se han probado.
+- [ ] **vLLM:** 4 métricas en `monitoreo_llms.md` (sufijo `_total` de algunos counters y `num_requests_waiting`) son extrapolaciones. El doc incluye un `curl /metrics | grep` para comprobarlas.
+
+### 3. Otra deuda operativa
+- [ ] **Desplegar Plausible** en servidor o revisar logs existentes para analytics básico.
+- [ ] **19 borradores en WordPress esperando revisión humana** en `frikiteam.es/wp-admin`. El pipeline no los publica: el paso a `publish` es decisión manual.
+- [ ] **25 páginas sin tocar en más de 90 días**, según `scripts/check_freshness.py` (ahora fiable). Concentradas en OpenStack (4), vRouters (6), Ceph/NetApp/Pure (4) y Cybersecurity (6). Revisar versiones y comandos.
+- [ ] **4 `index.md` del árbol ES sin frontmatter.** Es deliberado, por convención del proyecto los índices quedan excluidos del campo `updated`.
+
+## 🔮 Futurible (no ahora)
+
+- [ ] **Servidor de inferencia en `http://` sobre IP desnuda** (`INFERENCE_SERVERS` en `.env`, usado por `wordpress_sync.py`). La clave de API y el contenido reescrito viajan sin cifrar. Hoy el valor por defecto es `http://localhost:11434`, que no sale de la máquina; solo importa si se apunta a un servidor remoto. Cambiar la URL a https o meterlo tras VPN cuando eso ocurra.
+
+## 📅 Contenido nuevo (solo cuando lo anterior esté cerrado)
+
+Huecos reales, comprobados contra el repo el 2026-09-02:
+
+### Cybersecurity / Networking
+- [ ] **Zero-trust con Cilium** en Kubernetes (solo 2 menciones de paso en el repo).
+- [ ] **Forense digital:** recolección de logs, chain of custody, Volatility para memory forensics (1 mención).
+- [ ] **Cifrado at-rest en storage:** LUKS/dm-crypt, secure erase, protección contra ransomware en Ceph/Pure/NetApp (LUKS aparece en 2 docs).
+- [ ] **eBPF** como tema propio (hoy solo aparece dentro de service mesh y monitoreo).
+- [ ] **Cloud Security:** CIS Benchmarks en AWS/Azure/GCP, IAM best practices.
+- [ ] Optimización de MTU y MSS para 10G/40G.
+- [ ] BGP avanzado para multi-homing y load balancing.
+- [ ] Cross-references entre ciberseguridad y storage/networking.
+
+### Plataforma
+- [ ] Chaos Engineering.
+- [ ] Optimización de costes en Kubernetes.
 
 ### Storage
-- [ ] `doc/storage/protocols/protocols.md` (añadir más ejemplos reales)
-- [ ] **Storage para Modelos:** optimización de almacenamiento de checkpoints (Ceph, Pure), versionado con DVC.
+- [ ] `doc/storage/protocols/protocols.md`: añadir más ejemplos reales.
+- [ ] Storage para modelos: checkpoints en Ceph/Pure, versionado con DVC.
 
-### Networking
-- [ ] Networking zero-trust con Cilium en Kubernetes clusters.
-- [ ] Optimización de MTU y MSS para redes de alto rendimiento (10G/40G).
-- [ ] BGP avanzado para multi-homing y load balancing.
-- [ ] Seguridad en redes overlay: encriptación, segmentación y monitoreo.
-- [ ] **Networking para Inferencia:** optimización de bandwidth para descargas de modelos, caché distribuido con Redis.
+### Ya cubierto, retirado del roadmap
+Podman rootless (`doc/docker/podman_rootless.md`), PostgreSQL HA (`doc/databases/postgresql_ha.md`), WireGuard (15 docs), Let's Encrypt/certbot (9), Tailscale/NetBird, Nmap/Metasploit/Burp (pentesting básico), TLS.
 
-### Inteligencia Artificial
-- [ ] **Multi-agent Systems:** orquestación de múltiples LLMs, delegación de tareas, coordinación de flujos.
-- [ ] **LLMs en Edge:** despliegue en dispositivos IoT, Raspberry Pi, optimización para consumo de energía.
-- [ ] **Evaluación de Seguridad y Privacidad:** extracción de datos de entrenamiento, anonimización, GDPR compliance.
-- [ ] **Monitoreo y Observabilidad:** tracking de costos (si usan APIs), latencias, calidad de respuestas.
-- [ ] **CI/CD para Modelos:** validación automática de modelos, A/B testing de versiones, despliegue gradual.
-- [ ] Fine-tuning avanzado para dominios específicos (DevOps, networking, storage).
-- [ ] Evaluación de seguridad y privacidad.
-
-### Ciberseguridad
-- [ ] **Criptografía Aplicada:** TLS/SSL, certificados Let's Encrypt, VPNs (WireGuard, OpenVPN).
-- [ ] **Cloud Security:** posturas de seguridad en AWS/Azure/GCP (CIS Benchmarks), IAM best practices.
-- [ ] **Pentesting Básico:** herramientas open-source como Metasploit, Nmap, Burp Suite para ethical hacking.
-- [ ] **Forensics Digital:** recolección de logs, chain of custody, herramientas como Volatility para memory forensics.
-- [ ] **Ciberseguridad en Storage:** encriptación at-rest (LUKS, dm-crypt), secure erase, protección contra ransomware en Ceph/Pure/NetApp.
-- [ ] **Networking Seguro:** VPNs overlay (Tailscale vs NetBird), zero-trust networking con Cilium.
-- [ ] **Observabilidad con Seguridad:** dashboards de seguridad en Prometheus/Grafana, alertas en anomalías.
-- [ ] Cross-references entre ciberseguridad y las secciones de storage/networking existentes.
-
-## 🛠 Deuda pendiente (real)
-
-- [ ] **Desplegar Plausible** en servidor o revisar logs existentes para analytics básico.
-- [ ] **Sin ejecutar:** el `docker-compose` de TheHive/MISP y los comandos de `oscap` están escritos de conocimiento, no probados contra un despliegue real. Los tags de imagen (`strangebee/thehive:5.3`, `cassandra:4.1`, `elasticsearch:8.14.3`) y los paquetes SSG de Debian conviene contrastarlos antes de seguir la guía al pie de la letra.
-- [ ] **Sin verificar al 100%:** 4 métricas de vLLM en `monitoreo_llms.md` (el sufijo `_total` de algunos counters y `num_requests_waiting`) son extrapolaciones coherentes pero no confirmadas carácter a carácter. El documento avisa de ello e incluye un `curl /metrics | grep` para comprobarlas en tu propio despliegue.
-- [ ] **Huecos de roadmap sin empezar:** eBPF, Podman rootless, PostgreSQL HA, Chaos Engineering, optimización de costes en K8s.
-- [ ] **11 borradores en WordPress esperando revisión humana** en `frikiteam.es/wp-admin`. El pipeline no los publica: el paso a `publish` es decisión manual.
-- [ ] **4 `index.md` del árbol ES sin frontmatter.** Es deliberado, por convención del proyecto los índices quedan excluidos del campo `updated`.
-- [ ] **Servidor de inferencia principal en `http://` sobre IP desnuda:** la clave de API y el contenido enviado viajan sin cifrar. Cambiar la URL en `.env` basta si el servidor admite https o está tras VPN.
+### Aparcado: Inteligencia Artificial
+AI ya es la segunda sección más grande (25 docs) y el resto del repo tiene stubs sin rellenar. No abrir hasta cerrar el punto 1 (stubs):
+- Multi-agent systems, LLMs en edge, seguridad y privacidad (GDPR), observabilidad de costes/latencias, CI/CD para modelos, fine-tuning por dominio, networking para inferencia.
 
 ---
 

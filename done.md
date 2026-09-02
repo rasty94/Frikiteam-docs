@@ -2,6 +2,20 @@
 
 Registro de tareas completadas y logs de progreso, archivados desde `TODO.md` para mantener ese archivo centrado en lo pendiente.
 
+## 🧹 Higiene del repositorio (02/09/2026)
+
+- [x] **Vocabulario de tags cerrado.** De 229 tags únicos (≈180 usados una sola vez) a 76, definidos en `TAG_VOCABULARY` dentro de `scripts/validate_metadata.py`. Reescrito el frontmatter de 236 páginas en ambos árboles, unificando duplicados de formato (`'terraform'` con comillas), pares ES/EN (`privacy`/`privacidad`, `cost`/`coste`) y sinónimos de producto (`llama.cpp`/`llama-cpp`/`lm-studio` → `llm`). Queda 1 solo tag con un único uso.
+- [x] **76 páginas que no tenían ningún tag** ahora llevan al menos el de su área, derivado de la ruta. Antes la página de tags cubría la mitad del repo. Los 4 `index.md` sin frontmatter siguen excluidos a propósito.
+- [x] **`validate_metadata.py --strict`**: falla con código 1 ante cualquier tag fuera del vocabulario, e imprime fichero y tag infractor. Probado en ambos sentidos.
+- [x] **`check_freshness.py` derivado de `git log`.** Antes leía el campo `updated` del frontmatter, que nadie sube a mano, y marcaba 110 de 110 páginas como obsoletas. Ahora usa el último commit que tocó cada fichero, con el frontmatter como respaldo para ficheros sin commitear. Resultado: 25 páginas realmente obsoletas. Una sola llamada a `git log --name-only` para todo el árbol.
+- [x] **`check_sync.py --strict`**: mismo tratamiento, código 1 si hay desincronizados o errores.
+- [x] **Página de índice de tags** (`docs/tags.md` y `docs/en/tags.md`, marcador `<!-- material/tags -->`, entrada "Tags" en el nav). El plugin `tags` llevaba activo sin ninguna página que listara nada: los chips de cada página no enlazaban a ningún sitio. `tags_file` está deprecado en Material 9.7 y rompe `--strict`; el marcador en una página del nav basta.
+- [x] **13 páginas técnicas con tag placeholder `documentation`** (wireguard, ssh_security, systemd, argocd, github_actions, haproxy, traefik, fastapi, react, flutter, sdn, docker_base, contenido_tecnico) reetiquetadas con área y tema reales, en ambos árboles.
+- [x] **`check_freshness.py` ignora commits `chore(meta):`**, para que un commit masivo de frontmatter no ponga a cero la señal de obsolescencia. Convención anotada en `CONTRIBUTING.md`.
+- [x] **Campo `category` normalizado.** De 21 valores con solapes (`Linux` y `Sistema Operativo`, `Seguridad` y `Ciberseguridad`, `Orquestación` y `Contenedores`, `Load Balancing`, `CI/CD`, `Infraestructura como Código` y `Automatización` sueltos) a 15 en `CATEGORY_VOCABULARY`, todos con 3 o más páginas. Cambiadas 33 páginas. La categoría se pinta como badge en la cabecera, así que el árbol ES lleva el nombre en español y el EN su traducción.
+- [x] **`validate_metadata.py --strict` valida también la categoría**, incluyendo que cada página EN traduzca exactamente la de su gemela ES. Antes nada impedía que una traducción cambiara de categoría sin avisar. Probado contra valor inválido y contra par desparejado.
+- [x] **CI ampliada.** `docs-ci.yml` ejecuta ahora el vocabulario de tags y la sincronía ES/EN antes de `mkdocs build --strict`. Ninguno de los tres scripts de `scripts/` corría en CI hasta ahora, así que sus reglas se degradaban en silencio.
+
 ## 🚀 Estado Actual (Q4 2025)
 
 ### ✅ Completado / En Producción

@@ -13,6 +13,7 @@ Uso:
 """
 
 import os
+import sys
 import re
 from datetime import datetime
 from pathlib import Path
@@ -198,6 +199,8 @@ def main():
                         help='Aplicar correcciones automáticamente (añadir/remover notas)')
     parser.add_argument('--verbose', action='store_true',
                         help='Mostrar información detallada')
+    parser.add_argument('--strict', action='store_true',
+                        help='Salir con código 1 si hay desincronizados o errores')
     parser.add_argument('--es-path', type=str, default='docs',
                         help='Ruta a documentación ES (default: docs)')
     parser.add_argument('--en-path', type=str, default='docs/en',
@@ -253,6 +256,10 @@ def main():
     if out_of_sync and not args.fix:
         print("\n💡 Ejecuta con --fix para aplicar correcciones automáticamente")
 
+    if args.strict and (out_of_sync or errors):
+        return 1
+    return 0
+
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main() or 0)

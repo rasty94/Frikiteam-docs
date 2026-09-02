@@ -9,32 +9,64 @@ Uso:
 
 import os
 import re
+import subprocess
+from functools import lru_cache
 from datetime import datetime, timedelta
 from pathlib import Path
 import argparse
 
 
+@lru_cache(maxsize=1)
+def git_last_touched():
+    """Mapa {ruta: fecha ISO} del ultimo commit que toco cada fichero bajo docs/.
+
+    Se lee de git y no del frontmatter: el campo `updated` depende de que alguien
+    se acuerde de subirlo a mano, y en la practica nadie lo hace, asi que marcaba
+    el 100% de las paginas como obsoletas.
+    """
+    try:
+        out = subprocess.run(
+            ['git', 'log', '--format=%cs', '--name-only', '--no-renames',
+             # Los commits que solo tocan frontmatter (tags, metadatos) no cuentan
+             # como "revisar el contenido": van con prefijo chore(meta) por convencion.
+             '--invert-grep', '--grep=^chore(meta)', '--', 'docs'],
+            capture_output=True, text=True, check=True,
+        ).stdout
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return {}
+
+    fechas, actual = {}, None
+    for linea in out.splitlines():
+        linea = linea.strip()
+        if not linea:
+            continue
+        if re.fullmatch(r'\d{4}-\d{2}-\d{2}', linea):
+            actual = linea
+        elif actual and linea not in fechas:
+            # git log va de mas nuevo a mas viejo: la primera aparicion es la ultima vez
+            fechas[linea] = actual
+    return fechas
+
+
 def extract_updated_date(file_path):
-    """Extrae la fecha 'updated' del frontmatter YAML."""
+    """Fecha del ultimo cambio real del fichero, segun git; frontmatter como respaldo."""
+    fecha_git = git_last_touched().get(str(file_path))
+    if fecha_git:
+        return datetime.strptime(fecha_git, '%Y-%m-%d')
+
+    # Respaldo para ficheros aun no commiteados
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
-            
-        # Buscar frontmatter YAML
         frontmatter_match = re.search(r'^---\n(.*?)\n---', content, re.DOTALL)
         if not frontmatter_match:
             return None
-            
-        frontmatter = frontmatter_match.group(1)
-        
-        # Buscar campo 'updated'
-        updated_match = re.search(r'^updated:\s*(\d{4}-\d{2}-\d{2})', frontmatter, re.MULTILINE)
+        updated_match = re.search(r'^updated:\s*(\d{4}-\d{2}-\d{2})',
+                                  frontmatter_match.group(1), re.MULTILINE)
         if updated_match:
-            date_str = updated_match.group(1)
-            return datetime.strptime(date_str, '%Y-%m-%d')
-            
+            return datetime.strptime(updated_match.group(1), '%Y-%m-%d')
         return None
-    except Exception as e:
+    except OSError as e:
         print(f"Error leyendo {file_path}: {e}")
         return None
 

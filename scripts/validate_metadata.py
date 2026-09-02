@@ -14,10 +14,47 @@ Uso:
 
 import os
 import re
+import sys
 from datetime import datetime
 from pathlib import Path
 from collections import defaultdict, Counter
 import argparse
+
+
+# Vocabulario cerrado de tags. Cualquier tag fuera de esta lista hace fallar
+# `--strict`, para que la pagina de tags siga agrupando en vez de dispersarse.
+# Para añadir uno nuevo: justificarlo con al menos 2-3 documentos que lo usen.
+TAG_VOCABULARY = {
+    # Areas
+    'ai', 'llm', 'networking', 'cybersecurity', 'storage', 'monitoring', 'kubernetes',
+    'docker', 'linux', 'devops', 'databases', 'backups', 'identity', 'programming',
+    'virtualization', 'documentation',
+    # Transversales
+    'automation', 'performance', 'high-availability', 'troubleshooting', 'testing',
+    'best-practices', 'observability', 'benchmarks', 'migration', 'compliance', 'api', 'cost',
+    # Storage y virtualizacion
+    'ceph', 'netapp', 'pure-storage', 'proxmox', 'openstack',
+    # IaC y entrega continua
+    'terraform', 'ansible', 'gitops', 'ci-cd', 'helm', 'argocd',
+    # Monitorizacion
+    'prometheus', 'grafana', 'loki', 'logs',
+    # Seguridad
+    'firewall', 'vpn', 'wireguard', 'zero-trust', 'encryption', 'hardening', 'pentesting',
+    'forensics', 'secrets', 'rbac', 'supply-chain', 'vulnerability-scanning',
+    'incident-response', 'siem', 'devsecops',
+    # Contenedores
+    'containers', 'podman', 'service-mesh', 'ebpf',
+    # IA aplicada
+    'vllm', 'ollama', 'rag', 'vector-db', 'fine-tuning', 'quantization',
+    'prompt-engineering', 'mcp', 'gpu', 'inference', 'evaluation',
+    # Sistema
+    'vrouter', 'bash', 'systemd',
+}
+
+
+def validate_tags(fields):
+    """Devuelve los tags del fichero que no estan en el vocabulario cerrado."""
+    return sorted(t for t in fields.get('tags', []) if t not in TAG_VOCABULARY)
 
 
 def extract_frontmatter(file_path):
@@ -261,6 +298,68 @@ def print_report(stats):
         print()
 
 
+# Vocabulario cerrado de categorias, ES -> EN. La categoria se pinta como badge
+# en la cabecera de cada pagina, asi que cada arbol usa su idioma y los gemelos
+# ES/EN deben apuntar al mismo concepto.
+CATEGORY_VOCABULARY = {
+    'Redes': 'Networking',
+    'Inteligencia Artificial': 'Artificial Intelligence',
+    'Ciberseguridad': 'Cybersecurity',
+    'Contenedores': 'Containers',
+    'Almacenamiento': 'Storage',
+    'DevOps': 'DevOps',
+    'Linux': 'Linux',
+    'Cloud Computing': 'Cloud Computing',
+    'Monitoreo': 'Monitoring',
+    'Gestión de Identidad': 'Identity Management',
+    'Virtualización': 'Virtualization',
+    'Bases de Datos': 'Databases',
+    'Copias de Seguridad': 'Backups',
+    'Desarrollo': 'Development',
+    'General': 'General',
+}
+
+
+def check_categories(docs_paths):
+    """Devuelve [(ruta, problema)] por categoria invalida o desparejada entre ES y EN."""
+    problemas = []
+    for docs_path in docs_paths:
+        es_tree = 'docs/en/' not in str(docs_path)
+        for md in sorted(Path(docs_path).rglob('*.md')):
+            fields = extract_frontmatter(md)
+            if not fields or 'category' not in fields:
+                continue
+            cat = str(fields['category']).strip()
+            if es_tree:
+                if cat not in CATEGORY_VOCABULARY:
+                    problemas.append((str(md), f"categoría '{cat}' fuera del vocabulario"))
+                    continue
+                gemelo = Path(str(md).replace('docs/', 'docs/en/', 1))
+                campos_en = extract_frontmatter(gemelo) if gemelo.exists() else None
+                if campos_en and 'category' in campos_en:
+                    cat_en = str(campos_en['category']).strip()
+                    esperado = CATEGORY_VOCABULARY[cat]
+                    if cat_en != esperado:
+                        problemas.append((str(gemelo), f"categoría '{cat_en}' debería ser '{esperado}' (ES: '{cat}')"))
+            elif cat not in CATEGORY_VOCABULARY.values():
+                problemas.append((str(md), f"categoría '{cat}' fuera del vocabulario"))
+    return problemas
+
+
+def check_vocabulary(docs_paths):
+    """Recorre los arboles y devuelve [(ruta, tags_invalidos)] de los ficheros infractores."""
+    offenders = []
+    for docs_path in docs_paths:
+        for md in sorted(Path(docs_path).rglob('*.md')):
+            fields = extract_frontmatter(md)
+            if not fields:
+                continue
+            bad = validate_tags(fields)
+            if bad:
+                offenders.append((str(md), bad))
+    return offenders
+
+
 def main():
     parser = argparse.ArgumentParser(description='Validar metadatos de documentación')
     parser.add_argument('--docs-path', type=str, nargs='+',
@@ -270,6 +369,8 @@ def main():
                         help='Analizar solo archivos de una categoría específica')
     parser.add_argument('--report', action='store_true',
                         help='Generar reporte completo')
+    parser.add_argument('--strict', action='store_true',
+                        help='Salir con codigo 1 si hay tags fuera del vocabulario')
 
     args = parser.parse_args()
 
@@ -300,6 +401,34 @@ def main():
             print(f"\n🚨 {len(stats['issues'])} archivos con problemas")
             print("Ejecuta con --report para ver detalles")
 
+    if args.strict:
+        fallo = False
+
+        offenders = check_vocabulary(args.docs_path)
+        if offenders:
+            fallo = True
+            print(f"\n❌ {len(offenders)} archivos con tags fuera del vocabulario:")
+            for path, bad in offenders:
+                print(f"  {path}: {', '.join(bad)}")
+            print(f"   Vocabulario permitido: {len(TAG_VOCABULARY)} tags en TAG_VOCABULARY")
+        else:
+            print("\n✅ Todos los tags pertenecen al vocabulario")
+
+        problemas = check_categories(args.docs_path)
+        if problemas:
+            fallo = True
+            print(f"\n❌ {len(problemas)} archivos con problemas de categoría:")
+            for path, motivo in problemas:
+                print(f"  {path}: {motivo}")
+            print(f"   Vocabulario permitido: {len(CATEGORY_VOCABULARY)} categorías en CATEGORY_VOCABULARY")
+        else:
+            print("✅ Todas las categorías son válidas y coinciden entre ES y EN")
+
+        if fallo:
+            print("\nAmbos vocabularios se definen en scripts/validate_metadata.py")
+            return 1
+    return 0
+
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main() or 0)

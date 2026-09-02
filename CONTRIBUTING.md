@@ -36,7 +36,9 @@ Mantén simple. Solo lo esencial:
 - [ ] **El contenido es correcto** (revisado personalmente)
 - [ ] **Los enlaces internos funcionan** (probado localmente)
 - [ ] **Tiene ejemplos o código** si aplica
-- [ ] **Frontmatter actualizado** (title, date, updated, tags)
+- [ ] **Frontmatter actualizado** (title, date, updated, tags). Los tags salen del vocabulario cerrado en `scripts/validate_metadata.py` (`TAG_VOCABULARY`); comprueba con `python scripts/validate_metadata.py --strict`. Un tag nuevo se justifica con al menos 2-3 páginas que lo usen.
+- [ ] **`category`** sale del vocabulario cerrado `CATEGORY_VOCABULARY` (15 valores). El árbol ES usa el nombre en español y el EN su traducción exacta; el validador comprueba que los gemelos coincidan.
+- [ ] Si el commit solo toca frontmatter (tags, metadatos), usa el prefijo `chore(meta):` para que `check_freshness.py` no lo cuente como revisión de contenido.
 - [ ] **Build sin errores**: `mkdocs build --strict`
 
 ## Código de conducta
