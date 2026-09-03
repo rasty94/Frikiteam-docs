@@ -12,6 +12,13 @@ Registro de tareas completadas y logs de progreso, archivados desde `TODO.md` pa
 - [x] **`privacy.md` mostraba la plantilla literal `{{ git_revision_date }}`** en ambos idiomas, porque el plugin `git-revision-date-localized` está deshabilitado por defecto (`enabled: !ENV [ENABLE_GIT_DATES, false]`). Sustituido por la fecha real.
 - [x] **Fila de tabla rota en React**: una barra vertical dentro de backticks sigue partiendo la celda en Markdown, y la columna final se perdía al renderizar.
 
+## 🌍 Asimetría ES/EN cerrada y metadatos muertos retirados (03/09/2026)
+
+- [x] **Las 5 parejas asimétricas, igualadas** traduciendo el lado bueno, sin ampliar ambos ni inventar contenido: ArgoCD (ES 40 → 237, el inglés era el original), optimizaciones de Docker (ES 50 → 123, ídem), probes de Kubernetes (ES 57 → 105, ídem), quickstart (EN 66 → 154) y protocolos de storage (EN 81 → 166). En tres de las cinco el árbol inglés estaba más completo que el español.
+- [x] **`check_sync.py --strict` ya falla ante una asimetría mayor del 40%.** Era aviso mientras había backlog; con la lista vacía se sube a fallo para que no vuelva. Probado creando una asimetría artificial.
+- [x] **`protocols.md` enlaza ahora a `fio_example.md` y a `kubernetes_csi.md`** en ambos idiomas. La página de fio se escribió el 2026-09-03 y su página padre natural no la referenciaba.
+- [x] **Metadatos muertos retirados**: 86 apariciones de `date:` y 50 de `draft: false`, en 103 ficheros. Nadie los leía: `macros.py` pinta el badge desde `status`, `hooks/drafts.py` solo mira `draft: true`, no hay plugin de blog y el `draft` de `wordpress_sync.py` es un estado de WordPress. Eran 86 y no 47 porque el conteo previo solo miró el árbol español.
+
 ## ✅ Deuda "sin ejecutar": dos de tres verificadas (03/09/2026)
 
 - [x] **Las 17 métricas de vLLM de `ai/monitoreo_llms.md` son correctas.** Contrastadas contra `vllm/v1/metrics/loggers.py` en la rama principal de vLLM, comprobando el tipo de cada una: los contadores (`prompt_tokens`, `generation_tokens`, `request_success`, `num_preemptions`, `prefix_cache_queries`, `prefix_cache_hits`) llevan el sufijo `_total` que añade `prometheus_client`, y los gauges (`num_requests_running`, `num_requests_waiting`, `kv_cache_usage_perc`) e histogramas no. El sufijo `_total` y `num_requests_waiting`, que el TODO marcaba como extrapolaciones, estaban bien.

@@ -10,11 +10,12 @@ La estructura está sana y el problema es de mantenimiento, no de contenido nuev
 - 150 páginas ES y 150 EN, todas en el `nav` y todas con frontmatter (salvo 4 `index.md`, excluidos a propósito).
 - CI: `mkdocs build --strict`, `validate_metadata.py --strict`, `check_sync.py --strict` y `test_wordpress_format.py` en el job `build`; Mermaid y enlaces rotos en el job `quality`.
 - `draft: true` excluye la página del sitio de verdad (`hooks/drafts.py`), y el validador exige que ambos idiomas coincidan.
+- `check_sync.py --strict` falla si una gemela difiere más de un 40% en tamaño respecto a la otra.
 - Vocabularios cerrados y validados: 76 tags y 15 categorías, estas últimas comprobando que la traducción EN coincide con la ES.
 - Señal de frescura derivada de `git log`, ignorando los commits `chore(meta)`.
 - Índice de tags navegable en `docs/tags.md` y `docs/en/tags.md`.
 
-**Matiz importante:** «sincronizadas» significa que las fechas coinciden, no que el contenido sea equivalente. Quedan 5 parejas con asimetría real (ver punto 2).
+**Matiz:** «sincronizadas» empezó significando solo que las fechas coinciden. Desde el 2026-09-03 `check_sync.py --strict` compara también el tamaño y falla si difiere más de un 40%, así que una traducción a medias ya no pasa la CI.
 
 ## 🎯 Plan de mejora (por orden de retorno)
 
@@ -26,21 +27,6 @@ TheHive/MISP y vLLM se verificaron el 2026-09-03 (ver `done.md`). Queda uno:
 - [ ] **Desplegar Plausible** en servidor o revisar logs existentes para analytics básico.
 - [ ] **19 borradores en WordPress esperando revisión humana** en `frikiteam.es/wp-admin`. El pipeline no los publica: el paso a `publish` es decisión manual.
 - [ ] **22 páginas sin tocar en más de 90 días**, según `scripts/check_freshness.py` (ahora fiable). Concentradas en OpenStack, vRouters, Ceph/NetApp/Pure y Cybersecurity. Revisar versiones y comandos.
-- [ ] **Cerrar la asimetría de contenido ES/EN.** `check_sync.py` la detecta y la reporta como aviso (umbral del 40%, constante `UMBRAL_ASIMETRIA`). No bloquea la CI todavía porque hay backlog previo. Pendientes a 2026-09-03:
-
-    | Página | ES | EN | Diferencia |
-    |---|---|---|---|
-    | `cicd/argocd.md` | 40 | 232 | 82% |
-    | `docker/docker_optimizations.md` | 50 | 117 | 57% |
-    | `quickstart.md` | 153 | 67 | 56% |
-    | `storage/protocols/protocols.md` | 162 | 81 | 50% |
-    | `kubernetes/probes.md` | 57 | 99 | 42% |
-
-    En ArgoCD, `docker_optimizations` y `probes` el árbol inglés está más completo que el español, al revés de lo habitual. Cuando la lista quede vacía, subir el aviso a fallo en `--strict`.
-
-    Nota: el chequeo salta los `index.md` por diseño heredado, así que no ve `networking/index.md` (115 ES / 21 EN). Y `ai/contenido_tecnico.md` (886/1256) y `ai/analisis_logs.md` (937/1261) quedan por debajo del umbral pese a diferir en más de 300 líneas; si molestan, bajar el umbral a 0.25.
-
-- [ ] **Limpiar metadatos muertos del frontmatter.** Quedan 47 páginas con `date:`, que no consume nadie (la fecha buena es `updated`). `draft: false` sigue en 50 páginas: ahora es semánticamente válido, pero redundante con no ponerlo. Ninguna de las dos cosas rompe nada; es limpieza.
 - [ ] **Frontmatter incompleto en el árbol EN.** Medido el 2026-09-03 sobre 150 pares:
 
     | Campo presente en ES y ausente en su gemela EN | Páginas |
@@ -149,7 +135,7 @@ Etiquetas de PR: `docs`, `docs-review`, `docs-ready`
 
 - [ ] `mkdocs build --strict`: sin avisos ni errores.
 - [ ] `python scripts/validate_metadata.py --strict`: tags y categorías dentro del vocabulario, y categoría EN emparejada con la ES.
-- [ ] `python scripts/check_sync.py --strict`: sin desincronizados. Revisa también el aviso de asimetría por si la traducción se ha quedado corta.
+- [ ] `python scripts/check_sync.py --strict`: sin desincronizados y sin asimetría de tamaño mayor del 40%.
 - [ ] `./validate_mermaid.sh` si has tocado diagramas.
 - [ ] Página gemela en el otro idioma, con la misma estructura y las mismas fechas.
 - [ ] Llaves de Jinja en bloques de código envueltas en `raw`. Ver [Troubleshooting](docs/troubleshooting.md).
