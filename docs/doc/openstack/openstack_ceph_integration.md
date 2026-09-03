@@ -229,6 +229,7 @@ ceph_rbd_cache_max_dirty: "50331648"  # 48 MB
 
 Crear `/etc/kolla/config/cinder/cinder-volume.conf`:
 
+{% raw %}
 ```ini
 [DEFAULT]
 enabled_backends = rbd-1
@@ -245,6 +246,7 @@ rados_connect_timeout = -1
 rbd_user = cinder
 rbd_secret_uuid = {{ cinder_rbd_secret_uuid }}  # Kolla lo genera automáticamente
 ```
+{% endraw %}
 
 ### 2.4 Configurar Glance con Backend Ceph
 
@@ -264,6 +266,7 @@ rbd_store_chunk_size = 8
 
 Crear `/etc/kolla/config/nova/nova-compute.conf`:
 
+{% raw %}
 ```ini
 [libvirt]
 images_type = rbd
@@ -274,6 +277,7 @@ rbd_secret_uuid = {{ cinder_rbd_secret_uuid }}
 disk_cachemodes = "network=writeback"
 hw_disk_discard = unmap
 ```
+{% endraw %}
 
 ## 🔄 Paso 3: Desplegar Configuración
 

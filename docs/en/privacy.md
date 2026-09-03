@@ -8,7 +8,7 @@ updated: 2026-07-18
 
 # Privacy Policy
 
-Last updated: {{ git_revision_date }}
+Last updated: 18 July 2026
 
 ## General Information
 

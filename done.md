@@ -2,6 +2,14 @@
 
 Registro de tareas completadas y logs de progreso, archivados desde `TODO.md` para mantener ese archivo centrado en lo pendiente.
 
+## 📚 Diez stubs convertidos en documentación (03/09/2026)
+
+- [x] **Diez páginas que eran esqueletos de 27-39 líneas** pasan a 320-380 líneas en español e inglés, con paridad exacta de secciones, bloques de código y tablas: Terraform (state), Docker (seguridad), HAProxy avanzado, Wazuh (logs), Ansible (roles y Molecule), Proxmox (migración), Authentik, Keystone, React en producción y fio. Todas con sección de troubleshooting y avisos explícitos donde algo depende de la versión, para no engordar la deuda de "escrito de conocimiento, no probado".
+- [x] **Entradas de Novedades** en `docs/index.md` y `docs/en/index.md`.
+- [x] **Bug real corregido: el plugin de macros se comía variables Jinja sin proteger.** `"legendFormat": "{{instance}}"` llegaba al HTML publicado como `"legendFormat": ""`, así que quien copiaba el JSON de Grafana se llevaba un panel roto. Afectaba a `monitoring/observability_stack.md`, `ai/despliegue_kubernetes.md`, `openstack/kolla_deployment.md` y `openstack/openstack_ceph_integration.md`, en ambos idiomas. 18 bloques envueltos en `{% raw %}`; verificado sobre el HTML generado, no solo sobre el código fuente.
+- [x] **`privacy.md` mostraba la plantilla literal `{{ git_revision_date }}`** en ambos idiomas, porque el plugin `git-revision-date-localized` está deshabilitado por defecto (`enabled: !ENV [ENABLE_GIT_DATES, false]`). Sustituido por la fecha real.
+- [x] **Fila de tabla rota en React**: una barra vertical dentro de backticks sigue partiendo la celda en Markdown, y la columna final se perdía al renderizar.
+
 ## 🧹 Higiene del repositorio (02/09/2026)
 
 - [x] **Vocabulario de tags cerrado.** De 229 tags únicos (≈180 usados una sola vez) a 76, definidos en `TAG_VOCABULARY` dentro de `scripts/validate_metadata.py`. Reescrito el frontmatter de 236 páginas en ambos árboles, unificando duplicados de formato (`'terraform'` con comillas), pares ES/EN (`privacy`/`privacidad`, `cost`/`coste`) y sinónimos de producto (`llama.cpp`/`llama-cpp`/`lm-studio` → `llm`). Queda 1 solo tag con un único uso.

@@ -406,6 +406,7 @@ spec:
 
 ### Dashboard de Grafana
 
+{% raw %}
 ```json
 {
   "dashboard": {
@@ -435,6 +436,7 @@ spec:
   }
 }
 ```
+{% endraw %}
 
 ## 🔄 Estrategias de Actualización
 

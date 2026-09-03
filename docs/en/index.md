@@ -14,6 +14,23 @@ My idea is to provide practical, clear, and useful documentation about the techn
 
 ## 🆕 Latest Updates
 
+### 📅 **September 3, 2026**
+
+#### 📚 **Ten guides that were skeletons and are now documentation (ES/EN)**
+
+Ten pages that sat in the index with thirty lines and a promising title. They now carry reproducible content, a troubleshooting section, and explicit warnings wherever something depends on the version.
+
+- **Terraform**: [state backend and migration](doc/terraform/terraform_state.md) — what the state holds and why it contains plaintext secrets, S3 with locking and a minimal IAM policy, the difference between `-migrate-state` and `-reconfigure`, and why workspaces do not isolate credentials.
+- **Docker**: [hardening, secrets and scanning](doc/docker/docker_security.md) — the daemon is root-equivalent, capabilities, read-only filesystems, secrets that must never reach a layer and how to find them if they already did.
+- **HAProxy advanced**: [balancing, TLS and high availability](doc/haproxy/haproxy_advanced.md) — real criteria for picking an algorithm, stick tables for rate limiting, and what breaks a seamless reload.
+- **Wazuh**: [log centralization](doc/monitoring/wazuh_logs.md) — architecture and what fails when each piece goes down, custom rules that don't break the built-in ones, and testing with `wazuh-logtest` before applying.
+- **Ansible**: [roles and testing with Molecule](doc/ansible/roles_testing.md) — the four levels of checking, the idempotence test properly explained, and the patterns that break it.
+- **Proxmox**: [migrating VMs and containers](doc/proxmox/migration_guide.md) — the real requirements for live migration, and the drivers you must prepare before powering off the source.
+- **Authentik**: [SSO, flows and forward auth](doc/identity/authentik.md) — the data model everyone struggles with, and the proxy provider for applications with no SSO support.
+- **Keystone**: [identity, catalog and tokens](doc/identity/keystone.md) — domains and projects, mispointed endpoints, and why rotating Fernet keys badly invalidates sessions across the whole cloud.
+- **React in production**: [build, deployment and operations](doc/programming/react.md) — the 404 when reloading a client-side route, and why a secret in the bundle is an irreversible mistake.
+- **fio**: [measuring IOPS and latency without fooling yourself](doc/storage/protocols/examples/fio_example.md) — why `dd` won't do, the four canonical profiles, and the mistakes that invalidate a measurement.
+
 ### 📅 **August 3, 2026**
 
 #### 🛡️ **Linux operations: firewall, scripting and diagnosis (ES/EN)**

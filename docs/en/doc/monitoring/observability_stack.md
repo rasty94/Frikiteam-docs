@@ -219,6 +219,7 @@ kubectl get secret -n observability prometheus-grafana -o jsonpath="{.data.admin
 
 Importa el dashboard ID `1860` (Node Exporter Full) o crea uno personalizado:
 
+{% raw %}
 ```json
 {
   "dashboard": {
@@ -277,9 +278,11 @@ Importa el dashboard ID `1860` (Node Exporter Full) o crea uno personalizado:
   }
 }
 ```
+{% endraw %}
 
 ### Dashboard de Pods y Contenedores
 
+{% raw %}
 ```json
 {
   "dashboard": {
@@ -328,9 +331,11 @@ Importa el dashboard ID `1860` (Node Exporter Full) o crea uno personalizado:
   }
 }
 ```
+{% endraw %}
 
 ### Dashboard de Ingress y Services
 
+{% raw %}
 ```json
 {
   "dashboard": {
@@ -371,6 +376,7 @@ Importa el dashboard ID `1860` (Node Exporter Full) o crea uno personalizado:
   }
 }
 ```
+{% endraw %}
 
 ## � OpenTelemetry y Tracing Distribuido
 
@@ -732,6 +738,7 @@ spec:
 
 #### Dashboard de Ceph en Grafana
 
+{% raw %}
 ```json
 {
   "dashboard": {
@@ -782,6 +789,7 @@ spec:
   }
 }
 ```
+{% endraw %}
 
 ### Métricas de Pure Storage
 
@@ -837,6 +845,7 @@ node_netstat_Tcp_ActiveOpens
 
 ### Dashboard de Networking
 
+{% raw %}
 ```json
 {
   "dashboard": {
@@ -885,6 +894,7 @@ node_netstat_Tcp_ActiveOpens
   }
 }
 ```
+{% endraw %}
 
 ## 🔧 Troubleshooting con Jaeger
 

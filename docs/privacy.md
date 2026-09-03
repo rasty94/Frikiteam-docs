@@ -8,7 +8,7 @@ updated: 2025-11-15
 
 # Política de Privacidad
 
-Última actualización: {{ git_revision_date }}
+Última actualización: 15 de noviembre de 2025
 
 ## Información General
 

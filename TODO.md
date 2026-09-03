@@ -13,22 +13,11 @@ La estructura está sana y el problema real es de mantenimiento, no de contenido
 
 ## 🎯 Plan de mejora (por orden de retorno)
 
-### 1. Engordar stubs antes que abrir temas nuevos
-Hay 17 páginas ES con menos de 40 líneas, ya enlazadas en el `nav` y por tanto visibles. Una página "avanzada" de 37 líneas hace más daño a la credibilidad que una página ausente. Prioridad por distancia entre título y contenido:
-- [ ] `doc/proxmox/migration_guide.md` (27 líneas)
-- [ ] `doc/terraform/terraform_state.md` (33)
-- [ ] `doc/haproxy/haproxy_advanced.md` (37)
-- [ ] `doc/ansible/roles_testing.md` (37)
-- [ ] `doc/docker/docker_security.md` (39)
-- [ ] `doc/identity/authentik.md` (38)
-- [ ] `doc/identity/keystone.md` (39)
-- [ ] `doc/monitoring/wazuh_logs.md` (39)
-- [ ] `doc/proxmox/sdn.md` (38)
-- [ ] `doc/programming/flutter.md` (35) y `doc/programming/react.md` (37)
-- [ ] `doc/storage/protocols/examples/fio_example.md` (30)
-- [ ] `troubleshooting.md` (37)
-
-Cada stub que se amplíe debe tocar también su gemelo en `docs/en/` y añadir entrada en Novedades de `docs/index.md` y `docs/en/index.md`.
+### 1. Terminar los stubs pendientes
+Diez de los trece se completaron el 2026-09-03 (ver `done.md`). Quedan tres:
+- [ ] `doc/programming/flutter.md` (35 líneas). Mismo enfoque que React: construir, empaquetar y desplegar, no enseñar el framework.
+- [ ] `troubleshooting.md` (37). Página raíz orientada a quien trabaja con este repositorio: errores de `mkdocs build --strict`, el fallo por llaves de Jinja, enlaces rotos, vocabularios cerrados y entorno de Python.
+- [ ] `doc/proxmox/sdn.md`. Caso inverso: el árbol EN tiene 175 líneas y el ES 38. Traducir el inglés al español y ampliar ambos.
 
 ### 2. Cerrar la deuda "sin ejecutar"
 Vale más verificar estos tres puntos en un despliegue real que escribir un doc nuevo.
@@ -40,6 +29,24 @@ Vale más verificar estos tres puntos en un despliegue real que escribir un doc 
 - [ ] **Desplegar Plausible** en servidor o revisar logs existentes para analytics básico.
 - [ ] **19 borradores en WordPress esperando revisión humana** en `frikiteam.es/wp-admin`. El pipeline no los publica: el paso a `publish` es decisión manual.
 - [ ] **25 páginas sin tocar en más de 90 días**, según `scripts/check_freshness.py` (ahora fiable). Concentradas en OpenStack (4), vRouters (6), Ceph/NetApp/Pure (4) y Cybersecurity (6). Revisar versiones y comandos.
+- [ ] **`check_sync.py` solo compara fechas, no contenido.** Dice "143 sincronizados, 0 desincronizados" mientras hay pares ES/EN que difieren en cientos de líneas. Los peores, medidos el 2026-09-03:
+
+    | Página | ES | EN |
+    |---|---|---|
+    | `cicd/argocd.md` | 40 | 232 |
+    | `proxmox/sdn.md` | 38 | 175 |
+    | `ai/contenido_tecnico.md` | 886 | 1256 |
+    | `ai/analisis_logs.md` | 937 | 1261 |
+    | `networking/index.md` | 115 | 21 |
+    | `networking/dnssec.md` | 334 | 217 |
+    | `storage/protocols/protocols.md` | 162 | 81 |
+    | `docker/docker_optimizations.md` | 50 | 117 |
+    | `networking/vrouters.md` | 153 | 96 |
+    | `docker/docker_base.md` | 180 | 121 |
+
+    Dos casos son inversos a lo esperado: el árbol inglés de ArgoCD y de Proxmox SDN está completo y el español es un stub. Añadir al validador un aviso cuando la diferencia de tamaño supere un umbral (por ejemplo el 40%), que es señal de traducción incompleta o de contenido que solo existe en un idioma.
+
+- [ ] **Corregir `estimated_time` en 13 páginas.** Declaran 2-3 minutos para 160-250 líneas de contenido técnico. El badge lo ve el lector en la cabecera, así que miente sobre el esfuerzo. Las peores: `cybersecurity/firewall_red.md` (252 líneas, "3 min"), `cybersecurity/autenticacion_autorizacion.md` (244), `cybersecurity/monitoreo_seguridad.md` (220). Se puede derivar del recuento de palabras y validar como los otros dos vocabularios.
 - [ ] **4 `index.md` del árbol ES sin frontmatter.** Es deliberado, por convención del proyecto los índices quedan excluidos del campo `updated`.
 
 ## 🔮 Futurible (no ahora)

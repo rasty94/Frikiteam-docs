@@ -267,6 +267,7 @@ ansible_python_interpreter=/usr/bin/python3
 
 Editar `/etc/kolla/globals.yml`:
 
+{% raw %}
 ```yaml
 ---
 # Configuración básica
@@ -327,6 +328,7 @@ enable_kibana: "yes"
 # Passwords
 # NOTA: Se generarán automáticamente con kolla-genpwd
 ```
+{% endraw %}
 
 ### 3. Generar Passwords
 
