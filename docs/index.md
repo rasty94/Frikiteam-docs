@@ -22,7 +22,7 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 
 - **Proxmox SDN**: [redes definidas por software](doc/proxmox/sdn.md) — tipos de zona con criterio real de elección, y la MTU en overlays, que es la causa número uno de "va lento y a veces falla". Caso curioso: el árbol inglés estaba más completo que el español, así que aquí se tradujo al revés.
 - **Flutter en producción**: [build, firma y distribución](doc/programming/flutter.md) — credenciales de firma en CI sin meterlas en el repositorio, y por qué un secreto embebido en el binario es recuperable.
-- **Troubleshooting del repositorio**: [cuando el build se rompe](troubleshooting.md) — el fallo estrella de este sitio explicado a fondo: el plugin de macros interpreta las llaves de Jinja dentro de los bloques de código y, si la variable no existe, **borra el contenido en silencio** sin dar error. El fuente parece correcto y la página publicada sale mutilada.
+- **Troubleshooting del repositorio**: [cuando el build se rompe](troubleshooting.md) — el fallo estrella de este sitio explicado a fondo: el plugin de macros pasa cada página por Jinja antes que Markdown, y para Jinja un bloque de código no existe. Una tabla de qué hace con cada secuencia, y el caso que de verdad muerde: `${#ARRAY[@]}` abre un comentario de Jinja y, si más adelante aparece un `#}`, **borra todo lo que hay en medio sin dar error**.
 
 #### 📚 **Diez guías que eran esqueletos y ahora son documentación (ES/EN)**
 
