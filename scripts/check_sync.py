@@ -120,11 +120,32 @@ def remove_translation_pending_note(file_path):
         return False
 
 
+# Umbral de diferencia de tamaño entre gemelas ES/EN. Por encima de esto, una de
+# las dos está incompleta: traducción a medias, o contenido que solo existe en un
+# idioma. Es un aviso, no un fallo: hay un backlog previo que arrastrar (ver TODO).
+UMBRAL_ASIMETRIA = 0.40
+
+
+def medir_asimetria(es_file, en_file):
+    """Devuelve (líneas_es, líneas_en, ratio) o None si están dentro del umbral."""
+    try:
+        es_n = sum(1 for _ in open(es_file, encoding='utf-8'))
+        en_n = sum(1 for _ in open(en_file, encoding='utf-8'))
+    except OSError:
+        return None
+    mayor = max(es_n, en_n)
+    if mayor == 0:
+        return None
+    ratio = abs(es_n - en_n) / mayor
+    return (es_n, en_n, ratio) if ratio > UMBRAL_ASIMETRIA else None
+
+
 def check_sync_status(es_docs_path, en_docs_path, fix=False, verbose=False):
     """Verifica el estado de sincronización entre ES y EN."""
     out_of_sync = []
     up_to_date = []
     errors = []
+    asimetricos = []
 
     # Recorrer archivos ES
     for es_file in Path(es_docs_path).rglob('*.md'):
@@ -140,6 +161,11 @@ def check_sync_status(es_docs_path, en_docs_path, fix=False, verbose=False):
             if verbose:
                 print(f"⚠️  Archivo EN no existe: {en_file}")
             continue
+
+        # Aviso de asimetría de contenido (independiente de las fechas)
+        asim = medir_asimetria(es_file, en_file)
+        if asim:
+            asimetricos.append((es_file, en_file, *asim))
 
         # Comparar fechas de actualización
         es_updated = extract_updated_date(es_file)
@@ -190,7 +216,7 @@ def check_sync_status(es_docs_path, en_docs_path, fix=False, verbose=False):
             else:
                 up_to_date.append((es_file, en_file, es_updated, en_updated, "Sincronizado"))
 
-    return out_of_sync, up_to_date, errors
+    return out_of_sync, up_to_date, errors, asimetricos
 
 
 def main():
@@ -214,7 +240,7 @@ def main():
     print(f"   Modo fix: {'Sí' if args.fix else 'No'}")
     print()
 
-    out_of_sync, up_to_date, errors = check_sync_status(
+    out_of_sync, up_to_date, errors, asimetricos = check_sync_status(
         Path(args.es_path), Path(args.en_path), args.fix, args.verbose
     )
 
@@ -247,11 +273,21 @@ def main():
             print(f"  {error}")
         print()
 
+    if asimetricos:
+        print(f"⚠️  ASIMETRÍA DE CONTENIDO ({len(asimetricos)}):")
+        print("=" * 80)
+        print("   Las fechas coinciden pero el tamaño difiere más de un "
+              f"{int(UMBRAL_ASIMETRIA * 100)}%: una de las dos está incompleta.")
+        for es_file, en_file, es_n, en_n, ratio in sorted(asimetricos, key=lambda x: -x[4]):
+            print(f"  {es_file}  ES:{es_n} EN:{en_n}  ({int(ratio * 100)}% de diferencia)")
+        print()
+
     print("=" * 80)
     print("📊 RESUMEN:")
     print(f"  - Desincronizados: {len(out_of_sync)}")
     print(f"  - Sincronizados: {len(up_to_date)}")
     print(f"  - Errores: {len(errors)}")
+    print(f"  - Asimetría de contenido: {len(asimetricos)} (aviso, no bloquea)")
 
     if out_of_sync and not args.fix:
         print("\n💡 Ejecuta con --fix para aplicar correcciones automáticamente")

@@ -10,6 +10,17 @@ Registro de tareas completadas y logs de progreso, archivados desde `TODO.md` pa
 - [x] **`privacy.md` mostraba la plantilla literal `{{ git_revision_date }}`** en ambos idiomas, porque el plugin `git-revision-date-localized` está deshabilitado por defecto (`enabled: !ENV [ENABLE_GIT_DATES, false]`). Sustituido por la fecha real.
 - [x] **Fila de tabla rota en React**: una barra vertical dentro de backticks sigue partiendo la celda en Markdown, y la columna final se perdía al renderizar.
 
+## 📚 Los tres stubs restantes (03/09/2026)
+
+- [x] **Proxmox SDN, Flutter y la página de troubleshooting del repositorio**, completadas en ambos idiomas (330, 359 y 321 líneas). Con esto los 13 stubs del plan quedan cerrados.
+- [x] **Proxmox SDN era el caso inverso**: 175 líneas en inglés y 38 en español. Se partió del contenido inglés y se amplió en ambos, en vez de tirarlo.
+- [x] **La página de troubleshooting documenta el fallo de macros** encontrado ayer, incluido el matiz de que `${VARIABLE}` es inofensivo pero `${#array[@]}` no, porque `{#` abre un comentario de Jinja. Para mostrar `{% raw %}` literalmente en la propia página se emite mediante una expresión Jinja; verificado sobre el HTML generado.
+
+## 🔎 Señales de calidad que faltaban (03/09/2026)
+
+- [x] **`check_sync.py` detecta asimetría de contenido, no solo de fechas.** Comparaba únicamente el campo `updated`, así que daba por sincronizadas parejas ES/EN que difieren en cientos de líneas. Ahora avisa cuando el tamaño difiere más de un 40% (`UMBRAL_ASIMETRIA`). Es aviso y no fallo mientras quede backlog; la lista pendiente está en `TODO.md`. Encontró dos casos que un barrido manual no vio: `quickstart.md` (153/67) y `kubernetes/probes.md` (57/99).
+- [x] **`estimated_time` corregido en 13 páginas** (ambos idiomas). Declaraban de 2 a 3 minutos para 160-250 líneas de contenido técnico; `cybersecurity/firewall_red.md` decía 3 minutos para 253 líneas. Valor derivado de una fórmula (150 palabras/min de prosa más 5 s por línea de código, redondeado a múltiplos de 5), calibrada contra las páginas que ya tenían un valor sensato.
+
 ## 🧹 Higiene del repositorio (02/09/2026)
 
 - [x] **Vocabulario de tags cerrado.** De 229 tags únicos (≈180 usados una sola vez) a 76, definidos en `TAG_VOCABULARY` dentro de `scripts/validate_metadata.py`. Reescrito el frontmatter de 236 páginas en ambos árboles, unificando duplicados de formato (`'terraform'` con comillas), pares ES/EN (`privacy`/`privacidad`, `cost`/`coste`) y sinónimos de producto (`llama.cpp`/`llama-cpp`/`lm-studio` → `llm`). Queda 1 solo tag con un único uso.

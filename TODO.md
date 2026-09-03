@@ -29,24 +29,20 @@ Vale más verificar estos tres puntos en un despliegue real que escribir un doc 
 - [ ] **Desplegar Plausible** en servidor o revisar logs existentes para analytics básico.
 - [ ] **19 borradores en WordPress esperando revisión humana** en `frikiteam.es/wp-admin`. El pipeline no los publica: el paso a `publish` es decisión manual.
 - [ ] **25 páginas sin tocar en más de 90 días**, según `scripts/check_freshness.py` (ahora fiable). Concentradas en OpenStack (4), vRouters (6), Ceph/NetApp/Pure (4) y Cybersecurity (6). Revisar versiones y comandos.
-- [ ] **`check_sync.py` solo compara fechas, no contenido.** Dice "143 sincronizados, 0 desincronizados" mientras hay pares ES/EN que difieren en cientos de líneas. Los peores, medidos el 2026-09-03:
+- [ ] **Cerrar la asimetría de contenido ES/EN.** `check_sync.py` ya la detecta y la reporta como aviso (umbral del 40%, constante `UMBRAL_ASIMETRIA`). No bloquea la CI todavía porque hay backlog previo. Pendientes a 2026-09-03:
 
-    | Página | ES | EN |
-    |---|---|---|
-    | `cicd/argocd.md` | 40 | 232 |
-    | `proxmox/sdn.md` | 38 | 175 |
-    | `ai/contenido_tecnico.md` | 886 | 1256 |
-    | `ai/analisis_logs.md` | 937 | 1261 |
-    | `networking/index.md` | 115 | 21 |
-    | `networking/dnssec.md` | 334 | 217 |
-    | `storage/protocols/protocols.md` | 162 | 81 |
-    | `docker/docker_optimizations.md` | 50 | 117 |
-    | `networking/vrouters.md` | 153 | 96 |
-    | `docker/docker_base.md` | 180 | 121 |
+    | Página | ES | EN | Diferencia |
+    |---|---|---|---|
+    | `cicd/argocd.md` | 40 | 232 | 82% |
+    | `docker/docker_optimizations.md` | 50 | 117 | 57% |
+    | `quickstart.md` | 153 | 67 | 56% |
+    | `storage/protocols/protocols.md` | 162 | 81 | 50% |
+    | `kubernetes/probes.md` | 57 | 99 | 42% |
 
-    Dos casos son inversos a lo esperado: el árbol inglés de ArgoCD y de Proxmox SDN está completo y el español es un stub. Añadir al validador un aviso cuando la diferencia de tamaño supere un umbral (por ejemplo el 40%), que es señal de traducción incompleta o de contenido que solo existe en un idioma.
+    En ArgoCD, `docker_optimizations` y `probes` el árbol inglés está más completo que el español, al revés de lo habitual. Cuando la lista quede vacía, subir el aviso a fallo en `--strict`.
 
-- [ ] **Corregir `estimated_time` en 13 páginas.** Declaran 2-3 minutos para 160-250 líneas de contenido técnico. El badge lo ve el lector en la cabecera, así que miente sobre el esfuerzo. Las peores: `cybersecurity/firewall_red.md` (252 líneas, "3 min"), `cybersecurity/autenticacion_autorizacion.md` (244), `cybersecurity/monitoreo_seguridad.md` (220). Se puede derivar del recuento de palabras y validar como los otros dos vocabularios.
+    Nota: el chequeo salta los `index.md` por diseño heredado, así que no ve `networking/index.md` (115 ES / 21 EN). Y `ai/contenido_tecnico.md` (886/1256) y `ai/analisis_logs.md` (937/1261) quedan por debajo del umbral pese a diferir en más de 300 líneas; si molestan, bajar el umbral a 0.25.
+
 - [ ] **4 `index.md` del árbol ES sin frontmatter.** Es deliberado, por convención del proyecto los índices quedan excluidos del campo `updated`.
 
 ## 🔮 Futurible (no ahora)
