@@ -38,6 +38,7 @@ Mantén simple. Solo lo esencial:
 - [ ] **Tiene ejemplos o código** si aplica
 - [ ] **Frontmatter actualizado** (title, date, updated, tags). Los tags salen del vocabulario cerrado en `scripts/validate_metadata.py` (`TAG_VOCABULARY`); comprueba con `python scripts/validate_metadata.py --strict`. Un tag nuevo se justifica con al menos 2-3 páginas que lo usen.
 - [ ] **`category`** sale del vocabulario cerrado `CATEGORY_VOCABULARY` (15 valores). El árbol ES usa el nombre en español y el EN su traducción exacta; el validador comprueba que los gemelos coincidan.
+- [ ] **`draft: true` excluye la página del sitio de verdad** (`hooks/drafts.py`): no se renderiza, no entra en el buscador ni en el índice de tags, y su entrada del `nav` se poda. Debe declararse en los dos idiomas o en ninguno; `validate_metadata.py --strict` falla si solo lo lleva uno. Ojo: si otras páginas la enlazan, `mkdocs build --strict` fallará por enlace roto, y es lo correcto: quita también los enlaces antes de marcarla como borrador.
 - [ ] Si el commit solo toca frontmatter (tags, metadatos), usa el prefijo `chore(meta):` para que `check_freshness.py` no lo cuente como revisión de contenido.
 - [ ] **Build sin errores**: `mkdocs build --strict`
 

@@ -346,6 +346,29 @@ def check_categories(docs_paths):
     return problemas
 
 
+def check_drafts(docs_paths):
+    """Devuelve [(ruta, problema)] cuando una gemela es borrador y la otra no.
+
+    `draft: true` excluye la página del sitio (ver `hooks/drafts.py`). Si solo lo
+    lleva uno de los dos idiomas, se publica media página y nadie se entera.
+    """
+    problemas = []
+    for docs_path in docs_paths:
+        if 'docs/en/' in str(docs_path).replace('\\', '/'):
+            continue
+        for md in sorted(Path(docs_path).rglob('*.md')):
+            gemelo = Path(str(md).replace('docs/', 'docs/en/', 1))
+            if not gemelo.exists():
+                continue
+            es_borrador = str((extract_frontmatter(md) or {}).get('draft', '')).lower() == 'true'
+            en_borrador = str((extract_frontmatter(gemelo) or {}).get('draft', '')).lower() == 'true'
+            if es_borrador != en_borrador:
+                cual = 'ES' if es_borrador else 'EN'
+                otro = 'EN' if es_borrador else 'ES'
+                problemas.append((str(md), f"solo la versión {cual} es borrador; la {otro} se publicaría igual"))
+    return problemas
+
+
 def check_vocabulary(docs_paths):
     """Recorre los arboles y devuelve [(ruta, tags_invalidos)] de los ficheros infractores."""
     offenders = []
@@ -423,6 +446,17 @@ def main():
             print(f"   Vocabulario permitido: {len(CATEGORY_VOCABULARY)} categorías en CATEGORY_VOCABULARY")
         else:
             print("✅ Todas las categorías son válidas y coinciden entre ES y EN")
+
+        borradores = check_drafts(args.docs_path)
+        if borradores:
+            fallo = True
+            print(f"\n❌ {len(borradores)} páginas con estado de borrador desparejado:")
+            for path, motivo in borradores:
+                print(f"  {path}: {motivo}")
+            print("   `draft: true` excluye la página del sitio (hooks/drafts.py);"
+                  " debe declararse en los dos idiomas o en ninguno.")
+        else:
+            print("✅ El estado de borrador coincide entre ES y EN")
 
         if fallo:
             print("\nAmbos vocabularios se definen en scripts/validate_metadata.py")

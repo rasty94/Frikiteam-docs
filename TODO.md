@@ -9,6 +9,7 @@ La estructura está sana y el problema es de mantenimiento, no de contenido nuev
 **Lo que ya está bien (no tocar):**
 - 150 páginas ES y 150 EN, todas en el `nav` y todas con frontmatter (salvo 4 `index.md`, excluidos a propósito).
 - CI: `mkdocs build --strict`, `validate_metadata.py --strict`, `check_sync.py --strict` y `test_wordpress_format.py` en el job `build`; Mermaid y enlaces rotos en el job `quality`.
+- `draft: true` excluye la página del sitio de verdad (`hooks/drafts.py`), y el validador exige que ambos idiomas coincidan.
 - Vocabularios cerrados y validados: 76 tags y 15 categorías, estas últimas comprobando que la traducción EN coincide con la ES.
 - Señal de frescura derivada de `git log`, ignorando los commits `chore(meta)`.
 - Índice de tags navegable en `docs/tags.md` y `docs/en/tags.md`.
@@ -41,7 +42,7 @@ Vale más verificar estos tres puntos en un despliegue real que escribir un doc 
 
     Nota: el chequeo salta los `index.md` por diseño heredado, así que no ve `networking/index.md` (115 ES / 21 EN). Y `ai/contenido_tecnico.md` (886/1256) y `ai/analisis_logs.md` (937/1261) quedan por debajo del umbral pese a diferir en más de 300 líneas; si molestan, bajar el umbral a 0.25.
 
-- [ ] **`draft: true` no oculta nada.** `docs/doc/storage/netapp/netapp_base.md` y `docs/doc/storage/pure_storage/pure_storage_base.md` lo declaran y aun así se publican; ambas dicen además `status: published`, que es el campo que sí lee `macros.py`. Hay 50 páginas más con `draft: false` y 47 con `date:`, campos que no consume nadie. Decidir: retirar `draft` y `date` del frontmatter, o hacer que `draft: true` excluya de verdad. Lo peligroso es dejarlo como está, porque quien marque una página como borrador creerá que no se publica.
+- [ ] **Limpiar metadatos muertos del frontmatter.** Quedan 47 páginas con `date:`, que no consume nadie (la fecha buena es `updated`). `draft: false` sigue en 50 páginas: ahora es semánticamente válido, pero redundante con no ponerlo. Ninguna de las dos cosas rompe nada; es limpieza.
 - [ ] **4 `index.md` del árbol ES sin frontmatter.** Es deliberado, por convención del proyecto los índices quedan excluidos del campo `updated`.
 
 ## 🔮 Futurible (no ahora)

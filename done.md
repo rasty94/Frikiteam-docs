@@ -12,6 +12,14 @@ Registro de tareas completadas y logs de progreso, archivados desde `TODO.md` pa
 - [x] **`privacy.md` mostraba la plantilla literal `{{ git_revision_date }}`** en ambos idiomas, porque el plugin `git-revision-date-localized` está deshabilitado por defecto (`enabled: !ENV [ENABLE_GIT_DATES, false]`). Sustituido por la fecha real.
 - [x] **Fila de tabla rota en React**: una barra vertical dentro de backticks sigue partiendo la celda en Markdown, y la columna final se perdía al renderizar.
 
+## 🚫 `draft: true` ahora excluye de verdad (03/09/2026)
+
+- [x] **`hooks/drafts.py`**: hook nativo de MkDocs que retira del sitio las páginas con `draft: true` en el frontmatter. Antes el campo era decorativo: `macros.py` solo lee `status`, y `exclude_docs`/`draft_docs` de MkDocs trabajan con rutas, no con metadatos. Verificado que la página excluida no se renderiza, no entra en `search_index.json` y no aparece en el índice de tags.
+- [x] **Poda del `nav`.** Hacía falta además de retirar el fichero: si el `nav` referencia algo que ya no existe, MkDocs avisa y `--strict` lo convierte en error. El hook lo hace en `on_config`, antes de que se construya la navegación.
+- [x] **`validate_metadata.py --strict` comprueba que el estado de borrador coincida entre ES y EN.** Sin eso, marcar solo un idioma publica media página en silencio. Probado en ambos sentidos.
+- [x] **Retirado el `draft: true` obsoleto de `storage/netapp/netapp_base.md` y `storage/pure_storage/pure_storage_base.md`.** Era resto de plantilla: ambas decían a la vez `status: published`, estaban en el `nav`, se publicaban en producción, las enlazan la portada y `kubernetes_csi.md`, y sus gemelas inglesas nunca llevaron el campo. Al activar el mecanismo habrían desaparecido del sitio.
+- [x] **Efecto secundario documentado, y es el correcto:** excluir una página rompe los enlaces entrantes y `--strict` falla nombrándolos. Quien marca un borrador debe quitar también los enlaces.
+
 ## 📚 Los tres stubs restantes (03/09/2026)
 
 - [x] **Proxmox SDN, Flutter y la página de troubleshooting del repositorio**, completadas en ambos idiomas (330, 359 y 321 líneas). Con esto los 13 stubs del plan quedan cerrados.

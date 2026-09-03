@@ -34,6 +34,7 @@ Both symptoms share one root cause: between your Markdown and the published HTML
 - [Tags and categories outside the vocabulary](#tags-and-categories-outside-the-vocabulary)
 - [The Python environment](#the-python-environment)
 - [Mermaid diagrams that do not render](#mermaid-diagrams-that-do-not-render)
+- [A page does not show up on the site](#a-page-does-not-show-up-on-the-site)
 - [Pages flagged as stale](#pages-flagged-as-stale)
 - [Quick diagnosis table](#quick-diagnosis-table)
 
@@ -284,6 +285,21 @@ npm install -g @mermaid-js/mermaid-cli
 The script extracts every `mermaid` block from the files under `docs/` and renders it with `mmdc` into a temporary PNG using `puppeteer-config.json`; if the render fails it prints the error and exits 1. Two important details: **if `mmdc` is not installed, the script validates nothing and exits 0** — a green `./validate_mermaid.sh` may only mean you do not have the tool —, and its extractor is a line-by-line `awk`, not a parser: write the full fence in the middle of a paragraph and it thinks a diagram starts there, ending up validating your prose. Which is why this page never spells it out.
 
 The two syntax failures that show up most here: labels with parentheses, accents or slashes need quotes (`A["Node (1)"]`), and the hexagon node {% raw %}`id{{text}}`{% endraw %} uses double braces, which Jinja interprets before Mermaid ever sees them — it has to be protected with `raw` like any other block.
+
+## A page does not show up on the site
+
+If the file exists, the path is right and the page still is not published, check the frontmatter:
+
+```yaml
+draft: true
+```
+
+`hooks/drafts.py` removes every page with `draft: true` from the site: it is not rendered, it does not enter the search index or the tags index, and its `nav` entry is pruned. This is deliberate. To publish it, drop the field or set it to `false`.
+
+Two consequences worth knowing:
+
+- **It must be declared in both languages or in neither.** `validate_metadata.py --strict` fails when only one carries it, because otherwise half a page gets published and nobody notices.
+- **If other pages link to it, the build fails.** `--strict` names every broken link. That is not a hook bug: remove the links too before marking the page as a draft.
 
 ## Pages flagged as stale
 

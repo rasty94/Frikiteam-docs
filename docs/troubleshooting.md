@@ -34,6 +34,7 @@ Los dos síntomas tienen la misma raíz: entre tu Markdown y el HTML publicado h
 - [Tags y categorías fuera del vocabulario](#tags-y-categorias-fuera-del-vocabulario)
 - [El entorno de Python](#el-entorno-de-python)
 - [Diagramas Mermaid que no renderizan](#diagramas-mermaid-que-no-renderizan)
+- [Una página no aparece en el sitio](#una-pagina-no-aparece-en-el-sitio)
 - [Páginas que salen como obsoletas](#paginas-que-salen-como-obsoletas)
 - [Tabla de diagnóstico rápido](#tabla-de-diagnostico-rapido)
 
@@ -284,6 +285,21 @@ npm install -g @mermaid-js/mermaid-cli
 El script extrae cada bloque `mermaid` de los ficheros bajo `docs/` y lo renderiza con `mmdc` a un PNG temporal usando `puppeteer-config.json`; si el render falla, imprime el error y sale con 1. Dos detalles importantes: **si `mmdc` no está instalado, el script no valida nada y sale con 0** — un `./validate_mermaid.sh` en verde puede significar solo que no tienes la herramienta —, y su extractor es un `awk` línea a línea, no un parser: si escribes el cercado completo en medio de un párrafo, se cree que empieza un diagrama y acaba validando tu prosa. Por eso esta página nunca lo escribe entero.
 
 Los dos fallos de sintaxis que más aparecen aquí: las etiquetas con paréntesis, acentos o barras necesitan comillas (`A["Node (1)"]`), y el nodo hexagonal {% raw %}`id{{texto}}`{% endraw %} lleva llaves dobles, que Jinja interpreta antes de que Mermaid las vea — hay que protegerlo con `raw` como cualquier otro bloque.
+
+## Una página no aparece en el sitio
+
+Si el fichero existe, la ruta es correcta y aun así la página no sale publicada, mira el frontmatter:
+
+```yaml
+draft: true
+```
+
+`hooks/drafts.py` retira del sitio toda página con `draft: true`: no se renderiza, no entra en el buscador ni en el índice de tags, y su entrada del `nav` se poda. Es deliberado. Para publicarla, quita el campo o ponlo a `false`.
+
+Dos consecuencias que conviene conocer:
+
+- **Debe declararse en los dos idiomas o en ninguno.** `validate_metadata.py --strict` falla si solo lo lleva uno, porque si no se publicaría media página sin que nadie se entere.
+- **Si otras páginas la enlazan, el build falla.** `--strict` nombra cada enlace roto. No es un fallo del hook: quita también los enlaces antes de marcar la página como borrador.
 
 ## Páginas que salen como obsoletas
 
