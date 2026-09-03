@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentación oficial del proyecto Frikiteam 🚀">
+        <meta name="description" content="Migración en frío y en caliente entre nodos, requisitos reales de la migración en vivo, almacenamiento local y replicación, importación desde VMware, Hyper-V y máquinas físicas, drivers virtio, ventana de mantenimiento y verificación posterior.">
       
       
       
@@ -31,7 +31,7 @@
     
     
       
-        <title>Proxmox — Guía de Migración (VMs y Contenedores) - Frikiteam Docs</title>
+        <title>Proxmox — Migración de VMs y contenedores - Frikiteam Docs</title>
       
     
     
@@ -71,16 +71,16 @@
 
   
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Proxmox — Guía de Migración (VMs y Contenedores) - Frikiteam Docs" />
-<meta property="og:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="og:title" content="Proxmox — Migración de VMs y contenedores - Frikiteam Docs" />
+<meta property="og:description" content="Migración en frío y en caliente entre nodos, requisitos reales de la migración en vivo, almacenamiento local y replicación, importación desde VMware, Hyper-V y máquinas físicas, drivers virtio, ventana de mantenimiento y verificación posterior." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/doc/proxmox/migration_guide.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:url" content="https://docs.frikiteam.es/doc/proxmox/migration_guide/" />
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="Proxmox — Guía de Migración (VMs y Contenedores) - Frikiteam Docs" />
-<meta property="twitter:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="twitter:title" content="Proxmox — Migración de VMs y contenedores - Frikiteam Docs" />
+<meta property="twitter:description" content="Migración en frío y en caliente entre nodos, requisitos reales de la migración en vivo, almacenamiento local y replicación, importación desde VMware, Hyper-V y máquinas físicas, drivers virtio, ventana de mantenimiento y verificación posterior." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/doc/proxmox/migration_guide.png" />
 </head>
   
@@ -101,7 +101,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#proxmox-guia-de-migracion-vms-y-contenedores" class="md-skip">
+        <a href="#proxmox-migracion-de-vms-y-contenedores" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -136,7 +136,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Proxmox — Guía de Migración (VMs y Contenedores)
+              Proxmox — Migración de VMs y contenedores
             
           </span>
         </div>
@@ -520,6 +520,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -879,10 +898,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#resumen" class="md-nav__link">
+  <a href="#el-problema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Resumen
+        El problema
       
     </span>
   </a>
@@ -890,10 +909,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pasos-generales" class="md-nav__link">
+  <a href="#tabla-de-contenidos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pasos generales
+        📋 Tabla de Contenidos
       
     </span>
   </a>
@@ -901,10 +920,142 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#consideraciones" class="md-nav__link">
+  <a href="#frio-o-en-caliente" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Consideraciones
+        Frío o en caliente
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-reales-de-la-migracion-en-vivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requisitos reales de la migración en vivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migrar-con-almacenamiento-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migrar con almacenamiento local
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replicacion-como-paso-previo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Replicación como paso previo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contenedores-lxc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contenedores LXC
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#importar-desde-vmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Importar desde VMware
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hyper-v-y-maquinas-fisicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hyper-V y máquinas físicas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drivers-antes-de-apagar-el-origen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drivers antes de apagar el origen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ventana-de-mantenimiento-y-vuelta-atras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ventana de mantenimiento y vuelta atrás
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verificacion-posterior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verificación posterior
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas prácticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias
       
     </span>
   </a>
@@ -7094,6 +7245,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -8838,6 +8996,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -8970,9 +9155,34 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermedio</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 1 min</span> <span class="md-badge md-badge--primary">Categoría: Virtualización</span> <span class="md-badge md-badge--green">Publicado</span> <span class="md-badge md-badge--secondary" title="Prerrequisitos: ["Conocimientos básicos de DevOps"]">💡 Prerrequisitos</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermedio</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 22 min</span> <span class="md-badge md-badge--primary">Categoría: Virtualización</span> <span class="md-badge md-badge--green">Publicado</span></div>
                 
                   
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:migration" class="md-tag">migration</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:proxmox" class="md-tag">proxmox</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:virtualization" class="md-tag">virtualization</a>
+      
+    
+  </nav>
 
 
   
@@ -8984,20 +9194,332 @@
   
 
 
-<h1 id="proxmox-guia-de-migracion-vms-y-contenedores">Proxmox — Guía de Migración (VMs y Contenedores)<a class="headerlink" href="#proxmox-guia-de-migracion-vms-y-contenedores" title="Permanent link">&para;</a></h1>
-<h2 id="resumen">Resumen<a class="headerlink" href="#resumen" title="Permanent link">&para;</a></h2>
-<p>Pasos prácticos para migrar máquinas virtuales y contenedores entre hosts o hacia/desde VMware/OpenStack.</p>
-<h2 id="pasos-generales">Pasos generales<a class="headerlink" href="#pasos-generales" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Verificar compatibilidad de discos y controladores.</li>
-<li>Exportar/convertir imágenes si es necesario.</li>
-<li>Probar en entorno de staging antes del cutover.</li>
-</ol>
-<h2 id="consideraciones">Consideraciones<a class="headerlink" href="#consideraciones" title="Permanent link">&para;</a></h2>
+<h1 id="proxmox-migracion-de-vms-y-contenedores">Proxmox — Migración de VMs y contenedores<a class="headerlink" href="#proxmox-migracion-de-vms-y-contenedores" title="Permanent link">&para;</a></h1>
+<h2 id="el-problema">El problema<a class="headerlink" href="#el-problema" title="Permanent link">&para;</a></h2>
+<p>La migración sale mal casi siempre por el mismo motivo: se planifica como una copia de ficheros y resulta ser un cambio de hardware. La VM que arrancaba en VMware se queda con una pantalla azul <code>INACCESSIBLE_BOOT_DEVICE</code> porque el disco pasó de un controlador paravirtualizado a otro. El contenedor que "también se migra en vivo" resulta que no, que se reinicia. Y la migración en caliente entre dos nodos idénticos sobre el papel falla porque uno lleva un Xeon de hace cinco años y el otro no.</p>
+<p>Ninguno de esos problemas se descubre migrando. Se descubren después, con el origen ya apagado y la ventana de mantenimiento agotándose. Esta página va de lo que hay que comprobar <strong>antes</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Qué cubre y qué no</p>
+<p>Aquí se trata el movimiento de cargas: entre nodos del mismo cluster, y desde plataformas externas hacia Proxmox. La creación de VMs, el almacenamiento y el clustering básico están en <a href="../proxmox_base/">Proxmox VE</a>.</p>
+</div>
+<h2 id="tabla-de-contenidos">📋 Tabla de Contenidos<a class="headerlink" href="#tabla-de-contenidos" title="Permanent link">&para;</a></h2>
 <ul>
-<li>IPs y networking, snapshots, backups y tiempos de inactividad.</li>
+<li><a href="#frio-o-en-caliente">Frío o en caliente</a></li>
+<li><a href="#requisitos-reales-de-la-migracion-en-vivo">Requisitos reales de la migración en vivo</a></li>
+<li><a href="#migrar-con-almacenamiento-local">Migrar con almacenamiento local</a></li>
+<li><a href="#replicacion-como-paso-previo">Replicación como paso previo</a></li>
+<li><a href="#contenedores-lxc">Contenedores LXC</a></li>
+<li><a href="#importar-desde-vmware">Importar desde VMware</a></li>
+<li><a href="#hyper-v-y-maquinas-fisicas">Hyper-V y máquinas físicas</a></li>
+<li><a href="#drivers-antes-de-apagar-el-origen">Drivers antes de apagar el origen</a></li>
+<li><a href="#ventana-de-mantenimiento-y-vuelta-atras">Ventana de mantenimiento y vuelta atrás</a></li>
+<li><a href="#verificacion-posterior">Verificación posterior</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#buenas-practicas">Buenas prácticas</a></li>
+<li><a href="#referencias">Referencias</a></li>
 </ul>
-<hr />
+<h2 id="frio-o-en-caliente">Frío o en caliente<a class="headerlink" href="#frio-o-en-caliente" title="Permanent link">&para;</a></h2>
+<p>Son dos operaciones distintas con requisitos distintos, y conviene no llamarlas igual.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>En frío (offline)</th>
+<th>En caliente (online / live)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estado del invitado</td>
+<td>Apagado</td>
+<td>Encendido</td>
+</tr>
+<tr>
+<td>Qué se mueve</td>
+<td>Configuración y discos</td>
+<td>Configuración, discos y <strong>memoria RAM</strong></td>
+</tr>
+<tr>
+<td>Corte de servicio</td>
+<td>Todo el tiempo que dure</td>
+<td>Milisegundos en el cambio final</td>
+</tr>
+<tr>
+<td>Requisitos</td>
+<td>Cluster con quórum</td>
+<td>Cluster, CPU compatible y red que aguante</td>
+</tr>
+<tr>
+<td>Riesgo si falla</td>
+<td>Se reintenta, el invitado sigue apagado</td>
+<td>La VM sigue viva en el origen</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1"># En frío: la VM está apagada</span>
+qm<span class="w"> </span>migrate<span class="w"> </span><span class="m">100</span><span class="w"> </span>pve2
+
+<span class="c1"># En caliente: la VM sigue dando servicio</span>
+qm<span class="w"> </span>migrate<span class="w"> </span><span class="m">100</span><span class="w"> </span>pve2<span class="w"> </span>--online
+</code></pre></div>
+<p>La migración en vivo copia la memoria en varias pasadas mientras la VM sigue escribiendo en ella. Cuando lo que queda por copiar es lo bastante pequeño, la pausa un instante, copia el resto y la reanuda en el destino. De ahí la consecuencia práctica: <strong>una VM que escribe en memoria más rápido de lo que la red copia no converge nunca</strong>. Una base de datos con 128 GB de RAM muy activa sobre un enlace de 1 GbE es el ejemplo canónico de migración que se queda dando vueltas.</p>
+<p>Si tienes que mover un nodo entero para mantenimiento, ponlo en modo mantenimiento y deja que el cluster reubique las cargas en vez de migrarlas a mano:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Vacía el nodo (HA reubica los recursos gestionados)</span>
+ha-manager<span class="w"> </span>crm-command<span class="w"> </span>node-maintenance<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>pve1
+ha-manager<span class="w"> </span>crm-command<span class="w"> </span>node-maintenance<span class="w"> </span>disable<span class="w"> </span>pve1
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Sin quórum no hay migración</p>
+<p><code>qm migrate</code> escribe en <code>/etc/pve</code>, que es un sistema de ficheros replicado que se monta en solo lectura cuando el cluster pierde el quórum. Con dos nodos y sin dispositivo de desempate, apagar uno deja al otro incapaz de hacer nada. Comprueba <code>pvecm status</code> antes de tocar nada.</p>
+</div>
+<h2 id="requisitos-reales-de-la-migracion-en-vivo">Requisitos reales de la migración en vivo<a class="headerlink" href="#requisitos-reales-de-la-migracion-en-vivo" title="Permanent link">&para;</a></h2>
+<p>Tres condiciones, y las tres se comprueban en un minuto.</p>
+<p><strong>1. CPU compatible.</strong> El invitado ve un modelo de CPU concreto y unas flags concretas. Si el destino no ofrece esas flags, o el kernel del invitado ya las está usando, la VM revienta al reanudarse. El caso más frecuente es <code>cpu: host</code>, que expone la CPU física tal cual: perfecto para rendimiento, incompatible con cualquier destino que no sea idéntico.</p>
+<div class="highlight"><pre><span></span><code>qm<span class="w"> </span>config<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^(cpu|machine|args)'</span>
+</code></pre></div>
+<p>En un cluster heterogéneo, fija un modelo común y aceptado por todos los nodos (los tipos <code>kvm64</code> y la familia <code>x86-64-v2</code> / <code>x86-64-v3</code> existen para esto). El modelo por defecto de las VMs nuevas ha cambiado entre versiones mayores de Proxmox, así que <strong>no asumas cuál es el tuyo: míralo</strong>.</p>
+<div class="highlight"><pre><span></span><code>qm<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>--cpu<span class="w"> </span>x86-64-v2-AES<span class="w">   </span><span class="c1"># requiere apagar y arrancar la VM, no basta un reinicio</span>
+</code></pre></div>
+<p>Un cambio de tipo de CPU no se aplica en caliente. Necesita un ciclo completo de apagado y encendido, lo que significa que preparar el cluster para migraciones en vivo tiene, en sí mismo, un coste de parada.</p>
+<p><strong>2. Almacenamiento accesible en el destino.</strong> Lo ideal es almacenamiento compartido: Ceph, NFS, iSCSI/LVM compartido o ZFS over iSCSI. El disco no se mueve, solo el proceso. Sin él, hay que copiar los discos (siguiente sección).</p>
+<p><strong>3. Red suficiente y bien elegida.</strong> Por defecto el tráfico de migración va cifrado por el túnel SSH y por la red de gestión, que es también la de corosync. Copiar 64 GB de RAM por ahí es una forma excelente de provocar pérdidas de quórum. Sepáralo:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># /etc/pve/datacenter.cfg</span>
+<span class="na">migration</span><span class="o">:</span><span class="w"> </span><span class="s">secure,network=10.20.30.0/24</span>
+</code></pre></div>
+<p><code>secure</code> (cifrado, por defecto) frente a <code>insecure</code> (sin cifrar, más rápido). <code>insecure</code> solo tiene sentido en una red dedicada y físicamente confiable: durante la migración la memoria del invitado viaja en claro.</p>
+<h2 id="migrar-con-almacenamiento-local">Migrar con almacenamiento local<a class="headerlink" href="#migrar-con-almacenamiento-local" title="Permanent link">&para;</a></h2>
+<p>Sin almacenamiento compartido también se puede, incluso en caliente, copiando los discos como parte de la operación:</p>
+<div class="highlight"><pre><span></span><code>qm<span class="w"> </span>migrate<span class="w"> </span><span class="m">100</span><span class="w"> </span>pve2<span class="w"> </span>--online<span class="w"> </span>--with-local-disks
+qm<span class="w"> </span>migrate<span class="w"> </span><span class="m">100</span><span class="w"> </span>pve2<span class="w"> </span>--online<span class="w"> </span>--with-local-disks<span class="w"> </span>--targetstorage<span class="w"> </span>local-zfs
+</code></pre></div>
+<p>El coste es tiempo, y conviene estimarlo antes en vez de descubrirlo en producción. Una cuenta grosera: un disco de 500 GB sobre un enlace de 1 GbE saturado al 100 % son más de 70 minutos <strong>en el mejor caso</strong>, y el mejor caso no existe. Con 10 GbE la cosa baja a minutos, pero entonces el cuello de botella pasa a ser el disco de destino.</p>
+<p>Durante todo ese tiempo la VM sigue funcionando y sigue escribiendo, así que el proceso además tiene que ir alcanzando los cambios. Para discos grandes, replicar antes es casi siempre mejor idea.</p>
+<h2 id="replicacion-como-paso-previo">Replicación como paso previo<a class="headerlink" href="#replicacion-como-paso-previo" title="Permanent link">&para;</a></h2>
+<p>Sobre ZFS local, Proxmox puede replicar los discos de un invitado a otro nodo de forma periódica mediante <em>snapshots</em> incrementales. La migración posterior solo tiene que transferir el delta desde la última replicación.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Replicar la VM 100 al nodo pve2 cada 15 minutos</span>
+pvesr<span class="w"> </span>create-local-job<span class="w"> </span><span class="m">100</span>-0<span class="w"> </span>pve2<span class="w"> </span>--schedule<span class="w"> </span><span class="s1">'*/15'</span>
+
+pvesr<span class="w"> </span>list
+pvesr<span class="w"> </span>status
+pvesr<span class="w"> </span>run<span class="w"> </span>--id<span class="w"> </span><span class="m">100</span>-0<span class="w">        </span><span class="c1"># forzar una pasada antes del cutover</span>
+</code></pre></div>
+<p>Esto convierte una migración de horas en una de minutos. Dos límites que hay que tener claros:</p>
+<ul>
+<li><strong>Requiere ZFS</strong> (o un almacenamiento con soporte equivalente de envío incremental). Sobre LVM-thin o un directorio no aplica.</li>
+<li><strong>La replicación no es un backup.</strong> Replica también el borrado y la corrupción. Los backups siguen siendo cosa de vzdump o <a href="../proxmox_base/">Proxmox Backup Server</a>.</li>
+</ul>
+<h2 id="contenedores-lxc">Contenedores LXC<a class="headerlink" href="#contenedores-lxc" title="Permanent link">&para;</a></h2>
+<p>Aquí está la diferencia que más sorpresas causa: <strong>un contenedor LXC en marcha no se migra en vivo</strong>. Un contenedor no es una máquina con su propia memoria aislada, sino un conjunto de procesos del kernel del host. No hay estado de invitado que empaquetar y reanudar al otro lado.</p>
+<p>Lo que Proxmox hace es una <em>restart migration</em>: apaga el contenedor, mueve los datos, lo vuelve a arrancar en el destino.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Contenedor parado: migración directa</span>
+pct<span class="w"> </span>migrate<span class="w"> </span><span class="m">200</span><span class="w"> </span>pve2
+
+<span class="c1"># Contenedor en marcha: se apaga, se migra y se arranca</span>
+pct<span class="w"> </span>migrate<span class="w"> </span><span class="m">200</span><span class="w"> </span>pve2<span class="w"> </span>--restart
+
+<span class="c1"># Con margen de apagado limpio antes del kill</span>
+pct<span class="w"> </span>migrate<span class="w"> </span><span class="m">200</span><span class="w"> </span>pve2<span class="w"> </span>--restart<span class="w"> </span>--timeout<span class="w"> </span><span class="m">180</span>
+</code></pre></div>
+<p>Consecuencias prácticas:</p>
+<ul>
+<li>El corte no es de milisegundos: es el tiempo de apagar, copiar y arrancar. Con un rootfs pequeño suelen ser segundos; con datos gordos, lo que tarde la copia.</li>
+<li><code>--timeout</code> importa. Si el proceso principal ignora <code>SIGTERM</code>, se le mata, y una base de datos dentro de un contenedor apagada a la brava tiene el mismo final que en cualquier otro sitio.</li>
+<li>La replicación con <code>pvesr</code> también funciona para contenedores sobre ZFS, y aquí el ahorro se nota todavía más.</li>
+<li>Un contenedor privilegiado con montajes de host (<em>bind mounts</em>) rara vez migra limpio: esos directorios no viajan. Revisa <code>pct config 200</code> buscando entradas <code>mp&lt;N&gt;</code> que apunten fuera del almacenamiento gestionado.</li>
+</ul>
+<h2 id="importar-desde-vmware">Importar desde VMware<a class="headerlink" href="#importar-desde-vmware" title="Permanent link">&para;</a></h2>
+<p>El flujo, con la fuente todavía encendida y funcionando:</p>
+<pre class="mermaid"><code>flowchart LR
+    A[VM en origen&lt;br/&gt;encendida] --&gt; B[Preparar drivers&lt;br/&gt;y quitar tools]
+    B --&gt; C[Apagar limpiamente]
+    C --&gt; D[Exportar / copiar discos]
+    D --&gt; E[qm importdisk]
+    E --&gt; F[Ajustar controlador,&lt;br/&gt;BIOS y red]
+    F --&gt; G[Arrancar y verificar]</code></pre>
+<p>Las versiones recientes de Proxmox VE incorporan un asistente de importación desde ESXi (se añade un almacenamiento de tipo <code>esxi</code> y se importan las VMs desde la interfaz). Es la vía cómoda cuando existe; <strong>comprueba si tu versión lo trae</strong> antes de planificar con ella. La vía manual funciona en cualquier versión:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Copiar el VMDK al nodo Proxmox (el descriptor, no solo el -flat)</span>
+scp<span class="w"> </span>usuario@esxi:/vmfs/volumes/datastore1/vm/vm.vmdk<span class="w"> </span>/var/lib/vz/import/
+
+<span class="c1"># 2. Crear la VM destino sin disco</span>
+qm<span class="w"> </span>create<span class="w"> </span><span class="m">120</span><span class="w"> </span>--name<span class="w"> </span>app-migrada<span class="w"> </span>--memory<span class="w"> </span><span class="m">8192</span><span class="w"> </span>--cores<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--net0<span class="w"> </span>virtio,bridge<span class="o">=</span>vmbr0<span class="w"> </span>--scsihw<span class="w"> </span>virtio-scsi-single<span class="w"> </span>--ostype<span class="w"> </span>l26
+
+<span class="c1"># 3. Importar el disco al almacenamiento elegido</span>
+qm<span class="w"> </span>importdisk<span class="w"> </span><span class="m">120</span><span class="w"> </span>/var/lib/vz/import/vm.vmdk<span class="w"> </span>local-lvm
+
+<span class="c1"># 4. Engancharlo y fijar el orden de arranque</span>
+qm<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="m">120</span><span class="w"> </span>--scsi0<span class="w"> </span>local-lvm:vm-120-disk-0
+qm<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="m">120</span><span class="w"> </span>--boot<span class="w"> </span><span class="nv">order</span><span class="o">=</span>scsi0
+</code></pre></div>
+<p><code>qm importdisk</code> deja el disco como <code>unusedN</code> hasta que lo asocias a un controlador. Para un OVF completo existe <code>qm importovf</code>, que además traduce CPU, memoria y discos del manifiesto.</p>
+<p>Si prefieres convertir a mano, <code>qemu-img</code> hace el trabajo:</p>
+<div class="highlight"><pre><span></span><code>qemu-img<span class="w"> </span>convert<span class="w"> </span>-p<span class="w"> </span>-f<span class="w"> </span>vmdk<span class="w"> </span>-O<span class="w"> </span>qcow2<span class="w"> </span>vm.vmdk<span class="w"> </span>vm.qcow2
+qemu-img<span class="w"> </span>info<span class="w"> </span>vm.qcow2
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">VMDK partidos y snapshots</p>
+<p>Un VMDK con snapshots activos (<code>-000001.vmdk</code>) no se importa tal cual: hay que consolidar en el origen primero. Y con discos partidos en trozos de 2 GB, el fichero que hay que dar a <code>importdisk</code> es el <strong>descriptor</strong>, el pequeño, no el <code>-flat</code> grande.</p>
+</div>
+<p>Antes de apagar el origen: desinstalar VMware Tools. Después, en Proxmox, instalar el <code>qemu-guest-agent</code> y activarlo con <code>qm set 120 --agent 1</code>.</p>
+<h2 id="hyper-v-y-maquinas-fisicas">Hyper-V y máquinas físicas<a class="headerlink" href="#hyper-v-y-maquinas-fisicas" title="Permanent link">&para;</a></h2>
+<p><strong>Desde Hyper-V</strong>, el disco es un VHD o VHDX y <code>qemu-img</code> lo entiende igual:</p>
+<div class="highlight"><pre><span></span><code>qemu-img<span class="w"> </span>convert<span class="w"> </span>-p<span class="w"> </span>-f<span class="w"> </span>vhdx<span class="w"> </span>-O<span class="w"> </span>raw<span class="w"> </span>disco.vhdx<span class="w"> </span>/var/lib/vz/import/disco.raw
+qm<span class="w"> </span>importdisk<span class="w"> </span><span class="m">130</span><span class="w"> </span>/var/lib/vz/import/disco.raw<span class="w"> </span>local-lvm
+</code></pre></div>
+<p>El detalle que se olvida: una VM de <strong>Generación 2</strong> arranca por UEFI. Si la creas con la BIOS por defecto, no arranca y el síntoma es una pantalla negra sin más pistas.</p>
+<div class="highlight"><pre><span></span><code>qm<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="m">130</span><span class="w"> </span>--bios<span class="w"> </span>ovmf<span class="w"> </span>--efidisk0<span class="w"> </span>local-lvm:1,efitype<span class="o">=</span>4m,pre-enrolled-keys<span class="o">=</span><span class="m">0</span>
+</code></pre></div>
+<p>Si el invitado tenía Secure Boot y las claves no coinciden, el arranque falla en el firmware. Deshabilitarlo en el menú de OVMF es la salida rápida; volver a firmar es la correcta. También conviene desinstalar los Integration Services de Hyper-V antes de apagar.</p>
+<p><strong>Desde una máquina física</strong> (P2V) no hay disco virtual que convertir, así que hay que fabricarlo. Dos enfoques que funcionan:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Clonado en bloque por red, desde un live USB en la máquina física</span>
+dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/sda<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>4M<span class="w"> </span><span class="nv">status</span><span class="o">=</span>progress<span class="w"> </span><span class="p">|</span><span class="w"> </span>ssh<span class="w"> </span>root@pve<span class="w"> </span><span class="s2">"dd of=/var/lib/vz/import/fisica.raw bs=4M"</span>
+</code></pre></div>
+<p>O una herramienta de imagen (Clonezilla, o el agente de backup que ya uses) y restaurar sobre la VM nueva. La copia en bloque de un sistema <strong>en marcha</strong> produce un sistema de ficheros inconsistente: arranca con un <code>fsck</code> de por medio y a veces no arranca. Hazlo desde un live, con los discos desmontados.</p>
+<p>Ojo también con el tamaño: <code>dd</code> copia el disco entero, incluidos los huecos. Un disco de 2 TB con 200 GB usados son 2 TB por la red y 2 TB en destino salvo que uses una imagen dispersa o un almacenamiento con <em>thin provisioning</em>.</p>
+<h2 id="drivers-antes-de-apagar-el-origen">Drivers antes de apagar el origen<a class="headerlink" href="#drivers-antes-de-apagar-el-origen" title="Permanent link">&para;</a></h2>
+<p>Este es el fallo clásico y el más caro, porque se manifiesta cuando ya no hay marcha atrás fácil.</p>
+<p><strong>Windows y virtio.</strong> Windows no trae los drivers virtio. Si importas el disco y lo enganchas directamente a <code>virtio-scsi</code>, el arranque termina en <code>0x0000007B INACCESSIBLE_BOOT_DEVICE</code>. Hay dos formas de evitarlo, y la buena es la primera:</p>
+<ol>
+<li><strong>Antes de apagar el origen</strong>, monta el ISO <code>virtio-win</code> en la VM original e instala el paquete completo de drivers (<code>virtio-win-guest-tools</code>). Windows registra los controladores aunque no haya hardware virtio presente, y al arrancar en Proxmox los encuentra.</li>
+<li>Si ya la apagaste: arranca en Proxmox con el disco en <code>sata0</code> o <code>ide0</code>, añade un segundo disco pequeño en <code>virtio-scsi</code> para forzar la instalación del driver, apaga, y mueve el disco de sistema a <code>scsi0</code>.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># Salida de emergencia: arrancar con SATA</span>
+qm<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="m">140</span><span class="w"> </span>--sata0<span class="w"> </span>local-lvm:vm-140-disk-0<span class="w"> </span>--boot<span class="w"> </span><span class="nv">order</span><span class="o">=</span>sata0
+<span class="c1"># Disco señuelo para que Windows cargue el driver virtio</span>
+qm<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="m">140</span><span class="w"> </span>--scsi1<span class="w"> </span>local-lvm:1
+</code></pre></div>
+<p><strong>Linux e initramfs.</strong> El kernel necesita los módulos <code>virtio_blk</code> / <code>virtio_scsi</code> y <code>virtio_pci</code> dentro del initramfs, o no encuentra la raíz.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Debian/Ubuntu</span>
+update-initramfs<span class="w"> </span>-u<span class="w"> </span>-k<span class="w"> </span>all
+<span class="c1"># RHEL/Rocky/Alma</span>
+dracut<span class="w"> </span>--regenerate-all<span class="w"> </span>--force
+</code></pre></div>
+<p>Otros dos que muerden en Linux:</p>
+<ul>
+<li><strong><code>/etc/fstab</code> por nombre de dispositivo.</strong> <code>/dev/sda1</code> en VMware puede ser otra cosa en Proxmox. Pasa todo a UUID (<code>blkid</code>) antes de migrar.</li>
+<li><strong>Nombres de interfaz de red.</strong> Con nombres predecibles, la interfaz cambia (<code>ens192</code> → <code>ens18</code>) y la configuración estática se queda huérfana. La máquina arranca sin red, que en un servidor remoto equivale a que no arranca. Ten preparado el acceso por consola en Proxmox.</li>
+</ul>
+<h2 id="ventana-de-mantenimiento-y-vuelta-atras">Ventana de mantenimiento y vuelta atrás<a class="headerlink" href="#ventana-de-mantenimiento-y-vuelta-atras" title="Permanent link">&para;</a></h2>
+<p>La migración es fácil de deshacer <strong>si no destruyes el origen</strong>. Ese es todo el plan de vuelta atrás, y todo lo demás son detalles.</p>
+<p>Guion de una ventana razonable:</p>
+<ol>
+<li><strong>Días antes</strong>: baja el TTL de los registros DNS implicados (de 3600 a 60, por ejemplo). Si el cambio de IP se propaga en un minuto, la vuelta atrás también.</li>
+<li><strong>Antes de tocar nada</strong>: backup completo verificado del origen, y snapshot si la plataforma lo permite.</li>
+<li><strong>Ensayo</strong>: importa una copia y arráncala en una red aislada. Aquí es donde aparecen los drivers que faltan, con el servicio todavía en producción y sin prisa.</li>
+<li><strong>Cutover</strong>: apagado limpio del origen, migración, arranque en destino, verificación.</li>
+<li><strong>Punto de no retorno explícito.</strong> Decide de antemano la hora a la que, si no funciona, se vuelve atrás. Sin esa hora escrita, siempre se decide "un ratito más" hasta que se acaba la ventana.</li>
+<li><strong>Origen apagado pero intacto</strong> durante días, no minutos. Los fallos de una migración rara vez salen en la primera hora: salen con el batch nocturno, con el backup, o el lunes.</li>
+<li><strong>Bajar la VM de origen de cualquier arranque automático.</strong> Dos máquinas con la misma IP y el mismo hostname encendidas a la vez es un incidente peor que la migración fallida.</li>
+</ol>
+<h2 id="verificacion-posterior">Verificación posterior<a class="headerlink" href="#verificacion-posterior" title="Permanent link">&para;</a></h2>
+<p>Lo mínimo, antes de dar por buena la ventana:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># El invitado responde y el agente está vivo</span>
+qm<span class="w"> </span>agent<span class="w"> </span><span class="m">120</span><span class="w"> </span>ping
+qm<span class="w"> </span>agent<span class="w"> </span><span class="m">120</span><span class="w"> </span>get-osinfo
+
+<span class="c1"># Red: MAC nueva, IP correcta, resolución DNS</span>
+qm<span class="w"> </span>config<span class="w"> </span><span class="m">120</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^net'</span>
+
+<span class="c1"># Rendimiento de disco razonable (comparar con la medición del origen)</span>
+pveperf<span class="w"> </span>/var/lib/vz
+</code></pre></div>
+<p>Y dentro del invitado: servicios arrancados, hora sincronizada (un salto de reloj tras la migración rompe autenticación Kerberos y certificados), montajes de red presentes, logs sin errores de hardware.</p>
+<p>Fuera del invitado, lo que se olvida siempre:</p>
+<ul>
+<li>El <strong>job de backup</strong> apuntando al nodo o pool correcto, y una ejecución de prueba.</li>
+<li>Los <strong>recursos HA</strong> redefinidos si la VM estaba gestionada (<code>ha-manager status</code>).</li>
+<li>La <strong>monitorización</strong> viendo la máquina nueva y no la vieja.</li>
+<li>Herramientas de invitado instaladas: <code>qemu-guest-agent</code> en la VM y <code>--agent 1</code> en la configuración. Sin ambas cosas, Proxmox no puede pedir un apagado limpio ni hacer backups consistentes.</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa</th>
+<th>Arreglo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>migration aborted</code> al empezar</td>
+<td>Cluster sin quórum, <code>/etc/pve</code> en solo lectura</td>
+<td><code>pvecm status</code> y recuperar quórum antes de nada</td>
+</tr>
+<tr>
+<td>Migración en vivo que no termina nunca</td>
+<td>La VM escribe memoria más rápido que la red</td>
+<td>Red de migración dedicada, o migrar en frío</td>
+</tr>
+<tr>
+<td>La VM muere al reanudarse en el destino</td>
+<td>Flags de CPU distintas (<code>cpu: host</code>)</td>
+<td>Fijar un tipo de CPU común y apagar/arrancar la VM</td>
+</tr>
+<tr>
+<td><code>storage not available on target node</code></td>
+<td>El almacenamiento no existe o no está activo en el destino</td>
+<td><code>pvesm status</code> en ambos, o usar <code>--targetstorage</code></td>
+</tr>
+<tr>
+<td>Windows con <code>0x0000007B</code> al arrancar</td>
+<td>Falta el driver virtio del disco de sistema</td>
+<td>Arrancar con <code>sata0</code> e instalar <code>virtio-win</code></td>
+</tr>
+<tr>
+<td>Linux en <code>initramfs</code> sin raíz</td>
+<td>Módulos virtio ausentes del initramfs</td>
+<td>Regenerar initramfs; <code>/etc/fstab</code> por UUID</td>
+</tr>
+<tr>
+<td>Pantalla negra tras importar de Hyper-V</td>
+<td>VM de Generación 2, arranque UEFI</td>
+<td><code>--bios ovmf</code> más <code>--efidisk0</code></td>
+</tr>
+<tr>
+<td>El contenedor se reinicia al "migrar en vivo"</td>
+<td>Comportamiento esperado en LXC</td>
+<td>Planificar el corte; <code>--restart --timeout</code></td>
+</tr>
+<tr>
+<td>Corosync pierde nodos durante la copia</td>
+<td>Migración compartiendo red con el cluster</td>
+<td><code>migration: network=</code> en <code>datacenter.cfg</code></td>
+</tr>
+<tr>
+<td>El invitado arranca sin red</td>
+<td>El nombre de la interfaz cambió</td>
+<td>Consola de Proxmox y reconfigurar la interfaz</td>
+</tr>
+</tbody>
+</table>
+<p>Dónde mirar cuando el mensaje de la interfaz no dice nada:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># La tarea completa, con su salida</span>
+pvesh<span class="w"> </span>get<span class="w"> </span>/nodes/pve1/tasks<span class="w"> </span>--limit<span class="w"> </span><span class="m">20</span>
+cat<span class="w"> </span>/var/log/pve/tasks/&lt;UPID...&gt;
+
+journalctl<span class="w"> </span>-u<span class="w"> </span>pvedaemon<span class="w"> </span>-u<span class="w"> </span>pveproxy<span class="w"> </span>-f
+</code></pre></div>
+<h2 id="buenas-practicas">Buenas prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Ensaya con una copia.</strong> Una importación de prueba en una red aislada cuesta una hora y ahorra la ventana entera.</li>
+<li><strong>Prepara los drivers con el origen encendido.</strong> Es el único momento en que instalar virtio es trivial.</li>
+<li><strong>Red de migración separada de corosync.</strong> El cluster no tiene por qué enterarse de que estás copiando 64 GB.</li>
+<li><strong>Tipo de CPU común en clusters heterogéneos.</strong> El poco rendimiento que se pierde se recupera de sobra en no tener que apagar nada para mover cargas.</li>
+<li><strong>Replica antes de migrar</strong> lo que tenga discos grandes sobre ZFS. Convierte horas de copia en minutos de delta.</li>
+<li><strong>No borres el origen el mismo día.</strong> Ni al día siguiente.</li>
+<li><strong>Documenta la configuración de partida</strong>: IPs, rutas, montajes, versiones. Después de migrar, la referencia ya no existe.</li>
+<li><strong>Backup verificado antes del cutover.</strong> Un backup que no se ha restaurado nunca es una intención, no un backup.</li>
+</ul>
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://pve.proxmox.com/wiki/Manual:_qm#qm_migration">Migración de VMs y contenedores — documentación oficial</a></li>
+<li><a href="https://pve.proxmox.com/pve-docs/qm.1.html">qm(1) — manual de referencia</a> · <a href="https://pve.proxmox.com/pve-docs/pct.1.html">pct(1)</a></li>
+<li><a href="https://pve.proxmox.com/wiki/Storage_Replication">Replicación de almacenamiento (pvesr)</a></li>
+<li><a href="https://pve.proxmox.com/wiki/Migrate_to_Proxmox_VE">Migrar desde VMware ESXi</a></li>
+<li><a href="https://pve.proxmox.com/wiki/Windows_VirtIO_Drivers">Drivers virtio para Windows</a></li>
+<li><a href="../proxmox_base/">Proxmox VE</a> · <a href="../sdn/">Proxmox SDN</a></li>
+</ul>
 
 
 

@@ -518,6 +518,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -6990,6 +7009,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -9104,6 +9130,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9238,49 +9291,14 @@
       
       
       
-        <span class="md-tag">backups</span>
+        <a href="../../../tags/#tag:backups" class="md-tag">backups</a>
       
     
       
       
       
       
-        <span class="md-tag">borg</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">cybersecurity</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">disaster-recovery</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">immutability</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">ransomware</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">restic</span>
+        <a href="../../../tags/#tag:cybersecurity" class="md-tag">cybersecurity</a>
       
     
   </nav>
@@ -9377,7 +9395,7 @@ borg<span class="w"> </span>key<span class="w"> </span><span class="nb">export</
 <p>Este es el punto que separa un backup de verdad de un directorio con copias. La idea: <strong>el proceso que escribe backups no tiene permiso para borrarlos</strong>.</p>
 <h3 id="borg-append-only">borg: <code>--append-only</code><a class="headerlink" href="#borg-append-only" title="Permanent link">&para;</a></h3>
 <p>borg lo implementa en el lado servidor, restringiendo la clave SSH del cliente. En el <code>~/.ssh/authorized_keys</code> del servidor de backup:</p>
-<div class="highlight"><pre><span></span><code>command=&quot;borg serve --append-only --restrict-to-path /srv/backups/web01&quot;,restrict ssh-ed25519 AAAAC3Nza... web01-backup
+<div class="highlight"><pre><span></span><code>command="borg serve --append-only --restrict-to-path /srv/backups/web01",restrict ssh-ed25519 AAAAC3Nza... web01-backup
 </code></pre></div>
 <p>Desglose de por qué cada parte importa:</p>
 <ul>
@@ -9410,15 +9428,15 @@ aws<span class="w"> </span>s3api<span class="w"> </span>create-bucket<span class
 <span class="c1"># Retención por defecto: 30 días en modo compliance</span>
 aws<span class="w"> </span>s3api<span class="w"> </span>put-object-lock-configuration<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--bucket<span class="w"> </span>backups-inmutables-acme<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--object-lock-configuration<span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">    &quot;ObjectLockEnabled&quot;: &quot;Enabled&quot;,</span>
-<span class="s1">    &quot;Rule&quot;: {</span>
-<span class="s1">      &quot;DefaultRetention&quot;: {</span>
-<span class="s1">        &quot;Mode&quot;: &quot;COMPLIANCE&quot;,</span>
-<span class="s1">        &quot;Days&quot;: 30</span>
+<span class="w">  </span>--object-lock-configuration<span class="w"> </span><span class="s1">'{</span>
+<span class="s1">    "ObjectLockEnabled": "Enabled",</span>
+<span class="s1">    "Rule": {</span>
+<span class="s1">      "DefaultRetention": {</span>
+<span class="s1">        "Mode": "COMPLIANCE",</span>
+<span class="s1">        "Days": 30</span>
 <span class="s1">      }</span>
 <span class="s1">    }</span>
-<span class="s1">  }&#39;</span>
+<span class="s1">  }'</span>
 </code></pre></div>
 <div class="admonition danger">
 <p class="admonition-title">COMPLIANCE es irreversible por diseño</p>
@@ -9427,32 +9445,32 @@ aws<span class="w"> </span>s3api<span class="w"> </span>put-object-lock-configur
 <h3 id="restic-permisos-restringidos">restic: permisos restringidos<a class="headerlink" href="#restic-permisos-restringidos" title="Permanent link">&para;</a></h3>
 <p>restic no tiene un modo append-only propio, así que la restricción se aplica en la capa de almacenamiento. Con S3, una política IAM que permite escribir y leer, pero no borrar:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;Sid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ListRepo&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;s3:ListBucket&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;s3:GetBucketLocation&quot;</span><span class="p">],</span>
-<span class="w">      </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:s3:::backups-inmutables-acme&quot;</span>
+<span class="w">      </span><span class="nt">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ListRepo"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"s3:ListBucket"</span><span class="p">,</span><span class="w"> </span><span class="s2">"s3:GetBucketLocation"</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:s3:::backups-inmutables-acme"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;Sid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;WriteAndReadOnly&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;s3:PutObject&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;s3:GetObject&quot;</span><span class="p">],</span>
-<span class="w">      </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:s3:::backups-inmutables-acme/*&quot;</span>
+<span class="w">      </span><span class="nt">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WriteAndReadOnly"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"s3:PutObject"</span><span class="p">,</span><span class="w"> </span><span class="s2">"s3:GetObject"</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:s3:::backups-inmutables-acme/*"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;Sid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DenyAllDeletes&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Deny&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="s2">&quot;s3:DeleteObject&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="s2">&quot;s3:DeleteObjectVersion&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="s2">&quot;s3:PutBucketVersioning&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="s2">&quot;s3:PutObjectLockConfiguration&quot;</span>
+<span class="w">      </span><span class="nt">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DenyAllDeletes"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deny"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">"s3:DeleteObject"</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">"s3:DeleteObjectVersion"</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">"s3:PutBucketVersioning"</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">"s3:PutObjectLockConfiguration"</span>
 <span class="w">      </span><span class="p">],</span>
-<span class="w">      </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="s2">&quot;arn:aws:s3:::backups-inmutables-acme&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="s2">&quot;arn:aws:s3:::backups-inmutables-acme/*&quot;</span>
+<span class="w">      </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">"arn:aws:s3:::backups-inmutables-acme"</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">"arn:aws:s3:::backups-inmutables-acme/*"</span>
 <span class="w">      </span><span class="p">]</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">]</span>
@@ -9526,15 +9544,15 @@ aws<span class="w"> </span>s3api<span class="w"> </span>put-object-lock-configur
 <h3 id="verificacion-de-integridad-verificacion-de-restauracion">Verificación de integridad ≠ verificación de restauración<a class="headerlink" href="#verificacion-de-integridad-verificacion-de-restauracion" title="Permanent link">&para;</a></h3>
 <p>Son dos cosas distintas y hacen falta las dos.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># restic: verifica estructura y metadatos. Rápido, no lee los datos.</span>
-restic<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$RESTIC_REPOSITORY</span><span class="s2">&quot;</span><span class="w"> </span>check
+restic<span class="w"> </span>-r<span class="w"> </span><span class="s2">"</span><span class="nv">$RESTIC_REPOSITORY</span><span class="s2">"</span><span class="w"> </span>check
 
 <span class="c1"># restic: lee y descifra TODOS los datos. Lento y con coste de egress, pero es</span>
 <span class="c1"># lo único que detecta corrupción real en los blobs.</span>
-restic<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$RESTIC_REPOSITORY</span><span class="s2">&quot;</span><span class="w"> </span>check<span class="w"> </span>--read-data
+restic<span class="w"> </span>-r<span class="w"> </span><span class="s2">"</span><span class="nv">$RESTIC_REPOSITORY</span><span class="s2">"</span><span class="w"> </span>check<span class="w"> </span>--read-data
 
 <span class="c1"># restic: compromiso razonable para ejecutar semanalmente.</span>
 <span class="c1"># Lee un subconjunto del repositorio, rotando la parte verificada.</span>
-restic<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$RESTIC_REPOSITORY</span><span class="s2">&quot;</span><span class="w"> </span>check<span class="w"> </span>--read-data-subset<span class="o">=</span><span class="m">1</span>/10
+restic<span class="w"> </span>-r<span class="w"> </span><span class="s2">"</span><span class="nv">$RESTIC_REPOSITORY</span><span class="s2">"</span><span class="w"> </span>check<span class="w"> </span>--read-data-subset<span class="o">=</span><span class="m">1</span>/10
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="c1"># borg: verifica consistencia del repositorio y de los archives</span>
 borg<span class="w"> </span>check<span class="w"> </span>/ruta/al/repo
@@ -9550,7 +9568,7 @@ borg<span class="w"> </span>check<span class="w"> </span>--verify-data<span clas
 <p>Dos ejercicios con propósitos distintos. Los dos hay que hacerlos, con cadencia distinta.</p>
 <p><strong>Restore parcial (semanal, automatizable).</strong> Recuperas un conjunto pequeño y conocido de ficheros y compruebas su contenido. Es barato, rápido y detecta el 80 % de los fallos: cron muerto, exclusiones mal puestas, corrupción en zonas activas.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Recuperar solo una ruta concreta del último snapshot</span>
-restic<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$RESTIC_REPOSITORY</span><span class="s2">&quot;</span><span class="w"> </span>restore<span class="w"> </span>latest<span class="w"> </span><span class="se">\</span>
+restic<span class="w"> </span>-r<span class="w"> </span><span class="s2">"</span><span class="nv">$RESTIC_REPOSITORY</span><span class="s2">"</span><span class="w"> </span>restore<span class="w"> </span>latest<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--target<span class="w"> </span>/tmp/verify<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--include<span class="w"> </span>/etc/nginx/nginx.conf
 
@@ -9566,7 +9584,7 @@ borg<span class="w"> </span>extract<span class="w"> </span>--strip-components<sp
 <p>Para inspección rápida sin escribir nada a disco, ambas herramientas exponen el repositorio como sistema de ficheros FUSE:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># restic</span>
 mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/restic
-restic<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$RESTIC_REPOSITORY</span><span class="s2">&quot;</span><span class="w"> </span>mount<span class="w"> </span>/mnt/restic
+restic<span class="w"> </span>-r<span class="w"> </span><span class="s2">"</span><span class="nv">$RESTIC_REPOSITORY</span><span class="s2">"</span><span class="w"> </span>mount<span class="w"> </span>/mnt/restic
 <span class="c1"># los snapshots aparecen en /mnt/restic/snapshots/</span>
 
 <span class="c1"># borg</span>
@@ -9581,57 +9599,57 @@ borg<span class="w"> </span>umount<span class="w"> </span>/mnt/borg
 <span class="c1"># Verificación automática de restauración. Falla ruidosamente o no sirve.</span>
 <span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
 
-<span class="nb">export</span><span class="w"> </span><span class="nv">RESTIC_REPOSITORY</span><span class="o">=</span><span class="s2">&quot;s3:s3.eu-west-1.amazonaws.com/backups-inmutables-acme&quot;</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">RESTIC_PASSWORD_FILE</span><span class="o">=</span><span class="s2">&quot;/etc/restic/verify.passphrase&quot;</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">AWS_SHARED_CREDENTIALS_FILE</span><span class="o">=</span><span class="s2">&quot;/etc/restic/verify-readonly.credentials&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">RESTIC_REPOSITORY</span><span class="o">=</span><span class="s2">"s3:s3.eu-west-1.amazonaws.com/backups-inmutables-acme"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">RESTIC_PASSWORD_FILE</span><span class="o">=</span><span class="s2">"/etc/restic/verify.passphrase"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">AWS_SHARED_CREDENTIALS_FILE</span><span class="o">=</span><span class="s2">"/etc/restic/verify-readonly.credentials"</span>
 
-<span class="nv">WORKDIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nv">WORKDIR</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span>
 <span class="nv">MAX_AGE_HOURS</span><span class="o">=</span><span class="m">26</span>
 <span class="c1"># Ficheros centinela: cambian a menudo y son críticos.</span>
 <span class="nv">SENTINELS</span><span class="o">=(</span>
-<span class="w">  </span><span class="s2">&quot;/etc/nginx/nginx.conf&quot;</span>
-<span class="w">  </span><span class="s2">&quot;/var/backups/postgres/latest.dump&quot;</span>
+<span class="w">  </span><span class="s2">"/etc/nginx/nginx.conf"</span>
+<span class="w">  </span><span class="s2">"/var/backups/postgres/latest.dump"</span>
 <span class="o">)</span>
 
 <span class="nv">verified</span><span class="o">=</span><span class="m">0</span>
 
-cleanup<span class="o">()</span><span class="w"> </span><span class="o">{</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$WORKDIR</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
+cleanup<span class="o">()</span><span class="w"> </span><span class="o">{</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span><span class="s2">"</span><span class="nv">$WORKDIR</span><span class="s2">"</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
 <span class="nb">trap</span><span class="w"> </span>cleanup<span class="w"> </span>EXIT
 
-fail<span class="o">()</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;BACKUP-VERIFY FAIL: </span><span class="nv">$*</span><span class="s2">&quot;</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
+fail<span class="o">()</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"BACKUP-VERIFY FAIL: </span><span class="nv">$*</span><span class="s2">"</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
 
 <span class="c1"># 1. ¿Existe un snapshot y es reciente?</span>
-<span class="nv">last_epoch</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>restic<span class="w"> </span>snapshots<span class="w"> </span>--latest<span class="w"> </span><span class="m">1</span><span class="w"> </span>--json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[0].time&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="o">{}</span><span class="w"> </span>date<span class="w"> </span>-d<span class="w"> </span><span class="o">{}</span><span class="w"> </span>+%s<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span>fail<span class="w"> </span><span class="s2">&quot;no se pudo leer el último snapshot&quot;</span>
+<span class="nv">last_epoch</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>restic<span class="w"> </span>snapshots<span class="w"> </span>--latest<span class="w"> </span><span class="m">1</span><span class="w"> </span>--json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.[0].time'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="o">{}</span><span class="w"> </span>date<span class="w"> </span>-d<span class="w"> </span><span class="o">{}</span><span class="w"> </span>+%s<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="o">||</span><span class="w"> </span>fail<span class="w"> </span><span class="s2">"no se pudo leer el último snapshot"</span>
 <span class="nv">age_hours</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="o">(</span><span class="w"> </span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">last_epoch</span><span class="w"> </span><span class="o">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="k">))</span>
-<span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$age_hours</span><span class="s2">&quot;</span><span class="w"> </span>-le<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$MAX_AGE_HOURS</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="o">||</span><span class="w"> </span>fail<span class="w"> </span><span class="s2">&quot;el último snapshot tiene </span><span class="si">${</span><span class="nv">age_hours</span><span class="si">}</span><span class="s2">h (máximo </span><span class="si">${</span><span class="nv">MAX_AGE_HOURS</span><span class="si">}</span><span class="s2">h)&quot;</span>
+<span class="o">[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$age_hours</span><span class="s2">"</span><span class="w"> </span>-le<span class="w"> </span><span class="s2">"</span><span class="nv">$MAX_AGE_HOURS</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">||</span><span class="w"> </span>fail<span class="w"> </span><span class="s2">"el último snapshot tiene </span><span class="si">${</span><span class="nv">age_hours</span><span class="si">}</span><span class="s2">h (máximo </span><span class="si">${</span><span class="nv">MAX_AGE_HOURS</span><span class="si">}</span><span class="s2">h)"</span>
 
 <span class="c1"># 2. Integridad estructural + un décimo de los datos (rota entre ejecuciones).</span>
-restic<span class="w"> </span>check<span class="w"> </span>--read-data-subset<span class="o">=</span><span class="m">1</span>/10<span class="w"> </span><span class="o">||</span><span class="w"> </span>fail<span class="w"> </span><span class="s2">&quot;restic check detectó corrupción&quot;</span>
+restic<span class="w"> </span>check<span class="w"> </span>--read-data-subset<span class="o">=</span><span class="m">1</span>/10<span class="w"> </span><span class="o">||</span><span class="w"> </span>fail<span class="w"> </span><span class="s2">"restic check detectó corrupción"</span>
 
 <span class="c1"># 3. Restaurar los ficheros centinela y comparar hashes con el original vivo.</span>
-<span class="k">for</span><span class="w"> </span>f<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SENTINELS</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">  </span>restic<span class="w"> </span>restore<span class="w"> </span>latest<span class="w"> </span>--target<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$WORKDIR</span><span class="s2">&quot;</span><span class="w"> </span>--include<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="o">||</span><span class="w"> </span>fail<span class="w"> </span><span class="s2">&quot;no se pudo restaurar </span><span class="nv">$f</span><span class="s2">&quot;</span>
-<span class="w">  </span><span class="o">[</span><span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">WORKDIR</span><span class="si">}${</span><span class="nv">f</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span>fail<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$f</span><span class="s2"> restaurado vacío o ausente&quot;</span>
+<span class="k">for</span><span class="w"> </span>f<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">SENTINELS</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>restic<span class="w"> </span>restore<span class="w"> </span>latest<span class="w"> </span>--target<span class="w"> </span><span class="s2">"</span><span class="nv">$WORKDIR</span><span class="s2">"</span><span class="w"> </span>--include<span class="w"> </span><span class="s2">"</span><span class="nv">$f</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">||</span><span class="w"> </span>fail<span class="w"> </span><span class="s2">"no se pudo restaurar </span><span class="nv">$f</span><span class="s2">"</span>
+<span class="w">  </span><span class="o">[</span><span class="w"> </span>-s<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">WORKDIR</span><span class="si">}${</span><span class="nv">f</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span>fail<span class="w"> </span><span class="s2">"</span><span class="nv">$f</span><span class="s2"> restaurado vacío o ausente"</span>
 
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">    </span><span class="nv">orig</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>sha256sum<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span><span class="s2">&quot;</span>
-<span class="w">    </span><span class="nv">rest</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>sha256sum<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">WORKDIR</span><span class="si">}${</span><span class="nv">f</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span><span class="s2">&quot;</span>
-<span class="w">    </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$orig</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$rest</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;AVISO: </span><span class="nv">$f</span><span class="s2"> difiere del original (cambió tras el backup)&quot;</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">"</span><span class="nv">$f</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">orig</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>sha256sum<span class="w"> </span><span class="s2">"</span><span class="nv">$f</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">' '</span><span class="w"> </span>-f1<span class="k">)</span><span class="s2">"</span>
+<span class="w">    </span><span class="nv">rest</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>sha256sum<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">WORKDIR</span><span class="si">}${</span><span class="nv">f</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">' '</span><span class="w"> </span>-f1<span class="k">)</span><span class="s2">"</span>
+<span class="w">    </span><span class="o">[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$orig</span><span class="s2">"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$rest</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"AVISO: </span><span class="nv">$f</span><span class="s2"> difiere del original (cambió tras el backup)"</span>
 <span class="w">  </span><span class="k">fi</span>
 <span class="w">  </span><span class="nv">verified</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="nv">verified</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="k">))</span>
 <span class="k">done</span>
 
 <span class="c1"># 4. Validación semántica: el dump debe ser restaurable, no solo existir.</span>
-<span class="nv">dump</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">WORKDIR</span><span class="si">}</span><span class="s2">/var/backups/postgres/latest.dump&quot;</span>
-<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$dump</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">  </span>pg_restore<span class="w"> </span>--list<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$dump</span><span class="s2">&quot;</span><span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="o">||</span><span class="w"> </span>fail<span class="w"> </span><span class="s2">&quot;el dump de PostgreSQL está corrupto o truncado&quot;</span>
+<span class="nv">dump</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">WORKDIR</span><span class="si">}</span><span class="s2">/var/backups/postgres/latest.dump"</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">"</span><span class="nv">$dump</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span>pg_restore<span class="w"> </span>--list<span class="w"> </span><span class="s2">"</span><span class="nv">$dump</span><span class="s2">"</span><span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">||</span><span class="w"> </span>fail<span class="w"> </span><span class="s2">"el dump de PostgreSQL está corrupto o truncado"</span>
 <span class="k">fi</span>
 
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;BACKUP-VERIFY OK: snapshot de hace </span><span class="si">${</span><span class="nv">age_hours</span><span class="si">}</span><span class="s2">h, </span><span class="si">${</span><span class="nv">verified</span><span class="si">}</span><span class="s2"> centinelas verificados&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"BACKUP-VERIFY OK: snapshot de hace </span><span class="si">${</span><span class="nv">age_hours</span><span class="si">}</span><span class="s2">h, </span><span class="si">${</span><span class="nv">verified</span><span class="si">}</span><span class="s2"> centinelas verificados"</span>
 </code></pre></div>
 <p>El paso 4 es el que distingue esta comprobación de una inútil: un fichero de 4 GB puede existir, tener el tamaño correcto y estar truncado por la mitad. <code>pg_restore --list</code> lo detecta en segundos sin restaurar nada.</p>
 <p>Programación en cron, con salida a un fichero de log que el monitoring vigila:</p>

@@ -520,6 +520,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -7241,6 +7260,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -8985,6 +9011,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9127,35 +9180,21 @@
       
       
       
-        <span class="md-tag">docker</span>
+        <a href="../../../tags/#tag:containers" class="md-tag">containers</a>
       
     
       
       
       
       
-        <span class="md-tag">gvisor</span>
+        <a href="../../../tags/#tag:cybersecurity" class="md-tag">cybersecurity</a>
       
     
       
       
       
       
-        <span class="md-tag">kata</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">sandboxing</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">security</span>
+        <a href="../../../tags/#tag:docker" class="md-tag">docker</a>
       
     
   </nav>
@@ -9230,9 +9269,9 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="
 </code></pre></div>
 <p>Esto añade el runtime a <code>/etc/docker/daemon.json</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;runtimes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;runsc&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/usr/local/bin/runsc&quot;</span>
+<span class="w">  </span><span class="nt">"runtimes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"runsc"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/usr/local/bin/runsc"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -9242,14 +9281,14 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="
 
 <span class="c1"># Comprobar que el kernel es el del Sentry, no el del host</span>
 docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--runtime<span class="o">=</span>runsc<span class="w"> </span>alpine<span class="w"> </span>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
-<span class="c1"># -&gt; se ve &quot;Starting gVisor...&quot; en lugar del kernel real</span>
+<span class="c1"># -&gt; se ve "Starting gVisor..." en lugar del kernel real</span>
 </code></pre></div>
 <h3 id="configuracion-con-containerd">Configuración con containerd<a class="headerlink" href="#configuracion-con-containerd" title="Permanent link">&para;</a></h3>
 <p>En <code>/etc/containerd/config.toml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
 
-<span class="k">[plugins.</span><span class="s2">&quot;io.containerd.grpc.v1.cri&quot;</span><span class="k">.containerd.runtimes.runsc]</span>
-<span class="w">  </span><span class="n">runtime_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;io.containerd.runsc.v1&quot;</span>
+<span class="k">[plugins.</span><span class="s2">"io.containerd.grpc.v1.cri"</span><span class="k">.containerd.runtimes.runsc]</span>
+<span class="w">  </span><span class="n">runtime_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"io.containerd.runsc.v1"</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>containerd
 </code></pre></div>
@@ -9263,7 +9302,7 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <div class="highlight"><pre><span></span><code><span class="c1"># Verificar soporte de virtualización por hardware</span>
 kata-runtime<span class="w"> </span>check
 <span class="c1"># o, manualmente:</span>
-egrep<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;(vmx|svm)&#39;</span><span class="w"> </span>/proc/cpuinfo<span class="w">   </span><span class="c1"># &gt; 0 = soportado</span>
+egrep<span class="w"> </span>-c<span class="w"> </span><span class="s1">'(vmx|svm)'</span><span class="w"> </span>/proc/cpuinfo<span class="w">   </span><span class="c1"># &gt; 0 = soportado</span>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Virtualización anidada</p>
@@ -9271,16 +9310,16 @@ egrep<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;(vm
 </div>
 <h3 id="instalacion_1">Instalación<a class="headerlink" href="#instalacion_1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Vía kata-manager (script oficial que instala binarios + config)</span>
-bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://raw.githubusercontent.com/kata-containers/kata-containers/main/utils/kata-manager.sh<span class="k">)</span><span class="s2">&quot;</span>
+bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://raw.githubusercontent.com/kata-containers/kata-containers/main/utils/kata-manager.sh<span class="k">)</span><span class="s2">"</span>
 </code></pre></div>
 <p>Los binarios quedan en <code>/opt/kata/bin/</code> y la configuración en <code>/opt/kata/share/defaults/kata-containers/configuration.toml</code>.</p>
 <h3 id="configuracion-con-containerd_1">Configuración con containerd<a class="headerlink" href="#configuracion-con-containerd_1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
 
-<span class="k">[plugins.</span><span class="s2">&quot;io.containerd.grpc.v1.cri&quot;</span><span class="k">.containerd.runtimes.kata]</span>
-<span class="w">  </span><span class="n">runtime_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;io.containerd.kata.v2&quot;</span>
-<span class="w">  </span><span class="k">[plugins.</span><span class="s2">&quot;io.containerd.grpc.v1.cri&quot;</span><span class="k">.containerd.runtimes.kata.options]</span>
-<span class="w">    </span><span class="n">ConfigPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/opt/kata/share/defaults/kata-containers/configuration.toml&quot;</span>
+<span class="k">[plugins.</span><span class="s2">"io.containerd.grpc.v1.cri"</span><span class="k">.containerd.runtimes.kata]</span>
+<span class="w">  </span><span class="n">runtime_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"io.containerd.kata.v2"</span>
+<span class="w">  </span><span class="k">[plugins.</span><span class="s2">"io.containerd.grpc.v1.cri"</span><span class="k">.containerd.runtimes.kata.options]</span>
+<span class="w">    </span><span class="n">ConfigPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/opt/kata/share/defaults/kata-containers/configuration.toml"</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>containerd
 </code></pre></div>
@@ -9314,7 +9353,7 @@ sudo<span class="w"> </span>ctr<span class="w"> </span>run<span class="w"> </spa
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">untrusted-workload</span>
 <span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">runtimeClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gvisor</span><span class="w">      </span><span class="c1"># o &quot;kata&quot;</span>
+<span class="w">  </span><span class="nt">runtimeClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gvisor</span><span class="w">      </span><span class="c1"># o "kata"</span>
 <span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app</span>
 <span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx:1.27-alpine</span>
@@ -9331,11 +9370,11 @@ sudo<span class="w"> </span>ctr<span class="w"> </span>run<span class="w"> </spa
 <span class="nt">handler</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kata</span>
 <span class="nt">scheduling</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">nodeSelector</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">katacontainers.io/kata-runtime</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">    </span><span class="nt">katacontainers.io/kata-runtime</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 <span class="w">  </span><span class="nt">tolerations</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;kata&quot;</span>
-<span class="w">      </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Exists&quot;</span>
-<span class="w">      </span><span class="nt">effect</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;NoSchedule&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">"kata"</span>
+<span class="w">      </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">"Exists"</span>
+<span class="w">      </span><span class="nt">effect</span><span class="p">:</span><span class="w"> </span><span class="s">"NoSchedule"</span>
 </code></pre></div>
 <h2 id="comparativa-runc-vs-gvisor-vs-kata">⚖️ Comparativa: runc vs gVisor vs Kata<a class="headerlink" href="#comparativa-runc-vs-gvisor-vs-kata" title="Permanent link">&para;</a></h2>
 <table>

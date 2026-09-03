@@ -520,6 +520,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -7762,6 +7781,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -9506,6 +9532,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9660,6 +9713,17 @@
                 
                   
 
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:networking" class="md-tag">networking</a>
+      
+    
+  </nav>
+
 
   
     <a href="https://github.com/rasty94/Frikiteam-docs/edit/master/docs/en/doc/networking/certificados_tls.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
@@ -9702,7 +9766,7 @@
 <li><strong>Emisión:</strong> Certificado firmado</li>
 </ol>
 <h4 id="ejemplo-con-certbot">Ejemplo con Certbot<a class="headerlink" href="#ejemplo-con-certbot" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># DV con Let&#39;s Encrypt</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># DV con Let's Encrypt</span>
 certbot<span class="w"> </span>certonly<span class="w"> </span>--webroot<span class="w"> </span>-w<span class="w"> </span>/var/www/html<span class="w"> </span>-d<span class="w"> </span>example.com
 
 <span class="c1"># Con DNS challenge</span>
@@ -9803,7 +9867,7 @@ openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"
 
 <span class="c1"># Crear CSR</span>
 openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>example.com.key<span class="w"> </span>-out<span class="w"> </span>example.com.csr<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-subj<span class="w"> </span><span class="s2">&quot;/C=ES/ST=Madrid/L=Madrid/O=Example Corp/CN=example.com&quot;</span>
+<span class="w">  </span>-subj<span class="w"> </span><span class="s2">"/C=ES/ST=Madrid/L=Madrid/O=Example Corp/CN=example.com"</span>
 
 <span class="c1"># Con SAN (Subject Alternative Names)</span>
 cat<span class="w"> </span>&gt;<span class="w"> </span>san.cnf<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
@@ -9839,23 +9903,23 @@ certbot<span class="w"> </span>renew<span class="w"> </span>--dry-run
 
 <span class="c1"># Hook post-renovación</span>
 certbot<span class="w"> </span>certonly<span class="w"> </span>--webroot<span class="w"> </span>-w<span class="w"> </span>/var/www/html<span class="w"> </span>-d<span class="w"> </span>example.com<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--post-hook<span class="w"> </span><span class="s2">&quot;systemctl reload nginx&quot;</span>
+<span class="w">  </span>--post-hook<span class="w"> </span><span class="s2">"systemctl reload nginx"</span>
 </code></pre></div>
 <h4 id="script-personalizado">Script Personalizado<a class="headerlink" href="#script-personalizado" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="c1"># Verificar expiración y renovar</span>
 
-<span class="nv">DOMAIN</span><span class="o">=</span><span class="s2">&quot;example.com&quot;</span>
+<span class="nv">DOMAIN</span><span class="o">=</span><span class="s2">"example.com"</span>
 <span class="nv">DAYS_WARNING</span><span class="o">=</span><span class="m">30</span>
 
 <span class="c1"># Calcular días hasta expiración</span>
 <span class="nv">EXPIRY</span><span class="o">=</span><span class="k">$(</span>openssl<span class="w"> </span>x509<span class="w"> </span>-enddate<span class="w"> </span>-noout<span class="w"> </span>-in<span class="w"> </span>/etc/ssl/certs/<span class="nv">$DOMAIN</span>.crt<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="o">=</span><span class="w"> </span>-f2<span class="k">)</span>
-<span class="nv">EXPIRY_SECONDS</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$EXPIRY</span><span class="s2">&quot;</span><span class="w"> </span>+%s<span class="k">)</span>
+<span class="nv">EXPIRY_SECONDS</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$EXPIRY</span><span class="s2">"</span><span class="w"> </span>+%s<span class="k">)</span>
 <span class="nv">NOW_SECONDS</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span>
 <span class="nv">DAYS_LEFT</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="o">(</span><span class="nv">$EXPIRY_SECONDS</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">$NOW_SECONDS</span><span class="o">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">86400</span><span class="w"> </span><span class="k">))</span>
 
 <span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$DAYS_LEFT</span><span class="w"> </span>-lt<span class="w"> </span><span class="nv">$DAYS_WARNING</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Certificado expira en </span><span class="nv">$DAYS_LEFT</span><span class="s2"> días. Renovando...&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Certificado expira en </span><span class="nv">$DAYS_LEFT</span><span class="s2"> días. Renovando..."</span>
 <span class="w">    </span>certbot<span class="w"> </span>renew<span class="w"> </span>--cert-name<span class="w"> </span><span class="nv">$DOMAIN</span>
 <span class="w">    </span>systemctl<span class="w"> </span>reload<span class="w"> </span>nginx
 <span class="k">fi</span>
@@ -9884,7 +9948,7 @@ certbot<span class="w"> </span>certonly<span class="w"> </span>--webroot<span cl
 <span class="k">resolver_timeout</span><span class="w"> </span><span class="s">5s</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="hsts-http-strict-transport-security">HSTS (HTTP Strict Transport Security)<a class="headerlink" href="#hsts-http-strict-transport-security" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">add_header</span><span class="w"> </span><span class="s">Strict-Transport-Security</span><span class="w"> </span><span class="s">&quot;max-age=63072000</span><span class="p">;</span><span class="w"> </span><span class="k">includeSubDomains</span><span class="p">;</span><span class="w"> </span><span class="k">preload&quot;</span><span class="w"> </span><span class="s">always</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">add_header</span><span class="w"> </span><span class="s">Strict-Transport-Security</span><span class="w"> </span><span class="s">"max-age=63072000</span><span class="p">;</span><span class="w"> </span><span class="k">includeSubDomains</span><span class="p">;</span><span class="w"> </span><span class="k">preload"</span><span class="w"> </span><span class="s">always</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="hpkp-public-key-pinning-deprecated">HPKP (Public Key Pinning) - DEPRECATED<a class="headerlink" href="#hpkp-public-key-pinning-deprecated" title="Permanent link">&para;</a></h3>
 <p><strong>Nota:</strong> HPKP está obsoleto. Usar Certificate Transparency en su lugar.</p>
@@ -9897,7 +9961,7 @@ openssl<span class="w"> </span>x509<span class="w"> </span>-enddate<span class="
 <span class="nb">echo</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>s_client<span class="w"> </span>-servername<span class="w"> </span>example.com<span class="w"> </span>-connect<span class="w"> </span>example.com:443<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>x509<span class="w"> </span>-noout<span class="w"> </span>-dates
 
 <span class="c1"># SSL Labs test</span>
-curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;https://api.ssllabs.com/api/v3/analyze?host=example.com&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.endpoints[0].grade&#39;</span>
+curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">"https://api.ssllabs.com/api/v3/analyze?host=example.com"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.endpoints[0].grade'</span>
 </code></pre></div>
 <h3 id="scripts-de-monitoreo">Scripts de Monitoreo<a class="headerlink" href="#scripts-de-monitoreo" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">ssl</span>
@@ -9913,23 +9977,23 @@ curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;htt
     <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="c1"># Extraer fechas</span>
-    <span class="n">not_before</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">cert</span><span class="p">[</span><span class="s1">&#39;notBefore&#39;</span><span class="p">],</span> <span class="s1">&#39;%b </span><span class="si">%d</span><span class="s1"> %H:%M:%S %Y %Z&#39;</span><span class="p">)</span>
-    <span class="n">not_after</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">cert</span><span class="p">[</span><span class="s1">&#39;notAfter&#39;</span><span class="p">],</span> <span class="s1">&#39;%b </span><span class="si">%d</span><span class="s1"> %H:%M:%S %Y %Z&#39;</span><span class="p">)</span>
+    <span class="n">not_before</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">cert</span><span class="p">[</span><span class="s1">'notBefore'</span><span class="p">],</span> <span class="s1">'%b </span><span class="si">%d</span><span class="s1"> %H:%M:%S %Y %Z'</span><span class="p">)</span>
+    <span class="n">not_after</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">cert</span><span class="p">[</span><span class="s1">'notAfter'</span><span class="p">],</span> <span class="s1">'%b </span><span class="si">%d</span><span class="s1"> %H:%M:%S %Y %Z'</span><span class="p">)</span>
 
     <span class="n">days_left</span> <span class="o">=</span> <span class="p">(</span><span class="n">not_after</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span><span class="o">.</span><span class="n">days</span>
 
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s1">&#39;subject&#39;</span><span class="p">:</span> <span class="n">cert</span><span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">],</span>
-        <span class="s1">&#39;issuer&#39;</span><span class="p">:</span> <span class="n">cert</span><span class="p">[</span><span class="s1">&#39;issuer&#39;</span><span class="p">],</span>
-        <span class="s1">&#39;not_before&#39;</span><span class="p">:</span> <span class="n">not_before</span><span class="p">,</span>
-        <span class="s1">&#39;not_after&#39;</span><span class="p">:</span> <span class="n">not_after</span><span class="p">,</span>
-        <span class="s1">&#39;days_left&#39;</span><span class="p">:</span> <span class="n">days_left</span><span class="p">,</span>
-        <span class="s1">&#39;valid&#39;</span><span class="p">:</span> <span class="n">days_left</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="s1">'subject'</span><span class="p">:</span> <span class="n">cert</span><span class="p">[</span><span class="s1">'subject'</span><span class="p">],</span>
+        <span class="s1">'issuer'</span><span class="p">:</span> <span class="n">cert</span><span class="p">[</span><span class="s1">'issuer'</span><span class="p">],</span>
+        <span class="s1">'not_before'</span><span class="p">:</span> <span class="n">not_before</span><span class="p">,</span>
+        <span class="s1">'not_after'</span><span class="p">:</span> <span class="n">not_after</span><span class="p">,</span>
+        <span class="s1">'days_left'</span><span class="p">:</span> <span class="n">days_left</span><span class="p">,</span>
+        <span class="s1">'valid'</span><span class="p">:</span> <span class="n">days_left</span> <span class="o">&gt;</span> <span class="mi">0</span>
     <span class="p">}</span>
 
 <span class="c1"># Uso</span>
-<span class="n">cert_info</span> <span class="o">=</span> <span class="n">check_ssl_cert</span><span class="p">(</span><span class="s1">&#39;example.com&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Certificado válido por </span><span class="si">{</span><span class="n">cert_info</span><span class="p">[</span><span class="s1">&#39;days_left&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> días&quot;</span><span class="p">)</span>
+<span class="n">cert_info</span> <span class="o">=</span> <span class="n">check_ssl_cert</span><span class="p">(</span><span class="s1">'example.com'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Certificado válido por </span><span class="si">{</span><span class="n">cert_info</span><span class="p">[</span><span class="s1">'days_left'</span><span class="p">]</span><span class="si">}</span><span class="s2"> días"</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="alertas-con-nagiosicinga">Alertas con Nagios/Icinga<a class="headerlink" href="#alertas-con-nagiosicinga" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Comando check_ssl_cert</span>
@@ -9955,10 +10019,10 @@ curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;htt
 <p>Los certificados incluyen SCTs para probar que fueron registrados en logs públicos de CT.</p>
 <h3 id="verificacion-ct">Verificación CT<a class="headerlink" href="#verificacion-ct" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Ver SCTs en certificado</span>
-openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>cert.pem<span class="w"> </span>-text<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;CT Precertificate SCTs&quot;</span>
+openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>cert.pem<span class="w"> </span>-text<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">"CT Precertificate SCTs"</span>
 
 <span class="c1"># Verificar con crt.sh</span>
-curl<span class="w"> </span><span class="s2">&quot;https://crt.sh/?q=example.com&amp;output=json&quot;</span>
+curl<span class="w"> </span><span class="s2">"https://crt.sh/?q=example.com&amp;output=json"</span>
 </code></pre></div>
 <h2 id="mejores-practicas">Mejores Prácticas<a class="headerlink" href="#mejores-practicas" title="Permanent link">&para;</a></h2>
 <h3 id="gestion">Gestión<a class="headerlink" href="#gestion" title="Permanent link">&para;</a></h3>

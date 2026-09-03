@@ -518,6 +518,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -7467,6 +7486,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -9211,6 +9237,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9345,42 +9398,14 @@
       
       
       
-        <span class="md-tag">ai</span>
+        <a href="../../../tags/#tag:ai" class="md-tag">ai</a>
       
     
       
       
       
       
-        <span class="md-tag">chroma</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">milvus</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">qdrant</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">vector-db</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">weaviate</span>
+        <a href="../../../tags/#tag:vector-db" class="md-tag">vector-db</a>
       
     
   </nav>
@@ -9438,10 +9463,10 @@
 </table>
 <h3 id="ejemplo-practico">Ejemplo Práctico<a class="headerlink" href="#ejemplo-practico" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Búsqueda tradicional</span>
-<span class="n">SELECT</span> <span class="o">*</span> <span class="n">FROM</span> <span class="n">docs</span> <span class="n">WHERE</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Kubernetes&#39;</span>
+<span class="n">SELECT</span> <span class="o">*</span> <span class="n">FROM</span> <span class="n">docs</span> <span class="n">WHERE</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">'Kubernetes'</span>
 
 <span class="c1"># Búsqueda vectorial (semántica)</span>
-<span class="n">query_vector</span> <span class="o">=</span> <span class="n">embed</span><span class="p">(</span><span class="s2">&quot;contenedores y orquestación&quot;</span><span class="p">)</span>
+<span class="n">query_vector</span> <span class="o">=</span> <span class="n">embed</span><span class="p">(</span><span class="s2">"contenedores y orquestación"</span><span class="p">)</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">vector_db</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">query_vector</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="c1"># Retorna: Kubernetes, Docker Swarm, Nomad, ECS, Mesos</span>
 </code></pre></div>
@@ -9460,23 +9485,23 @@
 
 <span class="c1"># Cliente local</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">chromadb</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">Settings</span><span class="p">(</span>
-    <span class="n">chroma_db_impl</span><span class="o">=</span><span class="s2">&quot;duckdb+parquet&quot;</span><span class="p">,</span>
-    <span class="n">persist_directory</span><span class="o">=</span><span class="s2">&quot;./chroma_data&quot;</span>
+    <span class="n">chroma_db_impl</span><span class="o">=</span><span class="s2">"duckdb+parquet"</span><span class="p">,</span>
+    <span class="n">persist_directory</span><span class="o">=</span><span class="s2">"./chroma_data"</span>
 <span class="p">))</span>
 
 <span class="c1"># Crear colección</span>
-<span class="n">collection</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_collection</span><span class="p">(</span><span class="s2">&quot;docs&quot;</span><span class="p">)</span>
+<span class="n">collection</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_collection</span><span class="p">(</span><span class="s2">"docs"</span><span class="p">)</span>
 
 <span class="c1"># Añadir documentos</span>
 <span class="n">collection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="n">documents</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Kubernetes es un orquestador&quot;</span><span class="p">,</span> <span class="s2">&quot;Docker es un contenedor&quot;</span><span class="p">],</span>
-    <span class="n">metadatas</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;k8s&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;docker&quot;</span><span class="p">}],</span>
-    <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id1&quot;</span><span class="p">,</span> <span class="s2">&quot;id2&quot;</span><span class="p">]</span>
+    <span class="n">documents</span><span class="o">=</span><span class="p">[</span><span class="s2">"Kubernetes es un orquestador"</span><span class="p">,</span> <span class="s2">"Docker es un contenedor"</span><span class="p">],</span>
+    <span class="n">metadatas</span><span class="o">=</span><span class="p">[{</span><span class="s2">"source"</span><span class="p">:</span> <span class="s2">"k8s"</span><span class="p">},</span> <span class="p">{</span><span class="s2">"source"</span><span class="p">:</span> <span class="s2">"docker"</span><span class="p">}],</span>
+    <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="s2">"id1"</span><span class="p">,</span> <span class="s2">"id2"</span><span class="p">]</span>
 <span class="p">)</span>
 
 <span class="c1"># Buscar</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
-    <span class="n">query_texts</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;contenedores&quot;</span><span class="p">],</span>
+    <span class="n">query_texts</span><span class="o">=</span><span class="p">[</span><span class="s2">"contenedores"</span><span class="p">],</span>
     <span class="n">n_results</span><span class="o">=</span><span class="mi">2</span>
 <span class="p">)</span>
 </code></pre></div></p>
@@ -9491,7 +9516,7 @@
 <p><strong>Instalación con Docker:</strong>
 <div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div></p>
-<div class="highlight"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.5&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">'3.5'</span>
 <span class="nt">services</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">etcd</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/coreos/etcd:latest</span>
@@ -9500,7 +9525,7 @@
 <span class="w">  </span><span class="nt">milvus</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">milvusdb/milvus:latest</span>
 <span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;19530:19530&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"19530:19530"</span>
 <span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">etcd</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minio</span>
@@ -9509,36 +9534,36 @@
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pymilvus</span><span class="w"> </span><span class="kn">import</span> <span class="n">connections</span><span class="p">,</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">FieldSchema</span><span class="p">,</span> <span class="n">CollectionSchema</span><span class="p">,</span> <span class="n">DataType</span>
 
 <span class="c1"># Conectar</span>
-<span class="n">connections</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="s2">&quot;19530&quot;</span><span class="p">)</span>
+<span class="n">connections</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">"localhost"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="s2">"19530"</span><span class="p">)</span>
 
 <span class="c1"># Definir schema</span>
 <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">FieldSchema</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">DataType</span><span class="o">.</span><span class="n">INT64</span><span class="p">,</span> <span class="n">is_primary</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">auto_id</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="n">FieldSchema</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;embedding&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">DataType</span><span class="o">.</span><span class="n">FLOAT_VECTOR</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">768</span><span class="p">),</span>
-    <span class="n">FieldSchema</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">DataType</span><span class="o">.</span><span class="n">VARCHAR</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">FieldSchema</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"id"</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">DataType</span><span class="o">.</span><span class="n">INT64</span><span class="p">,</span> <span class="n">is_primary</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">auto_id</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">FieldSchema</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"embedding"</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">DataType</span><span class="o">.</span><span class="n">FLOAT_VECTOR</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">768</span><span class="p">),</span>
+    <span class="n">FieldSchema</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"text"</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">DataType</span><span class="o">.</span><span class="n">VARCHAR</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 <span class="p">]</span>
-<span class="n">schema</span> <span class="o">=</span> <span class="n">CollectionSchema</span><span class="p">(</span><span class="n">fields</span><span class="p">,</span> <span class="s2">&quot;Document embeddings&quot;</span><span class="p">)</span>
-<span class="n">collection</span> <span class="o">=</span> <span class="n">Collection</span><span class="p">(</span><span class="s2">&quot;docs&quot;</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
+<span class="n">schema</span> <span class="o">=</span> <span class="n">CollectionSchema</span><span class="p">(</span><span class="n">fields</span><span class="p">,</span> <span class="s2">"Document embeddings"</span><span class="p">)</span>
+<span class="n">collection</span> <span class="o">=</span> <span class="n">Collection</span><span class="p">(</span><span class="s2">"docs"</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
 
 <span class="c1"># Crear índice</span>
 <span class="n">index_params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;metric_type&quot;</span><span class="p">:</span> <span class="s2">&quot;L2&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;index_type&quot;</span><span class="p">:</span> <span class="s2">&quot;IVF_FLAT&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;nlist&quot;</span><span class="p">:</span> <span class="mi">128</span><span class="p">}</span>
+    <span class="s2">"metric_type"</span><span class="p">:</span> <span class="s2">"L2"</span><span class="p">,</span>
+    <span class="s2">"index_type"</span><span class="p">:</span> <span class="s2">"IVF_FLAT"</span><span class="p">,</span>
+    <span class="s2">"params"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"nlist"</span><span class="p">:</span> <span class="mi">128</span><span class="p">}</span>
 <span class="p">}</span>
-<span class="n">collection</span><span class="o">.</span><span class="n">create_index</span><span class="p">(</span><span class="s2">&quot;embedding&quot;</span><span class="p">,</span> <span class="n">index_params</span><span class="p">)</span>
+<span class="n">collection</span><span class="o">.</span><span class="n">create_index</span><span class="p">(</span><span class="s2">"embedding"</span><span class="p">,</span> <span class="n">index_params</span><span class="p">)</span>
 
 <span class="c1"># Insertar</span>
 <span class="n">collection</span><span class="o">.</span><span class="n">insert</span><span class="p">([</span>
     <span class="p">[</span><span class="n">embedding_vector</span><span class="p">],</span>
-    <span class="p">[</span><span class="s2">&quot;Kubernetes documentation&quot;</span><span class="p">]</span>
+    <span class="p">[</span><span class="s2">"Kubernetes documentation"</span><span class="p">]</span>
 <span class="p">])</span>
 
 <span class="c1"># Buscar</span>
-<span class="n">search_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;metric_type&quot;</span><span class="p">:</span> <span class="s2">&quot;L2&quot;</span><span class="p">,</span> <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;nprobe&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}}</span>
+<span class="n">search_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"metric_type"</span><span class="p">:</span> <span class="s2">"L2"</span><span class="p">,</span> <span class="s2">"params"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"nprobe"</span><span class="p">:</span> <span class="mi">10</span><span class="p">}}</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
     <span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">query_vector</span><span class="p">],</span>
-    <span class="n">anns_field</span><span class="o">=</span><span class="s2">&quot;embedding&quot;</span><span class="p">,</span>
+    <span class="n">anns_field</span><span class="o">=</span><span class="s2">"embedding"</span><span class="p">,</span>
     <span class="n">param</span><span class="o">=</span><span class="n">search_params</span><span class="p">,</span>
     <span class="n">limit</span><span class="o">=</span><span class="mi">10</span>
 <span class="p">)</span>
@@ -9556,21 +9581,21 @@
 <span class="w">  </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">QUERY_DEFAULTS_LIMIT</span><span class="o">=</span><span class="m">25</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="nv">PERSISTENCE_DATA_PATH</span><span class="o">=</span><span class="s1">&#39;/var/lib/weaviate&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">PERSISTENCE_DATA_PATH</span><span class="o">=</span><span class="s1">'/var/lib/weaviate'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>semitechnologies/weaviate:latest
 </code></pre></div></p>
 <p><strong>Uso con Python:</strong>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">weaviate</span>
 
-<span class="n">client</span> <span class="o">=</span> <span class="n">weaviate</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s2">&quot;http://localhost:8080&quot;</span><span class="p">)</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">weaviate</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s2">"http://localhost:8080"</span><span class="p">)</span>
 
 <span class="c1"># Crear clase (schema)</span>
 <span class="n">class_obj</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;Document&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;vectorizer&quot;</span><span class="p">:</span> <span class="s2">&quot;text2vec-transformers&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;content&quot;</span><span class="p">,</span> <span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]},</span>
-        <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;string&quot;</span><span class="p">]}</span>
+    <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"Document"</span><span class="p">,</span>
+    <span class="s2">"vectorizer"</span><span class="p">:</span> <span class="s2">"text2vec-transformers"</span><span class="p">,</span>
+    <span class="s2">"properties"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"content"</span><span class="p">,</span> <span class="s2">"dataType"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"text"</span><span class="p">]},</span>
+        <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"source"</span><span class="p">,</span> <span class="s2">"dataType"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">]}</span>
     <span class="p">]</span>
 <span class="p">}</span>
 <span class="n">client</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">create_class</span><span class="p">(</span><span class="n">class_obj</span><span class="p">)</span>
@@ -9578,15 +9603,15 @@
 <span class="c1"># Insertar</span>
 <span class="n">client</span><span class="o">.</span><span class="n">data_object</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
     <span class="n">data_object</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Kubernetes orchestrates containers&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;k8s-docs&quot;</span>
+        <span class="s2">"content"</span><span class="p">:</span> <span class="s2">"Kubernetes orchestrates containers"</span><span class="p">,</span>
+        <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"k8s-docs"</span>
     <span class="p">},</span>
-    <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;Document&quot;</span>
+    <span class="n">class_name</span><span class="o">=</span><span class="s2">"Document"</span>
 <span class="p">)</span>
 
 <span class="c1"># Buscar con GraphQL</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Document&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">])</span>\
-    <span class="o">.</span><span class="n">with_near_text</span><span class="p">({</span><span class="s2">&quot;concepts&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;container orchestration&quot;</span><span class="p">]})</span>\
+<span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Document"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"content"</span><span class="p">,</span> <span class="s2">"source"</span><span class="p">])</span>\
+    <span class="o">.</span><span class="n">with_near_text</span><span class="p">({</span><span class="s2">"concepts"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"container orchestration"</span><span class="p">]})</span>\
     <span class="o">.</span><span class="n">with_limit</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>\
     <span class="o">.</span><span class="n">do</span><span class="p">()</span>
 </code></pre></div></p>
@@ -9601,15 +9626,15 @@
 <p><strong>Uso:</strong>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pinecone</span>
 
-<span class="n">pinecone</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="s2">&quot;us-west1-gcp&quot;</span><span class="p">)</span>
+<span class="n">pinecone</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">"YOUR_API_KEY"</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="s2">"us-west1-gcp"</span><span class="p">)</span>
 
 <span class="c1"># Crear índice</span>
-<span class="n">pinecone</span><span class="o">.</span><span class="n">create_index</span><span class="p">(</span><span class="s2">&quot;docs&quot;</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;cosine&quot;</span><span class="p">)</span>
-<span class="n">index</span> <span class="o">=</span> <span class="n">pinecone</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="s2">&quot;docs&quot;</span><span class="p">)</span>
+<span class="n">pinecone</span><span class="o">.</span><span class="n">create_index</span><span class="p">(</span><span class="s2">"docs"</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">"cosine"</span><span class="p">)</span>
+<span class="n">index</span> <span class="o">=</span> <span class="n">pinecone</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="s2">"docs"</span><span class="p">)</span>
 
 <span class="c1"># Insertar</span>
 <span class="n">index</span><span class="o">.</span><span class="n">upsert</span><span class="p">([</span>
-    <span class="p">(</span><span class="s2">&quot;id1&quot;</span><span class="p">,</span> <span class="n">embedding_vector</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Kubernetes guide&quot;</span><span class="p">})</span>
+    <span class="p">(</span><span class="s2">"id1"</span><span class="p">,</span> <span class="n">embedding_vector</span><span class="p">,</span> <span class="p">{</span><span class="s2">"text"</span><span class="p">:</span> <span class="s2">"Kubernetes guide"</span><span class="p">})</span>
 <span class="p">])</span>
 
 <span class="c1"># Buscar</span>
@@ -9634,29 +9659,29 @@
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">qdrant_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">QdrantClient</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qdrant_client.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Distance</span><span class="p">,</span> <span class="n">VectorParams</span><span class="p">,</span> <span class="n">PointStruct</span>
 
-<span class="n">client</span> <span class="o">=</span> <span class="n">QdrantClient</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">6333</span><span class="p">)</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">QdrantClient</span><span class="p">(</span><span class="s2">"localhost"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">6333</span><span class="p">)</span>
 
 <span class="c1"># Crear colección</span>
 <span class="n">client</span><span class="o">.</span><span class="n">create_collection</span><span class="p">(</span>
-    <span class="n">collection_name</span><span class="o">=</span><span class="s2">&quot;docs&quot;</span><span class="p">,</span>
+    <span class="n">collection_name</span><span class="o">=</span><span class="s2">"docs"</span><span class="p">,</span>
     <span class="n">vectors_config</span><span class="o">=</span><span class="n">VectorParams</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="n">Distance</span><span class="o">.</span><span class="n">COSINE</span><span class="p">)</span>
 <span class="p">)</span>
 
 <span class="c1"># Insertar</span>
 <span class="n">client</span><span class="o">.</span><span class="n">upsert</span><span class="p">(</span>
-    <span class="n">collection_name</span><span class="o">=</span><span class="s2">&quot;docs&quot;</span><span class="p">,</span>
+    <span class="n">collection_name</span><span class="o">=</span><span class="s2">"docs"</span><span class="p">,</span>
     <span class="n">points</span><span class="o">=</span><span class="p">[</span>
         <span class="n">PointStruct</span><span class="p">(</span>
             <span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">vector</span><span class="o">=</span><span class="n">embedding_vector</span><span class="p">,</span>
-            <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Kubernetes documentation&quot;</span><span class="p">}</span>
+            <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">"text"</span><span class="p">:</span> <span class="s2">"Kubernetes documentation"</span><span class="p">}</span>
         <span class="p">)</span>
     <span class="p">]</span>
 <span class="p">)</span>
 
 <span class="c1"># Buscar</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
-    <span class="n">collection_name</span><span class="o">=</span><span class="s2">&quot;docs&quot;</span><span class="p">,</span>
+    <span class="n">collection_name</span><span class="o">=</span><span class="s2">"docs"</span><span class="p">,</span>
     <span class="n">query_vector</span><span class="o">=</span><span class="n">query_vector</span><span class="p">,</span>
     <span class="n">limit</span><span class="o">=</span><span class="mi">5</span>
 <span class="p">)</span>
@@ -9767,16 +9792,16 @@
 <span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/lib/milvus</span>
 <span class="w">        </span><span class="nt">resources</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">requests</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;8Gi&quot;</span>
-<span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;4&quot;</span>
+<span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">"8Gi"</span>
+<span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">"4"</span>
 <span class="w">          </span><span class="nt">limits</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;16Gi&quot;</span>
-<span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;8&quot;</span>
+<span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">"16Gi"</span>
+<span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">"8"</span>
 <span class="w">  </span><span class="nt">volumeClaimTemplates</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">metadata</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data</span>
 <span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">accessModes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;ReadWriteOnce&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">accessModes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"ReadWriteOnce"</span><span class="p p-Indicator">]</span>
 <span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100Gi</span>
@@ -9794,17 +9819,17 @@
         <span class="n">latencies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;avg_latency&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">latencies</span><span class="p">),</span>
-        <span class="s2">&quot;p50&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">latencies</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
-        <span class="s2">&quot;p95&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">latencies</span><span class="p">,</span> <span class="mi">95</span><span class="p">),</span>
-        <span class="s2">&quot;p99&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">latencies</span><span class="p">,</span> <span class="mi">99</span><span class="p">)</span>
+        <span class="s2">"avg_latency"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">latencies</span><span class="p">),</span>
+        <span class="s2">"p50"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">latencies</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+        <span class="s2">"p95"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">latencies</span><span class="p">,</span> <span class="mi">95</span><span class="p">),</span>
+        <span class="s2">"p99"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">latencies</span><span class="p">,</span> <span class="mi">99</span><span class="p">)</span>
     <span class="p">}</span>
 </code></pre></div>
 <h3 id="recall-precision">Recall (Precisión)<a class="headerlink" href="#recall-precision" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">calculate_recall</span><span class="p">(</span><span class="n">true_neighbors</span><span class="p">,</span> <span class="n">retrieved_neighbors</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Recall: % de vecinos verdaderos recuperados</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">true_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">true_neighbors</span><span class="p">[:</span><span class="n">k</span><span class="p">])</span>
     <span class="n">retrieved_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">retrieved_neighbors</span><span class="p">[:</span><span class="n">k</span><span class="p">])</span>
     <span class="n">recall</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">true_set</span> <span class="o">&amp;</span> <span class="n">retrieved_set</span><span class="p">)</span> <span class="o">/</span> <span class="n">k</span>
@@ -9816,10 +9841,10 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">sentence_transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceTransformer</span>
 
 <span class="c1"># 384 dimensiones (rápido)</span>
-<span class="n">model_small</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s1">&#39;all-MiniLM-L6-v2&#39;</span><span class="p">)</span>
+<span class="n">model_small</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s1">'all-MiniLM-L6-v2'</span><span class="p">)</span>
 
 <span class="c1"># 768 dimensiones (más preciso)</span>
-<span class="n">model_large</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s1">&#39;all-mpnet-base-v2&#39;</span><span class="p">)</span>
+<span class="n">model_large</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s1">'all-mpnet-base-v2'</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="2-batch-processing">2. Batch Processing<a class="headerlink" href="#2-batch-processing" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Insertar en lotes para mejor rendimiento</span>
@@ -9832,8 +9857,8 @@
 <h3 id="3-monitoreo">3. Monitoreo<a class="headerlink" href="#3-monitoreo" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">prometheus_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gauge</span><span class="p">,</span> <span class="n">Histogram</span>
 
-<span class="n">vector_db_size</span> <span class="o">=</span> <span class="n">Gauge</span><span class="p">(</span><span class="s1">&#39;vector_db_documents&#39;</span><span class="p">,</span> <span class="s1">&#39;Total documents in vector DB&#39;</span><span class="p">)</span>
-<span class="n">search_latency</span> <span class="o">=</span> <span class="n">Histogram</span><span class="p">(</span><span class="s1">&#39;vector_search_duration_seconds&#39;</span><span class="p">,</span> <span class="s1">&#39;Search latency&#39;</span><span class="p">)</span>
+<span class="n">vector_db_size</span> <span class="o">=</span> <span class="n">Gauge</span><span class="p">(</span><span class="s1">'vector_db_documents'</span><span class="p">,</span> <span class="s1">'Total documents in vector DB'</span><span class="p">)</span>
+<span class="n">search_latency</span> <span class="o">=</span> <span class="n">Histogram</span><span class="p">(</span><span class="s1">'vector_search_duration_seconds'</span><span class="p">,</span> <span class="s1">'Search latency'</span><span class="p">)</span>
 
 <span class="nd">@search_latency</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">search_vectors</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
@@ -9847,7 +9872,7 @@
 <div class="highlight"><pre><span></span><code><span class="c1"># Búsqueda combinando texto e imágenes</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sentence_transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceTransformer</span>
 
-<span class="n">clip_model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s1">&#39;clip-ViT-B-32&#39;</span><span class="p">)</span>
+<span class="n">clip_model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s1">'clip-ViT-B-32'</span><span class="p">)</span>
 
 <span class="c1"># Embedding de imagen</span>
 <span class="n">image_embedding</span> <span class="o">=</span> <span class="n">clip_model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
@@ -9860,7 +9885,7 @@
 <span class="n">results</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
     <span class="n">query_embeddings</span><span class="o">=</span><span class="p">[</span><span class="n">query_vector</span><span class="p">],</span>
     <span class="n">n_results</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-    <span class="n">where</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;kubernetes-docs&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;$gte&quot;</span><span class="p">:</span> <span class="mi">2023</span><span class="p">}}</span>
+    <span class="n">where</span><span class="o">=</span><span class="p">{</span><span class="s2">"source"</span><span class="p">:</span> <span class="s2">"kubernetes-docs"</span><span class="p">,</span> <span class="s2">"year"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"$gte"</span><span class="p">:</span> <span class="mi">2023</span><span class="p">}}</span>
 <span class="p">)</span>
 </code></pre></div>
 <h3 id="3-reranking-con-cross-encoders">3. Reranking con Cross-Encoders<a class="headerlink" href="#3-reranking-con-cross-encoders" title="Permanent link">&para;</a></h3>
@@ -9870,7 +9895,7 @@
 <span class="n">candidates</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_vector</span><span class="p">,</span> <span class="n">n_results</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
 <span class="c1"># 2. Reranking con cross-encoder (preciso, top 10)</span>
-<span class="n">reranker</span> <span class="o">=</span> <span class="n">CrossEncoder</span><span class="p">(</span><span class="s1">&#39;cross-encoder/ms-marco-MiniLM-L-6-v2&#39;</span><span class="p">)</span>
+<span class="n">reranker</span> <span class="o">=</span> <span class="n">CrossEncoder</span><span class="p">(</span><span class="s1">'cross-encoder/ms-marco-MiniLM-L-6-v2'</span><span class="p">)</span>
 <span class="n">scores</span> <span class="o">=</span> <span class="n">reranker</span><span class="o">.</span><span class="n">predict</span><span class="p">([(</span><span class="n">query</span><span class="p">,</span> <span class="n">doc</span><span class="p">)</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">])</span>
 <span class="n">top_docs</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">candidates</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>
 </code></pre></div>

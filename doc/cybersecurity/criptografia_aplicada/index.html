@@ -518,6 +518,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -6990,6 +7009,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -9182,6 +9208,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9316,35 +9369,14 @@
       
       
       
-        <span class="md-tag">cryptography</span>
+        <a href="../../../tags/#tag:cybersecurity" class="md-tag">cybersecurity</a>
       
     
       
       
       
       
-        <span class="md-tag">cybersecurity</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">encryption</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">hashing</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">key-management</span>
+        <a href="../../../tags/#tag:encryption" class="md-tag">encryption</a>
       
     
   </nav>
@@ -9522,7 +9554,7 @@
 
 <span class="k">def</span><span class="w"> </span><span class="nf">cifrar</span><span class="p">(</span><span class="n">mensaje</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">contexto</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
     <span class="n">nonce</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">urandom</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>  <span class="c1"># 96 bits, aleatorio, uno nuevo por mensaje</span>
-    <span class="c1"># &#39;contexto&#39; son datos asociados: se autentican pero NO se cifran.</span>
+    <span class="c1"># 'contexto' son datos asociados: se autentican pero NO se cifran.</span>
     <span class="c1"># Sirve para atar el mensaje a su destino (ID de tenant, versión, etc.).</span>
     <span class="n">ct</span> <span class="o">=</span> <span class="n">aesgcm</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">nonce</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">,</span> <span class="n">contexto</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">nonce</span> <span class="o">+</span> <span class="n">ct</span>  <span class="c1"># el nonce no es secreto: viaja con el mensaje</span>
@@ -9599,7 +9631,7 @@ sudo<span class="w"> </span>umount<span class="w"> </span>/mnt/datos<span class=
 <span class="n">master</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">urandom</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>  <span class="c1"># clave maestra: del KMS/HSM, nunca hardcodeada</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">subclave</span><span class="p">(</span><span class="n">proposito</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
-    <span class="c1"># &#39;info&#39; separa dominios: la misma maestra produce claves</span>
+    <span class="c1"># 'info' separa dominios: la misma maestra produce claves</span>
     <span class="c1"># independientes para cifrar, para HMAC, para tokens...</span>
     <span class="k">return</span> <span class="n">HKDF</span><span class="p">(</span>
         <span class="n">algorithm</span><span class="o">=</span><span class="n">hashes</span><span class="o">.</span><span class="n">SHA256</span><span class="p">(),</span>
@@ -9608,8 +9640,8 @@ sudo<span class="w"> </span>umount<span class="w"> </span>/mnt/datos<span class=
         <span class="n">info</span><span class="o">=</span><span class="n">proposito</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">derive</span><span class="p">(</span><span class="n">master</span><span class="p">)</span>
 
-<span class="n">clave_datos</span> <span class="o">=</span> <span class="n">subclave</span><span class="p">(</span><span class="s2">&quot;cifrado-datos-v1&quot;</span><span class="p">)</span>
-<span class="n">clave_indice</span> <span class="o">=</span> <span class="n">subclave</span><span class="p">(</span><span class="s2">&quot;hmac-indice-busqueda-v1&quot;</span><span class="p">)</span>
+<span class="n">clave_datos</span> <span class="o">=</span> <span class="n">subclave</span><span class="p">(</span><span class="s2">"cifrado-datos-v1"</span><span class="p">)</span>
+<span class="n">clave_indice</span> <span class="o">=</span> <span class="n">subclave</span><span class="p">(</span><span class="s2">"hmac-indice-busqueda-v1"</span><span class="p">)</span>
 </code></pre></div>
 <p>Derivar subclaves por propósito es una costumbre barata que evita el error de reutilizar la misma clave para cifrar y para firmar, y convierte la rotación en un cambio de sufijo de versión.</p>
 <h3 id="rotacion-el-sufijo-de-version">Rotación: el sufijo de versión<a class="headerlink" href="#rotacion-el-sufijo-de-version" title="Permanent link">&para;</a></h3>

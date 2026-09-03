@@ -520,6 +520,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -7269,6 +7288,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -9013,6 +9039,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9155,28 +9208,21 @@
       
       
       
-        <span class="md-tag">containers</span>
+        <a href="../../../tags/#tag:containers" class="md-tag">containers</a>
       
     
       
       
       
       
-        <span class="md-tag">podman</span>
+        <a href="../../../tags/#tag:cybersecurity" class="md-tag">cybersecurity</a>
       
     
       
       
       
       
-        <span class="md-tag">rootless</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">security</span>
+        <a href="../../../tags/#tag:podman" class="md-tag">podman</a>
       
     
   </nav>
@@ -9202,7 +9248,7 @@
 <h2 id="que-significa-rootless-de-verdad">🧠 Qué significa "rootless" de verdad<a class="headerlink" href="#que-significa-rootless-de-verdad" title="Permanent link">&para;</a></h2>
 <p>Rootless no significa "el proceso dentro del contenedor no es root". Eso es <code>USER</code> en el <code>Dockerfile</code>, y es otra cosa. Rootless significa que <strong>todo el stack</strong> —el motor, el runtime y el contenedor— corre bajo tu UID sin privilegios en el host.</p>
 <p>El mecanismo es el <strong>user namespace</strong> de Linux. Dentro del namespace tu usuario aparece como UID 0; fuera, sigue siendo tu UID normal.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Dentro del user namespace eres &quot;root&quot;, pero solo ahí</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Dentro del user namespace eres "root", pero solo ahí</span>
 podman<span class="w"> </span>unshare<span class="w"> </span>id
 <span class="c1"># uid=0(root) gid=0(root) groups=0(root),65534(nobody)</span>
 </code></pre></div>
@@ -9239,7 +9285,7 @@ cat<span class="w"> </span>/etc/subgid
 </div>
 <h3 id="storage-y-ficheros-con-uids-raros">Storage y ficheros con UIDs raros<a class="headerlink" href="#storage-y-ficheros-con-uids-raros" title="Permanent link">&para;</a></h3>
 <p>Los ficheros que el contenedor crea aparecen en el host con UIDs del rango de subuid, no con el tuyo. Por eso <code>ls</code> en un volumen rootless muestra números en vez de nombres. Para manipularlos entra en el namespace:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Sin esto, chown falla: esos UIDs no te pertenecen &quot;directamente&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Sin esto, chown falla: esos UIDs no te pertenecen "directamente"</span>
 podman<span class="w"> </span>unshare<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span><span class="m">1000</span>:1000<span class="w"> </span>~/.local/share/containers/storage/volumes/midato/_data
 </code></pre></div>
 <p>El almacenamiento rootless vive bajo <code>~/.local/share/containers/storage</code> (y la configuración en <code>~/.config/containers</code>), no en <code>/var/lib/containers</code>. Cada usuario tiene su propio conjunto de imágenes y contenedores, invisible para los demás.</p>
@@ -9385,7 +9431,7 @@ loginctl<span class="w"> </span>show-user<span class="w"> </span><span class="nv
 <li><strong>pasta</strong> (del proyecto passt): el backend por defecto en las versiones actuales de Podman rootless. Copia por defecto las direcciones y rutas IPv4/IPv6 del host, y <strong>preserva la IP de origen</strong> en el reenvío de puertos.</li>
 <li><strong>slirp4netns</strong>: el backend clásico, anterior a pasta. Sigue disponible con <code>--network=slirp4netns</code>.</li>
 </ul>
-<div class="highlight"><pre><span></span><code>podman<span class="w"> </span>info<span class="w"> </span>-f<span class="w"> </span><span class="s1">&#39;{{.Host.RootlessNetworkCmd}}&#39;</span>
+<div class="highlight"><pre><span></span><code>podman<span class="w"> </span>info<span class="w"> </span>-f<span class="w"> </span><span class="s1">'{{.Host.RootlessNetworkCmd}}'</span>
 <span class="c1"># pasta</span>
 
 <span class="c1"># Forzar un backend concreto</span>
@@ -9400,7 +9446,7 @@ podman<span class="w"> </span>run<span class="w"> </span>--network<span class="o
 sudo<span class="w"> </span>sysctl<span class="w"> </span>net.ipv4.ip_unprivileged_port_start<span class="o">=</span><span class="m">80</span>
 
 <span class="c1"># Persistente</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;net.ipv4.ip_unprivileged_port_start=80&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/sysctl.d/99-rootless-ports.conf
+<span class="nb">echo</span><span class="w"> </span><span class="s1">'net.ipv4.ip_unprivileged_port_start=80'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/sysctl.d/99-rootless-ports.conf
 sudo<span class="w"> </span>sysctl<span class="w"> </span>--system
 </code></pre></div>
 <p><strong>2. Redirigir con el firewall del host</strong>: publicar en <code>8080</code> y hacer un DNAT de <code>80</code> a <code>8080</code>. Requiere sudo una sola vez, al configurarlo, no en cada arranque de contenedor.</p>

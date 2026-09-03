@@ -518,6 +518,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -7140,6 +7159,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -8884,6 +8910,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9018,35 +9071,21 @@
       
       
       
-        <span class="md-tag">ai</span>
+        <a href="../../../tags/#tag:ai" class="md-tag">ai</a>
       
     
       
       
       
       
-        <span class="md-tag">automation</span>
+        <a href="../../../tags/#tag:automation" class="md-tag">automation</a>
       
     
       
       
       
       
-        <span class="md-tag">content-generation</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">documentation</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">llm</span>
+        <a href="../../../tags/#tag:llm" class="md-tag">llm</a>
       
     
   </nav>
@@ -9088,8 +9127,8 @@
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">ast</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">generate_docstring</span><span class="p">(</span><span class="n">function_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;llama2:7b-chat-q4_0&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_docstring</span><span class="p">(</span><span class="n">function_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"llama2:7b-chat-q4_0"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Genera un docstring profesional para una función Python.</span>
 
 <span class="sd">    Args:</span>
@@ -9098,9 +9137,9 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Docstring generado en formato Google Style</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
 <span class="s2">Eres un experto en documentación Python. Genera un docstring profesional en formato Google Style para esta función:</span>
 
 <span class="s2">```python</span>
@@ -9115,17 +9154,17 @@
 6. Examples: código de ejemplo</p>
 <p>Responde SOLO con el docstring, sin explicaciones adicionales.
 """</p>
-<div class="highlight"><pre><span></span><code>response = requests.post(&quot;http://localhost:11434/api/generate&quot;, json={
-    &quot;model&quot;: model,
-    &quot;prompt&quot;: prompt,
-    &quot;stream&quot;: False,
-    &quot;temperature&quot;: 0.3  # Baja temperatura para consistencia
+<div class="highlight"><pre><span></span><code>response = requests.post("http://localhost:11434/api/generate", json={
+    "model": model,
+    "prompt": prompt,
+    "stream": False,
+    "temperature": 0.3  # Baja temperatura para consistencia
 })
 
 if response.status_code == 200:
-    return response.json()[&quot;response&quot;].strip()
+    return response.json()["response"].strip()
 else:
-    raise Exception(f&quot;Error generando docstring: {response.text}&quot;)
+    raise Exception(f"Error generando docstring: {response.text}")
 </code></pre></div>
 <h1 id="ejemplo-de-uso">Ejemplo de uso<a class="headerlink" href="#ejemplo-de-uso" title="Permanent link">&para;</a></h1>
 <p>code = """
@@ -9139,7 +9178,7 @@ print(docstring)
 <div class="highlight"><pre><span></span><code>### Resultado Esperado
 
 ```python
-&quot;&quot;&quot;
+"""
 Calculate metrics for filtered data above a threshold.
 
 Processes a list of numeric values, filters out values below the specified
@@ -9152,25 +9191,25 @@ Args:
 
 Returns:
     dict: Dictionary with keys:
-        - &#39;count&#39; (int): Number of values above threshold
-        - &#39;average&#39; (float): Mean of filtered values, or 0 if none
+        - 'count' (int): Number of values above threshold
+        - 'average' (float): Mean of filtered values, or 0 if none
 
 Examples:
     &gt;&gt;&gt; calculate_metrics([0.3, 0.6, 0.8, 0.2], threshold=0.5)
-    {&#39;count&#39;: 2, &#39;average&#39;: 0.7}
+    {'count': 2, 'average': 0.7}
 
     &gt;&gt;&gt; calculate_metrics([0.1, 0.2], threshold=0.5)
-    {&#39;count&#39;: 0, &#39;average&#39;: 0}
-&quot;&quot;&quot;
+    {'count': 0, 'average': 0}
+"""
 </code></pre></div></p>
 <h3 id="procesamiento-por-lotes">Procesamiento por Lotes<a class="headerlink" href="#procesamiento-por-lotes" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">ast</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">document_python_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;docs_generated&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Documenta todas las funciones en un archivo Python.&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">document_python_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"docs_generated"</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Documenta todas las funciones en un archivo Python."""</span>
 
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -9186,25 +9225,25 @@ Examples:
             <span class="n">docstring</span> <span class="o">=</span> <span class="n">generate_docstring</span><span class="p">(</span><span class="n">function_code</span><span class="p">)</span>
 
             <span class="n">documented_functions</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                <span class="s2">&quot;docstring&quot;</span><span class="p">:</span> <span class="n">docstring</span><span class="p">,</span>
-                <span class="s2">&quot;code&quot;</span><span class="p">:</span> <span class="n">function_code</span>
+                <span class="s2">"name"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="s2">"docstring"</span><span class="p">:</span> <span class="n">docstring</span><span class="p">,</span>
+                <span class="s2">"code"</span><span class="p">:</span> <span class="n">function_code</span>
             <span class="p">})</span>
 
     <span class="c1"># Guardar documentación en Markdown</span>
-    <span class="n">output_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span><span class="si">}</span><span class="s2">.md&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;# Documentación: </span><span class="si">{</span><span class="n">filepath</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">output_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span><span class="si">}</span><span class="s2">.md"</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"# Documentación: </span><span class="si">{</span><span class="n">filepath</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">documented_functions</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;## `</span><span class="si">{</span><span class="n">func</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">`</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;```python</span><span class="se">\n</span><span class="si">{</span><span class="n">func</span><span class="p">[</span><span class="s1">&#39;docstring&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">```</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;**Código fuente:**</span><span class="se">\n</span><span class="s2">```python</span><span class="se">\n</span><span class="si">{</span><span class="n">func</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">```</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"## `</span><span class="si">{</span><span class="n">func</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="s2">`</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"```python</span><span class="se">\n</span><span class="si">{</span><span class="n">func</span><span class="p">[</span><span class="s1">'docstring'</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">```</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"**Código fuente:**</span><span class="se">\n</span><span class="s2">```python</span><span class="se">\n</span><span class="si">{</span><span class="n">func</span><span class="p">[</span><span class="s1">'code'</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">```</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ Documentación generada: </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✅ Documentación generada: </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">output_file</span>
 
 <span class="c1"># Uso</span>
-<span class="n">document_python_file</span><span class="p">(</span><span class="s2">&quot;my_module.py&quot;</span><span class="p">)</span>
+<span class="n">document_python_file</span><span class="p">(</span><span class="s2">"my_module.py"</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="caso-de-uso-2-generacion-de-readme-automatico">📄 Caso de Uso 2: Generación de README Automático<a class="headerlink" href="#caso-de-uso-2-generacion-de-readme-automatico" title="Permanent link">&para;</a></h2>
 <h3 id="template-con-variables">Template con Variables<a class="headerlink" href="#template-con-variables" title="Permanent link">&para;</a></h3>
@@ -9215,9 +9254,9 @@ Examples:
     <span class="n">repo_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">project_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;llama2:7b-chat-q4_0&quot;</span>
+    <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"llama2:7b-chat-q4_0"</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Genera un README.md profesional analizando el repositorio.</span>
 
 <span class="sd">    Args:</span>
@@ -9228,7 +9267,7 @@ Examples:
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Contenido del README.md generado</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">repo</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">repo_path</span><span class="p">)</span>
 
@@ -9237,29 +9276,29 @@ Examples:
         <span class="n">project_name</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">name</span>
 
     <span class="c1"># Analizar estructura</span>
-    <span class="n">files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">repo</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">&quot;*.py&quot;</span><span class="p">))</span>
-    <span class="n">has_tests</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="s2">&quot;test&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">)</span>
-    <span class="n">has_requirements</span> <span class="o">=</span> <span class="p">(</span><span class="n">repo</span> <span class="o">/</span> <span class="s2">&quot;requirements.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
-    <span class="n">has_docker</span> <span class="o">=</span> <span class="p">(</span><span class="n">repo</span> <span class="o">/</span> <span class="s2">&quot;Dockerfile&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">repo</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">"*.py"</span><span class="p">))</span>
+    <span class="n">has_tests</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="s2">"test"</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">)</span>
+    <span class="n">has_requirements</span> <span class="o">=</span> <span class="p">(</span><span class="n">repo</span> <span class="o">/</span> <span class="s2">"requirements.txt"</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+    <span class="n">has_docker</span> <span class="o">=</span> <span class="p">(</span><span class="n">repo</span> <span class="o">/</span> <span class="s2">"Dockerfile"</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
 
     <span class="c1"># Leer archivos principales</span>
     <span class="n">main_files</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;main.py&quot;</span><span class="p">,</span> <span class="s2">&quot;app.py&quot;</span><span class="p">,</span> <span class="s2">&quot;__init__.py&quot;</span><span class="p">,</span> <span class="s2">&quot;setup.py&quot;</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"main.py"</span><span class="p">,</span> <span class="s2">"app.py"</span><span class="p">,</span> <span class="s2">"__init__.py"</span><span class="p">,</span> <span class="s2">"setup.py"</span><span class="p">]:</span>
         <span class="n">filepath</span> <span class="o">=</span> <span class="n">repo</span> <span class="o">/</span> <span class="n">file</span>
         <span class="k">if</span> <span class="n">filepath</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="n">main_files</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">file</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()[:</span><span class="mi">500</span><span class="p">]})</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">main_files</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"name"</span><span class="p">:</span> <span class="n">file</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()[:</span><span class="mi">500</span><span class="p">]})</span>
 
     <span class="c1"># Prompt para LLM</span>
-    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
 <span class="s2">Genera un README.md profesional para este proyecto Python:</span>
 
 <span class="s2">**Proyecto:** </span><span class="si">{</span><span class="n">project_name</span><span class="si">}</span>
-<span class="s2">**Descripción:** </span><span class="si">{</span><span class="n">description</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s2">&quot;Analiza el código y genera una descripción&quot;</span><span class="si">}</span>
+<span class="s2">**Descripción:** </span><span class="si">{</span><span class="n">description</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s2">"Analiza el código y genera una descripción"</span><span class="si">}</span>
 <span class="s2">**Estructura:**</span>
 <span class="s2">- </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span><span class="si">}</span><span class="s2"> archivos Python</span>
-<span class="s2">- Tests: </span><span class="si">{</span><span class="s2">&quot;Sí&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">has_tests</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;No&quot;</span><span class="si">}</span>
-<span class="s2">- Docker: </span><span class="si">{</span><span class="s2">&quot;Sí&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">has_docker</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;No&quot;</span><span class="si">}</span>
+<span class="s2">- Tests: </span><span class="si">{</span><span class="s2">"Sí"</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">has_tests</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">"No"</span><span class="si">}</span>
+<span class="s2">- Docker: </span><span class="si">{</span><span class="s2">"Sí"</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">has_docker</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">"No"</span><span class="si">}</span>
 
 <span class="s2">**Archivos principales:**</span>
 <span class="si">{</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">main_files</span><span class="p">,</span><span class="w"> </span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span>
@@ -9275,31 +9314,31 @@ Examples:
 <span class="s2">8. ## Licencia</span>
 
 <span class="s2">Usa formato Markdown profesional. Sé conciso pero completo.</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 
-    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;http://localhost:11434/api/generate&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span>
-        <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
-        <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="mf">0.4</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"http://localhost:11434/api/generate"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"model"</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span>
+        <span class="s2">"prompt"</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
+        <span class="s2">"stream"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">"temperature"</span><span class="p">:</span> <span class="mf">0.4</span>
     <span class="p">})</span>
 
     <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
-        <span class="n">readme_content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;response&quot;</span><span class="p">]</span>
+        <span class="n">readme_content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"response"</span><span class="p">]</span>
 
         <span class="c1"># Guardar README</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">repo</span> <span class="o">/</span> <span class="s2">&quot;README.md&quot;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">repo</span> <span class="o">/</span> <span class="s2">"README.md"</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">readme_content</span><span class="p">)</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ README generado en </span><span class="si">{</span><span class="n">repo</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="s1">&#39;README.md&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✅ README generado en </span><span class="si">{</span><span class="n">repo</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="s1">'README.md'</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">readme_content</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># Uso</span>
 <span class="n">readme</span> <span class="o">=</span> <span class="n">generate_readme</span><span class="p">(</span>
-    <span class="s2">&quot;/path/to/my-project&quot;</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;API REST para gestión de usuarios con autenticación JWT&quot;</span>
+    <span class="s2">"/path/to/my-project"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"API REST para gestión de usuarios con autenticación JWT"</span>
 <span class="p">)</span>
 </code></pre></div>
 <h2 id="caso-de-uso-3-generacion-de-posts-de-blog">✍️ Caso de Uso 3: Generación de Posts de Blog<a class="headerlink" href="#caso-de-uso-3-generacion-de-posts-de-blog" title="Permanent link">&para;</a></h2>
@@ -9308,14 +9347,14 @@ Examples:
 <span class="kn">import</span><span class="w"> </span><span class="nn">frontmatter</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">BlogPostGenerator</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;llama2:13b-chat-q4_0&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"llama2:13b-chat-q4_0"</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ollama_url</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:11434/api/generate&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ollama_url</span> <span class="o">=</span> <span class="s2">"http://localhost:11434/api/generate"</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">generate_outline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">audience</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;developers&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Genera un outline estructurado para el post.&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_outline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">audience</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"developers"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Genera un outline estructurado para el post."""</span>
 
-        <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
 <span class="s2">Crea un outline detallado para un post de blog técnico sobre: </span><span class="si">{</span><span class="n">topic</span><span class="si">}</span>
 
 <span class="s2">Audiencia: </span><span class="si">{</span><span class="n">audience</span><span class="si">}</span>
@@ -9329,24 +9368,24 @@ Examples:
 <span class="s2">5. Referencias/recursos</span>
 
 <span class="s2">Formato: Lista con viñetas, indicando nivel de heading.</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 
         <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ollama_url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
-            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
-            <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
-            <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="mf">0.6</span>
+            <span class="s2">"model"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+            <span class="s2">"prompt"</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
+            <span class="s2">"stream"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">"temperature"</span><span class="p">:</span> <span class="mf">0.6</span>
         <span class="p">})</span>
 
-        <span class="n">outline_text</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;response&quot;</span><span class="p">]</span>
+        <span class="n">outline_text</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"response"</span><span class="p">]</span>
         <span class="c1"># Parsear outline a estructura</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_outline</span><span class="p">(</span><span class="n">outline_text</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">generate_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section_title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Genera contenido para una sección específica.&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section_title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Genera contenido para una sección específica."""</span>
 
-        <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">Escribe la sección &quot;</span><span class="si">{</span><span class="n">section_title</span><span class="si">}</span><span class="s2">&quot; de un post técnico.</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">Escribe la sección "</span><span class="si">{</span><span class="n">section_title</span><span class="si">}</span><span class="s2">" de un post técnico.</span>
 
 <span class="s2">Contexto del artículo: </span><span class="si">{</span><span class="n">context</span><span class="si">}</span>
 
@@ -9358,93 +9397,93 @@ Examples:
 <span class="s2">- Incluir enlaces a recursos externos si aplica</span>
 
 <span class="s2">Contenido:</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 
         <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ollama_url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
-            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
-            <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
-            <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="mf">0.7</span>
+            <span class="s2">"model"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+            <span class="s2">"prompt"</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
+            <span class="s2">"stream"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">"temperature"</span><span class="p">:</span> <span class="mf">0.7</span>
         <span class="p">})</span>
 
-        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;response&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"response"</span><span class="p">]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">generate_full_post</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">topic</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">tags</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
-        <span class="n">category</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;DevOps&quot;</span><span class="p">,</span>
-        <span class="n">audience</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;developers&quot;</span>
+        <span class="n">category</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"DevOps"</span><span class="p">,</span>
+        <span class="n">audience</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"developers"</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Genera un post completo de blog.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Genera un post completo de blog."""</span>
 
         <span class="c1"># 1. Generar outline</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📝 Generando outline...&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"📝 Generando outline..."</span><span class="p">)</span>
         <span class="n">outline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_outline</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="n">audience</span><span class="p">)</span>
 
         <span class="c1"># 2. Generar cada sección</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✍️  Generando secciones...&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"✍️  Generando secciones..."</span><span class="p">)</span>
         <span class="n">sections</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">outline</span><span class="p">:</span>
             <span class="n">section_content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_section</span><span class="p">(</span>
-                <span class="n">item</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">],</span>
-                <span class="n">context</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Post sobre </span><span class="si">{</span><span class="n">topic</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">item</span><span class="p">[</span><span class="s2">"title"</span><span class="p">],</span>
+                <span class="n">context</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Post sobre </span><span class="si">{</span><span class="n">topic</span><span class="si">}</span><span class="s2">"</span>
             <span class="p">)</span>
             <span class="n">sections</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;level&quot;</span><span class="p">],</span>
-                <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">],</span>
-                <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">section_content</span>
+                <span class="s2">"level"</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="s2">"level"</span><span class="p">],</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="s2">"title"</span><span class="p">],</span>
+                <span class="s2">"content"</span><span class="p">:</span> <span class="n">section_content</span>
             <span class="p">})</span>
 
         <span class="c1"># 3. Ensamblar post completo</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🔧 Ensamblando post...&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"🔧 Ensamblando post..."</span><span class="p">)</span>
         <span class="n">post_content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_assemble_post</span><span class="p">(</span><span class="n">sections</span><span class="p">)</span>
 
         <span class="c1"># 4. Agregar frontmatter</span>
         <span class="n">post</span> <span class="o">=</span> <span class="n">frontmatter</span><span class="o">.</span><span class="n">Post</span><span class="p">(</span><span class="n">post_content</span><span class="p">)</span>
         <span class="n">post</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">outline</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;title&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">outline</span> <span class="k">else</span> <span class="n">topic</span><span class="p">,</span>
-            <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
-            <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="n">tags</span><span class="p">,</span>
-            <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">category</span><span class="p">,</span>
-            <span class="s2">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;AI Assistant&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;draft&quot;</span><span class="p">:</span> <span class="kc">True</span>  <span class="c1"># Revisar antes de publicar</span>
+            <span class="s2">"title"</span><span class="p">:</span> <span class="n">outline</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"title"</span><span class="p">]</span> <span class="k">if</span> <span class="n">outline</span> <span class="k">else</span> <span class="n">topic</span><span class="p">,</span>
+            <span class="s2">"date"</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">"</span><span class="p">),</span>
+            <span class="s2">"tags"</span><span class="p">:</span> <span class="n">tags</span><span class="p">,</span>
+            <span class="s2">"category"</span><span class="p">:</span> <span class="n">category</span><span class="p">,</span>
+            <span class="s2">"author"</span><span class="p">:</span> <span class="s2">"AI Assistant"</span><span class="p">,</span>
+            <span class="s2">"draft"</span><span class="p">:</span> <span class="kc">True</span>  <span class="c1"># Revisar antes de publicar</span>
         <span class="p">}</span>
 
         <span class="c1"># 5. Guardar</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;blog_</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">topic</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">.md&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"blog_</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">'%Y%m</span><span class="si">%d</span><span class="s1">'</span><span class="p">)</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">topic</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span><span class="w"> </span><span class="s1">'_'</span><span class="p">)</span><span class="si">}</span><span class="s2">.md"</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">frontmatter</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">post</span><span class="p">))</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ Post generado: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✅ Post generado: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">filename</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_parse_outline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Parsea texto de outline a estructura.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Parsea texto de outline a estructura."""</span>
         <span class="c1"># Implementación simplificada</span>
-        <span class="n">lines</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
         <span class="n">outline</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'#'</span><span class="p">):</span>
                 <span class="n">level</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
-                <span class="n">title</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                <span class="n">outline</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="n">level</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">})</span>
+                <span class="n">title</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">'#'</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">outline</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"level"</span><span class="p">:</span> <span class="n">level</span><span class="p">,</span> <span class="s2">"title"</span><span class="p">:</span> <span class="n">title</span><span class="p">})</span>
         <span class="k">return</span> <span class="n">outline</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_assemble_post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sections</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ensambla secciones en post completo.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Ensambla secciones en post completo."""</span>
         <span class="n">content</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">sections</span><span class="p">:</span>
-            <span class="n">heading</span> <span class="o">=</span> <span class="s1">&#39;#&#39;</span> <span class="o">*</span> <span class="n">section</span><span class="p">[</span><span class="s2">&quot;level&quot;</span><span class="p">]</span>
-            <span class="n">content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">heading</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">section</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n\n</span><span class="si">{</span><span class="n">section</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+            <span class="n">heading</span> <span class="o">=</span> <span class="s1">'#'</span> <span class="o">*</span> <span class="n">section</span><span class="p">[</span><span class="s2">"level"</span><span class="p">]</span>
+            <span class="n">content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">heading</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">section</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span><span class="si">}</span><span class="se">\n\n</span><span class="si">{</span><span class="n">section</span><span class="p">[</span><span class="s1">'content'</span><span class="p">]</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
 
 <span class="c1"># Uso</span>
 <span class="n">generator</span> <span class="o">=</span> <span class="n">BlogPostGenerator</span><span class="p">()</span>
 <span class="n">post_file</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate_full_post</span><span class="p">(</span>
-    <span class="n">topic</span><span class="o">=</span><span class="s2">&quot;Optimización de Kubernetes en Producción&quot;</span><span class="p">,</span>
-    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;kubernetes&quot;</span><span class="p">,</span> <span class="s2">&quot;devops&quot;</span><span class="p">,</span> <span class="s2">&quot;performance&quot;</span><span class="p">],</span>
-    <span class="n">category</span><span class="o">=</span><span class="s2">&quot;Infrastructure&quot;</span>
+    <span class="n">topic</span><span class="o">=</span><span class="s2">"Optimización de Kubernetes en Producción"</span><span class="p">,</span>
+    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">"kubernetes"</span><span class="p">,</span> <span class="s2">"devops"</span><span class="p">,</span> <span class="s2">"performance"</span><span class="p">],</span>
+    <span class="n">category</span><span class="o">=</span><span class="s2">"Infrastructure"</span>
 <span class="p">)</span>
 </code></pre></div>
 <h2 id="caso-de-uso-4-resumen-de-articulos-tecnicos">📊 Caso de Uso 4: Resumen de Artículos Técnicos<a class="headerlink" href="#caso-de-uso-4-resumen-de-articulos-tecnicos" title="Permanent link">&para;</a></h2>
@@ -9453,40 +9492,40 @@ Examples:
 <span class="kn">from</span><span class="w"> </span><span class="nn">bs4</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeautifulSoup</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">TechnicalSummarizer</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;llama2:13b-chat-q4_0&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"llama2:13b-chat-q4_0"</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ollama_url</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:11434/api/generate&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ollama_url</span> <span class="o">=</span> <span class="s2">"http://localhost:11434/api/generate"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">fetch_article</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extrae contenido de un artículo web.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Extrae contenido de un artículo web."""</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-        <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+        <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="s1">'html.parser'</span><span class="p">)</span>
 
         <span class="c1"># Extraer título y contenido principal</span>
-        <span class="n">title</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;h1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span> <span class="k">if</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;h1&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;Sin título&quot;</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">'h1'</span><span class="p">)</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span> <span class="k">if</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">'h1'</span><span class="p">)</span> <span class="k">else</span> <span class="s2">"Sin título"</span>
 
         <span class="c1"># Remover scripts y estilos</span>
-        <span class="k">for</span> <span class="n">script</span> <span class="ow">in</span> <span class="n">soup</span><span class="p">([</span><span class="s2">&quot;script&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">script</span> <span class="ow">in</span> <span class="n">soup</span><span class="p">([</span><span class="s2">"script"</span><span class="p">,</span> <span class="s2">"style"</span><span class="p">]):</span>
             <span class="n">script</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span>
 
         <span class="c1"># Extraer texto</span>
         <span class="n">text</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
         <span class="n">lines</span> <span class="o">=</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">splitlines</span><span class="p">())</span>
-        <span class="n">chunks</span> <span class="o">=</span> <span class="p">(</span><span class="n">phrase</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span> <span class="k">for</span> <span class="n">phrase</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">))</span>
-        <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chunk</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span> <span class="k">if</span> <span class="n">chunk</span><span class="p">)</span>
+        <span class="n">chunks</span> <span class="o">=</span> <span class="p">(</span><span class="n">phrase</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span> <span class="k">for</span> <span class="n">phrase</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"  "</span><span class="p">))</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chunk</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span> <span class="k">if</span> <span class="n">chunk</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">text</span><span class="p">[:</span><span class="mi">4000</span><span class="p">]}</span>  <span class="c1"># Limitar a 4k chars</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"title"</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">text</span><span class="p">[:</span><span class="mi">4000</span><span class="p">]}</span>  <span class="c1"># Limitar a 4k chars</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">summarize</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">summary_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;executive&quot;</span><span class="p">,</span>  <span class="c1"># executive, technical, bullet_points</span>
+        <span class="n">summary_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"executive"</span><span class="p">,</span>  <span class="c1"># executive, technical, bullet_points</span>
         <span class="n">max_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Genera resumen del texto.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Genera resumen del texto."""</span>
 
         <span class="n">prompts</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;executive&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+            <span class="s2">"executive"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"""</span>
 <span class="s2">Resume este artículo técnico en </span><span class="si">{</span><span class="n">max_length</span><span class="si">}</span><span class="s2"> palabras para ejecutivos no técnicos.</span>
 <span class="s2">Enfócate en: problema, solución, beneficios, impacto de negocio.</span>
 
@@ -9494,8 +9533,8 @@ Examples:
 <span class="si">{</span><span class="n">text</span><span class="si">}</span>
 
 <span class="s2">Resumen ejecutivo:</span>
-<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;technical&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span><span class="p">,</span>
+            <span class="s2">"technical"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"""</span>
 <span class="s2">Resume este artículo técnico en </span><span class="si">{</span><span class="n">max_length</span><span class="si">}</span><span class="s2"> palabras para desarrolladores.</span>
 <span class="s2">Incluye: conceptos clave, arquitectura, implementación, trade-offs.</span>
 
@@ -9503,8 +9542,8 @@ Examples:
 <span class="si">{</span><span class="n">text</span><span class="si">}</span>
 
 <span class="s2">Resumen técnico:</span>
-<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;bullet_points&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span><span class="p">,</span>
+            <span class="s2">"bullet_points"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"""</span>
 <span class="s2">Extrae los puntos clave de este artículo técnico (máximo 10 puntos).</span>
 <span class="s2">Formato: lista con viñetas, concisa y accionable.</span>
 
@@ -9512,24 +9551,24 @@ Examples:
 <span class="si">{</span><span class="n">text</span><span class="si">}</span>
 
 <span class="s2">Puntos clave:</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
         <span class="p">}</span>
 
-        <span class="n">prompt</span> <span class="o">=</span> <span class="n">prompts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">summary_type</span><span class="p">,</span> <span class="n">prompts</span><span class="p">[</span><span class="s2">&quot;technical&quot;</span><span class="p">])</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="n">prompts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">summary_type</span><span class="p">,</span> <span class="n">prompts</span><span class="p">[</span><span class="s2">"technical"</span><span class="p">])</span>
 
         <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ollama_url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
-            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
-            <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
-            <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="mf">0.3</span>
+            <span class="s2">"model"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+            <span class="s2">"prompt"</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
+            <span class="s2">"stream"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">"temperature"</span><span class="p">:</span> <span class="mf">0.3</span>
         <span class="p">})</span>
 
-        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;response&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"response"</span><span class="p">]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">extract_code_examples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extrae snippets de código del texto.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Extrae snippets de código del texto."""</span>
 
-        <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
 <span class="s2">Identifica y extrae TODOS los ejemplos de código de este artículo.</span>
 <span class="s2">Para cada snippet, indica:</span>
 <span class="s2">1. Lenguaje de programación</span>
@@ -9540,33 +9579,33 @@ Examples:
 <span class="si">{</span><span class="n">text</span><span class="si">}</span>
 
 <span class="s2">Ejemplos de código:</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 
         <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ollama_url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
-            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
-            <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
-            <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="mf">0.2</span>
+            <span class="s2">"model"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+            <span class="s2">"prompt"</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
+            <span class="s2">"stream"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">"temperature"</span><span class="p">:</span> <span class="mf">0.2</span>
         <span class="p">})</span>
 
-        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;response&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"response"</span><span class="p">]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">generate_study_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Genera notas de estudio completas de un artículo.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Genera notas de estudio completas de un artículo."""</span>
 
         <span class="c1"># 1. Fetch artículo</span>
         <span class="n">article</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch_article</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 
         <span class="c1"># 2. Generar diferentes resúmenes</span>
-        <span class="n">executive</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">article</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">],</span> <span class="s2">&quot;executive&quot;</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
-        <span class="n">technical</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">article</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">],</span> <span class="s2">&quot;technical&quot;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-        <span class="n">bullet_points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">article</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">],</span> <span class="s2">&quot;bullet_points&quot;</span><span class="p">)</span>
+        <span class="n">executive</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">article</span><span class="p">[</span><span class="s2">"content"</span><span class="p">],</span> <span class="s2">"executive"</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+        <span class="n">technical</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">article</span><span class="p">[</span><span class="s2">"content"</span><span class="p">],</span> <span class="s2">"technical"</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+        <span class="n">bullet_points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">article</span><span class="p">[</span><span class="s2">"content"</span><span class="p">],</span> <span class="s2">"bullet_points"</span><span class="p">)</span>
 
         <span class="c1"># 3. Extraer código</span>
-        <span class="n">code_examples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_code_examples</span><span class="p">(</span><span class="n">article</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">])</span>
+        <span class="n">code_examples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_code_examples</span><span class="p">(</span><span class="n">article</span><span class="p">[</span><span class="s2">"content"</span><span class="p">])</span>
 
         <span class="c1"># 4. Ensamblar notas</span>
-        <span class="n">notes</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;# </span><span class="si">{</span><span class="n">article</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span>
+        <span class="n">notes</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""# </span><span class="si">{</span><span class="n">article</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span><span class="si">}</span>
 
 <span class="s2">## Resumen Ejecutivo</span>
 <span class="si">{</span><span class="n">executive</span><span class="si">}</span>
@@ -9582,27 +9621,27 @@ Examples:
 
 <span class="s2">---</span>
 <span class="s2">*Fuente:* </span><span class="si">{</span><span class="n">url</span><span class="si">}</span>
-<span class="s2">*Generado:* </span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M&quot;</span><span class="p">)</span><span class="si">}</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">*Generado:* </span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M"</span><span class="p">)</span><span class="si">}</span>
+<span class="s2">"""</span>
 
         <span class="c1"># 5. Guardar</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;notes_</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">_%H%M&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">.md&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"notes_</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">'%Y%m</span><span class="si">%d</span><span class="s1">_%H%M'</span><span class="p">)</span><span class="si">}</span><span class="s2">.md"</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">notes</span><span class="p">)</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ Notas generadas: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✅ Notas generadas: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;executive&quot;</span><span class="p">:</span> <span class="n">executive</span><span class="p">,</span>
-            <span class="s2">&quot;technical&quot;</span><span class="p">:</span> <span class="n">technical</span><span class="p">,</span>
-            <span class="s2">&quot;bullet_points&quot;</span><span class="p">:</span> <span class="n">bullet_points</span><span class="p">,</span>
-            <span class="s2">&quot;code_examples&quot;</span><span class="p">:</span> <span class="n">code_examples</span><span class="p">,</span>
-            <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="n">filename</span>
+            <span class="s2">"executive"</span><span class="p">:</span> <span class="n">executive</span><span class="p">,</span>
+            <span class="s2">"technical"</span><span class="p">:</span> <span class="n">technical</span><span class="p">,</span>
+            <span class="s2">"bullet_points"</span><span class="p">:</span> <span class="n">bullet_points</span><span class="p">,</span>
+            <span class="s2">"code_examples"</span><span class="p">:</span> <span class="n">code_examples</span><span class="p">,</span>
+            <span class="s2">"filename"</span><span class="p">:</span> <span class="n">filename</span>
         <span class="p">}</span>
 
 <span class="c1"># Uso</span>
 <span class="n">summarizer</span> <span class="o">=</span> <span class="n">TechnicalSummarizer</span><span class="p">()</span>
-<span class="n">notes</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">generate_study_notes</span><span class="p">(</span><span class="s2">&quot;https://blog.example.com/kubernetes-optimization&quot;</span><span class="p">)</span>
+<span class="n">notes</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">generate_study_notes</span><span class="p">(</span><span class="s2">"https://blog.example.com/kubernetes-optimization"</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="caso-de-uso-5-changelog-automatico-desde-git">🔄 Caso de Uso 5: Changelog Automático desde Git<a class="headerlink" href="#caso-de-uso-5-changelog-automatico-desde-git" title="Permanent link">&para;</a></h2>
 <h3 id="generacion-de-release-notes">Generación de Release Notes<a class="headerlink" href="#generacion-de-release-notes" title="Permanent link">&para;</a></h3>
@@ -9610,63 +9649,63 @@ Examples:
 <span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">ChangelogGenerator</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;llama2:7b-chat-q4_0&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"llama2:7b-chat-q4_0"</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ollama_url</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:11434/api/generate&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ollama_url</span> <span class="o">=</span> <span class="s2">"http://localhost:11434/api/generate"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_commits_since_tag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Obtiene commits desde el último tag.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Obtiene commits desde el último tag."""</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">tag</span><span class="p">:</span>
             <span class="c1"># Obtener último tag</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-                <span class="p">[</span><span class="s2">&quot;git&quot;</span><span class="p">,</span> <span class="s2">&quot;describe&quot;</span><span class="p">,</span> <span class="s2">&quot;--tags&quot;</span><span class="p">,</span> <span class="s2">&quot;--abbrev=0&quot;</span><span class="p">],</span>
+                <span class="p">[</span><span class="s2">"git"</span><span class="p">,</span> <span class="s2">"describe"</span><span class="p">,</span> <span class="s2">"--tags"</span><span class="p">,</span> <span class="s2">"--abbrev=0"</span><span class="p">],</span>
                 <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">text</span><span class="o">=</span><span class="kc">True</span>
             <span class="p">)</span>
             <span class="n">tag</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
 
         <span class="c1"># Obtener commits</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;git&quot;</span><span class="p">,</span> <span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">..HEAD&quot;</span><span class="p">,</span> <span class="s2">&quot;--pretty=format:%H|</span><span class="si">%s</span><span class="s2">|%b&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">tag</span> <span class="k">else</span> \
-              <span class="p">[</span><span class="s2">&quot;git&quot;</span><span class="p">,</span> <span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="s2">&quot;--pretty=format:%H|</span><span class="si">%s</span><span class="s2">|%b&quot;</span><span class="p">,</span> <span class="s2">&quot;-20&quot;</span><span class="p">]</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"git"</span><span class="p">,</span> <span class="s2">"log"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">..HEAD"</span><span class="p">,</span> <span class="s2">"--pretty=format:%H|</span><span class="si">%s</span><span class="s2">|%b"</span><span class="p">]</span> <span class="k">if</span> <span class="n">tag</span> <span class="k">else</span> \
+              <span class="p">[</span><span class="s2">"git"</span><span class="p">,</span> <span class="s2">"log"</span><span class="p">,</span> <span class="s2">"--pretty=format:%H|</span><span class="si">%s</span><span class="s2">|%b"</span><span class="p">,</span> <span class="s2">"-20"</span><span class="p">]</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">commits</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
-            <span class="k">if</span> <span class="s1">&#39;|&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-                <span class="n">hash_id</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s1">'|'</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">hash_id</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'|'</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
                 <span class="n">commits</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                    <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="n">hash_id</span><span class="p">[:</span><span class="mi">7</span><span class="p">],</span>
-                    <span class="s2">&quot;subject&quot;</span><span class="p">:</span> <span class="n">subject</span><span class="p">,</span>
-                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="n">body</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="s2">"hash"</span><span class="p">:</span> <span class="n">hash_id</span><span class="p">[:</span><span class="mi">7</span><span class="p">],</span>
+                    <span class="s2">"subject"</span><span class="p">:</span> <span class="n">subject</span><span class="p">,</span>
+                    <span class="s2">"body"</span><span class="p">:</span> <span class="n">body</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
                 <span class="p">})</span>
 
         <span class="k">return</span> <span class="n">commits</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">categorize_commits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commits</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Categoriza commits por tipo (feat, fix, docs, etc.).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Categoriza commits por tipo (feat, fix, docs, etc.)."""</span>
 
         <span class="n">categories</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s2">&quot;fixes&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s2">&quot;docs&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s2">&quot;refactor&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s2">&quot;other&quot;</span><span class="p">:</span> <span class="p">[]</span>
+            <span class="s2">"features"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"fixes"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"docs"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"refactor"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"other"</span><span class="p">:</span> <span class="p">[]</span>
         <span class="p">}</span>
 
         <span class="k">for</span> <span class="n">commit</span> <span class="ow">in</span> <span class="n">commits</span><span class="p">:</span>
-            <span class="n">subject</span> <span class="o">=</span> <span class="n">commit</span><span class="p">[</span><span class="s2">&quot;subject&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">subject</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;feat&quot;</span><span class="p">):</span>
-                <span class="n">categories</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">commit</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">subject</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;fix&quot;</span><span class="p">):</span>
-                <span class="n">categories</span><span class="p">[</span><span class="s2">&quot;fixes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">commit</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">subject</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;docs&quot;</span><span class="p">):</span>
-                <span class="n">categories</span><span class="p">[</span><span class="s2">&quot;docs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">commit</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">subject</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;refactor&quot;</span><span class="p">):</span>
-                <span class="n">categories</span><span class="p">[</span><span class="s2">&quot;refactor&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">commit</span><span class="p">)</span>
+            <span class="n">subject</span> <span class="o">=</span> <span class="n">commit</span><span class="p">[</span><span class="s2">"subject"</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">subject</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"feat"</span><span class="p">):</span>
+                <span class="n">categories</span><span class="p">[</span><span class="s2">"features"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">commit</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">subject</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"fix"</span><span class="p">):</span>
+                <span class="n">categories</span><span class="p">[</span><span class="s2">"fixes"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">commit</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">subject</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"docs"</span><span class="p">):</span>
+                <span class="n">categories</span><span class="p">[</span><span class="s2">"docs"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">commit</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">subject</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"refactor"</span><span class="p">):</span>
+                <span class="n">categories</span><span class="p">[</span><span class="s2">"refactor"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">commit</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">categories</span><span class="p">[</span><span class="s2">&quot;other&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">commit</span><span class="p">)</span>
+                <span class="n">categories</span><span class="p">[</span><span class="s2">"other"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">commit</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">categories</span>
 
@@ -9674,9 +9713,9 @@ Examples:
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">since_tag</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">output_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;CHANGELOG.md&quot;</span>
+        <span class="n">output_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"CHANGELOG.md"</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Genera changelog profesional.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Genera changelog profesional."""</span>
 
         <span class="c1"># 1. Obtener commits</span>
         <span class="n">commits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_commits_since_tag</span><span class="p">(</span><span class="n">since_tag</span><span class="p">)</span>
@@ -9685,17 +9724,17 @@ Examples:
         <span class="n">categorized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">categorize_commits</span><span class="p">(</span><span class="n">commits</span><span class="p">)</span>
 
         <span class="c1"># 3. Generar descripción con LLM</span>
-        <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
 <span class="s2">Genera un changelog profesional para la versión </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2"> basado en estos commits:</span>
 
 <span class="s2">**Features:**</span>
-<span class="si">{</span><span class="nb">chr</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">categorized</span><span class="p">[</span><span class="s1">&#39;features&#39;</span><span class="p">]])</span><span class="si">}</span>
+<span class="si">{</span><span class="nb">chr</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">'subject'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">categorized</span><span class="p">[</span><span class="s1">'features'</span><span class="p">]])</span><span class="si">}</span>
 
 <span class="s2">**Fixes:**</span>
-<span class="si">{</span><span class="nb">chr</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">categorized</span><span class="p">[</span><span class="s1">&#39;fixes&#39;</span><span class="p">]])</span><span class="si">}</span>
+<span class="si">{</span><span class="nb">chr</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">'subject'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">categorized</span><span class="p">[</span><span class="s1">'fixes'</span><span class="p">]])</span><span class="si">}</span>
 
 <span class="s2">**Docs:**</span>
-<span class="si">{</span><span class="nb">chr</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">categorized</span><span class="p">[</span><span class="s1">&#39;docs&#39;</span><span class="p">]])</span><span class="si">}</span>
+<span class="si">{</span><span class="nb">chr</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">'subject'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">categorized</span><span class="p">[</span><span class="s1">'docs'</span><span class="p">]])</span><span class="si">}</span>
 
 <span class="s2">Requisitos:</span>
 <span class="s2">1. Agrupa cambios relacionados</span>
@@ -9704,41 +9743,41 @@ Examples:
 <span class="s2">4. Formato Markdown con secciones claras</span>
 
 <span class="s2">Changelog:</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 
         <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ollama_url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
-            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
-            <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
-            <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="mf">0.4</span>
+            <span class="s2">"model"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+            <span class="s2">"prompt"</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
+            <span class="s2">"stream"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">"temperature"</span><span class="p">:</span> <span class="mf">0.4</span>
         <span class="p">})</span>
 
-        <span class="n">changelog_content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;response&quot;</span><span class="p">]</span>
+        <span class="n">changelog_content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"response"</span><span class="p">]</span>
 
         <span class="c1"># 4. Agregar header</span>
-        <span class="n">full_changelog</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;# Changelog</span>
+        <span class="n">full_changelog</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""# Changelog</span>
 
-<span class="s2">## [</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">] - </span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span><span class="si">}</span>
+<span class="s2">## [</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">] - </span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">"</span><span class="p">)</span><span class="si">}</span>
 
 <span class="si">{</span><span class="n">changelog_content</span><span class="si">}</span>
 
 <span class="s2">### Commits Incluidos</span>
-<span class="si">{</span><span class="nb">chr</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;hash&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">commits</span><span class="p">])</span><span class="si">}</span>
+<span class="si">{</span><span class="nb">chr</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">'hash'</span><span class="p">]</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">'subject'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">commits</span><span class="p">])</span><span class="si">}</span>
 
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 
         <span class="c1"># 5. Guardar</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">full_changelog</span><span class="p">)</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ Changelog generado: </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✅ Changelog generado: </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">full_changelog</span>
 
 <span class="c1"># Uso</span>
 <span class="n">generator</span> <span class="o">=</span> <span class="n">ChangelogGenerator</span><span class="p">()</span>
 <span class="n">changelog</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate_changelog</span><span class="p">(</span>
-    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;v2.1.0&quot;</span><span class="p">,</span>
-    <span class="n">since_tag</span><span class="o">=</span><span class="s2">&quot;v2.0.0&quot;</span>
+    <span class="n">version</span><span class="o">=</span><span class="s2">"v2.1.0"</span><span class="p">,</span>
+    <span class="n">since_tag</span><span class="o">=</span><span class="s2">"v2.0.0"</span>
 <span class="p">)</span>
 </code></pre></div>
 <h2 id="integracion-con-cicd">🔧 Integración con CI/CD<a class="headerlink" href="#integracion-con-cicd" title="Permanent link">&para;</a></h2>
@@ -9759,7 +9798,7 @@ Examples:
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Setup Python</span>
 <span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v4</span>
 <span class="w">        </span><span class="nt">with</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.11&#39;</span>
+<span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">'3.11'</span>
 
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install Ollama</span>
 <span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
@@ -9777,63 +9816,63 @@ Examples:
 
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Commit changes</span>
 <span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">          </span><span class="no">git config --global user.name &#39;Documentation Bot&#39;</span>
-<span class="w">          </span><span class="no">git config --global user.email &#39;bot@example.com&#39;</span>
+<span class="w">          </span><span class="no">git config --global user.name 'Documentation Bot'</span>
+<span class="w">          </span><span class="no">git config --global user.email 'bot@example.com'</span>
 <span class="w">          </span><span class="no">git add docs/ CHANGELOG.md</span>
-<span class="w">          </span><span class="no">git commit -m &quot;docs: Auto-generate documentation [skip ci]&quot; || true</span>
+<span class="w">          </span><span class="no">git commit -m "docs: Auto-generate documentation [skip ci]" || true</span>
 <span class="w">          </span><span class="no">git push</span>
 </code></pre></div>
 <h2 id="mejores-practicas">⚠️ Mejores Prácticas<a class="headerlink" href="#mejores-practicas" title="Permanent link">&para;</a></h2>
 <h3 id="validacion-de-contenido-generado">Validación de Contenido Generado<a class="headerlink" href="#validacion-de-contenido-generado" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ContentValidator</span><span class="p">:</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">validate_markdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Valida formato Markdown.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Valida formato Markdown."""</span>
         <span class="n">issues</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># Verificar headers</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^# &#39;</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">):</span>
-            <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Falta título principal (H1)&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^# '</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">):</span>
+            <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"Falta título principal (H1)"</span><span class="p">)</span>
 
         <span class="c1"># Verificar enlaces rotos</span>
-        <span class="n">links</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\[([^\]]+)\]\(([^\)]+)\)&#39;</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+        <span class="n">links</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\[([^\]]+)\]\(([^\)]+)\)'</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">text</span><span class="p">,</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">links</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'http'</span><span class="p">):</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&gt;=</span> <span class="mi">400</span><span class="p">:</span>
-                        <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Enlace roto: </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Enlace roto: </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
                 <span class="k">except</span><span class="p">:</span>
-                    <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No se puede validar: </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"No se puede validar: </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;valid&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">issues</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">&quot;issues&quot;</span><span class="p">:</span> <span class="n">issues</span>
+            <span class="s2">"valid"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">issues</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"issues"</span><span class="p">:</span> <span class="n">issues</span>
         <span class="p">}</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">check_code_syntax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Valida sintaxis de bloques de código.&quot;&quot;&quot;</span>
-        <span class="n">code_blocks</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;```(\w+)\n(.*?)\n```&#39;</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">"""Valida sintaxis de bloques de código."""</span>
+        <span class="n">code_blocks</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">'```(\w+)\n(.*?)\n```'</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
         <span class="n">issues</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">for</span> <span class="n">lang</span><span class="p">,</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">code_blocks</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">lang</span> <span class="o">==</span> <span class="s2">&quot;python&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">lang</span> <span class="o">==</span> <span class="s2">"python"</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="nb">compile</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s1">&#39;&lt;string&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;exec&#39;</span><span class="p">)</span>
+                    <span class="nb">compile</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s1">'&lt;string&gt;'</span><span class="p">,</span> <span class="s1">'exec'</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">SyntaxError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error de sintaxis Python: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error de sintaxis Python: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;valid&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">issues</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">&quot;issues&quot;</span><span class="p">:</span> <span class="n">issues</span>
+            <span class="s2">"valid"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">issues</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"issues"</span><span class="p">:</span> <span class="n">issues</span>
         <span class="p">}</span>
 
 <span class="c1"># Uso</span>
 <span class="n">validator</span> <span class="o">=</span> <span class="n">ContentValidator</span><span class="p">()</span>
 <span class="n">validation_result</span> <span class="o">=</span> <span class="n">validator</span><span class="o">.</span><span class="n">validate_markdown</span><span class="p">(</span><span class="n">generated_content</span><span class="p">)</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">validation_result</span><span class="p">[</span><span class="s2">&quot;valid&quot;</span><span class="p">]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;⚠️  Problemas encontrados:&quot;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">issue</span> <span class="ow">in</span> <span class="n">validation_result</span><span class="p">[</span><span class="s2">&quot;issues&quot;</span><span class="p">]:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">issue</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">validation_result</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"⚠️  Problemas encontrados:"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">issue</span> <span class="ow">in</span> <span class="n">validation_result</span><span class="p">[</span><span class="s2">"issues"</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  - </span><span class="si">{</span><span class="n">issue</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="control-de-calidad">Control de Calidad<a class="headerlink" href="#control-de-calidad" title="Permanent link">&para;</a></h3>
 <ul>
@@ -9847,29 +9886,29 @@ Examples:
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DocumentationMetrics</span><span class="p">:</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;documents_generated&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">&quot;total_words&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">&quot;total_cost_saved_hours&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">&quot;errors&quot;</span><span class="p">:</span> <span class="mi">0</span>
+            <span class="s2">"documents_generated"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"total_words"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"total_cost_saved_hours"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"errors"</span><span class="p">:</span> <span class="mi">0</span>
         <span class="p">}</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">record_generation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">word_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">time_taken</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;documents_generated&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;total_words&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">word_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s2">"documents_generated"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s2">"total_words"</span><span class="p">]</span> <span class="o">+=</span> <span class="n">word_count</span>
 
         <span class="c1"># Estimar ahorro (promedio 500 palabras/hora manual)</span>
         <span class="n">hours_saved</span> <span class="o">=</span> <span class="n">word_count</span> <span class="o">/</span> <span class="mi">500</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;total_cost_saved_hours&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">hours_saved</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s2">"total_cost_saved_hours"</span><span class="p">]</span> <span class="o">+=</span> <span class="n">hours_saved</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"""</span>
 <span class="s2">📊 Métricas de Generación de Documentación</span>
 
-<span class="s2">Documentos generados: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;documents_generated&#39;</span><span class="p">]</span><span class="si">}</span>
-<span class="s2">Palabras totales: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;total_words&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span>
-<span class="s2">Horas ahorradas: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;total_cost_saved_hours&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">h</span>
-<span class="s2">Errores: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;errors&#39;</span><span class="p">]</span><span class="si">}</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Documentos generados: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">'documents_generated'</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">Palabras totales: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">'total_words'</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span>
+<span class="s2">Horas ahorradas: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">'total_cost_saved_hours'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">h</span>
+<span class="s2">Errores: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">'errors'</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">"""</span>
 
 <span class="n">metrics</span> <span class="o">=</span> <span class="n">DocumentationMetrics</span><span class="p">()</span>
 </code></pre></div>

@@ -520,6 +520,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -7505,6 +7524,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -9249,6 +9275,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9385,6 +9438,17 @@
                 
                   
 
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:openstack" class="md-tag">openstack</a>
+      
+    
+  </nav>
+
 
   
     <a href="https://github.com/rasty94/Frikiteam-docs/edit/master/docs/en/doc/openstack/day2.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
@@ -9424,7 +9488,7 @@ docker<span class="w"> </span>logs<span class="w"> </span>--since<span class="w"
 <h3 id="weekly-tasks">Weekly Tasks<a class="headerlink" href="#weekly-tasks" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Clean up stale ERROR instances (&gt;7 days)</span>
 openstack<span class="w"> </span>server<span class="w"> </span>list<span class="w"> </span>--all-projects<span class="w"> </span>--status<span class="w"> </span>ERROR<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--long<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span><span class="o">{}</span><span class="w"> </span>openstack<span class="w"> </span>server<span class="w"> </span>delete<span class="w"> </span><span class="o">{}</span>
+<span class="w">  </span>--long<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{print $1}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span><span class="o">{}</span><span class="w"> </span>openstack<span class="w"> </span>server<span class="w"> </span>delete<span class="w"> </span><span class="o">{}</span>
 
 <span class="c1"># Clean up old snapshots (&gt;30 days)</span>
 <span class="c1"># Custom script, depending on your policy</span>
@@ -9527,7 +9591,7 @@ kolla-ansible<span class="w"> </span>-i<span class="w"> </span>/etc/kolla/multin
 
 <span class="c1"># 2. Restore the previous images</span>
 <span class="c1"># Edit /etc/kolla/globals.yml:</span>
-<span class="c1"># openstack_release: &quot;2023.2&quot;  # Previous version</span>
+<span class="c1"># openstack_release: "2023.2"  # Previous version</span>
 
 <span class="c1"># 3. Reconfigure with the previous version</span>
 kolla-ansible<span class="w"> </span>-i<span class="w"> </span>/etc/kolla/multinode<span class="w"> </span>reconfigure
@@ -9586,18 +9650,18 @@ openstack<span class="w"> </span>server<span class="w"> </span>list
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="c1"># /usr/local/bin/backup-openstack-dbs.sh</span>
 
-<span class="nv">BACKUP_DIR</span><span class="o">=</span><span class="s2">&quot;/backups/openstack/mariadb&quot;</span>
+<span class="nv">BACKUP_DIR</span><span class="o">=</span><span class="s2">"/backups/openstack/mariadb"</span>
 <span class="nv">DATE</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>
 <span class="nv">RETENTION_DAYS</span><span class="o">=</span><span class="m">30</span>
 
 mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$BACKUP_DIR</span>
 
 <span class="c1"># Get the MariaDB password</span>
-<span class="nv">DB_PASSWORD</span><span class="o">=</span><span class="k">$(</span>grep<span class="w"> </span>database_password<span class="w"> </span>/etc/kolla/passwords.yml<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span>
+<span class="nv">DB_PASSWORD</span><span class="o">=</span><span class="k">$(</span>grep<span class="w"> </span>database_password<span class="w"> </span>/etc/kolla/passwords.yml<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{print $2}'</span><span class="k">)</span>
 
 <span class="c1"># Back up each database</span>
 <span class="k">for</span><span class="w"> </span>db<span class="w"> </span><span class="k">in</span><span class="w"> </span>keystone<span class="w"> </span>glance<span class="w"> </span>nova<span class="w"> </span>nova_api<span class="w"> </span>nova_cell0<span class="w"> </span>neutron<span class="w"> </span>cinder<span class="w"> </span>heat<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Backing up </span><span class="nv">$db</span><span class="s2">...&quot;</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Backing up </span><span class="nv">$db</span><span class="s2">..."</span>
 <span class="w">  </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>mariadb<span class="w"> </span>mysqldump<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-uroot<span class="w"> </span>-p<span class="nv">$DB_PASSWORD</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--single-transaction<span class="w"> </span><span class="se">\</span>
@@ -9615,18 +9679,18 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <span class="w">  </span>--triggers<span class="w"> </span><span class="p">|</span><span class="w"> </span>gzip<span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$BACKUP_DIR</span>/all_databases_<span class="si">${</span><span class="nv">DATE</span><span class="si">}</span>.sql.gz
 
 <span class="c1"># Prune old backups</span>
-find<span class="w"> </span><span class="nv">$BACKUP_DIR</span><span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.sql.gz&quot;</span><span class="w"> </span>-mtime<span class="w"> </span>+<span class="nv">$RETENTION_DAYS</span><span class="w"> </span>-delete
+find<span class="w"> </span><span class="nv">$BACKUP_DIR</span><span class="w"> </span>-name<span class="w"> </span><span class="s2">"*.sql.gz"</span><span class="w"> </span>-mtime<span class="w"> </span>+<span class="nv">$RETENTION_DAYS</span><span class="w"> </span>-delete
 
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Backup completed: </span><span class="nv">$BACKUP_DIR</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Backup completed: </span><span class="nv">$BACKUP_DIR</span><span class="s2">"</span>
 ls<span class="w"> </span>-lh<span class="w"> </span><span class="nv">$BACKUP_DIR</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-5
 </code></pre></div>
 <h3 id="restoring-mariadb">Restoring MariaDB<a class="headerlink" href="#restoring-mariadb" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="c1"># restore-openstack-db.sh</span>
 
-<span class="nv">BACKUP_FILE</span><span class="o">=</span><span class="s2">&quot;/backups/openstack/mariadb/keystone_20260125_100000.sql.gz&quot;</span>
-<span class="nv">DB_NAME</span><span class="o">=</span><span class="s2">&quot;keystone&quot;</span>
-<span class="nv">DB_PASSWORD</span><span class="o">=</span><span class="k">$(</span>grep<span class="w"> </span>database_password<span class="w"> </span>/etc/kolla/passwords.yml<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span>
+<span class="nv">BACKUP_FILE</span><span class="o">=</span><span class="s2">"/backups/openstack/mariadb/keystone_20260125_100000.sql.gz"</span>
+<span class="nv">DB_NAME</span><span class="o">=</span><span class="s2">"keystone"</span>
+<span class="nv">DB_PASSWORD</span><span class="o">=</span><span class="k">$(</span>grep<span class="w"> </span>database_password<span class="w"> </span>/etc/kolla/passwords.yml<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{print $2}'</span><span class="k">)</span>
 
 <span class="c1"># Stop the services using this DB</span>
 kolla-ansible<span class="w"> </span>-i<span class="w"> </span>/etc/kolla/multinode<span class="w"> </span>stop<span class="w"> </span>--tags<span class="w"> </span>keystone
@@ -9732,12 +9796,12 @@ rbd<span class="w"> </span>export-diff<span class="w"> </span>images/&lt;image-n
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openstack_critical</span>
 <span class="w">    </span><span class="nt">rules</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HypervisorDown</span>
-<span class="w">        </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openstack_nova_agent_state{service=&quot;nova-compute&quot;} == 0</span>
+<span class="w">        </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openstack_nova_agent_state{service="nova-compute"} == 0</span>
 <span class="w">        </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5m</span>
 <span class="w">        </span><span class="nt">labels</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">critical</span>
 <span class="w">        </span><span class="nt">annotations</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Hypervisor</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">$labels.hostname</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">down&quot;</span>
+<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">"Hypervisor</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">$labels.hostname</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">down"</span>
 
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CephHealthError</span>
 <span class="w">        </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceph_health_status == 2</span>
@@ -9745,7 +9809,7 @@ rbd<span class="w"> </span>export-diff<span class="w"> </span>images/&lt;image-n
 <span class="w">        </span><span class="nt">labels</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">critical</span>
 <span class="w">        </span><span class="nt">annotations</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Ceph</span><span class="nv"> </span><span class="s">cluster</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">HEALTH_ERR</span><span class="nv"> </span><span class="s">state&quot;</span>
+<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">"Ceph</span><span class="nv"> </span><span class="s">cluster</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">HEALTH_ERR</span><span class="nv"> </span><span class="s">state"</span>
 
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">APIResponseTimeSlow</span>
 <span class="w">        </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">histogram_quantile(0.99, http_request_duration_seconds) &gt; 5</span>
@@ -9753,21 +9817,21 @@ rbd<span class="w"> </span>export-diff<span class="w"> </span>images/&lt;image-n
 <span class="w">        </span><span class="nt">labels</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">warning</span>
 <span class="w">        </span><span class="nt">annotations</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;API</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">time</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">high</span><span class="nv"> </span><span class="s">(p99</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">5s)&quot;</span>
+<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">"API</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">time</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">high</span><span class="nv"> </span><span class="s">(p99</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">5s)"</span>
 </code></pre></div>
 <h2 id="capacity-planning">📈 Capacity Planning<a class="headerlink" href="#capacity-planning" title="Permanent link">&para;</a></h2>
 <h3 id="capacity-calculation">Capacity Calculation<a class="headerlink" href="#capacity-calculation" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># capacity_calculator.py</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">calculate_capacity</span><span class="p">(</span><span class="n">current_vms</span><span class="p">,</span> <span class="n">growth_rate_monthly</span><span class="p">,</span> <span class="n">months</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculates the future capacity required</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        current_vms: current VMs</span>
 <span class="sd">        growth_rate_monthly: monthly growth rate in % (e.g. 10 = 10%)</span>
 <span class="sd">        months: months to project</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">future_vms</span> <span class="o">=</span> <span class="n">current_vms</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">growth_rate_monthly</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span> <span class="o">**</span> <span class="n">months</span><span class="p">)</span>
 
     <span class="c1"># Assuming an average of 4 vCPUs and 8GB RAM per VM</span>
@@ -9778,12 +9842,12 @@ rbd<span class="w"> </span>export-diff<span class="w"> </span>images/&lt;image-n
     <span class="n">physical_cores</span> <span class="o">=</span> <span class="n">vcpus_needed</span> <span class="o">/</span> <span class="mf">1.5</span>
     <span class="n">physical_ram_gb</span> <span class="o">=</span> <span class="n">ram_gb_needed</span> <span class="o">/</span> <span class="mf">1.2</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Projection over </span><span class="si">{</span><span class="n">months</span><span class="si">}</span><span class="s2"> months:&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Estimated VMs: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">future_vms</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  vCPUs needed: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">vcpus_needed</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Physical cores: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">physical_cores</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Physical RAM: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">physical_ram_gb</span><span class="p">)</span><span class="si">}</span><span class="s2"> GB&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Servers needed (32c, 256GB): </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">physical_ram_gb</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">256</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Projection over </span><span class="si">{</span><span class="n">months</span><span class="si">}</span><span class="s2"> months:"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Estimated VMs: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">future_vms</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  vCPUs needed: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">vcpus_needed</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Physical cores: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">physical_cores</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Physical RAM: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">physical_ram_gb</span><span class="p">)</span><span class="si">}</span><span class="s2"> GB"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Servers needed (32c, 256GB): </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">physical_ram_gb</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">256</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># Example</span>
 <span class="n">calculate_capacity</span><span class="p">(</span><span class="n">current_vms</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">growth_rate_monthly</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">months</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
@@ -9877,7 +9941,7 @@ kolla-ansible<span class="w"> </span>-i<span class="w"> </span>/etc/kolla/multin
 <span class="w">      </span>apt:
 <span class="w">        </span>upgrade:<span class="w"> </span>dist
 <span class="w">        </span>update_cache:<span class="w"> </span>yes
-<span class="w">      </span>when:<span class="w"> </span><span class="nv">ansible_os_family</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;Debian&quot;</span>
+<span class="w">      </span>when:<span class="w"> </span><span class="nv">ansible_os_family</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"Debian"</span>
 
 <span class="w">    </span>-<span class="w"> </span>name:<span class="w"> </span>Check<span class="w"> </span><span class="k">if</span><span class="w"> </span>reboot<span class="w"> </span>required
 <span class="w">      </span>stat:
@@ -9936,7 +10000,7 @@ ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory<span
 <span class="nv">audit_map_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>/etc/keystone/api_audit_map.conf
 
 <span class="c1"># Review the audit trail</span>
-<span class="c1"># In Kibana, filter by the &quot;audit&quot; tag</span>
+<span class="c1"># In Kibana, filter by the "audit" tag</span>
 
 <span class="c1"># Examples of events worth auditing:</span>
 <span class="c1"># - User creation/deletion</span>
@@ -9961,7 +10025,7 @@ openstack<span class="w"> </span>hypervisor<span class="w"> </span>list
 <h3 id="draining-a-compute-node-maintenance">Draining a Compute Node (Maintenance)<a class="headerlink" href="#draining-a-compute-node-maintenance" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># 1. Disable scheduling</span>
 openstack<span class="w"> </span>compute<span class="w"> </span>service<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--disable<span class="w"> </span>compute01<span class="w"> </span>nova-compute<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--disable-reason<span class="w"> </span><span class="s2">&quot;Scheduled maintenance&quot;</span>
+<span class="w">  </span>--disable-reason<span class="w"> </span><span class="s2">"Scheduled maintenance"</span>
 
 <span class="c1"># 2. Migrate the instances</span>
 <span class="c1"># List the instances running on the host</span>
@@ -9985,27 +10049,27 @@ openstack<span class="w"> </span>compute<span class="w"> </span>service<span cla
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="c1"># cleanup-orphaned-resources.sh</span>
 
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Cleaning up orphaned resources...&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Cleaning up orphaned resources..."</span>
 
 <span class="c1"># Ports with no device</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;1. Ports with no device:&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"1. Ports with no device:"</span>
 openstack<span class="w"> </span>port<span class="w"> </span>list<span class="w"> </span>--device-owner<span class="w"> </span>none<span class="w"> </span>-f<span class="w"> </span>value<span class="w"> </span>-c<span class="w"> </span>ID<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>port<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Deleting port </span><span class="nv">$port</span><span class="s2">&quot;</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"  Deleting port </span><span class="nv">$port</span><span class="s2">"</span>
 <span class="w">  </span>openstack<span class="w"> </span>port<span class="w"> </span>delete<span class="w"> </span><span class="nv">$port</span>
 <span class="k">done</span>
 
 <span class="c1"># Volumes in ERROR for &gt;7 days</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;2. Volumes in ERROR (stale):&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"2. Volumes in ERROR (stale):"</span>
 <span class="c1"># Requires a Python script to filter by date</span>
 
 <span class="c1"># Unassigned floating IPs</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;3. Unused floating IPs:&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"3. Unused floating IPs:"</span>
 openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>list<span class="w"> </span>--status<span class="w"> </span>DOWN<span class="w"> </span>-f<span class="w"> </span>value<span class="w"> </span>-c<span class="w"> </span>ID<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>fip<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Releasing floating IP </span><span class="nv">$fip</span><span class="s2">&quot;</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"  Releasing floating IP </span><span class="nv">$fip</span><span class="s2">"</span>
 <span class="w">  </span>openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>delete<span class="w"> </span><span class="nv">$fip</span>
 <span class="k">done</span>
 
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Cleanup completed&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Cleanup completed"</span>
 </code></pre></div>
 <h2 id="references">📚 References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>

@@ -518,6 +518,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -7646,6 +7665,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -9390,6 +9416,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9524,42 +9577,28 @@
       
       
       
-        <span class="md-tag">ai</span>
+        <a href="../../../tags/#tag:ai" class="md-tag">ai</a>
       
     
       
       
       
       
-        <span class="md-tag">distillation</span>
+        <a href="../../../tags/#tag:llm" class="md-tag">llm</a>
       
     
       
       
       
       
-        <span class="md-tag">llm</span>
+        <a href="../../../tags/#tag:performance" class="md-tag">performance</a>
       
     
       
       
       
       
-        <span class="md-tag">optimization</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">pruning</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">quantization</span>
+        <a href="../../../tags/#tag:quantization" class="md-tag">quantization</a>
       
     
   </nav>
@@ -9709,12 +9748,12 @@ python<span class="w"> </span>convert.py<span class="w"> </span>--model<span cla
 <span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoModelForCausalLM</span>
 
 <span class="c1"># Cargar modelo</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;microsoft/DialoGPT-medium&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"microsoft/DialoGPT-medium"</span><span class="p">)</span>
 
 <span class="c1"># Aplicar pruning (simplificado)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">prune_weights</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
-        <span class="k">if</span> <span class="s1">&#39;weight&#39;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">'weight'</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
             <span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">param</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">threshold</span>
             <span class="n">param</span><span class="o">.</span><span class="n">data</span> <span class="o">*=</span> <span class="n">mask</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
 
@@ -9741,29 +9780,29 @@ python<span class="w"> </span>convert.py<span class="w"> </span>--model<span cla
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="c1"># Modelo teacher (grande)</span>
-<span class="n">teacher</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;gpt2-large&quot;</span><span class="p">)</span>
+<span class="n">teacher</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"gpt2-large"</span><span class="p">)</span>
 
 <span class="c1"># Modelo student (pequeño)</span>
-<span class="n">student</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;gpt2&quot;</span><span class="p">)</span>
+<span class="n">student</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"gpt2"</span><span class="p">)</span>
 
 <span class="c1"># Función de pérdida de distilación</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">distillation_loss</span><span class="p">(</span><span class="n">student_logits</span><span class="p">,</span> <span class="n">teacher_logits</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">2.0</span><span class="p">):</span>
     <span class="n">soft_targets</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">teacher_logits</span> <span class="o">/</span> <span class="n">temperature</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">student_soft</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">student_logits</span> <span class="o">/</span> <span class="n">temperature</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">kl_div</span><span class="p">(</span><span class="n">student_soft</span><span class="p">,</span> <span class="n">soft_targets</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="s1">&#39;batchmean&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">kl_div</span><span class="p">(</span><span class="n">student_soft</span><span class="p">,</span> <span class="n">soft_targets</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="s1">'batchmean'</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="estrategias-de-deployment">🚀 Estrategias de Deployment<a class="headerlink" href="#estrategias-de-deployment" title="Permanent link">&para;</a></h2>
 <h3 id="1-cpu-vs-gpu-optimization">1. <strong>CPU vs GPU Optimization</strong><a class="headerlink" href="#1-cpu-vs-gpu-optimization" title="Permanent link">&para;</a></h3>
 <h4 id="optimizaciones-para-cpu">Optimizaciones para CPU<a class="headerlink" href="#optimizaciones-para-cpu" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="c1"># Usar llama.cpp con optimizaciones CPU</span>
-./main<span class="w"> </span>-m<span class="w"> </span>model.bin<span class="w"> </span>--threads<span class="w"> </span><span class="m">8</span><span class="w"> </span>--ctx-size<span class="w"> </span><span class="m">2048</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Prompt&quot;</span>
+./main<span class="w"> </span>-m<span class="w"> </span>model.bin<span class="w"> </span>--threads<span class="w"> </span><span class="m">8</span><span class="w"> </span>--ctx-size<span class="w"> </span><span class="m">2048</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">"Prompt"</span>
 </code></pre></div>
 <h4 id="optimizaciones-para-gpu">Optimizaciones para GPU<a class="headerlink" href="#optimizaciones-para-gpu" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="c1"># Con vLLM</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">vllm</span><span class="w"> </span><span class="kn">import</span> <span class="n">LLM</span>
 
 <span class="n">llm</span> <span class="o">=</span> <span class="n">LLM</span><span class="p">(</span>
-    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;microsoft/DialoGPT-large&quot;</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">"microsoft/DialoGPT-large"</span><span class="p">,</span>
     <span class="n">tensor_parallel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>  <span class="c1"># Multi-GPU</span>
     <span class="n">gpu_memory_utilization</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
     <span class="n">max_model_len</span><span class="o">=</span><span class="mi">4096</span>
@@ -9771,7 +9810,7 @@ python<span class="w"> </span>convert.py<span class="w"> </span>--model<span cla
 </code></pre></div>
 <h3 id="2-batch-processing">2. <strong>Batch Processing</strong><a class="headerlink" href="#2-batch-processing" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Procesamiento por lotes para mayor throughput</span>
-<span class="n">prompts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Prompt 1&quot;</span><span class="p">,</span> <span class="s2">&quot;Prompt 2&quot;</span><span class="p">,</span> <span class="s2">&quot;Prompt 3&quot;</span><span class="p">]</span>
+<span class="n">prompts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Prompt 1"</span><span class="p">,</span> <span class="s2">"Prompt 2"</span><span class="p">,</span> <span class="s2">"Prompt 3"</span><span class="p">]</span>
 
 <span class="c1"># Inferencia por lotes</span>
 <span class="n">outputs</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">prompts</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
@@ -9781,13 +9820,13 @@ python<span class="w"> </span>convert.py<span class="w"> </span>--model<span cla
 <span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cache</span>
 
 <span class="n">cache</span> <span class="o">=</span> <span class="n">Cache</span><span class="p">()</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;gpt2&quot;</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"gpt2"</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Primera inferencia crea cache</span>
-<span class="n">output1</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="s2">&quot;Common prefix&quot;</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">output1</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="s2">"Common prefix"</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Inferencias posteriores reutilizan cache</span>
-<span class="n">output2</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="s2">&quot;Common prefix + continuation&quot;</span><span class="p">,</span> <span class="n">past_key_values</span><span class="o">=</span><span class="n">output1</span><span class="o">.</span><span class="n">past_key_values</span><span class="p">)</span>
+<span class="n">output2</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="s2">"Common prefix + continuation"</span><span class="p">,</span> <span class="n">past_key_values</span><span class="o">=</span><span class="n">output1</span><span class="o">.</span><span class="n">past_key_values</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="benchmarks-y-comparativas">📊 Benchmarks y Comparativas<a class="headerlink" href="#benchmarks-y-comparativas" title="Permanent link">&para;</a></h2>
 <h3 id="resultados-tipicos-de-optimizacion">Resultados Típicos de Optimización<a class="headerlink" href="#resultados-tipicos-de-optimizacion" title="Permanent link">&para;</a></h3>
@@ -9905,13 +9944,13 @@ python<span class="w"> </span>convert-hf-to-gguf.py<span class="w"> </span>--mod
 ./llama-bench<span class="w"> </span>-m<span class="w"> </span>model.gguf<span class="w"> </span>-p<span class="w"> </span><span class="m">512</span><span class="w"> </span>-n<span class="w"> </span><span class="m">128</span><span class="w"> </span>-t<span class="w"> </span><span class="m">8</span>
 
 <span class="c1"># Perfilado de memoria</span>
-python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"</span>
 <span class="s2">import torch</span>
 <span class="s2">from transformers import AutoModel</span>
-<span class="s2">model = AutoModel.from_pretrained(&#39;model&#39;)</span>
-<span class="s2">print(f&#39;Model size: {sum(p.numel() for p in model.parameters()) / 1e6:.1f}M parameters&#39;)</span>
-<span class="s2">print(f&#39;Memory: {torch.cuda.memory_allocated()/1e9:.2f}GB&#39;)</span>
-<span class="s2">&quot;</span>
+<span class="s2">model = AutoModel.from_pretrained('model')</span>
+<span class="s2">print(f'Model size: {sum(p.numel() for p in model.parameters()) / 1e6:.1f}M parameters')</span>
+<span class="s2">print(f'Memory: {torch.cuda.memory_allocated()/1e9:.2f}GB')</span>
+<span class="s2">"</span>
 </code></pre></div>
 <h2 id="consideraciones-y-limitaciones">⚠️ Consideraciones y Limitaciones<a class="headerlink" href="#consideraciones-y-limitaciones" title="Permanent link">&para;</a></h2>
 <h3 id="trade-offs-importantes">Trade-offs Importantes<a class="headerlink" href="#trade-offs-importantes" title="Permanent link">&para;</a></h3>

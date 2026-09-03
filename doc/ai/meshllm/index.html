@@ -518,6 +518,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -7244,6 +7263,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -8988,6 +9014,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9122,42 +9175,35 @@
       
       
       
-        <span class="md-tag">ai</span>
+        <a href="../../../tags/#tag:ai" class="md-tag">ai</a>
       
     
       
       
       
       
-        <span class="md-tag">distributed</span>
+        <a href="../../../tags/#tag:gpu" class="md-tag">gpu</a>
       
     
       
       
       
       
-        <span class="md-tag">gpu</span>
+        <a href="../../../tags/#tag:high-availability" class="md-tag">high-availability</a>
       
     
       
       
       
       
-        <span class="md-tag">llm</span>
+        <a href="../../../tags/#tag:llm" class="md-tag">llm</a>
       
     
       
       
       
       
-        <span class="md-tag">meshllm</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">p2p</span>
+        <a href="../../../tags/#tag:networking" class="md-tag">networking</a>
       
     
   </nav>
@@ -9280,11 +9326,11 @@ mesh-llm<span class="w"> </span>uninstall<span class="w"> </span>--yes
 <div class="highlight"><pre><span></span><code>mesh-llm<span class="w"> </span>serve<span class="w"> </span>--auto<span class="w"> </span>--headless
 </code></pre></div>
 <h3 id="consultar-modelos-y-lanzar-una-peticion">Consultar modelos y lanzar una petición<a class="headerlink" href="#consultar-modelos-y-lanzar-una-peticion" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:9337/v1/models<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.data[].id&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:9337/v1/models<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.data[].id'</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:9337/v1/chat/completions<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;model&quot;:&quot;GLM-4.7-Flash-Q4_K_M&quot;,&quot;messages&quot;:[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;hello&quot;}]}&#39;</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Content-Type: application/json"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'{"model":"GLM-4.7-Flash-Q4_K_M","messages":[{"role":"user","content":"hello"}]}'</span>
 </code></pre></div>
 <p>Al ser OpenAI-compatible, cualquier cliente que apunte a <code>http://localhost:9337/v1</code> funciona sin cambios: SDKs oficiales, plugins de IDE o herramientas de agente.</p>
 <h3 id="malla-privada-entre-tus-maquinas">Malla privada entre tus máquinas<a class="headerlink" href="#malla-privada-entre-tus-maquinas" title="Permanent link">&para;</a></h3>
@@ -9324,8 +9370,8 @@ mesh-llm<span class="w"> </span>uninstall<span class="w"> </span>--yes
 <p>Todos los nodos exponen la misma API <code>/v1</code>. Las peticiones se enrutan <strong>por el campo <code>model</code></strong> hacia el peer capaz de servir ese modelo. Eso permite un patrón muy natural en un homelab: una máquina con el modelo de código, otra con el modelo generalista grande, otra con un modelo multimodal, y un único endpoint para todos.</p>
 <p>Además existe una pasarela <strong>Mixture-of-Agents</strong>: enviando <code>"model": "mesh"</code> el proxy abanica la petición a todos los modelos disponibles en la malla en paralelo, arbitra las respuestas con lógica determinista y devuelve una única respuesta OpenAI-compatible. Requiere al menos dos modelos distintos en la malla.</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:9337/v1/chat/completions<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;model&quot;:&quot;mesh&quot;,&quot;messages&quot;:[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;What is the capital of Japan?&quot;}]}&#39;</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Content-Type: application/json"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'{"model":"mesh","messages":[{"role":"user","content":"What is the capital of Japan?"}]}'</span>
 </code></pre></div>
 <div class="admonition danger">
 <p class="admonition-title">MoA está marcado como experimental por el propio proyecto</p>

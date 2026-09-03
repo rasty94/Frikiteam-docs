@@ -520,6 +520,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -7357,6 +7376,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -9101,6 +9127,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9243,35 +9296,14 @@
       
       
       
-        <span class="md-tag">databases</span>
+        <a href="../../../tags/#tag:databases" class="md-tag">databases</a>
       
     
       
       
       
       
-        <span class="md-tag">high-availability</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">patroni</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">postgresql</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">replication</span>
+        <a href="../../../tags/#tag:high-availability" class="md-tag">high-availability</a>
       
     
   </nav>
@@ -9303,7 +9335,7 @@
 <span class="na">max_wal_senders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">10</span>
 <span class="na">max_replication_slots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">10</span>
 <span class="na">synchronous_commit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">on</span><span class="w">          </span><span class="c1"># fsync local, sin esperar a la réplica</span>
-<span class="na">synchronous_standby_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="w">   </span><span class="c1"># vacío = toda la replicación es asíncrona</span>
+<span class="na">synchronous_standby_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">''</span><span class="w">   </span><span class="c1"># vacío = toda la replicación es asíncrona</span>
 </code></pre></div>
 <p><code>synchronous_commit = on</code> con <code>synchronous_standby_names</code> vacío significa: el COMMIT se confirma cuando el WAL está en el disco <strong>local</strong>. La réplica lo recibirá cuando lo reciba.</p>
 <ul>
@@ -9313,7 +9345,7 @@
 <h3 id="sincrona-el-primario-espera-confirmacion">Síncrona: el primario espera confirmación<a class="headerlink" href="#sincrona-el-primario-espera-confirmacion" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># postgresql.conf del primario</span>
 <span class="na">synchronous_commit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">remote_apply</span>
-<span class="na">synchronous_standby_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;ANY 1 (nodo2, nodo3)&#39;</span>
+<span class="na">synchronous_standby_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">'ANY 1 (nodo2, nodo3)'</span>
 </code></pre></div>
 <p><code>synchronous_standby_names</code> acepta dos formas: <code>FIRST n (...)</code> respeta el orden de la lista como prioridad; <code>ANY n (...)</code> acepta la confirmación de cualesquiera <em>n</em> de los nodos listados. <code>ANY</code> es casi siempre lo que quieres: no te ata a un nodo concreto.</p>
 <p>Los niveles de <code>synchronous_commit</code>, de menos a más garantía y de menos a más latencia:</p>
@@ -9423,11 +9455,11 @@
 <span class="w">      </span><span class="nt">use_slots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">      </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">wal_level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">replica</span>
-<span class="w">        </span><span class="nt">hot_standby</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;on&quot;</span>
+<span class="w">        </span><span class="nt">hot_standby</span><span class="p">:</span><span class="w"> </span><span class="s">"on"</span>
 <span class="w">        </span><span class="nt">max_wal_senders</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
 <span class="w">        </span><span class="nt">max_replication_slots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
 <span class="w">        </span><span class="nt">max_slot_wal_keep_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64GB</span>
-<span class="w">        </span><span class="nt">wal_log_hints</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;on&quot;</span><span class="w">     </span><span class="c1"># REQUERIDO por pg_rewind (o data checksums)</span>
+<span class="w">        </span><span class="nt">wal_log_hints</span><span class="p">:</span><span class="w"> </span><span class="s">"on"</span><span class="w">     </span><span class="c1"># REQUERIDO por pg_rewind (o data checksums)</span>
 
 <span class="w">  </span><span class="nt">initdb</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">encoding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UTF8</span>
@@ -9450,7 +9482,7 @@
 <span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CAMBIAME</span>
 
 <span class="nt">watchdog</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">required</span><span class="w">                  </span><span class="c1"># &#39;required&#39; = Patroni NO arranca sin watchdog</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">required</span><span class="w">                  </span><span class="c1"># 'required' = Patroni NO arranca sin watchdog</span>
 <span class="w">  </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/watchdog</span>
 <span class="w">  </span><span class="nt">safety_margin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
 
@@ -9537,8 +9569,8 @@ patronictl<span class="w"> </span>-c<span class="w"> </span>/etc/patroni/patroni
 <span class="w">  </span><span class="nt">instances</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
 <span class="w">  </span><span class="nt">postgresql</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">max_slot_wal_keep_size</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;64GB&quot;</span>
-<span class="w">      </span><span class="nt">wal_log_hints</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;on&quot;</span>
+<span class="w">      </span><span class="nt">max_slot_wal_keep_size</span><span class="p">:</span><span class="w"> </span><span class="s">"64GB"</span>
+<span class="w">      </span><span class="nt">wal_log_hints</span><span class="p">:</span><span class="w"> </span><span class="s">"on"</span>
 <span class="w">  </span><span class="c1"># Cero perdida: exige confirmacion de al menos 1 replica.</span>
 <span class="w">  </span><span class="c1"># Comprueba la sintaxis exacta en la version del operador que despliegues.</span>
 <span class="w">  </span><span class="nt">storage</span><span class="p">:</span>
@@ -9601,9 +9633,9 @@ listen postgres_lectura
 </code></pre></div>
 <p>El orden importa: <strong>aplicación → PgBouncer → HAProxy → Postgres</strong>. Con PgBouncer pegado a cada nodo de aplicación reduces la latencia de conexión y evitas otro punto único.</p>
 <p>Durante un failover, <code>PAUSE</code> en la consola de administración de PgBouncer retiene las nuevas consultas en cola en vez de devolver errores, y <code>RESUME</code> las libera cuando el nuevo primario está listo. Convierte un failover de "errores 500 durante 30 segundos" en "latencia alta durante 30 segundos".</p>
-<div class="highlight"><pre><span></span><code>psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">6432</span><span class="w"> </span>-U<span class="w"> </span>pgbouncer<span class="w"> </span>pgbouncer<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;PAUSE;&quot;</span>
-psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">6432</span><span class="w"> </span>-U<span class="w"> </span>pgbouncer<span class="w"> </span>pgbouncer<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;RESUME;&quot;</span>
-psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">6432</span><span class="w"> </span>-U<span class="w"> </span>pgbouncer<span class="w"> </span>pgbouncer<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;SHOW POOLS;&quot;</span>
+<div class="highlight"><pre><span></span><code>psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">6432</span><span class="w"> </span>-U<span class="w"> </span>pgbouncer<span class="w"> </span>pgbouncer<span class="w"> </span>-c<span class="w"> </span><span class="s2">"PAUSE;"</span>
+psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">6432</span><span class="w"> </span>-U<span class="w"> </span>pgbouncer<span class="w"> </span>pgbouncer<span class="w"> </span>-c<span class="w"> </span><span class="s2">"RESUME;"</span>
+psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">6432</span><span class="w"> </span>-U<span class="w"> </span>pgbouncer<span class="w"> </span>pgbouncer<span class="w"> </span>-c<span class="w"> </span><span class="s2">"SHOW POOLS;"</span>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title"><code>pool_mode = transaction</code> cambia la semántica</p>
@@ -9711,7 +9743,7 @@ ls<span class="w"> </span>-1<span class="w"> </span>/var/lib/postgresql/16/main/
 <span class="w">  </span>--leader<span class="w"> </span>nodo1<span class="w"> </span>--candidate<span class="w"> </span>nodo2<span class="w"> </span>--force
 </code></pre></div>
 <p><strong>2. Matar el proceso Postgres.</strong> Patroni debería detectarlo y reiniciarlo localmente, <strong>sin</strong> failover.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>pkill<span class="w"> </span>-9<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;postgres: pg-produccion&quot;</span>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>pkill<span class="w"> </span>-9<span class="w"> </span>-f<span class="w"> </span><span class="s2">"postgres: pg-produccion"</span>
 </code></pre></div>
 <p><strong>3. Matar Patroni con Postgres vivo.</strong> El escenario del watchdog. Si el nodo no se reinicia solo, tu protección contra split-brain no funciona y acabas de descubrirlo en un laboratorio en vez de en producción.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>-s<span class="w"> </span>SIGKILL<span class="w"> </span>patroni

@@ -520,6 +520,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -7357,6 +7376,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -9101,6 +9127,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9243,35 +9296,14 @@
       
       
       
-        <span class="md-tag">databases</span>
+        <a href="../../../tags/#tag:databases" class="md-tag">databases</a>
       
     
       
       
       
       
-        <span class="md-tag">high-availability</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">patroni</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">postgresql</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">replication</span>
+        <a href="../../../tags/#tag:high-availability" class="md-tag">high-availability</a>
       
     
   </nav>
@@ -9298,12 +9330,12 @@
 <h2 id="streaming-replication-the-trade-off-that-decides-everything">Streaming replication: the trade-off that decides everything<a class="headerlink" href="#streaming-replication-the-trade-off-that-decides-everything" title="Permanent link">&para;</a></h2>
 <p>PostgreSQL replicates by shipping the primary's WAL to the replicas over a streaming connection. The only important decision is <strong>when the primary confirms a COMMIT to the client</strong>, and it is controlled by <code>synchronous_commit</code>.</p>
 <h3 id="asynchronous-the-primary-waits-for-no-one">Asynchronous: the primary waits for no one<a class="headerlink" href="#asynchronous-the-primary-waits-for-no-one" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># primary&#39;s postgresql.conf</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># primary's postgresql.conf</span>
 <span class="na">wal_level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">replica</span>
 <span class="na">max_wal_senders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">10</span>
 <span class="na">max_replication_slots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">10</span>
 <span class="na">synchronous_commit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">on</span><span class="w">          </span><span class="c1"># local fsync, does not wait for the replica</span>
-<span class="na">synchronous_standby_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="w">   </span><span class="c1"># empty = all replication is asynchronous</span>
+<span class="na">synchronous_standby_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">''</span><span class="w">   </span><span class="c1"># empty = all replication is asynchronous</span>
 </code></pre></div>
 <p><code>synchronous_commit = on</code> with <code>synchronous_standby_names</code> empty means: the COMMIT is confirmed once the WAL is on <strong>local</strong> disk. The replica will receive it whenever it receives it.</p>
 <ul>
@@ -9311,9 +9343,9 @@
 <li><strong>RPO</strong>: not zero. If the primary dies, you lose everything the replica had not yet received. The exact amount is the <em>replication lag</em> at that instant, which is why monitoring it is not optional (see below).</li>
 </ul>
 <h3 id="synchronous-the-primary-waits-for-confirmation">Synchronous: the primary waits for confirmation<a class="headerlink" href="#synchronous-the-primary-waits-for-confirmation" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># primary&#39;s postgresql.conf</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># primary's postgresql.conf</span>
 <span class="na">synchronous_commit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">remote_apply</span>
-<span class="na">synchronous_standby_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;ANY 1 (node2, node3)&#39;</span>
+<span class="na">synchronous_standby_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">'ANY 1 (node2, node3)'</span>
 </code></pre></div>
 <p><code>synchronous_standby_names</code> accepts two forms: <code>FIRST n (...)</code> uses the list order as priority; <code>ANY n (...)</code> accepts confirmation from any <em>n</em> of the listed nodes. <code>ANY</code> is almost always what you want: it does not tie you to a specific node.</p>
 <p>The <code>synchronous_commit</code> levels, from least to most guarantee and from least to most latency:</p>
@@ -9405,7 +9437,7 @@
 <span class="w">    </span><span class="c1"># TTL of the leadership key. If the leader does not renew it within this</span>
 <span class="w">    </span><span class="c1"># time, it expires and an election is called. It is the lower bound of your RTO.</span>
 <span class="w">    </span><span class="nt">ttl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
-<span class="w">    </span><span class="c1"># How often Patroni&#39;s loop runs (heartbeat).</span>
+<span class="w">    </span><span class="c1"># How often Patroni's loop runs (heartbeat).</span>
 <span class="w">    </span><span class="nt">loop_wait</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
 <span class="w">    </span><span class="c1"># Timeout of operations against the DCS and Postgres.</span>
 <span class="w">    </span><span class="nt">retry_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
@@ -9423,11 +9455,11 @@
 <span class="w">      </span><span class="nt">use_slots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">      </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">wal_level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">replica</span>
-<span class="w">        </span><span class="nt">hot_standby</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;on&quot;</span>
+<span class="w">        </span><span class="nt">hot_standby</span><span class="p">:</span><span class="w"> </span><span class="s">"on"</span>
 <span class="w">        </span><span class="nt">max_wal_senders</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
 <span class="w">        </span><span class="nt">max_replication_slots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
 <span class="w">        </span><span class="nt">max_slot_wal_keep_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64GB</span>
-<span class="w">        </span><span class="nt">wal_log_hints</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;on&quot;</span><span class="w">     </span><span class="c1"># REQUIRED by pg_rewind (or data checksums)</span>
+<span class="w">        </span><span class="nt">wal_log_hints</span><span class="p">:</span><span class="w"> </span><span class="s">"on"</span><span class="w">     </span><span class="c1"># REQUIRED by pg_rewind (or data checksums)</span>
 
 <span class="w">  </span><span class="nt">initdb</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">encoding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UTF8</span>
@@ -9450,7 +9482,7 @@
 <span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CHANGEME</span>
 
 <span class="nt">watchdog</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">required</span><span class="w">                  </span><span class="c1"># &#39;required&#39; = Patroni will NOT start without a watchdog</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">required</span><span class="w">                  </span><span class="c1"># 'required' = Patroni will NOT start without a watchdog</span>
 <span class="w">  </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/watchdog</span>
 <span class="w">  </span><span class="nt">safety_margin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
 
@@ -9467,7 +9499,7 @@
 <li><strong><code>watchdog: required</code></strong>: the safety net for the worst case. If the leader's Patroni process hangs and stops renewing the key but Postgres stays alive accepting writes, the hardware watchdog reboots the machine. Without it, that scenario <strong>is</strong> split-brain.</li>
 </ul>
 <h3 id="daily-operation">Daily operation<a class="headerlink" href="#daily-operation" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Cluster state: who is leader, each replica&#39;s lag, timeline</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Cluster state: who is leader, each replica's lag, timeline</span>
 patronictl<span class="w"> </span>-c<span class="w"> </span>/etc/patroni/patroni.yml<span class="w"> </span>list<span class="w"> </span>pg-production
 
 <span class="c1"># Change configuration live (opens $EDITOR, propagates via the DCS)</span>
@@ -9537,8 +9569,8 @@ patronictl<span class="w"> </span>-c<span class="w"> </span>/etc/patroni/patroni
 <span class="w">  </span><span class="nt">instances</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
 <span class="w">  </span><span class="nt">postgresql</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">max_slot_wal_keep_size</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;64GB&quot;</span>
-<span class="w">      </span><span class="nt">wal_log_hints</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;on&quot;</span>
+<span class="w">      </span><span class="nt">max_slot_wal_keep_size</span><span class="p">:</span><span class="w"> </span><span class="s">"64GB"</span>
+<span class="w">      </span><span class="nt">wal_log_hints</span><span class="p">:</span><span class="w"> </span><span class="s">"on"</span>
 <span class="w">  </span><span class="c1"># Zero loss: requires confirmation from at least 1 replica.</span>
 <span class="w">  </span><span class="c1"># Check the exact syntax in the operator version you deploy.</span>
 <span class="w">  </span><span class="nt">storage</span><span class="p">:</span>
@@ -9601,9 +9633,9 @@ listen postgres_read
 </code></pre></div>
 <p>Order matters: <strong>application → PgBouncer → HAProxy → Postgres</strong>. With PgBouncer next to each application node you reduce connection latency and avoid another single point.</p>
 <p>During a failover, <code>PAUSE</code> in PgBouncer's admin console queues new queries instead of returning errors, and <code>RESUME</code> releases them when the new primary is ready. It turns a failover from "500 errors for 30 seconds" into "high latency for 30 seconds".</p>
-<div class="highlight"><pre><span></span><code>psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">6432</span><span class="w"> </span>-U<span class="w"> </span>pgbouncer<span class="w"> </span>pgbouncer<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;PAUSE;&quot;</span>
-psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">6432</span><span class="w"> </span>-U<span class="w"> </span>pgbouncer<span class="w"> </span>pgbouncer<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;RESUME;&quot;</span>
-psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">6432</span><span class="w"> </span>-U<span class="w"> </span>pgbouncer<span class="w"> </span>pgbouncer<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;SHOW POOLS;&quot;</span>
+<div class="highlight"><pre><span></span><code>psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">6432</span><span class="w"> </span>-U<span class="w"> </span>pgbouncer<span class="w"> </span>pgbouncer<span class="w"> </span>-c<span class="w"> </span><span class="s2">"PAUSE;"</span>
+psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">6432</span><span class="w"> </span>-U<span class="w"> </span>pgbouncer<span class="w"> </span>pgbouncer<span class="w"> </span>-c<span class="w"> </span><span class="s2">"RESUME;"</span>
+psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">6432</span><span class="w"> </span>-U<span class="w"> </span>pgbouncer<span class="w"> </span>pgbouncer<span class="w"> </span>-c<span class="w"> </span><span class="s2">"SHOW POOLS;"</span>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title"><code>pool_mode = transaction</code> changes the semantics</p>
@@ -9711,7 +9743,7 @@ ls<span class="w"> </span>-1<span class="w"> </span>/var/lib/postgresql/16/main/
 <span class="w">  </span>--leader<span class="w"> </span>node1<span class="w"> </span>--candidate<span class="w"> </span>node2<span class="w"> </span>--force
 </code></pre></div>
 <p><strong>2. Kill the Postgres process.</strong> Patroni should detect it and restart it locally, <strong>without</strong> a failover.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>pkill<span class="w"> </span>-9<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;postgres: pg-production&quot;</span>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>pkill<span class="w"> </span>-9<span class="w"> </span>-f<span class="w"> </span><span class="s2">"postgres: pg-production"</span>
 </code></pre></div>
 <p><strong>3. Kill Patroni with Postgres alive.</strong> The watchdog scenario. If the node does not reboot itself, your split-brain protection does not work and you just found out in a lab instead of in production.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>-s<span class="w"> </span>SIGKILL<span class="w"> </span>patroni

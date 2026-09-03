@@ -520,6 +520,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -7400,6 +7419,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -9144,6 +9170,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9304,42 +9357,21 @@
       
       
       
-        <span class="md-tag">benchmarks</span>
+        <a href="../../../tags/#tag:benchmarks" class="md-tag">benchmarks</a>
       
     
       
       
       
       
-        <span class="md-tag">netbird</span>
+        <a href="../../../tags/#tag:networking" class="md-tag">networking</a>
       
     
       
       
       
       
-        <span class="md-tag">networking</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">overlay</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">tailscale</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">vpn</span>
+        <a href="../../../tags/#tag:vpn" class="md-tag">vpn</a>
       
     
   </nav>
@@ -9598,15 +9630,15 @@ sudo<span class="w"> </span>./netbird<span class="w"> </span>up<span class="w"> 
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="c1"># benchmark.sh</span>
 
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Benchmark Tailscale vs NetBird ===&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"=== Benchmark Tailscale vs NetBird ==="</span>
 
 <span class="c1"># Función para medir latencia</span>
 measure_latency<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="nb">local</span><span class="w"> </span><span class="nv">target</span><span class="o">=</span><span class="nv">$1</span>
 <span class="w">    </span><span class="nb">local</span><span class="w"> </span><span class="nv">tool</span><span class="o">=</span><span class="nv">$2</span>
 
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Midiendo latencia a </span><span class="nv">$target</span><span class="s2"> con </span><span class="nv">$tool</span><span class="s2">...&quot;</span>
-<span class="w">    </span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="nv">$target</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $4}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;/&#39;</span><span class="w"> </span>-f<span class="w"> </span><span class="m">2</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Midiendo latencia a </span><span class="nv">$target</span><span class="s2"> con </span><span class="nv">$tool</span><span class="s2">..."</span>
+<span class="w">    </span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="nv">$target</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{print $4}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">'/'</span><span class="w"> </span>-f<span class="w"> </span><span class="m">2</span>
 <span class="o">}</span>
 
 <span class="c1"># Función para medir throughput</span>
@@ -9614,27 +9646,27 @@ measure_throughput<span class="o">()</span><span class="w"> </span><span class="
 <span class="w">    </span><span class="nb">local</span><span class="w"> </span><span class="nv">target</span><span class="o">=</span><span class="nv">$1</span>
 <span class="w">    </span><span class="nb">local</span><span class="w"> </span><span class="nv">tool</span><span class="o">=</span><span class="nv">$2</span>
 
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Midiendo throughput a </span><span class="nv">$target</span><span class="s2"> con </span><span class="nv">$tool</span><span class="s2">...&quot;</span>
-<span class="w">    </span>iperf3<span class="w"> </span>-c<span class="w"> </span><span class="nv">$target</span><span class="w"> </span>-t<span class="w"> </span><span class="m">10</span><span class="w"> </span>-f<span class="w"> </span>m<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>sender<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $5}&#39;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Midiendo throughput a </span><span class="nv">$target</span><span class="s2"> con </span><span class="nv">$tool</span><span class="s2">..."</span>
+<span class="w">    </span>iperf3<span class="w"> </span>-c<span class="w"> </span><span class="nv">$target</span><span class="w"> </span>-t<span class="w"> </span><span class="m">10</span><span class="w"> </span>-f<span class="w"> </span>m<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>sender<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{print $5}'</span>
 <span class="o">}</span>
 
 <span class="c1"># Ejecutar benchmarks</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Latencia Tailscale:&quot;</span>
-<span class="nv">TAILSCALE_LAT</span><span class="o">=</span><span class="k">$(</span>measure_latency<span class="w"> </span><span class="s2">&quot;tailscale-target&quot;</span><span class="w"> </span><span class="s2">&quot;tailscale&quot;</span><span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Latencia Tailscale:"</span>
+<span class="nv">TAILSCALE_LAT</span><span class="o">=</span><span class="k">$(</span>measure_latency<span class="w"> </span><span class="s2">"tailscale-target"</span><span class="w"> </span><span class="s2">"tailscale"</span><span class="k">)</span>
 
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Latencia NetBird:&quot;</span>
-<span class="nv">NETBIRD_LAT</span><span class="o">=</span><span class="k">$(</span>measure_latency<span class="w"> </span><span class="s2">&quot;netbird-target&quot;</span><span class="w"> </span><span class="s2">&quot;netbird&quot;</span><span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Latencia NetBird:"</span>
+<span class="nv">NETBIRD_LAT</span><span class="o">=</span><span class="k">$(</span>measure_latency<span class="w"> </span><span class="s2">"netbird-target"</span><span class="w"> </span><span class="s2">"netbird"</span><span class="k">)</span>
 
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Throughput Tailscale:&quot;</span>
-<span class="nv">TAILSCALE_TP</span><span class="o">=</span><span class="k">$(</span>measure_throughput<span class="w"> </span><span class="s2">&quot;tailscale-target&quot;</span><span class="w"> </span><span class="s2">&quot;tailscale&quot;</span><span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Throughput Tailscale:"</span>
+<span class="nv">TAILSCALE_TP</span><span class="o">=</span><span class="k">$(</span>measure_throughput<span class="w"> </span><span class="s2">"tailscale-target"</span><span class="w"> </span><span class="s2">"tailscale"</span><span class="k">)</span>
 
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Throughput NetBird:&quot;</span>
-<span class="nv">NETBIRD_TP</span><span class="o">=</span><span class="k">$(</span>measure_throughput<span class="w"> </span><span class="s2">&quot;netbird-target&quot;</span><span class="w"> </span><span class="s2">&quot;netbird&quot;</span><span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Throughput NetBird:"</span>
+<span class="nv">NETBIRD_TP</span><span class="o">=</span><span class="k">$(</span>measure_throughput<span class="w"> </span><span class="s2">"netbird-target"</span><span class="w"> </span><span class="s2">"netbird"</span><span class="k">)</span>
 
 <span class="c1"># Resultados</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== RESULTADOS ===&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Latencia - Tailscale: </span><span class="si">${</span><span class="nv">TAILSCALE_LAT</span><span class="si">}</span><span class="s2">ms, NetBird: </span><span class="si">${</span><span class="nv">NETBIRD_LAT</span><span class="si">}</span><span class="s2">ms&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Throughput - Tailscale: </span><span class="si">${</span><span class="nv">TAILSCALE_TP</span><span class="si">}</span><span class="s2">Mbps, NetBird: </span><span class="si">${</span><span class="nv">NETBIRD_TP</span><span class="si">}</span><span class="s2">Mbps&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"=== RESULTADOS ==="</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Latencia - Tailscale: </span><span class="si">${</span><span class="nv">TAILSCALE_LAT</span><span class="si">}</span><span class="s2">ms, NetBird: </span><span class="si">${</span><span class="nv">NETBIRD_LAT</span><span class="si">}</span><span class="s2">ms"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Throughput - Tailscale: </span><span class="si">${</span><span class="nv">TAILSCALE_TP</span><span class="si">}</span><span class="s2">Mbps, NetBird: </span><span class="si">${</span><span class="nv">NETBIRD_TP</span><span class="si">}</span><span class="s2">Mbps"</span>
 </code></pre></div>
 <h2 id="graficos-de-rendimiento">📈 Gráficos de Rendimiento<a class="headerlink" href="#graficos-de-rendimiento" title="Permanent link">&para;</a></h2>
 <h3 id="latencia-por-distancia">Latencia por Distancia<a class="headerlink" href="#latencia-por-distancia" title="Permanent link">&para;</a></h3>

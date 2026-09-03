@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentación oficial del proyecto Frikiteam 🚀">
+        <meta name="description" content="Endurecer imágenes y contenedores Docker: por qué el daemon es root equivalente, usuario no-root, capabilities, filesystem de solo lectura, no-new-privileges, límites de recursos, seccomp/AppArmor, secretos fuera de la imagen, escaneo con Trivy y publicación segura de puertos.">
       
       
       
@@ -31,7 +31,7 @@
     
     
       
-        <title>Docker — Seguridad y Scanning - Frikiteam Docs</title>
+        <title>Docker — Seguridad: hardening, secretos y escaneo - Frikiteam Docs</title>
       
     
     
@@ -71,16 +71,16 @@
 
   
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Docker — Seguridad y Scanning - Frikiteam Docs" />
-<meta property="og:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="og:title" content="Docker — Seguridad: hardening, secretos y escaneo - Frikiteam Docs" />
+<meta property="og:description" content="Endurecer imágenes y contenedores Docker: por qué el daemon es root equivalente, usuario no-root, capabilities, filesystem de solo lectura, no-new-privileges, límites de recursos, seccomp/AppArmor, secretos fuera de la imagen, escaneo con Trivy y publicación segura de puertos." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/doc/docker/docker_security.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:url" content="https://docs.frikiteam.es/doc/docker/docker_security/" />
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="Docker — Seguridad y Scanning - Frikiteam Docs" />
-<meta property="twitter:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="twitter:title" content="Docker — Seguridad: hardening, secretos y escaneo - Frikiteam Docs" />
+<meta property="twitter:description" content="Endurecer imágenes y contenedores Docker: por qué el daemon es root equivalente, usuario no-root, capabilities, filesystem de solo lectura, no-new-privileges, límites de recursos, seccomp/AppArmor, secretos fuera de la imagen, escaneo con Trivy y publicación segura de puertos." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/doc/docker/docker_security.png" />
 </head>
   
@@ -101,7 +101,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#docker-seguridad-hardening-secrets-y-scanning" class="md-skip">
+        <a href="#docker-seguridad-hardening-secretos-y-escaneo" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -136,7 +136,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Docker — Seguridad y Scanning
+              Docker — Seguridad: hardening, secretos y escaneo
             
           </span>
         </div>
@@ -508,6 +508,25 @@
     
   
   Blog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
 
       </a>
     </li>
@@ -3426,10 +3445,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#resumen" class="md-nav__link">
+  <a href="#el-problema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Resumen
+        El problema
       
     </span>
   </a>
@@ -3437,10 +3456,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#puntos-clave" class="md-nav__link">
+  <a href="#tabla-de-contenidos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Puntos clave
+        📋 Tabla de Contenidos
       
     </span>
   </a>
@@ -3448,10 +3467,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ejemplo-escaneo-con-trivy" class="md-nav__link">
+  <a href="#el-daemon-es-root-equivalente" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Ejemplo: escaneo con Trivy
+        El daemon es root equivalente
       
     </span>
   </a>
@@ -3459,10 +3478,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gestion-de-secretos" class="md-nav__link">
+  <a href="#usuario-no-root-en-la-imagen" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Gestión de secretos
+        Usuario no-root en la imagen
       
     </span>
   </a>
@@ -3470,10 +3489,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#recomendaciones" class="md-nav__link">
+  <a href="#capabilities-quitar-todo-y-devolver-lo-justo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Recomendaciones
+        Capabilities: quitar todo y devolver lo justo
       
     </span>
   </a>
@@ -3481,10 +3500,131 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#filesystem-de-solo-lectura" class="md-nav__link">
     <span class="md-ellipsis">
       
-        
+        Filesystem de solo lectura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-new-privileges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        no-new-privileges
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limites-de-recursos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Límites de recursos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seccomp-y-apparmor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        seccomp y AppArmor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secretos-lo-que-nunca-va-en-la-imagen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secretos: lo que nunca va en la imagen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imagenes-base-minimas-y-multi-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Imágenes base mínimas y multi-stage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escaneo-con-trivy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escaneo con Trivy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#firma-y-procedencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Firma y procedencia
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#red-donde-publicas-los-puertos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Red: dónde publicas los puertos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enlaces-relacionados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enlaces relacionados
       
     </span>
   </a>
@@ -7130,6 +7270,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -8874,6 +9021,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9006,9 +9180,41 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermedio</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 1 min</span> <span class="md-badge md-badge--primary">Categoría: Contenedores</span> <span class="md-badge md-badge--green">Publicado</span> <span class="md-badge md-badge--secondary" title="Prerrequisitos: ["Conocimientos básicos de DevOps"]">💡 Prerrequisitos</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermedio</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 18 min</span> <span class="md-badge md-badge--primary">Categoría: Contenedores</span> <span class="md-badge md-badge--green">Publicado</span></div>
                 
                   
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:containers" class="md-tag">containers</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:cybersecurity" class="md-tag">cybersecurity</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:docker" class="md-tag">docker</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:hardening" class="md-tag">hardening</a>
+      
+    
+  </nav>
 
 
   
@@ -9020,30 +9226,327 @@
   
 
 
-<h1 id="docker-seguridad-hardening-secrets-y-scanning">Docker — Seguridad (hardening, secrets y scanning)<a class="headerlink" href="#docker-seguridad-hardening-secrets-y-scanning" title="Permanent link">&para;</a></h1>
-<h2 id="resumen">Resumen<a class="headerlink" href="#resumen" title="Permanent link">&para;</a></h2>
-<p>Buenas prácticas para reducir la superficie de ataque en imágenes Docker y en despliegues.</p>
-<h2 id="puntos-clave">Puntos clave<a class="headerlink" href="#puntos-clave" title="Permanent link">&para;</a></h2>
+<h1 id="docker-seguridad-hardening-secretos-y-escaneo">Docker — Seguridad: hardening, secretos y escaneo<a class="headerlink" href="#docker-seguridad-hardening-secretos-y-escaneo" title="Permanent link">&para;</a></h1>
+<h2 id="el-problema">El problema<a class="headerlink" href="#el-problema" title="Permanent link">&para;</a></h2>
+<p>Un contenedor no es una máquina virtual. Es un proceso del host con namespaces, cgroups y unos cuantos filtros encima. Todo lo que separa "una aplicación comprometida" de "un host comprometido" son opciones que <strong>tú</strong> activas: casi todas están desactivadas por defecto, porque los valores por defecto de Docker priorizan que las cosas arranquen a la primera. El resultado habitual es un contenedor que corre como root, con las capabilities que Docker concede por defecto, filesystem escribible, sin límites de memoria, con la clave de la base de datos en una variable de entorno visible en <code>docker inspect</code>, y publicando el puerto en todas las interfaces de la máquina. Cada una de esas cosas se arregla con una línea.</p>
+<div class="admonition note">
+<p class="admonition-title">Qué cubre y qué no</p>
+<p>Aquí se trata el <strong>endurecimiento de imágenes y contenedores</strong> con el runtime por defecto (<code>runc</code>). El modelo de privilegios sin daemon está en <a href="../podman_rootless/">Podman Rootless</a>; el aislamiento del kernel con gVisor o Kata, en <a href="../docker_runtime_security/">Docker — Seguridad Runtime</a>. Son complementarios, no alternativos.</p>
+</div>
+<h2 id="tabla-de-contenidos">📋 Tabla de Contenidos<a class="headerlink" href="#tabla-de-contenidos" title="Permanent link">&para;</a></h2>
 <ul>
-<li>No almacenar secretos en el <code>Dockerfile</code> o en la imagen.</li>
-<li>Usar usuarios no-root dentro de la imagen.</li>
-<li>Escanear imágenes con <code>trivy</code> o <code>docker scan</code>.</li>
-<li>Hacer builds reproducibles y firmar imágenes si procede.</li>
+<li><a href="#el-daemon-es-root-equivalente">El daemon es root equivalente</a></li>
+<li><a href="#usuario-no-root-en-la-imagen">Usuario no-root en la imagen</a></li>
+<li><a href="#capabilities-quitar-todo-y-devolver-lo-justo">Capabilities: quitar todo y devolver lo justo</a></li>
+<li><a href="#filesystem-de-solo-lectura">Filesystem de solo lectura</a></li>
+<li><a href="#no-new-privileges">no-new-privileges</a></li>
+<li><a href="#limites-de-recursos">Límites de recursos</a></li>
+<li><a href="#seccomp-y-apparmor">seccomp y AppArmor</a></li>
+<li><a href="#secretos-lo-que-nunca-va-en-la-imagen">Secretos: lo que nunca va en la imagen</a></li>
+<li><a href="#imagenes-base-minimas-y-multi-stage">Imágenes base mínimas y multi-stage</a></li>
+<li><a href="#escaneo-con-trivy">Escaneo con Trivy</a></li>
+<li><a href="#firma-y-procedencia">Firma y procedencia</a></li>
+<li><a href="#red-donde-publicas-los-puertos">Red: dónde publicas los puertos</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#checklist">Checklist</a></li>
+<li><a href="#enlaces-relacionados">Enlaces relacionados</a></li>
 </ul>
-<h2 id="ejemplo-escaneo-con-trivy">Ejemplo: escaneo con Trivy<a class="headerlink" href="#ejemplo-escaneo-con-trivy" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>trivy<span class="w"> </span>image<span class="w"> </span>--severity<span class="w"> </span>CRITICAL,HIGH<span class="w"> </span>myregistry/myimage:tag
+<h2 id="el-daemon-es-root-equivalente">El daemon es root equivalente<a class="headerlink" href="#el-daemon-es-root-equivalente" title="Permanent link">&para;</a></h2>
+<p><code>dockerd</code> corre como root y es el padre de todos los contenedores. Quien puede hablar con su socket puede pedirle que haga cualquier cosa <strong>como root</strong>, incluido montar el sistema de ficheros del host:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span>/:/host<span class="w"> </span>alpine<span class="w"> </span>chroot<span class="w"> </span>/host<span class="w"> </span>sh
 </code></pre></div>
-<h2 id="gestion-de-secretos">Gestión de secretos<a class="headerlink" href="#gestion-de-secretos" title="Permanent link">&para;</a></h2>
+<p>Ese comando no explota ningún fallo: es una función documentada. De ahí salen dos consecuencias que conviene tener interiorizadas. La primera, <strong>pertenecer al grupo <code>docker</code> equivale a <code>sudo</code> sin contraseña</strong>; no es una aproximación retórica, el comando de arriba lo demuestra, así que audita ese grupo como auditas los accesos de administrador. La segunda, <strong>montar <code>/var/run/docker.sock</code> dentro de un contenedor le da ese mismo poder</strong>: es el patrón de los agentes de CI, los actualizadores automáticos y los dashboards de contenedores, y todos ellos son, efectivamente, root en el host.</p>
+<p>Si una herramienta necesita hablar con Docker, las salidas razonables son un <strong>proxy de socket</strong> que exponga solo los endpoints necesarios, montar el socket en <code>:ro</code> sabiendo que eso protege muy poco —el modo lectura afecta al fichero, no a las operaciones de la API— o cambiar de motor: con <a href="../podman_rootless/">Podman rootless</a> no existe socket privilegiado que montar.</p>
+<div class="admonition tip">
+<p class="admonition-title">Modo rootless de Docker</p>
+<p>Docker también tiene un modo rootless en el que el daemon corre bajo tu usuario, con limitaciones parecidas a las de Podman rootless (puertos privilegiados, algunos drivers de red y storage). Consulta la documentación de tu versión antes de migrar un host en producción.</p>
+</div>
+<h2 id="usuario-no-root-en-la-imagen">Usuario no-root en la imagen<a class="headerlink" href="#usuario-no-root-en-la-imagen" title="Permanent link">&para;</a></h2>
+<p>Sin instrucción <code>USER</code>, el proceso principal corre como root <strong>dentro</strong> del contenedor. Con el daemon rootful y sin <code>userns-remap</code>, ese UID 0 es el UID 0 del host: sobre un directorio montado del host, es root de verdad.</p>
+<div class="highlight"><pre><span></span><code><span class="c"># syntax=docker/dockerfile:1</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">alpine:3.20</span>
+<span class="k">RUN</span><span class="w"> </span>addgroup<span class="w"> </span>-g<span class="w"> </span><span class="m">10001</span><span class="w"> </span>app<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>adduser<span class="w"> </span>-D<span class="w"> </span>-u<span class="w"> </span><span class="m">10001</span><span class="w"> </span>-G<span class="w"> </span>app<span class="w"> </span>app
+<span class="k">COPY</span><span class="w"> </span>--chown<span class="o">=</span><span class="m">10001</span>:10001<span class="w"> </span>app<span class="w"> </span>/usr/local/bin/app
+<span class="k">USER</span><span class="w"> </span><span class="s">10001:10001</span>
+<span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">"/usr/local/bin/app"</span><span class="p">]</span>
+</code></pre></div>
+<p>Cuatro detalles marcan la diferencia: usa <strong>UID y GID numéricos</strong> en <code>USER</code> y no el nombre, porque Kubernetes puede comprobar <code>runAsNonRoot</code> contra un número pero no contra un nombre que tendría que resolver dentro de la imagen; elige un <strong>UID alto (&gt;10000)</strong> para no colisionar con usuarios reales del host en volúmenes compartidos; prefiere <strong><code>COPY --chown</code></strong> a un <code>RUN chown -R</code> posterior, que duplica los ficheros en una capa nueva; y pon <strong>todo lo que instale paquetes antes del <code>USER</code></strong>, porque después de esa línea el build ya no es root.</p>
+<p>Verifica lo construido, que es distinto de lo que creías construir:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--entrypoint<span class="w"> </span>id<span class="w"> </span>miimagen:1.0
+docker<span class="w"> </span>inspect<span class="w"> </span>-f<span class="w"> </span><span class="s1">'{{.Config.User}}'</span><span class="w"> </span>miimagen:1.0
+</code></pre></div>
+<p>Si el segundo comando devuelve vacío, la imagen corre como root y da igual lo que ponga el README. En ejecución puedes forzarlo con <code>--user 10001:10001</code>, útil para imágenes de terceros que no puedes reconstruir.</p>
+<h2 id="capabilities-quitar-todo-y-devolver-lo-justo">Capabilities: quitar todo y devolver lo justo<a class="headerlink" href="#capabilities-quitar-todo-y-devolver-lo-justo" title="Permanent link">&para;</a></h2>
+<p>Root dentro de un contenedor no es root completo: Docker retiene un subconjunto de capabilities (<code>CHOWN</code>, <code>SETUID</code>, <code>NET_RAW</code>, <code>KILL</code>…) y descarta las más peligrosas, como <code>SYS_ADMIN</code>. Ese subconjunto sigue siendo bastante más de lo que necesita una aplicación web.</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--cap-drop<span class="o">=</span>ALL<span class="w"> </span>--cap-add<span class="o">=</span>NET_BIND_SERVICE<span class="w"> </span>nginx:alpine
+</code></pre></div>
+<p>La regla es siempre la misma: <strong><code>--cap-drop=ALL</code> y añadir solo lo que falle</strong>. La mayoría de servicios con <code>USER</code> no-root y puertos altos no necesitan ninguna.</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Cuándo hace falta de verdad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NET_BIND_SERVICE</code></td>
+<td>Escuchar en un puerto <code>&lt;1024</code></td>
+</tr>
+<tr>
+<td><code>CHOWN</code>, <code>FOWNER</code>, <code>DAC_OVERRIDE</code></td>
+<td>Entrypoints que ajustan permisos de volúmenes al arrancar</td>
+</tr>
+<tr>
+<td><code>SETUID</code>, <code>SETGID</code></td>
+<td>El proceso baja de privilegios él mismo tras arrancar</td>
+</tr>
+<tr>
+<td><code>NET_RAW</code></td>
+<td><code>ping</code>, <code>traceroute</code> y sockets crudos</td>
+</tr>
+<tr>
+<td><code>SYS_ADMIN</code></td>
+<td>Casi nunca; equivale a levantar buena parte del aislamiento</td>
+</tr>
+</tbody>
+</table>
+<p><code>--privileged</code> no es "un poco más de permisos": concede todas las capabilities y acceso a los dispositivos del host, desactivando la mayor parte de las barreras. Si algo lo pide, busca primero el <code>--cap-add</code> o el <code>--device</code> concreto que necesita.</p>
+<h2 id="filesystem-de-solo-lectura">Filesystem de solo lectura<a class="headerlink" href="#filesystem-de-solo-lectura" title="Permanent link">&para;</a></h2>
+<p>Si el atacante no puede escribir, no puede dejar un binario, ni un cron, ni modificar tu aplicación en caliente.</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--read-only<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--tmpfs<span class="w"> </span>/tmp:rw,noexec,nosuid,size<span class="o">=</span>64m<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--tmpfs<span class="w"> </span>/run:rw,noexec,nosuid,size<span class="o">=</span>8m<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>datos:/var/lib/app<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>miimagen:1.0
+</code></pre></div>
+<p><code>--read-only</code> afecta a la capa de escritura del contenedor; los volúmenes y los <code>--tmpfs</code> siguen siendo escribibles, que es justo lo que quieres. <code>noexec</code> y <code>nosuid</code> cortan el truco clásico de descargar algo en <code>/tmp</code> y ejecutarlo, y <code>size</code> impide que un proceso descontrolado llene la RAM del host. La parte incómoda es descubrir qué directorios necesita escribir la aplicación: arranca en solo lectura, mira dónde falla y añade un <code>--tmpfs</code> por cada uno. Sospechosos habituales: <code>/tmp</code>, <code>/run</code>, <code>/var/run</code>, cachés bajo <code>/var/cache</code> y directorios de sesión de intérpretes.</p>
+<h2 id="no-new-privileges">no-new-privileges<a class="headerlink" href="#no-new-privileges" title="Permanent link">&para;</a></h2>
+<p>Impide que un proceso gane privilegios ejecutando un binario <code>setuid</code>. Sin ella, un <code>sudo</code> o un bit SUID mal puesto dentro de la imagen es una vía directa de escalada local.</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--security-opt<span class="w"> </span>no-new-privileges:true<span class="w"> </span>miimagen:1.0
+</code></pre></div>
+<p>Es de las opciones más baratas de esta página: una imagen bien construida no necesita escalar privilegios en tiempo de ejecución, así que no rompe casi nada. Si al activarla algo deja de funcionar, ese "algo" es justo lo que querías saber. En Compose, la clave equivalente es <code>security_opt: ["no-new-privileges:true"]</code>, y acompaña bien a <code>user:</code>, <code>read_only:</code>, <code>cap_drop:</code> y <code>tmpfs:</code>.</p>
+<h2 id="limites-de-recursos">Límites de recursos<a class="headerlink" href="#limites-de-recursos" title="Permanent link">&para;</a></h2>
+<p>Los límites rara vez aparecen en las listas de seguridad y son, sin embargo, la única defensa frente a que <strong>un contenedor tumbe a todos los demás</strong>. Sin <code>--memory</code>, un consumo descontrolado —un bug, una consulta enorme, un ataque— acaba invocando al OOM killer del host, que puede matar procesos sin relación alguna.</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--memory<span class="o">=</span>512m<span class="w"> </span>--memory-swap<span class="o">=</span>512m<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cpus<span class="o">=</span><span class="m">1</span>.0<span class="w"> </span>--pids-limit<span class="o">=</span><span class="m">200</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ulimit<span class="w"> </span><span class="nv">nofile</span><span class="o">=</span><span class="m">1024</span>:2048<span class="w"> </span>miimagen:1.0
+</code></pre></div>
+<p>Poner <strong><code>--memory-swap</code> al mismo valor que <code>--memory</code></strong> desactiva el swap de ese contenedor: sin eso el límite pasa a ser de RAM+swap y el proceso agoniza en disco en vez de morir rápido. <strong><code>--pids-limit</code></strong> corta en seco las <em>fork bombs</em>, accidentales o no, y <strong><code>--ulimit nofile</code></strong> evita agotar los descriptores de fichero del host. Elige los números midiendo el consumo real bajo carga y añadiendo margen: un límite demasiado ajustado mata el servicio en el peor momento, y uno demasiado generoso no protege de nada.</p>
+<h2 id="seccomp-y-apparmor">seccomp y AppArmor<a class="headerlink" href="#seccomp-y-apparmor" title="Permanent link">&para;</a></h2>
+<p>Estas dos capas actúan por debajo de las capabilities: sobre las llamadas al sistema y sobre el acceso a ficheros.</p>
+<p><strong>seccomp</strong> filtra syscalls. Docker aplica un perfil por defecto que bloquea un conjunto de llamadas peligrosas y permite el resto, suficiente para la inmensa mayoría de aplicaciones. Puedes indicar uno propio con <code>--security-opt seccomp=/ruta/perfil.json</code>, aunque escribir un perfil desde cero es un proyecto en sí mismo: hay que enumerar cada syscall usada en cualquier ruta de código, incluidas las de arranque y cierre. Lo importante en el día a día es lo contrario, <strong>no desactivarlo</strong>: <code>--security-opt seccomp=unconfined</code> circula en foros como solución rápida a errores raros y lo que hace es quitar el filtro entero. Antes de copiarlo, averigua con <code>dmesg</code> o con la auditoría del host qué syscall concreta se está bloqueando.</p>
+<p><strong>AppArmor</strong> (Debian, Ubuntu, SUSE) o <strong>SELinux</strong> (Fedora, RHEL) restringen a qué ficheros y capacidades llega el proceso. En hosts con AppArmor activo, Docker aplica un perfil <code>docker-default</code> a los contenedores; con SELinux, el etiquetado es lo que hace que un volumen sin <code>:Z</code> dé "Permission denied".</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Perfil propio, previamente cargado en el host con apparmor_parser</span>
+docker<span class="w"> </span>run<span class="w"> </span>--security-opt<span class="w"> </span><span class="nv">apparmor</span><span class="o">=</span>mi-perfil<span class="w"> </span>miimagen:1.0
+<span class="c1"># Qué tiene aplicado un contenedor en marcha</span>
+docker<span class="w"> </span>inspect<span class="w"> </span>-f<span class="w"> </span><span class="s1">'{{.AppArmorProfile}} {{json .HostConfig.SecurityOpt}}'</span><span class="w"> </span>micontenedor
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Depende del host, no de la imagen</p>
+<p>Estos perfiles los aplica el daemon según lo que soporte el kernel del host. La misma imagen tiene un confinamiento distinto en Ubuntu que en RHEL, y ninguno en un host sin LSM activo. No des por hecho lo que no hayas verificado en la máquina concreta.</p>
+</div>
+<h2 id="secretos-lo-que-nunca-va-en-la-imagen">Secretos: lo que nunca va en la imagen<a class="headerlink" href="#secretos-lo-que-nunca-va-en-la-imagen" title="Permanent link">&para;</a></h2>
+<p>Una imagen es una pila de capas inmutables: lo que aparece en una capa está ahí para siempre, aunque una capa posterior lo borre. Estos dos patrones filtran el secreto a cualquiera que pueda hacer <code>docker pull</code>, y los <code>ARG</code> de build tampoco son seguros, porque quedan registrados en el historial de la imagen.</p>
+<div class="highlight"><pre><span></span><code><span class="c"># ❌ Queda en los metadatos, visible en docker inspect</span>
+<span class="k">ENV</span><span class="w"> </span><span class="nv">DB_PASSWORD</span><span class="o">=</span>s3cr3t
+<span class="c"># ❌ Queda en la capa, aunque el rm posterior lo "borre"</span>
+<span class="k">COPY</span><span class="w"> </span>.npmrc<span class="w"> </span>/root/.npmrc
+<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>install<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>/root/.npmrc
+</code></pre></div>
+<p>La forma correcta con BuildKit es montar el secreto solo durante ese <code>RUN</code>, sin que llegue a ninguna capa:</p>
+<div class="highlight"><pre><span></span><code><span class="c"># syntax=docker/dockerfile:1</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">node:20-alpine</span>
+<span class="k">COPY</span><span class="w"> </span>package*.json<span class="w"> </span>./
+<span class="k">RUN</span><span class="w"> </span>--mount<span class="o">=</span><span class="nv">type</span><span class="o">=</span>secret,id<span class="o">=</span>npmrc,target<span class="o">=</span>/root/.npmrc<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>npm<span class="w"> </span>ci<span class="w"> </span>--omit<span class="o">=</span>dev
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>--secret<span class="w"> </span><span class="nv">id</span><span class="o">=</span>npmrc,src<span class="o">=</span><span class="nv">$HOME</span>/.npmrc<span class="w"> </span>-t<span class="w"> </span>miimagen:1.0<span class="w"> </span>.
+</code></pre></div>
+<p>En <strong>tiempo de ejecución</strong>, las variables de entorno son legibles en <code>docker inspect</code>, en el entorno de cualquier proceso del contenedor y a menudo en los logs de arranque. Prefiere ficheros montados que la aplicación lee al arrancar (Docker Secrets en Swarm, <code>Secret</code> de Kubernetes montado como volumen, o un fichero inyectado por tu gestor). El tratamiento completo está en <a href="../../cybersecurity/gestion_secretos/">Gestión de secretos</a> y, para GitOps, en <a href="../../cybersecurity/secrets_gitops/">Secretos en GitOps</a>.</p>
+<p>Cómo auditar una imagen que ya existe:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Comandos completos de cada capa: aquí salen los ARG y los COPY delatores</span>
+docker<span class="w"> </span><span class="nb">history</span><span class="w"> </span>--no-trunc<span class="w"> </span>--format<span class="w"> </span><span class="s1">'{{.CreatedBy}}'</span><span class="w"> </span>miimagen:1.0
+<span class="c1"># Variables de entorno horneadas en la imagen</span>
+docker<span class="w"> </span>inspect<span class="w"> </span>-f<span class="w"> </span><span class="s1">'{{json .Config.Env}}'</span><span class="w"> </span>miimagen:1.0
+<span class="c1"># Escaneo de secretos sobre el filesystem de la imagen</span>
+trivy<span class="w"> </span>image<span class="w"> </span>--scanners<span class="w"> </span>secret<span class="w"> </span>miimagen:1.0
+</code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Un secreto filtrado en una imagen publicada es un secreto quemado</p>
+<p>Reconstruir la imagen no lo arregla: la capa antigua sigue en el registro y en el caché de quien la haya descargado. El único remedio real es <strong>rotar la credencial</strong>. Borrar el tag es limpieza, no mitigación.</p>
+</div>
+<h2 id="imagenes-base-minimas-y-multi-stage">Imágenes base mínimas y multi-stage<a class="headerlink" href="#imagenes-base-minimas-y-multi-stage" title="Permanent link">&para;</a></h2>
+<p>Cada paquete instalado es superficie de ataque y un CVE potencial que alguien tendrá que triar. Una base con distribución completa arrastra shell, gestor de paquetes y decenas de librerías que tu aplicación no usa.</p>
+<table>
+<thead>
+<tr>
+<th>Base</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>debian</code>, <code>ubuntu</code></td>
+<td>Cómoda para depurar, mucha superficie</td>
+</tr>
+<tr>
+<td><code>alpine</code></td>
+<td>Pequeña; musl en vez de glibc, cuidado con binarios compilados contra glibc</td>
+</tr>
+<tr>
+<td><code>*-slim</code> (Debian)</td>
+<td>Buen punto medio si musl da problemas</td>
+</tr>
+<tr>
+<td>Distroless</td>
+<td>Solo runtime: sin shell ni gestor de paquetes</td>
+</tr>
+<tr>
+<td><code>scratch</code></td>
+<td>Solo binarios estáticos; ni certificados TLS ni zona horaria</td>
+</tr>
+</tbody>
+</table>
+<p>El multi-stage separa lo necesario para <strong>compilar</strong> de lo necesario para <strong>ejecutar</strong>: compilador, cabeceras y dependencias de desarrollo se quedan en la primera etapa.</p>
+<div class="highlight"><pre><span></span><code><span class="c"># syntax=docker/dockerfile:1</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">golang:1.22</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">build</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/src</span>
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span><span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>/out/app<span class="w"> </span>./cmd/app
+
+<span class="k">FROM</span><span class="w"> </span><span class="s">gcr.io/distroless/static-debian12:nonroot</span>
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>build<span class="w"> </span>/out/app<span class="w"> </span>/app
+<span class="k">USER</span><span class="w"> </span><span class="s">nonroot:nonroot</span>
+<span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">"/app"</span><span class="p">]</span>
+</code></pre></div>
+<p>Sin shell dentro, <code>docker exec ... sh</code> no funciona: es el precio a cambio de que tampoco le funcione a quien entre sin permiso; para depurar, usa un contenedor efímero que comparta los namespaces del que investigas. Las técnicas de capas y caché están en <a href="../docker_optimizations/">Optimización de Docker</a>.</p>
+<h2 id="escaneo-con-trivy">Escaneo con Trivy<a class="headerlink" href="#escaneo-con-trivy" title="Permanent link">&para;</a></h2>
+<p><a href="https://trivy.dev/">Trivy</a> recorre las capas de la imagen, identifica los paquetes instalados y los cruza con bases de datos de vulnerabilidades.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Lo que se puede arreglar hoy, sin ruido de fondo</span>
+trivy<span class="w"> </span>image<span class="w"> </span>--severity<span class="w"> </span>CRITICAL,HIGH<span class="w"> </span>--ignore-unfixed<span class="w"> </span>miregistro/miimagen:1.0
+<span class="c1"># En CI: código de salida distinto de cero si hay hallazgos que bloquean</span>
+trivy<span class="w"> </span>image<span class="w"> </span>--severity<span class="w"> </span>CRITICAL,HIGH<span class="w"> </span>--ignore-unfixed<span class="w"> </span>--exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span>miimagen:1.0
+<span class="c1"># Informe para procesar</span>
+trivy<span class="w"> </span>image<span class="w"> </span>--format<span class="w"> </span>json<span class="w"> </span>--output<span class="w"> </span>informe.json<span class="w"> </span>miimagen:1.0
+</code></pre></div>
+<p>La opción que más cambia el día a día es <strong><code>--ignore-unfixed</code></strong>: filtra las vulnerabilidades sin parche disponible. Sin ella, una imagen basada en Debian trae decenas de CVEs que nadie puede arreglar todavía, y el equipo aprende a ignorar el informe entero. <strong>Qué hacer con los resultados</strong>, en este orden:</p>
+<ol>
+<li><strong>¿Hay versión corregida?</strong> Reconstruye con la base actualizada (<code>docker build --pull</code>). Buena parte de los CVEs de una imagen desaparecen ahí, sin tocar tu código.</li>
+<li><strong>¿El paquete es tuyo?</strong> Actualiza la dependencia en el fichero de bloqueo (<code>package-lock.json</code>, <code>go.sum</code>, <code>requirements.txt</code>) y reconstruye.</li>
+<li><strong>¿La vulnerabilidad es alcanzable?</strong> Un CVE en un componente que tu contenedor nunca ejecuta es real pero no urgente. Documenta el razonamiento; no lo dejes en un mensaje de chat.</li>
+<li><strong>¿No hay parche?</strong> Anótalo en <code>.trivyignore</code> <strong>con fecha y motivo</strong>, y revísalo. Una excepción sin caducidad es una excepción permanente.</li>
+</ol>
+<p>Escanea en tres momentos: en local mientras desarrollas, en el pipeline como puerta de calidad, y <strong>periódicamente sobre lo ya desplegado</strong> — una imagen limpia en marzo no lo es en septiembre aunque nadie la haya tocado. El montaje en CI está en <a href="../../cybersecurity/ci_security_scanning/">Escaneo de seguridad en CI</a>, y la variante continua sobre Kubernetes en <a href="../../cybersecurity/trivy_operator/">Trivy Operator</a>.</p>
+<h2 id="firma-y-procedencia">Firma y procedencia<a class="headerlink" href="#firma-y-procedencia" title="Permanent link">&para;</a></h2>
+<p>Escanear responde a "¿esta imagen tiene fallos conocidos?". Firmar responde a otra cosa: <strong>"¿esta imagen es la que construyó mi pipeline?"</strong>. Un registro comprometido o un tag sobrescrito no los detecta ningún escáner.</p>
 <ul>
-<li>Usa <code>.env</code> (con cuidado), Docker secrets o soluciones externas (Vault).</li>
-<li>No añadir archivos <code>.env</code> al repositorio.</li>
+<li><strong>Firma</strong>: una firma criptográfica ligada al digest de la imagen. La herramienta de referencia hoy es <a href="https://docs.sigstore.dev/">Cosign</a>, del proyecto Sigstore, con firma por clave o <em>keyless</em> con identidad OIDC (la del propio pipeline).</li>
+<li><strong>Procedencia</strong>: metadatos verificables sobre cómo se construyó la imagen —commit, builder, parámetros—, en la línea del marco SLSA. BuildKit puede generar atestaciones de procedencia y SBOM durante el build.</li>
+<li><strong>Verificación en el despliegue</strong>: la firma solo sirve si algo la comprueba antes de ejecutar. En Kubernetes, un controlador de admisión con una política; en un host suelto, un paso explícito antes del <code>docker run</code>.</li>
 </ul>
-<h2 id="recomendaciones">Recomendaciones<a class="headerlink" href="#recomendaciones" title="Permanent link">&para;</a></h2>
+<p>Referenciar por digest es el paso previo a todo lo demás y no requiere ninguna herramienta nueva: <code>docker pull miregistro/miimagen@sha256:&lt;digest&gt;</code>. El tag se puede reasignar, el digest no. El flujo completo de firma, SBOM y verificación está en <a href="../../cybersecurity/supply_chain_security/">Supply Chain Security</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Docker Content Trust</p>
+<p><code>DOCKER_CONTENT_TRUST=1</code> sigue existiendo y se basa en Notary v1. El ecosistema se ha movido hacia Sigstore/Cosign; si empiezas hoy, empieza por ahí, y comprueba qué soporta tu registro antes de decidir.</p>
+</div>
+<h2 id="red-donde-publicas-los-puertos">Red: dónde publicas los puertos<a class="headerlink" href="#red-donde-publicas-los-puertos" title="Permanent link">&para;</a></h2>
+<p><code>-p 8080:80</code> publica en <strong>todas</strong> las interfaces del host: <code>0.0.0.0</code>. Si la máquina tiene IP pública, ese puerto está en Internet. Es la forma más común de exponer sin querer una base de datos o un panel de administración.</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">127</span>.0.0.1:8080:80<span class="w"> </span>nginx:alpine<span class="w">   </span><span class="c1"># solo local</span>
+docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span>nginx:alpine<span class="w">             </span><span class="c1"># todas las interfaces</span>
+docker<span class="w"> </span>ps<span class="w"> </span>--format<span class="w"> </span><span class="s1">'table {{.Names}}\t{{.Ports}}'</span>
+</code></pre></div>
+<p>Para una base de datos que solo consume otro contenedor ni siquiera hace falta publicar: en una red <em>bridge</em> definida por el usuario, los contenedores se alcanzan por nombre. La regla operativa es publicar solo lo que atiende tráfico externo y ponerlo detrás de un <a href="../../traefik/traefik_base/">proxy inverso</a>.</p>
+<div class="admonition danger">
+<p class="admonition-title">Docker y el firewall del host</p>
+<p>Docker gestiona sus propias reglas de <code>iptables</code>/<code>nftables</code> para el reenvío de puertos, y esas reglas pueden atravesar la configuración de un firewall gestionado con <code>ufw</code>: un puerto publicado sigue siendo accesible aunque <code>ufw status</code> diga que está denegado. Verifica siempre desde <strong>otra máquina</strong>, no desde el host. Si necesitas control real del filtrado, publica en <code>127.0.0.1</code> y deja que el proxy inverso sea el único servicio expuesto. Ver <a href="../../cybersecurity/nftables_fail2ban/">nftables y fail2ban</a>.</p>
+</div>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa</th>
+<th>Arreglo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Permission denied</code> al escribir en un volumen</td>
+<td>El UID del <code>USER</code> no es dueño del directorio del host</td>
+<td><code>chown</code> en el host al UID de la imagen, o <code>--user</code> con el UID correcto</td>
+</tr>
+<tr>
+<td><code>Read-only file system</code> al arrancar</td>
+<td>La app escribe en un directorio no previsto</td>
+<td>Un <code>--tmpfs</code> para ese directorio, o un volumen si el dato debe persistir</td>
+</tr>
+<tr>
+<td><code>bind: permission denied</code> en el puerto 80 con usuario no-root</td>
+<td>Falta <code>NET_BIND_SERVICE</code></td>
+<td><code>--cap-add=NET_BIND_SERVICE</code>, o escuchar en puerto alto y mapear <code>-p 80:8080</code></td>
+</tr>
+<tr>
+<td><code>Operation not permitted</code> en una syscall</td>
+<td>Perfil seccomp o capability ausente</td>
+<td>Identificar la syscall antes de aflojar nada; añadir la capability concreta, nunca <code>seccomp=unconfined</code></td>
+</tr>
+<tr>
+<td>El contenedor muere con código 137</td>
+<td>OOM: superó <code>--memory</code></td>
+<td>Medir el consumo real y ajustar; revisar fugas de memoria</td>
+</tr>
+<tr>
+<td>Todo falla al añadir <code>no-new-privileges</code></td>
+<td>El entrypoint usa <code>sudo</code>, <code>su</code> o un binario SUID</td>
+<td>Reescribir el entrypoint para no escalar; suele delatar un problema de diseño</td>
+</tr>
+<tr>
+<td>Trivy encuentra CVEs que no puedes arreglar</td>
+<td>Base desactualizada o sin parche upstream</td>
+<td><code>docker build --pull</code>; <code>--ignore-unfixed</code> para separar lo accionable</td>
+</tr>
+<tr>
+<td>Un servicio interno accesible desde fuera</td>
+<td>Publicado en <code>0.0.0.0</code></td>
+<td><code>-p 127.0.0.1:...</code>, o no publicar y usar la red interna</td>
+</tr>
+<tr>
+<td><code>docker exec</code> no funciona en la imagen nueva</td>
+<td>Base distroless o <code>scratch</code>: no hay shell</td>
+<td>Depurar con un contenedor efímero que comparta namespaces</td>
+</tr>
+</tbody>
+</table>
+<h2 id="checklist">Checklist<a class="headerlink" href="#checklist" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Actualizar dependencias regularmente.</li>
-<li>Aplicar políticas de pull/scan en el registry.</li>
+<li>[ ] Ningún contenedor con <code>--privileged</code> ni con <code>/var/run/docker.sock</code> montado sin justificación escrita.</li>
+<li>[ ] Grupo <code>docker</code> del host tratado y auditado como acceso de administrador.</li>
+<li>[ ] <code>USER</code> con UID numérico no-root, verificado con <code>docker run --entrypoint id</code>.</li>
+<li>[ ] <code>--cap-drop=ALL</code> y, como mucho, las capabilities demostradas necesarias.</li>
+<li>[ ] <code>--read-only</code> con los <code>--tmpfs</code> mínimos, montados <code>noexec,nosuid</code> y con <code>size</code>.</li>
+<li>[ ] <code>--security-opt no-new-privileges:true</code> en todos los servicios.</li>
+<li>[ ] <code>--memory</code>, <code>--cpus</code> y <code>--pids-limit</code> con valores medidos, no adivinados.</li>
+<li>[ ] Perfil seccomp por defecto activo; ningún <code>seccomp=unconfined</code> sin analizar.</li>
+<li>[ ] Cero secretos en <code>ENV</code>, <code>ARG</code> o capas; comprobado con <code>docker history</code> y <code>trivy --scanners secret</code>.</li>
+<li>[ ] Secretos de build con <code>--mount=type=secret</code>; secretos de runtime como ficheros.</li>
+<li>[ ] Imagen base mínima y multi-stage, sin toolchain de compilación en la etapa final.</li>
+<li>[ ] <code>trivy image --severity CRITICAL,HIGH --ignore-unfixed --exit-code 1</code> en el pipeline, y reescaneo periódico de lo ya desplegado.</li>
+<li>[ ] Imágenes referenciadas por digest en producción.</li>
+<li>[ ] Puertos publicados solo donde deben, verificado desde otra máquina.</li>
+<li>[ ] Reconstrucción periódica programada: la base envejece aunque tu código no cambie.</li>
 </ul>
-<h2 id="_1"><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="enlaces-relacionados">Enlaces relacionados<a class="headerlink" href="#enlaces-relacionados" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../docker_base/">Docker — Base</a> · <a href="../docker_optimizations/">Optimización de Docker</a></li>
+<li><a href="../podman_rootless/">Podman Rootless</a> — eliminar el daemon root del modelo de amenaza.</li>
+<li><a href="../docker_runtime_security/">Docker — Seguridad Runtime (gVisor/Kata)</a> — aislamiento del kernel.</li>
+<li><a href="../../cybersecurity/gestion_secretos/">Gestión de secretos</a> · <a href="../../cybersecurity/supply_chain_security/">Supply Chain Security</a></li>
+<li><a href="../../cybersecurity/ci_security_scanning/">Escaneo de seguridad en CI</a> · <a href="../../cybersecurity/trivy_operator/">Trivy Operator</a></li>
+<li><a href="../../cybersecurity/hardening_linux/">Hardening de servidores Linux</a> — el host que sostiene todo lo anterior.</li>
+<li><a href="https://docs.docker.com/engine/security/">Docker — Seguridad (documentación oficial)</a> · <a href="https://www.cisecurity.org/benchmark/docker">CIS Docker Benchmark</a></li>
+</ul>
 
 
 

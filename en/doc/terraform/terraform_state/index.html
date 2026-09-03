@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentación oficial del proyecto Frikiteam 🚀">
+        <meta name="description" content="Managing Terraform state as a team: remote S3 backend with locking, backend migration, workspaces, state operations, import, drift and OIDC credentials in CI.">
       
       
       
@@ -72,7 +72,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Terraform — State Backend and Migration - Frikiteam Docs" />
-<meta property="og:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="og:description" content="Managing Terraform state as a team: remote S3 backend with locking, backend migration, workspaces, state operations, import, drift and OIDC credentials in CI." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/en/doc/terraform/terraform_state.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -80,7 +80,7 @@
 <meta property="og:url" content="https://docs.frikiteam.es/en/doc/terraform/terraform_state/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="Terraform — State Backend and Migration - Frikiteam Docs" />
-<meta property="twitter:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="twitter:description" content="Managing Terraform state as a team: remote S3 backend with locking, backend migration, workspaces, state operations, import, drift and OIDC credentials in CI." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/en/doc/terraform/terraform_state.png" />
 </head>
   
@@ -508,6 +508,25 @@
     
   
   Blog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
 
       </a>
     </li>
@@ -3991,10 +4010,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#the-problem" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Overview
+        The problem
       
     </span>
   </a>
@@ -4002,10 +4021,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-is-terraform-state" class="md-nav__link">
+  <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What is Terraform State?
+        📋 Table of Contents
       
     </span>
   </a>
@@ -4013,49 +4032,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#local-vs-remote-state" class="md-nav__link">
+  <a href="#what-the-state-holds-and-why-it-is-sensitive" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Local vs Remote State
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Local vs Remote State">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#local-state-not-recommended-for-teams" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Local State (Not Recommended for Teams)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#remote-state-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Remote State (Recommended)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-backends" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common Backends
+        What the state holds and why it is sensitive
       
     </span>
   </a>
@@ -4063,10 +4043,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#state-locking" class="md-nav__link">
+  <a href="#local-vs-remote" class="md-nav__link">
     <span class="md-ellipsis">
       
-        State Locking
+        Local vs remote
       
     </span>
   </a>
@@ -4074,88 +4054,109 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#migrating-state" class="md-nav__link">
+  <a href="#s3-backend-with-locking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Migrating State
+        S3 backend with locking
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Migrating State">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#safe-migration-process" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Safe Migration Process
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-local-s3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example: Local → S3
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#cicd-best-practices" class="md-nav__link">
+  <a href="#minimum-iam-policy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CI/CD Best Practices
+        Minimum IAM policy
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="CI/CD Best Practices">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#validation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Validation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#state-in-cicd" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        State in CI/CD
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#sensitive-data-in-state" class="md-nav__link">
+  <a href="#locking-and-orphaned-locks" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Sensitive Data in State
+        Locking and orphaned locks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migrate-state-vs-reconfigure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        migrate-state vs reconfigure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workspaces-vs-separate-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workspaces vs separate directories
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operating-on-the-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operating on the state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#importing-pre-existing-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Importing pre-existing resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drift-and-refresh-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drift and refresh-only
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-in-ci-oidc-instead-of-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State in CI: OIDC instead of keys
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backup-and-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backup and versioning
       
     </span>
   </a>
@@ -4174,10 +4175,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
+  <a href="#best-practices" class="md-nav__link">
     <span class="md-ellipsis">
       
-        See Also
+        Best practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
       
     </span>
   </a>
@@ -7258,6 +7270,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -9002,6 +9021,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9134,9 +9180,34 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermediate</span> <span class="md-badge md-badge--secondary">Estimated time: 1 min</span> <span class="md-badge md-badge--primary">Category: Infrastructure as Code</span> <span class="md-badge md-badge--green">Published</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermediate</span> <span class="md-badge md-badge--secondary">Estimated time: 20 min</span> <span class="md-badge md-badge--primary">Category: DevOps</span> <span class="md-badge md-badge--green">Published</span></div>
                 
                   
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:best-practices" class="md-tag">best-practices</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:devops" class="md-tag">devops</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:terraform" class="md-tag">terraform</a>
+      
+    
+  </nav>
 
 
   
@@ -9149,204 +9220,329 @@
 
 
 <h1 id="terraform-state-backend-and-migration">Terraform — State Backend and Migration<a class="headerlink" href="#terraform-state-backend-and-migration" title="Permanent link">&para;</a></h1>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Terraform state management is critical for teams. This guide covers remote backends, state locking, and safe migrations.</p>
-<h2 id="what-is-terraform-state">What is Terraform State?<a class="headerlink" href="#what-is-terraform-state" title="Permanent link">&para;</a></h2>
-<p>Terraform state is a JSON file that maps your configuration to real infrastructure resources. It's essential for:
-- Tracking resource IDs created by providers
-- Detecting configuration drift
-- Enabling collaborative infrastructure management</p>
-<p><strong>Important:</strong> State may contain sensitive data (database passwords, API keys). Always encrypt and restrict access.</p>
-<h2 id="local-vs-remote-state">Local vs Remote State<a class="headerlink" href="#local-vs-remote-state" title="Permanent link">&para;</a></h2>
-<h3 id="local-state-not-recommended-for-teams">Local State (Not Recommended for Teams)<a class="headerlink" href="#local-state-not-recommended-for-teams" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Default behavior</span>
-terraform<span class="w"> </span>init<span class="w">  </span><span class="c1"># Creates terraform.tfstate locally</span>
-</code></pre></div>
-<p><strong>Risks:</strong>
-- No collaboration (merge conflicts)
-- Easy to accidentally commit to version control
-- No backup or audit trail</p>
-<h3 id="remote-state-recommended">Remote State (Recommended)<a class="headerlink" href="#remote-state-recommended" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nb">terraform</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kr">backend</span><span class="w"> </span><span class="nv">&quot;s3&quot;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="na">bucket</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-terraform-state&quot;</span>
-<span class="w">    </span><span class="na">key</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;prod/terraform.tfstate&quot;</span>
-<span class="w">    </span><span class="na">region</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;us-east-1&quot;</span>
-<span class="w">    </span><span class="na">encrypt</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
-<span class="w">    </span><span class="na">dynamodb_table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;terraform-lock&quot;</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h2 id="common-backends">Common Backends<a class="headerlink" href="#common-backends" title="Permanent link">&para;</a></h2>
+<h2 id="the-problem">The problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h2>
+<p>Terraform does not ask the cloud provider what it manages: it asks the <strong>state</strong>. That file is the only place where the mapping between the <code>aws_instance.web</code> in your code and the real <code>i-0abc123…</code> lives. If the state disappears, Terraform does not think the instance is broken: it thinks it <strong>does not exist</strong> and creates it again. An <code>apply</code> without state is an <code>apply</code> against phantom infrastructure.</p>
+<p>With a single operator and a local <code>terraform.tfstate</code> that almost never hurts. As soon as there are two people — or one person and a pipeline — the three classic failures show up: two concurrent <code>apply</code> runs stepping on each other and leaving the state describing a reality that no longer exists; a <code>terraform.tfstate</code> committed to Git with the database password in plain text; and the laptop that gets wiped, taking away the only record of what was running in production.</p>
+<p>A remote backend solves all three at once: <strong>shared, encrypted storage with locking</strong>. This page covers how to set it up, how to migrate without recreating anything, and the maintenance operations — <code>state mv</code>, <code>import</code>, <code>-refresh-only</code> — you need when reality and the state diverge. All of it applies equally to Terraform and <a href="../terraform_base/">OpenTofu</a>, with <code>tofu</code> instead of <code>terraform</code>; for recent features, check the documentation for <strong>your</strong> version before copying a flag from any guide, this one included.</p>
+<h2 id="table-of-contents">📋 Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#what-the-state-holds-and-why-it-is-sensitive">What the state holds and why it is sensitive</a></li>
+<li><a href="#local-vs-remote">Local vs remote</a></li>
+<li><a href="#s3-backend-with-locking">S3 backend with locking</a></li>
+<li><a href="#minimum-iam-policy">Minimum IAM policy</a></li>
+<li><a href="#locking-and-orphaned-locks">Locking and orphaned locks</a></li>
+<li><a href="#migrate-state-vs-reconfigure">migrate-state vs reconfigure</a></li>
+<li><a href="#workspaces-vs-separate-directories">Workspaces vs separate directories</a></li>
+<li><a href="#operating-on-the-state">Operating on the state</a></li>
+<li><a href="#importing-pre-existing-resources">Importing pre-existing resources</a></li>
+<li><a href="#drift-and-refresh-only">Drift and refresh-only</a></li>
+<li><a href="#state-in-ci-oidc-instead-of-keys">State in CI: OIDC instead of keys</a></li>
+<li><a href="#backup-and-versioning">Backup and versioning</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#best-practices">Best practices</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="what-the-state-holds-and-why-it-is-sensitive">What the state holds and why it is sensitive<a class="headerlink" href="#what-the-state-holds-and-why-it-is-sensitive" title="Permanent link">&para;</a></h2>
+<p>The state is a JSON document mapping resource addresses (<code>module.db.aws_db_instance.main</code>) to real provider identifiers, plus a copy of the attributes read during the last refresh and the dependencies between resources. Three things come out of it: what to create, what to destroy and in which order.</p>
+<p>The uncomfortable consequence is that it <strong>stores the full attributes, sensitive ones included</strong>. An RDS password, a <code>private_key</code> generated by the TLS provider, the contents of a <code>kubernetes_secret</code>: all of it sits in the state in the clear. <code>sensitive = true</code> affects what gets printed on screen, <strong>not</strong> what gets written to the file. See for yourself with <code>terraform state pull | jq '.resources[].instances[].attributes'</code>.</p>
+<div class="admonition danger">
+<p class="admonition-title">The state is a secret, treat it as one</p>
+<ul>
+<li><strong>Never</strong> in Git: add <code>*.tfstate</code>, <code>*.tfstate.*</code> and <code>.terraform/</code> to <code>.gitignore</code> from the first commit.</li>
+<li>Encrypted at rest and restricted to whoever can run <code>apply</code>: reading the state is equivalent to reading every secret that code touches.</li>
+<li>If a secret has passed through the state, consider it exposed to anyone who had access to the bucket. Rotate it.</li>
+<li>Referencing secrets from a manager (Vault, Secrets Manager) reduces the surface, even though the value read still ends up in the state. See <a href="../../cybersecurity/gestion_secretos/">secrets management</a>.</li>
+</ul>
+</div>
+<h2 id="local-vs-remote">Local vs remote<a class="headerlink" href="#local-vs-remote" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Backend</th>
-<th>Use Case</th>
-<th>Features</th>
+<th></th>
+<th>Local (default)</th>
+<th>Remote</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>S3 + DynamoDB</strong></td>
-<td>AWS teams</td>
-<td>Cost-effective, versioning, locking</td>
+<td>Location</td>
+<td><code>terraform.tfstate</code> in the directory</td>
+<td>Shared bucket or service</td>
 </tr>
 <tr>
-<td><strong>GCS</strong></td>
-<td>Google Cloud</td>
-<td>Native integration, versioning</td>
+<td>Collaboration</td>
+<td>None: the file is yours</td>
+<td>Team and CI see the same thing</td>
 </tr>
 <tr>
-<td><strong>Consul</strong></td>
-<td>On-premise</td>
-<td>High availability, HTTP API</td>
+<td>Locking</td>
+<td>Does not exist</td>
+<td>Yes, if the backend supports it</td>
 </tr>
 <tr>
-<td><strong>Azure Blob</strong></td>
-<td>Azure teams</td>
-<td>Role-based access control</td>
+<td>Encryption and backup</td>
+<td>Whatever your disk does</td>
+<td>SSE/KMS and bucket versioning</td>
 </tr>
 <tr>
-<td><strong>Terraform Cloud</strong></td>
-<td>All platforms</td>
-<td>Remote runs, policy as code, teams</td>
+<td>Leak risk</td>
+<td>High (accidental commit)</td>
+<td>Controlled by IAM</td>
 </tr>
 </tbody>
 </table>
-<h2 id="state-locking">State Locking<a class="headerlink" href="#state-locking" title="Permanent link">&para;</a></h2>
-<p>Prevents concurrent modifications that could corrupt state:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># DynamoDB table for S3 locking</span>
-resource<span class="w"> </span><span class="s2">&quot;aws_dynamodb_table&quot;</span><span class="w"> </span><span class="s2">&quot;terraform_locks&quot;</span><span class="w"> </span><span class="o">{</span>
-<span class="w">  </span><span class="nv">name</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;terraform-lock&quot;</span>
-<span class="w">  </span><span class="nv">billing_mode</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;PAY_PER_REQUEST&quot;</span>
-<span class="w">  </span><span class="nv">hash_key</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;LockID&quot;</span>
+<p>Local is reasonable for a one-day lab. For anything two people can touch, or that a pipeline will apply, go remote.</p>
+<h2 id="s3-backend-with-locking">S3 backend with locking<a class="headerlink" href="#s3-backend-with-locking" title="Permanent link">&para;</a></h2>
+<p>The <code>backend</code> block lives inside <code>terraform { }</code> and <strong>accepts no variables or interpolation</strong>: its values must be literals or come from <code>-backend-config</code>. It is the limitation that most surprises people arriving from the rest of HCL.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">terraform</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">required_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"&gt;= 1.5"</span>
 
-<span class="w">  </span>attribute<span class="w"> </span><span class="o">{</span>
-<span class="w">    </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;LockID&quot;</span>
-<span class="w">    </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;S&quot;</span>
-<span class="w">  </span><span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
-<p>When someone runs <code>terraform apply</code>, a lock is acquired. If not released (crash, etc.), subsequent applies fail until the lock is manually broken.</p>
-<p><strong>Force unlock</strong> (dangerous):
-<div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>force-unlock<span class="w"> </span>LOCK_ID
-</code></pre></div></p>
-<h2 id="migrating-state">Migrating State<a class="headerlink" href="#migrating-state" title="Permanent link">&para;</a></h2>
-<h3 id="safe-migration-process">Safe Migration Process<a class="headerlink" href="#safe-migration-process" title="Permanent link">&para;</a></h3>
-<ol>
-<li>
-<p><strong>Backup existing state</strong>:
-   <div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>state<span class="w"> </span>pull<span class="w"> </span>&gt;<span class="w"> </span>terraform.tfstate.backup
-</code></pre></div></p>
-</li>
-<li>
-<p><strong>Reconfigure backend</strong>:
-   <div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>init<span class="w"> </span>-backend-config<span class="o">=</span><span class="s2">&quot;key=new_location/terraform.tfstate&quot;</span>
-</code></pre></div></p>
-</li>
-<li>
-<p><strong>Verify migration</strong>:
-   <div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>state<span class="w"> </span>list
-terraform<span class="w"> </span>plan<span class="w">  </span><span class="c1"># Should show no changes</span>
-</code></pre></div></p>
-</li>
-</ol>
-<h3 id="example-local-s3">Example: Local → S3<a class="headerlink" href="#example-local-s3" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 1. Backup</span>
-terraform<span class="w"> </span>state<span class="w"> </span>pull<span class="w"> </span>&gt;<span class="w"> </span>backup.json
-
-<span class="c1"># 2. Add backend config</span>
-cat<span class="w"> </span>&gt;&gt;<span class="w"> </span>main.tf<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
-<span class="s">terraform {</span>
-<span class="s">  backend &quot;s3&quot; {</span>
-<span class="s">    bucket = &quot;my-state-bucket&quot;</span>
-<span class="s">    key    = &quot;terraform.tfstate&quot;</span>
-<span class="s">    region = &quot;us-east-1&quot;</span>
-<span class="s">  }</span>
-<span class="s">}</span>
-<span class="s">EOF</span>
-
-<span class="c1"># 3. Initialize and migrate</span>
-terraform<span class="w"> </span>init<span class="w">  </span><span class="c1"># Answer &quot;yes&quot; to migrate</span>
-</code></pre></div>
-<h2 id="cicd-best-practices">CI/CD Best Practices<a class="headerlink" href="#cicd-best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>validate
-terraform<span class="w"> </span>plan<span class="w"> </span>-out<span class="o">=</span>tfplan
-</code></pre></div>
-<h3 id="state-in-cicd">State in CI/CD<a class="headerlink" href="#state-in-cicd" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Never commit</strong> <code>terraform.tfstate</code> or <code>*.tfstate.*</code></li>
-<li><strong>Use remote backend</strong> for CI/CD pipelines</li>
-<li><strong>Restrict access</strong> to state files (IAM roles, service accounts)</li>
-<li><strong>Use separate states</strong> per environment (dev, staging, prod)</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="c1"># Use workspaces for environment isolation</span>
-<span class="nb">terraform</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kr">backend</span><span class="w"> </span><span class="nv">&quot;s3&quot;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="na">bucket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;terraform-state&quot;</span>
-<span class="w">    </span><span class="na">key</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;${terraform.workspace}/terraform.tfstate&quot;</span>
+<span class="w">  </span><span class="kr">backend</span><span class="w"> </span><span class="nv">"s3"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="na">bucket</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="s2">"acme-tfstate-prod"</span>
+<span class="w">    </span><span class="na">key</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="s2">"platform/network/terraform.tfstate"</span>
+<span class="w">    </span><span class="na">region</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="s2">"eu-west-1"</span>
+<span class="w">    </span><span class="na">encrypt</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
+<span class="w">    </span><span class="na">kms_key_id</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"arn:aws:kms:eu-west-1:123456789012:key/abcd-1234"</span>
+<span class="w">    </span><span class="na">dynamodb_table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"acme-tfstate-locks"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="sensitive-data-in-state">Sensitive Data in State<a class="headerlink" href="#sensitive-data-in-state" title="Permanent link">&para;</a></h2>
-<p>State files can contain:
-- Database passwords
-- API keys
-- Private certificates</p>
-<p><strong>Mitigation:</strong>
-- Encrypt state at rest (S3 encryption, AES-256)
-- Encrypt in transit (TLS/HTTPS)
-- Use separate sensitive variable files (never commit)
-- Use a secrets backend (HashiCorp Vault, AWS Secrets Manager)</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Don&#39;t do this:</span>
-<span class="kr">variable</span><span class="w"> </span><span class="nv">&quot;db_password&quot;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
-<span class="p">}</span>
+<p><code>key</code> is the path inside the bucket: <strong>a different <code>key</code> per component and per environment</strong>, which is what actually separates states. <code>encrypt = true</code> forces encryption at rest and <code>kms_key_id</code> adds access control over the key, auditable in CloudTrail. The lock table is created <strong>once</strong>, in a separate bootstrap configuration — the bucket and the table cannot live in the state they themselves store:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">resource</span><span class="w"> </span><span class="nc">"aws_dynamodb_table"</span><span class="w"> </span><span class="nv">"locks"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">name</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="s2">"acme-tfstate-locks"</span>
+<span class="w">  </span><span class="na">billing_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"PAY_PER_REQUEST"</span>
+<span class="w">  </span><span class="na">hash_key</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"LockID"</span>
 
-<span class="c1"># Do this:</span>
-<span class="kr">data</span><span class="w"> </span><span class="nc">&quot;aws_secretsmanager_secret_version&quot;</span><span class="w"> </span><span class="nv">&quot;db_password&quot;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="na">secret_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;prod/db-password&quot;</span>
+<span class="w">  </span><span class="nb">attribute</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"LockID"</span>
+<span class="w">    </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"S"</span>
+<span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>The attribute <strong>must</strong> be named <code>LockID</code> and be the partition key; with any other name lock acquisition fails. A single table serves every state in the account: the row is identified by the state path.</p>
+<div class="admonition warning">
+<p class="admonition-title">Native S3 locking: version-dependent — not verified here</p>
+<p>Recent versions of the S3 backend support locking without DynamoDB, through a <code>.tflock</code> object next to the state (the <code>use_lockfile</code> argument), leaving <code>dynamodb_table</code> as a legacy option. Do not assume which one applies to your installation: check the S3 backend documentation for the exact version you run — and for OpenTofu, if that is your case — and confirm it with a <code>terraform init</code>. What is non-negotiable is not ending up with <strong>no</strong> locking mechanism at all.</p>
+</div>
+<h2 id="minimum-iam-policy">Minimum IAM policy<a class="headerlink" href="#minimum-iam-policy" title="Permanent link">&para;</a></h2>
+<p>Just enough permissions to operate on <strong>one</strong> state, with no access to the rest of the bucket:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"s3:ListBucket"</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:s3:::acme-tfstate-prod"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"Condition"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"StringLike"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"s3:prefix"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"platform/network/*"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"s3:GetObject"</span><span class="p">,</span><span class="w"> </span><span class="s2">"s3:PutObject"</span><span class="p">,</span><span class="w"> </span><span class="s2">"s3:DeleteObject"</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:s3:::acme-tfstate-prod/platform/network/*"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"dynamodb:GetItem"</span><span class="p">,</span><span class="w"> </span><span class="s2">"dynamodb:PutItem"</span><span class="p">,</span><span class="w"> </span><span class="s2">"dynamodb:DeleteItem"</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:dynamodb:eu-west-1:123456789012:table/acme-tfstate-locks"</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>The DynamoDB statement is unnecessary with file-based locking: the lock is then just another object under the same prefix.</li>
+<li>With <code>kms_key_id</code> you must add <code>kms:Encrypt</code>, <code>kms:Decrypt</code> and <code>kms:GenerateDataKey</code> on the key ARN, or everything fails with an <code>AccessDenied</code> that never mentions KMS.</li>
+<li>A <strong>read-only</strong> role (<code>s3:GetObject</code> and <code>s3:ListBucket</code>) for reviewing plans is the best privilege separation on this page: many people need to see the <code>plan</code>, very few need to apply it.</li>
+</ul>
+<h2 id="locking-and-orphaned-locks">Locking and orphaned locks<a class="headerlink" href="#locking-and-orphaned-locks" title="Permanent link">&para;</a></h2>
+<p>Before writing, Terraform acquires a lock; when it finishes, it releases it. If the process dies in between — an aggressive Ctrl+C, a cancelled runner, a network drop — <strong>the lock stays</strong> and the next <code>apply</code> fails with <code>Error: Error acquiring the state lock</code>, followed by a <code>Lock Info</code> block with the <code>ID</code>, <code>Operation</code>, <code>Who</code> and <code>Created</code>. That block is information, not just an error: it tells you whether someone is genuinely working or it is a leftover from three hours ago.</p>
+<div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>force-unlock<span class="w"> </span>7c1e2b58-...
+</code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Check before you force</p>
+<p><code>force-unlock</code> cancels no operation: it only deletes the lock. If the original <code>apply</code> is <strong>still alive</strong> on another machine, you end up with two concurrent writes and a corrupted state, which is exactly the damage the lock was preventing.</p>
+<p>Protocol: look at <code>Who</code> and <code>Created</code>, ask in the team channel, check whether a job is running. Only then unlock. There is a flag to skip the interactive confirmation; do not put it in an unattended script.</p>
+</div>
+<p>For one-off reads where the lock gets in the way — and <strong>only</strong> reads — most commands accept <code>-lock=false</code>. With <code>plan</code>, never with <code>apply</code>.</p>
+<h2 id="migrate-state-vs-reconfigure">migrate-state vs reconfigure<a class="headerlink" href="#migrate-state-vs-reconfigure" title="Permanent link">&para;</a></h2>
+<p>This is the confusion that breaks the most states. When you change the <code>backend</code> block, <code>terraform init</code> offers two incompatible paths:</p>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>What it does with the existing state</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-migrate-state</code></td>
+<td><strong>Copies it</strong> to the new backend</td>
+<td>Moving the state elsewhere while keeping the infrastructure</td>
+</tr>
+<tr>
+<td><code>-reconfigure</code></td>
+<td><strong>Ignores it</strong>: starts clean on the new backend</td>
+<td>The destination backend already holds the right state</td>
+</tr>
+</tbody>
+</table>
+<p>Translated: <code>-migrate-state</code> keeps, <code>-reconfigure</code> forgets. If you run <code>-reconfigure</code> when you meant to migrate, the new backend starts empty, the next <code>plan</code> proposes <strong>creating the whole infrastructure from scratch</strong>, and the old state is left orphaned where it was. It is recoverable — the original file is not deleted — but only if you recognise the symptom in time.</p>
+<div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>state<span class="w"> </span>pull<span class="w"> </span>&gt;<span class="w"> </span>backup-<span class="k">$(</span>date<span class="w"> </span>+%F<span class="k">)</span>.tfstate<span class="w">   </span><span class="c1"># 1. back up, always</span>
+<span class="c1"># 2. add the backend "s3" block to the configuration</span>
+terraform<span class="w"> </span>init<span class="w"> </span>-migrate-state<span class="w">                       </span><span class="c1"># 3. migrate</span>
+terraform<span class="w"> </span>state<span class="w"> </span>list<span class="w">                                </span><span class="c1"># 4. verify</span>
+terraform<span class="w"> </span>plan<span class="w">                                      </span><span class="c1">#    must say "No changes"</span>
+</code></pre></div>
+<p>That clean <code>plan</code> in step 4 is the only valid proof that the migration went well. If it proposes creating or destroying anything, <strong>stop</strong>: the migrated state does not match the infrastructure.</p>
+<p>When the backend is parameterised per environment, the values go in standalone <code>.hcl</code> files (<code>bucket</code>, <code>key</code>, <code>region</code>, one key per line) because the block accepts no variables, and are loaded with <code>-backend-config</code>:</p>
+<div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>init<span class="w"> </span>-reconfigure<span class="w"> </span>-backend-config<span class="o">=</span>backends/prod.hcl
+</code></pre></div>
+<p>Here <code>-reconfigure</code> is the right call: you are not moving a state, you are pointing the working directory at another one that already exists. <code>-migrate-state</code> would try to copy the <em>staging</em> state on top of <em>prod</em>.</p>
+<h2 id="workspaces-vs-separate-directories">Workspaces vs separate directories<a class="headerlink" href="#workspaces-vs-separate-directories" title="Permanent link">&para;</a></h2>
+<p>Workspaces (<code>terraform workspace new staging</code>, <code>select</code>, <code>list</code>, <code>show</code>) create several states for <strong>one and the same configuration</strong>. What a workspace does isolate is the state. What it does <strong>not</strong> isolate:</p>
+<ul>
+<li><strong>Credentials.</strong> The provider is configured identically across every workspace, and whatever <code>AWS_*</code> variables you have loaded apply to any of them. An <code>apply</code> in the wrong workspace runs against whichever account was active, with no barrier at all.</li>
+<li><strong>The code.</strong> A change in the <code>.tf</code> affects all of them at once: there is no gradual promotion from <em>staging</em> to <em>prod</em>.</li>
+<li><strong>The backend.</strong> Same bucket and same permissions: whoever can read one workspace can read them all.</li>
+<li><strong>Human error.</strong> Nothing in the prompt tells you which workspace you are in.</li>
+</ul>
+<p>The alternative is a directory per environment (<code>envs/dev</code>, <code>envs/staging</code>, <code>envs/prod</code>), each with its own backend, provider and <code>tfvars</code>, sharing code through modules in <code>modules/</code>. Rule of thumb: <strong>workspaces for ephemeral variations of the same environment</strong> — a test branch, a temporary deployment — and <strong>separate directories for environments with different security boundaries</strong>. If dev and prod live in separate accounts — and they should — workspaces are not the tool.</p>
+<h2 id="operating-on-the-state">Operating on the state<a class="headerlink" href="#operating-on-the-state" title="Permanent link">&para;</a></h2>
+<p>These commands modify the <strong>inventory</strong>, not the infrastructure: Terraform touches nothing at the provider, it changes what it believes exists.</p>
+<div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>state<span class="w"> </span>list<span class="w">                      </span><span class="c1"># everything it manages</span>
+terraform<span class="w"> </span>state<span class="w"> </span>show<span class="w"> </span>aws_instance.web<span class="w">     </span><span class="c1"># attributes of one resource</span>
+terraform<span class="w"> </span>state<span class="w"> </span>pull<span class="w"> </span>&gt;<span class="w"> </span>snapshot.tfstate<span class="w">   </span><span class="c1"># download the full state</span>
+terraform<span class="w"> </span>state<span class="w"> </span>mv<span class="w"> </span>aws_instance.web<span class="w"> </span>module.frontend.aws_instance.this
+</code></pre></div>
+<p><code>state mv</code> renames or moves an address: it is what avoids destroy-and-recreate when refactoring. If you rename in the <code>.tf</code> <strong>without</strong> doing the <code>mv</code>, Terraform sees the old address disappear and a new one appear, and plans a destroy and a create. On a database, that is an incident.</p>
+<div class="admonition danger">
+<p class="admonition-title"><code>state rm</code> does not destroy, and that is the problem</p>
+<p><code>terraform state rm aws_instance.web</code> <strong>forgets</strong> the resource: it still exists and still bills at the provider, but Terraform stops managing it. Nobody will destroy it, nobody will update it, and it will not show up in any <code>plan</code>. It is the cleanest way to create orphaned resources nobody remembers six months later.</p>
+<p>Legitimate use: pulling a resource out of one state to move it to another. In that case <strong>do the <code>import</code> at the destination before the <code>rm</code> at the origin</strong>, and write down the ID.</p>
+</div>
+<p>Two precautions that save grief: <code>terraform state pull &gt; before.tfstate</code> ahead of any <code>mv</code> or <code>rm</code>, and a <code>terraform plan</code> afterwards, which must come out with no changes.</p>
+<h2 id="importing-pre-existing-resources">Importing pre-existing resources<a class="headerlink" href="#importing-pre-existing-resources" title="Permanent link">&para;</a></h2>
+<p>When the infrastructure exists but the state does not know about it — created by hand, inherited, migrated from another tool — <code>import</code> adopts it. Write the resource block in the <code>.tf</code> first, even if incomplete, then associate the Terraform address with the real provider ID:</p>
+<div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>import<span class="w"> </span>aws_instance.web<span class="w"> </span>i-0abc123def456
+terraform<span class="w"> </span>plan<span class="w">     </span><span class="c1"># what differs between the code and reality?</span>
+</code></pre></div>
+<p>That <code>plan</code> is the real work. <code>import</code> fills the state with the actual attributes but <strong>does not write your configuration</strong>: until the <code>.tf</code> describes the resource as it truly is, the <code>plan</code> will keep proposing changes. You iterate — adjust HCL, <code>plan</code>, repeat — until you reach "No changes".</p>
+<p>The ID format depends on the provider and the resource: an EC2 instance uses <code>i-…</code>, a security group rule uses a composite string, a Kubernetes resource uses <code>namespace/name</code>. It is documented in the <em>Import</em> section of each resource; do not guess it.</p>
+<div class="admonition tip">
+<p class="admonition-title">Declarative <code>import</code> blocks — check your version</p>
+<p>Recent Terraform versions support <code>import</code> blocks in HCL itself, plannable and reviewable in a PR rather than run by hand, with an option to generate a configuration skeleton. It is far more convenient for bulk imports, but confirm availability and exact syntax in the documentation for your version before putting it in a pipeline.</p>
+</div>
+<h2 id="drift-and-refresh-only">Drift and refresh-only<a class="headerlink" href="#drift-and-refresh-only" title="Permanent link">&para;</a></h2>
+<p><em>Drift</em> is the difference between what the state says and what actually exists at the provider: someone changed something in the console, an autoscaler changed a capacity, an external process added a tag.</p>
+<div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>plan<span class="w"> </span>-refresh-only<span class="w">     </span><span class="c1"># only compares, proposes no configuration changes</span>
+terraform<span class="w"> </span>apply<span class="w"> </span>-refresh-only<span class="w">    </span><span class="c1"># updates the state with reality, touching no resources</span>
+terraform<span class="w"> </span>plan<span class="w"> </span>-refresh<span class="o">=</span><span class="nb">false</span><span class="w">    </span><span class="c1"># the opposite: does not query the provider</span>
+</code></pre></div>
+<p>The difference from a normal <code>plan</code> matters: <code>plan</code> mixes two things — what changed outside and what you want to change — into one output that is hard to read. <code>-refresh-only</code> isolates the first question: <em>what changed without my permission?</em> The standalone <code>terraform refresh</code> command is <strong>deprecated</strong> in favour of <code>apply -refresh-only</code>, precisely because the old one updated the state without first showing what it was about to change.</p>
+<p><code>-refresh=false</code> speeds up <code>plan</code> on large configurations at the cost of working with possibly stale data: useful in a fast development loop, a bad idea before an <code>apply</code> in production. And a periodic job running <code>plan -refresh-only</code> and alerting on differences is one of the cheapest and most useful alerts you can add to an IaC-managed environment; see <a href="../../cicd/github_actions/">GitHub Actions</a> for the scaffolding.</p>
+<h2 id="state-in-ci-oidc-instead-of-keys">State in CI: OIDC instead of keys<a class="headerlink" href="#state-in-ci-oidc-instead-of-keys" title="Permanent link">&para;</a></h2>
+<p>Storing a long-lived <code>AWS_ACCESS_KEY_ID</code> in repository secrets means having a permanent credential, with write access to the state and to the infrastructure, in a place many people can read or exfiltrate from a modified workflow. With OIDC, the CI provider issues a short-lived token that the cloud validates against an identity provider: <strong>there is no key to rotate and none to leak</strong>.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">permissions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id-token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write</span><span class="w">        </span><span class="c1"># required to request the OIDC token</span>
+<span class="w">  </span><span class="nt">contents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">plan</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aws-actions/configure-aws-credentials@v4</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">role-to-assume</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arn:aws:iam::123456789012:role/terraform-ci-plan</span>
+<span class="w">          </span><span class="nt">aws-region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-west-1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">terraform init</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">terraform plan -out=tfplan</span>
+</code></pre></div>
+<p>The critical piece is on the cloud side: the role's <em>trust policy</em> must restrict who can assume it — repository, and ideally a specific branch or environment. A role that trusts any repository in the organisation puts the production <code>apply</code> within reach of anyone with workflow permissions. Use <strong>two roles</strong>: <code>terraform-ci-plan</code> with read access to the state, assumable from any PR, and <code>terraform-ci-apply</code> with write access, assumable only from the main branch and with approval. That way an external PR produces a reviewable <code>plan</code> without being able to write the state. Details in <a href="../../cybersecurity/seguridad_iac/">IaC security</a> and <a href="../../cybersecurity/secrets_gitops/">secrets in GitOps</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">The plan file is sensitive too</p>
+<p>A plan file (<code>-out=tfplan</code>) contains the values about to be written, secrets included. Do not publish it as a downloadable artifact and do not paste its full output into a public PR comment.</p>
+</div>
+<h2 id="backup-and-versioning">Backup and versioning<a class="headerlink" href="#backup-and-versioning" title="Permanent link">&para;</a></h2>
+<p>Bucket versioning turns an unfortunate <code>state rm</code> into a five-minute scare: enable it with <code>aws_s3_bucket_versioning</code> and <code>status = "Enabled"</code> on the state bucket. Recovery then means pulling the previous version of the object and pushing it back with <code>terraform state push</code>. That command <strong>overwrites</strong> the remote state: download the current one first, check it, and only then push.</p>
+<ul>
+<li><strong>Snapshot before every manual operation.</strong> <code>terraform state pull &gt; before.tfstate</code> costs one second.</li>
+<li><strong>Block public access</strong> on the bucket explicitly, without trusting the default.</li>
+<li><strong>Object Lock or a retention policy</strong> if the requirement is that nobody, not even an administrator, can delete history.</li>
+<li><strong>Bucket in a different account</strong> from the infrastructure it manages: compromising production should not also take out the record of what was in it. Same reasoning as in <a href="../../backups/strategy_321/">the 3-2-1 strategy</a>.</li>
+</ul>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Issue</th>
+<th>Symptom</th>
 <th>Cause</th>
-<th>Solution</th>
+<th>Fix</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>"Error acquiring the state lock"</td>
-<td>Another process holds lock</td>
-<td>Wait or <code>terraform force-unlock</code></td>
+<td><code>Error acquiring the state lock</code></td>
+<td>Orphaned lock from a dead process</td>
+<td>Check <code>Who</code>/<code>Created</code>, then <code>terraform force-unlock &lt;ID&gt;</code></td>
 </tr>
 <tr>
-<td>"Conflicting backend types"</td>
-<td>Config mismatch</td>
-<td>Reconfigure backend correctly</td>
+<td><code>Backend configuration changed</code></td>
+<td>The <code>backend</code> block changed</td>
+<td><code>init -migrate-state</code> (copy) or <code>-reconfigure</code> (point elsewhere)</td>
 </tr>
 <tr>
-<td>State not updating</td>
-<td>Wrong credentials</td>
-<td>Verify AWS/GCP credentials</td>
+<td><code>plan</code> proposes creating everything after migrating</td>
+<td><code>-reconfigure</code> was used instead of <code>-migrate-state</code></td>
+<td>Restore the old state and redo it with <code>-migrate-state</code></td>
 </tr>
 <tr>
-<td>Drift detected</td>
-<td>Manual changes to infrastructure</td>
-<td>Run <code>terraform import</code> or <code>terraform refresh</code></td>
+<td><code>Resource already exists</code> on apply</td>
+<td>The resource exists but is not in the state</td>
+<td><code>terraform import</code> with the real ID</td>
+</tr>
+<tr>
+<td><code>plan</code> destroys and recreates after a rename</td>
+<td>The address changed without <code>state mv</code></td>
+<td><code>terraform state mv &lt;old&gt; &lt;new&gt;</code></td>
+</tr>
+<tr>
+<td>Changes nobody asked for</td>
+<td>Drift: manual modification outside Terraform</td>
+<td><code>plan -refresh-only</code> to see it and decide</td>
+</tr>
+<tr>
+<td><code>AccessDenied</code> with no mention of KMS</td>
+<td>Missing permissions on the encryption key</td>
+<td>Add <code>kms:Decrypt</code>, <code>kms:Encrypt</code>, <code>kms:GenerateDataKey</code> to the role</td>
+</tr>
+<tr>
+<td>Applied to the wrong environment</td>
+<td>Wrong workspace or <code>-backend-config</code></td>
+<td><code>terraform workspace show</code> before every <code>apply</code></td>
 </tr>
 </tbody>
 </table>
-<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<p>When the state looks inconsistent and you do not know where to start, <code>terraform state pull | jq '.serial, .lineage'</code> gives the clue: <code>serial</code> increases with every write and <code>lineage</code> identifies the state's lineage. Two states with different <code>lineage</code> are <strong>not</strong> versions of the same one, and Terraform will refuse to mix them; that is the sign that at some point a new state was created instead of migrating the existing one.</p>
+<h2 id="best-practices">Best practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://www.terraform.io/language/settings/backends">Terraform Backend Documentation</a></li>
-<li><a href="https://www.terraform.io/language/state/locking">State Locking</a></li>
-<li><a href="https://developer.hashicorp.com/terraform/cloud-docs/state">Remote State Best Practices</a></li>
+<li><strong>Remote backend with locking from day one.</strong> Migrating later works, but the incident that convinces you to migrate is expensive.</li>
+<li><strong>One state per component and environment</strong>, not a monolithic state: it shrinks the blast radius and the <code>plan</code> time.</li>
+<li><strong><code>.gitignore</code> with <code>*.tfstate*</code> and <code>.terraform/</code></strong> before the first commit, not after the first scare.</li>
+<li><strong>Snapshot before any <code>state mv</code>, <code>rm</code> or <code>push</code>.</strong> Those are the three operations with no undo.</li>
+<li><strong>A clean <code>plan</code> as the success criterion</strong> for every migration or import: "No changes", or you are not finished.</li>
+<li><strong>OIDC in CI</strong>, with separate read and write roles.</li>
+<li><strong>Periodic drift detection</strong>, even if it is only a weekly notification.</li>
+</ul>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://developer.hashicorp.com/terraform/language/backend">Backends: the <code>terraform</code> block and configuration</a></li>
+<li><a href="https://developer.hashicorp.com/terraform/language/backend/s3">S3 backend — arguments and locking</a></li>
+<li><a href="https://developer.hashicorp.com/terraform/language/state/locking">State locking</a></li>
+<li><a href="https://developer.hashicorp.com/terraform/cli/commands/state"><code>terraform state</code> commands</a></li>
+<li><a href="https://developer.hashicorp.com/terraform/cli/import">Importing existing infrastructure</a></li>
+<li><a href="../terraform_base/">Terraform &amp; OpenTofu — base</a> · <a href="../../cybersecurity/seguridad_iac/">IaC security</a></li>
+<li><a href="../../cybersecurity/gestion_secretos/">Secrets management</a> · <a href="../../cicd/github_actions/">GitHub Actions</a></li>
 </ul>
 
 

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentación sobre infraestructura: proxmox sdn">
+        <meta name="description" content="Zonas simple, VLAN, QinQ, VXLAN y EVPN en Proxmox VE: VNets y subredes, el ciclo de aplicar la configuración, IPAM, requisitos de MTU en overlays, cortafuegos y diagnóstico de conectividad entre nodos.">
       
       
       
@@ -31,7 +31,7 @@
     
     
       
-        <title>Infraestructura: Proxmox SDN - Frikiteam Docs</title>
+        <title>Proxmox — Redes definidas por software (SDN) - Frikiteam Docs</title>
       
     
     
@@ -71,16 +71,16 @@
 
   
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Infraestructura: Proxmox SDN - Frikiteam Docs" />
-<meta property="og:description" content="Documentación sobre infraestructura: proxmox sdn" />
+<meta property="og:title" content="Proxmox — Redes definidas por software (SDN) - Frikiteam Docs" />
+<meta property="og:description" content="Zonas simple, VLAN, QinQ, VXLAN y EVPN en Proxmox VE: VNets y subredes, el ciclo de aplicar la configuración, IPAM, requisitos de MTU en overlays, cortafuegos y diagnóstico de conectividad entre nodos." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/doc/proxmox/sdn.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:url" content="https://docs.frikiteam.es/doc/proxmox/sdn/" />
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="Infraestructura: Proxmox SDN - Frikiteam Docs" />
-<meta property="twitter:description" content="Documentación sobre infraestructura: proxmox sdn" />
+<meta property="twitter:title" content="Proxmox — Redes definidas por software (SDN) - Frikiteam Docs" />
+<meta property="twitter:description" content="Zonas simple, VLAN, QinQ, VXLAN y EVPN en Proxmox VE: VNets y subredes, el ciclo de aplicar la configuración, IPAM, requisitos de MTU en overlays, cortafuegos y diagnóstico de conectividad entre nodos." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/doc/proxmox/sdn.png" />
 </head>
   
@@ -101,7 +101,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#infraestructura-proxmox-sdn" class="md-skip">
+        <a href="#proxmox-redes-definidas-por-software-sdn" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -136,7 +136,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Infraestructura: Proxmox SDN
+              Proxmox — Redes definidas por software (SDN)
             
           </span>
         </div>
@@ -508,6 +508,25 @@
     
   
   Blog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
 
       </a>
     </li>
@@ -914,10 +933,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#resumen" class="md-nav__link">
+  <a href="#el-problema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Resumen
+        El problema
       
     </span>
   </a>
@@ -925,10 +944,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prerrequisitos" class="md-nav__link">
+  <a href="#tabla-de-contenidos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerrequisitos
+        📋 Tabla de Contenidos
       
     </span>
   </a>
@@ -936,10 +955,142 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuracion-de-zona-vxlan" class="md-nav__link">
+  <a href="#que-aporta-el-sdn-frente-a-un-bridge-de-linux" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuración de Zona VXLAN
+        Qué aporta el SDN frente a un bridge de Linux
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tipos-de-zona" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipos de zona
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vnets-y-subredes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VNets y subredes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-ciclo-de-aplicar-la-configuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El ciclo de aplicar la configuración
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ipam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IPAM
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo-zona-vlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo: zona VLAN
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo-zona-vxlan-entre-nodos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo: zona VXLAN entre nodos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mtu-en-redes-overlay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MTU en redes overlay
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cortafuegos-y-sdn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cortafuegos y SDN
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evpn-y-enrutado-entre-vnets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EVPN y enrutado entre VNets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostico-de-conectividad-entre-nodos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnóstico de conectividad entre nodos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas prácticas
       
     </span>
   </a>
@@ -7105,6 +7256,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -8849,6 +9007,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -8981,7 +9166,7 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--orange">Avanzado</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 1 min</span> <span class="md-badge md-badge--primary">Categoría: Virtualización</span> <span class="md-badge md-badge--green">Publicado</span> <span class="md-badge md-badge--secondary" title="Prerrequisitos: ["Conocimientos básicos de DevOps"]">💡 Prerrequisitos</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--orange">Avanzado</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 25 min</span> <span class="md-badge md-badge--primary">Categoría: Virtualización</span> <span class="md-badge md-badge--green">Publicado</span></div>
                 
                   
 
@@ -8991,7 +9176,21 @@
       
       
       
-        <span class="md-tag">documentation</span>
+        <a href="../../../tags/#tag:networking" class="md-tag">networking</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:proxmox" class="md-tag">proxmox</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:virtualization" class="md-tag">virtualization</a>
       
     
   </nav>
@@ -9006,25 +9205,409 @@
   
 
 
-<h1 id="infraestructura-proxmox-sdn">Infraestructura: Proxmox SDN<a class="headerlink" href="#infraestructura-proxmox-sdn" title="Permanent link">&para;</a></h1>
-<p>Configuración avanzada de redes definidas por software en Proxmox VE.</p>
-<h2 id="resumen">Resumen<a class="headerlink" href="#resumen" title="Permanent link">&para;</a></h2>
-<p>Implementación de VXLAN y EVPN para segmentación de red multi-tenant.</p>
-<h2 id="prerrequisitos">Prerrequisitos<a class="headerlink" href="#prerrequisitos" title="Permanent link">&para;</a></h2>
+<h1 id="proxmox-redes-definidas-por-software-sdn">Proxmox — Redes definidas por software (SDN)<a class="headerlink" href="#proxmox-redes-definidas-por-software-sdn" title="Permanent link">&para;</a></h1>
+<h2 id="el-problema">El problema<a class="headerlink" href="#el-problema" title="Permanent link">&para;</a></h2>
+<p>Un bridge de Linux en Proxmox vive en <code>/etc/network/interfaces</code>, que es un fichero <strong>local de cada nodo</strong>. Añadir un segmento nuevo a un cluster de cinco máquinas significa editar cinco ficheros a mano y que los cinco queden idénticos. El día que uno se escribe con la VLAN 130 en vez de la 30, la VM funciona perfectamente… hasta que migra a ese nodo y se queda sin red, normalmente un viernes.</p>
+<p>El SDN mueve esa definición al sistema de ficheros del cluster: la declaras una vez, Proxmox la replica y genera la configuración de red en todos los nodos. No sustituye al switch físico ni hace la red más rápida; lo que hace es que un segmento sea un objeto del cluster en lugar de un acuerdo tácito entre cinco ficheros de texto.</p>
+<div class="admonition note">
+<p class="admonition-title">Comprueba tu versión antes de seguir</p>
+<p>El SDN nació como funcionalidad experimental y maduró a lo largo de varias versiones mayores: cambiaron el paquete que lo provee, los tipos de zona disponibles y la existencia de DHCP integrado. Mira qué tienes con <code>pveversion -v | grep -E 'pve-manager|libpve-network'</code> antes de copiar nada de aquí. Si el menú <strong>Datacenter → SDN</strong> no aparece o falta <code>libpve-network-perl</code>, tu versión es anterior a la integración y conviene actualizar en lugar de forzarlo a mano. Esta página describe el comportamiento estable y ampliamente documentado; los detalles de tu versión concreta, en la documentación oficial enlazada al final.</p>
+</div>
+<h2 id="tabla-de-contenidos">📋 Tabla de Contenidos<a class="headerlink" href="#tabla-de-contenidos" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Proxmox VE 8.1 o superior.</li>
-<li>Paquete <code>libpve-network-perl</code> instalado.</li>
-<li>Soporte para MTU jumbo (9000) en el switch físico (recomendado).</li>
+<li><a href="#que-aporta-el-sdn-frente-a-un-bridge-de-linux">Qué aporta el SDN frente a un bridge de Linux</a></li>
+<li><a href="#tipos-de-zona">Tipos de zona</a></li>
+<li><a href="#vnets-y-subredes">VNets y subredes</a></li>
+<li><a href="#el-ciclo-de-aplicar-la-configuracion">El ciclo de aplicar la configuración</a></li>
+<li><a href="#ipam">IPAM</a></li>
+<li><a href="#ejemplo-zona-vlan">Ejemplo: zona VLAN</a></li>
+<li><a href="#ejemplo-zona-vxlan-entre-nodos">Ejemplo: zona VXLAN entre nodos</a></li>
+<li><a href="#mtu-en-redes-overlay">MTU en redes overlay</a></li>
+<li><a href="#cortafuegos-y-sdn">Cortafuegos y SDN</a></li>
+<li><a href="#evpn-y-enrutado-entre-vnets">EVPN y enrutado entre VNets</a></li>
+<li><a href="#diagnostico-de-conectividad-entre-nodos">Diagnóstico de conectividad entre nodos</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#buenas-practicas">Buenas prácticas</a></li>
+<li><a href="#referencias">Referencias</a></li>
 </ul>
-<h2 id="configuracion-de-zona-vxlan">Configuración de Zona VXLAN<a class="headerlink" href="#configuracion-de-zona-vxlan" title="Permanent link">&para;</a></h2>
+<h2 id="que-aporta-el-sdn-frente-a-un-bridge-de-linux">Qué aporta el SDN frente a un bridge de Linux<a class="headerlink" href="#que-aporta-el-sdn-frente-a-un-bridge-de-linux" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Bridge clásico</th>
+<th>SDN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dónde vive la definición</td>
+<td><code>/etc/network/interfaces</code>, por nodo</td>
+<td><code>/etc/pve/sdn/</code>, replicado en el cluster</td>
+</tr>
+<tr>
+<td>Alta de un segmento nuevo</td>
+<td>Editar cada nodo</td>
+<td>Declararlo una vez y aplicar</td>
+</tr>
+<tr>
+<td>Coherencia entre nodos</td>
+<td>Responsabilidad tuya</td>
+<td>Garantizada por la configuración generada</td>
+</tr>
+<tr>
+<td>Segmento que cruza nodos</td>
+<td>Depende del switch (VLAN en el trunk)</td>
+<td>Posible sin tocar el switch (VXLAN)</td>
+</tr>
+<tr>
+<td>Direccionamiento</td>
+<td>Externo a Proxmox</td>
+<td>Subredes e IPAM dentro del cluster</td>
+</tr>
+<tr>
+<td>Vuelta atrás</td>
+<td>Restaurar el fichero y reiniciar la red</td>
+<td>Volver a la configuración anterior y aplicar</td>
+</tr>
+</tbody>
+</table>
+<p>Lo que <strong>no</strong> aporta: rendimiento. Un bridge plano sobre una VLAN del switch será siempre el camino más corto. El SDN añade capas —encapsulado en VXLAN, un demonio de enrutado en EVPN— y cada capa es algo más que puede fallar; úsalo cuando el problema sea de gestión o de topología, no para ir más rápido. La jerarquía es corta: una <strong>zona</strong> define el transporte, contiene <strong>VNets</strong> (los bridges a los que enganchas las VMs) y cada VNet puede llevar <strong>subredes</strong>, cuyo direccionamiento gestiona el <strong>IPAM</strong>. Solo EVPN añade una pieza más, el <strong>controlador</strong>.</p>
+<h2 id="tipos-de-zona">Tipos de zona<a class="headerlink" href="#tipos-de-zona" title="Permanent link">&para;</a></h2>
+<p>La zona define <strong>cómo</strong> se transporta el tráfico. Es la decisión importante: cambiarla después implica rehacer las VNets.</p>
+<table>
+<thead>
+<tr>
+<th>Zona</th>
+<th>Qué hace</th>
+<th>Cuándo usarla</th>
+<th>Lo que te va a costar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Simple</strong></td>
+<td>Bridge aislado y local a cada nodo, con enrutado y NAT desde el propio host</td>
+<td>Laboratorios, redes internas de un único nodo, entornos de prueba</td>
+<td>No hay capa 2 entre nodos: dos VMs en nodos distintos no se ven</td>
+</tr>
+<tr>
+<td><strong>VLAN</strong></td>
+<td>Etiqueta 802.1Q sobre un bridge VLAN-aware</td>
+<td>Ya tienes VLANs en el switch y quieres gestionarlas desde Proxmox</td>
+<td>El trunk del switch debe llevar cada VLAN; sin eso no hay magia</td>
+</tr>
+<tr>
+<td><strong>QinQ</strong></td>
+<td>Doble etiqueta 802.1ad: una de servicio y la del cliente</td>
+<td>Multi-tenant en el que cada inquilino trae su propio plan de VLANs</td>
+<td>Soporte real en switch y NIC, y 4 bytes más de cabecera</td>
+</tr>
+<tr>
+<td><strong>VXLAN</strong></td>
+<td>Túnel de capa 2 sobre UDP entre los nodos</td>
+<td>Un segmento que cruce nodos sin tocar la red física</td>
+<td>MTU (ver más abajo) y tráfico de difusión replicado a cada peer</td>
+</tr>
+<tr>
+<td><strong>EVPN</strong></td>
+<td>VXLAN con BGP como plano de control, más enrutado L3 entre VNets</td>
+<td>Varias subredes que deben enrutarse entre sí y salir al exterior</td>
+<td>FRR, un ASN, nodos de salida y depuración con <code>vtysh</code></td>
+</tr>
+</tbody>
+</table>
+<p>Regla de decisión rápida: si el switch ya sabe hacerlo, <strong>VLAN</strong>. Si necesitas un segmento que la red física no conoce, <strong>VXLAN</strong>. Si además necesitas que varias de esas redes se enruten entre sí con una puerta de enlace que sobreviva a las migraciones, <strong>EVPN</strong>. <strong>Simple</strong> para el portátil y el laboratorio. <strong>QinQ</strong> solo si de verdad tienes el problema que resuelve.</p>
+<h2 id="vnets-y-subredes">VNets y subredes<a class="headerlink" href="#vnets-y-subredes" title="Permanent link">&para;</a></h2>
+<p>Una <strong>VNet</strong> es el bridge al que enganchas la VM. Pertenece a una zona y hereda su transporte; en zonas simple no es más que un bridge:</p>
+<ul>
+<li>En zonas VLAN y QinQ, la VNet lleva la <strong>etiqueta</strong> (<code>tag</code>).</li>
+<li>En zonas VXLAN y EVPN, la VNet lleva el <strong>VNI</strong>, el identificador del segmento dentro del túnel.</li>
+</ul>
+<p>Una <strong>subred</strong> es un CIDR asociado a una VNet, opcionalmente con puerta de enlace, SNAT y rangos para DHCP. Aquí conviene ser honesto sobre qué hace realmente:</p>
+<div class="admonition warning">
+<p class="admonition-title">Una subred no crea la puerta de enlace por arte de magia</p>
+<p>En zonas <strong>simple</strong> y <strong>EVPN</strong>, Proxmox sí levanta la puerta de enlace declarada en la subred (en EVPN, además, como <em>anycast</em> en todos los nodos). En zonas <strong>VLAN</strong>, <strong>QinQ</strong> y <strong>VXLAN</strong> el enrutado sigue viviendo fuera: en tu router o cortafuegos. Ahí la subred sirve para IPAM y documentación, no para dar salida. Declarar <code>10.100.0.1</code> como gateway en una zona VLAN no hace que nadie responda a esa IP.</p>
+</div>
+<p>Toda la configuración es texto plano bajo <code>/etc/pve/sdn/</code> —<code>zones.cfg</code>, <code>vnets.cfg</code>, <code>subnets.cfg</code>, <code>controllers.cfg</code>, <code>ipams.cfg</code> y <code>dns.cfg</code>— replicado por el cluster. Al ser ficheros de <code>/etc/pve</code>, entran en el backup de configuración y se pueden versionar con <a href="../../ansible/ansible_base/">Ansible</a> igual que cualquier otra cosa.</p>
+<h2 id="el-ciclo-de-aplicar-la-configuracion">El ciclo de aplicar la configuración<a class="headerlink" href="#el-ciclo-de-aplicar-la-configuracion" title="Permanent link">&para;</a></h2>
+<p>Este es el punto en el que se pierde más tiempo, así que va primero: <strong>el SDN tiene dos estados</strong>. Lo que editas es la configuración <em>pendiente</em>; lo que está funcionando es la configuración <em>aplicada</em>. Nada de lo que toques surte efecto hasta que pulsas <strong>Apply</strong>.</p>
+<pre class="mermaid"><code>flowchart LR
+    A["Editas zona / VNet / subred"] --&gt; B["/etc/pve/sdn/*.cfg&lt;br/&gt;&lt;i&gt;pendiente&lt;/i&gt;"]
+    B --&gt;|Apply| C["/etc/pve/sdn/.running-config"]
+    C --&gt; D["/etc/network/interfaces.d/sdn&lt;br/&gt;en cada nodo"]
+    D --&gt; E[Interfaces recargadas]</code></pre>
+<p>Aplicar hace tres cosas en cada nodo: escribe <code>/etc/network/interfaces.d/sdn</code>, recarga la red y deja constancia en el registro de tareas. Desde la interfaz es <strong>Datacenter → SDN → Apply</strong>; desde la línea de comandos, y comprobando el resultado:</p>
+<div class="highlight"><pre><span></span><code>pvesh<span class="w"> </span>get<span class="w"> </span>/cluster/sdn<span class="w">          </span><span class="c1"># la configuración tal y como está funcionando</span>
+pvesh<span class="w"> </span><span class="nb">set</span><span class="w"> </span>/cluster/sdn<span class="w">          </span><span class="c1"># aplicarla en todo el cluster</span>
+
+cat<span class="w"> </span>/etc/network/interfaces.d/sdn
+ip<span class="w"> </span>-br<span class="w"> </span>link<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'vnet|vxlan|vrf'</span>
+</code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Si el fichero generado está vacío o no existe</p>
+<p>Significa que la configuración nunca se aplicó en ese nodo, no que la zona esté mal. Causas habituales: el cluster estaba sin quórum en ese momento (<code>/etc/pve</code> en solo lectura), el nodo estaba apagado durante el <em>apply</em>, o falta <code>ifupdown2</code>, que es lo que permite recargar la red sin reiniciar. Recupera el quórum, comprueba <code>pvecm status</code> y vuelve a aplicar.</p>
+</div>
+<h2 id="ipam">IPAM<a class="headerlink" href="#ipam" title="Permanent link">&para;</a></h2>
+<p>El IPAM lleva la cuenta de qué IP está asignada a qué. Proxmox trae uno interno y sabe hablar con dos externos:</p>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Dónde vive</th>
+<th>Cuándo elegirlo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PVE</strong></td>
+<td>Dentro del cluster, sin dependencias</td>
+<td>Por defecto, y suficiente si Proxmox es el único que reparte direcciones</td>
+</tr>
+<tr>
+<td><strong>phpIPAM</strong></td>
+<td>Servidor externo, vía API</td>
+<td>Ya lo usas como fuente de verdad para toda la red, no solo la virtual</td>
+</tr>
+<tr>
+<td><strong>NetBox</strong></td>
+<td>Servidor externo, vía API</td>
+<td>Igual, con inventario y documentación de red integrados</td>
+</tr>
+</tbody>
+</table>
+<p>Con un backend externo, Proxmox <strong>consulta y reserva</strong> en él en lugar de decidir por su cuenta: el objetivo es que no haya dos sitios repartiendo las mismas IPs. Requiere un token de API con permisos de escritura y conectividad desde los nodos; si la API no responde, las operaciones que necesiten una dirección fallan.</p>
+<p>En zonas <strong>simple</strong> puede además ofrecer DHCP a las VMs a partir de los rangos de la subred, apoyándose en <code>dnsmasq</code>. Es la forma cómoda de tener un laboratorio autocontenido. Comprueba en la documentación de tu versión qué tipos de zona lo soportan, porque es de las partes que más han cambiado.</p>
+<h2 id="ejemplo-zona-vlan">Ejemplo: zona VLAN<a class="headerlink" href="#ejemplo-zona-vlan" title="Permanent link">&para;</a></h2>
+<p>El escenario más común y el más aburrido, que es un elogio. Requisito previo: el bridge físico debe ser <strong>VLAN-aware</strong>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># /etc/network/interfaces — en cada nodo</span>
+auto<span class="w"> </span>vmbr0
+iface<span class="w"> </span>vmbr0<span class="w"> </span>inet<span class="w"> </span>static
+<span class="w">    </span>address<span class="w"> </span><span class="m">192</span>.168.1.10/24
+<span class="w">    </span>gateway<span class="w"> </span><span class="m">192</span>.168.1.1
+<span class="w">    </span>bridge-ports<span class="w"> </span>eno1
+<span class="w">    </span>bridge-stp<span class="w"> </span>off
+<span class="w">    </span>bridge-fd<span class="w"> </span><span class="m">0</span>
+<span class="w">    </span>bridge-vlan-aware<span class="w"> </span>yes
+<span class="w">    </span>bridge-vids<span class="w"> </span><span class="m">2</span>-4094
+</code></pre></div>
+<p>Después, la zona y la VNet. Se pueden crear desde <strong>Datacenter → SDN</strong>; así queda la configuración resultante:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># /etc/pve/sdn/zones.cfg</span>
+<span class="na">vlan</span><span class="o">:</span><span class="w"> </span><span class="s">lan</span>
+<span class="w">    </span><span class="na">bridge vmbr0</span>
+<span class="w">    </span><span class="na">ipam pve</span>
+
+<span class="c1"># /etc/pve/sdn/vnets.cfg</span>
+<span class="na">vnet</span><span class="o">:</span><span class="w"> </span><span class="s">srv30</span>
+<span class="w">    </span><span class="na">zone lan</span>
+<span class="w">    </span><span class="na">tag 30</span>
+<span class="w">    </span><span class="na">alias Servidores internos</span>
+</code></pre></div>
+<p>Aplicar y enganchar una VM a la VNet, que a partir de ahí se usa como cualquier bridge:</p>
+<div class="highlight"><pre><span></span><code>pvesh<span class="w"> </span><span class="nb">set</span><span class="w"> </span>/cluster/sdn
+qm<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>--net0<span class="w"> </span>virtio,bridge<span class="o">=</span>srv30
+</code></pre></div>
+<p>La VM no ve ninguna etiqueta: envía tramas sin marcar y el bridge le pone la 30 al salir. Si no hay conectividad, el sospechoso número uno es el <strong>trunk del switch físico</strong>, que tiene que llevar la VLAN 30 hasta el puerto de ese nodo. El SDN no configura tu switch.</p>
+<h2 id="ejemplo-zona-vxlan-entre-nodos">Ejemplo: zona VXLAN entre nodos<a class="headerlink" href="#ejemplo-zona-vxlan-entre-nodos" title="Permanent link">&para;</a></h2>
+<p>Aquí el segmento existe aunque la red física no sepa nada de él. Tres nodos con IPs <code>10.10.10.1</code>, <code>.2</code> y <code>.3</code> en una red dedicada al tráfico de VMs:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># /etc/pve/sdn/zones.cfg</span>
+<span class="na">vxlan</span><span class="o">:</span><span class="w"> </span><span class="s">overlay</span>
+<span class="w">    </span><span class="na">peers 10.10.10.1,10.10.10.2,10.10.10.3</span>
+<span class="w">    </span><span class="na">ipam pve</span>
+<span class="w">    </span><span class="na">mtu 1450</span>
+
+<span class="c1"># /etc/pve/sdn/vnets.cfg</span>
+<span class="na">vnet</span><span class="o">:</span><span class="w"> </span><span class="s">app100</span>
+<span class="w">    </span><span class="na">zone overlay</span>
+<span class="w">    </span><span class="na">tag 100</span>
+<span class="w">    </span><span class="na">alias Red interna de aplicaciones</span>
+</code></pre></div>
+<p>Tres detalles que deciden si esto funciona:</p>
 <ol>
-<li>Nodo &gt; SDN &gt; Zones &gt; Add &gt; VXLAN.</li>
-<li>ID: <code>vnnet</code>.</li>
-<li>Peers: IPs de los nodos del cluster.</li>
+<li><strong>Todos los nodos van en <code>peers</code>, incluido el propio.</strong> La lista es idéntica en todo el cluster; Proxmox descarta su propia dirección al generar la configuración.</li>
+<li><strong>Las IPs de <code>peers</code> eligen por dónde va el tráfico.</strong> Si pones las de gestión, el tráfico de las VMs compartirá enlace con corosync, que es exactamente lo que no quieres. Usa las de la red dedicada.</li>
+<li><strong>El <code>tag</code> es el VNI</strong>, no una VLAN. Es el identificador del segmento dentro del túnel y debe ser único en la zona.</li>
 </ol>
+<p>Entre nodos hace falta conectividad IP y el puerto <strong>UDP 4789</strong> abierto en ambos sentidos. Sin plano de control, la difusión y el tráfico a destinos desconocidos se replican por unicast a cada peer: con muchos nodos, el coste crece rápido y ahí es donde EVPN empieza a compensar.</p>
+<h2 id="mtu-en-redes-overlay">MTU en redes overlay<a class="headerlink" href="#mtu-en-redes-overlay" title="Permanent link">&para;</a></h2>
+<p>Si algo va a fallar en un overlay, es esto. Encapsular en VXLAN añade <strong>50 bytes</strong> a cada trama sobre un underlay IPv4 —cabecera Ethernet exterior (14), IP (20), UDP (8) y VXLAN (8)—, y <strong>70 bytes</strong> si el underlay es IPv6. Una trama de invitado de 1500 bytes sale al cable como un paquete de 1550.</p>
+<p>Si el switch físico está en 1500, ese paquete no cabe. Y no se fragmenta: el paquete exterior lleva el bit <em>don't fragment</em>, así que <strong>se descarta en silencio</strong>. El síntoma no es "no hay red", que sería fácil:</p>
+<ul>
+<li>El <code>ping</code> y el <em>handshake</em> de TCP funcionan: son paquetes pequeños.</li>
+<li><code>ssh</code> conecta, y se cuelga en cuanto se transfiere algo de volumen.</li>
+<li>Una página web carga a medias; una copia de ficheros se queda a cero.</li>
+<li>El descubrimiento de MTU de camino (PMTUD) no te rescata, porque el ICMP que avisa se genera en el underlay y muchos cortafuegos lo filtran.</li>
+</ul>
+<p>Ese cuadro —"va lento y a veces falla"— es casi siempre MTU. Las dos salidas:</p>
+<table>
+<thead>
+<tr>
+<th>Underlay</th>
+<th>MTU máximo de la VNet</th>
+<th>Qué hacer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1500 (estándar)</td>
+<td>1450</td>
+<td>Fijar 1450 en la zona <strong>y</strong> en los invitados</td>
+</tr>
+<tr>
+<td>9000 (jumbo)</td>
+<td>8950</td>
+<td>Jumbo de extremo a extremo y dejar la MTU por defecto</td>
+</tr>
+</tbody>
+</table>
+<p>La opción buena es <strong>jumbo frames en el underlay</strong>: NICs, bonds, bridges y puertos del switch a 9000, y la VNet queda en 1500 sin que nadie note nada. La opción de emergencia es bajar la MTU del invitado a 1450, que funciona sobre un underlay de 1500 pero exige que los invitados hagan caso: por DHCP (opción 26) o a mano en cada VM. Un solo invitado con 1500 reproduce el problema entero.</p>
+<p>Comprueba el camino real con un paquete que no se pueda fragmentar, antes de dar la configuración por buena:</p>
+<div class="highlight"><pre><span></span><code>ping<span class="w"> </span>-M<span class="w"> </span><span class="k">do</span><span class="w"> </span>-s<span class="w"> </span><span class="m">8972</span><span class="w"> </span><span class="m">10</span>.10.10.2<span class="w">   </span><span class="c1"># 9000 - 20 (IP) - 8 (ICMP): si responde, hay jumbo de verdad</span>
+ping<span class="w"> </span>-M<span class="w"> </span><span class="k">do</span><span class="w"> </span>-s<span class="w"> </span><span class="m">1472</span><span class="w"> </span><span class="m">10</span>.10.10.2<span class="w">   </span><span class="c1"># 1500 - 28: debe responder siempre</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">La MTU es del camino entero, no de la interfaz</p>
+<p>Un solo eslabón a 1500 —un puerto de switch olvidado, un enlace entre armarios, un router intermedio, una interfaz del bond— convierte todo el trayecto en 1500. La prueba con <code>ping -M do</code> es la única forma fiable de saberlo: <code>ip link</code> te dice lo que has configurado, no lo que el cable transporta.</p>
+</div>
+<h2 id="cortafuegos-y-sdn">Cortafuegos y SDN<a class="headerlink" href="#cortafuegos-y-sdn" title="Permanent link">&para;</a></h2>
+<p>El cortafuegos de Proxmox actúa sobre la interfaz de la VM, y le da igual si el bridge lo creó el SDN o <code>/etc/network/interfaces</code>. Lo que cambia es lo que hay que dejar pasar <strong>entre los nodos</strong>:</p>
+<ul>
+<li><strong>UDP 4789</strong> para el tráfico VXLAN encapsulado.</li>
+<li><strong>TCP 179</strong> entre los nodos si usas EVPN, para las sesiones BGP.</li>
+<li>Los puertos habituales del cluster, que ya deberían estar contemplados.</li>
+</ul>
+<p>El cortafuegos ve el flujo UDP exterior, no las tramas que van dentro. Filtrar tráfico entre dos VMs del mismo segmento se hace en la interfaz de la VM, nunca a nivel de nodo.</p>
+<div class="admonition danger">
+<p class="admonition-title">Los tres interruptores</p>
+<p>El cortafuegos se habilita en <strong>Datacenter</strong>, en el <strong>nodo</strong> y en la <strong>VM</strong>, y los tres tienen que estar activos. Con el de Datacenter apagado no se aplica nada, por muchas reglas que tengas escritas en la VM. Es el motivo más frecuente de "las reglas no hacen nada", y también de dejarse un segmento abierto creyendo que está cerrado.</p>
+</div>
+<p>El aislamiento entre VNets de una misma zona es de capa 2: lo dan la etiqueta o el VNI, no las reglas. Pero en cuanto enrutas entre ellas —con EVPN o con un router externo— ese aislamiento desaparece y hace falta política explícita. Los <em>IPSets</em> y los grupos de seguridad a nivel de Datacenter evitan repetir la misma regla en veinte máquinas; ver <a href="../proxmox_base/#seguridad">seguridad en Proxmox</a>.</p>
+<h2 id="evpn-y-enrutado-entre-vnets">EVPN y enrutado entre VNets<a class="headerlink" href="#evpn-y-enrutado-entre-vnets" title="Permanent link">&para;</a></h2>
+<p>EVPN añade a VXLAN un plano de control basado en BGP: los nodos se anuncian entre sí qué MAC e IP tienen detrás, en lugar de inundar la red para averiguarlo. Necesita un <strong>controlador</strong> además de la zona.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># /etc/pve/sdn/controllers.cfg</span>
+<span class="na">evpn</span><span class="o">:</span><span class="w"> </span><span class="s">ctrl1</span>
+<span class="w">    </span><span class="na">asn 65000</span>
+<span class="w">    </span><span class="na">peers 10.10.10.1,10.10.10.2,10.10.10.3</span>
+
+<span class="c1"># /etc/pve/sdn/zones.cfg</span>
+<span class="na">evpn</span><span class="o">:</span><span class="w"> </span><span class="s">tenants</span>
+<span class="w">    </span><span class="na">controller ctrl1</span>
+<span class="w">    </span><span class="na">vrf-vxlan 10000</span>
+<span class="w">    </span><span class="na">exit-nodes pve1,pve2</span>
+<span class="w">    </span><span class="na">ipam pve</span>
+<span class="w">    </span><span class="na">mtu 1450</span>
+</code></pre></div>
+<p>Cada VNet de la zona lleva su subred con puerta de enlace, y esa puerta de enlace se levanta como <strong>anycast</strong>: la misma IP y la misma MAC en todos los nodos, de modo que una VM que migra sigue hablando con su gateway sin enterarse de nada. Ese es el motivo real para usar EVPN, más que el ahorro de inundación. Los <strong>exit nodes</strong> son los nodos por los que el tráfico sale al exterior: declara al menos dos si la salida importa, porque con uno solo apagarlo para mantenimiento deja sin Internet a toda la zona.</p>
+<p>Por debajo hay FRR (<code>frr.service</code>), y la depuración no pasa por la interfaz web:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>status<span class="w"> </span>frr
+vtysh<span class="w"> </span>-c<span class="w"> </span><span class="s1">'show bgp l2vpn evpn summary'</span><span class="w">   </span><span class="c1"># sesiones BGP entre nodos</span>
+vtysh<span class="w"> </span>-c<span class="w"> </span><span class="s1">'show evpn vni'</span><span class="w">                 </span><span class="c1"># VNIs conocidos y su VRF</span>
+vtysh<span class="w"> </span>-c<span class="w"> </span><span class="s1">'show evpn mac vni all'</span><span class="w">         </span><span class="c1"># MACs aprendidas por el plano de control</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">EVPN es la parte cara</p>
+<p>Da por hecho un underlay IP estable entre nodos, sesiones BGP funcionando y alguien que sepa leer una tabla de rutas cuando algo falle. Si lo único que necesitas es un segmento que cruce nodos, una zona <strong>VXLAN</strong> hace ese trabajo con una fracción de las piezas móviles. EVPN empieza a compensar cuando hay varias subredes que enrutar entre sí, muchos nodos, o la puerta de enlace anycast es un requisito.</p>
+</div>
+<h2 id="diagnostico-de-conectividad-entre-nodos">Diagnóstico de conectividad entre nodos<a class="headerlink" href="#diagnostico-de-conectividad-entre-nodos" title="Permanent link">&para;</a></h2>
+<p>En orden, de abajo hacia arriba. La mayoría de los problemas se cierran en los dos primeros pasos:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. ¿Se ven los nodos, y aguanta la MTU del camino?</span>
+ping<span class="w"> </span>-c3<span class="w"> </span><span class="m">10</span>.10.10.2
+ping<span class="w"> </span>-M<span class="w"> </span><span class="k">do</span><span class="w"> </span>-s<span class="w"> </span><span class="m">8972</span><span class="w"> </span><span class="m">10</span>.10.10.2
+
+<span class="c1"># 2. ¿Está aplicada la configuración en ESTE nodo?</span>
+cat<span class="w"> </span>/etc/pve/sdn/.running-config
+cat<span class="w"> </span>/etc/network/interfaces.d/sdn
+
+<span class="c1"># 3. ¿Existen las interfaces y con qué parámetros?</span>
+ip<span class="w"> </span>-br<span class="w"> </span>link<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'vnet|vxlan'</span>
+ip<span class="w"> </span>-d<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span>vxlan_app100<span class="w">     </span><span class="c1"># VNI, puerto UDP, MTU y peers reales</span>
+
+<span class="c1"># 4. ¿Qué sabe el túnel, qué sale por el cable y qué dijo el último apply?</span>
+bridge<span class="w"> </span>fdb<span class="w"> </span>show<span class="w"> </span>dev<span class="w"> </span>vxlan_app100
+bridge<span class="w"> </span>vlan<span class="w"> </span>show<span class="w">                 </span><span class="c1"># en zonas VLAN, etiquetas por puerto</span>
+tcpdump<span class="w"> </span>-ni<span class="w"> </span>eno1<span class="w"> </span>udp<span class="w"> </span>port<span class="w"> </span><span class="m">4789</span>
+journalctl<span class="w"> </span>-u<span class="w"> </span>pvedaemon<span class="w"> </span>-u<span class="w"> </span>pveproxy<span class="w"> </span>--since<span class="w"> </span><span class="s1">'30 min ago'</span>
+</code></pre></div>
+<p>Si <code>tcpdump</code> muestra paquetes saliendo pero el destino no ve nada, el problema está en la red física o en un cortafuegos intermedio, no en Proxmox. Si no sale nada, la interfaz no está encapsulando: vuelve al paso 2.</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa</th>
+<th>Arreglo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Los cambios no tienen ningún efecto</td>
+<td>Configuración pendiente sin aplicar</td>
+<td><strong>Apply</strong>, o <code>pvesh set /cluster/sdn</code></td>
+</tr>
+<tr>
+<td>Un nodo se queda sin las interfaces</td>
+<td>Estaba apagado o sin quórum al aplicar</td>
+<td><code>pvecm status</code> y volver a aplicar</td>
+</tr>
+<tr>
+<td>Ping bien, transferencias colgadas</td>
+<td>MTU del underlay insuficiente</td>
+<td>Jumbo frames, o MTU 1450 en zona e invitados</td>
+</tr>
+<tr>
+<td>Dos VMs no se ven en nodos distintos</td>
+<td>Zona <strong>simple</strong>: no cruza nodos</td>
+<td>Cambiar a VLAN o VXLAN</td>
+</tr>
+<tr>
+<td>VLAN sin conectividad fuera del nodo</td>
+<td>Bridge sin <code>bridge-vlan-aware</code>, o VLAN ausente del trunk</td>
+<td>Corregir el bridge y el puerto del switch</td>
+</tr>
+<tr>
+<td>VXLAN sin tráfico entre nodos</td>
+<td>UDP 4789 bloqueado o <code>peers</code> mal</td>
+<td>Abrir el puerto y revisar las IPs de <code>peers</code></td>
+</tr>
+<tr>
+<td>Nadie responde en la IP de la puerta de enlace</td>
+<td>Zona VLAN/VXLAN: el gateway vive fuera</td>
+<td>Configurarlo en el router, o usar EVPN</td>
+</tr>
+<tr>
+<td>EVPN sin rutas entre VNets</td>
+<td>Sesiones BGP caídas</td>
+<td><code>vtysh -c 'show bgp l2vpn evpn summary'</code></td>
+</tr>
+<tr>
+<td>Las VNets pierden la salida exterior</td>
+<td>Único exit node apagado</td>
+<td>Declarar al menos dos nodos de salida</td>
+</tr>
+<tr>
+<td>Las reglas de cortafuegos no se aplican</td>
+<td>Falta el interruptor de Datacenter o de nodo</td>
+<td>Habilitarlo en los tres niveles</td>
+</tr>
+</tbody>
+</table>
+<h2 id="buenas-practicas">Buenas prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Empieza por la zona más simple que resuelva el problema.</strong> Si la VLAN llega, VLAN. Cada capa de encapsulado es una fuente de fallos más y una capa menos de visibilidad para <code>tcpdump</code>.</li>
+<li><strong>Red dedicada para el tráfico del overlay.</strong> Compartir enlace con corosync convierte una copia de 64 GB en una pérdida de quórum; ver <a href="../migration_guide/">migración</a>.</li>
+<li><strong>Decide la MTU antes de crear nada</strong> y verifícala con <code>ping -M do</code> de extremo a extremo. Cambiarla después obliga a tocar todos los invitados.</li>
+<li><strong>Aplica con todos los nodos encendidos.</strong> Un nodo ausente durante el <em>apply</em> queda con una configuración distinta al resto, y el fallo aparece semanas después al migrar una VM.</li>
+<li><strong>Nombres de VNet que digan algo.</strong> <code>srv30</code> o <code>dmz</code> sobreviven a un incidente a las tres de la mañana; <code>vnet0</code> y <code>vnet1</code>, no.</li>
+<li><strong>Un solo IPAM como fuente de verdad.</strong> Proxmox repartiendo direcciones a la vez que el DHCP corporativo termina siempre igual.</li>
+<li><strong>Prueba la migración de una VM antes de dar el segmento por bueno.</strong> Es el escenario que descubre las diferencias entre nodos, y el único que importa de verdad en un cluster.</li>
+</ul>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://pve.proxmox.com/wiki/Software_Defined_Network">Proxmox SDN Documentation</a></li>
+<li><a href="https://pve.proxmox.com/wiki/Software_Defined_Network">SDN — documentación oficial de Proxmox VE</a></li>
+<li><a href="https://pve.proxmox.com/pve-docs/chapter-pvesdn.html">Manual de referencia de PVE, capítulo SDN</a></li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc7348">RFC 7348 — VXLAN</a> · <a href="https://datatracker.ietf.org/doc/html/rfc8365">RFC 8365 — EVPN como plano de control</a></li>
+<li><a href="https://docs.frrouting.org/en/latest/evpn.html">FRRouting — documentación de EVPN</a></li>
+<li><a href="../proxmox_base/">Proxmox VE</a> · <a href="../migration_guide/">Migración de VMs y contenedores</a></li>
 </ul>
 
 

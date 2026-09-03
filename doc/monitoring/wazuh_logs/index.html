@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Integración de logs de aplicaciones en Wazuh SIEM: configuración de agentes, análisis de seguridad y auditoría">
+        <meta name="description" content="Recolección de logs con Wazuh: arquitectura agente-manager-indexer, localfile y formatos soportados, decoders y reglas propias, niveles de alerta, FIM, rootcheck, grupos de agentes y retención.">
       
       
       
@@ -72,7 +72,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Observabilidad: Centralización de Logs con Wazuh - Frikiteam Docs" />
-<meta property="og:description" content="Integración de logs de aplicaciones en Wazuh SIEM: configuración de agentes, análisis de seguridad y auditoría" />
+<meta property="og:description" content="Recolección de logs con Wazuh: arquitectura agente-manager-indexer, localfile y formatos soportados, decoders y reglas propias, niveles de alerta, FIM, rootcheck, grupos de agentes y retención." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/doc/monitoring/wazuh_logs.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -80,7 +80,7 @@
 <meta property="og:url" content="https://docs.frikiteam.es/doc/monitoring/wazuh_logs/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="Observabilidad: Centralización de Logs con Wazuh - Frikiteam Docs" />
-<meta property="twitter:description" content="Integración de logs de aplicaciones en Wazuh SIEM: configuración de agentes, análisis de seguridad y auditoría" />
+<meta property="twitter:description" content="Recolección de logs con Wazuh: arquitectura agente-manager-indexer, localfile y formatos soportados, decoders y reglas propias, niveles de alerta, FIM, rootcheck, grupos de agentes y retención." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/doc/monitoring/wazuh_logs.png" />
 </head>
   
@@ -508,6 +508,25 @@
     
   
   Blog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
 
       </a>
     </li>
@@ -4908,10 +4927,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#resumen" class="md-nav__link">
+  <a href="#el-problema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Resumen
+        El problema
       
     </span>
   </a>
@@ -4919,10 +4938,153 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuracion-del-agente" class="md-nav__link">
+  <a href="#tabla-de-contenidos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuración del Agente
+        📋 Tabla de Contenidos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arquitectura-y-puntos-de-fallo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitectura y puntos de fallo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recoleccion-de-logs-con-localfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recolección de logs con localfile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decoders-y-reglas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decoders y reglas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escribir-una-regla-propia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escribir una regla propia
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#probar-antes-de-aplicar-wazuh-logtest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Probar antes de aplicar: wazuh-logtest
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#niveles-de-alerta-y-que-notificar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Niveles de alerta y qué notificar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ossecconf-del-agente-frente-al-del-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ossec.conf del agente frente al del manager
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-integrity-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Integrity Monitoring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deteccion-de-rootkits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detección de rootkits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grupos-de-agentes-y-configuracion-centralizada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grupos de agentes y configuración centralizada
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integracion-y-retencion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integración y retención
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas prácticas
       
     </span>
   </a>
@@ -7100,6 +7262,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -8844,6 +9013,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -8976,7 +9172,7 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermedio</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 1 min</span> <span class="md-badge md-badge--primary">Categoría: Monitoreo</span> <span class="md-badge md-badge--green">Publicado</span> <span class="md-badge md-badge--secondary" title="Prerrequisitos: ["Conocimientos básicos de DevOps"]">💡 Prerrequisitos</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermedio</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 20 min</span> <span class="md-badge md-badge--primary">Categoría: Monitoreo</span> <span class="md-badge md-badge--green">Publicado</span></div>
                 
                   
 
@@ -8986,35 +9182,28 @@
       
       
       
-        <span class="md-tag">logs</span>
+        <a href="../../../tags/#tag:cybersecurity" class="md-tag">cybersecurity</a>
       
     
       
       
       
       
-        <span class="md-tag">monitoring</span>
+        <a href="../../../tags/#tag:logs" class="md-tag">logs</a>
       
     
       
       
       
       
-        <span class="md-tag">security</span>
+        <a href="../../../tags/#tag:monitoring" class="md-tag">monitoring</a>
       
     
       
       
       
       
-        <span class="md-tag">siem</span>
-      
-    
-      
-      
-      
-      
-        <span class="md-tag">wazuh</span>
+        <a href="../../../tags/#tag:siem" class="md-tag">siem</a>
       
     
   </nav>
@@ -9030,20 +9219,436 @@
 
 
 <h1 id="observabilidad-centralizacion-de-logs-con-wazuh">Observabilidad: Centralización de Logs con Wazuh<a class="headerlink" href="#observabilidad-centralizacion-de-logs-con-wazuh" title="Permanent link">&para;</a></h1>
-<p>Guía para integrar logs de aplicaciones en la plataforma SIEM Wazuh.</p>
-<h2 id="resumen">Resumen<a class="headerlink" href="#resumen" title="Permanent link">&para;</a></h2>
-<p>Integración de logs estructurados (JSON) para análisis de seguridad y auditoría.</p>
-<h2 id="configuracion-del-agente">Configuración del Agente<a class="headerlink" href="#configuracion-del-agente" title="Permanent link">&para;</a></h2>
-<p>Añadir el siguiente bloque a <code>ossec.conf</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;localfile&gt;</span>
+<h2 id="el-problema">El problema<a class="headerlink" href="#el-problema" title="Permanent link">&para;</a></h2>
+<p>Instalas Wazuh, despliegas agentes en veinte máquinas y a la semana tienes 40.000 alertas al día. Ninguna se lee. La que importaba —un <code>sudo</code> a las 4 de la mañana desde una IP que no toca— está enterrada entre 12.000 avisos de que <code>/etc/fstab</code> cambió de mtime porque un <code>apt upgrade</code> tocó el fichero.</p>
+<p>El problema no es la herramienta: un SIEM sin afinar produce ruido con la misma eficiencia con la que produce señal. El ruleset de fábrica está pensado para cubrir <em>cualquier</em> entorno; el tuyo cubre el tuyo. Esta página va de eso: qué ingerir, cómo decidir qué merece una alerta y cómo probar una regla antes de que llegue a producción.</p>
+<div class="admonition note">
+<p class="admonition-title">Qué cubre y qué no</p>
+<p>Aquí se trata la <strong>recolección y el análisis de logs</strong>: <code>localfile</code>, decoders, reglas, niveles y afinado. La instalación inicial y la comparación con Falco están en <a href="../../cybersecurity/monitoreo_seguridad/">Monitoreo de Seguridad</a>. El uso de las alertas dentro de un incidente vive en <a href="../../cybersecurity/respuesta_incidentes/">Respuesta a Incidentes</a>.</p>
+</div>
+<h2 id="tabla-de-contenidos">📋 Tabla de Contenidos<a class="headerlink" href="#tabla-de-contenidos" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#arquitectura-y-puntos-de-fallo">Arquitectura y puntos de fallo</a></li>
+<li><a href="#recoleccion-de-logs-con-localfile">Recolección de logs con localfile</a></li>
+<li><a href="#decoders-y-reglas">Decoders y reglas</a></li>
+<li><a href="#escribir-una-regla-propia">Escribir una regla propia</a></li>
+<li><a href="#probar-antes-de-aplicar-wazuh-logtest">Probar antes de aplicar: wazuh-logtest</a></li>
+<li><a href="#niveles-de-alerta-y-que-notificar">Niveles de alerta y qué notificar</a></li>
+<li><a href="#ossecconf-del-agente-frente-al-del-manager">ossec.conf del agente frente al del manager</a></li>
+<li><a href="#file-integrity-monitoring">File Integrity Monitoring</a></li>
+<li><a href="#deteccion-de-rootkits">Detección de rootkits</a></li>
+<li><a href="#grupos-de-agentes-y-configuracion-centralizada">Grupos de agentes y configuración centralizada</a></li>
+<li><a href="#integracion-y-retencion">Integración y retención</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#buenas-practicas">Buenas prácticas</a></li>
+<li><a href="#referencias">Referencias</a></li>
+</ul>
+<h2 id="arquitectura-y-puntos-de-fallo">Arquitectura y puntos de fallo<a class="headerlink" href="#arquitectura-y-puntos-de-fallo" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart LR
+    A["Agente&lt;br/&gt;&lt;i&gt;lee logs, FIM, rootcheck&lt;/i&gt;"] --&gt;|1514/TCP| B["Manager&lt;br/&gt;&lt;i&gt;decoders + reglas&lt;/i&gt;"]
+    B --&gt; C["Indexer&lt;br/&gt;&lt;i&gt;almacena y busca&lt;/i&gt;"]
+    C --&gt; D["Dashboard&lt;br/&gt;&lt;i&gt;consulta&lt;/i&gt;"]</code></pre>
+<table>
+<thead>
+<tr>
+<th>Pieza</th>
+<th>Qué hace</th>
+<th>Qué pasa si cae</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Agente</strong></td>
+<td>Lee ficheros y eventos en el endpoint y los envía cifrados al manager</td>
+<td>Ese host deja de reportar. El manager lo marca <code>disconnected</code>, pero <strong>nadie te avisa salvo que hayas creado la alerta</strong></td>
+</tr>
+<tr>
+<td><strong>Manager</strong></td>
+<td>Decodifica, correla y decide si hay alerta</td>
+<td>Se para todo el análisis. Los agentes reintentan y algunos bufferean, pero el hueco temporal es real</td>
+</tr>
+<tr>
+<td><strong>Indexer</strong></td>
+<td>Almacena las alertas y sirve las búsquedas</td>
+<td>El manager sigue detectando y escribiendo <code>alerts.json</code> en disco, pero el dashboard no muestra nada</td>
+</tr>
+<tr>
+<td><strong>Dashboard</strong></td>
+<td>Interfaz de consulta</td>
+<td>Solo pierdes visualización. Nada deja de detectarse</td>
+</tr>
+</tbody>
+</table>
+<p>La consecuencia es contraintuitiva: <strong>si el indexer se cae pierdes visibilidad, no detección</strong>; si el manager se cae, pierdes ambas. Y un agente caído es el fallo más silencioso de los cuatro, porque la ausencia de alertas se parece mucho a "no ha pasado nada".</p>
+<div class="admonition warning">
+<p class="admonition-title">Rutas y binarios cambian entre versiones mayores</p>
+<p>Wazuh viene de OSSEC y arrastra el prefijo <code>/var/ossec</code> en Linux, además de haber renombrado binarios (<code>ossec-*</code> → <code>wazuh-*</code>) y servicios entre ramas mayores. Las rutas de esta página son las de las ramas 4.x sobre Linux, lo más ampliamente documentado. <strong>Antes de copiar una ruta, comprueba la tuya</strong>: <code>systemctl status wazuh-agent</code> y <code>ls /var/ossec/bin/</code> te dicen la verdad de tu instalación en un segundo. En Windows y macOS el prefijo es distinto.</p>
+</div>
+<h2 id="recoleccion-de-logs-con-localfile">Recolección de logs con localfile<a class="headerlink" href="#recoleccion-de-logs-con-localfile" title="Permanent link">&para;</a></h2>
+<p>Cada fuente que quieras ingerir es un bloque <code>&lt;localfile&gt;</code> con dos campos obligatorios: dónde está y cómo se lee.</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- /var/ossec/etc/ossec.conf en el agente --&gt;</span>
+<span class="nt">&lt;localfile&gt;</span>
+<span class="w">  </span><span class="nt">&lt;location&gt;</span>/var/log/auth.log<span class="nt">&lt;/location&gt;</span>
+<span class="w">  </span><span class="nt">&lt;log_format&gt;</span>syslog<span class="nt">&lt;/log_format&gt;</span>
+<span class="nt">&lt;/localfile&gt;</span>
+<span class="nt">&lt;localfile&gt;</span>
 <span class="w">  </span><span class="nt">&lt;location&gt;</span>/var/log/app/output.json<span class="nt">&lt;/location&gt;</span>
 <span class="w">  </span><span class="nt">&lt;log_format&gt;</span>json<span class="nt">&lt;/log_format&gt;</span>
-<span class="w">  </span><span class="nt">&lt;label</span><span class="w"> </span><span class="na">key=</span><span class="s">&quot;app_name&quot;</span><span class="nt">&gt;</span>frikiteam-service<span class="nt">&lt;/label&gt;</span>
+<span class="w">  </span><span class="nt">&lt;label</span><span class="w"> </span><span class="na">key=</span><span class="s">"app_name"</span><span class="nt">&gt;</span>frikiteam-service<span class="nt">&lt;/label&gt;</span>
 <span class="nt">&lt;/localfile&gt;</span>
 </code></pre></div>
+<table>
+<thead>
+<tr>
+<th><code>log_format</code></th>
+<th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>syslog</code></td>
+<td>Texto plano línea a línea. El caballo de batalla: <code>auth.log</code>, <code>messages</code>, logs de aplicación no estructurados</td>
+</tr>
+<tr>
+<td><code>json</code></td>
+<td>Un objeto JSON por línea. Los campos se decodifican solos, sin escribir decoder</td>
+</tr>
+<tr>
+<td><code>journald</code></td>
+<td>Lee del journal de systemd en vez del fichero, con <code>&lt;filter field="..."&gt;</code> por unidad o prioridad</td>
+</tr>
+<tr>
+<td><code>audit</code></td>
+<td>Salida de auditd (<code>/var/log/audit/audit.log</code>)</td>
+</tr>
+<tr>
+<td><code>command</code> / <code>full_command</code></td>
+<td>Ejecuta un comando cada <code>&lt;frequency&gt;</code> segundos e ingiere su salida; <code>full_command</code> trata la salida entera como un evento</td>
+</tr>
+<tr>
+<td><code>multi-line</code></td>
+<td>Eventos que ocupan N líneas fijas</td>
+</tr>
+<tr>
+<td><code>eventchannel</code> / <code>eventlog</code></td>
+<td>Canales de eventos de Windows. <code>eventchannel</code> es el moderno y admite filtro XPath en <code>&lt;query&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>json</code> es el que más trabajo ahorra: si controlas la aplicación, hacer que escriba JSON por línea elimina la necesidad de escribir un decoder. Merece la pena tocar el logger de la app antes que pelearse con expresiones regulares en el manager. <code>&lt;location&gt;</code> admite comodines (<code>/var/log/nginx/*.log</code>), y con <code>journald</code> se filtra por unidad con <code>&lt;filter field="_SYSTEMD_UNIT"&gt;^sshd.service$&lt;/filter&gt;</code>.</p>
+<div class="admonition danger">
+<p class="admonition-title">Duplicados: journald y el fichero a la vez</p>
+<p>Si ingieres <code>journald</code> sin filtro <strong>y</strong> <code>/var/log/auth.log</code>, el mismo evento entra dos veces, dispara la misma regla dos veces y duplica tu almacenamiento. Elige una vía por fuente. En distros donde rsyslog ya no escribe ficheros, journald es la única opción real.</p>
+</div>
+<p>Los <code>&lt;label&gt;</code> se adjuntan a la alerta y sobreviven hasta el indexer. Úsalos para lo que no se deduce del log: entorno, equipo propietario, criticidad. Buscar <code>app_name:frikiteam-service AND rule.level:&gt;=10</code> es mucho más rápido que adivinar de qué host venía cada línea.</p>
+<h2 id="decoders-y-reglas">Decoders y reglas<a class="headerlink" href="#decoders-y-reglas" title="Permanent link">&para;</a></h2>
+<p>Un evento pasa por tres fases antes de convertirse —o no— en alerta: <code>evento crudo → pre-decoding → decoding → rules</code>, y solo se emite alerta si el nivel resultante alcanza <code>log_alert_level</code>.</p>
+<ul>
+<li><strong>Pre-decoding</strong> parte la cabecera estándar de syslog: fecha, hostname, programa. No es configurable y no falla casi nunca.</li>
+<li><strong>Decoding</strong> aplica el decoder que coincida y extrae campos con nombre (<code>srcip</code>, <code>dstuser</code>, <code>url</code>…). <strong>Sin decoder no hay campos</strong>, y sin campos las reglas solo pueden hacer coincidencias de texto plano.</li>
+<li><strong>Rules</strong> recorre el ruleset y asigna nivel. Las reglas se encadenan: <code>&lt;if_sid&gt;</code> hace que una regla solo se evalúe si otra ya casó, y <code>&lt;if_matched_sid&gt;</code> correla N ocurrencias en una ventana de tiempo.</li>
+</ul>
+<p>Ese encadenamiento es lo que convierte tres fallos de contraseña en un evento distinto de un fallo suelto. La regla hija hereda el contexto de la padre y sube el nivel: no repites la detección, la refinas.</p>
+<h2 id="escribir-una-regla-propia">Escribir una regla propia<a class="headerlink" href="#escribir-una-regla-propia" title="Permanent link">&para;</a></h2>
+<p>Regla de oro: <strong>no toques el ruleset del sistema</strong>. Los ficheros que instala el paquete se sobrescriben en cada actualización. Tus reglas van en el fichero local, con IDs a partir de 100000 —el rango reservado para reglas de usuario— para no chocar con las oficiales.</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- /var/ossec/etc/rules/local_rules.xml --&gt;</span>
+<span class="nt">&lt;group</span><span class="w"> </span><span class="na">name=</span><span class="s">"local,sshd,"</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!-- Sube el nivel de un login SSH correcto desde fuera de la red interna --&gt;</span>
+<span class="w">  </span><span class="nt">&lt;rule</span><span class="w"> </span><span class="na">id=</span><span class="s">"100010"</span><span class="w"> </span><span class="na">level=</span><span class="s">"10"</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;if_sid&gt;</span>5715<span class="nt">&lt;/if_sid&gt;</span>
+<span class="w">    </span><span class="nt">&lt;srcip&gt;</span>!192.168.0.0/16<span class="nt">&lt;/srcip&gt;</span>
+<span class="w">    </span><span class="nt">&lt;description&gt;</span>SSH:<span class="w"> </span>login<span class="w"> </span>correcto<span class="w"> </span>desde<span class="w"> </span>IP<span class="w"> </span>externa<span class="nt">&lt;/description&gt;</span>
+<span class="w">    </span><span class="nt">&lt;group&gt;</span>authentication_success,<span class="nt">&lt;/group&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/rule&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!-- Correlación: 5 fallos del mismo origen en 120 segundos --&gt;</span>
+<span class="w">  </span><span class="nt">&lt;rule</span><span class="w"> </span><span class="na">id=</span><span class="s">"100011"</span><span class="w"> </span><span class="na">level=</span><span class="s">"12"</span><span class="w"> </span><span class="na">frequency=</span><span class="s">"5"</span><span class="w"> </span><span class="na">timeframe=</span><span class="s">"120"</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;if_matched_sid&gt;</span>5710<span class="nt">&lt;/if_matched_sid&gt;</span>
+<span class="w">    </span><span class="nt">&lt;same_source_ip</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;description&gt;</span>SSH:<span class="w"> </span>posible<span class="w"> </span>fuerza<span class="w"> </span>bruta<span class="nt">&lt;/description&gt;</span>
+<span class="w">    </span><span class="nt">&lt;group&gt;</span>authentication_failures,<span class="nt">&lt;/group&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/rule&gt;</span>
+<span class="nt">&lt;/group&gt;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Elemento</th>
+<th>Efecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;if_sid&gt;</code></td>
+<td>La regla solo se evalúa si la indicada ya casó. Así se <strong>especializa</strong> una regla del sistema sin editarla</td>
+</tr>
+<tr>
+<td><code>&lt;if_matched_sid&gt;</code> + <code>frequency</code> + <code>timeframe</code></td>
+<td>Correlación: N coincidencias de esa regla en esa ventana</td>
+</tr>
+<tr>
+<td><code>&lt;same_source_ip /&gt;</code></td>
+<td>Restringe la correlación a un mismo origen. Sin él, cinco fallos de cinco IPs cuentan como fuerza bruta</td>
+</tr>
+<tr>
+<td><code>overwrite="yes"</code></td>
+<td>Redefine una regla existente conservando su ID, para bajar el nivel de una regla ruidosa sin perder trazabilidad</td>
+</tr>
+</tbody>
+</table>
+<p>Bajar a nivel 0 lo que no te aporta —una regla hija con <code>&lt;if_sid&gt;</code> sobre la ruidosa, <code>level="0"</code> y una descripción que explique la excepción— es tan legítimo como crear una regla nueva, y bastante más eficaz para reducir ruido. Prefiérelo a comentar la regla original: sobrevive a las actualizaciones y deja escrito <em>por qué</em> se ignora.</p>
+<h2 id="probar-antes-de-aplicar-wazuh-logtest">Probar antes de aplicar: wazuh-logtest<a class="headerlink" href="#probar-antes-de-aplicar-wazuh-logtest" title="Permanent link">&para;</a></h2>
+<p><code>/var/ossec/bin/wazuh-logtest</code> ejecuta las tres fases sobre la línea que le pegues, contra el ruleset cargado en el manager, y te dice qué decoder y qué regla casaron. Es la diferencia entre desplegar una regla y saber que funciona. Devuelve las fases: pre-decoding con timestamp, hostname y programa; decoding con los campos extraídos; y la regla que casó con su ID, nivel y descripción. Si tu regla no aparece, el problema está en la regla; si el decoding sale vacío, el problema está antes, en el decoder.</p>
+<div class="admonition tip">
+<p class="admonition-title">El ruleset que evalúa es el cargado</p>
+<p>Tras editar <code>local_rules.xml</code> hay que reiniciar el manager (<code>/var/ossec/bin/wazuh-control restart</code>) para que la sesión vea tu regla nueva. Un XML mal formado impide que el manager arranque y te deja sin análisis hasta que lo corrijas, así que valida antes de reiniciar en horario delicado.</p>
+<p>La misma comprobación existe como endpoint <code>PUT /logtest</code> de la API, útil para validar reglas en un pipeline de CI antes de tocar el manager. Ver <a href="../../cybersecurity/ci_security_scanning/">Escaneo en CI</a>.</p>
+</div>
+<h2 id="niveles-de-alerta-y-que-notificar">Niveles de alerta y qué notificar<a class="headerlink" href="#niveles-de-alerta-y-que-notificar" title="Permanent link">&para;</a></h2>
+<p>Cada regla lleva un nivel numérico. El rango admitido llega hasta 16; la clasificación oficial documenta el 15 como "ataque severo, sin posibilidad de falso positivo".</p>
+<table>
+<thead>
+<tr>
+<th>Nivel</th>
+<th>Significado práctico</th>
+<th>Destino razonable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Ignorado, no genera alerta</td>
+<td>Nada. Es la herramienta para silenciar</td>
+</tr>
+<tr>
+<td>1–3</td>
+<td>Informativo, volumen muy alto</td>
+<td>Ni siquiera almacenar, salvo obligación de cumplimiento</td>
+</tr>
+<tr>
+<td>4–6</td>
+<td>Error de sistema, mala configuración</td>
+<td>Dashboard. Se revisa, no se notifica</td>
+</tr>
+<tr>
+<td>7–9</td>
+<td>Relevante para seguridad: fallos de auth, cambios de política</td>
+<td>Dashboard y revisión periódica</td>
+</tr>
+<tr>
+<td>10–12</td>
+<td>Múltiples fallos, patrones de ataque, correlaciones</td>
+<td><strong>Notificación</strong>: canal de guardia</td>
+</tr>
+<tr>
+<td>13–15</td>
+<td>Error grave o ataque confirmado</td>
+<td><strong>Página al on-call.</strong> Debe despertar a alguien</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- /var/ossec/etc/ossec.conf en el manager --&gt;</span>
+<span class="nt">&lt;ossec_config&gt;</span>
+<span class="w">  </span><span class="nt">&lt;alerts&gt;</span>
+<span class="w">    </span><span class="nt">&lt;log_alert_level&gt;</span>3<span class="nt">&lt;/log_alert_level&gt;</span><span class="w">     </span><span class="cm">&lt;!-- qué se almacena --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;email_alert_level&gt;</span>12<span class="nt">&lt;/email_alert_level&gt;</span><span class="w"> </span><span class="cm">&lt;!-- qué interrumpe --&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/alerts&gt;</span>
+<span class="nt">&lt;/ossec_config&gt;</span>
+</code></pre></div>
+<p><code>log_alert_level</code> decide qué se escribe en <code>alerts.json</code> —y por tanto qué llega al indexer y cuánto disco gastas—. <code>email_alert_level</code> decide qué interrumpe a una persona. Que sean dos números distintos es intencionado: <strong>almacenar es barato, interrumpir no</strong>. Si tu umbral de notificación produce más de un aviso al día que nadie acciona, el umbral está mal o la regla está mal.</p>
+<h2 id="ossecconf-del-agente-frente-al-del-manager">ossec.conf del agente frente al del manager<a class="headerlink" href="#ossecconf-del-agente-frente-al-del-manager" title="Permanent link">&para;</a></h2>
+<p>Los dos ficheros se llaman igual y viven en la misma ruta relativa, pero contienen cosas distintas. Confundirlos es el error de configuración más común.</p>
+<table>
+<thead>
+<tr>
+<th>Bloque</th>
+<th>Agente</th>
+<th>Manager</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;localfile&gt;</code></td>
+<td><strong>Sí</strong> — qué logs lee este host</td>
+<td>Sí, para los logs del propio manager</td>
+</tr>
+<tr>
+<td><code>&lt;syscheck&gt;</code> (FIM) y <code>&lt;rootcheck&gt;</code></td>
+<td><strong>Sí</strong> — qué vigila en este host</td>
+<td>Sí, para sí mismo</td>
+</tr>
+<tr>
+<td><code>&lt;client&gt;</code> con <code>&lt;server&gt;&lt;address&gt;</code></td>
+<td><strong>Sí</strong> — a quién reporta</td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>&lt;rules&gt;</code> / <code>&lt;decoders&gt;</code></td>
+<td>No. <strong>El agente no analiza nada</strong></td>
+<td><strong>Sí</strong> — la lógica vive aquí</td>
+</tr>
+<tr>
+<td><code>&lt;alerts&gt;</code> con los umbrales</td>
+<td>No</td>
+<td><strong>Sí</strong></td>
+</tr>
+<tr>
+<td><code>&lt;global&gt;</code>, <code>&lt;integration&gt;</code></td>
+<td>No</td>
+<td><strong>Sí</strong></td>
+</tr>
+</tbody>
+</table>
+<p>La regla mental que evita el 90 % de las confusiones: <strong>el agente recolecta, el manager decide</strong>. Si estás editando reglas o umbrales en el agente, estás editando un fichero que nadie lee. Y si añades un <code>&lt;localfile&gt;</code> en el manager esperando que se aplique a los endpoints, tampoco pasa nada: para eso están los grupos.</p>
+<h2 id="file-integrity-monitoring">File Integrity Monitoring<a class="headerlink" href="#file-integrity-monitoring" title="Permanent link">&para;</a></h2>
+<p>FIM (<code>syscheck</code>) calcula hashes de los ficheros vigilados y alerta cuando cambian. De fábrica sobre <code>/etc</code> completo, genera una avalancha cada vez que actualizas paquetes.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;syscheck&gt;</span>
+<span class="w">  </span><span class="nt">&lt;frequency&gt;</span>43200<span class="nt">&lt;/frequency&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!-- realtime: notifica en el momento (usa inotify) --&gt;</span>
+<span class="w">  </span><span class="nt">&lt;directories</span><span class="w"> </span><span class="na">check_all=</span><span class="s">"yes"</span><span class="w"> </span><span class="na">realtime=</span><span class="s">"yes"</span><span class="nt">&gt;</span>/etc/ssh<span class="nt">&lt;/directories&gt;</span>
+<span class="w">  </span><span class="nt">&lt;directories</span><span class="w"> </span><span class="na">check_all=</span><span class="s">"yes"</span><span class="w"> </span><span class="na">realtime=</span><span class="s">"yes"</span><span class="nt">&gt;</span>/var/www/html<span class="nt">&lt;/directories&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!-- Periódico: suficiente para lo que cambia poco --&gt;</span>
+<span class="w">  </span><span class="nt">&lt;directories</span><span class="w"> </span><span class="na">check_all=</span><span class="s">"yes"</span><span class="nt">&gt;</span>/usr/bin,/usr/sbin<span class="nt">&lt;/directories&gt;</span>
+<span class="w">  </span><span class="nt">&lt;ignore&gt;</span>/etc/mtab<span class="nt">&lt;/ignore&gt;</span>
+<span class="w">  </span><span class="nt">&lt;ignore&gt;</span>/etc/resolv.conf<span class="nt">&lt;/ignore&gt;</span>
+<span class="w">  </span><span class="nt">&lt;ignore</span><span class="w"> </span><span class="na">type=</span><span class="s">"sregex"</span><span class="nt">&gt;</span>.log$|.tmp$<span class="nt">&lt;/ignore&gt;</span>
+<span class="nt">&lt;/syscheck&gt;</span>
+</code></pre></div>
+<p>Por qué hace ruido si no se afina, en orden de impacto:</p>
+<ol>
+<li><strong><code>realtime</code> sobre directorios que cambian solos.</strong> Una caché o un directorio de logs genera eventos continuamente. <code>realtime</code> es para lo que no debería cambiar nunca sin que tú lo sepas: <code>/etc/ssh</code>, binarios, raíz web.</li>
+<li><strong><code>check_all="yes"</code> incluye mtime.</strong> Un fichero cuyo contenido no cambió pero cuya marca de tiempo sí —cosa que hace cualquier gestor de paquetes— genera alerta. Si solo importa el contenido, restringe las comprobaciones a hash y tamaño.</li>
+<li><strong>Ventanas de mantenimiento no declaradas.</strong> Un <code>apt upgrade</code> sin excepción prevista produce cientos de cambios legítimos indistinguibles de una intrusión.</li>
+<li><strong>El límite de inotify no da error visible.</strong> Si lo superas, FIM deja de vigilar en tiempo real <strong>en silencio</strong>; comprueba <code>sysctl fs.inotify.max_user_watches</code> si un directorio en <code>realtime</code> deja de reportar.</li>
+</ol>
+<p>Criterio de selección: vigila lo que un atacante modificaría para persistir —claves SSH, unidades de systemd, cron, binarios, configuración del servidor web— y nada más. Ver <a href="../../cybersecurity/hardening_linux/">Hardening de Linux</a>.</p>
+<h2 id="deteccion-de-rootkits">Detección de rootkits<a class="headerlink" href="#deteccion-de-rootkits" title="Permanent link">&para;</a></h2>
+<p><code>rootcheck</code> busca indicadores clásicos: ficheros conocidos de rootkits, discrepancias entre lo que ve <code>readdir()</code> y lo que ve <code>stat()</code>, procesos ocultos, puertos escuchando que no aparecen en <code>netstat</code>, permisos anómalos.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;rootcheck&gt;</span>
+<span class="w">  </span><span class="nt">&lt;disabled&gt;</span>no<span class="nt">&lt;/disabled&gt;</span>
+<span class="w">  </span><span class="nt">&lt;frequency&gt;</span>43200<span class="nt">&lt;/frequency&gt;</span>
+<span class="w">  </span><span class="nt">&lt;check_trojans&gt;</span>yes<span class="nt">&lt;/check_trojans&gt;</span>
+<span class="w">  </span><span class="nt">&lt;check_pids&gt;</span>yes<span class="nt">&lt;/check_pids&gt;</span>
+<span class="w">  </span><span class="nt">&lt;check_ports&gt;</span>yes<span class="nt">&lt;/check_ports&gt;</span>
+<span class="nt">&lt;/rootcheck&gt;</span>
+</code></pre></div>
+<p>La parte honesta: <strong>la tasa de falsos positivos es alta en entornos modernos</strong>, por motivos estructurales. Las técnicas asumen un sistema tradicional, y muchas cosas legítimas se parecen a un rootkit desde esa perspectiva: los contenedores y namespaces producen discrepancias de PID por diseño; ficheros ocultos y permisos raros son normales en directorios de herramientas de desarrollo; y las firmas de trojans buscan rootkits con años de antigüedad, que no es donde está un atacante actual. Trátalo como una <strong>red secundaria</strong>, no como tu detección principal: frecuencia baja, hallazgos revisados en batch en vez de notificados, y sin nivel de alerta alto hasta haber visto qué produce durante una semana en tu parque real. Para runtime en contenedores, la herramienta adecuada es Falco, cubierta en <a href="../../cybersecurity/monitoreo_seguridad/">Monitoreo de Seguridad</a>.</p>
+<h2 id="grupos-de-agentes-y-configuracion-centralizada">Grupos de agentes y configuración centralizada<a class="headerlink" href="#grupos-de-agentes-y-configuracion-centralizada" title="Permanent link">&para;</a></h2>
+<p>Editar <code>ossec.conf</code> a mano en cada host no escala más allá de la tercera máquina. Los grupos resuelven eso: el manager distribuye un <code>agent.conf</code> compartido a todos los agentes del grupo.</p>
+<div class="highlight"><pre><span></span><code>/var/ossec/bin/agent_groups<span class="w"> </span>-a<span class="w"> </span>-g<span class="w"> </span>webservers<span class="w"> </span>-q<span class="w">   </span><span class="c1"># crear grupo</span>
+/var/ossec/bin/agent_groups<span class="w"> </span>-a<span class="w"> </span>-i<span class="w"> </span><span class="m">003</span><span class="w"> </span>-g<span class="w"> </span>webservers
+/var/ossec/bin/agent_groups<span class="w"> </span>-l<span class="w">                    </span><span class="c1"># listar grupos</span>
+/var/ossec/bin/agent_groups<span class="w"> </span>-s<span class="w"> </span>-i<span class="w"> </span><span class="m">003</span><span class="w">             </span><span class="c1"># grupos de un agente</span>
+</code></pre></div>
+<p>El fichero del grupo vive en el manager, en <code>/var/ossec/etc/shared/&lt;GRUPO&gt;/agent.conf</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;agent_config&gt;</span>
+<span class="w">  </span><span class="nt">&lt;localfile&gt;</span>
+<span class="w">    </span><span class="nt">&lt;location&gt;</span>/var/log/nginx/access.log<span class="nt">&lt;/location&gt;</span>
+<span class="w">    </span><span class="nt">&lt;log_format&gt;</span>syslog<span class="nt">&lt;/log_format&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/localfile&gt;</span>
+<span class="w">  </span><span class="nt">&lt;syscheck&gt;</span>
+<span class="w">    </span><span class="nt">&lt;directories</span><span class="w"> </span><span class="na">check_all=</span><span class="s">"yes"</span><span class="w"> </span><span class="na">realtime=</span><span class="s">"yes"</span><span class="nt">&gt;</span>/etc/nginx<span class="nt">&lt;/directories&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/syscheck&gt;</span>
+<span class="nt">&lt;/agent_config&gt;</span>
+</code></pre></div>
+<ul>
+<li>Todo agente nuevo entra en el grupo <code>default</code> salvo que lo asignes.</li>
+<li>Un agente puede pertenecer a <strong>varios grupos</strong>; las configuraciones se fusionan y el grupo de mayor prioridad gana en caso de conflicto.</li>
+<li><code>agent_config</code> admite atributos para aplicar bloques solo a parte del grupo, útil cuando mezclas sistemas operativos. Los cambios llegan en la siguiente sincronización, no instantáneamente: si acabas de editar y no ves efecto, espera antes de tocar nada más.</li>
+</ul>
+<p>Versiona <code>agent.conf</code> en Git y despliégalo con <a href="../../ansible/ansible_base/">Ansible</a>: es la única forma de saber qué configuración tenía un parque de 200 agentes el día del incidente.</p>
+<h2 id="integracion-y-retencion">Integración y retención<a class="headerlink" href="#integracion-y-retencion" title="Permanent link">&para;</a></h2>
+<p>Wazuh no sustituye a tu stack de observabilidad, se solapa parcialmente con él. La división que funciona: <strong>Loki para logs operativos, Wazuh para eventos de seguridad</strong>. Duplicar todo en ambos multiplica el coste sin añadir detección.</p>
+<p>El manager escribe cada alerta en <code>alerts.json</code>, una línea de JSON por alerta, así que cualquier otra herramienta puede leerlo — <code>tail -f /var/ossec/logs/alerts/alerts.json | jq 'select(.rule.level &gt;= 10)'</code> es el mínimo viable.</p>
+<ul>
+<li><strong>Al canal de guardia</strong>: el bloque <code>&lt;integration&gt;</code> del manager envía alertas a Slack o similar filtrando por nivel, regla o grupo. Filtra siempre; sin filtro, el canal es ruido en 48 horas.</li>
+<li><strong>A tu pipeline existente</strong>: Promtail o el agente de Loki leyendo <code>alerts.json</code> como cualquier otro log estructurado. Ver <a href="../observability_stack/">Stack de Observabilidad</a>.</li>
+<li><strong>Como métrica</strong>: las alertas de nivel ≥10 por hora son una métrica válida para Prometheus, y detectan "el manager ha dejado de analizar" antes que cualquier revisión manual.</li>
+<li><strong>Respuesta activa</strong>: Wazuh puede ejecutar un script en el endpoint ante una alerta, típicamente bloquear una IP. Cuidado: un falso positivo con respuesta activa se convierte en una autodenegación de servicio. Para banear IPs por patrones de log, la alternativa madura es fail2ban, en <a href="../../cybersecurity/nftables_fail2ban/">nftables y fail2ban</a>.</li>
+</ul>
+<p>El coste de un SIEM es casi todo almacenamiento, y crece con el número de agentes multiplicado por lo hablador que sea cada uno. Tres palancas, en orden de impacto:</p>
+<ol>
+<li><strong>Qué se convierte en alerta.</strong> Subir <code>log_alert_level</code> de 3 a 5 recorta el volumen drásticamente, porque los niveles bajos son con diferencia los más frecuentes.</li>
+<li><strong>Cuánto tiempo se guarda.</strong> El indexer organiza las alertas en índices por fecha, así que una política de ciclo de vida que archive o borre índices antiguos es la herramienta natural: caliente unos días, tibio unas semanas, frío para el resto del periodo obligatorio.</li>
+<li><strong>Si guardas también los eventos crudos.</strong> El manager puede archivar <em>todo</em> lo recibido, no solo lo que generó alerta. Es oro en una investigación forense y, con diferencia, lo que más disco consume. Actívalo si tienes presupuesto y obligación; si no, no.</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Cumplimiento manda sobre optimización</p>
+<p>PCI DSS, ENS y similares fijan periodos mínimos de retención de registros de auditoría. Antes de recortar, comprueba qué te obliga a guardar y durante cuánto: <a href="../../cybersecurity/cumplimiento_auditoria/">Cumplimiento y Auditoría</a>. Y la copia de la que depende una investigación necesita su propia estrategia: <a href="../../cybersecurity/backup_seguro/">Backup Seguro</a>.</p>
+</div>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa</th>
+<th>Arreglo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agente en <code>Never connected</code></td>
+<td>Registro incompleto, o 1514/TCP cerrado</td>
+<td>Reenrolar el agente y abrir el puerto hacia el manager</td>
+</tr>
+<tr>
+<td>El log llega pero no genera alerta</td>
+<td>Ninguna regla casa, o su nivel &lt; <code>log_alert_level</code></td>
+<td><code>wazuh-logtest</code> con esa línea; comprobar el umbral</td>
+</tr>
+<tr>
+<td><code>wazuh-logtest</code> no ve la regla nueva</td>
+<td>El ruleset cargado es el anterior</td>
+<td><code>wazuh-control restart</code> tras editar</td>
+</tr>
+<tr>
+<td>El manager no arranca tras editar reglas</td>
+<td>XML mal formado en <code>local_rules.xml</code></td>
+<td>Revisar el log del manager, que indica fichero y línea</td>
+</tr>
+<tr>
+<td>Avalancha de FIM tras actualizar</td>
+<td><code>check_all</code> incluye mtime</td>
+<td><code>&lt;ignore&gt;</code> para lo volátil, o restringir las comprobaciones</td>
+</tr>
+<tr>
+<td>FIM en <code>realtime</code> deja de reportar</td>
+<td>Límite de inotify agotado</td>
+<td>Subir <code>fs.inotify.max_user_watches</code></td>
+</tr>
+<tr>
+<td>Mismo evento duplicado</td>
+<td>Ingerido por journald y por fichero a la vez</td>
+<td>Quitar uno de los dos <code>&lt;localfile&gt;</code></td>
+</tr>
+<tr>
+<td>Dashboard vacío, detección viva</td>
+<td>Indexer caído</td>
+<td>Comprobar que <code>alerts.json</code> sí crece</td>
+</tr>
+</tbody>
+</table>
+<p>Los tres sitios donde mirar, en este orden:</p>
+<div class="highlight"><pre><span></span><code>tail<span class="w"> </span>-f<span class="w"> </span>/var/ossec/logs/ossec.log<span class="w">         </span><span class="c1"># errores del propio Wazuh</span>
+tail<span class="w"> </span>-f<span class="w"> </span>/var/ossec/logs/alerts/alerts.log<span class="w"> </span><span class="c1"># lo que sí está alertando</span>
+/var/ossec/bin/agent_control<span class="w"> </span>-l<span class="w">           </span><span class="c1"># quién está reportando</span>
+</code></pre></div>
+<p>Si <code>ossec.log</code> está limpio y <code>alerts.log</code> no crece, el problema es de ingesta, no de análisis: revisa <code>localfile</code> y los permisos de lectura sobre el fichero vigilado.</p>
+<h2 id="buenas-practicas">Buenas prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Todas tus reglas en <code>local_rules.xml</code>, con IDs ≥ 100000.</strong> El ruleset del sistema se sobrescribe en cada actualización.</li>
+<li><strong><code>wazuh-logtest</code> antes de cada despliegue de regla</strong>, y en CI si el parque es grande. Una regla que no casa es trabajo invisible perdido.</li>
+<li><strong>Silencia con nivel 0, no borrando.</strong> Deja escrito por qué se ignora algo; tu yo futuro lo agradecerá en una auditoría.</li>
+<li><strong>Alerta sobre la ausencia de alertas</strong>: un agente que deja de reportar es indistinguible de un día tranquilo. <strong>FIM quirúrgico</strong>, y rootcheck como red secundaria con frecuencia baja.</li>
+<li><strong>Configuración centralizada por grupos, versionada en Git.</strong> Editar hosts a mano no sobrevive al primer incidente.</li>
+<li><strong>Dos umbrales distintos</strong>: uno para almacenar, otro para interrumpir. Confundirlos produce ceguera o fatiga de alertas.</li>
+</ul>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://documentation.wazuh.com/">Wazuh Documentation</a></li>
+<li><a href="https://documentation.wazuh.com/">Documentación de Wazuh</a> · <a href="https://documentation.wazuh.com/current/user-manual/capabilities/log-data-collection/index.html">Recolección de datos de log</a></li>
+<li><a href="https://documentation.wazuh.com/current/user-manual/ruleset/rules/rules-classification.html">Clasificación de reglas</a> · <a href="https://documentation.wazuh.com/current/user-manual/reference/centralized-configuration.html">Configuración centralizada (agent.conf)</a></li>
+<li><a href="../../cybersecurity/monitoreo_seguridad/">Monitoreo de Seguridad</a> · <a href="../../cybersecurity/respuesta_incidentes/">Respuesta a Incidentes</a></li>
+<li><a href="../observability_stack/">Stack de Observabilidad</a> · <a href="../../cybersecurity/nftables_fail2ban/">nftables y fail2ban</a></li>
+<li><a href="../../cybersecurity/hardening_linux/">Hardening de Linux</a> · <a href="../../cybersecurity/cumplimiento_auditoria/">Cumplimiento y Auditoría</a></li>
 </ul>
 
 

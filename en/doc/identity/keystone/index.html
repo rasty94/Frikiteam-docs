@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentación oficial del proyecto Frikiteam 🚀">
+        <meta name="description" content="The OpenStack identity service in depth: domains, projects, roles and assignments, service catalog and endpoints, Fernet tokens and key rotation, authenticating from the CLI, RBAC policies, federation and high availability.">
       
       
       
@@ -31,7 +31,7 @@
     
     
       
-        <title>OpenStack Keystone - Frikiteam Docs</title>
+        <title>OpenStack Keystone — Identity, catalog and tokens - Frikiteam Docs</title>
       
     
     
@@ -71,16 +71,16 @@
 
   
 <meta property="og:type" content="website" />
-<meta property="og:title" content="OpenStack Keystone - Frikiteam Docs" />
-<meta property="og:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="og:title" content="OpenStack Keystone — Identity, catalog and tokens - Frikiteam Docs" />
+<meta property="og:description" content="The OpenStack identity service in depth: domains, projects, roles and assignments, service catalog and endpoints, Fernet tokens and key rotation, authenticating from the CLI, RBAC policies, federation and high availability." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/en/doc/identity/keystone.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:url" content="https://docs.frikiteam.es/en/doc/identity/keystone/" />
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="OpenStack Keystone - Frikiteam Docs" />
-<meta property="twitter:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="twitter:title" content="OpenStack Keystone — Identity, catalog and tokens - Frikiteam Docs" />
+<meta property="twitter:description" content="The OpenStack identity service in depth: domains, projects, roles and assignments, service catalog and endpoints, Fernet tokens and key rotation, authenticating from the CLI, RBAC policies, federation and high availability." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/en/doc/identity/keystone.png" />
 </head>
   
@@ -101,7 +101,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#openstack-keystone" class="md-skip">
+        <a href="#openstack-keystone-identity-catalog-and-tokens" class="md-skip">
           Skip to content
         </a>
       
@@ -136,7 +136,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              OpenStack Keystone
+              OpenStack Keystone — Identity, catalog and tokens
             
           </span>
         </div>
@@ -508,6 +508,25 @@
     
   
   Blog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
 
       </a>
     </li>
@@ -4585,10 +4604,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#main-functions" class="md-nav__link">
+  <a href="#the-problem" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Main Functions
+        The problem
       
     </span>
   </a>
@@ -4596,10 +4615,142 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#basic-commands-openstack-cli" class="md-nav__link">
+  <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Basic Commands (OpenStack CLI)
+        📋 Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-everything-goes-through-keystone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why everything goes through Keystone
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-identity-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The identity model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roles-scopes-and-assignments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Roles, scopes and assignments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#service-catalog-and-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service catalog and endpoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fernet-tokens-and-key-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fernet tokens and key rotation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authenticating-from-the-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authenticating from the CLI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authorization-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authorization policies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#federation-with-an-external-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Federation with an external provider
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High availability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
       
     </span>
   </a>
@@ -7089,6 +7240,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -8833,6 +8991,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -8965,7 +9150,7 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--green">Beginner</span> <span class="md-badge md-badge--secondary">Estimated time: 1 min</span> <span class="md-badge md-badge--primary">Category: Identity Management</span> <span class="md-badge md-badge--green">Published</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermediate</span> <span class="md-badge md-badge--secondary">Estimated time: 18 min</span> <span class="md-badge md-badge--primary">Category: Identity Management</span> <span class="md-badge md-badge--green">Published</span></div>
                 
                   
 
@@ -8975,14 +9160,14 @@
       
       
       
-        <span class="md-tag">identity</span>
+        <a href="../../../tags/#tag:identity" class="md-tag">identity</a>
       
     
       
       
       
       
-        <span class="md-tag">openstack</span>
+        <a href="../../../tags/#tag:openstack" class="md-tag">openstack</a>
       
     
   </nav>
@@ -8997,25 +9182,435 @@
   
 
 
-<h1 id="openstack-keystone">OpenStack Keystone<a class="headerlink" href="#openstack-keystone" title="Permanent link">&para;</a></h1>
-<p>Keystone is the OpenStack Identity service. It provides authentication, service discovery, and multi-tenant authorization.</p>
-<h2 id="main-functions">Main Functions<a class="headerlink" href="#main-functions" title="Permanent link">&para;</a></h2>
+<h1 id="openstack-keystone-identity-catalog-and-tokens">OpenStack Keystone — Identity, catalog and tokens<a class="headerlink" href="#openstack-keystone-identity-catalog-and-tokens" title="Permanent link">&para;</a></h1>
+<h2 id="the-problem">The problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h2>
+<p><code>openstack server list</code> returns <code>401</code>. You change the password and it still fails. You check the Nova logs and there is no trace of the request — because it never reached Nova. You retry with <code>--debug</code> and discover the client was requesting a token against a URL that no longer exists, resolved from a catalog somebody populated wrong eight months ago.</p>
+<p>That is the pattern: <strong>almost no "authentication" failure in OpenStack is a password failure</strong>. It is the wrong domain, a role assigned at the wrong scope, an internal endpoint pointing at a dead IP, or Fernet keys out of sync between controllers. Keystone sits on the critical path of everything, so when it goes sideways the whole cloud looks broken at once.</p>
+<div class="admonition note">
+<p class="admonition-title">What this covers and what it doesn't</p>
+<p>This page is about <strong>how Keystone works and how to diagnose it</strong>. The OpenStack overview lives in <a href="../../openstack/openstack_base/">basic concepts</a>; deployment, in <a href="../../openstack/kolla_deployment/">Kolla Deployment</a>; per-service operational errors, in <a href="../../openstack/troubleshooting_openstack/">Troubleshooting OpenStack</a>. We don't repeat that content here: we link to it.</p>
+</div>
+<h2 id="table-of-contents">📋 Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Identity:</strong> User/service authentication (SQL, LDAP).</li>
-<li><strong>Resource:</strong> Project and domain management.</li>
-<li><strong>Assignment:</strong> Roles and permissions (RBAC).</li>
-<li><strong>Catalog:</strong> OpenStack API endpoint registry.</li>
+<li><a href="#why-everything-goes-through-keystone">Why everything goes through Keystone</a></li>
+<li><a href="#the-identity-model">The identity model</a></li>
+<li><a href="#roles-scopes-and-assignments">Roles, scopes and assignments</a></li>
+<li><a href="#service-catalog-and-endpoints">Service catalog and endpoints</a></li>
+<li><a href="#fernet-tokens-and-key-rotation">Fernet tokens and key rotation</a></li>
+<li><a href="#authenticating-from-the-cli">Authenticating from the CLI</a></li>
+<li><a href="#authorization-policies">Authorization policies</a></li>
+<li><a href="#federation-with-an-external-provider">Federation with an external provider</a></li>
+<li><a href="#high-availability">High availability</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#best-practices">Best practices</a></li>
+<li><a href="#references">References</a></li>
 </ul>
-<h2 id="basic-commands-openstack-cli">Basic Commands (OpenStack CLI)<a class="headerlink" href="#basic-commands-openstack-cli" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># List users</span>
-openstack<span class="w"> </span>user<span class="w"> </span>list
-
-<span class="c1"># Create project</span>
-openstack<span class="w"> </span>project<span class="w"> </span>create<span class="w"> </span>--domain<span class="w"> </span>default<span class="w"> </span>--description<span class="w"> </span><span class="s2">&quot;My Project&quot;</span><span class="w"> </span>my-project
-
-<span class="c1"># Assign role</span>
-openstack<span class="w"> </span>role<span class="w"> </span>add<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--user<span class="w"> </span>my-user<span class="w"> </span>member
+<h2 id="why-everything-goes-through-keystone">Why everything goes through Keystone<a class="headerlink" href="#why-everything-goes-through-keystone" title="Permanent link">&para;</a></h2>
+<p>Keystone does two jobs that get confused constantly: it <strong>issues tokens</strong> (you present credentials, you get back a token with a specific scope) and it <strong>publishes the catalog</strong> (it tells you at which URL each service lives). The other services don't validate passwords: they receive a token in <code>X-Auth-Token</code>, verify it, and apply their policies against the roles that token declares.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant C as CLI client
+    participant K as Keystone
+    participant N as Nova API
+    C-&gt;&gt;K: POST /v3/auth/tokens (user + project)
+    K--&gt;&gt;C: X-Subject-Token + service catalog
+    C-&gt;&gt;N: GET /servers with X-Auth-Token
+    N-&gt;&gt;N: Validates token and applies policy
+    N--&gt;&gt;C: 200 OK</code></pre>
+<p>Two practical consequences:</p>
+<ul>
+<li><strong>The client picks the URL from the catalog</strong>, not from your configuration. You can have a perfect <code>OS_AUTH_URL</code> and still fail against Nova because Nova's endpoint is registered wrong.</li>
+<li><strong>A token carries its permissions inside.</strong> Changing a role doesn't affect already-issued tokens until they expire. That's why "I removed the role and they can still do it" is not a bug.</li>
+</ul>
+<p>The API is <strong>Identity v3</strong>. v2.0 has been retired for several cycles; if an old client asks for it, the answer is to upgrade the client.</p>
+<h2 id="the-identity-model">The identity model<a class="headerlink" href="#the-identity-model" title="Permanent link">&para;</a></h2>
+<p>This is where almost everyone gets lost, because there are six concepts and only three intuitive names.</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>What it is</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Domain</strong></td>
+<td>Namespace for users, groups and projects</td>
+<td>Two <code>admin</code> users can coexist in different domains</td>
+</tr>
+<tr>
+<td><strong>Project</strong></td>
+<td>Resource container and quota unit</td>
+<td>The old <em>tenant</em>; they can be nested</td>
+</tr>
+<tr>
+<td><strong>User</strong></td>
+<td>An identity that authenticates</td>
+<td>Lives <strong>inside</strong> a domain</td>
+</tr>
+<tr>
+<td><strong>Group</strong></td>
+<td>A set of users</td>
+<td>Lives in a domain; used to assign roles in bulk</td>
+</tr>
+<tr>
+<td><strong>Role</strong></td>
+<td>Permission label (<code>admin</code>, <code>member</code>, <code>reader</code>)</td>
+<td>Global: it belongs to no domain</td>
+</tr>
+<tr>
+<td><strong>Assignment</strong></td>
+<td>The (actor, role, scope) tuple</td>
+<td>What actually grants permissions</td>
+</tr>
+</tbody>
+</table>
+<p>The classic mistake: <strong>the user and the project can live in different domains</strong>, and that's why <code>OS_USER_DOMAIN_NAME</code> and <code>OS_PROJECT_DOMAIN_NAME</code> are two separate variables. Setting them to the same value "because they always are" works right up until the day they aren't.</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>domain<span class="w"> </span>list
+openstack<span class="w"> </span>project<span class="w"> </span>list<span class="w"> </span>--domain<span class="w"> </span>default
+openstack<span class="w"> </span>user<span class="w"> </span>list<span class="w"> </span>--domain<span class="w"> </span>default
+openstack<span class="w"> </span>group<span class="w"> </span>contains<span class="w"> </span>user<span class="w"> </span>devops<span class="w"> </span>alice<span class="w">   </span><span class="c1"># is alice in the group?</span>
 </code></pre></div>
+<p>Creating a minimal structure for a team:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>domain<span class="w"> </span>create<span class="w"> </span>--description<span class="w"> </span><span class="s2">"Acme customer"</span><span class="w"> </span>acme
+openstack<span class="w"> </span>project<span class="w"> </span>create<span class="w"> </span>--domain<span class="w"> </span>acme<span class="w"> </span>--description<span class="w"> </span><span class="s2">"Acme production"</span><span class="w"> </span>acme-prod
+openstack<span class="w"> </span>user<span class="w"> </span>create<span class="w"> </span>--domain<span class="w"> </span>acme<span class="w"> </span>--password-prompt<span class="w"> </span>alice
+openstack<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--domain<span class="w"> </span>acme<span class="w"> </span>acme-ops
+openstack<span class="w"> </span>group<span class="w"> </span>add<span class="w"> </span>user<span class="w"> </span>--group-domain<span class="w"> </span>acme<span class="w"> </span>acme-ops<span class="w"> </span>alice
+openstack<span class="w"> </span>role<span class="w"> </span>add<span class="w"> </span>--project<span class="w"> </span>acme-prod<span class="w"> </span>--group<span class="w"> </span>acme-ops<span class="w"> </span>member
+</code></pre></div>
+<p>The role is assigned <strong>to the group</strong>, not to the user. Adding or removing people from the team becomes a <code>group add user</code> instead of an audit of scattered assignments.</p>
+<div class="admonition tip">
+<p class="admonition-title">Names are not unique, IDs are</p>
+<p><code>openstack project list</code> can return two projects called <code>dev</code> in different domains. Any script that resolves by name without <code>--domain</code> is a time bomb. In automation, store IDs.</p>
+</div>
+<h2 id="roles-scopes-and-assignments">Roles, scopes and assignments<a class="headerlink" href="#roles-scopes-and-assignments" title="Permanent link">&para;</a></h2>
+<p>A token isn't valid "for everything": it is valid for a <strong>scope</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>What for</th>
+<th>How to request it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Project</strong></td>
+<td>Operating resources: instances, networks, volumes</td>
+<td><code>OS_PROJECT_NAME</code></td>
+</tr>
+<tr>
+<td><strong>Domain</strong></td>
+<td>Managing users and projects in that domain</td>
+<td><code>--os-domain-name</code></td>
+</tr>
+<tr>
+<td><strong>System</strong></td>
+<td>Operations affecting the whole cloud</td>
+<td><code>--os-system-scope all</code></td>
+</tr>
+</tbody>
+</table>
+<p>System scope exists to separate "I administer my project" from "I administer the cloud". Previously, the <code>admin</code> role in <em>any</em> project ended up granting global powers in many services — a historical design flaw this scope fixes.</p>
+<div class="admonition warning">
+<p class="admonition-title">System scope support depends on the release and the service</p>
+<p>Keystone has supported it for a while, but <strong>each service adopts it at its own pace</strong>. A system token may work against Keystone and be rejected by another service in the same cloud. Check the <em>release notes</em> for your version before redesigning your admin permissions around it.</p>
+</div>
+<p>The roles created by bootstrap are <code>admin</code>, <code>member</code> and <code>reader</code>, with <strong>implication</strong> between them: <code>admin</code> implies <code>member</code>, and <code>member</code> implies <code>reader</code>. Assigning <code>admin</code> grants all three.</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>role<span class="w"> </span>list
+openstack<span class="w"> </span>implied<span class="w"> </span>role<span class="w"> </span>list
+
+<span class="c1"># The query that solves 80% of "I don't have permissions":</span>
+openstack<span class="w"> </span>role<span class="w"> </span>assignment<span class="w"> </span>list<span class="w"> </span>--names<span class="w"> </span>--user<span class="w"> </span>alice
+openstack<span class="w"> </span>role<span class="w"> </span>assignment<span class="w"> </span>list<span class="w"> </span>--names<span class="w"> </span>--project<span class="w"> </span>acme-prod
+</code></pre></div>
+<p><code>--names</code> is the difference between a readable table and a wall of UUIDs. Two details in that output cause confusion: an <strong>inherited</strong> assignment (<code>--inherited</code>) does not apply to the scope where it was created but to its descendants — it's how you grant a role over every project in a domain at once; and roles arriving <strong>via a group</strong> show up with the group column filled and the user column empty, so searching by user alone won't reveal them.</p>
+<h2 id="service-catalog-and-endpoints">Service catalog and endpoints<a class="headerlink" href="#service-catalog-and-endpoints" title="Permanent link">&para;</a></h2>
+<p>The catalog is a registry: <strong>services</strong> (name and type) and, for each one, <strong>endpoints</strong> per region and interface.</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>service<span class="w"> </span>list
+openstack<span class="w"> </span>endpoint<span class="w"> </span>list
+openstack<span class="w"> </span>catalog<span class="w"> </span>list<span class="w">          </span><span class="c1"># what your token sees RIGHT NOW</span>
+</code></pre></div>
+<p>There are three interfaces per service and region, and mixing them up is an endless source of incidents:</p>
+<table>
+<thead>
+<tr>
+<th>Interface</th>
+<th>Who uses it</th>
+<th>Typical mistake</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>public</code></td>
+<td>Users and clients from outside</td>
+<td>Pointed at a private IP → nobody can use the cloud from outside</td>
+</tr>
+<tr>
+<td><code>internal</code></td>
+<td>The services themselves, talking to each other</td>
+<td>Pointed at the public FQDN → internal traffic leaving and coming back through the firewall</td>
+</tr>
+<tr>
+<td><code>admin</code></td>
+<td>Privileged operations</td>
+<td>Historically on a different port; today it usually matches the others</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">A misdirected endpoint doesn't give a network error: it gives <code>EndpointNotFound</code> or a strange timeout</p>
+<p>When Nova needs to talk to Glance, it resolves the URL from the catalog using the <code>internal</code> interface. If that entry points at an IP that no longer exists, the symptom isn't "Glance is down": it's an instance stuck in <code>BUILD</code> for minutes that ends up in <code>ERROR</code>, and a Nova log with a timeout against an address you don't recognise. That's the moment to look at <code>openstack endpoint list</code>, not at Glance's logs.</p>
+</div>
+<p>Fixing an endpoint means replacing it, not editing it in the database:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>endpoint<span class="w"> </span>list<span class="w"> </span>--service<span class="w"> </span>glance<span class="w"> </span>--interface<span class="w"> </span>internal
+openstack<span class="w"> </span>endpoint<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--url<span class="w"> </span>https://10.0.20.100:9292<span class="w"> </span>&lt;ENDPOINT_ID&gt;
+</code></pre></div>
+<p>A key distinction when diagnosing: <code>openstack endpoint list</code> shows <strong>what is registered</strong>; <code>openstack catalog list</code> shows <strong>what your token receives</strong>, already filtered by region and visibility. If they differ, the problem is in your token's scope or in the region, not in the registry.</p>
+<p>In Kolla-Ansible deployments the endpoints are generated from the VIP and FQDN variables in <code>globals.yml</code>: fixing them by hand and then reconfiguring the service will overwrite your changes.</p>
+<h2 id="fernet-tokens-and-key-rotation">Fernet tokens and key rotation<a class="headerlink" href="#fernet-tokens-and-key-rotation" title="Permanent link">&para;</a></h2>
+<p>A Fernet token is an encrypted, signed string that <strong>contains</strong> its scope and its expiry. Keystone doesn't store it in the database: it decrypts it on validation. That's the whole advantage — no token table growing out of control and no state to replicate between controllers.</p>
+<p>The price is a <strong>key repository</strong> that does need to stay in sync. By default it lives in <code>/etc/keystone/fernet-keys/</code>, with numbered files:</p>
+<div class="highlight"><pre><span></span><code>keystone-manage<span class="w"> </span>fernet_setup<span class="w"> </span>--keystone-user<span class="w"> </span>keystone<span class="w"> </span>--keystone-group<span class="w"> </span>keystone
+keystone-manage<span class="w"> </span>fernet_rotate<span class="w"> </span>--keystone-user<span class="w"> </span>keystone<span class="w"> </span>--keystone-group<span class="w"> </span>keystone
+ls<span class="w"> </span>-l<span class="w"> </span>/etc/keystone/fernet-keys/
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Role</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Index <code>0</code></td>
+<td><em>Staged</em></td>
+<td>Doesn't encrypt yet; promoted at the next rotation</td>
+</tr>
+<tr>
+<td>Highest index</td>
+<td><em>Primary</em></td>
+<td>Encrypts new tokens and decrypts them</td>
+</tr>
+<tr>
+<td>Intermediate indexes</td>
+<td><em>Secondary</em></td>
+<td>Only decrypt already-issued tokens</td>
+</tr>
+</tbody>
+</table>
+<p>Rotating promotes the staged key to primary, demotes the primary to secondary, and discards the oldest one once <code>max_active_keys</code> is exceeded. That's why the staged key exists: in a cluster you distribute the new keys <strong>before</strong> any node starts encrypting with them.</p>
+<div class="admonition danger">
+<p class="admonition-title">A botched rotation invalidates sessions across the whole cloud</p>
+<p>Two ways to achieve that, both common.</p>
+<p><strong>Rotating faster than tokens expire.</strong> If you discard a secondary key while tokens encrypted with it are still alive, those tokens stop validating <em>all at once</em> and everybody sees <code>401</code> simultaneously. The documented relationship between the parameters is:</p>
+<div class="highlight"><pre><span></span><code>max_active_keys = (token_expiration / rotation_frequency) + 2
+</code></pre></div>
+<p>The two extras are the staged and the primary key. Rotate more slowly than that formula allows, never faster.</p>
+<p><strong>Rotating on one node and not the others.</strong> Each controller encrypts with its own primary key and can't decrypt the others'. The symptom is worse than an outage: <strong>intermittent</strong> failures, depending on which node handles each request. If you see <code>401</code> on one call out of three, compare the key repositories before looking at anything else.</p>
+</div>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>md5sum<span class="w"> </span>/etc/keystone/fernet-keys/*<span class="w">      </span><span class="c1"># must match on every node</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Credential keys are a separate repository and don't rotate the same way</p>
+<p>Keystone uses a <strong>second</strong> set of Fernet keys to encrypt stored credentials (<code>keystone-manage credential_setup</code>). They are neither the same keys nor the same directory. Rotating them requires a dedicated procedure that re-encrypts the existing data; treating them like token keys leaves credentials undecryptable and <strong>unrecoverable</strong>. Include them in your backups alongside the database — see <a href="../../openstack/day2/">Day 2 Operations</a>.</p>
+</div>
+<p>Expiry is configured in <code>[token] expiration</code> in <code>keystone.conf</code>. Lowering it shrinks the window for a stolen token; raising it reduces re-authentication load. The default value has changed between releases: check it in your own deployment instead of assuming it.</p>
+<h2 id="authenticating-from-the-cli">Authenticating from the CLI<a class="headerlink" href="#authenticating-from-the-cli" title="Permanent link">&para;</a></h2>
+<p>The good old <code>openrc</code> file is nothing more than environment variables:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">OS_AUTH_URL</span><span class="o">=</span>https://keystone.example.com:5000/v3
+<span class="nb">export</span><span class="w"> </span><span class="nv">OS_IDENTITY_API_VERSION</span><span class="o">=</span><span class="m">3</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">OS_PROJECT_NAME</span><span class="o">=</span>acme-prod
+<span class="nb">export</span><span class="w"> </span><span class="nv">OS_PROJECT_DOMAIN_NAME</span><span class="o">=</span>acme
+<span class="nb">export</span><span class="w"> </span><span class="nv">OS_USERNAME</span><span class="o">=</span>alice
+<span class="nb">export</span><span class="w"> </span><span class="nv">OS_USER_DOMAIN_NAME</span><span class="o">=</span>acme
+<span class="nb">export</span><span class="w"> </span><span class="nv">OS_REGION_NAME</span><span class="o">=</span>RegionOne
+<span class="nb">export</span><span class="w"> </span><span class="nv">OS_INTERFACE</span><span class="o">=</span>public
+
+<span class="nb">read</span><span class="w"> </span>-srp<span class="w"> </span><span class="s2">"Password: "</span><span class="w"> </span>OS_PASSWORD<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">export</span><span class="w"> </span>OS_PASSWORD<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span>
+</code></pre></div>
+<p>Prompting for the password avoids the classic <code>admin-openrc.sh</code> with the admin password in plaintext, accidentally committed to Git.</p>
+<p>The modern alternative is <strong><code>clouds.yaml</code></strong>, which lets you keep several clouds without swapping variables. The client looks for it in the current directory, in <code>~/.config/openstack/</code> and in <code>/etc/openstack/</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ~/.config/openstack/clouds.yaml</span>
+<span class="nt">clouds</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">acme-prod</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">auth</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">auth_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://keystone.example.com:5000/v3</span>
+<span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
+<span class="w">      </span><span class="nt">project_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme-prod</span>
+<span class="w">      </span><span class="nt">user_domain_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme</span>
+<span class="w">      </span><span class="nt">project_domain_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme</span>
+<span class="w">    </span><span class="nt">region_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RegionOne</span>
+<span class="w">    </span><span class="nt">interface</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">public</span>
+<span class="w">    </span><span class="nt">identity_api_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">OS_CLOUD</span><span class="o">=</span>acme-prod
+openstack<span class="w"> </span>server<span class="w"> </span>list
+</code></pre></div>
+<p>Passwords can live in <code>secure.yaml</code>, in the same directory and with <code>600</code> permissions, so that <code>clouds.yaml</code> stays shareable.</p>
+<p>For automation, <strong>don't use your password</strong>: use an application credential. It can be revoked without touching your account, it's limited to a subset of roles, and it expires.</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>application<span class="w"> </span>credential<span class="w"> </span>create<span class="w"> </span>ci-deploy<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--description<span class="w"> </span><span class="s2">"Deployment pipeline"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--role<span class="w"> </span>member<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--expiration<span class="w"> </span><span class="m">2027</span>-01-01T00:00:00
+</code></pre></div>
+<p>The secret is shown <strong>only once</strong>. In <code>clouds.yaml</code> you declare it with <code>auth_type: v3applicationcredential</code> plus <code>application_credential_id</code> and <code>application_credential_secret</code>.</p>
+<p>Verify authentication before blaming any other service:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>token<span class="w"> </span>issue<span class="w">          </span><span class="c1"># does it issue a token? then the credentials are fine</span>
+openstack<span class="w"> </span>catalog<span class="w"> </span>list<span class="w">         </span><span class="c1"># is the catalog the one you expect?</span>
+openstack<span class="w"> </span>--debug<span class="w"> </span>server<span class="w"> </span>list<span class="w">  </span><span class="c1"># shows the exact URL it fails against</span>
+</code></pre></div>
+<p><code>--debug</code> prints the full HTTP requests. When the error doesn't match what you think is happening, that flag shows the real URL the client pulled from the catalog — which is usually the surprise.</p>
+<h2 id="authorization-policies">Authorization policies<a class="headerlink" href="#authorization-policies" title="Permanent link">&para;</a></h2>
+<p>Keystone and the other services decide what a token may do through <strong>oslo.policy</strong>. The default rules live <strong>in the code</strong>, not in a file: <code>policy.yaml</code> exists only to override whatever you want to change. A missing <code>policy.yaml</code> is normal and correct.</p>
+<div class="highlight"><pre><span></span><code>oslopolicy-policy-generator<span class="w"> </span>--namespace<span class="w"> </span>keystone<span class="w">   </span><span class="c1"># dump the effective defaults</span>
+</code></pre></div>
+<p>The project's direction is what's known as <strong>secure RBAC</strong>: <code>admin</code>/<code>member</code>/<code>reader</code> as a uniform baseline across all services, plus scopes to separate cloud administration from project administration. Two <code>[oslo_policy]</code> options govern the transition:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>enforce_new_defaults</code></td>
+<td>Applies the new rules, ignoring the legacy ones</td>
+</tr>
+<tr>
+<td><code>enforce_scope</code></td>
+<td>Rejects tokens whose scope doesn't match the operation</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">A point that depends entirely on your release</p>
+<p>The default value of those two options, and which services genuinely honour them, <strong>has kept changing cycle by cycle</strong>. Enabling them on an existing cloud can break automation that used to work with <code>admin</code> in some arbitrary project. Don't copy values from a guide: read the <em>release notes</em> for your version and test in staging.</p>
+</div>
+<p>A minimal override — letting a read-only role list users:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># /etc/keystone/policy.yaml</span>
+<span class="s">"identity:list_users"</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">"role:reader"</span>
+</code></pre></div>
+<p>Rule of thumb: <strong>before writing a policy, check whether the problem is a role assignment</strong>. It almost always is. Editing <code>policy.yaml</code> to fix what was really an <code>openstack role add</code> leaves a divergence from the defaults that nobody will remember a year from now.</p>
+<h2 id="federation-with-an-external-provider">Federation with an external provider<a class="headerlink" href="#federation-with-an-external-provider" title="Permanent link">&para;</a></h2>
+<p>Federating means Keystone stops storing passwords and <strong>trusts</strong> an external provider — Keycloak, Authentik, Dex, a corporate ADFS — that authenticates the user and returns a set of <em>assertions</em>. There are three pieces to declare:</p>
+<ol>
+<li><strong>Identity provider</strong> — who the issuer we trust is.</li>
+<li><strong>Protocol</strong> — <code>openid</code> or <code>saml2</code>, and which <em>mapping</em> processes it.</li>
+<li><strong>Mapping</strong> — rules translating IdP attributes (an LDAP group, a token <em>claim</em>) into <strong>Keystone groups</strong>.</li>
+</ol>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>identity<span class="w"> </span>provider<span class="w"> </span>create<span class="w"> </span>--remote-id<span class="w"> </span>https://idp.example.com/realms/corp<span class="w"> </span>corp-idp
+openstack<span class="w"> </span>mapping<span class="w"> </span>create<span class="w"> </span>--rules<span class="w"> </span>/etc/keystone/mapping-corp.json<span class="w"> </span>corp-mapping
+openstack<span class="w"> </span>federation<span class="w"> </span>protocol<span class="w"> </span>create<span class="w"> </span>openid<span class="w"> </span>--identity-provider<span class="w"> </span>corp-idp<span class="w"> </span>--mapping<span class="w"> </span>corp-mapping
+</code></pre></div>
+<p>What really matters is the mapping: federated users <strong>don't exist as rows</strong> in Keystone, they materialise when they authenticate. Their permissions come exclusively from the groups the mapping assigns them, and those groups must have roles assigned <strong>beforehand</strong>. A correct mapping over groups without roles produces a login that works and a user who can do absolutely nothing — a baffling symptom the first time you hit it.</p>
+<div class="admonition note">
+<p class="admonition-title">The web layer is not optional</p>
+<p>Keystone doesn't speak OIDC or SAML by itself: it delegates to the web server hosting it (typically Apache with <code>mod_auth_openidc</code> for OIDC or <code>mod_shib</code> for SAML). That configuration is specific to the module and the IdP, and it's where most of the time goes. If the IdP is your own, see <a href="../keycloak/">Keycloak</a>, <a href="../authentik/">Authentik</a> or <a href="../dex/">Dex IdP</a>.</p>
+</div>
+<h2 id="high-availability">High availability<a class="headerlink" href="#high-availability" title="Permanent link">&para;</a></h2>
+<p>Keystone is a <strong>stateless</strong> WSGI application: what persists lives in the database and in the Fernet key repository. That's why the usual pattern is straightforward — several instances behind a load balancer (HAProxy) with a VIP, a clustered database (Galera is the norm) and an <strong>identical Fernet key repository on every node</strong>.</p>
+<p>That third point is the only Keystone-specific one and the only one people forget. A new node added to the balancer with keys generated by its own <code>fernet_setup</code> issues tokens the others cannot validate.</p>
+<p>The safe procedure for rotating in a cluster is always the same: rotate on <strong>one</strong> node designated as the source, copy the full repository to the others preserving owner and permissions, and reload the service on each node. Automate it with <a href="../../ansible/ansible_base/">Ansible</a> or your deployment tool; doing it by hand guarantees that one day a node gets forgotten. With Kolla-Ansible, rotation has its own task and shouldn't be done outside it.</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s1">'%{http_code}\n'</span><span class="w"> </span>https://keystone.example.com:5000/v3
+openstack<span class="w"> </span>token<span class="w"> </span>issue<span class="w"> </span>-f<span class="w"> </span>value<span class="w"> </span>-c<span class="w"> </span>expires
+</code></pre></div>
+<p>A <code>GET</code> to the root of the v3 API responds without authentication and works as a cheap <em>health check</em> for the balancer. Issuing a real token is a more honest check: it also covers the database and the keys.</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Check / fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>401</code> on everything, credentials are correct</td>
+<td>Wrong domain in <code>OS_USER_DOMAIN_NAME</code></td>
+<td><code>openstack token issue</code>; review user and project domain separately</td>
+</tr>
+<tr>
+<td>Intermittent <code>401</code>, one call in N</td>
+<td>Fernet keys out of sync between controllers</td>
+<td><code>md5sum /etc/keystone/fernet-keys/*</code> on each node</td>
+</tr>
+<tr>
+<td>Everybody loses their session at once</td>
+<td>Rotation too frequent for the expiry</td>
+<td>Review <code>max_active_keys</code> against <code>[token] expiration</code></td>
+</tr>
+<tr>
+<td><code>403 Forbidden</code> with valid credentials</td>
+<td>Missing role, or the token lacks the right scope</td>
+<td><code>openstack role assignment list --names --user X</code></td>
+</tr>
+<tr>
+<td><code>EndpointNotFound</code></td>
+<td>Service or interface missing from the catalog</td>
+<td><code>openstack catalog list</code> and <code>openstack endpoint list --service X</code></td>
+</tr>
+<tr>
+<td>One service can't talk to another, but the API responds</td>
+<td><code>internal</code> endpoint pointing at the wrong place</td>
+<td><code>openstack endpoint list --interface internal</code></td>
+</tr>
+<tr>
+<td><code>Unable to establish connection</code> to <code>:5000</code></td>
+<td>Keystone down or VIP with no owner</td>
+<td>See <a href="../../openstack/troubleshooting_openstack/">Troubleshooting OpenStack</a></td>
+</tr>
+<tr>
+<td>The federated user logs in but can't do anything</td>
+<td>Mapping groups with no roles assigned</td>
+<td><code>openstack role assignment list --names --group &lt;group&gt;</code></td>
+</tr>
+<tr>
+<td>I removed a role and the user keeps operating</td>
+<td>Previous token still valid</td>
+<td>Wait for expiry: revocation is not instant by design</td>
+</tr>
+<tr>
+<td>Scripts mixing up two projects</td>
+<td>Name resolution without <code>--domain</code></td>
+<td>Use IDs in automation</td>
+</tr>
+</tbody>
+</table>
+<p>The diagnostic sequence that sorts out most cases, in this order:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>token<span class="w"> </span>issue<span class="w">                                  </span><span class="c1"># 1. can I authenticate?</span>
+openstack<span class="w"> </span>catalog<span class="w"> </span>list<span class="w">                                 </span><span class="c1"># 2. is the catalog correct?</span>
+openstack<span class="w"> </span>role<span class="w"> </span>assignment<span class="w"> </span>list<span class="w"> </span>--names<span class="w"> </span>--user<span class="w"> </span>alice<span class="w">    </span><span class="c1"># 3. do I have the roles?</span>
+openstack<span class="w"> </span>--debug<span class="w"> </span>server<span class="w"> </span>list<span class="w">                          </span><span class="c1"># 4. which URL is it failing against?</span>
+</code></pre></div>
+<p>If step 1 works and step 4 fails, <strong>the problem is not identity</strong>: it's the catalog, the network or the target service. That elimination saves hours.</p>
+<h2 id="best-practices">Best practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Assign roles to groups, not to users.</strong> Onboarding and offboarding become a group operation and audits stop being archaeology.</li>
+<li><strong>One domain per real organisational unit.</strong> The <code>default</code> domain for infrastructure, dedicated domains for customers or teams. Mixing everything into <code>default</code> is not easily undone later.</li>
+<li><strong><code>--names</code> on any assignment query.</strong> UUIDs tell no stories.</li>
+<li><strong>Application credentials for automation</strong>, never a person's password, with an expiry and minimal roles.</li>
+<li><strong><code>clouds.yaml</code> with a separate <code>secure.yaml</code></strong>, instead of <code>openrc</code> with plaintext passwords. See <a href="../../cybersecurity/gestion_secretos/">secrets management</a>.</li>
+<li><strong>Rotate Fernet keys on a schedule and in sync</strong>, from a single source and at the frequency <code>max_active_keys</code> allows.</li>
+<li><strong>Include both key repositories in your backups</strong>, alongside the database dump. A database restored without its credential keys is an incomplete restore.</li>
+<li><strong>Before touching <code>policy.yaml</code>, check the role assignments.</strong> The problem is almost always there.</li>
+</ul>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://docs.openstack.org/keystone/latest/">Keystone — official documentation</a></li>
+<li><a href="https://docs.openstack.org/keystone/latest/admin/">Keystone administration guide</a></li>
+<li><a href="https://docs.openstack.org/keystone/latest/admin/fernet-token-faq.html">Fernet tokens and key rotation</a></li>
+<li><a href="https://docs.openstack.org/keystone/latest/admin/federation/introduction.html">Identity federation</a></li>
+<li><a href="https://docs.openstack.org/oslo.policy/latest/">oslo.policy — policies and defaults</a></li>
+<li><a href="../../openstack/openstack_base/">OpenStack — basic concepts</a> · <a href="../../openstack/kolla_deployment/">Kolla Deployment</a></li>
+<li><a href="../../openstack/day2/">Day 2 Operations</a> · <a href="../../openstack/troubleshooting_openstack/">Troubleshooting OpenStack</a></li>
+<li><a href="../keycloak/">Keycloak</a> · <a href="../authentik/">Authentik</a> · <a href="../dex/">Dex IdP</a></li>
+</ul>
 
 
 

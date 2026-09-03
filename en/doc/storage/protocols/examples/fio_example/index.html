@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentación oficial del proyecto Frikiteam 🚀">
+        <meta name="description" content="How to measure storage with fio instead of dd: the anatomy of a job, the four canonical profiles, reading latency percentiles, mistakes that invalidate a test, and comparing NFS with iSCSI.">
       
       
       
@@ -31,7 +31,7 @@
     
     
       
-        <title>fio Example — I/O Testing - Frikiteam Docs</title>
+        <title>fio — measuring IOPS, latency and bandwidth without fooling yourself - Frikiteam Docs</title>
       
     
     
@@ -71,16 +71,16 @@
 
   
 <meta property="og:type" content="website" />
-<meta property="og:title" content="fio Example — I/O Testing - Frikiteam Docs" />
-<meta property="og:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="og:title" content="fio — measuring IOPS, latency and bandwidth without fooling yourself - Frikiteam Docs" />
+<meta property="og:description" content="How to measure storage with fio instead of dd: the anatomy of a job, the four canonical profiles, reading latency percentiles, mistakes that invalidate a test, and comparing NFS with iSCSI." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/en/doc/storage/protocols/examples/fio_example.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:url" content="https://docs.frikiteam.es/en/doc/storage/protocols/examples/fio_example/" />
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="fio Example — I/O Testing - Frikiteam Docs" />
-<meta property="twitter:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="twitter:title" content="fio — measuring IOPS, latency and bandwidth without fooling yourself - Frikiteam Docs" />
+<meta property="twitter:description" content="How to measure storage with fio instead of dd: the anatomy of a job, the four canonical profiles, reading latency percentiles, mistakes that invalidate a test, and comparing NFS with iSCSI." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/en/doc/storage/protocols/examples/fio_example.png" />
 </head>
   
@@ -101,7 +101,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#example-using-fio-to-measure-iops-and-latency" class="md-skip">
+        <a href="#fio-measuring-iops-latency-and-bandwidth-without-fooling-yourself" class="md-skip">
           Skip to content
         </a>
       
@@ -136,7 +136,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              fio Example — I/O Testing
+              fio — measuring IOPS, latency and bandwidth without fooling yourself
             
           </span>
         </div>
@@ -508,6 +508,25 @@
     
   
   Blog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
 
       </a>
     </li>
@@ -1625,6 +1644,31 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    fio
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1648,6 +1692,185 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The problem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-dd-is-not-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why dd is not enough
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anatomy-of-a-job" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anatomy of a job
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-four-canonical-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The four canonical profiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-the-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading the output
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reading the output">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-the-99th-percentile-weighs-more-than-the-average" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why the 99th percentile weighs more than the average
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mistakes-that-invalidate-a-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistakes that invalidate a measurement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-network-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparing network protocols
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saving-results-as-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saving results as JSON
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#report-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Report template
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -7017,6 +7240,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -8761,6 +8991,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../../about/" class="md-nav__link">
         
   
@@ -8919,7 +9176,7 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermediate</span> <span class="md-badge md-badge--secondary">Estimated time: 1 min</span> <span class="md-badge md-badge--primary">Category: Storage</span> <span class="md-badge md-badge--green">Published</span> <span class="md-badge md-badge--secondary" title="Prerequisites: ["Basic DevOps knowledge"]">💡 Prerequisites</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermediate</span> <span class="md-badge md-badge--secondary">Estimated time: 18 min</span> <span class="md-badge md-badge--primary">Category: Storage</span> <span class="md-badge md-badge--green">Published</span></div>
                 
                   
 
@@ -8929,21 +9186,21 @@
       
       
       
-        <span class="md-tag">benchmarks</span>
+        <a href="../../../../../tags/#tag:benchmarks" class="md-tag">benchmarks</a>
       
     
       
       
       
       
-        <span class="md-tag">fio</span>
+        <a href="../../../../../tags/#tag:performance" class="md-tag">performance</a>
       
     
       
       
       
       
-        <span class="md-tag">storage</span>
+        <a href="../../../../../tags/#tag:storage" class="md-tag">storage</a>
       
     
   </nav>
@@ -8958,16 +9215,404 @@
   
 
 
-<h1 id="example-using-fio-to-measure-iops-and-latency">Example: using <code>fio</code> to measure IOPS and latency<a class="headerlink" href="#example-using-fio-to-measure-iops-and-latency" title="Permanent link">&para;</a></h1>
-<p>This example shows a minimal <code>fio</code> job to measure IOPS on 4k random read/write:</p>
-<div class="highlight"><pre><span></span><code>fio<span class="w"> </span>--name<span class="o">=</span>randread<span class="w"> </span>--ioengine<span class="o">=</span>libaio<span class="w"> </span>--direct<span class="o">=</span><span class="m">1</span><span class="w"> </span>--rw<span class="o">=</span>randread<span class="w"> </span>--bs<span class="o">=</span>4k<span class="w"> </span>--size<span class="o">=</span>1G<span class="w"> </span>--numjobs<span class="o">=</span><span class="m">4</span><span class="w"> </span>--runtime<span class="o">=</span><span class="m">60</span><span class="w"> </span>--group_reporting
-
-fio<span class="w"> </span>--name<span class="o">=</span>randwrite<span class="w"> </span>--ioengine<span class="o">=</span>libaio<span class="w"> </span>--direct<span class="o">=</span><span class="m">1</span><span class="w"> </span>--rw<span class="o">=</span>randwrite<span class="w"> </span>--bs<span class="o">=</span>4k<span class="w"> </span>--size<span class="o">=</span>1G<span class="w"> </span>--numjobs<span class="o">=</span><span class="m">4</span><span class="w"> </span>--runtime<span class="o">=</span><span class="m">60</span><span class="w"> </span>--group_reporting
+<h1 id="fio-measuring-iops-latency-and-bandwidth-without-fooling-yourself">fio — measuring IOPS, latency and bandwidth without fooling yourself<a class="headerlink" href="#fio-measuring-iops-latency-and-bandwidth-without-fooling-yourself" title="Permanent link">&para;</a></h1>
+<h2 id="the-problem">The problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h2>
+<p>Someone asks "how fast is this disk?" and the answer arrives in the shape of a <code>dd</code>:</p>
+<div class="highlight"><pre><span></span><code>dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/mnt/data/test<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>1M<span class="w"> </span><span class="nv">count</span><span class="o">=</span><span class="m">1024</span>
+<span class="c1"># 1073741824 bytes copied, 0.9 s, 1.2 GB/s</span>
 </code></pre></div>
-<p>Quick interpretation:</p>
+<p>That number does not describe the disk. It describes how fast the kernel copied a gigabyte into the page cache and handed control back before half of it had touched the physical medium. Even if you add <code>oflag=direct</code>, you are still measuring <strong>one</strong> thing: sequential write, one thread, queue depth 1, a single block size and no latency statistics whatsoever. No real workload looks like that.</p>
+<p><code>fio</code> (Flexible I/O Tester) exists for precisely the opposite: describing the access pattern you care about and measuring it with statistics you can defend in front of someone who knows the subject.</p>
+<div class="admonition warning">
+<p class="admonition-title">fio really does write</p>
+<p>Pointing <code>filename=</code> at a block device <strong>destroys its contents</strong>. Use an empty device, a file inside a test filesystem, or <code>readonly=1</code> if you are only going to read. Double-check the path before hitting Enter.</p>
+</div>
+<h2 id="table-of-contents">📋 Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
 <ul>
-<li>High <code>IOPS</code> and low <code>latency</code> is desirable for database workloads.</li>
-<li>Adjust <code>numjobs</code>, <code>bs</code> and <code>direct</code> to match your use case.</li>
+<li><a href="#why-dd-is-not-enough">Why dd is not enough</a></li>
+<li><a href="#anatomy-of-a-job">Anatomy of a job</a></li>
+<li><a href="#the-four-canonical-profiles">The four canonical profiles</a></li>
+<li><a href="#reading-the-output">Reading the output</a></li>
+<li><a href="#mistakes-that-invalidate-a-measurement">Mistakes that invalidate a measurement</a></li>
+<li><a href="#comparing-network-protocols">Comparing network protocols</a></li>
+<li><a href="#saving-results-as-json">Saving results as JSON</a></li>
+<li><a href="#report-template">Report template</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#best-practices">Best practices</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="why-dd-is-not-enough">Why dd is not enough<a class="headerlink" href="#why-dd-is-not-enough" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th><code>dd</code></th>
+<th><code>fio</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access pattern</td>
+<td>Sequential only</td>
+<td>Sequential, random or mixed</td>
+</tr>
+<tr>
+<td>Concurrency</td>
+<td>One thread, queue 1</td>
+<td><code>numjobs</code> × <code>iodepth</code></td>
+</tr>
+<tr>
+<td>Page cache</td>
+<td>On unless <code>oflag=direct</code></td>
+<td>Explicit <code>direct=1</code></td>
+</tr>
+<tr>
+<td>Latency</td>
+<td>Not measured</td>
+<td>Average, deviation and percentiles</td>
+</tr>
+<tr>
+<td>Duration</td>
+<td>Depends on size</td>
+<td><code>runtime</code> + <code>time_based</code></td>
+</tr>
+<tr>
+<td>Machine-readable output</td>
+<td>No</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+<p><code>dd</code> is still good for what it was written to do: copy blocks. As a measuring tool it only answers "how long does it take to copy this?", which is almost never the question.</p>
+<h2 id="anatomy-of-a-job">Anatomy of a job<a class="headerlink" href="#anatomy-of-a-job" title="Permanent link">&para;</a></h2>
+<p>A job file is an INI: <code>[global]</code> sets what is common and every named section is an independent job.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># base.fio</span>
+<span class="k">[global]</span>
+<span class="na">ioengine</span><span class="o">=</span><span class="s">libaio</span>
+<span class="na">direct</span><span class="o">=</span><span class="s">1</span>
+<span class="na">time_based</span><span class="o">=</span><span class="s">1</span>
+<span class="na">runtime</span><span class="o">=</span><span class="s">60</span>
+<span class="na">ramp_time</span><span class="o">=</span><span class="s">10</span>
+<span class="na">group_reporting</span><span class="o">=</span><span class="s">1</span>
+<span class="na">filename</span><span class="o">=</span><span class="s">/mnt/testing/fio.dat</span>
+<span class="na">size</span><span class="o">=</span><span class="s">16G</span>
+
+<span class="k">[randread-4k]</span>
+<span class="na">rw</span><span class="o">=</span><span class="s">randread</span>
+<span class="na">bs</span><span class="o">=</span><span class="s">4k</span>
+<span class="na">iodepth</span><span class="o">=</span><span class="s">32</span>
+<span class="na">numjobs</span><span class="o">=</span><span class="s">4</span>
+</code></pre></div>
+<p>You run it with <code>fio base.fio</code>. The parameters that really move the result are few:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>What it does</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rw</code></td>
+<td>Pattern: <code>read</code>, <code>write</code>, <code>randread</code>, <code>randwrite</code>, <code>randrw</code></td>
+<td>It is the difference between measuring bandwidth and measuring IOPS</td>
+</tr>
+<tr>
+<td><code>bs</code></td>
+<td>Block size</td>
+<td>4k measures operations; 1M measures throughput. They are not the same test</td>
+</tr>
+<tr>
+<td><code>iodepth</code></td>
+<td>Requests in flight per job</td>
+<td>At queue 1 you measure latency; at a deep queue you measure the IOPS ceiling</td>
+</tr>
+<tr>
+<td><code>numjobs</code></td>
+<td>Concurrent processes</td>
+<td>Real parallelism; it multiplies the total queue</td>
+</tr>
+<tr>
+<td><code>direct</code></td>
+<td><code>1</code> bypasses the page cache</td>
+<td>Without it you are measuring RAM</td>
+</tr>
+<tr>
+<td><code>ioengine</code></td>
+<td>How requests are submitted</td>
+<td>It decides whether <code>iodepth</code> means anything</td>
+</tr>
+<tr>
+<td><code>runtime</code> + <code>time_based</code></td>
+<td>Fixed duration</td>
+<td>Without <code>time_based</code>, the job ends once it has walked <code>size</code></td>
+</tr>
+<tr>
+<td><code>ramp_time</code></td>
+<td>Discards the first seconds</td>
+<td>Keeps the warm-up out of the average</td>
+</tr>
+</tbody>
+</table>
+<p>Three details that get overlooked over and over again:</p>
+<p><strong><code>iodepth</code> only has an effect with an asynchronous engine.</strong> With <code>ioengine=sync</code> or <code>psync</code> each thread submits one request and waits; the effective queue is 1 per job, no matter how big an <code>iodepth=64</code> you write. Parallelism then comes only from <code>numjobs</code>.</p>
+<p><strong><code>libaio</code> on Linux needs <code>direct=1</code>.</strong> The kernel's native AIO is not really asynchronous over buffered I/O, so <code>ioengine=libaio</code> with <code>direct=0</code> degenerates into synchronous behaviour and the queue goes back to 1. This is the combination that produces those "weird" results nobody can explain.</p>
+<p><strong>The total queue is <code>numjobs × iodepth</code>.</strong> Four jobs at <code>iodepth=32</code> keep 128 requests in flight. Comparing two systems means matching that figure, not just one of the two numbers.</p>
+<div class="admonition tip">
+<p class="admonition-title">io_uring as an alternative</p>
+<p>On kernels and fio builds that support it, <code>ioengine=io_uring</code> lowers the per-operation cost compared with <code>libaio</code>. Check availability before using it in a job you want to repeat on another machine:
+<div class="highlight"><pre><span></span><code>fio<span class="w"> </span>--enghelp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>uring
+</code></pre></div>
+If the goal is to compare two systems, use the same engine on both. Switching engines between runs changes the result all on its own.</p>
+</div>
+<h2 id="the-four-canonical-profiles">The four canonical profiles<a class="headerlink" href="#the-four-canonical-profiles" title="Permanent link">&para;</a></h2>
+<p>Four tests cover most decisions. Save them as a file and do not improvise them on the command line: a job file is reproducible, a command three screens wide is not.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># profiles.fio — run one at a time with: fio --section=randread-4k profiles.fio</span>
+<span class="k">[global]</span>
+<span class="na">ioengine</span><span class="o">=</span><span class="s">libaio</span>
+<span class="na">direct</span><span class="o">=</span><span class="s">1</span>
+<span class="na">time_based</span><span class="o">=</span><span class="s">1</span>
+<span class="na">group_reporting</span><span class="o">=</span><span class="s">1</span>
+<span class="na">filename</span><span class="o">=</span><span class="s">/mnt/testing/fio.dat</span>
+<span class="na">size</span><span class="o">=</span><span class="s">64G</span>
+
+<span class="c1"># 1. Sequential read — bandwidth ceiling</span>
+<span class="k">[seqread-1M]</span>
+<span class="na">rw</span><span class="o">=</span><span class="s">read</span>
+<span class="na">bs</span><span class="o">=</span><span class="s">1M</span>
+<span class="na">iodepth</span><span class="o">=</span><span class="s">16</span>
+<span class="na">numjobs</span><span class="o">=</span><span class="s">1</span>
+<span class="na">runtime</span><span class="o">=</span><span class="s">60</span>
+<span class="na">ramp_time</span><span class="o">=</span><span class="s">10</span>
+
+<span class="c1"># 2. Sequential write — ingest, backups, restores</span>
+<span class="k">[seqwrite-1M]</span>
+<span class="na">rw</span><span class="o">=</span><span class="s">write</span>
+<span class="na">bs</span><span class="o">=</span><span class="s">1M</span>
+<span class="na">iodepth</span><span class="o">=</span><span class="s">16</span>
+<span class="na">numjobs</span><span class="o">=</span><span class="s">1</span>
+<span class="na">runtime</span><span class="o">=</span><span class="s">60</span>
+<span class="na">ramp_time</span><span class="o">=</span><span class="s">10</span>
+
+<span class="c1"># 3. Random read 4k — the profile of a database reading</span>
+<span class="k">[randread-4k]</span>
+<span class="na">rw</span><span class="o">=</span><span class="s">randread</span>
+<span class="na">bs</span><span class="o">=</span><span class="s">4k</span>
+<span class="na">iodepth</span><span class="o">=</span><span class="s">32</span>
+<span class="na">numjobs</span><span class="o">=</span><span class="s">4</span>
+<span class="na">runtime</span><span class="o">=</span><span class="s">120</span>
+<span class="na">ramp_time</span><span class="o">=</span><span class="s">15</span>
+
+<span class="c1"># 4. Random write 4k — the hard test, and the one most often faked</span>
+<span class="k">[randwrite-4k]</span>
+<span class="na">rw</span><span class="o">=</span><span class="s">randwrite</span>
+<span class="na">bs</span><span class="o">=</span><span class="s">4k</span>
+<span class="na">iodepth</span><span class="o">=</span><span class="s">32</span>
+<span class="na">numjobs</span><span class="o">=</span><span class="s">4</span>
+<span class="na">runtime</span><span class="o">=</span><span class="s">300</span>
+<span class="na">ramp_time</span><span class="o">=</span><span class="s">60</span>
+</code></pre></div>
+<p>Run the sections <strong>one at a time</strong> with <code>--section=</code>. Launching them all together makes them compete for the same device and none of them measures what it claims to measure.</p>
+<p>The long <code>runtime</code> of the fourth profile is not a whim: sustained random write is where an SSD exhausts its fast cache and drops to its steady-state performance. Sixty seconds usually measure the cache; five minutes start to measure the disk.</p>
+<h2 id="reading-the-output">Reading the output<a class="headerlink" href="#reading-the-output" title="Permanent link">&para;</a></h2>
+<p>fio prints four blocks per I/O direction: IOPS, bandwidth, latencies and percentiles.</p>
+<div class="admonition note">
+<p class="admonition-title">Illustrative output</p>
+<p>The following fragment is <strong>made up to explain the format</strong>. The actual values depend entirely on the hardware, the filesystem, the protocol and the job parameters: do not use them as a reference for anything, and do not compare them with yours.</p>
+</div>
+<div class="highlight"><pre><span></span><code>randread-4k: (groupid=0, jobs=4): err= 0: pid=1234
+  read: IOPS=XXXk, BW=YYYMiB/s (ZZZMB/s)(...)
+    slat (usec): min=..., max=..., avg=..., stdev=...
+    clat (usec): min=..., max=..., avg=A, stdev=S
+     lat (usec): min=..., max=..., avg=B, stdev=S
+    clat percentiles (usec):
+     |  1.00th=[  p1], 50.00th=[ p50], 90.00th=[ p90],
+     | 95.00th=[ p95], 99.00th=[ p99], 99.90th=[p999]
+</code></pre></div>
+<ul>
+<li><strong>IOPS</strong> — operations per second. The figure that matters with small blocks and random access.</li>
+<li><strong>BW</strong> — bandwidth. The figure that matters with large blocks and sequential access. It is roughly <code>IOPS × bs</code>: if the job is 4k, a high bandwidth would be suspicious.</li>
+<li><strong>slat</strong> (<em>submission latency</em>) — how long the request takes to get into the queue. If it is noticeable, the bottleneck is on the host, not in the storage.</li>
+<li><strong>clat</strong> (<em>completion latency</em>) — from the queue until completion: the latency of the device or the protocol. <strong>lat</strong> is the total as seen by the application, roughly <code>slat + clat</code>.</li>
+</ul>
+<h3 id="why-the-99th-percentile-weighs-more-than-the-average">Why the 99<sup>th</sup> percentile weighs more than the average<a class="headerlink" href="#why-the-99th-percentile-weighs-more-than-the-average" title="Permanent link">&para;</a></h3>
+<p>The average hides exactly the behaviour that makes a user complain. An excellent average latency is perfectly compatible with one operation in a hundred taking an order of magnitude longer, and an HTTP request that touches storage twenty times has a high probability of hitting that tail at least once. The perceived latency of a service is set by its high percentile, not by its average.</p>
+<p>Minimum practice: always publish p50, p95 and p99 together. If p99 is far above p50, something is saturating intermittently — a cache being flushed, SSD <em>garbage collection</em>, network contention — and that "something" is the finding, not noise to be averaged away. And to measure clean latency use <code>iodepth=1</code> with <code>numjobs=1</code>: with a deep queue you are measuring the waiting time you created yourself, not the device's.</p>
+<h2 id="mistakes-that-invalidate-a-measurement">Mistakes that invalidate a measurement<a class="headerlink" href="#mistakes-that-invalidate-a-measurement" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>Symptom</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No <code>direct=1</code></td>
+<td>Impossibly high figures, microsecond latencies</td>
+<td><code>direct=1</code> in <code>[global]</code></td>
+</tr>
+<tr>
+<td>File smaller than RAM</td>
+<td>The second run flies</td>
+<td><code>size</code> ≥ 2× RAM, or <code>direct=1</code></td>
+</tr>
+<tr>
+<td>SSD not preconditioned</td>
+<td>Performance that drops mid-test</td>
+<td>Long <code>ramp_time</code> and a <code>runtime</code> of minutes</td>
+</tr>
+<tr>
+<td><em>Thin provisioned</em> volume</td>
+<td>Instant reads of blocks never written</td>
+<td>Fill the volume before reading</td>
+</tr>
+<tr>
+<td>Compressible data</td>
+<td>Inflated figures on arrays with compression</td>
+<td><code>refill_buffers</code>, <code>buffer_compress_percentage</code></td>
+</tr>
+<tr>
+<td>Other load on the machine</td>
+<td>Results that do not repeat</td>
+<td>Measure at rest and repeat three times</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>page cache</strong> is failure number one and the easiest to fix: <code>direct=1</code> and done. The rest deserves detail.</p>
+<p><strong>File smaller than RAM.</strong> A <code>size=1G</code> on a machine with 64 GB of RAM fits entirely in cache. The first pass measures the disk; the second measures memory. If for whatever reason you cannot use <code>direct=1</code>, drop the cache between runs:</p>
+<div class="highlight"><pre><span></span><code>sync<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/proc/sys/vm/drop_caches
+</code></pre></div>
+<p><strong>Preconditioning.</strong> A freshly formatted SSD has all its blocks free and absorbs writes at the speed of its fast cache. When that cache fills up and the controller has to recycle blocks, performance drops to its steady-state value — the only one that holds up in production. That is why the random write profile carries a <code>runtime</code> of minutes and a generous <code>ramp_time</code>: you want to measure after the drop, not before.</p>
+<p><strong>Thin provisioning and sparse files.</strong> A block that has never been written is nowhere: the storage layer returns zeros without touching the medium, so measuring random read on a freshly created volume measures the speed at which zeros are generated. Fill it first with a sequential write pass and measure afterwards.</p>
+<p><strong>Compressible data.</strong> fio writes patterns that compress extremely well. On an array with inline compression or deduplication that yields figures you will never see with real data:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[global]</span>
+<span class="na">refill_buffers</span><span class="o">=</span><span class="s">1</span>
+<span class="na">buffer_compress_percentage</span><span class="o">=</span><span class="s">50</span>
+<span class="na">dedupe_percentage</span><span class="o">=</span><span class="s">20</span>
+</code></pre></div>
+<h2 id="comparing-network-protocols">Comparing network protocols<a class="headerlink" href="#comparing-network-protocols" title="Permanent link">&para;</a></h2>
+<p>The same four profiles over an NFS mount point and over an iSCSI LUN describe two different behaviours. Qualitatively, and without numbers because they depend entirely on the specific setup:</p>
+<ul>
+<li><strong>iSCSI</strong> presents a block device. The filesystem is local, so metadata does not cross the network and the random 4k pattern looks more like that of the underlying disk, with the network latency added on top.</li>
+<li><strong>NFS</strong> presents a remote filesystem. Metadata operations (open, close, <code>stat</code>) are network round trips, so workloads with many small files suffer more than those with one large file. Write behaviour depends heavily on <code>sync</code> versus <code>async</code> in the export and on the use of <code>wsize</code>/<code>rsize</code>.</li>
+<li><strong>In both</strong>, the network latency is added to every operation, and therefore the impact is proportionally much larger on 4k blocks than on 1M blocks. A link that barely affects sequential throughput can cut random IOPS severely.</li>
+<li><strong>MTU and packet drops</strong> show up in the 99<sup>th</sup> percentile before they show up in the average. A spiking p99 with a normal p50 is, very often, a network problem and not a disk one.</li>
+</ul>
+<p>Context on protocols and metrics in <a href="../../protocols/">Storage protocols and metrics</a>; if you are measuring on Kubernetes volumes, keep in mind the CSI layer described in <a href="../../../kubernetes_csi/">Kubernetes CSI</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Measure the protocol, not the client</p>
+<p>Before blaming NFS or iSCSI, check that the network delivers what you think it does (<code>iperf3</code>) and that the client is not CPU-saturated. A high <code>slat</code> in fio's output points at the host; a high <code>clat</code>, at the path to the storage.</p>
+</div>
+<h2 id="saving-results-as-json">Saving results as JSON<a class="headerlink" href="#saving-results-as-json" title="Permanent link">&para;</a></h2>
+<p>Text output is good for looking at once. To compare across runs, save JSON from the start.</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>s<span class="w"> </span><span class="k">in</span><span class="w"> </span>seqread-1M<span class="w"> </span>seqwrite-1M<span class="w"> </span>randread-4k<span class="w"> </span>randwrite-4k<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>fio<span class="w"> </span>--section<span class="o">=</span><span class="s2">"</span><span class="nv">$s</span><span class="s2">"</span><span class="w"> </span>profiles.fio<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output-format<span class="o">=</span>json<span class="w"> </span>--output<span class="o">=</span><span class="s2">"results/</span><span class="k">$(</span>date<span class="w"> </span>+%F<span class="k">)</span><span class="s2">-</span><span class="nv">$s</span><span class="s2">.json"</span>
+<span class="k">done</span>
+</code></pre></div>
+<p>Extracting the essentials with <code>jq</code>:</p>
+<div class="highlight"><pre><span></span><code>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.jobs[] | [.jobname,</span>
+<span class="s1">                  .read.iops, .read.bw,</span>
+<span class="s1">                  .write.iops, .write.bw,</span>
+<span class="s1">                  .read.clat_ns.percentile."99.000000"] | @tsv'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>results/*.json
+</code></pre></div>
+<p>Store the job file next to the JSON, along with the output of <code>fio --version</code>, <code>uname -r</code> and <code>lsblk</code>. A result without the context that produced it is not comparable with anything, not even with itself six months from now.</p>
+<h2 id="report-template">Report template<a class="headerlink" href="#report-template" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="gu">## Storage measurement — &lt;system&gt; — &lt;date&gt;</span>
+
+<span class="gs">**Goal:**</span> (sizing / validating a change / comparing A and B)
+
+<span class="gu">### Environment</span>
+<span class="k">-</span><span class="w"> </span>Hardware / array, filesystem, mount options
+<span class="k">-</span><span class="w"> </span>Kernel, fio version, and the iperf3 result if there is a network involved
+
+<span class="gu">### Method</span>
+<span class="k">-</span><span class="w"> </span>Job file (attached), size, runtime, ramp_time, numjobs × iodepth
+<span class="k">-</span><span class="w"> </span>Preconditioning: yes / no, how. Repetitions: N
+
+<span class="gu">### Results</span>
+| Profile | IOPS | BW | lat p50 | lat p95 | lat p99 |
+|---|---|---|---|---|---|
+| seqread 1M | | | | | |
+| seqwrite 1M | | | | | |
+| randread 4k | | | | | |
+| randwrite 4k | | | | | |
+
+<span class="gu">### Observations</span>
+<span class="k">-</span><span class="w"> </span>Variation between repetitions, behaviour of p99
+<span class="k">-</span><span class="w"> </span>Known limitations of this measurement
+
+<span class="gu">### Conclusion</span>
+</code></pre></div>
+<p>The limitations section is not filler: it is what stops the number from being quoted a year from now in a context where it does not hold.</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Absurdly high IOPS</td>
+<td><code>direct=1</code> missing, or the file fits in RAM</td>
+<td>Review <code>direct</code> and raise <code>size</code></td>
+</tr>
+<tr>
+<td><code>iodepth</code> changes nothing</td>
+<td>Synchronous engine, or <code>direct=0</code> with <code>libaio</code></td>
+<td><code>ioengine=libaio</code> <strong>and</strong> <code>direct=1</code></td>
+</tr>
+<tr>
+<td><code>Operation not supported</code> with <code>libaio</code></td>
+<td>The filesystem does not support direct AIO</td>
+<td>Try <code>ioengine=psync</code> and document it</td>
+</tr>
+<tr>
+<td>Different results on every pass</td>
+<td>Other load on the machine, or missing <code>ramp_time</code></td>
+<td>Measure at rest, repeat 3 times</td>
+</tr>
+<tr>
+<td>Performance drops mid-test</td>
+<td>SSD cache exhausted — normal behaviour</td>
+<td>Lengthen <code>runtime</code>; that is the real figure</td>
+</tr>
+<tr>
+<td>Instant reads</td>
+<td>Blocks never written on a <em>thin</em> volume</td>
+<td>Fill with a sequential write first</td>
+</tr>
+<tr>
+<td><code>Permission denied</code> on a device</td>
+<td>Missing privilege or the device is in use</td>
+<td><code>lsblk</code>, <code>lsof</code>, run with permissions</td>
+</tr>
+</tbody>
+</table>
+<p>An <code>err=</code> other than 0 in the job header invalidates the whole result: fio keeps printing statistics even when there have been I/O errors. Always look at it before reading the figures.</p>
+<h2 id="best-practices">Best practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Job files versioned in Git</strong>, never one-liners rebuilt from memory: reproducibility is half the value of a measurement.</li>
+<li><strong><code>direct=1</code> by default.</strong> If you want to measure with cache, say so explicitly in the report.</li>
+<li><strong><code>ramp_time</code> always</strong>, and proportional to <code>runtime</code>. Without it, the average includes the warm-up.</li>
+<li><strong>Publish p50, p95 and p99</strong>, not lone averages. An average without percentiles is a marketing figure.</li>
+<li><strong>Three repetitions minimum</strong> and the spread written down. A single number cannot tell an improvement from a coincidence.</li>
+<li><strong>Precondition before measuring writes</strong> on any flash medium, and say how you did it.</li>
+<li><strong>JSON from day one</strong>, with the job file and the context stored alongside.</li>
+<li><strong>Do not compare vendor figures with yours</strong>: they were measured with another job, another queue and another medium. Compare yourself with yourself, before and after a change.</li>
+</ul>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://fio.readthedocs.io/en/latest/fio_doc.html">Official fio documentation</a></li>
+<li><a href="https://github.com/axboe/fio">fio repository</a> · <a href="https://github.com/axboe/fio/tree/master/examples">Job file examples</a></li>
+<li><a href="../../protocols/">Storage protocols and metrics</a> · <a href="../../../kubernetes_csi/">Kubernetes CSI</a></li>
 </ul>
 
 

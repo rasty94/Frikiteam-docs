@@ -518,6 +518,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -7407,6 +7426,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -9151,6 +9177,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9285,42 +9338,42 @@
       
       
       
-        <span class="md-tag">ai</span>
+        <a href="../../../tags/#tag:ai" class="md-tag">ai</a>
       
     
       
       
       
       
-        <span class="md-tag">arquitectura</span>
+        <a href="../../../tags/#tag:compliance" class="md-tag">compliance</a>
       
     
       
       
       
       
-        <span class="md-tag">coste</span>
+        <a href="../../../tags/#tag:cost" class="md-tag">cost</a>
       
     
       
       
       
       
-        <span class="md-tag">fallback</span>
+        <a href="../../../tags/#tag:devops" class="md-tag">devops</a>
       
     
       
       
       
       
-        <span class="md-tag">llm</span>
+        <a href="../../../tags/#tag:high-availability" class="md-tag">high-availability</a>
       
     
       
       
       
       
-        <span class="md-tag">privacidad</span>
+        <a href="../../../tags/#tag:llm" class="md-tag">llm</a>
       
     
   </nav>
@@ -9493,11 +9546,11 @@ TTFT de un modelo local pequeño =
 </ul>
 <p>La contramedida no es dejar de usar APIs. Es <strong>no depender de un identificador de modelo como si fuera una constante</strong>:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Mal: el nombre del modelo, embebido en el código, en veinte sitios.</span>
-<span class="n">resp</span> <span class="o">=</span> <span class="n">cliente</span><span class="o">.</span><span class="n">chat</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;modelo-generico-v3&quot;</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="n">mensajes</span><span class="p">)</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">cliente</span><span class="o">.</span><span class="n">chat</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">"modelo-generico-v3"</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="n">mensajes</span><span class="p">)</span>
 
 <span class="c1"># Bien: el modelo es configuración, y el código no sabe cuál es.</span>
 <span class="c1">#   MODELO=... en el entorno, no en el repositorio</span>
-<span class="n">resp</span> <span class="o">=</span> <span class="n">cliente</span><span class="o">.</span><span class="n">chat</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MODELO&quot;</span><span class="p">),</span> <span class="n">messages</span><span class="o">=</span><span class="n">mensajes</span><span class="p">)</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">cliente</span><span class="o">.</span><span class="n">chat</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"MODELO"</span><span class="p">),</span> <span class="n">messages</span><span class="o">=</span><span class="n">mensajes</span><span class="p">)</span>
 </code></pre></div>
 <p>Y, sobre todo: <strong>una suite de evaluación que puedas ejecutar contra cualquier candidato</strong>. Sin eso, migrar de modelo es un acto de fe. Con eso, es una tarde. Lo cubre <a href="../model_evaluation/">Evaluación de modelos</a>.</p>
 <p>En reproducibilidad, el local gana sin discusión: puedes fijar los pesos, el runtime, la cuantización y la semilla, y archivar todo eso junto al resultado. Si necesitas defender ante un auditor por qué el sistema respondió lo que respondió hace ocho meses, esto deja de ser una preferencia de ingeniería.</p>
@@ -9570,13 +9623,13 @@ TTFT de un modelo local pequeño =
 <span class="c1"># Una URL con /v1 habla el dialecto OpenAI (vLLM); el resto, el de Ollama.</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">_parsear_servidores</span><span class="p">():</span>
     <span class="n">servidores</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">entrada</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;INFERENCE_SERVERS&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">):</span>
-        <span class="n">partes</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">entrada</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">entrada</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'INFERENCE_SERVERS'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">';'</span><span class="p">):</span>
+        <span class="n">partes</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">entrada</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'|'</span><span class="p">)]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">partes</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">partes</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
             <span class="n">servidores</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="n">partes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">),</span>
-                <span class="s1">&#39;modelo&#39;</span><span class="p">:</span> <span class="n">partes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                <span class="s1">&#39;clave&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">partes</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">partes</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">partes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">partes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="s1">'url'</span><span class="p">:</span> <span class="n">partes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">'/'</span><span class="p">),</span>
+                <span class="s1">'modelo'</span><span class="p">:</span> <span class="n">partes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="s1">'clave'</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">partes</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">partes</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">partes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">partes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">else</span> <span class="s1">''</span><span class="p">,</span>
             <span class="p">})</span>
     <span class="k">return</span> <span class="n">servidores</span>
 </code></pre></div>
@@ -9585,9 +9638,9 @@ TTFT de un modelo local pequeño =
 <p>Antes de mandar un trabajo largo a un servidor, se comprueba que existe. Y el endpoint de comprobación depende del dialecto:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># ¿Responde el servidor? Prueba el endpoint que corresponda a su dialecto.</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">servidor_disponible</span><span class="p">(</span><span class="n">srv</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
-    <span class="n">es_openai</span> <span class="o">=</span> <span class="s1">&#39;/v1&#39;</span> <span class="ow">in</span> <span class="n">srv</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">srv</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/models&quot;</span> <span class="k">if</span> <span class="n">es_openai</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">srv</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/api/tags&quot;</span>
-    <span class="n">cabeceras</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Bearer </span><span class="si">{</span><span class="n">srv</span><span class="p">[</span><span class="s1">&#39;clave&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span> <span class="k">if</span> <span class="n">srv</span><span class="p">[</span><span class="s1">&#39;clave&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="p">{}</span>
+    <span class="n">es_openai</span> <span class="o">=</span> <span class="s1">'/v1'</span> <span class="ow">in</span> <span class="n">srv</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">srv</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span><span class="si">}</span><span class="s2">/models"</span> <span class="k">if</span> <span class="n">es_openai</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">srv</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span><span class="si">}</span><span class="s2">/api/tags"</span>
+    <span class="n">cabeceras</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Authorization'</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Bearer </span><span class="si">{</span><span class="n">srv</span><span class="p">[</span><span class="s1">'clave'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">}</span> <span class="k">if</span> <span class="n">srv</span><span class="p">[</span><span class="s1">'clave'</span><span class="p">]</span> <span class="k">else</span> <span class="p">{}</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">cabeceras</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span>
     <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span><span class="p">:</span>
@@ -9601,20 +9654,20 @@ TTFT de un modelo local pequeño =
 <span class="c1"># la soporta la máquina del usuario.</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">resolver_servidor</span><span class="p">(</span><span class="n">interactivo</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">SERVIDORES</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  Aviso: INFERENCE_SERVERS no configurado en .env&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'  Aviso: INFERENCE_SERVERS no configurado en .env'</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">srv</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">SERVIDORES</span><span class="p">):</span>
-        <span class="n">es_ultimo_local</span> <span class="o">=</span> <span class="s1">&#39;localhost&#39;</span> <span class="ow">in</span> <span class="n">srv</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;127.0.0.1&#39;</span> <span class="ow">in</span> <span class="n">srv</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span>
+        <span class="n">es_ultimo_local</span> <span class="o">=</span> <span class="s1">'localhost'</span> <span class="ow">in</span> <span class="n">srv</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">'127.0.0.1'</span> <span class="ow">in</span> <span class="n">srv</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">servidor_disponible</span><span class="p">(</span><span class="n">srv</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Aviso: </span><span class="si">{</span><span class="n">srv</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> no responde.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Aviso: </span><span class="si">{</span><span class="n">srv</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span><span class="si">}</span><span class="s2"> no responde."</span><span class="p">)</span>
             <span class="k">continue</span>
         <span class="k">if</span> <span class="n">es_ultimo_local</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">interactivo</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">isatty</span><span class="p">():</span>
-            <span class="k">if</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;  ¿Ejecutar en local? (S/n): &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">input</span><span class="p">(</span><span class="s1">'  ¿Ejecutar en local? (S/n): '</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'no'</span><span class="p">):</span>
                 <span class="k">return</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">srv</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  Ningún servidor de inferencia disponible; se publica sin reescribir.&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'  Ningún servidor de inferencia disponible; se publica sin reescribir.'</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">None</span>
 </code></pre></div>
 <p>Tres decisiones de diseño que conviene copiar:</p>
@@ -9627,26 +9680,26 @@ TTFT de un modelo local pequeño =
 <p>Y la llamada real, que es donde se ve lo barata que es la abstracción:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Una sola llamada de chat, hablando el dialecto que toque.</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">chat_inferencia</span><span class="p">(</span><span class="n">srv</span><span class="p">,</span> <span class="n">system_prompt</span><span class="p">,</span> <span class="n">user_content</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">600</span><span class="p">):</span>
-    <span class="n">es_openai</span> <span class="o">=</span> <span class="s1">&#39;/v1&#39;</span> <span class="ow">in</span> <span class="n">srv</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span>
-    <span class="n">cabeceras</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}</span>
-    <span class="k">if</span> <span class="n">srv</span><span class="p">[</span><span class="s1">&#39;clave&#39;</span><span class="p">]:</span>
-        <span class="n">cabeceras</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Bearer </span><span class="si">{</span><span class="n">srv</span><span class="p">[</span><span class="s1">&#39;clave&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="n">mensajes</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;role&#39;</span><span class="p">:</span> <span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="n">system_prompt</span><span class="p">},</span>
-                <span class="p">{</span><span class="s1">&#39;role&#39;</span><span class="p">:</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="n">user_content</span><span class="p">}]</span>
+    <span class="n">es_openai</span> <span class="o">=</span> <span class="s1">'/v1'</span> <span class="ow">in</span> <span class="n">srv</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span>
+    <span class="n">cabeceras</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Content-Type'</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">srv</span><span class="p">[</span><span class="s1">'clave'</span><span class="p">]:</span>
+        <span class="n">cabeceras</span><span class="p">[</span><span class="s1">'Authorization'</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Bearer </span><span class="si">{</span><span class="n">srv</span><span class="p">[</span><span class="s1">'clave'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+    <span class="n">mensajes</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">'role'</span><span class="p">:</span> <span class="s1">'system'</span><span class="p">,</span> <span class="s1">'content'</span><span class="p">:</span> <span class="n">system_prompt</span><span class="p">},</span>
+                <span class="p">{</span><span class="s1">'role'</span><span class="p">:</span> <span class="s1">'user'</span><span class="p">,</span> <span class="s1">'content'</span><span class="p">:</span> <span class="n">user_content</span><span class="p">}]</span>
 
     <span class="k">if</span> <span class="n">es_openai</span><span class="p">:</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">srv</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/chat/completions&quot;</span>
-        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="p">[</span><span class="s1">&#39;modelo&#39;</span><span class="p">],</span> <span class="s1">&#39;messages&#39;</span><span class="p">:</span> <span class="n">mensajes</span><span class="p">,</span> <span class="s1">&#39;max_tokens&#39;</span><span class="p">:</span> <span class="mi">32000</span><span class="p">}</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">srv</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span><span class="si">}</span><span class="s2">/chat/completions"</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'model'</span><span class="p">:</span> <span class="n">srv</span><span class="p">[</span><span class="s1">'modelo'</span><span class="p">],</span> <span class="s1">'messages'</span><span class="p">:</span> <span class="n">mensajes</span><span class="p">,</span> <span class="s1">'max_tokens'</span><span class="p">:</span> <span class="mi">32000</span><span class="p">}</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">srv</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/api/chat&quot;</span>
-        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="p">[</span><span class="s1">&#39;modelo&#39;</span><span class="p">],</span> <span class="s1">&#39;messages&#39;</span><span class="p">:</span> <span class="n">mensajes</span><span class="p">,</span> <span class="s1">&#39;stream&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">srv</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span><span class="si">}</span><span class="s2">/api/chat"</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'model'</span><span class="p">:</span> <span class="n">srv</span><span class="p">[</span><span class="s1">'modelo'</span><span class="p">],</span> <span class="s1">'messages'</span><span class="p">:</span> <span class="n">mensajes</span><span class="p">,</span> <span class="s1">'stream'</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
 
     <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">cabeceras</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
     <span class="n">resp</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
     <span class="n">datos</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">es_openai</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">datos</span><span class="p">[</span><span class="s1">&#39;choices&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="s1">&#39;content&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">datos</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">datos</span><span class="p">[</span><span class="s1">'choices'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'message'</span><span class="p">][</span><span class="s1">'content'</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">datos</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'message'</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'content'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 </code></pre></div>
 <h3 id="la-heuristica-del-dialecto">La heurística del dialecto<a class="headerlink" href="#la-heuristica-del-dialecto" title="Permanent link">&para;</a></h3>
 <p>El truco entero es una línea: <strong><code>'/v1' in srv['url']</code></strong>.</p>
@@ -9705,7 +9758,7 @@ TTFT de un modelo local pequeño =
 <p>La cadena entera se define en una sola variable de entorno. Este es el <code>.env.example</code> del repositorio, sin ningún valor real:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># --- Inferencia para la mejora de estilo con --enhance ---</span>
 <span class="c1">#</span>
-<span class="c1"># Lista de servidores por ORDEN DE PRIORIDAD, separados por &#39;;&#39;.</span>
+<span class="c1"># Lista de servidores por ORDEN DE PRIORIDAD, separados por ';'.</span>
 <span class="c1"># Formato de cada uno:  url|modelo|nombre_de_variable_con_la_clave</span>
 <span class="c1">#</span>
 <span class="c1">#   - Una url que contenga /v1 habla el dialecto OpenAI (vLLM, etc.)</span>

@@ -518,6 +518,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -7296,6 +7315,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -9040,6 +9066,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9174,56 +9227,56 @@
       
       
       
-        <span class="md-tag">ai</span>
+        <a href="../../../tags/#tag:ai" class="md-tag">ai</a>
       
     
       
       
       
       
-        <span class="md-tag">cost</span>
+        <a href="../../../tags/#tag:cost" class="md-tag">cost</a>
       
     
       
       
       
       
-        <span class="md-tag">grafana</span>
+        <a href="../../../tags/#tag:grafana" class="md-tag">grafana</a>
       
     
       
       
       
       
-        <span class="md-tag">llm</span>
+        <a href="../../../tags/#tag:llm" class="md-tag">llm</a>
       
     
       
       
       
       
-        <span class="md-tag">monitoring</span>
+        <a href="../../../tags/#tag:monitoring" class="md-tag">monitoring</a>
       
     
       
       
       
       
-        <span class="md-tag">observability</span>
+        <a href="../../../tags/#tag:observability" class="md-tag">observability</a>
       
     
       
       
       
       
-        <span class="md-tag">prometheus</span>
+        <a href="../../../tags/#tag:prometheus" class="md-tag">prometheus</a>
       
     
       
       
       
       
-        <span class="md-tag">vllm</span>
+        <a href="../../../tags/#tag:vllm" class="md-tag">vllm</a>
       
     
   </nav>
@@ -9363,7 +9416,7 @@
 <h2 id="vllm-native-metrics">vLLM native metrics<a class="headerlink" href="#vllm-native-metrics" title="Permanent link">&para;</a></h2>
 <p>vLLM exposes Prometheus metrics at <code>/metrics</code> on the same port as the OpenAI-compatible server, prefixed with <code>vllm:</code> and labeled with <code>model_name</code>. No additional exporter is needed.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Check what your specific build exposes (always do this before writing queries)</span>
-curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:8000/metrics<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;^# HELP vllm:&#39;</span>
+curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:8000/metrics<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">'^# HELP vllm:'</span>
 </code></pre></div>
 <p>These are the ones I can confirm in current official vLLM documentation (V1 engine):</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># --- Gauges: instantaneous scheduler state ---</span>
@@ -9405,7 +9458,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:8000/metr
 <span class="w">    </span><span class="nt">release</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prometheus</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">namespaceSelector</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">matchNames</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;inference&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">matchNames</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"inference"</span><span class="p p-Indicator">]</span>
 <span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vllm</span>
@@ -9419,15 +9472,15 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:8000/metr
 <h2 id="ollama-what-it-exposes-and-what-it-does-not">Ollama: what it exposes and what it does not<a class="headerlink" href="#ollama-what-it-exposes-and-what-it-does-not" title="Permanent link">&para;</a></h2>
 <p><a href="../ollama_basics/">Ollama</a> is designed for local and desktop use, and it shows: <strong>it does not publish a Prometheus-format <code>/metrics</code> endpoint</strong>. There is no queue gauge, no TTFT histogram, no KV cache occupancy. If you need observability over Ollama, you instrument it from the outside.</p>
 <p>The good news is that the API response itself carries the raw data you need. With <code>"stream": false</code>, <code>/api/generate</code> and <code>/api/chat</code> return timing fields in nanoseconds:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:11434/api/generate<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;model&quot;: &quot;llama3.1:8b&quot;,</span>
-<span class="s1">  &quot;prompt&quot;: &quot;Explain the KV cache in two sentences&quot;,</span>
-<span class="s1">  &quot;stream&quot;: false</span>
-<span class="s1">}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;{</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:11434/api/generate<span class="w"> </span>-d<span class="w"> </span><span class="s1">'{</span>
+<span class="s1">  "model": "llama3.1:8b",</span>
+<span class="s1">  "prompt": "Explain the KV cache in two sentences",</span>
+<span class="s1">  "stream": false</span>
+<span class="s1">}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">    total_duration, load_duration,</span>
 <span class="s1">    prompt_eval_count, prompt_eval_duration,</span>
 <span class="s1">    eval_count, eval_duration</span>
-<span class="s1">  }&#39;</span>
+<span class="s1">  }'</span>
 </code></pre></div>
 <p>What each field means:</p>
 <table>
@@ -9481,46 +9534,46 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:8000/metr
 
 <span class="n">NS</span> <span class="o">=</span> <span class="mf">1e9</span>
 
-<span class="n">TOKENS_IN</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="s2">&quot;ollama_prompt_tokens_total&quot;</span><span class="p">,</span> <span class="s2">&quot;Prompt tokens&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">])</span>
-<span class="n">TOKENS_OUT</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="s2">&quot;ollama_generation_tokens_total&quot;</span><span class="p">,</span> <span class="s2">&quot;Generated tokens&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">])</span>
+<span class="n">TOKENS_IN</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="s2">"ollama_prompt_tokens_total"</span><span class="p">,</span> <span class="s2">"Prompt tokens"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"model"</span><span class="p">])</span>
+<span class="n">TOKENS_OUT</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="s2">"ollama_generation_tokens_total"</span><span class="p">,</span> <span class="s2">"Generated tokens"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"model"</span><span class="p">])</span>
 <span class="n">GEN_TPS</span> <span class="o">=</span> <span class="n">Histogram</span><span class="p">(</span>
-    <span class="s2">&quot;ollama_generation_tokens_per_second&quot;</span><span class="p">,</span> <span class="s2">&quot;Tokens/s during the generation phase&quot;</span><span class="p">,</span>
-    <span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">],</span> <span class="n">buckets</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span>
+    <span class="s2">"ollama_generation_tokens_per_second"</span><span class="p">,</span> <span class="s2">"Tokens/s during the generation phase"</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"model"</span><span class="p">],</span> <span class="n">buckets</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">PREFILL</span> <span class="o">=</span> <span class="n">Histogram</span><span class="p">(</span>
-    <span class="s2">&quot;ollama_prefill_seconds&quot;</span><span class="p">,</span> <span class="s2">&quot;Prefill duration&quot;</span><span class="p">,</span>
-    <span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">],</span> <span class="n">buckets</span><span class="o">=</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span>
+    <span class="s2">"ollama_prefill_seconds"</span><span class="p">,</span> <span class="s2">"Prefill duration"</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"model"</span><span class="p">],</span> <span class="n">buckets</span><span class="o">=</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">E2E</span> <span class="o">=</span> <span class="n">Histogram</span><span class="p">(</span>
-    <span class="s2">&quot;ollama_request_seconds&quot;</span><span class="p">,</span> <span class="s2">&quot;Total request duration&quot;</span><span class="p">,</span>
-    <span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">],</span> <span class="n">buckets</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">320</span><span class="p">),</span>
+    <span class="s2">"ollama_request_seconds"</span><span class="p">,</span> <span class="s2">"Total request duration"</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"model"</span><span class="p">],</span> <span class="n">buckets</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">320</span><span class="p">),</span>
 <span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
-        <span class="s2">&quot;http://localhost:11434/api/generate&quot;</span><span class="p">,</span>
-        <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span> <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span> <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
+        <span class="s2">"http://localhost:11434/api/generate"</span><span class="p">,</span>
+        <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"model"</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span> <span class="s2">"prompt"</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span> <span class="s2">"stream"</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
         <span class="n">timeout</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
     <span class="n">d</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 
-    <span class="n">TOKENS_IN</span><span class="o">.</span><span class="n">labels</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">inc</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prompt_eval_count&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-    <span class="n">TOKENS_OUT</span><span class="o">.</span><span class="n">labels</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">inc</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;eval_count&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-    <span class="n">E2E</span><span class="o">.</span><span class="n">labels</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;total_duration&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">NS</span><span class="p">)</span>
+    <span class="n">TOKENS_IN</span><span class="o">.</span><span class="n">labels</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">inc</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"prompt_eval_count"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">TOKENS_OUT</span><span class="o">.</span><span class="n">labels</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">inc</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"eval_count"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">E2E</span><span class="o">.</span><span class="n">labels</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"total_duration"</span><span class="p">]</span> <span class="o">/</span> <span class="n">NS</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prompt_eval_duration&quot;</span><span class="p">):</span>
-        <span class="n">PREFILL</span><span class="o">.</span><span class="n">labels</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;prompt_eval_duration&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">NS</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;eval_duration&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;eval_count&quot;</span><span class="p">):</span>
-        <span class="n">GEN_TPS</span><span class="o">.</span><span class="n">labels</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;eval_count&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;eval_duration&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">NS</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"prompt_eval_duration"</span><span class="p">):</span>
+        <span class="n">PREFILL</span><span class="o">.</span><span class="n">labels</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"prompt_eval_duration"</span><span class="p">]</span> <span class="o">/</span> <span class="n">NS</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"eval_duration"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"eval_count"</span><span class="p">):</span>
+        <span class="n">GEN_TPS</span><span class="o">.</span><span class="n">labels</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"eval_count"</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"eval_duration"</span><span class="p">]</span> <span class="o">/</span> <span class="n">NS</span><span class="p">))</span>
 
-    <span class="k">return</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;response&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">d</span><span class="p">[</span><span class="s2">"response"</span><span class="p">]</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
     <span class="n">start_http_server</span><span class="p">(</span><span class="mi">9109</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">generate</span><span class="p">(</span><span class="s2">&quot;llama3.1:8b&quot;</span><span class="p">,</span> <span class="s2">&quot;say hello&quot;</span><span class="p">)[:</span><span class="mi">80</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">generate</span><span class="p">(</span><span class="s2">"llama3.1:8b"</span><span class="p">,</span> <span class="s2">"say hello"</span><span class="p">)[:</span><span class="mi">80</span><span class="p">])</span>
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">When to migrate from Ollama to vLLM</p>
@@ -9616,7 +9669,7 @@ cost_per_million_tokens = hourly_cost / (tokens_per_second × 3600) × 1e6
 </code></pre></div>
 <p><strong>Row 3b — Generation health.</strong> The panel almost nobody adds and that almost always finds something: the ratio of responses cut off by the length limit.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Fraction of requests truncated by max_tokens instead of finishing on their own</span>
-<span class="k">sum</span><span class="o">(</span><span class="kr">rate</span><span class="o">(</span><span class="nv">vllm</span><span class="err">:</span><span class="nv">request_success_total</span><span class="p">{</span><span class="nl">finished_reason</span><span class="o">=</span><span class="p">&quot;</span><span class="s">length</span><span class="p">&quot;}[</span><span class="s">15m</span><span class="p">]</span><span class="o">))</span>
+<span class="k">sum</span><span class="o">(</span><span class="kr">rate</span><span class="o">(</span><span class="nv">vllm</span><span class="err">:</span><span class="nv">request_success_total</span><span class="p">{</span><span class="nl">finished_reason</span><span class="o">=</span><span class="p">"</span><span class="s">length</span><span class="p">"}[</span><span class="s">15m</span><span class="p">]</span><span class="o">))</span>
 <span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="kr">clamp_min</span><span class="o">(</span><span class="k">sum</span><span class="o">(</span><span class="kr">rate</span><span class="o">(</span><span class="nv">vllm</span><span class="err">:</span><span class="nv">request_success_total</span><span class="p">[</span><span class="s">15m</span><span class="p">]</span><span class="o">))</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span>
 </code></pre></div>
 <p><strong>Row 4 — Cost.</strong> Stat panels with cumulative tokens over the dashboard range and cost per million derived from the recording rules. The small boring value here is a stat with the number of powered-on GPUs: multiplied by cost/hour, that is your minimum bill regardless of traffic.</p>
@@ -9632,11 +9685,11 @@ cost_per_million_tokens = hourly_cost / (tokens_per_second × 3600) × 1e6
 <span class="w">    </span><span class="nt">rules</span><span class="p">:</span>
 <span class="w">      </span><span class="c1"># The engine is not responding. The only legitimate candidate for a night page.</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">InferenceDown</span>
-<span class="w">        </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">up{job=&quot;vllm&quot;} == 0</span>
+<span class="w">        </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">up{job="vllm"} == 0</span>
 <span class="w">        </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2m</span>
 <span class="w">        </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> severity</span><span class="p">:</span><span class="w"> </span><span class="nv">critical</span><span class="w"> </span><span class="p p-Indicator">}</span>
 <span class="w">        </span><span class="nt">annotations</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Inference</span><span class="nv"> </span><span class="s">server</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">$labels.instance</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">not</span><span class="nv"> </span><span class="s">responding&quot;</span>
+<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">"Inference</span><span class="nv"> </span><span class="s">server</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">$labels.instance</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">not</span><span class="nv"> </span><span class="s">responding"</span>
 
 <span class="w">      </span><span class="c1"># Sustained queue: missing capacity. Actionable = scale replicas.</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SustainedInferenceQueue</span>
@@ -9644,8 +9697,8 @@ cost_per_million_tokens = hourly_cost / (tokens_per_second × 3600) × 1e6
 <span class="w">        </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10m</span>
 <span class="w">        </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> severity</span><span class="p">:</span><span class="w"> </span><span class="nv">warning</span><span class="w"> </span><span class="p p-Indicator">}</span>
 <span class="w">        </span><span class="nt">annotations</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Sustained</span><span class="nv"> </span><span class="s">queue</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">$labels.model_name</span><span class="nv"> </span><span class="s">}}&quot;</span>
-<span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Average</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">$value</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">waiting</span><span class="nv"> </span><span class="s">requests</span><span class="nv"> </span><span class="s">over</span><span class="nv"> </span><span class="s">10</span><span class="nv"> </span><span class="s">min.&quot;</span>
+<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">"Sustained</span><span class="nv"> </span><span class="s">queue</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">$labels.model_name</span><span class="nv"> </span><span class="s">}}"</span>
+<span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"Average</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">$value</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">waiting</span><span class="nv"> </span><span class="s">requests</span><span class="nv"> </span><span class="s">over</span><span class="nv"> </span><span class="s">10</span><span class="nv"> </span><span class="s">min."</span>
 
 <span class="w">      </span><span class="c1"># Saturated KV cache + preemptions: real degradation already under way.</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KVCacheSaturated</span>
@@ -9655,7 +9708,7 @@ cost_per_million_tokens = hourly_cost / (tokens_per_second × 3600) × 1e6
 <span class="w">        </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10m</span>
 <span class="w">        </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> severity</span><span class="p">:</span><span class="w"> </span><span class="nv">warning</span><span class="w"> </span><span class="p p-Indicator">}</span>
 <span class="w">        </span><span class="nt">annotations</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;KV</span><span class="nv"> </span><span class="s">cache</span><span class="nv"> </span><span class="s">saturated</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">preemptions</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">$labels.model_name</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">"KV</span><span class="nv"> </span><span class="s">cache</span><span class="nv"> </span><span class="s">saturated</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">preemptions</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">$labels.model_name</span><span class="nv"> </span><span class="s">}}"</span>
 
 <span class="w">      </span><span class="c1"># Sustained TTFT degradation: users are noticing it.</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DegradedTTFT</span>
@@ -9667,19 +9720,19 @@ cost_per_million_tokens = hourly_cost / (tokens_per_second × 3600) × 1e6
 <span class="w">        </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15m</span>
 <span class="w">        </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> severity</span><span class="p">:</span><span class="w"> </span><span class="nv">warning</span><span class="w"> </span><span class="p p-Indicator">}</span>
 <span class="w">        </span><span class="nt">annotations</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TTFT</span><span class="nv"> </span><span class="s">p95</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">$value</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">humanizeDuration</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">$labels.model_name</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">"TTFT</span><span class="nv"> </span><span class="s">p95</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">$value</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">humanizeDuration</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">$labels.model_name</span><span class="nv"> </span><span class="s">}}"</span>
 
 <span class="w">      </span><span class="c1"># Massive truncations: a quality failure invisible to HTTP monitoring.</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ExcessiveTruncations</span>
 <span class="w">        </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">          </span><span class="no">sum(rate(vllm:request_success_total{finished_reason=&quot;length&quot;}[30m]))</span>
+<span class="w">          </span><span class="no">sum(rate(vllm:request_success_total{finished_reason="length"}[30m]))</span>
 <span class="w">            </span><span class="no">/ clamp_min(sum(rate(vllm:request_success_total[30m])), 1) &gt; 0.25</span>
 <span class="w">        </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30m</span>
 <span class="w">        </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> severity</span><span class="p">:</span><span class="w"> </span><span class="nv">warning</span><span class="w"> </span><span class="p p-Indicator">}</span>
 <span class="w">        </span><span class="nt">annotations</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;More</span><span class="nv"> </span><span class="s">than</span><span class="nv"> </span><span class="s">25%</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">responses</span><span class="nv"> </span><span class="s">cut</span><span class="nv"> </span><span class="s">off</span><span class="nv"> </span><span class="s">by</span><span class="nv"> </span><span class="s">max_tokens&quot;</span>
+<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">"More</span><span class="nv"> </span><span class="s">than</span><span class="nv"> </span><span class="s">25%</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">responses</span><span class="nv"> </span><span class="s">cut</span><span class="nv"> </span><span class="s">off</span><span class="nv"> </span><span class="s">by</span><span class="nv"> </span><span class="s">max_tokens"</span>
 
-<span class="w">      </span><span class="c1"># Spend spike against yesterday&#39;s baseline. Business hours only.</span>
+<span class="w">      </span><span class="c1"># Spend spike against yesterday's baseline. Business hours only.</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AnomalousSpend</span>
 <span class="w">        </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
 <span class="w">          </span><span class="no">sum(rate(vllm:generation_tokens_total[1h]))</span>
@@ -9687,7 +9740,7 @@ cost_per_million_tokens = hourly_cost / (tokens_per_second × 3600) × 1e6
 <span class="w">        </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30m</span>
 <span class="w">        </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> severity</span><span class="p">:</span><span class="w"> </span><span class="nv">info</span><span class="w"> </span><span class="p p-Indicator">}</span>
 <span class="w">        </span><span class="nt">annotations</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Token</span><span class="nv"> </span><span class="s">consumption</span><span class="nv"> </span><span class="s">3x</span><span class="nv"> </span><span class="s">above</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">same</span><span class="nv"> </span><span class="s">window</span><span class="nv"> </span><span class="s">yesterday&quot;</span>
+<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">"Token</span><span class="nv"> </span><span class="s">consumption</span><span class="nv"> </span><span class="s">3x</span><span class="nv"> </span><span class="s">above</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">same</span><span class="nv"> </span><span class="s">window</span><span class="nv"> </span><span class="s">yesterday"</span>
 </code></pre></div>
 <p>And the ones you should <strong>not</strong> create:</p>
 <table>
@@ -9746,10 +9799,10 @@ cost_per_million_tokens = hourly_cost / (tokens_per_second × 3600) × 1e6
 <span class="n">RETENTION_DAYS</span> <span class="o">=</span> <span class="mi">7</span>            <span class="c1"># enforced in the log backend</span>
 
 <span class="n">PII_PATTERNS</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[\w\.\-]+@[\w\.\-]+\.\w+&quot;</span><span class="p">),</span> <span class="s2">&quot;[EMAIL]&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\b\d</span><span class="si">{8}</span><span class="s2">[A-HJ-NP-TV-Z]\b&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">),</span> <span class="s2">&quot;[NATIONAL_ID]&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\b(?:\d[ -]?){13,19}\b&quot;</span><span class="p">),</span> <span class="s2">&quot;[CARD]&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\b(?:\+34[ -]?)?[6-9]\d</span><span class="si">{2}</span><span class="s2">[ -]?\d</span><span class="si">{3}</span><span class="s2">[ -]?\d</span><span class="si">{3}</span><span class="s2">\b&quot;</span><span class="p">),</span> <span class="s2">&quot;[PHONE]&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[\w\.\-]+@[\w\.\-]+\.\w+"</span><span class="p">),</span> <span class="s2">"[EMAIL]"</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\b\d</span><span class="si">{8}</span><span class="s2">[A-HJ-NP-TV-Z]\b"</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">),</span> <span class="s2">"[NATIONAL_ID]"</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\b(?:\d[ -]?){13,19}\b"</span><span class="p">),</span> <span class="s2">"[CARD]"</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\b(?:\+34[ -]?)?[6-9]\d</span><span class="si">{2}</span><span class="s2">[ -]?\d</span><span class="si">{3}</span><span class="s2">[ -]?\d</span><span class="si">{3}</span><span class="s2">\b"</span><span class="p">),</span> <span class="s2">"[PHONE]"</span><span class="p">),</span>
 <span class="p">]</span>
 
 
@@ -9761,42 +9814,42 @@ cost_per_million_tokens = hourly_cost / (tokens_per_second × 3600) × 1e6
 
 <span class="k">def</span><span class="w"> </span><span class="nf">should_sample</span><span class="p">(</span><span class="n">finish_reason</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">latency_s</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">feedback</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="c1"># Always the interesting cases; everything else, at random.</span>
-    <span class="k">if</span> <span class="n">finish_reason</span> <span class="o">==</span> <span class="s2">&quot;length&quot;</span> <span class="ow">or</span> <span class="n">latency_s</span> <span class="o">&gt;</span> <span class="mi">30</span> <span class="ow">or</span> <span class="n">feedback</span> <span class="o">==</span> <span class="s2">&quot;negative&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">finish_reason</span> <span class="o">==</span> <span class="s2">"length"</span> <span class="ow">or</span> <span class="n">latency_s</span> <span class="o">&gt;</span> <span class="mi">30</span> <span class="ow">or</span> <span class="n">feedback</span> <span class="o">==</span> <span class="s2">"negative"</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">SAMPLE_RATE</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">quality_record</span><span class="p">(</span><span class="n">request_id</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">meta</span><span class="p">):</span>
     <span class="n">base</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;request_id&quot;</span><span class="p">:</span> <span class="n">request_id</span><span class="p">,</span>
-        <span class="s2">&quot;prompt_sha256&quot;</span><span class="p">:</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">prompt</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(),</span>
-        <span class="s2">&quot;input_tokens&quot;</span><span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;prompt_tokens&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;output_tokens&quot;</span><span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;completion_tokens&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;finish_reason&quot;</span><span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;finish_reason&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;ttft_s&quot;</span><span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;ttft&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">],</span>
+        <span class="s2">"request_id"</span><span class="p">:</span> <span class="n">request_id</span><span class="p">,</span>
+        <span class="s2">"prompt_sha256"</span><span class="p">:</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">prompt</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(),</span>
+        <span class="s2">"input_tokens"</span><span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"prompt_tokens"</span><span class="p">],</span>
+        <span class="s2">"output_tokens"</span><span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"completion_tokens"</span><span class="p">],</span>
+        <span class="s2">"finish_reason"</span><span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"finish_reason"</span><span class="p">],</span>
+        <span class="s2">"ttft_s"</span><span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"ttft"</span><span class="p">],</span>
+        <span class="s2">"model"</span><span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"model"</span><span class="p">],</span>
     <span class="p">}</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">should_sample</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;finish_reason&quot;</span><span class="p">],</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;e2e&quot;</span><span class="p">],</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;feedback&quot;</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">should_sample</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="s2">"finish_reason"</span><span class="p">],</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"e2e"</span><span class="p">],</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"feedback"</span><span class="p">)):</span>
         <span class="k">return</span> <span class="n">base</span>  <span class="c1"># metadata only: no content, no risk</span>
 
     <span class="c1"># ponytail: the PII regex covers the frequent cases; if you handle health or</span>
     <span class="c1"># financial data, swap it for a specialized detector before production.</span>
     <span class="k">return</span> <span class="n">base</span> <span class="o">|</span> <span class="p">{</span>
-        <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">redact</span><span class="p">(</span><span class="n">prompt</span><span class="p">)[:</span><span class="mi">4000</span><span class="p">],</span>
-        <span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">redact</span><span class="p">(</span><span class="n">response</span><span class="p">)[:</span><span class="mi">4000</span><span class="p">],</span>
+        <span class="s2">"prompt"</span><span class="p">:</span> <span class="n">redact</span><span class="p">(</span><span class="n">prompt</span><span class="p">)[:</span><span class="mi">4000</span><span class="p">],</span>
+        <span class="s2">"response"</span><span class="p">:</span> <span class="n">redact</span><span class="p">(</span><span class="n">response</span><span class="p">)[:</span><span class="mi">4000</span><span class="p">],</span>
     <span class="p">}</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">quality_record</span><span class="p">(</span>
-        <span class="s2">&quot;req-1&quot;</span><span class="p">,</span> <span class="s2">&quot;I am Ana, ana@example.com, 12345678Z&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello Ana&quot;</span><span class="p">,</span>
-        <span class="p">{</span><span class="s2">&quot;prompt_tokens&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;completion_tokens&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;finish_reason&quot;</span><span class="p">:</span> <span class="s2">&quot;length&quot;</span><span class="p">,</span>
-         <span class="s2">&quot;ttft&quot;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s2">&quot;e2e&quot;</span><span class="p">:</span> <span class="mf">1.2</span><span class="p">,</span> <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;llama3.1:8b&quot;</span><span class="p">},</span>
+        <span class="s2">"req-1"</span><span class="p">,</span> <span class="s2">"I am Ana, ana@example.com, 12345678Z"</span><span class="p">,</span> <span class="s2">"Hello Ana"</span><span class="p">,</span>
+        <span class="p">{</span><span class="s2">"prompt_tokens"</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s2">"completion_tokens"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"finish_reason"</span><span class="p">:</span> <span class="s2">"length"</span><span class="p">,</span>
+         <span class="s2">"ttft"</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s2">"e2e"</span><span class="p">:</span> <span class="mf">1.2</span><span class="p">,</span> <span class="s2">"model"</span><span class="p">:</span> <span class="s2">"llama3.1:8b"</span><span class="p">},</span>
     <span class="p">)</span>
-    <span class="k">assert</span> <span class="s2">&quot;ana@example.com&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;prompt&quot;</span><span class="p">],</span> <span class="s2">&quot;email leak&quot;</span>
-    <span class="k">assert</span> <span class="s2">&quot;12345678Z&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;prompt&quot;</span><span class="p">],</span> <span class="s2">&quot;national ID leak&quot;</span>
-    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;prompt_sha256&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">64</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ok:&quot;</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;prompt&quot;</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="s2">"ana@example.com"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="s2">"prompt"</span><span class="p">],</span> <span class="s2">"email leak"</span>
+    <span class="k">assert</span> <span class="s2">"12345678Z"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="s2">"prompt"</span><span class="p">],</span> <span class="s2">"national ID leak"</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">"prompt_sha256"</span><span class="p">])</span> <span class="o">==</span> <span class="mi">64</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"ok:"</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="s2">"prompt"</span><span class="p">])</span>
 </code></pre></div>
 <p><strong>Evaluate offline, not on the critical path.</strong> The sampled data feeds a batch process applying the techniques from <a href="../model_evaluation/">model evaluation</a>: comparison against reference answers, LLM-as-a-judge, format rules. That process produces an aggregate score that you <strong>can</strong> publish as a Prometheus metric and graph alongside the performance ones. Never run an LLM judge synchronously inside the user's request: you double latency and cost to obtain a number you could compute five minutes later.</p>
 <p><strong>Watch for drift without reading text.</strong> Three aggregate signals detect behaviour changes without touching content: average response length, distribution of finish reasons, and prefix cache hit ratio. A deployment that changes the system prompt shows up in all three at once.</p>

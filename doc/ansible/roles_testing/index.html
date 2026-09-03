@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentación oficial del proyecto Frikiteam 🚀">
+        <meta name="description" content="Estructura de un rol, los cuatro niveles de comprobación (sintaxis, lint, idempotencia y verificación funcional), ansible-lint sin ruido, escenarios y drivers de Molecule, el test de idempotencia explicado y la integración en CI.">
       
       
       
@@ -31,7 +31,7 @@
     
     
       
-        <title>Ansible — Roles y Testing con Molecule - Frikiteam Docs</title>
+        <title>Ansible — Roles y testing con Molecule - Frikiteam Docs</title>
       
     
     
@@ -71,16 +71,16 @@
 
   
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Ansible — Roles y Testing con Molecule - Frikiteam Docs" />
-<meta property="og:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="og:title" content="Ansible — Roles y testing con Molecule - Frikiteam Docs" />
+<meta property="og:description" content="Estructura de un rol, los cuatro niveles de comprobación (sintaxis, lint, idempotencia y verificación funcional), ansible-lint sin ruido, escenarios y drivers de Molecule, el test de idempotencia explicado y la integración en CI." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/doc/ansible/roles_testing.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:url" content="https://docs.frikiteam.es/doc/ansible/roles_testing/" />
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="Ansible — Roles y Testing con Molecule - Frikiteam Docs" />
-<meta property="twitter:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="twitter:title" content="Ansible — Roles y testing con Molecule - Frikiteam Docs" />
+<meta property="twitter:description" content="Estructura de un rol, los cuatro niveles de comprobación (sintaxis, lint, idempotencia y verificación funcional), ansible-lint sin ruido, escenarios y drivers de Molecule, el test de idempotencia explicado y la integración en CI." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/doc/ansible/roles_testing.png" />
 </head>
   
@@ -136,7 +136,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ansible — Roles y Testing con Molecule
+              Ansible — Roles y testing con Molecule
             
           </span>
         </div>
@@ -508,6 +508,25 @@
     
   
   Blog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
 
       </a>
     </li>
@@ -3850,10 +3869,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#resumen" class="md-nav__link">
+  <a href="#el-problema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Resumen
+        El problema
       
     </span>
   </a>
@@ -3861,10 +3880,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#estructura-recomendada" class="md-nav__link">
+  <a href="#tabla-de-contenidos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Estructura recomendada
+        📋 Tabla de Contenidos
       
     </span>
   </a>
@@ -3872,10 +3891,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#molecule" class="md-nav__link">
+  <a href="#anatomia-de-un-rol" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Molecule
+        Anatomía de un rol
       
     </span>
   </a>
@@ -3883,10 +3902,142 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#integracion-en-ci" class="md-nav__link">
+  <a href="#por-que-un-playbook-que-funciona-no-esta-probado" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Integración en CI
+        Por qué un playbook que funciona no está probado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#los-cuatro-niveles-de-comprobacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Los cuatro niveles de comprobación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ansible-lint-sin-ruido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ansible-lint sin ruido
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#molecule-escenarios-y-drivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Molecule: escenarios y drivers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-ciclo-de-un-escenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El ciclo de un escenario
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#idempotencia-de-verdad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Idempotencia de verdad
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verificacion-funcional-assert-o-testinfra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verificación funcional: assert o Testinfra
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variables-de-prueba-y-matriz-de-distribuciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variables de prueba y matriz de distribuciones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ci-con-github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI con GitHub Actions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-no-merece-la-pena-probar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué no merece la pena probar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas prácticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias
       
     </span>
   </a>
@@ -7108,6 +7259,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -8852,6 +9010,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -8984,9 +9169,41 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermedio</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 1 min</span> <span class="md-badge md-badge--primary">Categoría: Automatización</span> <span class="md-badge md-badge--green">Publicado</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermedio</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 25 min</span> <span class="md-badge md-badge--primary">Categoría: DevOps</span> <span class="md-badge md-badge--green">Publicado</span></div>
                 
                   
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:ansible" class="md-tag">ansible</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:automation" class="md-tag">automation</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:ci-cd" class="md-tag">ci-cd</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:testing" class="md-tag">testing</a>
+      
+    
+  </nav>
 
 
   
@@ -8998,29 +9215,393 @@
   
 
 
-<h1 id="ansible-roles-y-testing-con-molecule">Ansible — Roles y Testing con Molecule<a class="headerlink" href="#ansible-roles-y-testing-con-molecule" title="Permanent link">&para;</a></h1>
-<h2 id="resumen">Resumen<a class="headerlink" href="#resumen" title="Permanent link">&para;</a></h2>
-<p>Guía rápida para organizar roles y probarlos con <code>molecule</code> en local y en CI.</p>
-<h2 id="estructura-recomendada">Estructura recomendada<a class="headerlink" href="#estructura-recomendada" title="Permanent link">&para;</a></h2>
+<h1 id="ansible-roles-y-testing-con-molecule">Ansible — Roles y testing con Molecule<a class="headerlink" href="#ansible-roles-y-testing-con-molecule" title="Permanent link">&para;</a></h1>
+<h2 id="el-problema">El problema<a class="headerlink" href="#el-problema" title="Permanent link">&para;</a></h2>
+<p>El playbook funcionó: lo lanzaste contra la máquina nueva, salió verde, el servicio respondió. Y de ahí sacas una conclusión que no toca — que el rol <em>funciona</em>. Lo que has demostrado es que funciona <strong>una vez</strong>, <strong>en esa máquina</strong>, <strong>desde ese estado inicial concreto</strong>. Lo que no sabes todavía: qué pasa en la segunda ejecución, qué pasa en Debian si lo escribiste mirando a Rocky, y qué pasa cuando el fichero que gestionas ya existía con contenido distinto. Ansible se vende como idempotente, pero la idempotencia no es una propiedad del motor: es una propiedad de <strong>tus tareas</strong>, y se pierde con un <code>shell</code> mal escrito. Probar un rol es cerrar ese hueco de forma repetible: máquina limpia, aplicar el rol, aplicarlo otra vez, comprobar que el sistema quedó como dices que queda.</p>
+<div class="admonition note">
+<p class="admonition-title">Qué cubre y qué no</p>
+<p>Esta página continúa donde acaba <a href="../ansible_base/">Ansible — Automatización de Infraestructura</a>: asume que sabes escribir un playbook y quieres empaquetarlo como rol probado. No cubre colecciones, AWX/AAP ni publicación firmada en Galaxy.</p>
+</div>
+<h2 id="tabla-de-contenidos">📋 Tabla de Contenidos<a class="headerlink" href="#tabla-de-contenidos" title="Permanent link">&para;</a></h2>
 <ul>
-<li>roles/</li>
-<li>myrole/</li>
-<li>tasks/</li>
-<li>handlers/</li>
-<li>defaults/</li>
-<li>meta/</li>
-<li>tests/</li>
+<li><a href="#anatomia-de-un-rol">Anatomía de un rol</a></li>
+<li><a href="#por-que-un-playbook-que-funciona-no-esta-probado">Por qué un playbook que funciona no está probado</a></li>
+<li><a href="#los-cuatro-niveles-de-comprobacion">Los cuatro niveles de comprobación</a></li>
+<li><a href="#ansible-lint-sin-ruido">ansible-lint sin ruido</a></li>
+<li><a href="#molecule-escenarios-y-drivers">Molecule: escenarios y drivers</a></li>
+<li><a href="#el-ciclo-de-un-escenario">El ciclo de un escenario</a></li>
+<li><a href="#idempotencia-de-verdad">Idempotencia de verdad</a></li>
+<li><a href="#verificacion-funcional-assert-o-testinfra">Verificación funcional: assert o Testinfra</a></li>
+<li><a href="#variables-de-prueba-y-matriz-de-distribuciones">Variables de prueba y matriz de distribuciones</a></li>
+<li><a href="#ci-con-github-actions">CI con GitHub Actions</a></li>
+<li><a href="#que-no-merece-la-pena-probar">Qué no merece la pena probar</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#buenas-practicas">Buenas prácticas</a></li>
+<li><a href="#referencias">Referencias</a></li>
 </ul>
-<h2 id="molecule">Molecule<a class="headerlink" href="#molecule" title="Permanent link">&para;</a></h2>
+<h2 id="anatomia-de-un-rol">Anatomía de un rol<a class="headerlink" href="#anatomia-de-un-rol" title="Permanent link">&para;</a></h2>
+<p>Un rol es un directorio con nombres reservados. Ansible carga el <code>main.yml</code> de cada uno automáticamente: no hay fichero índice ni configuración que lo declare.</p>
+<div class="highlight"><pre><span></span><code>roles/nginx/
+├── defaults/main.yml    # variables por defecto — precedencia MÁS BAJA
+├── vars/main.yml        # constantes internas — precedencia MUY ALTA
+├── tasks/main.yml       # punto de entrada del rol
+├── handlers/main.yml    # tareas disparadas por notify (reload, restart)
+├── templates/           # ficheros .j2 renderizados con template
+├── files/               # ficheros estáticos servidos con copy
+├── meta/main.yml        # metadatos, dependencias, plataformas soportadas
+└── molecule/default/    # escenario de prueba
+</code></pre></div>
+<p>La distinción que más problemas causa es <code>defaults/</code> frente a <code>vars/</code>. <code>defaults/</code> tiene la precedencia más baja de todas: cualquiera la sobrescribe desde el inventario, <code>group_vars</code> o el play. <code>vars/</code> está por encima de casi todo, incluidos los <code>vars</code> del propio play. Si dudas, va en <code>defaults/</code>: una variable en <code>vars/</code> deja al usuario del rol convencido de que su configuración se ignora — porque se ignora. Y las dependencias declaradas en <code>meta/main.yml</code> se ejecutan <strong>antes</strong> que el rol y en cada invocación; para lógica condicional casi siempre es preferible <code>include_role</code> dentro de <code>tasks/</code>.</p>
+<h2 id="por-que-un-playbook-que-funciona-no-esta-probado">Por qué un playbook que funciona no está probado<a class="headerlink" href="#por-que-un-playbook-que-funciona-no-esta-probado" title="Permanent link">&para;</a></h2>
+<p>Cuatro fallos que una ejecución manual exitosa no detecta:</p>
+<ol>
+<li><strong>No idempotencia.</strong> La primera pasada crea el fichero; la segunda reporta <code>changed</code> otra vez porque usaste <code>shell</code>. En producción son handlers disparándose y servicios reiniciándose en cada ejecución.</li>
+<li><strong>Dependencia del estado inicial.</strong> Tu máquina de pruebas ya tenía <code>curl</code>, <code>python3-apt</code> o el usuario creado. La máquina nueva, no.</li>
+<li><strong>Deriva entre distribuciones.</strong> <code>apache2</code> frente a <code>httpd</code>, <code>sites-available</code> frente a <code>conf.d</code>, <code>firewalld</code> frente a <code>nftables</code>.</li>
+<li><strong>Regresión al cambiar una variable.</strong> Alguien toca un default seis meses después y nadie vuelve a aplicar el rol sobre una máquina limpia hasta el día del despliegue.</li>
+</ol>
+<h2 id="los-cuatro-niveles-de-comprobacion">Los cuatro niveles de comprobación<a class="headerlink" href="#los-cuatro-niveles-de-comprobacion" title="Permanent link">&para;</a></h2>
+<p>Cada nivel cuesta más y coge cosas distintas. En este orden: el barato primero.</p>
+<table>
+<thead>
+<tr>
+<th>Nivel</th>
+<th>Comando</th>
+<th>Qué coge</th>
+<th>Qué NO coge</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sintaxis</strong></td>
+<td><code>ansible-playbook --syntax-check</code></td>
+<td>YAML inválido, módulos inexistentes, parámetros mal anidados</td>
+<td>Todo lo semántico</td>
+</tr>
+<tr>
+<td><strong>Lint</strong></td>
+<td><code>ansible-lint</code></td>
+<td>Antipatrones, <code>shell</code> evitable, permisos implícitos, nombres ausentes</td>
+<td>Que el rol haga lo que dice</td>
+</tr>
+<tr>
+<td><strong>Idempotencia</strong></td>
+<td><code>molecule idempotence</code></td>
+<td>Tareas que cambian algo en cada pasada</td>
+<td>Que el resultado sea correcto</td>
+</tr>
+<tr>
+<td><strong>Verificación funcional</strong></td>
+<td><code>molecule verify</code></td>
+<td>Que el servicio esté instalado, activo y escuchando</td>
+<td>Rendimiento y carga real</td>
+</tr>
+</tbody>
+</table>
+<p>Existe además el <em>check mode</em> (<code>ansible-playbook --check --diff</code>), útil contra máquinas reales para ver qué cambiaría antes de tocar nada. Pero <strong>no es un test</strong>: no todos los módulos lo soportan con fidelidad, y cualquier tarea que dependa del <code>register</code> de una anterior que en check mode no llegó a ejecutarse da un resultado falso. Sirve para revisar un cambio, no para validar un rol.</p>
+<h2 id="ansible-lint-sin-ruido">ansible-lint sin ruido<a class="headerlink" href="#ansible-lint-sin-ruido" title="Permanent link">&para;</a></h2>
+<p>Sin configuración, <code>ansible-lint</code> sobre un rol existente escupe cientos de avisos —la mitad irrelevantes para ti— y el equipo aprende a ignorarlo en una semana. La configuración es lo que lo hace útil.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># .ansible-lint</span>
+<span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">moderate</span><span class="w">          </span><span class="c1"># conjunto progresivo de reglas, no todas de golpe</span>
+<span class="nt">skip_list</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yaml[line-length]</span><span class="w">      </span><span class="c1"># decisión de estilo, no un fallo</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">package-latest</span><span class="w">         </span><span class="c1"># deliberado en el rol de estaciones de trabajo</span>
+<span class="nt">warn_list</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"name[casing]"</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># avisa, no rompe el build</span>
+</code></pre></div>
+<p>Empezar por un perfil laxo y subirlo cuando el rol esté limpio es más realista que arrancar con todo encendido. Las reglas que más ruido dan:</p>
+<table>
+<thead>
+<tr>
+<th>Regla</th>
+<th>De qué se queja</th>
+<th>Trato razonable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name[missing]</code>, <code>name[casing]</code></td>
+<td>Tareas sin nombre o en minúscula</td>
+<td>Arreglar: el nombre es lo que lees cuando falla</td>
+</tr>
+<tr>
+<td><code>fqcn[action-core]</code></td>
+<td><code>copy:</code> en vez de <code>ansible.builtin.copy:</code></td>
+<td>Arreglar de una vez con <code>--fix</code> y olvidarse</td>
+</tr>
+<tr>
+<td><code>no-changed-when</code></td>
+<td><code>command</code>/<code>shell</code> sin <code>changed_when</code></td>
+<td><strong>Arreglar siempre</strong>: es lo que rompe la idempotencia</td>
+</tr>
+<tr>
+<td><code>risky-file-permissions</code></td>
+<td><code>copy</code>/<code>file</code> sin <code>mode</code></td>
+<td>Arreglar: el modo implícito depende del umask remoto</td>
+</tr>
+<tr>
+<td><code>package-latest</code></td>
+<td><code>state: latest</code></td>
+<td>Legítimo en workstations, mal en servidores</td>
+</tr>
+<tr>
+<td><code>yaml[line-length]</code></td>
+<td>Líneas largas</td>
+<td>Silenciar sin remordimientos</td>
+</tr>
+</tbody>
+</table>
+<p>Ojo con <code>ansible-lint --fix</code>: además de corregir reglas reformatea el YAML. Ejecútalo con el árbol de trabajo limpio y revisa el diff antes de commitear — no es una operación cosmética inocua.</p>
+<h2 id="molecule-escenarios-y-drivers">Molecule: escenarios y drivers<a class="headerlink" href="#molecule-escenarios-y-drivers" title="Permanent link">&para;</a></h2>
+<p>Molecule automatiza el bucle "levanta, aplica, comprueba, destruye". Un <strong>escenario</strong> es un directorio bajo <code>molecule/</code> con su configuración (<code>molecule.yml</code>), el playbook que aplica el rol (<code>converge.yml</code>) y las comprobaciones (<code>verify.yml</code>). El llamado <code>default</code> es el que se ejecuta si no dices otra cosa.</p>
+<div class="highlight"><pre><span></span><code>molecule<span class="w"> </span>init<span class="w"> </span>scenario<span class="w"> </span>-s<span class="w"> </span>proxy<span class="w">   </span><span class="c1"># añadir escenario a un rol existente</span>
+molecule<span class="w"> </span><span class="nb">test</span><span class="w">                     </span><span class="c1"># escenario default; -s proxy para otro, --all para todos</span>
+</code></pre></div>
+<p>El <strong>driver</strong> decide sobre qué se prueba:</p>
+<table>
+<thead>
+<tr>
+<th>Driver</th>
+<th>Aísla</th>
+<th>Coste</th>
+<th>Cuándo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Contenedor (Docker/Podman)</td>
+<td>Procesos y ficheros</td>
+<td>Segundos</td>
+<td>El 90 % de los roles: paquetes, ficheros, plantillas, usuarios</td>
+</tr>
+<tr>
+<td>Máquina virtual (Vagrant, libvirt, nube)</td>
+<td>Kernel completo</td>
+<td>Minutos</td>
+<td>Módulos de kernel, cortafuegos, particiones, systemd real</td>
+</tr>
+<tr>
+<td><code>delegated</code> / <code>default</code></td>
+<td>Nada: los hosts los pones tú</td>
+<td>Variable</td>
+<td>Infraestructura existente o tecnologías sin driver</td>
+</tr>
+</tbody>
+</table>
+<p>La limitación del contenedor no es un detalle menor: no hay <code>systemd</code> de serie, no hay <code>/sys</code> completo y no hay reglas de cortafuegos aplicables. Un rol que instala paquetes y despliega plantillas se prueba perfectamente en contenedor; uno que gestiona <code>nftables</code> o monta volúmenes necesita VM, o estarás probando la mitad que da igual.</p>
+<div class="admonition danger">
+<p class="admonition-title">Aquí es donde te muerde la versión</p>
+<p>La estructura de configuración de Molecule <strong>ha cambiado entre versiones mayores</strong>. Lo que depende de tu versión y no debes copiar a ciegas de un blog: los drivers dejaron de venir en el paquete principal (una época sueltos —<code>molecule-docker</code>, <code>molecule-podman</code>, <code>molecule-vagrant</code>— y después agrupados en <code>molecule-plugins</code>); versiones recientes empujan hacia el driver <code>default</code> con tus propios playbooks <code>create.yml</code>/<code>destroy.yml</code> en lugar de un driver por tecnología; y la clave <code>lint:</code> dentro de <code>molecule.yml</code> existió, cambió de forma y acabó desapareciendo. Antes de escribir tu <code>molecule.yml</code>, ejecuta <code>molecule --version</code> y <code>molecule drivers</code>, y lee la documentación <strong>de esa versión</strong>. Lo estable en todas: la estructura de directorios de escenarios, los nombres de las fases y el concepto de idempotencia. Lanzar <code>ansible-lint</code> como paso propio en CI, fuera de Molecule, funciona con cualquier versión y te ahorra el problema entero.</p>
+</div>
+<h2 id="el-ciclo-de-un-escenario">El ciclo de un escenario<a class="headerlink" href="#el-ciclo-de-un-escenario" title="Permanent link">&para;</a></h2>
+<p><code>molecule test</code> encadena las fases del escenario en orden: <code>create</code> → <code>converge</code> → <code>idempotence</code> → <code>verify</code> → <code>destroy</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Fase</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dependency</code></td>
+<td>Descarga roles y colecciones de <code>requirements.yml</code>; <code>create</code> levanta las instancias de <code>platforms</code> y <code>prepare</code> prepara el terreno</td>
+</tr>
+<tr>
+<td><code>converge</code></td>
+<td>Aplica el rol — tu playbook de verdad</td>
+</tr>
+<tr>
+<td><code>idempotence</code></td>
+<td>Repite <code>converge</code> y falla si algo reporta <code>changed</code></td>
+</tr>
+<tr>
+<td><code>verify</code></td>
+<td>Ejecuta las comprobaciones, y <code>destroy</code> elimina las instancias</td>
+</tr>
+</tbody>
+</table>
+<p>Durante el desarrollo <strong>no ejecutes <code>molecule test</code></strong>: destruye la instancia al terminar, justo cuando querías inspeccionarla. El bucle rápido es <code>molecule converge</code> para aplicar, <code>molecule login</code> para entrar, <code>molecule verify</code> para comprobar y <code>molecule destroy</code> al acabar; <code>molecule test</code> es para CI y para la validación final.</p>
+<h2 id="idempotencia-de-verdad">Idempotencia de verdad<a class="headerlink" href="#idempotencia-de-verdad" title="Permanent link">&para;</a></h2>
+<p>La fase <code>idempotence</code> hace algo muy simple: ejecuta <code>converge</code> <strong>una segunda vez</strong> y mira el resumen. Si alguna tarea reporta <code>changed</code>, falla.</p>
+<p>No es un tecnicismo: un rol no idempotente reescribe ficheros y reinicia servicios en cada ejecución sobre tu flota, la pasada "de comprobación" pasa a ser destructiva y la gente deja de lanzar Ansible por miedo.</p>
+<p><strong>1. <code>command</code> y <code>shell</code> sin declarar cuándo cambian algo.</strong> Siempre reportan <code>changed</code>, porque Ansible no puede saber qué hicieron. Si el comando produce un artefacto, lo resuelve <code>creates:</code> (o su gemelo <code>removes:</code>); si no, lo decide su salida — <code>changed_when: false</code> para lo que sólo consulta, una expresión sobre <code>stdout</code> o <code>rc</code> para lo que actúa:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Compile the assets</span>
+<span class="w">  </span><span class="nt">ansible.builtin.command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm run build</span>
+<span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> chdir</span><span class="p">:</span><span class="w"> </span><span class="nv">/opt/app</span><span class="p p-Indicator">,</span><span class="nt"> creates</span><span class="p">:</span><span class="w"> </span><span class="nv">/opt/app/dist/index.html</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w">   </span><span class="c1"># sin creates: changed siempre</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Check the pending migrations</span>
+<span class="w">  </span><span class="nt">ansible.builtin.command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt/app/bin/migrate --status</span>
+<span class="w">  </span><span class="nt">register</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">migracion</span>
+<span class="w">  </span><span class="nt">changed_when</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Apply the migrations</span>
+<span class="w">  </span><span class="nt">ansible.builtin.command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt/app/bin/migrate --apply</span>
+<span class="w">  </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">migracion.rc == 2</span>
+<span class="w">  </span><span class="nt">register</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resultado</span>
+<span class="w">  </span><span class="nt">changed_when</span><span class="p">:</span><span class="w"> </span><span class="s">"'applied'</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">resultado.stdout"</span>
+</code></pre></div>
+<p><strong>2. <code>lineinfile</code> con una expresión que no reconoce lo que escribe.</strong> Si la <code>regexp</code> busca un patrón y la <code>line</code> escribe otro que ya no encaja, la segunda pasada no la encuentra y la añade otra vez: a las veinte ejecuciones tienes veinte líneas. La <code>regexp</code> debe casar con la <strong>clave</strong>; la <code>line</code> lleva clave y valor.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set the port</span>
+<span class="w">  </span><span class="nt">ansible.builtin.lineinfile</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/app.conf</span>
+<span class="w">    </span><span class="nt">regexp</span><span class="p">:</span><span class="w"> </span><span class="s">'^port\s*='</span><span class="w">      </span><span class="c1"># ✅ casa con la clave; con '^port = 8080' se duplicaría</span>
+<span class="w">    </span><span class="nt">line</span><span class="p">:</span><span class="w"> </span><span class="s">'port</span><span class="nv"> </span><span class="s">=</span><span class="nv"> </span><span class="s">9090'</span>
+</code></pre></div>
+<p>Si vas a tocar más de dos líneas del mismo fichero, abandona <code>lineinfile</code> y usa <code>template</code>: el fichero entero pasa a ser tuyo y la idempotencia sale gratis.</p>
+<p><strong>3. Plantillas con contenido volátil.</strong> Una plantilla que renderiza <code>{{ ansible_date_time.iso8601 }}</code> o un valor aleatorio produce un fichero distinto en cada pasada, y por tanto <code>changed</code> eterno. La cabecera de "generado por Ansible" va sin fecha.</p>
+<p><strong>4. <code>state: latest</code> y descargas sin condición.</strong> <code>package: state=latest</code> reporta <code>changed</code> cada vez que el repositorio publica una actualización: correcto, pero no idempotente por definición. En cualquier cosa que deba ser reproducible, <code>state: present</code> con la versión fijada. Cuando <code>idempotence</code> falla, la salida señala la tarea pero no siempre el motivo: el diagnóstico directo es repetir la pasada mostrando el diff con <code>molecule converge -- --diff -v</code>, que sobre <code>template</code>, <code>copy</code> y <code>lineinfile</code> enseña el diff del fichero — ahí suele aparecer el espacio en blanco, el salto de línea final o el permiso que baila.</p>
+<h2 id="verificacion-funcional-assert-o-testinfra">Verificación funcional: assert o Testinfra<a class="headerlink" href="#verificacion-funcional-assert-o-testinfra" title="Permanent link">&para;</a></h2>
+<p>Tras <code>converge</code> toca comprobar que el sistema quedó como dices. Dos caminos, ambos válidos. <strong>Con el módulo <code>assert</code></strong> (verifier <code>ansible</code>, el de por defecto): sin dependencias nuevas y en el lenguaje que ya usas.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># molecule/default/verify.yml</span>
+<span class="nn">---</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Verify</span>
+<span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">all</span>
+<span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Gather the package facts</span>
+<span class="w">      </span><span class="nt">ansible.builtin.package_facts</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> manager</span><span class="p">:</span><span class="w"> </span><span class="nv">auto</span><span class="w"> </span><span class="p p-Indicator">}</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The package must be installed</span>
+<span class="w">      </span><span class="nt">ansible.builtin.assert</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">that</span><span class="p">:</span><span class="w"> </span><span class="s">"'nginx'</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">ansible_facts.packages"</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The site must answer</span>
+<span class="w">      </span><span class="nt">ansible.builtin.uri</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> url</span><span class="p">:</span><span class="w"> </span><span class="s">"http://localhost/"</span><span class="p p-Indicator">,</span><span class="nt"> status_code</span><span class="p">:</span><span class="w"> </span><span class="nv">200</span><span class="w"> </span><span class="p p-Indicator">}</span>
+</code></pre></div>
+<p><strong>Con Testinfra</strong> (ficheros <code>test_*.py</code> dentro del escenario): pytest con una API de introspección del sistema; compensa cuando las comprobaciones tienen lógica, parametrización o mucho volumen.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># molecule/default/tests/test_nginx.py</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_service</span><span class="p">(</span><span class="n">host</span><span class="p">):</span>
+    <span class="n">svc</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">service</span><span class="p">(</span><span class="s2">"nginx"</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">host</span><span class="o">.</span><span class="n">package</span><span class="p">(</span><span class="s2">"nginx"</span><span class="p">)</span><span class="o">.</span><span class="n">is_installed</span>
+    <span class="k">assert</span> <span class="n">svc</span><span class="o">.</span><span class="n">is_running</span> <span class="ow">and</span> <span class="n">svc</span><span class="o">.</span><span class="n">is_enabled</span>
+    <span class="k">assert</span> <span class="n">host</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="s2">"tcp://0.0.0.0:80"</span><span class="p">)</span><span class="o">.</span><span class="n">is_listening</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_config</span><span class="p">(</span><span class="n">host</span><span class="p">):</span>
+    <span class="n">conf</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="s2">"/etc/nginx/nginx.conf"</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">conf</span><span class="o">.</span><span class="n">user</span> <span class="o">==</span> <span class="s2">"root"</span> <span class="ow">and</span> <span class="n">conf</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="mo">0o644</span>
+</code></pre></div>
+<p>Elección honesta: <strong>empieza con <code>assert</code></strong>. Una dependencia menos, lo entiende cualquiera del equipo y cubre la inmensa mayoría de roles. Pásate a Testinfra cuando el <code>verify.yml</code> empiece a pedir bucles y condicionales — la señal de que estás programando en YAML.</p>
+<div class="admonition tip">
+<p class="admonition-title">Comprueba el comportamiento, no la implementación</p>
+<p>Que el paquete esté instalado y el puerto escuche, bien; que exista exactamente la línea 42 del fichero de configuración, no. El test debe romperse cuando el servicio deje de funcionar, no cuando reescribas la plantilla.</p>
+</div>
+<h2 id="variables-de-prueba-y-matriz-de-distribuciones">Variables de prueba y matriz de distribuciones<a class="headerlink" href="#variables-de-prueba-y-matriz-de-distribuciones" title="Permanent link">&para;</a></h2>
+<p>El <code>converge.yml</code> es un playbook normal: ahí van las variables con las que quieres probar el rol.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># molecule/default/converge.yml</span>
+<span class="nn">---</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Converge</span>
+<span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">all</span>
+<span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">vars</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> nginx_port</span><span class="p">:</span><span class="w"> </span><span class="nv">8080</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Apply the role</span>
+<span class="w">      </span><span class="nt">ansible.builtin.include_role</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="nv">nginx</span><span class="w"> </span><span class="p p-Indicator">}</span>
+</code></pre></div>
+<p>Un escenario por <strong>combinación significativa</strong>, no por variable: <code>default</code> con los valores de fábrica y <code>proxy</code> con la configuración de proxy inverso aportan; doce escenarios para doce banderas booleanas son doce formas de que el CI tarde media hora. Las plataformas van en <code>molecule.yml</code>: la sintaxis exacta depende del driver y de la versión, pero la idea es estable — una entrada por sistema soportado, con imágenes preparadas para Ansible (Python y systemd ya dentro) en vez de las oficiales peladas.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># molecule/default/molecule.yml — fragmento; ajústalo a tu driver y versión</span>
+<span class="nt">platforms</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="nv">debian12</span><span class="p p-Indicator">,</span><span class="nt"> image</span><span class="p">:</span><span class="w"> </span><span class="s">"geerlingguy/docker-debian12-ansible:latest"</span><span class="p p-Indicator">,</span><span class="nt"> pre_build_image</span><span class="p">:</span><span class="w"> </span><span class="nv">true</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="nv">rocky9</span><span class="p p-Indicator">,</span><span class="nt"> image</span><span class="p">:</span><span class="w"> </span><span class="s">"geerlingguy/docker-rockylinux9-ansible:latest"</span><span class="p p-Indicator">,</span><span class="nt"> pre_build_image</span><span class="p">:</span><span class="w"> </span><span class="nv">true</span><span class="w"> </span><span class="p p-Indicator">}</span>
+</code></pre></div>
+<p>Prueba lo que declaras en <code>meta/main.yml</code> y nada más. Si los metadatos dicen Debian y RHEL, la matriz son esos dos; añadir Ubuntu, Alpine y Arch "por si acaso" multiplica el tiempo de CI para cubrir plataformas que nadie te va a reclamar.</p>
+<h2 id="ci-con-github-actions">CI con GitHub Actions<a class="headerlink" href="#ci-con-github-actions" title="Permanent link">&para;</a></h2>
+<p>El patrón mínimo que funciona: lint como job separado y una matriz de escenarios.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># .github/workflows/molecule.yml</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Molecule</span>
+<span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">push</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">pull_request</span><span class="p p-Indicator">]</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">lint</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v5</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> python-version</span><span class="p">:</span><span class="w"> </span><span class="s">'3.11'</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install ansible-lint &amp;&amp; ansible-lint</span>
+
+<span class="w">  </span><span class="nt">molecule</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lint</span>
+<span class="w">    </span><span class="nt">strategy</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">fail-fast</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">                       </span><span class="c1"># ver todas las plataformas, no la primera</span>
+<span class="w">      </span><span class="nt">matrix</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> scenario</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">default</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">proxy</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v5</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> python-version</span><span class="p">:</span><span class="w"> </span><span class="s">'3.11'</span><span class="p p-Indicator">,</span><span class="nt"> cache</span><span class="p">:</span><span class="w"> </span><span class="nv">pip</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install -r requirements-test.txt</span><span class="w">   </span><span class="c1"># versiones fijadas</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">molecule test -s ${{ matrix.scenario }}</span>
+</code></pre></div>
+<p>Las tres decisiones que importan ahí: <code>fail-fast: false</code>, porque quieres saber si falla en Debian <em>y</em> en Rocky; versiones fijadas en <code>requirements-test.txt</code>, porque Molecule y sus plugins rompen compatibilidad entre mayores y un <code>pip install molecule</code> sin fijar convierte el CI en una bomba de relojería; y el lint antes que Molecule, porque tarda segundos y evita levantar contenedores para descubrir un error de estilo. Los runners <code>ubuntu-latest</code> traen Docker preinstalado, así que el driver de contenedor funciona sin preparativos; el de VM no, porque necesita virtualización anidada y runner propio. Más contexto de workflows en <a href="../../cicd/github_actions/">Introducción a GitHub Actions</a>.</p>
+<h2 id="que-no-merece-la-pena-probar">Qué no merece la pena probar<a class="headerlink" href="#que-no-merece-la-pena-probar" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Usa <code>molecule init role -r myrole -d docker</code> para crear scaffolding.</li>
-<li>Ejecuta <code>molecule test</code> en local o en CI.</li>
+<li><strong>Que Ansible funcione.</strong> Si <code>package: state=present</code> instala paquetes es problema de Ansible, no tuyo.</li>
+<li><strong>Cada valor de cada plantilla.</strong> Comprueba que el servicio arranca con la configuración generada; comparar el fichero renderizado línea a línea es duplicar la plantilla dentro del test.</li>
+<li><strong>Roles de una sola tarea.</strong> Uno que instala un paquete y termina no necesita escenario: con el lint basta. Ni los servicios externos: que la base de datos remota conteste no depende de tu rol.</li>
+<li><strong>Combinaciones que nadie usa.</strong> Prueba la configuración por defecto y la que despliegas de verdad; el resto es hipótesis. Y si un test no puede fallar por un cambio en el rol, bórralo.</li>
 </ul>
-<h2 id="integracion-en-ci">Integración en CI<a class="headerlink" href="#integracion-en-ci" title="Permanent link">&para;</a></h2>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa</th>
+<th>Arreglo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>idempotence</code> falla y <code>converge</code> va bien</td>
+<td>Una tarea reporta <code>changed</code> siempre</td>
+<td><code>molecule converge -- --diff</code> y buscar la tarea en la salida</td>
+</tr>
+<tr>
+<td>El contenedor arranca y muere al instante</td>
+<td>Imagen sin init y el rol usa <code>service</code></td>
+<td>Imagen con systemd (<code>*-ansible</code>) o driver de VM</td>
+</tr>
+<tr>
+<td><code>Failed to connect to the host via ssh</code></td>
+<td>El escenario usa transporte SSH contra un contenedor</td>
+<td>Revisar la conexión del driver: en contenedor debe ser la nativa</td>
+</tr>
+<tr>
+<td><code>verify</code> pasa pero producción rompe</td>
+<td>La instancia no representa al destino</td>
+<td>Igualar distribución y versión con <code>meta/main.yml</code></td>
+</tr>
+<tr>
+<td>Todo falla tras <code>pip install --upgrade</code></td>
+<td>Cambio de versión mayor de Molecule o sus plugins</td>
+<td>Fijar versiones y leer las notas de esa versión</td>
+</tr>
+<tr>
+<td><code>ansible-lint</code> saca cientos de avisos</td>
+<td>Sin configuración: todas las reglas activas</td>
+<td>Crear <code>.ansible-lint</code> con un <code>profile</code> laxo</td>
+</tr>
+<tr>
+<td>Variable ignorada al probar el rol</td>
+<td>Está en <code>vars/</code>, no en <code>defaults/</code></td>
+<td>Mover a <code>defaults/main.yml</code></td>
+</tr>
+</tbody>
+</table>
+<p>Cuando nada tiene sentido: <code>molecule --debug converge</code> y <code>molecule login -h debian12</code> para entrar a mirar.</p>
+<h2 id="buenas-practicas">Buenas prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Añade pasos en el workflow para ejecutar <code>molecule test</code> en un runner adecuado.</li>
+<li><strong>Un escenario <code>default</code> en todo rol que vaya a sobrevivir a esta semana</strong>, y <strong><code>ansible-lint</code> en CI desde el primer commit.</strong> Añadirlo a un rol de 400 líneas es un día de trabajo; tenerlo desde el principio es gratis.</li>
+<li><strong>Ningún <code>command</code> ni <code>shell</code> sin <code>creates</code>, <code>changed_when</code> o ambos.</strong> Causa número uno de no idempotencia.</li>
+<li><strong><code>defaults/</code> por defecto; <code>vars/</code> sólo para constantes internas.</strong></li>
+<li><strong>Versiones fijadas en las dependencias de test.</strong> Que decida tu CI cuándo actualizar, no PyPI.</li>
+<li><strong><code>molecule converge</code> al desarrollar, <code>molecule test</code> en CI</strong>, sobre las plataformas de <code>meta/main.yml</code> y ni una más: cada fila de la matriz se paga en cada push.</li>
 </ul>
-<hr />
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html">Roles de Ansible — doc oficial</a></li>
+<li><a href="https://ansible.readthedocs.io/projects/molecule/">Molecule</a> · <a href="https://ansible.readthedocs.io/projects/lint/">ansible-lint — reglas y perfiles</a> · <a href="https://testinfra.readthedocs.io/">Testinfra</a></li>
+<li><a href="../ansible_base/">Ansible — Automatización de Infraestructura</a> · <a href="../../cicd/github_actions/">Introducción a GitHub Actions</a> · <a href="../../terraform/terraform_base/">Terraform</a> · <a href="../../docker/quadlets/">Podman Quadlet</a></li>
+</ul>
 
 
 

@@ -520,6 +520,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -7456,6 +7475,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -9200,6 +9226,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9350,7 +9403,7 @@
       
       
       
-        <span class="md-tag">storage</span>
+        <a href="../../../tags/#tag:storage" class="md-tag">storage</a>
       
     
   </nav>
@@ -9465,9 +9518,9 @@ sudo<span class="w"> </span>chown<span class="w"> </span>postgres:postgres<span 
 <div class="highlight"><pre><span></span><code><span class="c1"># Archivo: /etc/postgresql/14/main/postgresql.conf</span>
 sudo<span class="w"> </span>tee<span class="w"> </span>/etc/postgresql/14/main/postgresql.conf<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
 <span class="s"># Configuración optimizada para Ceph RBD</span>
-<span class="s">data_directory = &#39;/var/lib/postgresql/data&#39;</span>
-<span class="s">hba_file = &#39;/etc/postgresql/14/main/pg_hba.conf&#39;</span>
-<span class="s">ident_file = &#39;/etc/postgresql/14/main/pg_ident.conf&#39;</span>
+<span class="s">data_directory = '/var/lib/postgresql/data'</span>
+<span class="s">hba_file = '/etc/postgresql/14/main/pg_hba.conf'</span>
+<span class="s">ident_file = '/etc/postgresql/14/main/pg_ident.conf'</span>
 
 <span class="s"># Memoria</span>
 <span class="s">shared_buffers = 256MB</span>
@@ -9488,8 +9541,8 @@ sudo<span class="w"> </span>tee<span class="w"> </span>/etc/postgresql/14/main/p
 <span class="s">min_wal_size = 80MB</span>
 
 <span class="s"># Logging</span>
-<span class="s">log_line_prefix = &#39;%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h &#39;</span>
-<span class="s">log_statement = &#39;ddl&#39;</span>
+<span class="s">log_line_prefix = '%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h '</span>
+<span class="s">log_statement = 'ddl'</span>
 <span class="s">log_duration = on</span>
 <span class="s">log_lock_waits = on</span>
 
@@ -9498,7 +9551,7 @@ sudo<span class="w"> </span>tee<span class="w"> </span>/etc/postgresql/14/main/p
 <span class="s">max_wal_senders = 10</span>
 
 <span class="s"># Conexiones</span>
-<span class="s">listen_addresses = &#39;*&#39;</span>
+<span class="s">listen_addresses = '*'</span>
 <span class="s">max_connections = 100</span>
 <span class="s">EOF</span>
 </code></pre></div>
@@ -9529,28 +9582,28 @@ rbd<span class="w"> </span>config<span class="w"> </span>image<span class="w"> <
 </code></pre></div>
 <h3 id="optimizaciones-postgresql">Optimizaciones PostgreSQL<a class="headerlink" href="#optimizaciones-postgresql" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Configuración de base de datos</span>
-<span class="k">ALTER</span><span class="w"> </span><span class="k">SYSTEM</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">shared_preload_libraries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;pg_stat_statements&#39;</span><span class="p">;</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">SYSTEM</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">shared_preload_libraries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'pg_stat_statements'</span><span class="p">;</span>
 <span class="k">ALTER</span><span class="w"> </span><span class="k">SYSTEM</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">track_io_timing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">on</span><span class="p">;</span>
 <span class="k">ALTER</span><span class="w"> </span><span class="k">SYSTEM</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">track_functions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">all</span><span class="p">;</span>
 
 <span class="c1">-- Crear usuario para monitoreo</span>
-<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">ceph_monitor</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">&#39;secure_password&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">ceph_monitor</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">'secure_password'</span><span class="p">;</span>
 <span class="k">GRANT</span><span class="w"> </span><span class="n">pg_monitor</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">ceph_monitor</span><span class="p">;</span>
 
 <span class="c1">-- Configurar tablespaces si es necesario</span>
-<span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">ceph_data</span><span class="w"> </span><span class="k">OWNER</span><span class="w"> </span><span class="n">postgres</span><span class="w"> </span><span class="k">LOCATION</span><span class="w"> </span><span class="s1">&#39;/var/lib/postgresql/data&#39;</span><span class="p">;</span>
-<span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">ceph_wal</span><span class="w"> </span><span class="k">OWNER</span><span class="w"> </span><span class="n">postgres</span><span class="w"> </span><span class="k">LOCATION</span><span class="w"> </span><span class="s1">&#39;/var/lib/postgresql/wal&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">ceph_data</span><span class="w"> </span><span class="k">OWNER</span><span class="w"> </span><span class="n">postgres</span><span class="w"> </span><span class="k">LOCATION</span><span class="w"> </span><span class="s1">'/var/lib/postgresql/data'</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">ceph_wal</span><span class="w"> </span><span class="k">OWNER</span><span class="w"> </span><span class="n">postgres</span><span class="w"> </span><span class="k">LOCATION</span><span class="w"> </span><span class="s1">'/var/lib/postgresql/wal'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="monitoreo-de-rendimiento">Monitoreo de rendimiento<a class="headerlink" href="#monitoreo-de-rendimiento" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># IOPS del RBD</span>
 rbd<span class="w"> </span>perf<span class="w"> </span>image<span class="w"> </span>iostat<span class="w"> </span>pg_data/postgres_data
 
 <span class="c1"># Latencia de Ceph</span>
-ceph<span class="w"> </span>tell<span class="w"> </span>osd.*<span class="w"> </span>perf<span class="w"> </span>dump<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.osd.osd_op_lat&#39;</span>
+ceph<span class="w"> </span>tell<span class="w"> </span>osd.*<span class="w"> </span>perf<span class="w"> </span>dump<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.osd.osd_op_lat'</span>
 
 <span class="c1"># Estadísticas PostgreSQL</span>
-psql<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;SELECT * FROM pg_stat_bgwriter;&quot;</span>
-psql<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;SELECT * FROM pg_stat_database;&quot;</span>
+psql<span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT * FROM pg_stat_bgwriter;"</span>
+psql<span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT * FROM pg_stat_database;"</span>
 </code></pre></div>
 <h2 id="alta-disponibilidad">🛡️ Alta disponibilidad<a class="headerlink" href="#alta-disponibilidad" title="Permanent link">&para;</a></h2>
 <h3 id="configuracion-de-replicas">Configuración de replicas<a class="headerlink" href="#configuracion-de-replicas" title="Permanent link">&para;</a></h3>
@@ -9564,25 +9617,25 @@ rbd<span class="w"> </span>clone<span class="w"> </span>pg_data/postgres_data@sn
 <span class="c1"># Configurar PostgreSQL streaming replication</span>
 <span class="c1"># En postgresql.conf del slave:</span>
 <span class="c1"># hot_standby = on</span>
-<span class="c1"># primary_conninfo = &#39;host=master_ip port=5432 user=replicator&#39;</span>
+<span class="c1"># primary_conninfo = 'host=master_ip port=5432 user=replicator'</span>
 </code></pre></div>
 <h3 id="backup-strategy">Backup strategy<a class="headerlink" href="#backup-strategy" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="c1"># backup_postgres_ceph.sh</span>
 
 <span class="nv">DATE</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>
-<span class="nv">SNAP_NAME</span><span class="o">=</span><span class="s2">&quot;backup_</span><span class="nv">$DATE</span><span class="s2">&quot;</span>
+<span class="nv">SNAP_NAME</span><span class="o">=</span><span class="s2">"backup_</span><span class="nv">$DATE</span><span class="s2">"</span>
 
 <span class="c1"># Crear snapshot consistente</span>
-psql<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;SELECT pg_start_backup(&#39;</span><span class="nv">$SNAP_NAME</span><span class="s2">&#39;);&quot;</span>
+psql<span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT pg_start_backup('</span><span class="nv">$SNAP_NAME</span><span class="s2">');"</span>
 rbd<span class="w"> </span>snap<span class="w"> </span>create<span class="w"> </span>pg_data/postgres_data@<span class="nv">$SNAP_NAME</span>
-psql<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;SELECT pg_stop_backup();&quot;</span>
+psql<span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT pg_stop_backup();"</span>
 
 <span class="c1"># Exportar snapshot</span>
 rbd<span class="w"> </span><span class="nb">export</span><span class="w"> </span>pg_data/postgres_data@<span class="nv">$SNAP_NAME</span><span class="w"> </span>/backup/postgres_<span class="nv">$DATE</span>.img
 
 <span class="c1"># Limpiar snapshots antiguos (mantener 7 días)</span>
-rbd<span class="w"> </span>snap<span class="w"> </span>ls<span class="w"> </span>pg_data/postgres_data<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>backup<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span>-7<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span><span class="o">{}</span><span class="w"> </span>rbd<span class="w"> </span>snap<span class="w"> </span>rm<span class="w"> </span>pg_data/postgres_data@<span class="o">{}</span>
+rbd<span class="w"> </span>snap<span class="w"> </span>ls<span class="w"> </span>pg_data/postgres_data<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>backup<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span>-7<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{print $2}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span><span class="o">{}</span><span class="w"> </span>rbd<span class="w"> </span>snap<span class="w"> </span>rm<span class="w"> </span>pg_data/postgres_data@<span class="o">{}</span>
 </code></pre></div>
 <h2 id="monitoreo-y-troubleshooting">📊 Monitoreo y troubleshooting<a class="headerlink" href="#monitoreo-y-troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="metricas-clave">Métricas clave<a class="headerlink" href="#metricas-clave" title="Permanent link">&para;</a></h3>
@@ -9591,8 +9644,8 @@ ceph<span class="w"> </span>df
 rbd<span class="w"> </span>du<span class="w"> </span>pg_data/postgres_data
 
 <span class="c1"># Rendimiento PostgreSQL</span>
-psql<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;SELECT * FROM pg_stat_bgwriter;&quot;</span>
-psql<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;SELECT * FROM pg_stat_database WHERE datname = &#39;postgres&#39;;&quot;</span>
+psql<span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT * FROM pg_stat_bgwriter;"</span>
+psql<span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT * FROM pg_stat_database WHERE datname = 'postgres';"</span>
 
 <span class="c1"># Logs de errores</span>
 tail<span class="w"> </span>-f<span class="w"> </span>/var/log/postgresql/postgresql-14-main.log
@@ -9638,7 +9691,7 @@ rsync<span class="w"> </span>-av<span class="w"> </span>/var/lib/postgresql/data
 cp<span class="w"> </span>-r<span class="w"> </span>/tmp/postgres_backup/*<span class="w"> </span>/var/lib/postgresql/data/
 
 <span class="c1"># 4. Verificar integridad</span>
-psql<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;SELECT count(*) FROM pg_database;&quot;</span>
+psql<span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT count(*) FROM pg_database;"</span>
 
 <span class="c1"># 5. Reiniciar servicios</span>
 sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>postgresql

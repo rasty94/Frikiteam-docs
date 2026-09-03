@@ -520,6 +520,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../about/" class="md-tabs__link">
         
   
@@ -7662,6 +7681,13 @@
   </span>
   
   
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
 
       </a>
     </li>
@@ -9406,6 +9432,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../about/" class="md-nav__link">
         
   
@@ -9560,6 +9613,17 @@
                 
                   
 
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../../tags/#tag:networking" class="md-tag">networking</a>
+      
+    
+  </nav>
+
 
   
     <a href="https://github.com/rasty94/Frikiteam-docs/edit/master/docs/doc/networking/dnssec.md" title="Editar esta página" class="md-content__button md-icon" rel="edit">
@@ -9673,10 +9737,10 @@ dnssec-signzone<span class="w"> </span>-o<span class="w"> </span>example.com<spa
 dnssec-verify<span class="w"> </span>example.com.signed
 </code></pre></div>
 <h4 id="3-configurar-namedconf">3. Configurar named.conf<a class="headerlink" href="#3-configurar-namedconf" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>zone &quot;example.com&quot; {
+<div class="highlight"><pre><span></span><code>zone "example.com" {
     type master;
-    file &quot;/etc/bind/zones/example.com.signed&quot;;
-    key-directory &quot;/etc/bind/keys/example.com&quot;;
+    file "/etc/bind/zones/example.com.signed";
+    key-directory "/etc/bind/keys/example.com";
 };
 </code></pre></div>
 <h4 id="4-publicar-ds-record">4. Publicar DS Record<a class="headerlink" href="#4-publicar-ds-record" title="Permanent link">&para;</a></h4>
@@ -9690,12 +9754,12 @@ dnssec-dsfromkey<span class="w"> </span>Kexample.com.+008+12345
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="c1"># Script para firmar zona automáticamente</span>
 
-<span class="nv">ZONE</span><span class="o">=</span><span class="s2">&quot;example.com&quot;</span>
-<span class="nv">ZONEDIR</span><span class="o">=</span><span class="s2">&quot;/etc/bind/zones&quot;</span>
-<span class="nv">KEYDIR</span><span class="o">=</span><span class="s2">&quot;/etc/bind/keys/</span><span class="nv">$ZONE</span><span class="s2">&quot;</span>
+<span class="nv">ZONE</span><span class="o">=</span><span class="s2">"example.com"</span>
+<span class="nv">ZONEDIR</span><span class="o">=</span><span class="s2">"/etc/bind/zones"</span>
+<span class="nv">KEYDIR</span><span class="o">=</span><span class="s2">"/etc/bind/keys/</span><span class="nv">$ZONE</span><span class="s2">"</span>
 
 <span class="c1"># Firmar zona</span>
-dnssec-signzone<span class="w"> </span>-o<span class="w"> </span><span class="nv">$ZONE</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$ZONEDIR</span><span class="w"> </span>-k<span class="w"> </span><span class="nv">$KEYDIR</span>/K<span class="si">${</span><span class="nv">ZONE</span><span class="si">}</span>.+008+<span class="k">$(</span>cat<span class="w"> </span><span class="nv">$KEYDIR</span>/K<span class="si">${</span><span class="nv">ZONE</span><span class="si">}</span>.+008+*.key<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;key [0-9]*&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f2<span class="k">)</span><span class="w"> </span><span class="nv">$ZONEDIR</span>/<span class="nv">$ZONE</span>
+dnssec-signzone<span class="w"> </span>-o<span class="w"> </span><span class="nv">$ZONE</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$ZONEDIR</span><span class="w"> </span>-k<span class="w"> </span><span class="nv">$KEYDIR</span>/K<span class="si">${</span><span class="nv">ZONE</span><span class="si">}</span>.+008+<span class="k">$(</span>cat<span class="w"> </span><span class="nv">$KEYDIR</span>/K<span class="si">${</span><span class="nv">ZONE</span><span class="si">}</span>.+008+*.key<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">'key [0-9]*'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">' '</span><span class="w"> </span>-f2<span class="k">)</span><span class="w"> </span><span class="nv">$ZONEDIR</span>/<span class="nv">$ZONE</span>
 
 <span class="c1"># Recargar zona</span>
 rndc<span class="w"> </span>reload<span class="w"> </span><span class="nv">$ZONE</span>
@@ -9716,7 +9780,7 @@ nameserver 1.1.1.1  # Cloudflare DNS (soporta DNSSEC)
 <h4 id="en-unbound">En Unbound<a class="headerlink" href="#en-unbound" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>server:
     do-dnssec: yes
-    trust-anchor-file: &quot;/etc/unbound/root.key&quot;
+    trust-anchor-file: "/etc/unbound/root.key"
 </code></pre></div>
 <h3 id="verificacion-de-validacion">Verificación de Validación<a class="headerlink" href="#verificacion-de-validacion" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Verificar soporte DNSSEC</span>
@@ -9786,37 +9850,37 @@ drill<span class="w"> </span>-D<span class="w"> </span>example.com
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="c1"># Verificar DNSSEC para dominio</span>
 
-<span class="nv">DOMAIN</span><span class="o">=</span><span class="s2">&quot;example.com&quot;</span>
+<span class="nv">DOMAIN</span><span class="o">=</span><span class="s2">"example.com"</span>
 <span class="nv">DNSSEC_OK</span><span class="o">=</span><span class="m">0</span>
 
 <span class="c1"># Verificar DNSKEY</span>
-<span class="k">if</span><span class="w"> </span>dig<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>DNSKEY<span class="w"> </span>+short<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s2">&quot;DNSKEY&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✓ DNSKEY presente&quot;</span>
+<span class="k">if</span><span class="w"> </span>dig<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>DNSKEY<span class="w"> </span>+short<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s2">"DNSKEY"</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"✓ DNSKEY presente"</span>
 <span class="w">    </span><span class="nv">DNSSEC_OK</span><span class="o">=</span><span class="k">$((</span><span class="nv">DNSSEC_OK</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
 <span class="k">else</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✗ Falta DNSKEY&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"✗ Falta DNSKEY"</span>
 <span class="k">fi</span>
 
 <span class="c1"># Verificar RRSIG</span>
-<span class="k">if</span><span class="w"> </span>dig<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>A<span class="w"> </span>+dnssec<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s2">&quot;RRSIG&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✓ RRSIG presente&quot;</span>
+<span class="k">if</span><span class="w"> </span>dig<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>A<span class="w"> </span>+dnssec<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s2">"RRSIG"</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"✓ RRSIG presente"</span>
 <span class="w">    </span><span class="nv">DNSSEC_OK</span><span class="o">=</span><span class="k">$((</span><span class="nv">DNSSEC_OK</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
 <span class="k">else</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✗ Falta RRSIG&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"✗ Falta RRSIG"</span>
 <span class="k">fi</span>
 
 <span class="c1"># Verificar DS</span>
-<span class="k">if</span><span class="w"> </span>dig<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>DS<span class="w"> </span>+short<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s2">&quot;DS&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✓ DS presente&quot;</span>
+<span class="k">if</span><span class="w"> </span>dig<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>DS<span class="w"> </span>+short<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s2">"DS"</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"✓ DS presente"</span>
 <span class="w">    </span><span class="nv">DNSSEC_OK</span><span class="o">=</span><span class="k">$((</span><span class="nv">DNSSEC_OK</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
 <span class="k">else</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✗ Falta DS&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"✗ Falta DS"</span>
 <span class="k">fi</span>
 
 <span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$DNSSEC_OK</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✓ DNSSEC configurado correctamente&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"✓ DNSSEC configurado correctamente"</span>
 <span class="k">else</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✗ Problemas con DNSSEC&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"✗ Problemas con DNSSEC"</span>
 <span class="k">fi</span>
 </code></pre></div>
 <h3 id="problemas-comunes">Problemas Comunes<a class="headerlink" href="#problemas-comunes" title="Permanent link">&para;</a></h3>
