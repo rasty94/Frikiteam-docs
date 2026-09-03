@@ -2,34 +2,32 @@
 
 Este documento rastrea las tareas pendientes y mejoras planificadas. El historial de tareas completadas y los logs de progreso de publicación viven en [`done.md`](done.md).
 
-## 🔍 Diagnóstico (2026-09-02)
+## 🔍 Diagnóstico (actualizado 2026-09-03)
 
-La estructura está sana y el problema real es de mantenimiento, no de contenido nuevo.
+La estructura está sana y el problema es de mantenimiento, no de contenido nuevo.
 
 **Lo que ya está bien (no tocar):**
-- 149 páginas ES y 149 EN, sincronizadas al 100%, todas en el `nav` y todas con frontmatter.
-- CI con `mkdocs build --strict`, validación de Mermaid, enlaces rotos, vocabulario de tags y sincronía ES/EN. El checklist de publicación lo cumple la CI sola.
-- Vocabularios cerrados y validados en CI: 76 tags y 15 categorías, estas últimas con comprobación de que la traducción EN coincide. Señal de frescura derivada de `git log`.
+- 150 páginas ES y 150 EN, todas en el `nav` y todas con frontmatter (salvo 4 `index.md`, excluidos a propósito).
+- CI: `mkdocs build --strict`, `validate_metadata.py --strict`, `check_sync.py --strict` y `test_wordpress_format.py` en el job `build`; Mermaid y enlaces rotos en el job `quality`.
+- Vocabularios cerrados y validados: 76 tags y 15 categorías, estas últimas comprobando que la traducción EN coincide con la ES.
+- Señal de frescura derivada de `git log`, ignorando los commits `chore(meta)`.
+- Índice de tags navegable en `docs/tags.md` y `docs/en/tags.md`.
+
+**Matiz importante:** «sincronizadas» significa que las fechas coinciden, no que el contenido sea equivalente. Quedan 5 parejas con asimetría real (ver punto 2).
 
 ## 🎯 Plan de mejora (por orden de retorno)
 
-### 1. Terminar los stubs pendientes
-Diez de los trece se completaron el 2026-09-03 (ver `done.md`). Quedan tres:
-- [ ] `doc/programming/flutter.md` (35 líneas). Mismo enfoque que React: construir, empaquetar y desplegar, no enseñar el framework.
-- [ ] `troubleshooting.md` (37). Página raíz orientada a quien trabaja con este repositorio: errores de `mkdocs build --strict`, el fallo por llaves de Jinja, enlaces rotos, vocabularios cerrados y entorno de Python.
-- [ ] `doc/proxmox/sdn.md`. Caso inverso: el árbol EN tiene 175 líneas y el ES 38. Traducir el inglés al español y ampliar ambos.
-
-### 2. Cerrar la deuda "sin ejecutar"
+### 1. Cerrar la deuda "sin ejecutar"
 Vale más verificar estos tres puntos en un despliegue real que escribir un doc nuevo.
 - [ ] **TheHive/MISP:** el `docker-compose` está escrito de conocimiento. Contrastar al menos los tags de imagen (`strangebee/thehive:5.3`, `cassandra:4.1`, `elasticsearch:8.14.3`) contra los registries.
 - [ ] **OpenSCAP:** los comandos `oscap` y los paquetes SSG de Debian no se han probado.
 - [ ] **vLLM:** 4 métricas en `monitoreo_llms.md` (sufijo `_total` de algunos counters y `num_requests_waiting`) son extrapolaciones. El doc incluye un `curl /metrics | grep` para comprobarlas.
 
-### 3. Otra deuda operativa
+### 2. Otra deuda operativa
 - [ ] **Desplegar Plausible** en servidor o revisar logs existentes para analytics básico.
 - [ ] **19 borradores en WordPress esperando revisión humana** en `frikiteam.es/wp-admin`. El pipeline no los publica: el paso a `publish` es decisión manual.
-- [ ] **25 páginas sin tocar en más de 90 días**, según `scripts/check_freshness.py` (ahora fiable). Concentradas en OpenStack (4), vRouters (6), Ceph/NetApp/Pure (4) y Cybersecurity (6). Revisar versiones y comandos.
-- [ ] **Cerrar la asimetría de contenido ES/EN.** `check_sync.py` ya la detecta y la reporta como aviso (umbral del 40%, constante `UMBRAL_ASIMETRIA`). No bloquea la CI todavía porque hay backlog previo. Pendientes a 2026-09-03:
+- [ ] **22 páginas sin tocar en más de 90 días**, según `scripts/check_freshness.py` (ahora fiable). Concentradas en OpenStack, vRouters, Ceph/NetApp/Pure y Cybersecurity. Revisar versiones y comandos.
+- [ ] **Cerrar la asimetría de contenido ES/EN.** `check_sync.py` la detecta y la reporta como aviso (umbral del 40%, constante `UMBRAL_ASIMETRIA`). No bloquea la CI todavía porque hay backlog previo. Pendientes a 2026-09-03:
 
     | Página | ES | EN | Diferencia |
     |---|---|---|---|
@@ -43,6 +41,7 @@ Vale más verificar estos tres puntos en un despliegue real que escribir un doc 
 
     Nota: el chequeo salta los `index.md` por diseño heredado, así que no ve `networking/index.md` (115 ES / 21 EN). Y `ai/contenido_tecnico.md` (886/1256) y `ai/analisis_logs.md` (937/1261) quedan por debajo del umbral pese a diferir en más de 300 líneas; si molestan, bajar el umbral a 0.25.
 
+- [ ] **`draft: true` no oculta nada.** `docs/doc/storage/netapp/netapp_base.md` y `docs/doc/storage/pure_storage/pure_storage_base.md` lo declaran y aun así se publican; ambas dicen además `status: published`, que es el campo que sí lee `macros.py`. Hay 50 páginas más con `draft: false` y 47 con `date:`, campos que no consume nadie. Decidir: retirar `draft` y `date` del frontmatter, o hacer que `draft: true` excluya de verdad. Lo peligroso es dejarlo como está, porque quien marque una página como borrador creerá que no se publica.
 - [ ] **4 `index.md` del árbol ES sin frontmatter.** Es deliberado, por convención del proyecto los índices quedan excluidos del campo `updated`.
 
 ## 🔮 Futurible (no ahora)
@@ -51,7 +50,7 @@ Vale más verificar estos tres puntos en un despliegue real que escribir un doc 
 
 ## 📅 Contenido nuevo (solo cuando lo anterior esté cerrado)
 
-Huecos reales, comprobados contra el repo el 2026-09-02:
+Huecos reales, comprobados contra el repo el 2026-09-02. Los 13 stubs ya están cerrados, así que esta sección es la siguiente en la cola:
 
 ### Cybersecurity / Networking
 - [ ] **Zero-trust con Cilium** en Kubernetes (solo 2 menciones de paso en el repo).
@@ -75,7 +74,7 @@ Huecos reales, comprobados contra el repo el 2026-09-02:
 Podman rootless (`doc/docker/podman_rootless.md`), PostgreSQL HA (`doc/databases/postgresql_ha.md`), WireGuard (15 docs), Let's Encrypt/certbot (9), Tailscale/NetBird, Nmap/Metasploit/Burp (pentesting básico), TLS.
 
 ### Aparcado: Inteligencia Artificial
-AI ya es la segunda sección más grande (25 docs) y el resto del repo tiene stubs sin rellenar. No abrir hasta cerrar el punto 1 (stubs):
+AI ya es la segunda sección más grande (25 docs). Los 13 stubs que bloqueaban esta sección se cerraron el 2026-09-03, así que queda desbloqueada; se mantiene aparcada por prioridad, no por impedimento:
 - Multi-agent systems, LLMs en edge, seguridad y privacidad (GDPR), observabilidad de costes/latencias, CI/CD para modelos, fine-tuning por dominio, networking para inferencia.
 
 ---
@@ -103,14 +102,29 @@ Etiquetas de PR: `docs`, `docs-review`, `docs-ready`
 
 ### Convenciones para nuevas páginas
 
-- Frontmatter mínimo:
+- Frontmatter, tal como lo validan `validate_metadata.py` y `check_sync.py`:
 
     ```yaml
     title: "Título claro"
-    date: 2025-11-23
-    tags: [storage, ceph]
-    draft: true # o false si listo para publicar
+    description: "Una frase que explique qué resuelve la página"
+    keywords: "palabras, clave, separadas, por, comas"
+    tags: ['storage', 'ceph']      # solo valores de TAG_VOCABULARY (76)
+    updated: 2026-09-03            # debe coincidir con la gemela EN
+    last_reviewed: 2026-09-03
+    difficulty: intermediate       # beginner | intermediate | advanced | expert
+    estimated_time: 20 min
+    category: Almacenamiento       # solo valores de CATEGORY_VOCABULARY (15)
+    status: published              # draft | review | published | archived
+    prerequisites:
+      - "Lo que hay que saber antes"
+    reviewers: ["@rasty94"]
+    contributors: ["@rasty94"]
     ```
+
+    Los campos `date:` y `draft:` aparecen en páginas antiguas pero **no los lee nadie**;
+    no los añadas en páginas nuevas. El estado se controla con `status`.
+    En el árbol EN, `category` va traducido según `CATEGORY_VOCABULARY`; `updated` y
+    `last_reviewed` deben ser idénticos a los de la página ES.
 
 - Estructura recomendada del MD:
     1. Resumen (1–2 líneas)
@@ -121,11 +135,19 @@ Etiquetas de PR: `docs`, `docs-review`, `docs-ready`
 
 ### Checklist de publicación (PR)
 
-- [ ] `mkdocs build` local: no errores.
-- [ ] No enlaces rotos (usar plugin o comprobador externo).
+- [ ] `mkdocs build --strict`: sin avisos ni errores.
+- [ ] `python scripts/validate_metadata.py --strict`: tags y categorías dentro del vocabulario, y categoría EN emparejada con la ES.
+- [ ] `python scripts/check_sync.py --strict`: sin desincronizados. Revisa también el aviso de asimetría por si la traducción se ha quedado corta.
+- [ ] `./validate_mermaid.sh` si has tocado diagramas.
+- [ ] Página gemela en el otro idioma, con la misma estructura y las mismas fechas.
+- [ ] Llaves de Jinja en bloques de código envueltas en `raw`. Ver [Troubleshooting](docs/troubleshooting.md).
 - [ ] Imágenes con `alt`.
-- [ ] Metadatos (description/keywords) añadidos cuando aplique.
+- [ ] Entrada en Novedades de `docs/index.md` y `docs/en/index.md` si es contenido nuevo.
 - [ ] Revisado por el owner del área.
+
+**Prefijo de commit:** si el cambio solo toca frontmatter o metadatos, usa `chore(meta):`.
+`check_freshness.py` ignora esos commits; sin el prefijo, un cambio masivo de metadatos
+marca como recién revisadas páginas que nadie ha leído y se pierde la señal de obsolescencia.
 
 ---
 
@@ -140,16 +162,23 @@ Etiquetas de PR: `docs`, `docs-review`, `docs-ready`
 ## Comandos útiles para editores
 
 ```bash
-# crear/activar venv
-python3 -m venv venv
-source venv/bin/activate
+# crear/activar entorno (el del repo es .venv)
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 
 # servir sitio localmente
 mkdocs serve -a 0.0.0.0:8000
 
-# generar build para ver advertencias
-mkdocs build
+# lo mismo que ejecuta la CI, antes de abrir el PR
+mkdocs build --strict
+python scripts/validate_metadata.py --strict
+python scripts/check_sync.py --strict
+python test_wordpress_format.py
+
+# informativos, no bloquean
+python scripts/check_freshness.py     # páginas sin tocar en 90+ días
+./validate_mermaid.sh                 # renderiza todos los diagramas (lento)
 ```
 
 ---
