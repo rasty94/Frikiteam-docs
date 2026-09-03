@@ -5,12 +5,12 @@ keywords: "incident response, thehive, misp, cortex, nist 800-61, forensics, mem
 date: 2026-07-19
 tags: ['cybersecurity', 'incident-response', 'siem', 'forensics', 'kubernetes']
 draft: false
-updated: 2026-07-19
+updated: 2026-09-03
 difficulty: advanced
 estimated_time: "18 min"
 category: Cybersecurity
 status: published
-last_reviewed: 2026-07-19
+last_reviewed: 2026-09-03
 prerequisites:
   - "Security monitoring deployed (Falco/Wazuh)"
   - "Administrative access to the infrastructure"
@@ -322,6 +322,8 @@ volumes: {cassandra-data: , es-data: , thehive-data: }
 
 !!! warning "This is not a production configuration"
     No TLS, no Elasticsearch authentication and a plaintext secret in the compose file. For production: TLS terminated at a reverse proxy, the secret pulled from your secrets manager and **verified backups** of Cassandra. A TheHive you lose takes your entire incident history with it.
+
+    *The three image tags (`strangebee/thehive:5.3`, `cassandra:4.1`, `elasticsearch:8.14.3`) were checked against the registries on 2026-09-03 and do exist. The compose as a whole has not been deployed: treat it as a starting point, not as something tested.*
 
 ### The model: cases, tasks, observables
 

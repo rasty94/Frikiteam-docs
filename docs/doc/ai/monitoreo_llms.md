@@ -5,12 +5,12 @@ keywords: "llm monitoring, observability, prometheus, grafana, ttft, tpot, token
 tags: ['ai', 'llm', 'monitoring', 'observability', 'prometheus', 'grafana', 'vllm', 'cost']
 date: 2026-07-19
 draft: false
-updated: 2026-07-19
+updated: 2026-09-03
 difficulty: advanced
 estimated_time: 14 min
 category: Inteligencia Artificial
 status: published
-last_reviewed: 2026-07-19
+last_reviewed: 2026-09-03
 prerequisites:
   - "Stack de observabilidad con Prometheus y Grafana"
   - "Fundamentos de servido de LLMs (vLLM u Ollama)"
@@ -180,6 +180,8 @@ vllm:request_decode_time_seconds        # tiempo en fase DECODE
     El conjunto de métricas de vLLM ha cambiado entre el motor V0 y el V1, y sigue evolucionando. Algunos nombres históricos (por ejemplo los referidos a la ocupación de caché de GPU en V0) fueron renombrados. **No copies estas queries a producción sin ejecutar antes el `curl` de arriba contra tu propio servidor.** Un panel que consulta una métrica inexistente no da error: dibuja una línea plana vacía, que es peor.
 
     Además, vLLM expone métricas adicionales sobre bloques de KV cache, decodificación especulativa, adaptadores LoRA y caché multimodal cuya disponibilidad depende de flags de arranque y de la versión. Descúbrelas con el `curl`, no las asumas.
+
+    *Los 17 nombres de esta página se contrastaron el 2026-09-03 contra `vllm/v1/metrics/loggers.py` en la rama principal de vLLM, comprobando además el tipo de cada métrica: los contadores llevan el sufijo `_total` que añade `prometheus_client`, y los gauges e histogramas no. Eso no te libra de ejecutar el `curl`: tu versión puede no ser esa.*
 
 ### Configurar el scrape
 

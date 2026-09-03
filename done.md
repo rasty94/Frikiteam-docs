@@ -12,6 +12,13 @@ Registro de tareas completadas y logs de progreso, archivados desde `TODO.md` pa
 - [x] **`privacy.md` mostraba la plantilla literal `{{ git_revision_date }}`** en ambos idiomas, porque el plugin `git-revision-date-localized` está deshabilitado por defecto (`enabled: !ENV [ENABLE_GIT_DATES, false]`). Sustituido por la fecha real.
 - [x] **Fila de tabla rota en React**: una barra vertical dentro de backticks sigue partiendo la celda en Markdown, y la columna final se perdía al renderizar.
 
+## ✅ Deuda "sin ejecutar": dos de tres verificadas (03/09/2026)
+
+- [x] **Las 17 métricas de vLLM de `ai/monitoreo_llms.md` son correctas.** Contrastadas contra `vllm/v1/metrics/loggers.py` en la rama principal de vLLM, comprobando el tipo de cada una: los contadores (`prompt_tokens`, `generation_tokens`, `request_success`, `num_preemptions`, `prefix_cache_queries`, `prefix_cache_hits`) llevan el sufijo `_total` que añade `prometheus_client`, y los gauges (`num_requests_running`, `num_requests_waiting`, `kv_cache_usage_perc`) e histogramas no. El sufijo `_total` y `num_requests_waiting`, que el TODO marcaba como extrapolaciones, estaban bien.
+- [x] **Las tres etiquetas de imagen del compose de TheHive existen** (`strangebee/thehive:5.3`, `cassandra:4.1`, `elasticsearch:8.14.3`), comprobadas contra los registros.
+- [x] **Trazabilidad añadida a las dos páginas, en ambos idiomas**: qué se verificó, contra qué y en qué fecha. Los avisos que ya había se mantienen: siguen siendo buen consejo, y el compose en conjunto sigue sin desplegarse.
+- Queda pendiente OpenSCAP, que necesita una máquina Debian y no se puede verificar desde el repositorio.
+
 ## 🚫 `draft: true` ahora excluye de verdad (03/09/2026)
 
 - [x] **`hooks/drafts.py`**: hook nativo de MkDocs que retira del sitio las páginas con `draft: true` en el frontmatter. Antes el campo era decorativo: `macros.py` solo lee `status`, y `exclude_docs`/`draft_docs` de MkDocs trabajan con rutas, no con metadatos. Verificado que la página excluida no se renderiza, no entra en `search_index.json` y no aparece en el índice de tags.

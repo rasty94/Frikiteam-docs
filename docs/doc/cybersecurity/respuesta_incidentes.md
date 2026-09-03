@@ -5,12 +5,12 @@ keywords: "incident response, thehive, misp, cortex, nist 800-61, forensics, mem
 date: 2026-07-19
 tags: ['cybersecurity', 'incident-response', 'siem', 'forensics', 'kubernetes']
 draft: false
-updated: 2026-07-19
+updated: 2026-09-03
 difficulty: advanced
 estimated_time: "18 min"
 category: Ciberseguridad
 status: published
-last_reviewed: 2026-07-19
+last_reviewed: 2026-09-03
 prerequisites:
   - "Monitoreo de seguridad desplegado (Falco/Wazuh)"
   - "Acceso administrativo a la infraestructura"
@@ -322,6 +322,8 @@ volumes: {cassandra-data: , es-data: , thehive-data: }
 
 !!! warning "Esto no es una configuración de producción"
     Sin TLS, sin autenticación en Elasticsearch y con un secreto en claro en el compose. Para producción: TLS terminado en un reverse proxy, secreto desde el gestor de secretos y **backups verificados** de Cassandra. Un TheHive que se pierde se lleva por delante el historial completo de incidentes.
+
+    *Las tres etiquetas de imagen (`strangebee/thehive:5.3`, `cassandra:4.1`, `elasticsearch:8.14.3`) se comprobaron el 2026-09-03 contra los registros y existen. El compose en conjunto no se ha desplegado: trátalo como punto de partida, no como algo probado.*
 
 ### El modelo: casos, tareas, observables
 

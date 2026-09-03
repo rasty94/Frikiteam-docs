@@ -19,10 +19,8 @@ La estructura está sana y el problema es de mantenimiento, no de contenido nuev
 ## 🎯 Plan de mejora (por orden de retorno)
 
 ### 1. Cerrar la deuda "sin ejecutar"
-Vale más verificar estos tres puntos en un despliegue real que escribir un doc nuevo.
-- [ ] **TheHive/MISP:** el `docker-compose` está escrito de conocimiento. Contrastar al menos los tags de imagen (`strangebee/thehive:5.3`, `cassandra:4.1`, `elasticsearch:8.14.3`) contra los registries.
-- [ ] **OpenSCAP:** los comandos `oscap` y los paquetes SSG de Debian no se han probado.
-- [ ] **vLLM:** 4 métricas en `monitoreo_llms.md` (sufijo `_total` de algunos counters y `num_requests_waiting`) son extrapolaciones. El doc incluye un `curl /metrics | grep` para comprobarlas.
+TheHive/MISP y vLLM se verificaron el 2026-09-03 (ver `done.md`). Queda uno:
+- [ ] **OpenSCAP:** los comandos `oscap` y los paquetes SSG de Debian no se han probado. Necesita una máquina Debian real; no se puede verificar desde el repositorio.
 
 ### 2. Otra deuda operativa
 - [ ] **Desplegar Plausible** en servidor o revisar logs existentes para analytics básico.
