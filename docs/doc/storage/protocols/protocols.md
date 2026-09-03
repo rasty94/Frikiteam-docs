@@ -3,12 +3,12 @@ title: "Protocolos y Métricas de Almacenamiento"
 tags: ['storage']
 description: Resumen de protocolos (iSCSI, NFS, SMB, Ceph RBD, S3), métricas clave (IOPS, latencia, throughput), y buenas prácticas de medición.
 keywords: iops, latencia, throughput, iSCSI, NFS, SMB, rbd, s3, storage protocols, métricas
-updated: 2026-01-25
+updated: 2026-09-03
 difficulty: advanced
 estimated_time: 10 min
 category: Almacenamiento
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-09-03
 prerequisites: ["Conocimientos básicos de DevOps"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -158,5 +158,9 @@ reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
 ```
 
----
+## Enlaces relacionados
 
+- [Ejemplo fio](examples/fio_example.md) — cómo medir IOPS, latencia y ancho de banda sin engañarte, con los cuatro perfiles canónicos y los errores que invalidan una medición.
+- [Kubernetes CSI](../kubernetes_csi.md) — estos mismos protocolos vistos desde el aprovisionamiento dinámico de volúmenes.
+
+---

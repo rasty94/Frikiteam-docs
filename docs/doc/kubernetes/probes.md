@@ -1,12 +1,12 @@
 ---
 title: Kubernetes — Readiness y Liveness Probes
 tags: ['kubernetes']
-updated: 2025-12-07
+updated: 2026-09-03
 difficulty: expert
-estimated_time: 1 min
 category: Contenedores
 status: published
-last_reviewed: 2026-01-25
+estimated_time: 3 min
+last_reviewed: 2026-09-03
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Docker básico"
@@ -17,8 +17,13 @@ contributors: ["@rasty94"]
 # Kubernetes — Readiness y Liveness Probes
 
 ## Introducción
-- `livenessProbe`: determina si el contenedor está vivo (si falla -> restart)
-- `readinessProbe`: determina si el contenedor está listo para recibir tráfico
+
+Kubernetes usa probes para monitorizar la salud de los contenedores y determinar si están listos para recibir tráfico:
+
+- **`livenessProbe`**: determina si un contenedor está vivo. Si falla, Kubernetes reinicia el contenedor.
+- **`readinessProbe`**: determina si un contenedor está listo para aceptar tráfico. Si falla, el contenedor se retira de los endpoints del servicio.
+
+Ambas son cruciales para mantener la disponibilidad de la aplicación y habilitar la recuperación automática.
 
 ## Ejemplo YAML
 
@@ -37,21 +42,64 @@ spec:
         port: 8080
       initialDelaySeconds: 30
       periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
     readinessProbe:
       httpGet:
         path: /ready
         port: 8080
       initialDelaySeconds: 5
       periodSeconds: 10
+      timeoutSeconds: 3
+      failureThreshold: 2
 ```
 
+### Tipos de probe
+
+- **httpGet**: realiza una petición HTTP GET contra el contenedor. Devuelve 200-399 en caso de éxito.
+- **exec**: ejecuta un comando dentro del contenedor. El código de salida 0 significa éxito.
+- **tcpSocket**: intenta una conexión TCP a un puerto. Es un éxito si la conexión se establece.
+
 ## Buenas prácticas
-- Diferencia entre `liveness` y `readiness` y no mezclar su propósito.
-- Ajusta `initialDelaySeconds` y `periodSeconds` según el arranque de la aplicación.
-- Recomendado usar `readinessPod` para rolling updates.
+
+1. **Separa responsabilidades**: usa liveness para detectar deadlocks/crashes; usa readiness para comprobar dependencias.
+2. **Ajusta bien los tiempos**:
+   - `initialDelaySeconds`: espera antes del primer probe (permite que la app arranque)
+   - `periodSeconds`: frecuencia de comprobación (30s es razonable)
+   - `timeoutSeconds`: tiempo de espera de respuesta (típico 3-5s)
+   - `failureThreshold`: número de fallos antes de actuar (3 es el valor por defecto)
+3. **Usa readiness para rolling updates**: evita enviar tráfico a contenedores que aún están arrancando.
+4. **Evita falsos positivos**: no dependas solo de endpoints /health; comprueba dependencias reales.
 
 ## Debugging
-- Usa `kubectl describe pod <pod>` para ver los estados de las probes.
-- Usa `kubectl logs -f <pod>` para revisar fallos en la app.
+
+Comprueba el estado y los fallos de las probes:
+
+```bash
+# Ver eventos de las probes
+kubectl describe pod <pod-name>
+
+# Revisar logs de la aplicación en busca de errores de probe
+kubectl logs -f <pod-name>
+
+# Probar manualmente el endpoint de la probe
+kubectl exec <pod-name> -- curl -v http://localhost:8080/health
+
+# Ver eventos recientes
+kubectl get events --sort-by='.lastTimestamp'
+```
+
+## Problemas comunes
+
+| Problema | Causa | Solución |
+|-------|-------|----------|
+| El pod nunca se pone ready | Timeout de la probe demasiado corto | Aumentar `initialDelaySeconds` o `timeoutSeconds` |
+| Los pods se reinician constantemente | Liveness probe demasiado agresiva | Aumentar `periodSeconds` o subir `failureThreshold` |
+| Sigue llegando tráfico a un pod que falla | Readiness probe mal configurada | Verificar el endpoint de la readiness probe |
+| CrashLoopBackOff | La aplicación crashea | Arreglar la aplicación, no las probes |
+
+## Ver también
+
+- [Documentación de Kubernetes: Configurar Liveness, Readiness Probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 
 ---

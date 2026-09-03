@@ -1,11 +1,12 @@
 ---
 title: Docker — Optimization and Best Practices
 tags: ['docker']
-updated: 2026-01-23
+updated: 2026-09-03
 difficulty: expert
 category: Containers
 status: published
 estimated_time: 1 min
+last_reviewed: 2026-09-03
 ---
 
 # Docker — Optimization and Best Practices
