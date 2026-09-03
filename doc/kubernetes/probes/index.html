@@ -3712,6 +3712,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Ejemplo YAML">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tipos-de-probe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipos de probe
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3730,6 +3747,28 @@
     <span class="md-ellipsis">
       
         Debugging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problemas-comunes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problemas comunes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ver-tambien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver también
       
     </span>
   </a>
@@ -9037,7 +9076,7 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--red">Experto</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 1 min</span> <span class="md-badge md-badge--primary">Categoría: Contenedores</span> <span class="md-badge md-badge--green">Publicado</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--red">Experto</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 3 min</span> <span class="md-badge md-badge--primary">Categoría: Contenedores</span> <span class="md-badge md-badge--green">Publicado</span></div>
                 
                   
 
@@ -9064,10 +9103,12 @@
 
 <h1 id="kubernetes-readiness-y-liveness-probes">Kubernetes — Readiness y Liveness Probes<a class="headerlink" href="#kubernetes-readiness-y-liveness-probes" title="Permanent link">&para;</a></h1>
 <h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
+<p>Kubernetes usa probes para monitorizar la salud de los contenedores y determinar si están listos para recibir tráfico:</p>
 <ul>
-<li><code>livenessProbe</code>: determina si el contenedor está vivo (si falla -&gt; restart)</li>
-<li><code>readinessProbe</code>: determina si el contenedor está listo para recibir tráfico</li>
+<li><strong><code>livenessProbe</code></strong>: determina si un contenedor está vivo. Si falla, Kubernetes reinicia el contenedor.</li>
+<li><strong><code>readinessProbe</code></strong>: determina si un contenedor está listo para aceptar tráfico. Si falla, el contenedor se retira de los endpoints del servicio.</li>
 </ul>
+<p>Ambas son cruciales para mantener la disponibilidad de la aplicación y habilitar la recuperación automática.</p>
 <h2 id="ejemplo-yaml">Ejemplo YAML<a class="headerlink" href="#ejemplo-yaml" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
@@ -9083,23 +9124,83 @@
 <span class="w">        </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
 <span class="w">      </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
 <span class="w">      </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">      </span><span class="nt">timeoutSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">      </span><span class="nt">failureThreshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
 <span class="w">    </span><span class="nt">readinessProbe</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">httpGet</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/ready</span>
 <span class="w">        </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
 <span class="w">      </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
 <span class="w">      </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">      </span><span class="nt">timeoutSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">      </span><span class="nt">failureThreshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
 </code></pre></div>
-<h2 id="buenas-practicas">Buenas prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
+<h3 id="tipos-de-probe">Tipos de probe<a class="headerlink" href="#tipos-de-probe" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Diferencia entre <code>liveness</code> y <code>readiness</code> y no mezclar su propósito.</li>
-<li>Ajusta <code>initialDelaySeconds</code> y <code>periodSeconds</code> según el arranque de la aplicación.</li>
-<li>Recomendado usar <code>readinessPod</code> para rolling updates.</li>
+<li><strong>httpGet</strong>: realiza una petición HTTP GET contra el contenedor. Devuelve 200-399 en caso de éxito.</li>
+<li><strong>exec</strong>: ejecuta un comando dentro del contenedor. El código de salida 0 significa éxito.</li>
+<li><strong>tcpSocket</strong>: intenta una conexión TCP a un puerto. Es un éxito si la conexión se establece.</li>
 </ul>
+<h2 id="buenas-practicas">Buenas prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Separa responsabilidades</strong>: usa liveness para detectar deadlocks/crashes; usa readiness para comprobar dependencias.</li>
+<li><strong>Ajusta bien los tiempos</strong>:</li>
+<li><code>initialDelaySeconds</code>: espera antes del primer probe (permite que la app arranque)</li>
+<li><code>periodSeconds</code>: frecuencia de comprobación (30s es razonable)</li>
+<li><code>timeoutSeconds</code>: tiempo de espera de respuesta (típico 3-5s)</li>
+<li><code>failureThreshold</code>: número de fallos antes de actuar (3 es el valor por defecto)</li>
+<li><strong>Usa readiness para rolling updates</strong>: evita enviar tráfico a contenedores que aún están arrancando.</li>
+<li><strong>Evita falsos positivos</strong>: no dependas solo de endpoints /health; comprueba dependencias reales.</li>
+</ol>
 <h2 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Permanent link">&para;</a></h2>
+<p>Comprueba el estado y los fallos de las probes:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ver eventos de las probes</span>
+kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;
+
+<span class="c1"># Revisar logs de la aplicación en busca de errores de probe</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>&lt;pod-name&gt;
+
+<span class="c1"># Probar manualmente el endpoint de la probe</span>
+kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>--<span class="w"> </span>curl<span class="w"> </span>-v<span class="w"> </span>http://localhost:8080/health
+
+<span class="c1"># Ver eventos recientes</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>--sort-by<span class="o">=</span><span class="s1">'.lastTimestamp'</span>
+</code></pre></div>
+<h2 id="problemas-comunes">Problemas comunes<a class="headerlink" href="#problemas-comunes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Problema</th>
+<th>Causa</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>El pod nunca se pone ready</td>
+<td>Timeout de la probe demasiado corto</td>
+<td>Aumentar <code>initialDelaySeconds</code> o <code>timeoutSeconds</code></td>
+</tr>
+<tr>
+<td>Los pods se reinician constantemente</td>
+<td>Liveness probe demasiado agresiva</td>
+<td>Aumentar <code>periodSeconds</code> o subir <code>failureThreshold</code></td>
+</tr>
+<tr>
+<td>Sigue llegando tráfico a un pod que falla</td>
+<td>Readiness probe mal configurada</td>
+<td>Verificar el endpoint de la readiness probe</td>
+</tr>
+<tr>
+<td>CrashLoopBackOff</td>
+<td>La aplicación crashea</td>
+<td>Arreglar la aplicación, no las probes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ver-tambien">Ver también<a class="headerlink" href="#ver-tambien" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Usa <code>kubectl describe pod &lt;pod&gt;</code> para ver los estados de las probes.</li>
-<li>Usa <code>kubectl logs -f &lt;pod&gt;</code> para revisar fallos en la app.</li>
+<li><a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/">Documentación de Kubernetes: Configurar Liveness, Readiness Probes</a></li>
 </ul>
 <hr />
 

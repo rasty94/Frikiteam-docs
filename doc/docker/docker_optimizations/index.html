@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentación oficial del proyecto Frikiteam 🚀">
+        <meta name="description" content="Reducir tiempo de build, tamaño y superficie de ataque de las imágenes Docker: multi-stage builds, minimización de capas, gestión de secretos, persistencia con volúmenes y un Dockerfile de producción de ejemplo.">
       
       
       
@@ -72,7 +72,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Docker — Optimización y Buenas Prácticas - Frikiteam Docs" />
-<meta property="og:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="og:description" content="Reducir tiempo de build, tamaño y superficie de ataque de las imágenes Docker: multi-stage builds, minimización de capas, gestión de secretos, persistencia con volúmenes y un Dockerfile de producción de ejemplo." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/doc/docker/docker_optimizations.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -80,7 +80,7 @@
 <meta property="og:url" content="https://docs.frikiteam.es/doc/docker/docker_optimizations/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="Docker — Optimización y Buenas Prácticas - Frikiteam Docs" />
-<meta property="twitter:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="twitter:description" content="Reducir tiempo de build, tamaño y superficie de ataque de las imágenes Docker: multi-stage builds, minimización de capas, gestión de secretos, persistencia con volúmenes y un Dockerfile de producción de ejemplo." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/doc/docker/docker_optimizations.png" />
 </head>
   
@@ -3410,10 +3410,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#multi-stage-build-ejemplo" class="md-nav__link">
+  <a href="#multi-stage-builds" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Multi-stage build (ejemplo)
+        Multi-stage Builds
       
     </span>
   </a>
@@ -3421,10 +3421,71 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#recomendaciones" class="md-nav__link">
+  <a href="#recomendaciones-generales" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Recomendaciones
+        Recomendaciones Generales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recomendaciones Generales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tamano-de-imagen-y-capas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tamaño de Imagen y Capas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seguridad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seguridad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secretos-y-configuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secretos y Configuración
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persistencia-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persistencia de Datos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consejos-de-rendimiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consejos de Rendimiento
       
     </span>
   </a>
@@ -3432,10 +3493,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#volumenes-y-persistencia" class="md-nav__link">
+  <a href="#ejemplo-practico-dockerfile-listo-para-produccion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Volúmenes y persistencia
+        Ejemplo Práctico: Dockerfile Listo para Producción
       
     </span>
   </a>
@@ -3443,21 +3504,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#variables-de-entorno-y-secretos" class="md-nav__link">
+  <a href="#ver-tambien" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Variables de entorno y secretos
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#caso-practico" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Caso práctico
+        Ver También
       
     </span>
   </a>
@@ -9048,7 +9098,7 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--red">Experto</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 1 min</span> <span class="md-badge md-badge--primary">Categoría: Contenedores</span> <span class="md-badge md-badge--green">Publicado</span> <span class="md-badge md-badge--secondary" title="Prerrequisitos: ["Conocimientos básicos de DevOps"]">💡 Prerrequisitos</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--red">Experto</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 5 min</span> <span class="md-badge md-badge--primary">Categoría: Contenedores</span> <span class="md-badge md-badge--green">Publicado</span> <span class="md-badge md-badge--secondary" title="Prerrequisitos: ["Conocimientos básicos de Docker y Dockerfile"]">💡 Prerrequisitos</span></div>
                 
                   
 
@@ -9074,7 +9124,9 @@
 
 
 <h1 id="docker-optimizacion-y-buenas-practicas">Docker — Optimización y Buenas Prácticas<a class="headerlink" href="#docker-optimizacion-y-buenas-practicas" title="Permanent link">&para;</a></h1>
-<h2 id="multi-stage-build-ejemplo">Multi-stage build (ejemplo)<a class="headerlink" href="#multi-stage-build-ejemplo" title="Permanent link">&para;</a></h2>
+<p>Optimizar las imágenes Docker reduce el tiempo de build, el almacenamiento y el overhead en tiempo de ejecución, además de mejorar la seguridad.</p>
+<h2 id="multi-stage-builds">Multi-stage Builds<a class="headerlink" href="#multi-stage-builds" title="Permanent link">&para;</a></h2>
+<p>Los multi-stage builds permiten usar varias sentencias <code>FROM</code> en un mismo Dockerfile, conservando solo las capas finales en la imagen de producción.</p>
 <div class="highlight"><pre><span></span><code><span class="c"># Build stage</span>
 <span class="k">FROM</span><span class="w"> </span><span class="s">golang:1.20-alpine</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">build</span>
 <span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
@@ -9087,28 +9139,105 @@
 <span class="k">USER</span><span class="w"> </span><span class="s">1000</span>
 <span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">"/usr/local/bin/myapp"</span><span class="p">]</span>
 </code></pre></div>
-<h2 id="recomendaciones">Recomendaciones<a class="headerlink" href="#recomendaciones" title="Permanent link">&para;</a></h2>
+<p><strong>Beneficios:</strong>
+- Reduce el tamaño final de la imagen (100MB+ → 10-20MB en este ejemplo)
+- Separa las herramientas de build de las dependencias de runtime
+- Mejora la seguridad al excluir compiladores y paquetes de desarrollo</p>
+<h2 id="recomendaciones-generales">Recomendaciones Generales<a class="headerlink" href="#recomendaciones-generales" title="Permanent link">&para;</a></h2>
+<h3 id="tamano-de-imagen-y-capas">Tamaño de Imagen y Capas<a class="headerlink" href="#tamano-de-imagen-y-capas" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Usa imágenes base pequeñas (alpine, slim) cuando sea posible.</li>
-<li>Evita <code>ADD</code>/<code>COPY</code> innecesarios y reduce el tamaño final.</li>
-<li>Limpia cachés en la misma capa (<code>RUN apt-get update &amp;&amp; apt-get install -y ... &amp;&amp; apt-get clean &amp;&amp; rm -rf /var/lib/apt/lists/*</code>).</li>
-<li>Evita ejecutar como <code>root</code>, crea y usa un usuario sin privilegios.</li>
-<li>Usa <code>docker scan</code> / <code>trivy</code> para escaneo de vulnerabilidades.</li>
+<li><strong>Usa imágenes base mínimas</strong>: Alpine, Debian Slim o distroless cuando sea aplicable</li>
+<li><strong>Minimiza <code>COPY</code>/<code>ADD</code></strong>: copia solo los ficheros necesarios; usa <code>.dockerignore</code></li>
+<li><strong>Limpia en la misma capa</strong>:
+  <div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>curl<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</code></pre></div></li>
+<li><strong>Combina comandos <code>RUN</code></strong>: cada <code>RUN</code> crea una capa; menos capas = imágenes más pequeñas</li>
 </ul>
-<h2 id="volumenes-y-persistencia">Volúmenes y persistencia<a class="headerlink" href="#volumenes-y-persistencia" title="Permanent link">&para;</a></h2>
+<h3 id="seguridad">Seguridad<a class="headerlink" href="#seguridad" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Usa volúmenes para datos persistentes y evita almacenar datos importantes dentro del layer de la imagen.</li>
+<li><strong>Nunca ejecutes como root</strong>: crea un usuario sin privilegios
+  <div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>useradd<span class="w"> </span>-m<span class="w"> </span>appuser
+<span class="k">USER</span><span class="w"> </span><span class="s">appuser</span>
+</code></pre></div></li>
+<li><strong>Escanea vulnerabilidades</strong>:
+  <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>scan<span class="w"> </span>myimage
+trivy<span class="w"> </span>image<span class="w"> </span>myimage
+</code></pre></div></li>
+<li><strong>Mantén las imágenes actualizadas</strong>: reconstruye regularmente con las últimas imágenes base</li>
 </ul>
-<h2 id="variables-de-entorno-y-secretos">Variables de entorno y secretos<a class="headerlink" href="#variables-de-entorno-y-secretos" title="Permanent link">&para;</a></h2>
+<h3 id="secretos-y-configuracion">Secretos y Configuración<a class="headerlink" href="#secretos-y-configuracion" title="Permanent link">&para;</a></h3>
 <ul>
-<li>No incluyas secretos en la imagen ni en el <code>Dockerfile</code>.</li>
-<li>Usa <code>--env-file</code> o herramientas de secretos (HashiCorp Vault, Docker secrets, etc.)</li>
+<li><strong>Nunca incluyas secretos</strong> en la imagen ni en el Dockerfile</li>
+<li><strong>Usa ficheros de entorno</strong> para la configuración:
+  <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--env-file<span class="w"> </span>.env<span class="w"> </span>myimage
+</code></pre></div></li>
+<li><strong>Usa herramientas de gestión de secretos</strong>: HashiCorp Vault, Docker Secrets (Swarm), Kubernetes Secrets</li>
 </ul>
-<h2 id="caso-practico">Caso práctico<a class="headerlink" href="#caso-practico" title="Permanent link">&para;</a></h2>
+<h3 id="persistencia-de-datos">Persistencia de Datos<a class="headerlink" href="#persistencia-de-datos" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Añade un Dockerfile multi-stage, build y tag en CI, y publica la imagen a un registry.</li>
+<li><strong>Usa volúmenes</strong> para datos persistentes:
+  <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span>my-volume:/data<span class="w"> </span>myimage
+</code></pre></div></li>
+<li><strong>Nunca almacenes datos críticos en las capas del contenedor</strong>; son efímeras</li>
 </ul>
-<hr />
+<h2 id="consejos-de-rendimiento">Consejos de Rendimiento<a class="headerlink" href="#consejos-de-rendimiento" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Optimización</th>
+<th>Impacto</th>
+<th>Complejidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Multi-stage builds</td>
+<td>Alto</td>
+<td>Bajo</td>
+</tr>
+<tr>
+<td>Cacheo de capas</td>
+<td>Alto</td>
+<td>Medio</td>
+</tr>
+<tr>
+<td>Reducción de tamaño de imagen</td>
+<td>Medio</td>
+<td>Bajo</td>
+</tr>
+<tr>
+<td>Escaneo de seguridad</td>
+<td>Medio</td>
+<td>Bajo</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ejemplo-practico-dockerfile-listo-para-produccion">Ejemplo Práctico: Dockerfile Listo para Producción<a class="headerlink" href="#ejemplo-practico-dockerfile-listo-para-produccion" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c"># Build stage</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">golang:1.21-alpine</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">builder</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/build</span>
+<span class="k">COPY</span><span class="w"> </span>go.*<span class="w"> </span>./
+<span class="k">RUN</span><span class="w"> </span>go<span class="w"> </span>mod<span class="w"> </span>download
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span><span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">GOOS</span><span class="o">=</span>linux<span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>app
+
+<span class="c"># Runtime stage</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">alpine:3.19</span>
+<span class="k">RUN</span><span class="w"> </span>apk<span class="w"> </span>add<span class="w"> </span>--no-cache<span class="w"> </span>ca-certificates
+<span class="k">RUN</span><span class="w"> </span>adduser<span class="w"> </span>-D<span class="w"> </span>-u<span class="w"> </span><span class="m">1000</span><span class="w"> </span>appuser
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>builder<span class="w"> </span>/build/app<span class="w"> </span>.
+<span class="k">USER</span><span class="w"> </span><span class="s">appuser</span>
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">8080</span>
+<span class="k">HEALTHCHECK</span><span class="w"> </span>--interval<span class="o">=</span>30s<span class="w"> </span>--timeout<span class="o">=</span>5s<span class="w"> </span><span class="k">CMD</span><span class="w"> </span>wget<span class="w"> </span>--quiet<span class="w"> </span>--tries<span class="o">=</span><span class="m">1</span><span class="w"> </span>--spider<span class="w"> </span>http://localhost:8080/health<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"./app"</span><span class="p">]</span>
+</code></pre></div>
+<h2 id="ver-tambien">Ver También<a class="headerlink" href="#ver-tambien" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://docs.docker.com/develop/dev-best-practices/">Docker Best Practices</a></li>
+<li><a href="https://docs.docker.com/build/building/multi-stage/">Multi-stage Builds</a></li>
+<li><a href="https://docs.docker.com/engine/reference/builder/">Dockerfile Reference</a></li>
+</ul>
 
 
 

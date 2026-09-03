@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Overview of common storage protocols (iSCSI, NFS, SMB, RBD, S3), key metrics (IOPS, latency, throughput), and measurement best practices.">
+        <meta name="description" content="Overview of storage protocols (iSCSI, NFS, SMB, Ceph RBD, S3), key metrics (IOPS, latency, throughput), and measurement best practices.">
       
       
       
@@ -72,7 +72,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Storage Protocols and Metrics - Frikiteam Docs" />
-<meta property="og:description" content="Overview of common storage protocols (iSCSI, NFS, SMB, RBD, S3), key metrics (IOPS, latency, throughput), and measurement best practices." />
+<meta property="og:description" content="Overview of storage protocols (iSCSI, NFS, SMB, Ceph RBD, S3), key metrics (IOPS, latency, throughput), and measurement best practices." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/en/doc/storage/protocols/protocols.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -80,7 +80,7 @@
 <meta property="og:url" content="https://docs.frikiteam.es/en/doc/storage/protocols/protocols/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="Storage Protocols and Metrics - Frikiteam Docs" />
-<meta property="twitter:description" content="Overview of common storage protocols (iSCSI, NFS, SMB, RBD, S3), key metrics (IOPS, latency, throughput), and measurement best practices." />
+<meta property="twitter:description" content="Overview of storage protocols (iSCSI, NFS, SMB, Ceph RBD, S3), key metrics (IOPS, latency, throughput), and measurement best practices." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/en/doc/storage/protocols/protocols.png" />
 </head>
   
@@ -1660,6 +1660,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#deep-dive-into-nfs-versions-and-pnfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deep dive into NFS: versions and pNFS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fio-practical-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fio — practical examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#quick-choice-iscsi-vs-nfs-vs-smb" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1682,10 +1704,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#container-storage-optimization-kubernetes-csi" class="md-nav__link">
+  <a href="#storage-optimization-for-containers-kubernetes-csi" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Container storage optimization (Kubernetes + CSI)
+        Storage optimization for containers (Kubernetes + CSI)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related links
       
     </span>
   </a>
@@ -9075,7 +9108,7 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--orange">Advanced</span> <span class="md-badge md-badge--secondary">Estimated time: 10 min</span> <span class="md-badge md-badge--primary">Category: Storage</span> <span class="md-badge md-badge--green">Published</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--orange">Advanced</span> <span class="md-badge md-badge--secondary">Estimated time: 10 min</span> <span class="md-badge md-badge--primary">Category: Storage</span> <span class="md-badge md-badge--green">Published</span> <span class="md-badge md-badge--secondary" title="Prerequisites: ["Basic DevOps knowledge"]">💡 Prerequisites</span></div>
                 
                   
 
@@ -9101,73 +9134,145 @@
 
 
 <h1 id="storage-protocols-and-metrics">Storage Protocols and Metrics<a class="headerlink" href="#storage-protocols-and-metrics" title="Permanent link">&para;</a></h1>
-<p>This page provides a practical view on common storage protocols and the metrics you should monitor for sizing and operating storage systems:</p>
+<p>This document gathers a practical overview of common storage protocols and the metrics you should measure to size and operate storage systems:</p>
 <h2 id="common-protocols">Common protocols<a class="headerlink" href="#common-protocols" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>iSCSI</strong>: Block over IP, common for VMs and databases.</li>
-<li><strong>NFS</strong>: Network file system for file sharing among apps.</li>
-<li><strong>SMB/CIFS</strong>: File protocol commonly used in Windows environments.</li>
-<li><strong>RBD (Ceph RADOS Block Device)</strong>: Ceph native block device.</li>
-<li><strong>S3 / Object Storage</strong>: Object interface for backups, unstructured data and data lakes.</li>
+<li><strong>iSCSI</strong>: Block over IP, typically used in VM environments and databases.</li>
+<li><strong>NFS</strong>: Network file system, used by applications that need to share files.</li>
+<li><strong>SMB/CIFS</strong>: File protocols oriented toward Windows environments and shared files.</li>
+<li><strong>RBD (Ceph RADOS Block Device)</strong>: Ceph's native distributed block device.</li>
+<li><strong>S3 / Object Storage</strong>: Object interface, suitable for backups, unstructured data and lakes.</li>
 </ul>
 <h2 id="key-metrics">Key metrics<a class="headerlink" href="#key-metrics" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>IOPS</strong> (operations/sec): measures number of I/O operations.</li>
-<li><strong>Latency</strong> (ms): response time per operation (p99, p95).</li>
-<li><strong>Throughput</strong> (MB/s): effective bandwidth for sequential ops.</li>
-<li><strong>Queue depth</strong>: queue depths at hosts and controllers.</li>
-<li><strong>Utilization</strong>: CPU/Network/Disk utilization on storage nodes.</li>
+<li><strong>IOPS</strong> (operations per second): measures the number of I/O operations.</li>
+<li><strong>Latency</strong> (ms): average response time per operation (p99, p95).</li>
+<li><strong>Throughput</strong> (MB/s): effective bandwidth for sequential operations.</li>
+<li><strong>Queue depth</strong>: queue depth on hosts and controllers.</li>
+<li><strong>Utilization</strong>: CPU/network/disk usage on storage nodes.</li>
 </ul>
 <h2 id="measurement-best-practices">Measurement best practices<a class="headerlink" href="#measurement-best-practices" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Capture both steady-state and peak patterns.</li>
+<li>Establish peaks and patterns: measure both sustained loads and peaks.</li>
 <li>Use tools: <code>fio</code> for block, <code>rclone</code>/<code>s3bench</code> for object, <code>iperf</code> for network.</li>
-<li>Measure latency percentiles (p50/p95/p99) not only averages.</li>
-<li>Correlate with network/CPU metrics to find bottlenecks.</li>
+<li>Measure latency percentiles (p50/p95/p99), not just averages.</li>
+<li>Correlate with network and CPU metrics to identify bottlenecks.</li>
 </ul>
 <h2 id="operational-recommendations">Operational recommendations<a class="headerlink" href="#operational-recommendations" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Design headroom for peaks (e.g., +30% IOPS/throughput).</li>
-<li>Avoid oversubscription in critical tiers.</li>
-<li>Use QoS/limits to isolate noisy neighbors.</li>
+<li>Reserve headroom for peaks (e.g., +30% IOPS/throughput).</li>
+<li>Avoid overprovisioning in critical tiers.</li>
+<li>Use QoS/limits when needed to isolate workloads.</li>
+</ul>
+<h2 id="deep-dive-into-nfs-versions-and-pnfs">Deep dive into NFS: versions and pNFS<a class="headerlink" href="#deep-dive-into-nfs-versions-and-pnfs" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>NFSv3</strong>: very widespread, essentially stateless design (locks are handled via lockd), simple but limited in features such as delegations and sessions.</p>
+</li>
+<li>
+<p><strong>NFSv4 (4.0 / 4.1 / 4.2)</strong>: NFSv4 unifies authentication, locking and state into the protocol itself. Later versions add:</p>
+</li>
+<li>
+<p><strong>NFSv4.1</strong>: introduces sessions and, among other extensions, implements pNFS (Parallel NFS), which allows data to be accessed in parallel directly on the data servers using different layouts (file, block, object).</p>
+</li>
+<li>
+<p><strong>NFSv4.2</strong>: adds advanced operations such as server-side copy, sparse files, and improvements in attributes and performance.</p>
+</li>
+</ul>
+<blockquote>
+<p>pNFS (Parallel NFS): allows I/O to scale by spreading data across multiple data servers. It requires support on the client, metadata server and data servers; there are <strong>FILE</strong>, <strong>BLOCK</strong> and <strong>OBJECT</strong> layout types. It's useful for workloads with high parallelism (HPC, large data clusters).</p>
+</blockquote>
+<h2 id="fio-practical-examples"><code>fio</code> — practical examples<a class="headerlink" href="#fio-practical-examples" title="Permanent link">&para;</a></h2>
+<p>Run <code>fio</code> against an NFS mount point or a block device to measure behavior. Common examples:</p>
+<p>1) Random mixed read/write (4k):</p>
+<div class="highlight"><pre><span></span><code>fio<span class="w"> </span>--name<span class="o">=</span>randrw<span class="w"> </span>--ioengine<span class="o">=</span>libaio<span class="w"> </span>--direct<span class="o">=</span><span class="m">1</span><span class="w"> </span>--rw<span class="o">=</span>randrw<span class="w"> </span>--bs<span class="o">=</span>4k<span class="w"> </span>--size<span class="o">=</span>1G<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--numjobs<span class="o">=</span><span class="m">4</span><span class="w"> </span>--runtime<span class="o">=</span><span class="m">60</span><span class="w"> </span>--time_based<span class="w"> </span>--iodepth<span class="o">=</span><span class="m">32</span><span class="w"> </span>--group_reporting<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output-format<span class="o">=</span>json<span class="w"> </span>--output<span class="o">=</span>randrw.json
+</code></pre></div>
+<p>1) Sequential read (1M) — measuring throughput:</p>
+<div class="highlight"><pre><span></span><code>fio<span class="w"> </span>--name<span class="o">=</span>seqread<span class="w"> </span>--ioengine<span class="o">=</span>libaio<span class="w"> </span>--direct<span class="o">=</span><span class="m">1</span><span class="w"> </span>--rw<span class="o">=</span><span class="nb">read</span><span class="w"> </span>--bs<span class="o">=</span>1M<span class="w"> </span>--size<span class="o">=</span>10G<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--numjobs<span class="o">=</span><span class="m">1</span><span class="w"> </span>--runtime<span class="o">=</span><span class="m">60</span><span class="w"> </span>--time_based<span class="w"> </span>--group_reporting<span class="w"> </span>--output-format<span class="o">=</span>json
+</code></pre></div>
+<p>1) Random write stress (4k):</p>
+<div class="highlight"><pre><span></span><code>fio<span class="w"> </span>--name<span class="o">=</span>randwrite<span class="w"> </span>--ioengine<span class="o">=</span>libaio<span class="w"> </span>--direct<span class="o">=</span><span class="m">1</span><span class="w"> </span>--rw<span class="o">=</span>randwrite<span class="w"> </span>--bs<span class="o">=</span>4k<span class="w"> </span>--size<span class="o">=</span>2G<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--numjobs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--runtime<span class="o">=</span><span class="m">120</span><span class="w"> </span>--time_based<span class="w"> </span>--iodepth<span class="o">=</span><span class="m">64</span><span class="w"> </span>--group_reporting<span class="w"> </span>--output-format<span class="o">=</span>json
+</code></pre></div>
+<p>1) Example job file (<code>fio_job.ini</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="k">[global]</span>
+<span class="na">ioengine</span><span class="o">=</span><span class="s">libaio</span>
+<span class="na">direct</span><span class="o">=</span><span class="s">1</span>
+<span class="na">time_based</span>
+<span class="na">runtime</span><span class="o">=</span><span class="s">60</span>
+<span class="na">group_reporting</span>
+<span class="na">size</span><span class="o">=</span><span class="s">1G</span>
+
+<span class="k">[randread]</span>
+<span class="na">bs</span><span class="o">=</span><span class="s">4k</span>
+<span class="na">rw</span><span class="o">=</span><span class="s">randread</span>
+<span class="na">iodepth</span><span class="o">=</span><span class="s">32</span>
+<span class="na">numjobs</span><span class="o">=</span><span class="s">4</span>
+
+<span class="k">[randwrite]</span>
+<span class="na">bs</span><span class="o">=</span><span class="s">4k</span>
+<span class="na">rw</span><span class="o">=</span><span class="s">randwrite</span>
+<span class="na">iodepth</span><span class="o">=</span><span class="s">32</span>
+<span class="na">numjobs</span><span class="o">=</span><span class="s">4</span>
+</code></pre></div>
+<p>Basic interpretation of results:</p>
+<ul>
+<li><strong>IOPS</strong> and <strong>BW</strong> (bandwidth) report on capacity.</li>
+<li><strong>lat (latency)</strong> in percentiles (p50/p95/p99) shows stability and spikes.</li>
+<li>Correlate iodepth/numjobs to understand whether the system is CPU/IO/network bound.</li>
+</ul>
+<p>Recommendations for NFS testing</p>
+<ul>
+<li>Mount with appropriate client options (e.g. <code>noatime,nodiratime</code>, adjust <code>rsize</code>/<code>wsize</code> if needed).</li>
+<li>Run tests from several clients to simulate real concurrency.</li>
+<li>Make sure the network (MTU, switch buffers) doesn't become a bottleneck.</li>
 </ul>
 <h2 id="quick-choice-iscsi-vs-nfs-vs-smb">Quick choice: iSCSI vs NFS vs SMB<a class="headerlink" href="#quick-choice-iscsi-vs-nfs-vs-smb" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Databases/VMs</strong>: iSCSI/RBD (block) for latency and queue control; multipath + ALUA enabled.</li>
-<li><strong>Shared apps</strong>: NFSv4.1 (pNFS if available) for file workloads or RWX containers.</li>
-<li><strong>End-user shares</strong>: SMB with signing/encryption as policy requires.</li>
-<li><strong>Containers RWX</strong>: NFS/SMB CSI when POSIX/ACL semantics are needed.</li>
-<li><strong>Containers RWO</strong>: RBD/iSCSI CSI for statefulsets and databases.</li>
+<li><strong>Databases/VMs</strong>: iSCSI/RBD (block) for latency and queue control; multipath and ALUA enabled.</li>
+<li><strong>Shared between apps</strong>: NFSv4.1 (pNFS if applicable) for file workloads or RWX in containers.</li>
+<li><strong>Users/Office</strong>: SMB for desktop and profiles; enable signing/encryption per policy.</li>
+<li><strong>RWX containers</strong>: NFS (CSI) or SMB CSI if the app requires Windows ACLs.</li>
+<li><strong>RWO containers</strong>: RBD/iSCSI CSI for databases on Kubernetes.</li>
 </ul>
 <h2 id="resticborg-with-distributed-storage-cephminio">Restic/Borg with distributed storage (Ceph/MinIO)<a class="headerlink" href="#resticborg-with-distributed-storage-cephminio" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Repo</strong>: S3 (Ceph RGW/MinIO) with versioning on; separate buckets per environment.</li>
-<li><strong>Concurrency</strong>: cap <code>--limit-upload</code>/<code>--max-repack-size</code> to avoid overloading OSDs during prune/compact.</li>
-<li><strong>Encryption</strong>: manage keys outside the cluster; rotate and test restores regularly.</li>
-<li><strong>Retention</strong>: <code>keep-daily/weekly/monthly</code>; schedule <code>restic forget --prune</code> off-peak.</li>
-<li><strong>Health</strong>: monthly restore tests into an isolated bucket; measure backend latency/throughput.</li>
+<li><strong>Repository</strong>: S3 (Ceph RGW/MinIO) with versioning enabled; use dedicated buckets per environment.</li>
+<li><strong>Concurrency</strong>: limit <code>--limit-upload</code>/<code>--max-repack-size</code> to avoid saturating OSDs during recompaction.</li>
+<li><strong>Encryption</strong>: keys managed outside the cluster; periodic rotation and restore testing.</li>
+<li><strong>Retention</strong>: <code>keep-daily/weekly/monthly</code> policies; schedule <code>restic forget --prune</code> off peak hours.</li>
+<li><strong>Health</strong>: monthly restore tests into an isolated bucket; validate backend latency/throughput.</li>
 </ul>
-<h2 id="container-storage-optimization-kubernetes-csi">Container storage optimization (Kubernetes + CSI)<a class="headerlink" href="#container-storage-optimization-kubernetes-csi" title="Permanent link">&para;</a></h2>
+<h2 id="storage-optimization-for-containers-kubernetes-csi">Storage optimization for containers (Kubernetes + CSI)<a class="headerlink" href="#storage-optimization-for-containers-kubernetes-csi" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>StorageClasses</strong>: per tier (<code>gold/silver/bronze</code>) with proper <code>reclaimPolicy</code> (<code>Retain</code> prod, <code>Delete</code> dev).</li>
-<li><strong>Binding</strong>: <code>volumeBindingMode: WaitForFirstConsumer</code> to avoid scheduling on nodes without storage paths.</li>
-<li><strong>RWX</strong>: NFS/SMB CSI or RWX provisioners; verify <code>fsGroup</code>/permissions.</li>
-<li><strong>Snapshots/clones</strong>: define <code>VolumeSnapshotClass</code> and use clones for fast dev/test.</li>
-<li><strong>Topology</strong>: <code>allowedTopologies</code> with zone/rack labels to prevent cross-rack mounts.</li>
+<li><strong>StorageClasses</strong>: define per tier (<code>gold/silver/bronze</code>) with the appropriate <code>reclaimPolicy</code> (<code>Retain</code> prod, <code>Delete</code> dev).</li>
+<li><strong>Binding</strong>: <code>volumeBindingMode: WaitForFirstConsumer</code> to avoid scheduling on nodes without storage connectivity.</li>
+<li><strong>RWX</strong>: NFS/SMB CSI or RWX-type provisioner solutions; validate <code>fsGroup</code> and permissions.</li>
+<li><strong>Snapshots/clones</strong>: create a <code>VolumeSnapshotClass</code> and use clones for quick testing.</li>
+<li><strong>Topology</strong>: use <code>allowedTopologies</code> and zone/rack labels to avoid unnecessary cross-rack mounts.</li>
 </ul>
 <p>Example StorageClass (block):</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">storage.k8s.io/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">StorageClass</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gold-rbd</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gold-rbd</span>
 <span class="nt">provisioner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rook-ceph.rbd.csi.ceph.com</span>
 <span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">pool</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbd-gold</span>
-<span class="w">    </span><span class="nt">imageFeatures</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">layering,exclusive-lock,object-map,fast-diff,deep-flatten</span>
+<span class="w">  </span><span class="nt">pool</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbd-gold</span>
+<span class="w">  </span><span class="nt">imageFeatures</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">layering,exclusive-lock,object-map,fast-diff,deep-flatten</span>
 <span class="nt">allowVolumeExpansion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="nt">reclaimPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Delete</span>
 <span class="nt">volumeBindingMode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WaitForFirstConsumer</span>
 </code></pre></div>
+<h2 id="related-links">Related links<a class="headerlink" href="#related-links" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../examples/fio_example/">fio Example</a> — how to measure IOPS, latency and bandwidth without fooling yourself, with the four canonical profiles and the mistakes that invalidate a measurement.</li>
+<li><a href="../../kubernetes_csi/">Kubernetes CSI</a> — these same protocols seen from dynamic volume provisioning.</li>
+</ul>
+<hr />
 
 
 
