@@ -1,8 +1,6 @@
 ---
 title: "Autenticación y Autorización"
-date: 2026-01-09
 tags: ['cybersecurity', 'identity']
-draft: false
 updated: 2026-01-09
 difficulty: intermediate
 estimated_time: 10 min

@@ -1,6 +1,5 @@
 ---
 title: "NetApp — Introducción"
-date: 2025-12-07
 tags: ['storage', 'netapp']
 updated: 2026-01-25
 difficulty: beginner

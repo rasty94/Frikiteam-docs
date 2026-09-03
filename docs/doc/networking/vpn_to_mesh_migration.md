@@ -1,7 +1,6 @@
 ---
 title: "Migración de VPN Tradicionales a Mesh Networking"
 description: "Guía completa para migrar de VPN tradicionales (OpenVPN, IPsec) a soluciones modernas de mesh networking como WireGuard y ZeroTier"
-date: 2026-01-25
 tags: ['networking', 'vpn', 'service-mesh', 'migration', 'wireguard']
 difficulty: intermediate
 estimated_time: "60 minutos"

@@ -1,7 +1,6 @@
 ---
 title: "Kubernetes Security"
 description: "Practical guide to hardening a Kubernetes cluster: RBAC, Network Policies, Pod Security Standards, admission controllers, secrets management, image scanning, runtime security and auditing."
-date: 2025-01-25
 updated: 2026-07-18
 tags: ['cybersecurity', 'kubernetes', 'rbac', 'hardening']
 difficulty: intermediate

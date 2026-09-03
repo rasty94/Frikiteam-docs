@@ -2,7 +2,6 @@
 title: Protocolos ICMP/ARP/NDP
 tags: ['networking']
 description: Diferencias clave entre IPv4 (ARP) e IPv6 (NDP) y tipos de mensajes ICMP para diagnóstico.
-draft: false
 updated: 2026-01-09
 difficulty: advanced
 estimated_time: 5 min

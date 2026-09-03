@@ -1,6 +1,5 @@
 ---
 title: "Hardening de Servidores Linux"
-date: 2025-01-25
 updated: 2026-01-25
 tags: ['cybersecurity', 'linux', 'hardening', 'firewall']
 difficulty: intermediate

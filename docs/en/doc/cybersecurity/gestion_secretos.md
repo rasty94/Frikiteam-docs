@@ -1,8 +1,6 @@
 ---
 title: Secrets Management
-date: 2026-01-09
 tags: ['cybersecurity', 'secrets', 'kubernetes', 'devops']
-draft: false
 updated: 2026-01-24
 difficulty: intermediate
 category: Cybersecurity

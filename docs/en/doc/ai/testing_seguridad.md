@@ -1,7 +1,6 @@
 ---
 title: "LLM Security Testing"
 description: "Assessing vulnerabilities in language models: prompt injection, jailbreaking, hallucination detection and protective measures"
-date: 2026-01-25
 tags: ['ai', 'llm', 'cybersecurity', 'testing', 'evaluation']
 difficulty: advanced
 estimated_time: "45 min"

@@ -1,6 +1,5 @@
 ---
 title: "Local Model Ecosystem"
-date: 2025-01-25
 updated: 2026-01-25
 tags: ['ai', 'llm', 'ollama', 'vllm']
 difficulty: intermediate

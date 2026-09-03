@@ -1,6 +1,5 @@
 ---
 title: "Trivy Operator: Escaneo Continuo en Kubernetes"
-date: 2026-01-25
 updated: 2026-01-25
 tags: ['cybersecurity', 'kubernetes', 'vulnerability-scanning', 'devsecops', 'monitoring']
 difficulty: intermediate

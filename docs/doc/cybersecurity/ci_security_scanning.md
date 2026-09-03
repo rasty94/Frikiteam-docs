@@ -1,6 +1,5 @@
 ---
 title: "CI Security Scanning: SAST, DAST y Contenedores"
-date: 2026-01-25
 updated: 2026-01-25
 tags: ['cybersecurity', 'ci-cd', 'devsecops', 'containers', 'vulnerability-scanning']
 difficulty: intermediate

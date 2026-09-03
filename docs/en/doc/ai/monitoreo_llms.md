@@ -3,8 +3,6 @@ title: "LLM Monitoring and Observability"
 description: "What actually gets measured in an LLM inference service: TTFT, TPOT, KV cache, throughput and cost per token, with vLLM metrics, Ollama instrumentation, Grafana dashboards and useful alerts"
 keywords: "llm monitoring, observability, prometheus, grafana, ttft, tpot, tokens per second, kv cache, vllm metrics, inference cost"
 tags: ['ai', 'llm', 'monitoring', 'observability', 'prometheus', 'grafana', 'vllm', 'cost']
-date: 2026-07-19
-draft: false
 updated: 2026-09-03
 difficulty: advanced
 estimated_time: 14 min

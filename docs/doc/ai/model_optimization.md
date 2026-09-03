@@ -1,7 +1,6 @@
 ---
 title: "Optimización de Modelos LLM"
 description: "Técnicas de optimización para ejecutar LLMs en hardware limitado: cuantización, pruning, distilación y estrategias de deployment"
-date: 2026-01-25
 tags: ['ai', 'llm', 'performance', 'quantization']
 difficulty: intermediate
 estimated_time: "25 min"

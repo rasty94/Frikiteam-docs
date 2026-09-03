@@ -2,9 +2,7 @@
 title: "Podman Rootless — Contenedores sin daemon ni root"
 description: "Por qué rootless cambia el modelo de amenaza: user namespaces, subuid/subgid, arquitectura daemonless, migración desde Docker, pods y Quadlet, networking con pasta/slirp4netns y limitaciones reales."
 keywords: "podman, rootless, contenedores, user namespaces, subuid, subgid, daemonless, quadlet, pasta, slirp4netns, seguridad, docker"
-date: 2026-07-19
 tags: ['containers', 'podman', 'cybersecurity']
-draft: false
 updated: 2026-07-19
 difficulty: intermediate
 estimated_time: "12 min"

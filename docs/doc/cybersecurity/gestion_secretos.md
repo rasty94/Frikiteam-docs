@@ -1,8 +1,6 @@
 ---
 title: "Gestión de Secretos"
-date: 2026-01-09
 tags: ['cybersecurity', 'secrets', 'kubernetes', 'devops']
-draft: false
 updated: 2026-01-09
 difficulty: intermediate
 estimated_time: 5 min

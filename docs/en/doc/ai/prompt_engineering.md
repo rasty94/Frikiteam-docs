@@ -1,7 +1,6 @@
 ---
 title: "Advanced Prompt Engineering for LLMs"
 description: "Professional prompt engineering techniques: zero-shot, few-shot, chain-of-thought, and prompt evaluation for local models"
-date: 2026-01-25
 tags: ['ai', 'llm', 'prompt-engineering', 'best-practices', 'performance']
 difficulty: intermediate
 estimated_time: "40 min"

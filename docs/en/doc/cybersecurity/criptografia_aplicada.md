@@ -2,9 +2,7 @@
 title: "Applied Cryptography: primitives, hashing and key management"
 description: "Which cryptographic primitive to use for each problem: symmetric vs asymmetric vs hashing, password hashing with Argon2, authenticated encryption (AEAD), at-rest encryption with LUKS, key management and the mistakes that keep happening in production."
 keywords: "criptografia aplicada, argon2, bcrypt, aead, aes-gcm, chacha20, ed25519, luks, dm-crypt, gestion de claves, kdf, hashing de contraseñas, nonce, timing attack"
-date: 2026-07-19
 tags: ['cybersecurity', 'encryption']
-draft: false
 updated: 2026-07-19
 difficulty: intermediate
 estimated_time: "16 min"

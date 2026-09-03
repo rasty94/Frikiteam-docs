@@ -1,6 +1,5 @@
 ---
 title: "Supply Chain Security: SBOM, SLSA and Image Signing"
-date: 2026-01-25
 updated: 2026-07-18
 tags: ['cybersecurity', 'supply-chain']
 difficulty: intermediate

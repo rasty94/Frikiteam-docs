@@ -1,8 +1,6 @@
 ---
 title: "Deploying LLMs at Scale with Kubernetes"
-date: 2026-01-25
 tags: ['ai', 'kubernetes', 'vllm', 'helm', 'high-availability', 'best-practices']
-draft: false
 difficulty: advanced
 time: 45 minutes
 category: Artificial Intelligence

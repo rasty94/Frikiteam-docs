@@ -1,6 +1,5 @@
 ---
 title: "Zero Trust in Practice"
-date: 2026-01-25
 updated: 2026-07-18
 tags: ['cybersecurity', 'zero-trust', 'encryption', 'identity', 'devsecops', 'kubernetes']
 difficulty: intermediate

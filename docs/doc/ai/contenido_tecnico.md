@@ -1,7 +1,6 @@
 ---
 title: "Generación de Contenido Técnico con LLMs"
 description: "Automatización de documentación, generación de posts de blog y resumen de artículos técnicos usando Large Language Models"
-date: 2026-01-25
 tags: ['ai', 'llm', 'automation']
 difficulty: intermediate
 estimated_time: "30 min"

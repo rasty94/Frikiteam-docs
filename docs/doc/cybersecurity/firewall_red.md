@@ -1,8 +1,6 @@
 ---
 title: "Firewall y Seguridad de Red"
-date: 2026-01-09
 tags: ['cybersecurity', 'firewall', 'networking', 'siem']
-draft: false
 updated: 2026-01-09
 difficulty: intermediate
 estimated_time: 15 min

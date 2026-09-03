@@ -1,6 +1,5 @@
 ---
 title: "Pure Storage — Guía base"
-date: 2025-12-07
 tags: ['storage', 'pure-storage']
 updated: 2026-01-25
 difficulty: beginner

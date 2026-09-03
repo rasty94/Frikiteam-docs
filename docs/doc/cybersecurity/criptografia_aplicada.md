@@ -2,9 +2,7 @@
 title: "Criptografía Aplicada: primitivas, hashing y gestión de claves"
 description: "Qué primitiva criptográfica usar para cada problema: simétrico vs asimétrico vs hashing, hashing de contraseñas con Argon2, cifrado autenticado (AEAD), cifrado at-rest con LUKS, gestión de claves y los errores que se repiten en producción."
 keywords: "criptografia aplicada, argon2, bcrypt, aead, aes-gcm, chacha20, ed25519, luks, dm-crypt, gestion de claves, kdf, hashing de contraseñas, nonce, timing attack"
-date: 2026-07-19
 tags: ['cybersecurity', 'encryption']
-draft: false
 updated: 2026-07-19
 difficulty: intermediate
 estimated_time: "16 min"

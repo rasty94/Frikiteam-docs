@@ -3,7 +3,6 @@ title: "fio — medir IOPS, latencia y ancho de banda sin engañarte"
 description: "Cómo medir almacenamiento con fio en lugar de dd: anatomía de un job, los cuatro perfiles canónicos, lectura de percentiles de latencia, errores que invalidan una prueba y comparación entre NFS e iSCSI."
 keywords: "fio, iops, latencia, p99, percentiles, benchmark, almacenamiento, nfs, iscsi, direct io, iodepth, numjobs, libaio"
 tags: ['storage', 'benchmarks', 'performance']
-date: 2025-12-07
 updated: 2026-09-02
 difficulty: intermediate
 estimated_time: 18 min

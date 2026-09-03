@@ -1,6 +1,5 @@
 ---
 title: "Despliegue de LLMs a Escala con Kubernetes"
-date: 2026-01-25
 tags: ['ai', 'kubernetes', 'vllm', 'helm', 'high-availability', 'best-practices']
 status: published
 difficulty: advanced

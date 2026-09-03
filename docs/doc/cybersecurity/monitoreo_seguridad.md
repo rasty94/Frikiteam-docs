@@ -1,8 +1,6 @@
 ---
 title: "Monitoreo de Seguridad"
-date: 2026-01-09
 tags: ['cybersecurity', 'monitoring', 'siem']
-draft: false
 updated: 2026-01-09
 difficulty: intermediate
 estimated_time: 10 min

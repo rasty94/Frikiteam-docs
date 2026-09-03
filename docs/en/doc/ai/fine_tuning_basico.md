@@ -1,7 +1,6 @@
 ---
 title: "Basic LLM Fine-tuning"
 description: "A complete introduction to fine-tuning language models: data preparation, training techniques, evaluation and deployment"
-date: 2026-01-25
 tags: ['ai', 'llm', 'fine-tuning', 'performance']
 difficulty: advanced
 estimated_time: "55 min"

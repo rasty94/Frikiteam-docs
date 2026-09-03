@@ -1,7 +1,6 @@
 ---
 title: "Análisis de Logs y Troubleshooting con LLMs"
 description: "Uso de Large Language Models para análisis automático de logs, detección de errores y sugerencias de solución de problemas"
-date: 2026-01-25
 tags: ['ai', 'llm', 'logs', 'troubleshooting', 'observability']
 difficulty: intermediate
 estimated_time: "35 min"

@@ -1,7 +1,6 @@
 ---
 title: "Log Analysis and Troubleshooting with LLMs"
 description: "Using Large Language Models for automatic log analysis, error detection and problem-solving suggestions"
-date: 2026-01-25
 tags: ['ai', 'llm', 'logs', 'troubleshooting', 'observability']
 difficulty: intermediate
 estimated_time: "35 min"

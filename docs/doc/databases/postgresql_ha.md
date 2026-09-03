@@ -2,9 +2,7 @@
 title: "PostgreSQL en Alta Disponibilidad: replicación, Patroni y failover probado"
 description: "Cómo operar PostgreSQL en HA de verdad: replicación síncrona frente a asíncrona y su coste real, failover automático con Patroni y etcd, routing con HAProxy y PgBouncer, prevención de split-brain y cómo probar el failover antes de que lo pruebe la realidad."
 keywords: "postgresql ha, alta disponibilidad postgresql, patroni, etcd, replicacion streaming, failover automatico, split-brain, pgbouncer, haproxy, repmgr, pg_auto_failover, cloudnativepg, replication lag"
-date: 2026-07-19
 tags: ['databases', 'high-availability']
-draft: false
 updated: 2026-07-19
 difficulty: advanced
 estimated_time: "18 min"
