@@ -41,6 +41,19 @@ TheHive/MISP y vLLM se verificaron el 2026-09-03 (ver `done.md`). Queda uno:
     Nota: el chequeo salta los `index.md` por diseño heredado, así que no ve `networking/index.md` (115 ES / 21 EN). Y `ai/contenido_tecnico.md` (886/1256) y `ai/analisis_logs.md` (937/1261) quedan por debajo del umbral pese a diferir en más de 300 líneas; si molestan, bajar el umbral a 0.25.
 
 - [ ] **Limpiar metadatos muertos del frontmatter.** Quedan 47 páginas con `date:`, que no consume nadie (la fecha buena es `updated`). `draft: false` sigue en 50 páginas: ahora es semánticamente válido, pero redundante con no ponerlo. Ninguna de las dos cosas rompe nada; es limpieza.
+- [ ] **Frontmatter incompleto en el árbol EN.** Medido el 2026-09-03 sobre 150 pares:
+
+    | Campo presente en ES y ausente en su gemela EN | Páginas |
+    |---|---|
+    | `prerequisites` | 68 |
+    | `last_reviewed` | 65 |
+    | `description` | 42 |
+    | `keywords` | 9 |
+
+    No es cosmético. `macros.py` pinta `prerequisites` como badge visible, así que 68 páginas inglesas muestran menos metadatos que su gemela. Y una página EN sin `description` hereda la del sitio, **que está en español**: `<meta name="description" content="Documentación oficial del proyecto Frikiteam 🚀">` en una página en inglés. Afecta a buscadores y a las tarjetas al compartir.
+
+    Arreglo: traducir el campo desde la gemela ES. Es trabajo acotado, apto para agentes. Después, añadir la comprobación a `validate_metadata.py --strict` para que no vuelva.
+
 - [ ] **4 `index.md` del árbol ES sin frontmatter.** Es deliberado, por convención del proyecto los índices quedan excluidos del campo `updated`.
 
 ## 🔮 Futurible (no ahora)

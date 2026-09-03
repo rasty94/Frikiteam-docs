@@ -122,7 +122,7 @@ def remove_translation_pending_note(file_path):
 
 # Umbral de diferencia de tamaño entre gemelas ES/EN. Por encima de esto, una de
 # las dos está incompleta: traducción a medias, o contenido que solo existe en un
-# idioma. Es un aviso, no un fallo: hay un backlog previo que arrastrar (ver TODO).
+# idioma. El backlog se cerró el 2026-09-03, así que con --strict esto ya falla.
 UMBRAL_ASIMETRIA = 0.40
 
 
@@ -278,6 +278,7 @@ def main():
         print("=" * 80)
         print("   Las fechas coinciden pero el tamaño difiere más de un "
               f"{int(UMBRAL_ASIMETRIA * 100)}%: una de las dos está incompleta.")
+        print("   Traduce el lado corto desde el largo; no amplíes los dos a la vez.")
         for es_file, en_file, es_n, en_n, ratio in sorted(asimetricos, key=lambda x: -x[4]):
             print(f"  {es_file}  ES:{es_n} EN:{en_n}  ({int(ratio * 100)}% de diferencia)")
         print()
@@ -287,12 +288,12 @@ def main():
     print(f"  - Desincronizados: {len(out_of_sync)}")
     print(f"  - Sincronizados: {len(up_to_date)}")
     print(f"  - Errores: {len(errors)}")
-    print(f"  - Asimetría de contenido: {len(asimetricos)} (aviso, no bloquea)")
+    print(f"  - Asimetría de contenido: {len(asimetricos)}")
 
     if out_of_sync and not args.fix:
         print("\n💡 Ejecuta con --fix para aplicar correcciones automáticamente")
 
-    if args.strict and (out_of_sync or errors):
+    if args.strict and (out_of_sync or errors or asimetricos):
         return 1
     return 0
 
