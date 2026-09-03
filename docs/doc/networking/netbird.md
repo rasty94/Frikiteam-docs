@@ -4,7 +4,7 @@ description: "Documentación sobre netbird: instalación y configuración básic
 tags: ['networking']
 updated: 2025-11-15
 difficulty: advanced
-estimated_time: 3 min
+estimated_time: 10 min
 category: Redes
 status: published
 last_reviewed: 2026-01-25

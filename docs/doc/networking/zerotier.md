@@ -4,7 +4,7 @@ description: "Documentación sobre zerotier: instalación y configuración bási
 tags: ['networking']
 updated: 2025-11-15
 difficulty: advanced
-estimated_time: 3 min
+estimated_time: 10 min
 category: Redes
 status: published
 last_reviewed: 2026-01-25

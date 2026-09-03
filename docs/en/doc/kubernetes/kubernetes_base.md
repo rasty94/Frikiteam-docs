@@ -5,7 +5,7 @@ category: Containers
 updated: 2025-11-15
 difficulty: beginner
 status: published
-estimated_time: 3 min
+estimated_time: 10 min
 ---
 
 # Kubernetes - Container Orchestration

@@ -5,7 +5,7 @@ keywords: docker, contenedores, imágenes, dockerfile, comandos
 tags: ['docker', 'containers', 'virtualization']
 updated: 2025-12-07
 difficulty: beginner
-estimated_time: 3 min
+estimated_time: 5 min
 category: Contenedores
 status: published
 last_reviewed: 2026-01-25

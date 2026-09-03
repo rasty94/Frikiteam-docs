@@ -7,7 +7,7 @@ updated: 2026-01-25
 difficulty: advanced
 category: Storage
 status: published
-estimated_time: 3 min
+estimated_time: 10 min
 ---
 
 # Storage Protocols and Metrics

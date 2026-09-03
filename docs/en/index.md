@@ -16,6 +16,12 @@ My idea is to provide practical, clear, and useful documentation about the techn
 
 ### 📅 **September 3, 2026**
 
+#### 🧰 **The last three stubs (ES/EN)**
+
+- **Proxmox SDN**: [software-defined networking](doc/proxmox/sdn.md) — zone types with real selection criteria, and MTU on overlays, the number one cause of "it's slow and sometimes fails". A curious case: the English tree was more complete than the Spanish one, so this one was translated the other way round.
+- **Flutter in production**: [build, signing and distribution](doc/programming/flutter.md) — signing credentials in CI without putting them in the repository, and why a secret embedded in the binary is recoverable.
+- **Repository troubleshooting**: [when the build breaks](troubleshooting.md) — this site's flagship failure explained in depth: the macros plugin interprets Jinja braces inside code blocks and, when the variable does not exist, **silently deletes the content** without raising an error. The source looks fine and the published page comes out mangled.
+
 #### 📚 **Ten guides that were skeletons and are now documentation (ES/EN)**
 
 Ten pages that sat in the index with thirty lines and a promising title. They now carry reproducible content, a troubleshooting section, and explicit warnings wherever something depends on the version.

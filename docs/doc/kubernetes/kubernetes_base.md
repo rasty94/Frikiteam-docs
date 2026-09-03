@@ -4,7 +4,7 @@ description: "Documentación sobre kubernetes - orquestación de contenedores"
 tags: ['kubernetes']
 updated: 2025-11-15
 difficulty: beginner
-estimated_time: 3 min
+estimated_time: 10 min
 category: Contenedores
 status: published
 last_reviewed: 2026-01-25

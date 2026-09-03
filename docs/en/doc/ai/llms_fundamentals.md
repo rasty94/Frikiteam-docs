@@ -5,7 +5,7 @@ category: Artificial Intelligence
 updated: 2026-01-25
 difficulty: beginner
 status: published
-estimated_time: 3 min
+estimated_time: 5 min
 ---
 
 # Introduction to Large Language Models (LLMs)

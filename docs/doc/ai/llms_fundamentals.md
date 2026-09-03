@@ -6,7 +6,7 @@ keywords: "llms, transformers, openai, anthropic, meta, mistral, devops, ia"
 tags: ['ai', 'llm', 'devops']
 updated: 2026-01-24
 difficulty: beginner
-estimated_time: 3 min
+estimated_time: 5 min
 category: Inteligencia Artificial
 status: published
 last_reviewed: 2026-01-25

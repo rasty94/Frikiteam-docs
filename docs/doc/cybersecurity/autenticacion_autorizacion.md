@@ -5,7 +5,7 @@ tags: ['cybersecurity', 'identity']
 draft: false
 updated: 2026-01-09
 difficulty: intermediate
-estimated_time: 3 min
+estimated_time: 10 min
 category: Ciberseguridad
 status: published
 last_reviewed: 2026-01-25

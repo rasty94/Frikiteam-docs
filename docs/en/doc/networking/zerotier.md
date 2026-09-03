@@ -4,7 +4,7 @@ description: "Documentation on zerotier: installation and basic configuration"
 tags: ['networking']
 updated: 2025-11-15
 difficulty: advanced
-estimated_time: 3 min
+estimated_time: 10 min
 category: Networking
 status: published
 last_reviewed: 2026-01-25

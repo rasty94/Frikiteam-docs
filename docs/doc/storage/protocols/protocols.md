@@ -5,7 +5,7 @@ description: Resumen de protocolos (iSCSI, NFS, SMB, Ceph RBD, S3), métricas cl
 keywords: iops, latencia, throughput, iSCSI, NFS, SMB, rbd, s3, storage protocols, métricas
 updated: 2026-01-25
 difficulty: advanced
-estimated_time: 3 min
+estimated_time: 10 min
 category: Almacenamiento
 status: published
 last_reviewed: 2026-01-25

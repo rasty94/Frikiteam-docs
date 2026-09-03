@@ -5,7 +5,7 @@ tags: ['cybersecurity', 'vulnerability-scanning']
 draft: false
 updated: 2026-01-24
 difficulty: intermediate
-estimated_time: 2 min
+estimated_time: 5 min
 category: Ciberseguridad
 status: published
 last_reviewed: 2026-01-25

@@ -7,7 +7,7 @@ updated: 2026-01-24
 difficulty: intermediate
 category: Cybersecurity
 status: published
-estimated_time: 2 min
+estimated_time: 5 min
 ---
 
 ## Overview

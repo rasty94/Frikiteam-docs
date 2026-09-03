@@ -5,7 +5,7 @@ category: Containers
 updated: 2025-12-07
 difficulty: beginner
 status: published
-estimated_time: 3 min
+estimated_time: 5 min
 ---
 
 # Docker - Containers

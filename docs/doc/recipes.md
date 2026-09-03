@@ -4,7 +4,7 @@ description: "Documentación sobre recetas rápidas"
 tags: ['documentation']
 updated: 2025-12-07
 difficulty: intermediate
-estimated_time: 2 min
+estimated_time: 5 min
 category: General
 status: published
 last_reviewed: 2026-01-25
