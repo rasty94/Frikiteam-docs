@@ -65,10 +65,15 @@ def test_strip_code_fence():
 
 
 def test_enhance_without_model_returns_original():
-    # sin OLLAMA_MODEL no toca la red y devuelve el original
-    os.environ.pop('OLLAMA_MODEL', None)
+    # sin INFERENCE_SERVERS no toca la red y devuelve el original
+    import wordpress_sync as w
+    servidores_real, srv_real = w.SERVIDORES, w._SERVIDOR
+    w.SERVIDORES, w._SERVIDOR = [], w._SIN_RESOLVER
     orig = '# Doc\ncontenido'
-    assert enhance_markdown(orig) == orig
+    try:
+        assert enhance_markdown(orig) == orig
+    finally:
+        w.SERVIDORES, w._SERVIDOR = servidores_real, srv_real
 
 
 def test_protect_restore_es_identidad_en_docs_reales():
