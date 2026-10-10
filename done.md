@@ -2,6 +2,14 @@
 
 Registro de tareas completadas y logs de progreso, archivados desde `TODO.md` para mantener ese archivo centrado en lo pendiente.
 
+## 📚 Dieciséis guías cortas ampliadas y frontmatter EN completado (10/10/2026)
+
+- [x] **16 páginas de `docs/doc` de 38-59 líneas pasan a 207-373 líneas en ES y EN**, con paridad exacta de líneas, bloques de código y enlaces relativos: estrategia 3-2-1, PBS, Restic/Borg, NetApp, Pure Storage, tuning de Ceph, systemd, seguridad SSH, WireGuard, VyOS, benchmarks de red, Redis, PostgreSQL, Keycloak, Uptime Kuma y FastAPI. Estructura de `quadlets.md`, troubleshooting en tabla y `!!! warning` donde depende de la versión. En `benchmarks.md` se retiró una tabla de cifras que no venía de ninguna medición. Escritas por agentes de conocimiento, no ejecutadas: la lista de afirmaciones a contrastar está en `TODO.md`.
+- [x] **Entradas de Novedades** en `docs/index.md` y `docs/en/index.md`.
+- [x] **Frontmatter EN completado**: `description` (41), `keywords` (8), `prerequisites` (68) traducidos desde la ES y `last_reviewed` (65) copiado, sobre 146 pares. `validate_metadata.py --strict` falla ahora si una EN declara menos campos espejo que su ES.
+- [x] **`test_wordpress_format.py` volvía a pasar**: el test de `enhance_markdown` quitaba `OLLAMA_MODEL`, que ya nadie lee, y con un `.env` real llamaba al servidor de inferencia. Ahora vacía la lista de servidores.
+- [x] **Comprobado**: `mkdocs build --strict`, `validate_metadata.py --strict`, `check_sync.py --strict` y `test_wordpress_format.py` limpios; HTML de las 16 páginas sin Jinja sin renderizar (el `${{ … }}` del workflow de FastAPI sale literal a propósito, dentro de `{% raw %}`).
+
 ## 📚 Diez stubs convertidos en documentación (03/09/2026)
 
 - [x] **Diez páginas que eran esqueletos de 27-39 líneas** pasan a 320-380 líneas en español e inglés, con paridad exacta de secciones, bloques de código y tablas: Terraform (state), Docker (seguridad), HAProxy avanzado, Wazuh (logs), Ansible (roles y Molecule), Proxmox (migración), Authentik, Keystone, React en producción y fio. Todas con sección de troubleshooting y avisos explícitos donde algo depende de la versión, para no engordar la deuda de "escrito de conocimiento, no probado".

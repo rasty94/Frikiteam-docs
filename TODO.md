@@ -20,29 +20,31 @@ La estructura está sana y el problema es de mantenimiento, no de contenido nuev
 ## 🎯 Plan de mejora (por orden de retorno)
 
 ### 1. Cerrar la deuda "sin ejecutar"
-TheHive/MISP y vLLM se verificaron el 2026-09-03 (ver `done.md`). Queda uno:
+TheHive/MISP y vLLM se verificaron el 2026-09-03 (ver `done.md`). Queda OpenSCAP y la hornada del 2026-10-10:
 - [ ] **OpenSCAP:** los comandos `oscap` y los paquetes SSG de Debian no se han probado. Necesita una máquina Debian real; no se puede verificar desde el repositorio.
+- [ ] **16 guías ampliadas el 2026-10-10 de conocimiento, sin ejecutar.** Los agentes que las escribieron dejaron su lista de dudas; todo lo dependiente de versión lleva `!!! warning`, pero esto hay que contrastar con la herramienta real:
+    - `backups/pbs.md`: nombres de roles (`DatastoreBackup`, `DatastoreReader`, `DatastoreAdmin`) y sintaxis de `acl update`; flags de `verify-job`, `remote create` y `sync-job create`; existencia de `prune-job`; formato de `PBS_REPOSITORY` con token.
+    - `backups/strategy_321.md` y `backups/restic_borg.md`: el agente que las escribió no entregó lista de dudas; revisar completas.
+    - `storage/netapp/netapp_base.md`: parámetros de `volume create`, `export-policy rule create`, `cifs share create`; `-superuser sys` como equivalente de `no_root_squash`; `pvesm add nfs --content`; destino SnapMirror tipo DP; YAML de Trident (`csi.trident.netapp.io`, `ontap-nas`).
+    - `storage/pure_storage/pure_storage_base.md`: sintaxis de `purevol create --size`, `purehost create --iqnlist`, `purevol snap --suffix`, `purevol copy`; nombre del provisioner CSI.
+    - `storage/ceph/ceph_tuning.md`: `rbd_cache_writethrough_until_flush`, dependencias de `object-map`/`fast-diff` con `exclusive-lock`, `ceph balancer status`, `osd pool application enable`.
+    - `linux/systemd.md`: `network-online.target` y wait-online; descripción de `systemd-analyze security`; versiones de `ProtectProc=` y `SystemCallFilter=`; `status=203/EXEC`; `StartLimitIntervalSec`/`StartLimitBurst` en `[Unit]`; `systemctl revert`.
+    - `linux/ssh_security.md`: `KbdInteractiveAuthentication` frente a `ChallengeResponseAuthentication`; orden de lectura de `sshd_config.d/`; flujo de certificados (`ssh-keygen -s`, `TrustedUserCAKeys`, `@cert-authority`); requisitos de `ChrootDirectory`; backend systemd de fail2ban; unit `ssh` frente a `sshd`.
+    - `linux/wireguard.md`: MTU por defecto de `wg-quick` (1420); afirmación sobre `PresharedKey`; alcance de `wg syncconf`.
+    - `networking/vrouter_vyos.md`: sintaxis de firewall 1.4 (`firewall ipv4 input filter`, `inbound-interface name`); `bgp system-as-number`; política de rolling/estables; `commit-archive`; `show ip bgp summary`, `show ip ospf neighbor`, `show system cpu`.
+    - `networking/benchmarks.md`: `iperf3 --bidir` (versión); `ping -M do -s 1472` (iputils); privilegios de `ping -i 0.2`; paquete `mtr-tiny`; nombres de features en `ethtool -K`.
+    - `databases/redis.md`: relato de la licencia y Valkey; `HealthCmd`/`HealthInterval` en Quadlet; carga de AOF frente a RDB en la restauración.
+    - `databases/postgres.md`: `POSTGRES_PASSWORD_FILE` y `/docker-entrypoint-initdb.d/`; `Secret=…,type=env,target=` en Quadlet; paso de `md5` a SCRAM; `pending_restart` en `pg_settings`.
+    - `identity/keycloak.md`: `KC_BOOTSTRAP_ADMIN_*` frente a `KEYCLOAK_ADMIN`; `KC_HOSTNAME` con URL completa; `KC_PROXY_HEADERS=xforwarded`; puerto de gestión para health; alcance de `kc.sh export`.
+    - `monitoring/uptime_kuma.md`: rama `:2` y BD externa; autenticación de `/metrics`; ruta `/api/push/<token>`; ajuste de proxy de confianza; `kuma.db`.
+    - `programming/fastapi.md`: paquete `uvicorn-worker`; `Notify=healthy` en Quadlet; versiones `@vN` de las acciones; etiquetas de healthcheck de Traefik y `http-check` de HAProxy; `--proxy-headers`, `--forwarded-allow-ips`, `--root-path`.
 
 ### 2. Otra deuda operativa
 - [ ] **Desplegar Plausible** en servidor o revisar logs existentes para analytics básico.
 - [ ] **19 borradores en WordPress esperando revisión humana** en `frikiteam.es/wp-admin`. El pipeline no los publica: el paso a `publish` es decisión manual.
-- [ ] **20 páginas sin tocar en más de 90 días** (recontado el 2026-10-10 con `scripts/check_freshness.py`). Concentradas en vRouters (6), Cybersecurity (6), AI (3), OpenStack (2), Ceph (2) y Plausible. Revisar versiones y comandos.
-- [ ] **Frontmatter incompleto en el árbol EN.** Medido el 2026-10-10 sobre 146 pares con frontmatter:
-
-    | Campo presente en ES y ausente en su gemela EN | Páginas |
-    |---|---|
-    | `prerequisites` | 68 |
-    | `last_reviewed` | 65 |
-    | `description` | 41 |
-    | `keywords` | 8 |
-
-    No es cosmético. `macros.py` pinta `prerequisites` como badge visible, así que 68 páginas inglesas muestran menos metadatos que su gemela. Y una página EN sin `description` hereda la del sitio, **que está en español**: `<meta name="description" content="Documentación oficial del proyecto Frikiteam 🚀">` en una página en inglés. Afecta a buscadores y a las tarjetas al compartir.
-
-    Arreglo: traducir el campo desde la gemela ES. Es trabajo acotado, apto para agentes. Después, añadir la comprobación a `validate_metadata.py --strict` para que no vuelva.
-
+- [ ] **18 páginas sin tocar en más de 90 días** (recontado el 2026-10-10 con `scripts/check_freshness.py`, tras ampliar `ceph_tuning` y `vrouter_vyos`). Concentradas en vRouters, Cybersecurity, AI, OpenStack y Ceph. Revisar versiones y comandos.
 - [ ] **4 `index.md` del árbol ES sin frontmatter.** Es deliberado, por convención del proyecto los índices quedan excluidos del campo `updated`.
 - [ ] **Grafo de graphify incompleto para los Markdown.** Comprobado el 2026-10-10: `secrets_gitops.md` (ES y EN) no tiene nodos, y el `manifest.json` solo conserva `semantic_hash` en 11 de 310 páginas, así que `/graphify --update` querría reextraer las 310 con LLM. El paquete en `.venv` es 0.9.19 y el skill 0.9.69. Pasos: `pip install -U graphifyy`, y decidir si se paga una reextracción semántica completa o se indexan solo las 2 páginas que faltan. `graphify update .` (solo código, sin LLM) sí está al día.
-- [ ] **16 páginas de `docs/doc` de menos de 60 líneas** con título de guía completa (recontado el 2026-10-10): `backups/strategy_321.md` (38), `storage/netapp/netapp_base.md` (39, sin ningún bloque de código), `linux/systemd.md` (44), `storage/pure_storage/pure_storage_base.md` (44), `databases/redis.md` (45), `networking/benchmarks.md` (45), `backups/pbs.md` (46), `programming/fastapi.md` (46), `backups/restic_borg.md` (47), `identity/keycloak.md` (47), `linux/ssh_security.md` (48), `databases/postgres.md` (50), `linux/wireguard.md` (52), `monitoring/uptime_kuma.md` (53), `storage/ceph/ceph_tuning.md` (54), `networking/vrouter_vyos.md` (59). Ampliar o fusionar antes de abrir temas nuevos; la referencia de tamaño es `docker/quadlets.md`.
 
 ## 🔮 Futurible (no ahora)
 
