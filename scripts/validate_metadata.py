@@ -369,6 +369,31 @@ def check_drafts(docs_paths):
     return problemas
 
 
+# Campos que, si la ES los declara, la EN debe declarar también. `prerequisites`
+# se pinta como badge (macros.py) y `description` alimenta el <meta> de la pagina:
+# una EN sin el suyo hereda el del sitio, que esta en espanol.
+CAMPOS_ESPEJO = ('prerequisites', 'last_reviewed', 'description', 'keywords')
+
+
+def check_en_fields(docs_paths):
+    """Devuelve [(ruta_en, campos_que_faltan)] para gemelas EN con menos metadatos que su ES."""
+    problemas = []
+    for docs_path in docs_paths:
+        if 'docs/en/' in str(docs_path).replace('\\', '/'):
+            continue
+        for md in sorted(Path(docs_path).rglob('*.md')):
+            gemelo = Path(str(md).replace('docs/', 'docs/en/', 1))
+            if not gemelo.exists():
+                continue
+            es, en = extract_frontmatter(md), extract_frontmatter(gemelo)
+            if not es or not en:
+                continue
+            faltan = [c for c in CAMPOS_ESPEJO if c in es and c not in en]
+            if faltan:
+                problemas.append((str(gemelo), faltan))
+    return problemas
+
+
 def check_vocabulary(docs_paths):
     """Recorre los arboles y devuelve [(ruta, tags_invalidos)] de los ficheros infractores."""
     offenders = []
@@ -457,6 +482,16 @@ def main():
                   " debe declararse en los dos idiomas o en ninguno.")
         else:
             print("✅ El estado de borrador coincide entre ES y EN")
+
+        huecos = check_en_fields(args.docs_path)
+        if huecos:
+            fallo = True
+            print(f"\n❌ {len(huecos)} páginas EN con menos metadatos que su gemela ES:")
+            for path, campos in huecos:
+                print(f"  {path}: falta {', '.join(campos)}")
+            print(f"   Campos espejo: {', '.join(CAMPOS_ESPEJO)}. Traducir desde la ES.")
+        else:
+            print("✅ Las gemelas EN declaran los mismos campos espejo que su ES")
 
         if fallo:
             print("\nAmbos vocabularios se definen en scripts/validate_metadata.py")
