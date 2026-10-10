@@ -1,11 +1,17 @@
 ---
 title: "MikroTik CHR (Cloud Hosted Router)"
+description: "Quick guide to deploy MikroTik CHR for L3 routing and ISP/WISP labs"
 tags: ['networking', 'vrouter']
 category: Networking
 updated: 2026-04-18
+last_reviewed: 2026-04-18
 difficulty: advanced
 status: published
 estimated_time: 10 min
+prerequisites:
+  - "Networking fundamentals"
+  - "Basic virtualization knowledge"
+  - "Dynamic routing concepts"
 ---
 
 # MikroTik CHR (Cloud Hosted Router)

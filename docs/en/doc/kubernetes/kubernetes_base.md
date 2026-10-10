@@ -1,11 +1,14 @@
 ---
 title: "Kubernetes - Container Orchestration"
+description: "Documentation about kubernetes - container orchestration"
 tags: ['kubernetes']
 category: Containers
 updated: 2025-11-15
+last_reviewed: 2026-01-25
 difficulty: beginner
 status: published
 estimated_time: 10 min
+prerequisites: ["Basic Docker"]
 ---
 
 # Kubernetes - Container Orchestration

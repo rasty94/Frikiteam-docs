@@ -1,12 +1,17 @@
 ---
 title: "Protocolos ICMP/ARP/NDP"
+description: Key differences between IPv4 (ARP) and IPv6 (NDP) and ICMP message types for diagnostics.
 tags: ['networking']
 
 updated: 2026-01-23
+last_reviewed: 2026-01-25
 difficulty: advanced
 category: Networking
 status: published
 estimated_time: 5 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Networking fundamentals"
 ---
 
 # Protocolos ICMP/ARP/NDP

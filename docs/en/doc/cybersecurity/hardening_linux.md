@@ -1,11 +1,15 @@
 ---
 title: "Linux Server Hardening"
 updated: 2026-01-25
+last_reviewed: 2026-01-25
 tags: ['cybersecurity', 'linux', 'hardening', 'firewall']
 difficulty: intermediate
 category: Cybersecurity
 status: published
 estimated_time: 8 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Intermediate Linux"
 ---
 
 🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25

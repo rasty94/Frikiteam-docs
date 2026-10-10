@@ -1,11 +1,14 @@
 ---
 title: "Ansible - Infrastructure Automation"
+description: "Documentation about Ansible - infrastructure automation"
 tags: ['ansible']
 category: DevOps
 updated: 2025-11-15
+last_reviewed: 2026-01-25
 difficulty: beginner
 status: published
 estimated_time: 2 min
+prerequisites: ["Basic SSH and Linux"]
 ---
 
 # Ansible - Infrastructure Automation

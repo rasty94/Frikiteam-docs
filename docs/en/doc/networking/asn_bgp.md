@@ -3,10 +3,14 @@ title: ASN & BGP
 tags: ['networking']
 description: Autonomous Systems, ASN ranges, BGP fundamentals, policies, security, and troubleshooting.
 updated: 2026-01-24
+last_reviewed: 2026-01-25
 difficulty: intermediate
 category: Networking
 status: published
 estimated_time: 8 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Networking fundamentals"
 ---
 
 # ASN & BGP

@@ -1,12 +1,17 @@
 ---
 title: "SPF/DKIM/DMARC"
+description: Email security triad to prevent spoofing and ensure deliverability.
 tags: ['networking']
 
 updated: 2026-01-23
+last_reviewed: 2026-01-25
 difficulty: intermediate
 category: Networking
 status: published
 estimated_time: 5 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Networking fundamentals"
 ---
 
 # SPF/DKIM/DMARC

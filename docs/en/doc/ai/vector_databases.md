@@ -1,11 +1,13 @@
 ---
 title: "Vector Databases for AI"
 updated: 2026-01-25
+last_reviewed: 2026-01-25
 tags: ['ai', 'vector-db']
 difficulty: beginner
 category: Artificial Intelligence
 status: published
 estimated_time: 7 min
+prerequisites: ["Basic Python"]
 ---
 
 🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25

@@ -1,11 +1,15 @@
 ---
 title: "Local Model Ecosystem"
 updated: 2026-01-25
+last_reviewed: 2026-01-25
 tags: ['ai', 'llm', 'ollama', 'vllm']
 difficulty: intermediate
 category: Artificial Intelligence
 status: published
 estimated_time: 2 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Basic Python"
 ---
 
 🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25

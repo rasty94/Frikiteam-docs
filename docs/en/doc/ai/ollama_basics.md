@@ -1,11 +1,17 @@
 ---
 title: "Ollama: Installation and Getting Started"
+description: "Complete Ollama guide: installation, local model management, REST APIs, Docker integration and DevOps use cases"
+keywords: "ollama, llm, local models, docker, api, devops"
 tags: ['ai', 'ollama', 'llm', 'docker', 'api']
 category: Artificial Intelligence
 updated: 2026-01-25
+last_reviewed: 2026-01-25
 difficulty: intermediate
 status: published
 estimated_time: 4 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Basic Python"
 ---
 
 # Ollama: Installation and Getting Started

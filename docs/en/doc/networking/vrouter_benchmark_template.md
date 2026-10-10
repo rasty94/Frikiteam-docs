@@ -1,11 +1,16 @@
 ---
 title: "vRouter benchmark template"
+description: "Reusable template to measure performance and stability on OPNsense, pfSense, MikroTik CHR and VyOS"
 tags: ['networking', 'performance', 'vrouter']
 category: Networking
 updated: 2026-04-18
+last_reviewed: 2026-04-18
 difficulty: intermediate
 status: published
 estimated_time: 12 min
+prerequisites:
+  - "Networking fundamentals"
+  - "Basic virtualization knowledge"
 ---
 
 # vRouter benchmark template

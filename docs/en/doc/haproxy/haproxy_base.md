@@ -1,11 +1,14 @@
 ---
 title: "HAProxy"
+description: "Documentation about haproxy"
 tags: ['networking', 'high-availability']
 category: Networking
 updated: 2025-11-15
+last_reviewed: 2026-01-25
 difficulty: beginner
 status: published
 estimated_time: 5 min
+prerequisites: ["None"]
 ---
 
 # HAProxy

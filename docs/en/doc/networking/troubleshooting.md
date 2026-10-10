@@ -1,11 +1,16 @@
 ---
 title: "Troubleshooting (Networking)"
+description: "Documentation on troubleshooting (networking)"
 tags: ['networking']
 category: Networking
 updated: 2025-09-10
+last_reviewed: 2026-01-25
 difficulty: intermediate
 status: published
 estimated_time: 1 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Networking fundamentals"
 ---
 
 # Troubleshooting (Networking)

@@ -3,10 +3,14 @@ title: IPv6 Addressing
 tags: ['networking']
 description: IPv6 address structure, types (Link-Local, Global Unicast, Multicast), abbreviation rules, and migration patterns from IPv4.
 updated: 2026-01-24
+last_reviewed: 2026-01-25
 difficulty: advanced
 category: Networking
 status: published
 estimated_time: 4 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Networking fundamentals"
 ---
 
 # IPv6 Addressing

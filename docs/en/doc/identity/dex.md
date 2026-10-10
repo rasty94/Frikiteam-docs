@@ -2,10 +2,12 @@
 title: "Dex IdP (Federated OIDC)"
 tags: ['identity', 'cybersecurity']
 updated: 2026-03-01
+last_reviewed: 2026-03-01
 difficulty: intermediate
 category: Identity Management
 status: published
 estimated_time: 3 min
+prerequisites: ["Basic knowledge of OAuth2/OIDC"]
 ---
 
 # Dex IdP (Federated OIDC)

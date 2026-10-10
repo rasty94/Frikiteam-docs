@@ -1,11 +1,15 @@
 ---
 title: "LLM Model Evaluation and Testing"
+description: "Complete guide to evaluating LLM performance: MMLU and HellaSwag benchmarks, BLEU/ROUGE metrics, latency testing and evaluation tools"
+keywords: "llm evaluation, benchmarks, mmlu, hellaswag, bleu, rouge, latency testing"
 tags: ['ai', 'llm', 'evaluation', 'benchmarks', 'testing']
 category: Artificial Intelligence
 updated: 2026-01-25
+last_reviewed: 2026-01-25
 difficulty: beginner
 status: published
 estimated_time: 6 min
+prerequisites: ["Basic Python"]
 ---
 
 # LLM Model Evaluation and Testing

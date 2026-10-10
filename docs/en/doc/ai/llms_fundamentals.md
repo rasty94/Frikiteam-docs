@@ -1,11 +1,15 @@
 ---
 title: "Introduction to Large Language Models (LLMs)"
+description: "Fundamental concepts of LLMs, transformer architecture, differences between open-source and proprietary models, and applications in DevOps"
+keywords: "llms, transformers, openai, anthropic, meta, mistral, devops, ai"
 tags: ['ai', 'llm', 'devops']
 category: Artificial Intelligence
 updated: 2026-01-25
+last_reviewed: 2026-01-25
 difficulty: beginner
 status: published
 estimated_time: 5 min
+prerequisites: ["Basic Python"]
 ---
 
 # Introduction to Large Language Models (LLMs)

@@ -1,5 +1,6 @@
 ---
 title: "Ciberseguridad en DevOps e Infraestructura"
+description: "Complete cybersecurity guides for DevOps and infrastructure environments"
 tags: ['cybersecurity']
 
 updated: 2026-01-23

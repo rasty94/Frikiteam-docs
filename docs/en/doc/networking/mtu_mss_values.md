@@ -1,12 +1,17 @@
 ---
 title: "MTU/MSS Values"
+description: Typical Maximum Transmission Unit values for different media (Ethernet, PPPoE, Jumbo Frames).
 tags: ['networking']
 
 updated: 2026-01-23
+last_reviewed: 2026-01-25
 difficulty: intermediate
 category: Networking
 status: published
 estimated_time: 6 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Networking fundamentals"
 ---
 
 # MTU/MSS Values

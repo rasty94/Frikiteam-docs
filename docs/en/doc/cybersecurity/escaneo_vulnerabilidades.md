@@ -3,10 +3,14 @@ title: "Usando brew (macOS)"
 tags: ['cybersecurity']
 
 updated: 2026-01-24
+last_reviewed: 2026-01-25
 difficulty: intermediate
 category: Cybersecurity
 status: published
 estimated_time: 5 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Intermediate Linux"
 ---
 
 ## Resumen

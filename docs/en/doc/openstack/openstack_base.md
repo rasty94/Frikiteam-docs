@@ -5,10 +5,12 @@ description: "Discover OpenStack: open-source platform for cloud computing. Lear
 keywords: "OpenStack, cloud computing, cloud infrastructure, virtualization, Nova, Neutron, Cinder, Swift, Glance, Keystone, Horizon"
 sync_date: "2025-11-15"
 updated: 2025-11-15
+last_reviewed: 2026-01-25
 difficulty: beginner
 category: Cloud Computing
 status: published
 estimated_time: 7 min
+prerequisites: ["None"]
 ---
 
 ![OpenStack Logo](openstack_logo.png){width=35%}

@@ -3,10 +3,14 @@ title: DNSSEC
 tags: ['networking']
 description: DNS Security Extensions to authenticate DNS data, avoid cache poisoning, and prove non-existence.
 updated: 2026-01-24
+last_reviewed: 2026-01-25
 difficulty: intermediate
 category: Networking
 status: published
 estimated_time: 5 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Networking fundamentals"
 ---
 
 # DNSSEC (Domain Name System Security Extensions)

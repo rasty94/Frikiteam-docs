@@ -1,12 +1,17 @@
 ---
 title: "Registros PTR y Zonas Inversas"
+description: How reverse lookups (in-addr.arpa) work and their importance for IP reputation.
 tags: ['networking']
 
 updated: 2026-01-23
+last_reviewed: 2026-01-25
 difficulty: intermediate
 category: Networking
 status: published
 estimated_time: 4 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Networking fundamentals"
 ---
 
 # Registros PTR y Zonas Inversas

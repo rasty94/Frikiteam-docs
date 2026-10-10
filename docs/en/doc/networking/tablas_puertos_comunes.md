@@ -1,12 +1,17 @@
 ---
 title: "Tablas de Puertos Comunes"
+description: List of standard TCP/UDP ports and associated services (e.g. 22 SSH, 443 HTTPS, 53 DNS).
 tags: ['networking']
 
 updated: 2026-01-23
+last_reviewed: 2026-01-25
 difficulty: intermediate
 category: Networking
 status: published
 estimated_time: 9 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Networking fundamentals"
 ---
 
 # Tablas de Puertos Comunes

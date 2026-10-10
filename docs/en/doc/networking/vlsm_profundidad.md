@@ -1,12 +1,17 @@
 ---
 title: "VLSM (Variable Length Subnet Masking)"
+description: Guide to Variable Length Subnet Masking to optimize IP address usage.
 tags: ['networking']
 
 updated: 2026-01-23
+last_reviewed: 2026-01-25
 difficulty: intermediate
 category: Networking
 status: published
 estimated_time: 4 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Networking fundamentals"
 ---
 
 # VLSM (Variable Length Subnet Masking)

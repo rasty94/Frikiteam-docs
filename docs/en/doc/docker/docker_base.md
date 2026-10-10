@@ -1,11 +1,15 @@
 ---
 title: "Docker - Containers"
+description: Basic Docker guide for beginners, including fundamental concepts and basic commands.
+keywords: docker, containers, images, dockerfile, commands
 tags: ['docker', 'containers', 'virtualization']
 category: Containers
 updated: 2025-12-07
+last_reviewed: 2026-01-25
 difficulty: beginner
 status: published
 estimated_time: 5 min
+prerequisites: ["None"]
 ---
 
 # Docker - Containers

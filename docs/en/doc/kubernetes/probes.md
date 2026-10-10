@@ -7,6 +7,9 @@ category: Containers
 status: published
 estimated_time: 1 min
 last_reviewed: 2026-09-03
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Basic Docker"
 ---
 
 # Kubernetes — Readiness and Liveness Probes

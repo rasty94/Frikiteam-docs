@@ -1,11 +1,15 @@
 ---
 title: "RAG - Retrieval-Augmented Generation"
 updated: 2026-01-25
+last_reviewed: 2026-01-25
 tags: ['ai', 'rag', 'llm', 'vector-db']
 difficulty: intermediate
 category: Artificial Intelligence
 status: published
 estimated_time: 4 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Basic Python"
 ---
 
 🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25

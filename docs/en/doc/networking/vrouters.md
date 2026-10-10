@@ -1,11 +1,16 @@
 ---
 title: "vRouters and virtual firewalls"
+description: "Practical comparison of OPNsense, pfSense, MikroTik CHR and VyOS for labs and production"
 tags: ['networking', 'cybersecurity', 'vrouter']
 category: Networking
 updated: 2026-04-18
+last_reviewed: 2026-04-18
 difficulty: intermediate
 status: published
 estimated_time: 6 min
+prerequisites:
+  - "Networking fundamentals"
+  - "Basic virtualization knowledge"
 ---
 
 # vRouters and virtual firewalls

@@ -1,11 +1,14 @@
 ---
 title: "Terraform & OpenTofu - Infrastructure as Code"
+description: "Documentation on Terraform & OpenTofu - infrastructure as code"
 tags: ['terraform']
 category: DevOps
 updated: 2025-11-15
+last_reviewed: 2026-01-25
 difficulty: beginner
 status: published
 estimated_time: 4 min
+prerequisites: ["Cloud concepts"]
 ---
 
 # Terraform & OpenTofu - Infrastructure as Code

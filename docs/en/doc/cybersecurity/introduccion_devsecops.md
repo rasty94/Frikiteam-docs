@@ -2,10 +2,14 @@
 title: Introduction to Cybersecurity in DevOps
 tags: ['cybersecurity', 'devsecops', 'devops']
 updated: 2026-01-25
+last_reviewed: 2026-01-25
 difficulty: intermediate
 category: Cybersecurity
 status: published
 estimated_time: 2 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Intermediate Linux"
 ---
 
 🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25

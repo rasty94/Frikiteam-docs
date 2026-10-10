@@ -1,5 +1,7 @@
 ---
 title: "Cloud-native GitOps with ArgoCD"
+description: "Declarative GitOps for Kubernetes with ArgoCD: installation, repository structure, Applications, synchronization, RBAC and troubleshooting."
+keywords: "argocd, gitops, kubernetes, ci-cd, kustomize, helm, synchronization, rbac"
 tags: ['ci-cd', 'gitops', 'argocd', 'kubernetes']
 
 updated: 2026-09-03
@@ -8,6 +10,7 @@ category: DevOps
 status: published
 estimated_time: 1 min
 last_reviewed: 2026-09-03
+prerequisites: ["None"]
 ---
 
 # Cloud-native GitOps with ArgoCD

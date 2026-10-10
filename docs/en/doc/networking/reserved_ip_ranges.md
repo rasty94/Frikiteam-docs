@@ -1,12 +1,17 @@
 ---
 title: "Reserved IP Ranges"
+description: Private (RFC 1918), documentation and reserved address blocks (CG-NAT, Loopback).
 tags: ['networking']
 
 updated: 2026-01-23
+last_reviewed: 2026-01-25
 difficulty: intermediate
 category: Networking
 status: published
 estimated_time: 6 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Networking fundamentals"
 ---
 
 # Reserved IP Ranges

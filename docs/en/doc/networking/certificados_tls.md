@@ -1,12 +1,17 @@
 ---
 title: "Certificados TLS"
+description: Validation types (DV, OV, EV), chains of trust and configuration best practices.
 tags: ['networking']
 
 updated: 2026-01-23
+last_reviewed: 2026-01-25
 difficulty: intermediate
 category: Networking
 status: published
 estimated_time: 6 min
+prerequisites:
+  - "Basic DevOps knowledge"
+  - "Networking fundamentals"
 ---
 
 # Certificados TLS

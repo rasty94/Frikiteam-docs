@@ -1,11 +1,14 @@
 ---
 title: "Proxmox vs VMware vs OpenStack: Migration to Open Source Solutions"
+description: "Documentation about Proxmox vs VMware vs OpenStack: migration to open source solutions"
 tags: ['documentation']
 category: General
 updated: 2025-09-03
+last_reviewed: 2026-01-25
 difficulty: advanced
 status: published
 estimated_time: 6 min
+prerequisites: ["Basic DevOps knowledge"]
 ---
 
 # Proxmox vs VMware vs OpenStack: Migration to Open Source Solutions

@@ -3,10 +3,12 @@ title: CIDR Notation
 tags: ['networking']
 description: Detailed explanation of Classless Inter-Domain Routing notation and how to calculate IP ranges.
 updated: 2026-01-23
+last_reviewed: 2026-01-25
 difficulty: beginner
 category: Networking
 status: published
 estimated_time: 3 min
+prerequisites: ["Networking fundamentals"]
 ---
 
 # CIDR Notation
