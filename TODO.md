@@ -26,21 +26,23 @@ TheHive/MISP y vLLM se verificaron el 2026-09-03 (ver `done.md`). Queda uno:
 ### 2. Otra deuda operativa
 - [ ] **Desplegar Plausible** en servidor o revisar logs existentes para analytics básico.
 - [ ] **19 borradores en WordPress esperando revisión humana** en `frikiteam.es/wp-admin`. El pipeline no los publica: el paso a `publish` es decisión manual.
-- [ ] **22 páginas sin tocar en más de 90 días**, según `scripts/check_freshness.py` (ahora fiable). Concentradas en OpenStack, vRouters, Ceph/NetApp/Pure y Cybersecurity. Revisar versiones y comandos.
-- [ ] **Frontmatter incompleto en el árbol EN.** Medido el 2026-09-03 sobre 150 pares:
+- [ ] **20 páginas sin tocar en más de 90 días** (recontado el 2026-10-10 con `scripts/check_freshness.py`). Concentradas en vRouters (6), Cybersecurity (6), AI (3), OpenStack (2), Ceph (2) y Plausible. Revisar versiones y comandos.
+- [ ] **Frontmatter incompleto en el árbol EN.** Medido el 2026-10-10 sobre 146 pares con frontmatter:
 
     | Campo presente en ES y ausente en su gemela EN | Páginas |
     |---|---|
     | `prerequisites` | 68 |
     | `last_reviewed` | 65 |
-    | `description` | 42 |
-    | `keywords` | 9 |
+    | `description` | 41 |
+    | `keywords` | 8 |
 
     No es cosmético. `macros.py` pinta `prerequisites` como badge visible, así que 68 páginas inglesas muestran menos metadatos que su gemela. Y una página EN sin `description` hereda la del sitio, **que está en español**: `<meta name="description" content="Documentación oficial del proyecto Frikiteam 🚀">` en una página en inglés. Afecta a buscadores y a las tarjetas al compartir.
 
     Arreglo: traducir el campo desde la gemela ES. Es trabajo acotado, apto para agentes. Después, añadir la comprobación a `validate_metadata.py --strict` para que no vuelva.
 
 - [ ] **4 `index.md` del árbol ES sin frontmatter.** Es deliberado, por convención del proyecto los índices quedan excluidos del campo `updated`.
+- [ ] **Grafo de graphify incompleto para los Markdown.** Comprobado el 2026-10-10: `secrets_gitops.md` (ES y EN) no tiene nodos, y el `manifest.json` solo conserva `semantic_hash` en 11 de 310 páginas, así que `/graphify --update` querría reextraer las 310 con LLM. El paquete en `.venv` es 0.9.19 y el skill 0.9.69. Pasos: `pip install -U graphifyy`, y decidir si se paga una reextracción semántica completa o se indexan solo las 2 páginas que faltan. `graphify update .` (solo código, sin LLM) sí está al día.
+- [ ] **16 páginas de `docs/doc` de menos de 60 líneas** con título de guía completa (recontado el 2026-10-10): `backups/strategy_321.md` (38), `storage/netapp/netapp_base.md` (39, sin ningún bloque de código), `linux/systemd.md` (44), `storage/pure_storage/pure_storage_base.md` (44), `databases/redis.md` (45), `networking/benchmarks.md` (45), `backups/pbs.md` (46), `programming/fastapi.md` (46), `backups/restic_borg.md` (47), `identity/keycloak.md` (47), `linux/ssh_security.md` (48), `databases/postgres.md` (50), `linux/wireguard.md` (52), `monitoring/uptime_kuma.md` (53), `storage/ceph/ceph_tuning.md` (54), `networking/vrouter_vyos.md` (59). Ampliar o fusionar antes de abrir temas nuevos; la referencia de tamaño es `docker/quadlets.md`.
 
 ## 🔮 Futurible (no ahora)
 
