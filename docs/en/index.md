@@ -1,5 +1,7 @@
 ---
 title: "🚀 Welcome to Frikiteam Docs 🚀"
+description: Complete technical documentation on DevOps, infrastructure, containers and cloud. Practical guides for Ansible, Docker, Kubernetes, OpenStack and more.
+keywords: devops, infrastructure, docker, kubernetes, ansible, terraform, openstack, proxmox, haproxy, ceph, networking
 tags: ['documentation', 'devops']
 updated: 2026-07-19
 ---
@@ -13,6 +15,24 @@ Welcome to Frikiteam's technical documentation! I am a professional passionate a
 My idea is to provide practical, clear, and useful documentation about the technologies I use daily. I want to share not only theory but also real experiences, tricks, and best practices I've learned in the technological "trenches."
 
 ## 🆕 Latest Updates
+
+### 📅 **October 10, 2026**
+
+#### 📚 **Sixteen guides that fit on one screen (ES/EN)**
+
+Sixteen pages that sat between 38 and 59 lines under the title of a full guide. They now follow the site's reference structure (problem, technical sections, troubleshooting with a symptom → cause → fix table, best practices), warn wherever something depends on the version, and link to neighbouring pages instead of repeating them. They were written from knowledge, not executed in a lab: the points to verify are recorded in `TODO.md`.
+
+- **Backups**: [3-2-1 strategy](doc/backups/strategy_321.md), [Proxmox Backup Server](doc/backups/pbs.md) and [Restic and Borg](doc/backups/restic_borg.md) — datastores, prune and verification, encryption and remote repositories, and why a backup nobody has restored is not a backup.
+- **Storage**: [NetApp ONTAP](doc/storage/netapp/netapp_base.md) (previously without a single code block), [Pure Storage FlashArray](doc/storage/pure_storage/pure_storage_base.md) and [Ceph tuning](doc/storage/ceph/ceph_tuning.md) — SVMs, exports and snapshots; volumes, hosts and protection groups; PGs, BlueStore and OSD memory with the rule of measuring before touching.
+- **Linux**: [systemd](doc/linux/systemd.md), [SSH security](doc/linux/ssh_security.md) and [WireGuard](doc/linux/wireguard.md) — unit drop-ins and sandboxing, SSH keys and certificates with `Match`, and the peer configuration with `AllowedIPs` that is almost always the cause of "it connects but no traffic flows".
+- **Networking**: [VyOS as a vRouter](doc/networking/vrouter_vyos.md), now on par with its siblings in the series, and [network benchmarks](doc/networking/benchmarks.md) — methodology with iperf3, MTU and offloads; a table of figures that came from no measurement was removed.
+- **Databases**: [Redis](doc/databases/redis.md) and [PostgreSQL](doc/databases/postgres.md) — RDB/AOF persistence and memory policies, `pg_hba.conf`, roles and parameters that require a restart, both deployed with Quadlet.
+- **Identity and monitoring**: [Keycloak](doc/identity/keycloak.md) and [Uptime Kuma](doc/monitoring/uptime_kuma.md) — realms and OIDC clients behind a reverse proxy; monitors, notifications and backup of the data volume.
+- **Programming**: [FastAPI in production](doc/programming/fastapi.md) — multi-stage image, uvicorn workers, health endpoint for probes, Traefik in front and a GitHub Actions pipeline.
+
+#### 🧰 **Metadata in the English tree**
+
+All 146 EN twins now declare the same `description`, `keywords`, `prerequisites` and `last_reviewed` as their ES page, and `validate_metadata.py --strict` fails if any goes missing again. Before, 41 English pages inherited the site description, which is in Spanish.
 
 ### 📅 **September 3, 2026**
 

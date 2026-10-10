@@ -16,6 +16,24 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 
 ## 🆕 Últimas Novedades
 
+### 📅 **10 de octubre de 2026**
+
+#### 📚 **Dieciséis guías que cabían en una pantalla (ES/EN)**
+
+Dieciséis páginas que llevaban entre 38 y 59 líneas bajo un título de guía completa. Ahora siguen la estructura de referencia del sitio (problema, secciones técnicas, troubleshooting con tabla síntoma → causa → arreglo, buenas prácticas), avisan donde algo depende de la versión y enlazan a las páginas vecinas en vez de repetirlas. Están escritas de conocimiento, no ejecutadas en laboratorio: los puntos a verificar quedan anotados en `TODO.md`.
+
+- **Backups**: [estrategia 3-2-1](doc/backups/strategy_321.md), [Proxmox Backup Server](doc/backups/pbs.md) y [Restic y Borg](doc/backups/restic_borg.md) — datastores, prune y verificación, cifrado y repositorios remotos, y por qué una copia que nadie ha restaurado no es una copia.
+- **Storage**: [NetApp ONTAP](doc/storage/netapp/netapp_base.md) (antes sin un solo bloque de código), [Pure Storage FlashArray](doc/storage/pure_storage/pure_storage_base.md) y [tuning de Ceph](doc/storage/ceph/ceph_tuning.md) — SVM, exports y snapshots; volúmenes, hosts y protection groups; PGs, BlueStore y memoria de OSD con la regla de medir antes de tocar.
+- **Linux**: [systemd](doc/linux/systemd.md), [seguridad SSH](doc/linux/ssh_security.md) y [WireGuard](doc/linux/wireguard.md) — drop-ins y sandboxing de units, claves y certificados SSH con `Match`, y la configuración de pares con `AllowedIPs` que casi siempre es la causa del "conecta pero no pasa tráfico".
+- **Redes**: [VyOS como vRouter](doc/networking/vrouter_vyos.md), ahora al nivel de sus hermanas de la serie, y [benchmarks de red](doc/networking/benchmarks.md) — metodología con iperf3, MTU y offloads; se retiró una tabla de cifras que no provenían de ninguna medición.
+- **Bases de datos**: [Redis](doc/databases/redis.md) y [PostgreSQL](doc/databases/postgres.md) — persistencia RDB/AOF y políticas de memoria, `pg_hba.conf`, roles y parámetros que piden reinicio, ambos desplegados con Quadlet.
+- **Identidad y monitorización**: [Keycloak](doc/identity/keycloak.md) y [Uptime Kuma](doc/monitoring/uptime_kuma.md) — realms y clients OIDC detrás de un reverse proxy; monitores, notificaciones y copia del volumen de datos.
+- **Programación**: [FastAPI en producción](doc/programming/fastapi.md) — imagen multi-stage, workers de uvicorn, endpoint de health para probes, Traefik delante y pipeline de GitHub Actions.
+
+#### 🧰 **Metadatos en el árbol inglés**
+
+Las 146 gemelas EN declaran ya los mismos `description`, `keywords`, `prerequisites` y `last_reviewed` que su ES, y `validate_metadata.py --strict` falla si vuelve a faltar alguno. Antes, 41 páginas inglesas heredaban la descripción del sitio, que está en español.
+
 ### 📅 **3 de septiembre de 2026**
 
 #### 🧰 **Los tres stubs que quedaban (ES/EN)**
