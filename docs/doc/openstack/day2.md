@@ -484,9 +484,9 @@ openstack security group rule list default
 # Eliminar reglas 0.0.0.0/0 innecesarias
 
 # 5. Habilitar audit logging
-# Editar /etc/kolla/config/keystone/keystone.conf:
-[audit]
-enabled = True
+# Keystone emite notificaciones CADF propias; en /etc/kolla/config/keystone/keystone.conf:
+[oslo_messaging_notifications]
+driver = messagingv2
 
 kolla-ansible -i /etc/kolla/multinode reconfigure --tags keystone
 ```
@@ -564,11 +564,12 @@ ansible-playbook -i inventory patch-openstack.yml --limit compute01
 ### Logs de Auditoría
 
 ```bash
-# Habilitar audit en Keystone
+# Auditoría CADF de Keystone (no existe una sección [audit] en keystone.conf)
 # /etc/kolla/config/keystone/keystone.conf
-[audit]
-enabled = True
-audit_map_file = /etc/keystone/api_audit_map.conf
+[DEFAULT]
+notification_format = cadf
+[oslo_messaging_notifications]
+driver = messagingv2
 
 # Ver auditoría
 # En Kibana, filtrar por "audit" tag

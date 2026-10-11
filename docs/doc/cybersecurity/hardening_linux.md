@@ -113,6 +113,8 @@ KexAlgorithms curve25519-sha256,diffie-hellman-group-exchange-sha256
 
 # Reiniciar SSH
 systemctl restart sshd
+# Ubuntu 24.04+ (activación por socket): el puerto lo aplica ssh.socket
+# systemctl daemon-reload && systemctl restart ssh.socket
 ```
 
 #### Autenticación con claves SSH
