@@ -4,15 +4,117 @@ Todos los cambios relevantes en el repositorio.
 
 > Generado con `python scripts/generate_changelog.py`. No editar a mano.
 
+## 2026-10-11
+
+- `720844b` docs(todo): segunda pasada de verificación y diagnóstico de analisis_logs (2 archivos)
+- `7af59e8` docs: Keystone audita con notificaciones CADF, no con una sección [audit]; aviso de ssh.socket en Ubuntu 24.04+ (4 archivos)
+- `33a5648` docs(todo): registrar la verificación del 2026-10-11 y dejar solo lo que no tuvo fuente (2 archivos)
+- `1a07e0a` docs: verificar 40 páginas contra la documentación oficial (ES/EN) (78 archivos)
+- `108ac4d` chore(meta): recalcular estimated_time con la fórmula del proyecto en 72 parejas (143 archivos)
+- `520894f` docs: quitar de ocho páginas de IA la cita que repetía a mano tiempo, dificultad y categoría (16 archivos)
+- `1a28e7f` feat(ci): validate_metadata comprueba y recalcula estimated_time (2 archivos)
+- `2ed4788` docs(todo): cerrar el roadmap del 2026-10-11 y anotar la deuda de verificación (2 archivos)
+- `e90b543` chore(meta): igualar updated, last_reviewed y tags entre gemelas ES/EN (43 archivos)
+- `e58e11a` docs: traducir 17 páginas EN que seguían en español y corregir errores en ambos idiomas (23 archivos)
+- `6dcec76` docs: DNS propio, k3s con cert-manager, eBPF/Cilium, backup de Kubernetes y forense (ES/EN) (15 archivos)
+- `c002296` feat(ci): detectar EN sin traducir y exigir paridad de tags y fechas (2 archivos)
+- `5f3b969` docs(todo): cerrar ZFS y LVM y anotar sus puntos a verificar (2 archivos)
+- `4d814f6` docs: ZFS y LVM en almacenamiento local (ES/EN) (5 archivos)
+- `d18e726` docs(todo): roadmap de contenido revisado contra el repo el 2026-10-11 (1 archivo)
+- `ad0340b` docs(todo): estado de graphify tras actualizar a 0.9.85 (1 archivo)
+
+## 2026-10-10
+
+- `f6bb657` docs(todo): cerrar páginas cortas y frontmatter EN; anotar la deuda de verificación (2 archivos)
+- `1f231ef` chore(meta): completar description, keywords, prerequisites y last_reviewed en las gemelas EN (55 archivos)
+- `f97c551` docs: ampliar dieciséis guías cortas a documentación completa (ES/EN) (34 archivos)
+- `aa05e04` feat(ci): validate_metadata exige en EN los campos espejo de su ES (1 archivo)
+- `34a55f2` docs(todo): recuento del 2026-10-10 y estado del grafo (2 archivos)
+- `c31b584` fix: el test de enhance simula la ausencia de INFERENCE_SERVERS (1 archivo)
+
+## 2026-09-03
+
+- `f03756f` docs(todo): registrar el cierre de la asimetría y la limpieza de metadatos (2 archivos)
+- `b14c3f9` feat(ci): la asimetría ES/EN pasa de aviso a fallo (2 archivos)
+- `e781209` docs: igualar las cinco parejas ES/EN asimétricas (10 archivos)
+- `bcf560a` chore(meta): retirar date y draft: false del frontmatter (103 archivos)
+- `450fb23` docs: verificar las métricas de vLLM y las imágenes de TheHive (6 archivos)
+- `7917e15` docs: actualizar .gitignore para incluir CLAUDE.md y añadir sección sobre graphify en CLAUDE.md (2 archivos)
+- `870fea2` docs: añadir CLAUDE.md con las convenciones del repositorio (1 archivo)
+- `e331f55` feat: hacer que draft: true excluya la página del sitio (10 archivos)
+- `a7d868d` docs(todo): actualizar el roadmap al estado real del repositorio (1 archivo)
+- `3de2fa4` docs: corregir la descripción del fallo de macros en Novedades y done.md (3 archivos)
+- `6042a99` chore(meta): corregir estimated_time y detectar asimetría ES/EN (3 archivos)
+- `1db26d4` docs: completar los tres stubs restantes (ES/EN) (34 archivos)
+- `0c33244` docs: convertir diez stubs en documentación completa (ES/EN) (34 archivos)
+
+## 2026-09-02
+
+- `5f56033` feat(ci): validar tags, categorías y sincronía ES/EN en CI (8 archivos)
+- `6fe3b73` chore(meta): normalizar vocabulario de tags y categorías en ES/EN (263 archivos)
+
+## 2026-08-03
+
+- `24bbf0e` docs(wordpress): registrar los 19 posts sincronizados como borrador (1 archivo)
+- `e2cc1cf` docs(linux): añadir nftables+fail2ban, Bash con APIs REST y monitorización en terminal (ES/EN) (9 archivos)
+- `1119d93` docs(podman): añadir guía de Quadlet y ciclo de vida de contenedores (ES/EN) (7 archivos)
+- `f32321c` docs(traefik): añadir guía base del proxy inverso (ES/EN) (5 archivos)
+
+## 2026-07-31
+
+- `7741959` fix(scripts): validar metadatos también en el árbol EN (1 archivo)
+- `bebe663` fix(docs): rellenar metadatos del árbol EN desde el espejo ES (83 archivos)
+- `5d8d497` fix(docs): reparar benchmarks.md del árbol EN (1 archivo)
+- `8511d37` fix(docs): completar metadatos faltantes del árbol ES (13 archivos)
+
+## 2026-07-25
+
+- `f7d13ef` docs: separar historial completado (done.md) del roadmap pendiente (TODO.md) (5 archivos)
+- `4e02791` chore: eliminar código muerto y sanear configuración del sitio (24 archivos)
+- `1a38d92` fix: eliminar fallback de credenciales hardcodeadas en constants.py (2 archivos)
+
+## 2026-07-20
+
+- `86b6f62` chore: estudio.md es un documento de trabajo local (1 archivo)
+- `dfd3bca` ci: unificar los dos workflows en docs-ci.yml (3 archivos)
+- `4fe528c` feat: Cloudflare Web Analytics en todas las páginas (2 archivos)
+
+## 2026-07-19
+
+- `1296b21` feat: log de proceso en logs/ para cada ejecución de wordpress_sync (2 archivos)
+- `c0dbb4b` fix: wordpress_sync excluye índices, glosario y páginas de navegación (1 archivo)
+- `d19358f` fix: wordpress_sync solo sube contenido en español (1 archivo)
+- `0338354` chore: registrar en TODO.md los 8 borradores creados por wordpress_sync (1 archivo)
+- `7d17a88` docs: registrar novedades del 19/07 en la portada (ES/EN) (2 archivos)
+- `aa9221e` fix: casar títulos texturizados de WordPress y evitar duplicados (1 archivo)
+- `b1a014f` docs: Podman rootless, PostgreSQL HA, Criptografía Aplicada y Pentesting Básico (12 archivos)
+- `43dc3b3` feat: sincronización incremental en wordpress_sync.py (2 archivos)
+- `e0c69ad` fix(ai): corregir tres errores de despliegue_kubernetes.md (2 archivos)
+- `21a01fd` docs: paquetes A y B — cierre de Ciberseguridad Fase 3 e IA en produccion (16 archivos)
+- `814e436` docs: cerrar la deuda de i18n en TODO.md tras verificarla con los scripts (1 archivo)
+- `b8bad36` fix: detectar la introducción cuando vive dentro de la primera sección (2 archivos)
+- `934e154` fix: el mensaje de inicio mostraba una variable que ya no se usa (1 archivo)
+- `5e737ef` feat: cadena de servidores de inferencia y reescritura de documento completo (3 archivos)
+- `9f9d509` chore: configuración en .env, sin URLs de infraestructura en el código (3 archivos)
+- `48ccb8c` fix: --enhance reescribe solo la introducción, no el documento entero (3 archivos)
+- `314e8b1` feat: --file actualiza el post existente en vez de duplicarlo (2 archivos)
+- `a6b0325` fix: completar 6 traducciones EN y evitar que la IA publique contenido perdido (8 archivos)
+- `d64f7b2` fix: fechas 'updated' basadas en cambios reales de contenido (136 archivos)
+- `8b35c74` fix: render de ceph_base, limpieza de duplicados y metadatos EN (53 archivos)
+- `0099de7` chore: rellenar 'updated' en el árbol EN con fechas reales de git (66 archivos)
+
 ## 2026-07-18
 
-- `483a9fa` docs: actualizar Novedades con las guías del 18/07/2026 (2 archivos)
-- `16f2454` docs: Service Mesh, Secretos en GitOps, vLLM e higiene i18n (11 archivos)
-- `f12e258` docs: Kubernetes CSI, LiteLLM y MeshLLM (8 archivos)
-- `3a83472` docs: guías de Docker runtime security, IaC security y modelos locales (10 archivos)
-- `37da25b` feat: mermaid a imagen, admonitions inline y mejora "blog" con Ollama (4 archivos)
-- `2a1d60e` feat: mejorar formato de posts WordPress y subir imágenes automáticamente (3 archivos)
-- `0ad1559` chore: cleanup from project review (6 archivos)
+- `2f6a036` docs: paridad ES/EN completa y normalización de categorías (32 archivos)
+- `4622a1d` docs: paridad EN de los documentos enlazados desde la home (8 archivos)
+- `709e039` docs: novedades en home EN, changelog regenerable y fix de registro draft (6 archivos)
+- `98b4cf6` docs: actualizar Novedades con las guías del 18/07/2026 (2 archivos)
+- `c2be8b0` docs: Service Mesh, Secretos en GitOps, vLLM e higiene i18n (11 archivos)
+- `7df84e2` docs: Kubernetes CSI, LiteLLM y MeshLLM (8 archivos)
+- `8aecad1` docs: guías de Docker runtime security, IaC security y modelos locales (10 archivos)
+- `1e52364` feat: mermaid a imagen, admonitions inline y mejora "blog" con Ollama (4 archivos)
+- `dae0989` feat: mejorar formato de posts WordPress y subir imágenes automáticamente (3 archivos)
+- `c9afd5a` chore: cleanup from project review (6 archivos)
 
 ## 2026-04-18
 
