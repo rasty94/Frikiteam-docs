@@ -12,8 +12,6 @@ updated: 2026-01-25
 
 # LLM Model Optimization
 
-> **Reading time:** 25 minutes | **Difficulty:** Intermediate | **Category:** Artificial Intelligence
-
 ## Overview
 
 Optimizing LLM models is crucial for running large models on limited hardware. This guide covers techniques such as quantization, pruning, distillation and deployment strategies that reduce memory usage and improve performance without significantly sacrificing quality.

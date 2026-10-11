@@ -12,8 +12,6 @@ updated: 2026-01-25
 
 # Análisis de Logs y Troubleshooting con LLMs
 
-> **Tiempo de lectura:** 35 minutos | **Dificultad:** Intermedia | **Categoría:** Inteligencia Artificial
-
 ## Resumen
 
 Los LLMs pueden analizar logs de sistemas, detectar patrones de errores y sugerir soluciones automáticamente. Esta guía cubre técnicas prácticas para usar modelos locales en troubleshooting de infraestructura, reduciendo significativamente el tiempo medio de resolución (MTTR).

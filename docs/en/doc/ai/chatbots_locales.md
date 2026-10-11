@@ -12,8 +12,6 @@ updated: 2026-01-25
 
 # Local Chatbots with LLMs
 
-> **Reading time:** 30 minutes | **Difficulty:** Intermediate | **Category:** Artificial Intelligence
-
 ## Summary
 
 Local chatbots allow you to create private conversational assistants that run entirely on your infrastructure. This guide covers building chatbots using Ollama and LLaMA.cpp, with integration to platforms like Slack, Discord and Telegram.

@@ -12,8 +12,6 @@ updated: 2026-07-18
 
 # Coherence Evaluation in LLMs
 
-> **Reading time:** 40 minutes | **Difficulty:** Advanced | **Category:** Artificial Intelligence
-
 ## Summary
 
 Coherence is essential for mission-critical applications. This guide presents frameworks for evaluating consistency and reproducibility, and for detecting bias in LLM responses, backed by quantitative metrics and validation techniques.

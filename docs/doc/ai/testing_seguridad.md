@@ -12,8 +12,6 @@ updated: 2026-07-18
 
 # Testing de Seguridad en LLMs
 
-> **Tiempo de lectura:** 45 minutos | **Dificultad:** Avanzada | **Categoría:** Inteligencia Artificial
-
 ## Resumen
 
 Los LLMs presentan vulnerabilidades únicas que requieren evaluación especializada. Esta guía cubre técnicas de testing de seguridad, desde inyección de prompts hasta detección de alucinaciones, con frameworks prácticos para modelos locales.

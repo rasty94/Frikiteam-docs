@@ -12,8 +12,6 @@ updated: 2026-01-25
 
 # Optimización de Modelos LLM
 
-> **Tiempo de lectura:** 25 minutos | **Dificultad:** Intermedia | **Categoría:** Inteligencia Artificial
-
 ## Resumen
 
 La optimización de modelos LLM es crucial para ejecutar modelos grandes en hardware limitado. Esta guía cubre técnicas como cuantización, pruning, distilación y estrategias de deployment que permiten reducir el uso de memoria y mejorar el rendimiento sin sacrificar significativamente la calidad.

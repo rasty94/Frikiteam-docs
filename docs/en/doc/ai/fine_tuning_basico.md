@@ -12,8 +12,6 @@ updated: 2026-07-18
 
 # Basic LLM Fine-tuning
 
-> **Reading time:** 55 minutes | **Difficulty:** Advanced | **Category:** Artificial Intelligence
-
 ## Overview
 
 Fine-tuning lets you adapt pre-trained language models to specific tasks. This guide walks through the whole process, from data preparation to deployment, with practical techniques for improving performance and cutting compute costs.

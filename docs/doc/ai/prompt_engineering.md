@@ -12,8 +12,6 @@ updated: 2026-01-25
 
 # Prompt Engineering Avanzado para LLMs
 
-> **Tiempo de lectura:** 40 minutos | **Dificultad:** Intermedia | **Categoría:** Inteligencia Artificial
-
 ## Resumen
 
 El prompt engineering es el arte y ciencia de diseñar instrucciones efectivas para LLMs. Esta guía cubre técnicas profesionales desde zero-shot hasta chain-of-thought, con ejemplos prácticos y frameworks de evaluación para modelos locales.

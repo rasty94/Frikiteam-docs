@@ -12,8 +12,6 @@ updated: 2026-01-25
 
 # Generación de Contenido Técnico con LLMs
 
-> **Tiempo de lectura:** 30 minutos | **Dificultad:** Intermedia | **Categoría:** Inteligencia Artificial
-
 ## Resumen
 
 Los LLMs pueden automatizar la creación de documentación técnica, generar posts de blog y resumir artículos complejos. Esta guía cubre técnicas prácticas para usar modelos locales en workflows de documentación empresarial, manteniendo calidad y consistencia.

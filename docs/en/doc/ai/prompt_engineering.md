@@ -12,8 +12,6 @@ updated: 2026-01-25
 
 # Advanced Prompt Engineering for LLMs
 
-> **Reading time:** 40 minutes | **Difficulty:** Intermediate | **Category:** Artificial Intelligence
-
 ## Summary
 
 Prompt engineering is the art and science of designing effective instructions for LLMs. This guide covers professional techniques from zero-shot to chain-of-thought, with practical examples and evaluation frameworks for local models.

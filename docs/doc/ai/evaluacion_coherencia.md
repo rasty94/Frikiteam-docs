@@ -12,8 +12,6 @@ updated: 2026-07-18
 
 # Evaluación de Coherencia en LLMs
 
-> **Tiempo de lectura:** 40 minutos | **Dificultad:** Avanzada | **Categoría:** Inteligencia Artificial
-
 ## Resumen
 
 La coherencia es fundamental para aplicaciones críticas. Esta guía presenta frameworks para evaluar consistencia, reproducibilidad y detectar sesgos en respuestas de LLMs, con métricas cuantitativas y técnicas de validación.

@@ -12,8 +12,6 @@ updated: 2026-07-18
 
 # LLM Security Testing
 
-> **Reading time:** 45 minutes | **Difficulty:** Advanced | **Category:** Artificial Intelligence
-
 ## Summary
 
 LLMs come with a class of vulnerabilities of their own, and assessing them takes specialised tooling. This guide walks through security testing techniques, from prompt injection to hallucination detection, with practical frameworks aimed at locally hosted models.

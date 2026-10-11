@@ -12,8 +12,6 @@ updated: 2026-07-18
 
 # Fine-tuning Básico de LLMs
 
-> **Tiempo de lectura:** 55 minutos | **Dificultad:** Avanzada | **Categoría:** Inteligencia Artificial
-
 ## Resumen
 
 El fine-tuning permite adaptar modelos de lenguaje pre-entrenados a tareas específicas. Esta guía cubre el proceso completo: desde preparación de datos hasta deployment, con técnicas prácticas para optimizar rendimiento y reducir costos computacionales.

@@ -12,8 +12,6 @@ updated: 2026-01-25
 
 # Automated Technical Content Generation with LLMs
 
-> **Reading time:** 30 minutes | **Difficulty:** Intermediate | **Category:** Artificial Intelligence
-
 ## Summary
 
 Technical content creation (documentation, READMEs, changelogs, blog posts) is time-consuming but essential. This guide shows how to automate these processes using local LLMs, from docstring generation to complete article production.
