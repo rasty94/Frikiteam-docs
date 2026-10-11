@@ -22,7 +22,6 @@ La estructura está sana y el problema es de mantenimiento, no de contenido nuev
 ### 1. Cerrar la deuda "sin ejecutar"
 TheHive/MISP y vLLM se verificaron el 2026-09-03 (ver `done.md`). Queda OpenSCAP y la hornada del 2026-10-10:
 - [ ] **OpenSCAP:** los comandos `oscap` y los paquetes SSG de Debian no se han probado. Necesita una máquina Debian real; no se puede verificar desde el repositorio.
-- [ ] **`ai/analisis_logs.md`: ES y EN son dos documentos distintos**, no una traducción a medias (comprobado el 2026-10-11): secciones y casos de uso diferentes a partir del segundo, 14 cercas de código en ES y 16 en EN, 933 frente a 1257 líneas. Reescribir la EN como traducción de la ES, que es la fuente.
 - [ ] **Desplegar Plausible** en servidor o revisar logs existentes para analytics básico.
 - [ ] **19 borradores en WordPress esperando revisión humana** en `frikiteam.es/wp-admin`. El pipeline no los publica: el paso a `publish` es decisión manual.
 - [ ] **4 `index.md` del árbol ES sin frontmatter.** Es deliberado, por convención del proyecto los índices quedan excluidos del campo `updated`.

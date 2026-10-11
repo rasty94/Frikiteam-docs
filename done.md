@@ -2,6 +2,13 @@
 
 Registro de tareas completadas y logs de progreso, archivados desde `TODO.md` para mantener ese archivo centrado en lo pendiente.
 
+## 🪵 Análisis de logs con LLMs: EN reescrita y código corregido (11/10/2026)
+
+- [x] **La EN era un documento distinto de la ES**; se reescribió como traducción fiel de la ES (973/973 líneas, 14 cercas y 6 bloques Python en ambas), con el código idéntico y solo comentarios, prompts y mensajes traducidos.
+- [x] **Errores de código corregidos en ambos idiomas, con fuente**: `temperature` iba en la raíz de la petición a Ollama y se ignoraba (va en `options`, documentación de la API de Ollama); el analizador de Kubernetes buscaba CrashLoopBackOff como fase del pod con `status.phase!=Running`, así que nunca lo encontraba (es el motivo de espera del contenedor; documentación del ciclo de vida del pod); la autorremediación ejecutaba con `shell=True` comandos propuestos por el LLM y la lista blanca por prefijo dejaba encadenar comandos (ahora `shlex.split`, sin shell y rechazando metacaracteres); imports que faltaban; clase de caracteres con `|` en la regex de emails; prompt de picos de error sin las claves que luego se leían.
+- [x] **Prosa**: fuera las cifras sin fuente («99% de logs», «reduciendo significativamente el MTTR»); el «Resultado esperado» pasa a ejemplo ilustrativo; el enlace «Monitoreo de LLMs» apuntaba a otra página.
+- [x] **Comprobado**: `ast.parse` de los seis bloques Python en ES y EN; `mkdocs build --strict`, ambos validadores y `test_wordpress_format.py` limpios; HTML sin Jinja sin renderizar.
+
 ## 📎 Todo lo publicado cita fuente (11/10/2026)
 
 - [x] **Regla nueva**: toda página termina con «## Referencias» (EN: «## References») con enlaces a fuentes primarias, y `validate_metadata.py --strict` falla si falta o no enlaza nada externo.
