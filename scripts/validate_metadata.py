@@ -480,6 +480,31 @@ def check_reading_time(docs_paths, fix=False):
     return problemas
 
 
+# Todo lo publicado cita fuente primaria (decision del 2026-10-11). Una pagina
+# necesita una seccion de referencias con al menos un enlace externo.
+_TITULO_REFERENCIAS = re.compile(r'^##+ .*(Referencias|References)\b', re.M)
+
+
+def check_references(docs_paths):
+    """Devuelve [(ruta, motivo)] para paginas sin seccion de referencias con enlaces externos."""
+    problemas = []
+    for docs_path in docs_paths:
+        for md in sorted(Path(docs_path).rglob('*.md')):
+            if md.name == 'index.md':
+                continue
+            texto = md.read_text(encoding='utf-8')
+            m = _TITULO_REFERENCIAS.search(texto)
+            if not m:
+                problemas.append((str(md), 'sin sección «Referencias»/«References»'))
+                continue
+            resto = texto[m.end():]
+            siguiente = re.search(r'^## ', resto, re.M)
+            seccion = resto[:siguiente.start()] if siguiente else resto
+            if not re.search(r'\]\(https?://', seccion):
+                problemas.append((str(md), 'la sección de referencias no enlaza ninguna fuente externa'))
+    return problemas
+
+
 def check_vocabulary(docs_paths):
     """Recorre los arboles y devuelve [(ruta, tags_invalidos)] de los ficheros infractores."""
     offenders = []
@@ -594,6 +619,16 @@ def main():
             print("   Corrígelo con: python scripts/validate_metadata.py --fix-reading-time")
         else:
             print("✅ estimated_time coherente con la fórmula y igual en ES y EN")
+
+        sin_fuentes = check_references(args.docs_path)
+        if sin_fuentes:
+            fallo = True
+            print(f"\n❌ {len(sin_fuentes)} páginas sin fuentes referenciadas:")
+            for path, motivo in sin_fuentes:
+                print(f"  {path}: {motivo}")
+            print("   Cada página termina con «## Referencias» (EN: «## References») y enlaces a fuentes primarias.")
+        else:
+            print("✅ Todas las páginas citan fuentes")
 
         paridad = check_twin_parity(args.docs_path)
         if paridad:
