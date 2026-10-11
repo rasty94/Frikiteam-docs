@@ -22,35 +22,26 @@ La estructura está sana y el problema es de mantenimiento, no de contenido nuev
 ### 1. Cerrar la deuda "sin ejecutar"
 TheHive/MISP y vLLM se verificaron el 2026-09-03 (ver `done.md`). Queda OpenSCAP y la hornada del 2026-10-10:
 - [ ] **OpenSCAP:** los comandos `oscap` y los paquetes SSG de Debian no se han probado. Necesita una máquina Debian real; no se puede verificar desde el repositorio.
-- [ ] **16 guías ampliadas el 2026-10-10 de conocimiento, sin ejecutar.** Los agentes que las escribieron dejaron su lista de dudas; todo lo dependiente de versión lleva `!!! warning`, pero esto hay que contrastar con la herramienta real:
-    - `backups/pbs.md`: nombres de roles (`DatastoreBackup`, `DatastoreReader`, `DatastoreAdmin`) y sintaxis de `acl update`; flags de `verify-job`, `remote create` y `sync-job create`; existencia de `prune-job`; formato de `PBS_REPOSITORY` con token.
-    - `backups/strategy_321.md` y `backups/restic_borg.md`: el agente que las escribió no entregó lista de dudas; revisar completas.
-    - `storage/netapp/netapp_base.md`: parámetros de `volume create`, `export-policy rule create`, `cifs share create`; `-superuser sys` como equivalente de `no_root_squash`; `pvesm add nfs --content`; destino SnapMirror tipo DP; YAML de Trident (`csi.trident.netapp.io`, `ontap-nas`).
-    - `storage/pure_storage/pure_storage_base.md`: sintaxis de `purevol create --size`, `purehost create --iqnlist`, `purevol snap --suffix`, `purevol copy`; nombre del provisioner CSI.
-    - `storage/ceph/ceph_tuning.md`: `rbd_cache_writethrough_until_flush`, dependencias de `object-map`/`fast-diff` con `exclusive-lock`, `ceph balancer status`, `osd pool application enable`.
-    - `linux/systemd.md`: `network-online.target` y wait-online; descripción de `systemd-analyze security`; versiones de `ProtectProc=` y `SystemCallFilter=`; `status=203/EXEC`; `StartLimitIntervalSec`/`StartLimitBurst` en `[Unit]`; `systemctl revert`.
-    - `linux/ssh_security.md`: `KbdInteractiveAuthentication` frente a `ChallengeResponseAuthentication`; orden de lectura de `sshd_config.d/`; flujo de certificados (`ssh-keygen -s`, `TrustedUserCAKeys`, `@cert-authority`); requisitos de `ChrootDirectory`; backend systemd de fail2ban; unit `ssh` frente a `sshd`.
-    - `linux/wireguard.md`: MTU por defecto de `wg-quick` (1420); afirmación sobre `PresharedKey`; alcance de `wg syncconf`.
-    - `networking/vrouter_vyos.md`: sintaxis de firewall 1.4 (`firewall ipv4 input filter`, `inbound-interface name`); `bgp system-as-number`; política de rolling/estables; `commit-archive`; `show ip bgp summary`, `show ip ospf neighbor`, `show system cpu`.
-    - `networking/benchmarks.md`: `iperf3 --bidir` (versión); `ping -M do -s 1472` (iputils); privilegios de `ping -i 0.2`; paquete `mtr-tiny`; nombres de features en `ethtool -K`.
-    - `databases/redis.md`: relato de la licencia y Valkey; `HealthCmd`/`HealthInterval` en Quadlet; carga de AOF frente a RDB en la restauración.
-    - `databases/postgres.md`: `POSTGRES_PASSWORD_FILE` y `/docker-entrypoint-initdb.d/`; `Secret=…,type=env,target=` en Quadlet; paso de `md5` a SCRAM; `pending_restart` en `pg_settings`.
-    - `identity/keycloak.md`: `KC_BOOTSTRAP_ADMIN_*` frente a `KEYCLOAK_ADMIN`; `KC_HOSTNAME` con URL completa; `KC_PROXY_HEADERS=xforwarded`; puerto de gestión para health; alcance de `kc.sh export`.
-    - `monitoring/uptime_kuma.md`: rama `:2` y BD externa; autenticación de `/metrics`; ruta `/api/push/<token>`; ajuste de proxy de confianza; `kuma.db`.
-    - `programming/fastapi.md`: paquete `uvicorn-worker`; `Notify=healthy` en Quadlet; versiones `@vN` de las acciones; etiquetas de healthcheck de Traefik y `http-check` de HAProxy; `--proxy-headers`, `--forwarded-allow-ips`, `--root-path`.
-- [ ] **Cinco páginas nuevas del 2026-10-11, escritas de conocimiento, sin ejecutar.** Dudas que dejaron los agentes:
-    - `networking/dns_selfhosted.md`: opciones `serve-expired-*` de Unbound; `type primary`/`primaries` en BIND; sintaxis de `pdnsutil` y opciones de PowerDNS 4.x (`launch=gsqlite3`, `api-key`, `webserver-*`, `SOA-EDIT`); `unbound-control list_forwards`/`flush_zone`; `drill -T`/`-S`; `dhcp-option=option:domain-search` en dnsmasq; opciones de `pct set`/`qm set` para DNS.
-    - `kubernetes/k3s_ingress_certmanager.md`: claves de `config.yaml` de k3s (`disable`, `flannel-backend`, `write-kubeconfig-mode`, `tls-san`); `HelmChartConfig` para el Traefik de k3s; `crds.enabled` del chart de cert-manager; `apiVersion` de MetalLB; `ingressClassName` en el solver HTTP-01; `cmctl status certificate`; estado de ingress-nginx.
-    - `kubernetes/ebpf_cilium.md`: valores de `kubeProxyReplacement` por versión; `cilium-dbg`; flags de k3s para quitar flannel y kube-proxy; formato de `hubble observe --pod`; flags de `cilium hubble`; regla DNS para `toFQDNs`; nombres de paquetes de bcc y los one-liners de bpftrace.
-    - `backups/kubernetes_backup.md`: `etcdutl` frente a `etcdctl` en 3.5+; ruta y receta de copia de k3s con SQLite; claves `etcd-snapshot-*`/`etcd-s3-*` y `--cluster-reset-restore-path`; flags de Velero (`--use-node-agent`, `--default-volumes-to-fs-backup`, `--snapshot-move-data`, `--features=EnableCSI`); anotaciones de hooks con `fsfreeze`; interacción del TTL con Object Lock.
-    - `cybersecurity/forense_digital.md`: `dump-guest-memory` desde `qm monitor` y su formato; `qm snapshot --vmstate 1`; `link_down=1`; sintaxis de LiME y AVML; plugins de Volatility 3; `mactime`/`fls`; formatos de `find -printf`.
-    - `networking/mtu_mss_values.md`, sección de 25G/40G/100G: escrita por Haiku; revisar entera.
-- [ ] **`storage/zfs_lvm.md` (2026-10-11), escrita de conocimiento, sin ejecutar.** Contrastar: expansión de raidz con `zpool attach` (OpenZFS 2.3); `lvchange -ay -K` para snapshots finos; entrada `lvmthin` de `storage.cfg` y VG `pve`/thin pool `data` del instalador de Proxmox; `thin_pool_autoextend_threshold`/`_percent` y `dmeventd`; campos `data_percent`/`metadata_percent` de `lvs`; `zpool online -e` con `autoexpand=on`; `update-initramfs` tras fijar `zfs_arc_max`. Ya corregidas al revisar: `zfs send` de datasets cifrados (solo `-w` los mantiene cifrados) y el tamaño por defecto del ARC (ya no se afirma una cifra).
-
-### 2. Otra deuda operativa
+- [ ] **Lo que no se pudo contrastar con fuente oficial** en la verificación del 2026-10-11 (40 páginas: las 22 escritas el 10 y 11 de octubre y las 18 que llevaban más de 90 días). Todo lo demás se comprobó contra documentación oficial, páginas de manual o el repositorio del proyecto; ver `done.md`. Queda, por página:
+    - **Sin acceso a la fuente**: NetApp (docs.netapp.com devolvió 403: `volume create`, `export-policy rule create -superuser sys`, `cifs share create`, StorageClass de Trident) y la CLI de Purity de Pure Storage (documentación tras login; también el `provisioner` del driver PX-CSI).
+    - `backups/pbs.md`: `remote create --auth-id` (el manual de usuario usa `--userid` en un ejemplo); plazo por defecto de `--outdated-after` en verify.
+    - `backups/restic_borg.md`: `--compression zstd,3` en borg; `restic mount` y `stats --mode raw-data`.
+    - `storage/zfs_lvm.md`: `lvchange -ay -K`, `thin_pool_autoextend_*` con `dmeventd`, campos `data_percent`/`metadata_percent`, `zpool online -e` (man7.org no respondía).
+    - `storage/ceph/troubleshooting_ceph.md`: `ceph-objectstore-tool --op fsck` frente a `ceph-bluestore-tool fsck` en BlueStore; valores por defecto de los ratios full.
+    - `backups/kubernetes_backup.md`: pasos con el resto de nodos de control tras `--cluster-reset` en k3s; TTL de Velero frente a Object Lock.
+    - `linux/ssh_security.md` y `cybersecurity/hardening_linux.md`: activación por socket (`ssh.socket`) en Ubuntu 22.10+, que hace que `Port` en `sshd_config` no baste; las líneas de `pam_faillock` añadidas sin fuente consultada.
+    - `networking/vrouter_vyos.md`: `show ip bgp summary`, `show ip ospf neighbor`.
+    - `networking/dns_selfhosted.md`: sintaxis de `pdnsutil` en PowerDNS 5.x (la página usa la de 4.x con aviso); `drill -T/-S`; opciones DNS de `pct set`/`qm set`.
+    - `kubernetes/k3s_ingress_certmanager.md`: `HelmChartConfig` de Traefik, `cmctl status certificate`, puerto 8472 de Flannel.
+    - `kubernetes/ebpf_cilium.md`: flags de `cilium hubble`, one-liners de bpftrace, `TracingPolicy` de Tetragon.
+    - `cybersecurity/forense_digital.md`: `dump-guest-memory` desde `qm monitor`.
+    - `cybersecurity/ci_security_scanning.md` y `kubernetes_security.md`: `actions/checkout@v7` (tomado de la API de etiquetas, sin changelog) y el nombre del SARIF que deja `checkov-action`.
+    - `openstack/day2.md`: sección `[audit]` de `keystone.conf` (probablemente se configura en keystonemiddleware); `openstack/troubleshooting_openstack.md`: `nova_novncproxy_base_url`, `port list --device-owner none`, `volume set --detached`, `orchestration template validate -t`.
+    - `ai/rag_basics.md` y `ai/local_ecosystems.md`: nombre `llama3.2` en la biblioteca de Ollama; `ai/vector_databases.md`: valores de la tabla comparativa.
+    - `monitoring/plausible_analytics.md`: snippet de seguimiento vigente y el fragmento de `mkdocs.yml` de la página (claves `extra:` duplicadas).
+- [ ] **`ai/analisis_logs.md`: la EN tiene 1257 líneas y la ES 933** (26%, por debajo del umbral del 40% de `check_sync.py`). Medido el 2026-10-11. Igualar traduciendo el lado largo.
 - [ ] **Desplegar Plausible** en servidor o revisar logs existentes para analytics básico.
 - [ ] **19 borradores en WordPress esperando revisión humana** en `frikiteam.es/wp-admin`. El pipeline no los publica: el paso a `publish` es decisión manual.
-- [ ] **18 páginas sin tocar en más de 90 días** (recontado el 2026-10-10 con `scripts/check_freshness.py`, tras ampliar `ceph_tuning` y `vrouter_vyos`). Concentradas en vRouters, Cybersecurity, AI, OpenStack y Ceph. Revisar versiones y comandos.
 - [ ] **4 `index.md` del árbol ES sin frontmatter.** Es deliberado, por convención del proyecto los índices quedan excluidos del campo `updated`.
 - [ ] **Reextracción semántica de graphify pendiente.** Comprobado el 2026-10-11 con graphifyy 0.9.85 (actualizado desde 0.9.19): `graphify update .` deja el grafo al día en código y estructura de los Markdown, y `secrets_gitops.md` ya tiene nodos. Pero el `manifest.json` solo conserva `semantic_hash` en 3 de 313 páginas (71 en julio, 11 el 2026-10-10: la 0.9.19 los iba perdiendo en cada reconstrucción de los hooks), así que `/graphify --update` reextraería 314 documentos con LLM. Decidir si se paga esa pasada completa. `graphify-out/` acumula además una copia fechada por reconstrucción; las anteriores a septiembre se pueden borrar.
 
