@@ -1,5 +1,5 @@
 ---
-title: "Registros PTR y Zonas Inversas"
+title: "PTR Records and Reverse Zones"
 description: How reverse lookups (in-addr.arpa) work and their importance for IP reputation.
 tags: ['networking']
 
@@ -14,43 +14,43 @@ prerequisites:
   - "Networking fundamentals"
 ---
 
-# Registros PTR y Zonas Inversas
+# PTR Records and Reverse Zones
 
-Los registros PTR (Pointer) permiten la resolución inversa de direcciones IP a nombres de dominio. Son cruciales para la reputación de email, seguridad y diagnóstico de red.
+PTR (Pointer) records allow reverse resolution of IP addresses to domain names. They are crucial for email reputation, security and network diagnostics.
 
-## Conceptos Básicos
+## Basic Concepts
 
-### ¿Qué es una Búsqueda Inversa?
+### What is a Reverse Lookup?
 
-La resolución inversa traduce una dirección IP en un nombre de dominio:
+Reverse resolution translates an IP address into a domain name:
 
 - **Forward DNS:** `www.example.com` → `192.168.1.1`
 - **Reverse DNS:** `192.168.1.1` → `www.example.com`
 
-### Registros PTR
+### PTR Records
 
-- **Tipo:** PTR
-- **Propósito:** Apuntar a un nombre de dominio
-- **Sintaxis:** `dirección_IP.in-addr.arpa. IN PTR nombre_dominio.`
+- **Type:** PTR
+- **Purpose:** Point to a domain name
+- **Syntax:** `ip_address.in-addr.arpa. IN PTR domain_name.`
 
-## Estructura de Zonas Inversas
+## Reverse Zone Structure
 
-### Zona in-addr.arpa
+### in-addr.arpa Zone
 
-Para IPv4, las zonas inversas están bajo `in-addr.arpa`:
+For IPv4, reverse zones live under `in-addr.arpa`:
 
-- **Estructura:** Reversa de la IP + `.in-addr.arpa`
-- **Ejemplo:** `192.168.1.1` → `1.1.168.192.in-addr.arpa`
+- **Structure:** Reversed IP + `.in-addr.arpa`
+- **Example:** `192.168.1.1` → `1.1.168.192.in-addr.arpa`
 
-### Delegación de Zonas
+### Zone Delegation
 
-Las zonas inversas se delegan por octetos:
+Reverse zones are delegated by octets:
 
-- **/8:** Delegado a RIRs (ARIN, RIPE, etc.)
-- **/16:** ISP o organización grande
-- **/24:** Subred típica
+- **/8:** Delegated to the RIRs (ARIN, RIPE, etc.)
+- **/16:** ISP or large organization
+- **/24:** Typical subnet
 
-### Archivo de Zona Inversa
+### Reverse Zone File
 
 ```bind
 $TTL 86400
@@ -65,17 +65,17 @@ $TTL 86400
 @ IN NS ns1.example.com.
 @ IN NS ns2.example.com.
 
-; Registros PTR
+; PTR records
 1 IN PTR host1.example.com.
 2 IN PTR host2.example.com.
 10 IN PTR mail.example.com.
 ```
 
-## Configuración en Diferentes Servidores
+## Configuration on Different Servers
 
 ### BIND9
 
-#### Archivo de zona
+#### Zone file
 ```
 zone "1.168.192.in-addr.arpa" {
     type master;
@@ -83,7 +83,7 @@ zone "1.168.192.in-addr.arpa" {
 };
 ```
 
-#### Contenido de zona inversa
+#### Reverse zone contents
 ```bind
 $ORIGIN 1.168.192.in-addr.arpa.
 $TTL 86400
@@ -105,18 +105,18 @@ $TTL 86400
 
 ### Windows DNS Server
 
-1. **Crear zona inversa:** DNS Manager → New Zone → Reverse Lookup Zone
-2. **Tipo:** Primary zone
-3. **Red:** 192.168.1.0/24
-4. **Añadir registros PTR:** Right-click → New Pointer (PTR)
+1. **Create reverse zone:** DNS Manager → New Zone → Reverse Lookup Zone
+2. **Type:** Primary zone
+3. **Network:** 192.168.1.0/24
+4. **Add PTR records:** Right-click → New Pointer (PTR)
 
 ### PowerDNS
 
 ```sql
--- Insertar zona inversa
+-- Insert reverse zone
 INSERT INTO domains (name, type) VALUES ('1.168.192.in-addr.arpa', 'MASTER');
 
--- Insertar registros PTR
+-- Insert PTR records
 INSERT INTO records (domain_id, name, type, content, ttl)
 VALUES (
     (SELECT id FROM domains WHERE name='1.168.192.in-addr.arpa'),
@@ -129,24 +129,24 @@ VALUES (
 
 ## IPv6 Reverse DNS
 
-### Zona ip6.arpa
+### ip6.arpa Zone
 
-Para IPv6, se usa `ip6.arpa` en lugar de `in-addr.arpa`.
+For IPv6, `ip6.arpa` is used instead of `in-addr.arpa`.
 
-#### Estructura
-- Dirección IPv6: `2001:db8:85a3::8a2e:370:7334`
-- Reverse: `4.3.3.7.0.7.3.e.2.a.8.0.0.0.0.0.0.3.a.5.8.8.b.d.0.1.0.0.2.ip6.arpa`
+#### Structure
+- IPv6 address: `2001:db8:85a3::8a2e:370:7334`
+- Reverse: `4.3.3.7.0.7.3.0.e.2.a.8.0.0.0.0.0.0.0.0.3.a.5.8.8.b.d.0.1.0.0.2.ip6.arpa`
 
-#### Simplificación
-Se puede abreviar invirtiendo nibbles (4 bits):
+#### Simplification
+The address is expanded to its 32 hex digits and reversed nibble by nibble (4 bits); the zeros compressed by `::` count too:
 
 ```
 2001:db8:85a3::8a2e:370:7334
 ↓
-4.3.3.7.0.7.3.e.2.a.8.0.0.0.0.0.0.3.a.5.8.8.b.d.0.1.0.0.2.ip6.arpa
+4.3.3.7.0.7.3.0.e.2.a.8.0.0.0.0.0.0.0.0.3.a.5.8.8.b.d.0.1.0.0.2.ip6.arpa
 ```
 
-### Configuración IPv6 Reverse
+### IPv6 Reverse Configuration
 
 ```bind
 $ORIGIN 3.a.5.8.8.b.d.0.1.0.0.2.ip6.arpa.
@@ -161,55 +161,55 @@ $TTL 86400
 
     IN NS ns1.example.com.
 
-4.3.3.7.0.7.3.e.2.a.8 IN PTR www.example.com.
+4.3.3.7.0.7.3.0.e.2.a.8.0.0.0.0.0.0.0.0 IN PTR www.example.com.
 ```
 
-## Importancia para la Reputación
+## Importance for Reputation
 
 ### Email Delivery
 
-Los servidores de email verifican PTR para combatir spam:
+Email servers check PTR records to fight spam:
 
 ```bash
-# Verificar PTR
+# Check PTR
 dig -x 192.168.1.1
 
-# Verificar SPF
+# Check SPF
 dig TXT example.com
 
-# Verificar DKIM
+# Check DKIM
 dig TXT dkim._domainkey.example.com
 ```
 
-### Filtros Antispam
+### Anti-spam Filters
 
-- **Hotmail/Outlook:** Requiere PTR válido
-- **Gmail:** Usa PTR como factor de reputación
-- **Spamhaus:** Lista IPs sin PTR válido
+- **Hotmail/Outlook:** Requires a valid PTR
+- **Gmail:** Uses PTR as a reputation factor
+- **Spamhaus:** Lists IPs without a valid PTR
 
-### Mejores Prácticas
+### Best Practices
 
-1. **PTR debe resolver:** `host IP` debe devolver nombre válido
-2. **Consistencia:** PTR debe coincidir con A/AAAA records
-3. **Unicidad:** Una IP debe tener solo un PTR
-4. **Dominio propio:** Usar subdominio propio (mail.example.com)
+1. **PTR must resolve:** `host IP` must return a valid name
+2. **Consistency:** PTR must match A/AAAA records
+3. **Uniqueness:** An IP must have only one PTR
+4. **Own domain:** Use your own subdomain (mail.example.com)
 
-## Diagnóstico y Troubleshooting
+## Diagnosis and Troubleshooting
 
-### Herramientas de Verificación
+### Verification Tools
 
-#### Comando host
+#### host command
 ```bash
 host 192.168.1.1
-# Debe devolver: 192.168.1.1.in-addr.arpa domain name pointer mail.example.com
+# Should return: 192.168.1.1.in-addr.arpa domain name pointer mail.example.com
 ```
 
 #### Dig
 ```bash
-# Consulta PTR
+# PTR query
 dig PTR 1.1.168.192.in-addr.arpa
 
-# Consulta inversa simplificada
+# Simplified reverse query
 dig -x 192.168.1.1
 ```
 
@@ -220,28 +220,28 @@ nslookup
 > 1.1.168.192.in-addr.arpa
 ```
 
-### Problemas Comunes
+### Common Problems
 
-#### 1. PTR no configurado
+#### 1. PTR not configured
 ```
 ;; ANSWER SECTION:
 ;; No answer
 ```
 
-#### 2. Delegación incorrecta
+#### 2. Incorrect delegation
 ```
 ;; AUTHORITY SECTION:
 1.168.192.in-addr.arpa. 86400 IN NS ns1.isp.com.
 ```
 
-#### 3. TTL inconsistente
-PTR con TTL diferente al A record puede causar problemas de caché.
+#### 3. Inconsistent TTL
+A PTR with a TTL different from the A record can cause caching problems.
 
-### Scripts de Monitoreo
+### Monitoring Scripts
 
 ```bash
 #!/bin/bash
-# Verificar PTR para rango de IPs
+# Check PTR for an IP range
 
 for i in {1..254}; do
     ip="192.168.1.$i"
@@ -254,47 +254,47 @@ for i in {1..254}; do
 done
 ```
 
-## Casos de Uso Avanzados
+## Advanced Use Cases
 
 ### Load Balancing
 
-PTR para IPs de balanceadores:
+PTR for load balancer IPs:
 
 ```
 10 IN PTR lb1.example.com.
-10 IN PTR lb2.example.com.  ; No recomendado - solo un PTR por IP
+10 IN PTR lb2.example.com.  ; Not recommended - only one PTR per IP
 ```
 
-### CDN y Hosting Compartido
+### CDN and Shared Hosting
 
-- **Problema:** Múltiples dominios en misma IP
-- **Solución:** PTR genérico o subdominios
+- **Problem:** Multiple domains on the same IP
+- **Solution:** Generic PTR or subdomains
 
-### VPN y Remote Access
+### VPN and Remote Access
 
-PTR para IPs asignadas dinámicamente:
+PTR for dynamically assigned IPs:
 
 ```
 100 IN PTR vpn-user-001.example.com.
 101 IN PTR vpn-user-002.example.com.
 ```
 
-## Seguridad
+## Security
 
-### Consideraciones
+### Considerations
 
-- **Información leakage:** PTR puede revelar estructura interna
-- **Spoofing:** Ataques de DNS spoofing afectan PTR
-- **Cache poisoning:** Ataques a servidores DNS
+- **Information leakage:** PTR can reveal internal structure
+- **Spoofing:** DNS spoofing attacks affect PTR
+- **Cache poisoning:** Attacks on DNS servers
 
-### Mejores Prácticas de Seguridad
+### Security Best Practices
 
-1. **DNSSEC:** Firmar zonas inversas
-2. **Split DNS:** Zonas internas vs externas diferentes
-3. **Rate limiting:** Limitar consultas inversas
-4. **Monitoreo:** Alertas de cambios en PTR
+1. **DNSSEC:** Sign reverse zones
+2. **Split DNS:** Separate internal and external zones
+3. **Rate limiting:** Limit reverse queries
+4. **Monitoring:** Alerts on PTR changes
 
-## Referencias
+## References
 
 - RFC 1035: Domain Names - Implementation and Specification
 - RFC 2317: Classless IN-ADDR.ARPA delegation

@@ -1,6 +1,6 @@
 ---
-title: "Ubuntu/Debian"
-tags: ['cybersecurity']
+title: "Firewall and Network Security"
+tags: ['cybersecurity', 'firewall', 'networking', 'siem']
 
 updated: 2026-01-23
 last_reviewed: 2026-01-25
@@ -13,128 +13,128 @@ prerequisites:
   - "Intermediate Linux"
 ---
 
-## Resumen
+## Summary
 
-Esta guía cubre configuración de firewalls en Linux (iptables/nftables, UFW) y herramientas de detección de intrusiones como Suricata/Zeek. Incluye ejemplos prácticos para hardening de red en servidores y contenedores.
+This guide covers firewall configuration on Linux (iptables/nftables, UFW) and intrusion detection tools such as Suricata/Zeek. It includes practical examples for network hardening on servers and containers.
 
-## Prerrequisitos
+## Prerequisites
 
-- Conocimientos básicos de redes (TCP/IP, puertos, protocolos).
-- Acceso a un servidor Linux (Ubuntu/Debian/CentOS).
-- Familiaridad con comandos de terminal.
+- Basic networking knowledge (TCP/IP, ports, protocols).
+- Access to a Linux server (Ubuntu/Debian/CentOS).
+- Familiarity with terminal commands.
 
-## Firewalls en Linux
+## Firewalls on Linux
 
 ### UFW (Uncomplicated Firewall)
 
-Interfaz simplificada para iptables, recomendado para principiantes.
+Simplified interface for iptables, recommended for beginners.
 
-#### Instalación y Configuración Básica
+#### Installation and Basic Configuration
 
 ```bash
 # Ubuntu/Debian
 sudo apt update
 sudo apt install ufw
 
-# Habilitar
+# Enable
 sudo ufw enable
 
-# Reglas básicas
+# Basic rules
 sudo ufw allow ssh
 sudo ufw allow 80/tcp
 sudo ufw allow 443/tcp
 
-# Denegar todo por defecto
+# Deny everything by default
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 ```
 
-#### Reglas Avanzadas
+#### Advanced Rules
 
 ```bash
-# Permitir rango de puertos
+# Allow port range
 sudo ufw allow 3000:4000/tcp
 
-# Permitir desde IP específica
+# Allow from a specific IP
 sudo ufw allow from 192.168.1.100 to any port 22
 
-# Limitar conexiones SSH
+# Rate-limit SSH connections
 sudo ufw limit ssh
 
-# Ver estado
+# Show status
 sudo ufw status verbose
 ```
 
 ### iptables
 
-Herramienta clásica para configuración de firewall en kernel Linux.
+Classic tool for configuring the firewall in the Linux kernel.
 
-#### Sintaxis Básica
+#### Basic Syntax
 
 ```bash
-# Ver reglas actuales
+# Show current rules
 sudo iptables -L -n
 
-# Permitir loopback
+# Allow loopback
 sudo iptables -A INPUT -i lo -j ACCEPT
 
-# Permitir conexiones establecidas
+# Allow established connections
 sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
-# Permitir SSH
+# Allow SSH
 sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 
-# Política por defecto
+# Default policy
 sudo iptables -P INPUT DROP
 sudo iptables -P FORWARD DROP
 sudo iptables -P OUTPUT ACCEPT
 
-# Guardar reglas
+# Save rules
 sudo apt install iptables-persistent
 sudo netfilter-persistent save
 ```
 
 ### nftables
 
-Reemplazo moderno de iptables, más eficiente y legible.
+Modern replacement for iptables, more efficient and readable.
 
-#### Ejemplo Básico
+#### Basic Example
 
 ```bash
-# Crear tabla
+# Create table
 sudo nft add table inet filter
 
-# Crear cadenas
+# Create chains
 sudo nft add chain inet filter input { type filter hook input priority 0 \; }
 sudo nft add chain inet filter output { type filter hook output priority 0 \; }
 
-# Reglas
+# Rules
 sudo nft add rule inet filter input iif lo accept
 sudo nft add rule inet filter input ct state established,related accept
 sudo nft add rule inet filter input tcp dport 22 accept
 sudo nft add rule inet filter input drop
 
-# Ver reglas
+# Show rules
 sudo nft list ruleset
 ```
 
-## Herramientas de Detección de Intrusiones (IDS)
+## Intrusion Detection Tools (IDS)
 
 ### Suricata
 
-IDS/IPS open-source, similar a Snort pero más moderno.
+Open-source IDS/IPS, similar to Snort but more modern.
 
-#### Instalación
+#### Installation
 
 ```bash
 # Ubuntu
 sudo apt install suricata
 
-# Configurar interfaz
+# Configure interface
 sudo suricata -c /etc/suricata/suricata.yaml -i eth0
 ```
 
-#### Configuración Básica
+#### Basic Configuration
 
 ```yaml
 # /etc/suricata/suricata.yaml
@@ -147,59 +147,59 @@ rule-files:
   - custom.rules
 ```
 
-#### Reglas Personalizadas
+#### Custom Rules
 
 ```bash
-# Archivo custom.rules
+# custom.rules file
 alert tcp any any -> $HOME_NET 22 (msg:"SSH connection attempt"; sid:1000001; rev:1;)
 ```
 
-#### Modos de Operación
+#### Operating Modes
 
 ```bash
-# Modo IDS (solo detección)
+# IDS mode (detection only)
 suricata -c suricata.yaml -i eth0
 
-# Modo IPS (prevención)
+# IPS mode (prevention)
 suricata -c suricata.yaml -i eth0 --af-packet
 ```
 
-### Zeek (anteriormente Bro)
+### Zeek (formerly Bro)
 
-Framework de análisis de red, enfocado en seguridad.
+Network analysis framework focused on security.
 
-#### Instalación y Uso
+#### Installation and Usage
 
 ```bash
-# Instalar
+# Install
 sudo apt install zeek
 
-# Ejecutar
+# Run
 zeek -i eth0 local
 
-# Ver logs
+# View logs
 tail -f /var/log/zeek/current/conn.log
 ```
 
-## Aplicación en Contenedores
+## Use in Containers
 
 ### Docker
 
 ```bash
-# Ejecutar contenedor con red host (menos seguro)
+# Run container with host network (less secure)
 docker run --network host nginx
 
-# Mejor: usar redes bridge y publicar puertos específicos
+# Better: use bridge networks and publish specific ports
 docker run -p 8080:80 nginx
 
-# Firewall en host para contenedores
+# Host firewall for containers
 sudo ufw allow 8080/tcp
 ```
 
 ### Kubernetes
 
 ```yaml
-# Network Policy para restringir tráfico
+# Network Policy to restrict traffic
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -220,28 +220,28 @@ spec:
       port: 80
 ```
 
-## Mejores Prácticas
+## Best Practices
 
-- **Principio de Least Privilege:** Permitir solo lo necesario.
-- **Monitoreo:** Logs de firewall y alertas.
-- **Actualizaciones:** Mantener reglas y firmas IDS actualizadas.
-- **Testing:** Probar reglas antes de aplicar en producción.
+- **Least Privilege principle:** Allow only what is necessary.
+- **Monitoring:** Firewall logs and alerts.
+- **Updates:** Keep rules and IDS signatures up to date.
+- **Testing:** Test rules before applying them in production.
 
 ## Troubleshooting
 
 ```bash
-# Ver logs de UFW
+# View UFW logs
 sudo tail -f /var/log/ufw.log
 
-# Ver logs de Suricata
+# View Suricata logs
 sudo tail -f /var/log/suricata/fast.log
 
-# Ver conexiones activas
+# View active connections
 sudo ss -tuln
 sudo netstat -tuln
 ```
 
-## Referencias
+## References
 
 - [UFW Documentation](https://help.ubuntu.com/community/UFW)
 - [iptables Tutorial](https://netfilter.org/documentation/)

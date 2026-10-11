@@ -253,7 +253,7 @@ output2 = model.generate("Common prefix + continuation", past_key_values=output1
 
 ### Frameworks de Optimización
 
-#### 1. **GGUF (GPT-Generated Unified Format)**
+#### 1. **GGUF (formato de llama.cpp, sucesor de GGML)**
 - Formato de cuantización de llama.cpp
 - Compatible con múltiples plataformas
 - Optimizado para CPU y GPU

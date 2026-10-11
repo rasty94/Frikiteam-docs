@@ -1,6 +1,6 @@
 ---
-title: "Instalar"
-tags: ['cybersecurity']
+title: "Authentication and Authorization"
+tags: ['cybersecurity', 'identity']
 
 updated: 2026-01-23
 last_reviewed: 2026-01-25
@@ -13,42 +13,42 @@ prerequisites:
   - "Intermediate Linux"
 ---
 
-## Resumen
+## Summary
 
-Esta guía explica protocolos y herramientas para autenticación y autorización en entornos empresariales: LDAP, OAuth2, SAML. Incluye integración con Keycloak/FreeIPA y ejemplos prácticos.
+This guide explains protocols and tools for authentication and authorization in enterprise environments: LDAP, OAuth2, SAML. It includes integration with Keycloak/FreeIPA and practical examples.
 
-## Prerrequisitos
+## Prerequisites
 
-- Conocimientos básicos de protocolos web (HTTP, HTTPS).
-- Familiaridad con conceptos de identidad (usuarios, roles, permisos).
-- Acceso a un entorno de laboratorio (VM o contenedores).
+- Basic knowledge of web protocols (HTTP, HTTPS).
+- Familiarity with identity concepts (users, roles, permissions).
+- Access to a lab environment (VM or containers).
 
-## Protocolos Principales
+## Core Protocols
 
 ### LDAP (Lightweight Directory Access Protocol)
 
-Protocolo estándar para acceder a directorios de usuarios.
+Standard protocol for accessing user directories.
 
-#### Características
+#### Characteristics
 
-- **Jerarquía:** Estructura de árbol (OU, Groups, Users).
-- **Atributos:** Información de usuario (cn, uid, mail).
-- **Operaciones:** Bind, Search, Add, Modify.
+- **Hierarchy:** Tree structure (OU, Groups, Users).
+- **Attributes:** User information (cn, uid, mail).
+- **Operations:** Bind, Search, Add, Modify.
 
-#### Ejemplo con OpenLDAP
+#### Example with OpenLDAP
 
 ```bash
-# Instalar
+# Install
 sudo apt install slapd ldap-utils
 
-# Configurar dominio
+# Configure domain
 sudo dpkg-reconfigure slapd
 
-# Añadir usuario
+# Add user
 ldapadd -x -D cn=admin,dc=example,dc=com -W -f user.ldif
 ```
 
-Archivo user.ldif:
+user.ldif file:
 ```
 dn: uid=jdoe,ou=users,dc=example,dc=com
 objectClass: inetOrgPerson
@@ -61,71 +61,71 @@ userPassword: {SSHA}hashedpassword
 
 ### OAuth2
 
-Framework para autorización delegada, permite acceso limitado a recursos sin compartir credenciales.
+Framework for delegated authorization; it grants limited access to resources without sharing credentials.
 
-#### Flujo Authorization Code
+#### Authorization Code Flow
 
-1. Cliente solicita autorización al servidor de auth.
-2. Usuario se autentica y autoriza.
-3. Servidor devuelve code.
-4. Cliente intercambia code por access token.
-5. Cliente usa token para acceder a recursos.
+1. Client requests authorization from the auth server.
+2. User authenticates and grants authorization.
+3. Server returns a code.
+4. Client exchanges the code for an access token.
+5. Client uses the token to access resources.
 
-#### Ejemplo con curl
+#### Example with curl
 
 ```bash
-# Paso 1: Obtener code (manual en browser)
+# Step 1: Get the code (manually in the browser)
 # https://auth.example.com/oauth/authorize?response_type=code&client_id=client123&redirect_uri=https://app.example.com/callback
 
-# Paso 2: Intercambiar code por token
+# Step 2: Exchange the code for a token
 curl -X POST https://auth.example.com/oauth/token \
   -d 'grant_type=authorization_code&code=auth_code&redirect_uri=https://app.example.com/callback&client_id=client123&client_secret=secret'
 
-# Respuesta: {"access_token":"token123","token_type":"Bearer"}
+# Response: {"access_token":"token123","token_type":"Bearer"}
 ```
 
 ### SAML (Security Assertion Markup Language)
 
-Protocolo XML para intercambio de información de autenticación y autorización.
+XML protocol for exchanging authentication and authorization information.
 
-#### Componentes
+#### Components
 
-- **Identity Provider (IdP):** Autentica usuarios.
-- **Service Provider (SP):** Proporciona servicios.
-- **Assertions:** Información sobre autenticación/autorización.
+- **Identity Provider (IdP):** Authenticates users.
+- **Service Provider (SP):** Provides services.
+- **Assertions:** Information about authentication/authorization.
 
-#### Flujo Básico
+#### Basic Flow
 
-1. Usuario accede a SP.
-2. SP redirige a IdP.
-3. Usuario se autentica en IdP.
-4. IdP envía assertion SAML a SP.
-5. SP valida assertion y permite acceso.
+1. User accesses the SP.
+2. SP redirects to the IdP.
+3. User authenticates at the IdP.
+4. IdP sends a SAML assertion to the SP.
+5. SP validates the assertion and grants access.
 
-## Herramientas de Gestión de Identidad
+## Identity Management Tools
 
 ### Keycloak
 
-Servidor de identidad open-source, soporta OAuth2, SAML, LDAP.
+Open-source identity server; supports OAuth2, SAML, LDAP.
 
-#### Instalación con Docker
+#### Installation with Docker
 
 ```bash
 docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:latest start-dev
 ```
 
-#### Configuración Básica
+#### Basic Configuration
 
-1. Acceder a http://localhost:8080
-2. Crear realm
-3. Configurar clientes (OAuth2 apps)
-4. Crear usuarios y roles
-5. Configurar identity providers (LDAP, Google, etc.)
+1. Open http://localhost:8080
+2. Create a realm
+3. Configure clients (OAuth2 apps)
+4. Create users and roles
+5. Configure identity providers (LDAP, Google, etc.)
 
-#### Integración con Aplicación
+#### Integrating with an Application
 
 ```python
-# Python con requests-oauthlib
+# Python with requests-oauthlib
 from requests_oauthlib import OAuth2Session
 
 client_id = 'myclient'
@@ -135,41 +135,41 @@ redirect_uri = 'http://localhost:8080/callback'
 oauth = OAuth2Session(client_id, redirect_uri=redirect_uri)
 authorization_url, state = oauth.authorization_url('http://localhost:8080/realms/myrealm/protocol/openid-connect/auth')
 
-# Redirigir usuario a authorization_url
+# Redirect user to authorization_url
 ```
 
 ### FreeIPA
 
-Suite integrada para gestión de identidad (LDAP + Kerberos + DNS + CA).
+Integrated suite for identity management (LDAP + Kerberos + DNS + CA).
 
-#### Instalación
+#### Installation
 
 ```bash
-# En CentOS/RHEL
+# On CentOS/RHEL
 sudo yum install freeipa-server
 sudo ipa-server-install
 ```
 
-#### Uso
+#### Usage
 
 ```bash
-# Añadir usuario
+# Add user
 ipa user-add jdoe --first=John --last=Doe
 
-# Añadir host
+# Add host
 ipa host-add myserver.example.com
 
-# Configurar sudo rules
+# Configure sudo rules
 ipa sudorule-add mysudo
 ipa sudorule-add-host mysudo --hosts=myserver.example.com
 ```
 
-## Integración en Aplicaciones
+## Application Integration
 
-### Kubernetes con OIDC
+### Kubernetes with OIDC
 
 ```yaml
-# kubeconfig con OIDC
+# kubeconfig with OIDC
 apiVersion: v1
 kind: Config
 clusters:
@@ -194,10 +194,10 @@ users:
       - --oidc-client-secret=secret
 ```
 
-### Aplicación Web con JWT
+### Web Application with JWT
 
 ```javascript
-// Verificar token JWT
+// Verify JWT token
 const jwt = require('jsonwebtoken');
 
 function verifyToken(req, res, next) {
@@ -212,28 +212,28 @@ function verifyToken(req, res, next) {
 }
 ```
 
-## Mejores Prácticas
+## Best Practices
 
-- **Multi-Factor Authentication (MFA):** Siempre activar.
-- **Principio de Least Privilege:** Roles mínimos.
-- **Auditoría:** Logs de autenticación y autorización.
-- **Certificados:** Usar HTTPS y certificados válidos.
-- **Rotación:** Cambiar secrets periódicamente.
+- **Multi-Factor Authentication (MFA):** Always enable.
+- **Least Privilege principle:** Minimal roles.
+- **Auditing:** Authentication and authorization logs.
+- **Certificates:** Use HTTPS and valid certificates.
+- **Rotation:** Change secrets periodically.
 
 ## Troubleshooting
 
 ```bash
-# Verificar conectividad LDAP
+# Verify LDAP connectivity
 ldapsearch -x -b "dc=example,dc=com" -D "cn=admin,dc=example,dc=com" -W
 
 # Debug OAuth2
 curl -v https://auth.example.com/.well-known/openid-configuration
 
-# Logs de Keycloak
+# Keycloak logs
 docker logs keycloak
 ```
 
-## Referencias
+## References
 
 - [LDAP RFC 4511](https://tools.ietf.org/rfc/rfc4511.txt)
 - [OAuth 2.0 RFC 6749](https://tools.ietf.org/rfc/rfc6749.txt)

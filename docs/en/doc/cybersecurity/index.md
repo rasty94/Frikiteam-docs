@@ -1,51 +1,51 @@
 ---
-title: "Ciberseguridad en DevOps e Infraestructura"
+title: "Cybersecurity"
 description: "Complete cybersecurity guides for DevOps and infrastructure environments"
 tags: ['cybersecurity']
 
 updated: 2026-01-23
 ---
 
-# Ciberseguridad en DevOps e Infraestructura
+# Cybersecurity in DevOps and Infrastructure
 
-Esta sección contiene guías prácticas sobre ciberseguridad enfocadas en entornos de desarrollo, operaciones y nube. Cubrimos desde conceptos fundamentales hasta herramientas específicas para proteger infraestructuras modernas.
+This section contains practical guides on cybersecurity focused on development, operations and cloud environments. We cover everything from fundamental concepts to specific tools for protecting modern infrastructure.
 
-## 📚 Contenido de la Sección
+## 📚 Section Contents
 
-### Fundamentos y Conceptos
-- **[Introducción a DevSecOps](introduccion_devsecops.md)**: Integración de seguridad en pipelines CI/CD
-- **[Modelo de Amenazas](modelo_amenazas.md)**: Identificación de amenazas usando OWASP Top 10 y MITRE ATT&CK
-- **[Principios de Seguridad](principios_seguridad.md)**: Defense in Depth, Zero Trust, Least Privilege
+### Fundamentals and Concepts
+- **[Introduction to DevSecOps](introduccion_devsecops.md)**: Integrating security into CI/CD pipelines
+- **[Threat Modeling](modelo_amenazas.md)**: Identifying threats using OWASP Top 10 and MITRE ATT&CK
+- **[Security Principles](principios_seguridad.md)**: Defense in Depth, Zero Trust, Least Privilege
 
-### Herramientas y Tecnologías
-- **[Escaneo de Vulnerabilidades](escaneo_vulnerabilidades.md)**: Trivy, Clair, Snyk para contenedores
-- **[Gestión de Secretos](gestion_secretos.md)**: Vault, AWS Secrets Manager, Kubernetes Secrets
-- **[Firewall y Red](firewall_red.md)**: iptables, nftables, UFW, Suricata/Zeek
-- **[Autenticación y Autorización](autenticacion_autorizacion.md)**: LDAP, OAuth2, SAML, Keycloak
-- **[Monitoreo de Seguridad](monitoreo_seguridad.md)**: Falco, Wazuh, SIEM básico
+### Tools and Technologies
+- **[Vulnerability Scanning](escaneo_vulnerabilidades.md)**: Trivy, Clair, Snyk for containers
+- **[Secrets Management](gestion_secretos.md)**: Vault, AWS Secrets Manager, Kubernetes Secrets
+- **[Firewall and Network](firewall_red.md)**: iptables, nftables, UFW, Suricata/Zeek
+- **[Authentication and Authorization](autenticacion_autorizacion.md)**: LDAP, OAuth2, SAML, Keycloak
+- **[Security Monitoring](monitoreo_seguridad.md)**: Falco, Wazuh, basic SIEM
 
-## 🎯 Audiencia
+## 🎯 Audience
 
-Estas guías están dirigidas a:
-- **DevOps Engineers** que necesitan integrar seguridad en sus pipelines
-- **Administradores de Sistemas** responsables de hardening de infraestructura
-- **Desarrolladores** que quieren entender seguridad en aplicaciones cloud-native
-- **Equipos de Seguridad** que buscan mejores prácticas para entornos DevOps
+These guides are aimed at:
+- **DevOps Engineers** who need to integrate security into their pipelines
+- **System Administrators** responsible for infrastructure hardening
+- **Developers** who want to understand security in cloud-native applications
+- **Security Teams** looking for best practices in DevOps environments
 
-## 🔧 Enfoque Práctico
+## 🔧 Practical Approach
 
-Todas las guías incluyen:
-- Ejemplos reales de configuración
-- Casos de uso comunes en entornos empresariales
-- Comparativas entre diferentes herramientas
-- Mejores prácticas basadas en estándares de la industria
+All guides include:
+- Real configuration examples
+- Common use cases in enterprise environments
+- Comparisons between different tools
+- Best practices based on industry standards
 
-## 📖 Lecturas Recomendadas
+## 📖 Recommended Reading
 
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/) - Vulnerabilidades web más comunes
-- [MITRE ATT&CK](https://attack.mitre.org/) - Framework de tácticas de adversarios
-- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework) - Guía de ciberseguridad
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/) - Most common web vulnerabilities
+- [MITRE ATT&CK](https://attack.mitre.org/) - Adversary tactics framework
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework) - Cybersecurity guide
 
 ---
 
-*Última actualización: Enero 2026*
+*Last updated: January 2026*

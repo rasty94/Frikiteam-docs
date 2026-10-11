@@ -3,8 +3,8 @@ title: "MTU/MSS Values"
 description: Typical Maximum Transmission Unit values for different media (Ethernet, PPPoE, Jumbo Frames).
 tags: ['networking']
 
-updated: 2026-01-23
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: intermediate
 category: Networking
 status: published
@@ -16,73 +16,73 @@ prerequisites:
 
 # MTU/MSS Values
 
-MTU (Maximum Transmission Unit) y MSS (Maximum Segment Size) son parámetros críticos en redes TCP/IP que afectan el rendimiento y la eficiencia de la transmisión de datos.
+MTU (Maximum Transmission Unit) and MSS (Maximum Segment Size) are critical parameters in TCP/IP networks that affect the performance and efficiency of data transmission.
 
-## Conceptos Básicos
+## Basic Concepts
 
 ### MTU (Maximum Transmission Unit)
 
-La MTU es el tamaño máximo de paquete que puede transmitirse en una interfaz de red sin fragmentación.
+The MTU is the maximum packet size that can be transmitted on a network interface without fragmentation.
 
-**Fórmula básica:**
+**Basic formula:**
 ```
 MTU = Payload + Headers
 ```
 
 ### MSS (Maximum Segment Size)
 
-El MSS es el tamaño máximo de datos en un segmento TCP, excluyendo los headers TCP/IP.
+The MSS is the maximum amount of data in a TCP segment, excluding the TCP/IP headers.
 
-**Relación con MTU:**
+**Relationship with MTU:**
 ```
 MSS = MTU - (IP Header + TCP Header)
-MSS = MTU - 40 bytes (IPv4) o 60 bytes (IPv6 con opciones)
+MSS = MTU - 40 bytes (IPv4) or 60 bytes (IPv6 with options)
 ```
 
-## Valores MTU por Tecnología
+## MTU Values by Technology
 
 ### Ethernet
 
-| Estándar | MTU | Notas |
+| Standard | MTU | Notes |
 |----------|-----|-------|
-| Ethernet II | 1500 | Estándar más común |
-| IEEE 802.3 | 1492 | Con LLC/SNAP |
-| Jumbo Frames | 9000 | Frames grandes |
-| Super Jumbo | 16000+ | Para storage networks |
+| Ethernet II | 1500 | Most common standard |
+| IEEE 802.3 | 1492 | With LLC/SNAP |
+| Jumbo Frames | 9000 | Large frames |
+| Super Jumbo | 16000+ | For storage networks |
 
-### Tecnologías WAN
+### WAN Technologies
 
-| Tecnología | MTU Típico | Overhead | Notas |
+| Technology | Typical MTU | Overhead | Notes |
 |------------|------------|----------|-------|
-| PPPoE | 1492 | 8 bytes | DSL común |
-| PPTP | 1460 | 40 bytes | VPN Microsoft |
-| L2TP | 1460 | 40 bytes | VPN estándar |
+| PPPoE | 1492 | 8 bytes | Common DSL |
+| PPTP | 1460 | 40 bytes | Microsoft VPN |
+| L2TP | 1460 | 40 bytes | Standard VPN |
 | GRE | 1476 | 24 bytes | Tunneling |
-| IPsec | 1380-1420 | 50-90 bytes | VPN cifrado |
+| IPsec | 1380-1420 | 50-90 bytes | Encrypted VPN |
 | MPLS | 1500 | Variable | Provider dependent |
 
-### Tecnologías Inalámbricas
+### Wireless Technologies
 
-| Tecnología | MTU | Notas |
+| Technology | MTU | Notes |
 |------------|-----|-------|
-| Wi-Fi (802.11) | 1500 | Igual que Ethernet |
-| Wi-Fi (802.11n/ac) | 2304 | Con agregación |
-| LTE/4G | 1428 | Dependiente del operador |
-| 5G | 1428+ | Mayor en algunas implementaciones |
+| Wi-Fi (802.11) | 1500 | Same as Ethernet |
+| Wi-Fi (802.11n/ac) | 2304 | With aggregation |
+| LTE/4G | 1428 | Carrier dependent |
+| 5G | 1428+ | Higher in some deployments |
 
-### Tecnologías de Storage
+### Storage Technologies
 
-| Tecnología | MTU | Uso |
+| Technology | MTU | Use |
 |------------|-----|-----|
-| iSCSI | 9000 | Jumbo frames recomendado |
-| NFS | 9000 | Mejor rendimiento |
-| Fibre Channel over IP | 2400+ | Dependiente de FC |
+| iSCSI | 9000 | Jumbo frames recommended |
+| NFS | 9000 | Better performance |
+| Fibre Channel over IP | 2400+ | Depends on FC |
 
-## Cálculo de MSS
+## MSS Calculation
 
 ### IPv4
 
-**Headers mínimos:**
+**Minimum headers:**
 - IP Header: 20 bytes
 - TCP Header: 20 bytes
 - **Total overhead:** 40 bytes
@@ -91,14 +91,14 @@ MSS = MTU - 40 bytes (IPv4) o 60 bytes (IPv6 con opciones)
 MSS = MTU - 40
 ```
 
-**Ejemplos:**
+**Examples:**
 - MTU 1500: MSS = 1460
 - MTU 1492 (PPPoE): MSS = 1452
 - MTU 9000 (Jumbo): MSS = 8960
 
 ### IPv6
 
-**Headers mínimos:**
+**Minimum headers:**
 - IPv6 Header: 40 bytes
 - TCP Header: 20 bytes
 - **Total overhead:** 60 bytes
@@ -107,46 +107,46 @@ MSS = MTU - 40
 MSS = MTU - 60
 ```
 
-**Con extensiones:**
+**With extension headers:**
 - Fragment Header: +8 bytes
 - Routing Header: +8-24 bytes
-- Total puede llegar a 100+ bytes
+- Total can reach 100+ bytes
 
-### TCP con Opciones
+### TCP with Options
 
-**Opciones comunes:**
+**Common options:**
 - Timestamp: +12 bytes
 - SACK: +variable
 - Window Scaling: +4 bytes
 
-**MSS efectivo:**
+**Effective MSS:**
 ```
 MSS_Efectivo = MSS - Opciones_TCP
 ```
 
-## Configuración en Sistemas
+## System Configuration
 
 ### Linux
 
-#### Ver MTU actual
+#### View the current MTU
 ```bash
 ip link show dev eth0
 ip addr show dev eth0
 ```
 
-#### Configurar MTU
+#### Set the MTU
 ```bash
-# Temporal
+# Temporary
 ip link set dev eth0 mtu 9000
 
-# Permanente (Ubuntu/Debian)
+# Permanent (Ubuntu/Debian)
 # /etc/network/interfaces
 iface eth0 inet static
     address 192.168.1.100
     netmask 255.255.255.0
     mtu 9000
 
-# Permanente (systemd-networkd)
+# Permanent (systemd-networkd)
 # /etc/systemd/network/10-eth0.network
 [Match]
 Name=eth0
@@ -158,22 +158,22 @@ MTUBytes=9000
 
 #### TCP MSS clamping
 ```bash
-# Ver MSS actual
+# View the current MSS
 ip route show
 
-# Configurar MSS clamping
+# Configure MSS clamping
 iptables -t mangle -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1452
 ```
 
 ### Windows
 
-#### Ver MTU
+#### View the MTU
 ```cmd
 netsh interface ipv4 show interfaces
 netsh interface ipv4 show subinterfaces
 ```
 
-#### Configurar MTU
+#### Set the MTU
 ```cmd
 netsh interface ipv4 set subinterface "Ethernet" mtu=9000 store=persistent
 ```
@@ -187,14 +187,14 @@ Set-NetAdapterAdvancedProperty -Name "Ethernet" -RegistryKeyword "*MTU" -Registr
 ### Cisco IOS
 
 ```cisco
-! Ver MTU
+! View the MTU
 show interfaces GigabitEthernet 0/0
 
-! Configurar MTU
+! Set the MTU
 interface GigabitEthernet 0/0
  mtu 9000
- ip mtu 9000  ! Para IPv4
- ipv6 mtu 9000  ! Para IPv6
+ ip mtu 9000  ! For IPv4
+ ipv6 mtu 9000  ! For IPv6
 
 ! MSS clamping
 ip tcp mss 1452
@@ -203,50 +203,50 @@ ip tcp mss 1452
 ### Juniper JunOS
 
 ```junos
-# Ver MTU
+# View the MTU
 show interfaces ge-0/0/0
 
-# Configurar MTU
+# Set the MTU
 set interfaces ge-0/0/0 mtu 9000
 
 # MSS clamping
 set security flow tcp-mss all-tcp mss 1452
 ```
 
-## Problemas de MTU y Solución
+## MTU Problems and Solutions
 
-### Síntomas de MTU Baja
+### Symptoms of a Low MTU
 
-1. **Pérdida de paquetes grandes**
-2. **Rendimiento lento en descargas**
-3. **Problemas con VPN**
-4. **Errores de fragmentación**
+1. **Loss of large packets**
+2. **Slow download performance**
+3. **VPN problems**
+4. **Fragmentation errors**
 
-### Diagnóstico
+### Diagnosis
 
-#### Herramientas de prueba
+#### Test tools
 
 ```bash
-# Ping con tamaño específico
+# Ping with a specific size
 ping -M do -s 1472 192.168.1.1  # 1500 - 28 = 1472
 
-# Descubrir MTU path
+# Discover the path MTU
 tracepath example.com
 
-# MTR con MTU
+# MTR with MTU
 mtr --mtu example.com
 ```
 
-#### Script de discovery MTU
+#### MTU discovery script
 
 ```bash
 #!/bin/bash
-# Descubrir MTU path
+# Discover the path MTU
 
 TARGET=$1
 MTU=1500
 
-echo "Descubriendo MTU path a $TARGET..."
+echo "Discovering path MTU to $TARGET..."
 
 while [ $MTU -gt 0 ]; do
     if ping -M do -s $((MTU-28)) -c 1 $TARGET >/dev/null 2>&1; then
@@ -257,13 +257,13 @@ while [ $MTU -gt 0 ]; do
 done
 ```
 
-### Problemas Comunes y Soluciones
+### Common Problems and Solutions
 
 #### 1. PPPoE Overhead
 
-**Problema:** MTU 1500 en enlace PPPoE (MTU real 1492)
+**Problem:** MTU 1500 on a PPPoE link (actual MTU 1492)
 
-**Solución:**
+**Solution:**
 ```bash
 # Linux
 iptables -t mangle -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1452
@@ -274,92 +274,139 @@ ip tcp mss 1452
 
 #### 2. VPN Overhead
 
-**Problema:** IPSec/GRE añade overhead
+**Problem:** IPSec/GRE adds overhead
 
-**Solución:**
+**Solution:**
 ```bash
-# Calcular MSS correcto
-# Para IPSec: MTU - 50-90 bytes
+# Calculate the correct MSS
+# For IPSec: MTU - 50-90 bytes
 iptables -t mangle -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1380
 ```
 
 #### 3. Jumbo Frames
 
-**Problema:** No todos los dispositivos soportan jumbo frames
+**Problem:** Not all devices support jumbo frames
 
-**Solución:**
-- Verificar compatibilidad de todos los dispositivos
-- Usar VLANs separadas para jumbo frames
-- Configurar MTU por interfaz
+**Solution:**
+- Check compatibility on every device
+- Use separate VLANs for jumbo frames
+- Configure the MTU per interface
 
-## Rendimiento y Optimización
+## Performance and Optimization
 
-### Beneficios de MTU Alta
+### Benefits of a High MTU
 
-1. **Menos overhead:** Menos headers por byte de datos
-2. **Mejor throughput:** Menos interrupciones de CPU
-3. **Eficiencia:** Mejor para transferencias grandes
+1. **Less overhead:** Fewer headers per byte of data
+2. **Better throughput:** Fewer CPU interrupts
+3. **Efficiency:** Better for large transfers
 
-### Jumbo Frames en Práctica
+### Jumbo Frames in Practice
 
-#### Configuración recomendada
+#### Recommended configuration
 
 ```bash
-# Servidor de archivos
+# File server
 ip link set dev eth0 mtu 9000
 
-# Verificar soporte
-ethtool -i eth0  # Ver driver
-ethtool eth0     # Ver capacidades
+# Check support
+ethtool -i eth0  # View the driver
+ethtool eth0     # View capabilities
 ```
 
-#### Casos de uso
+#### Use cases
 
-- **Storage:** iSCSI, NFS sobre Ethernet
-- **Backup:** Transferencias grandes
-- **Virtualización:** Tráfico entre VMs
-- **Data centers:** Redes de alta velocidad
+- **Storage:** iSCSI, NFS over Ethernet
+- **Backup:** Large transfers
+- **Virtualization:** Traffic between VMs
+- **Data centers:** High-speed networks
 
-### Consideraciones de Seguridad
+### Security Considerations
 
-#### Fragmentación y Seguridad
+#### Fragmentation and Security
 
-- **PMTU Discovery:** Ataques de fragmentación
-- **ICMP blocking:** Puede causar problemas de MTU
-- **VPN:** MTU afecta rendimiento de túneles
+- **PMTU Discovery:** Fragmentation attacks
+- **ICMP blocking:** Can cause MTU problems
+- **VPN:** MTU affects tunnel performance
 
-#### Mejores Prácticas
+#### Best Practices
 
-1. **Monitoreo:** Alertas de cambios de MTU
-2. **Documentación:** Registrar MTU por segmento
-3. **Testing:** Verificar compatibilidad antes de cambiar
-4. **Backup:** Plan de rollback
+1. **Monitoring:** Alerts on MTU changes
+2. **Documentation:** Record the MTU per segment
+3. **Testing:** Verify compatibility before changing
+4. **Backup:** Rollback plan
 
-## Valores de Referencia
+## Reference Values
 
-### MTU por Tipo de Red
+### MTU by Network Type
 
-| Tipo de Red | MTU Recomendado | Notas |
+| Network Type | Recommended MTU | Notes |
 |-------------|------------------|-------|
-| LAN Ethernet | 1500 | Estándar |
-| LAN Gigabit | 1500-9000 | Jumbo si soportado |
-| WAN PPPoE | 1492 | Overhead PPPoE |
-| WAN MPLS | 1500 | Provider dependent |
-| VPN IPSec | 1380-1420 | Overhead cifrado |
-| Wireless | 1500 | Igual que Ethernet |
+| Ethernet LAN | 1500 | Standard |
+| Gigabit LAN | 1500-9000 | Jumbo if supported |
+| PPPoE WAN | 1492 | PPPoE overhead |
+| MPLS WAN | 1500 | Provider dependent |
+| IPSec VPN | 1380-1420 | Encryption overhead |
+| Wireless | 1500 | Same as Ethernet |
 | Storage | 9000 | Jumbo frames |
 
-### MSS por Escenario
+### MSS by Scenario
 
-| Escenario | MTU | MSS IPv4 | MSS IPv6 |
+| Scenario | MTU | MSS IPv4 | MSS IPv6 |
 |-----------|-----|----------|----------|
-| Ethernet estándar | 1500 | 1460 | 1440 |
+| Standard Ethernet | 1500 | 1460 | 1440 |
 | PPPoE | 1492 | 1452 | 1432 |
 | IPSec tunnel | 1420 | 1380 | 1360 |
 | PPTP | 1460 | 1420 | 1400 |
 | Jumbo frames | 9000 | 8960 | 8940 |
 
-## Referencias
+## MTU on 25G, 40G and 100G networks
+
+At these speeds the cost is not in the bandwidth alone but in the number of packets per second. At 100G with MTU 1500 you need on the order of 8 million packets per second (theoretical estimate, ignoring layer 2 overhead), and each packet consumes CPU. Raising the MTU reduces that number, but it is not the only way.
+
+Offloads do much of this work in the NIC or the driver: TSO and GSO split large buffers into segments on transmit, and GRO and LRO merge received segments before handing them to the kernel. With offloads enabled the CPU handles far fewer packets even at MTU 1500, so do not assume jumbo frames are required to fill a 25G or 100G link.
+
+### Jumbo end to end
+
+A jumbo frame only works if **every** hop on the path uses the same MTU: NIC, bond, bridge (for example `vmbr` in Proxmox), VLAN subinterface and switch ports. A single hop at 1500 makes large packets get dropped (with the DF bit set) or fragmented. The typical symptom is a link that answers small pings but stalls on large transfers.
+
+Check the MTU of each layer with `ip link show`:
+
+```bash
+ip link show dev bond0 | grep mtu
+ip link show dev vmbr1 | grep mtu
+ip link show dev bond0.100 | grep mtu
+```
+
+Then validate the end-to-end path with ping and DF set. In IPv4 the ICMP payload is MTU − 28 bytes (20 for IP and 8 for ICMP):
+
+```bash
+ping -M do -s 8972 -c 3 <ip_destino>   # MTU 9000 end to end
+ping -M do -s 1472 -c 3 <ip_destino>   # MTU 1500
+```
+
+If the first fails and the second works, there is a hop that does not support jumbo frames.
+
+### Where it is worth it
+
+| Network | Jumbo | Reason |
+|-----|-------|--------|
+| Ceph (cluster network) | Recommended | Replication and recovery traffic between OSDs on a dedicated network |
+| iSCSI or NFS on an isolated storage network | Recommended | Large blocks on a network you control end to end |
+| Client or production network | Usually not | Clients, gateways and external equipment usually run at 1500; mixing MTUs causes hard-to-diagnose failures |
+
+### Offloads and ring buffer
+
+```bash
+ethtool -k eth0 | grep -E 'segmentation-offload|receive-offload'   # TSO, GSO, GRO, LRO
+ethtool -g eth0                                                    # ring buffer RX/TX: current and maximum
+```
+
+Before blaming the MTU for a CPU problem, check that TSO, GSO and GRO are `on`. The ring buffer sets how many packets can be queued during bursts; if the current value is far below the maximum, raising it may be worthwhile, but confirm it with the driver drop counters (`ethtool -S eth0`).
+
+!!! warning
+    Real gains depend on the NIC, the driver, the workload and the network path itself. There is no universal figure: measure with iperf3 before and after the change (same hosts, same number of connections, several runs) and also compare CPU usage. The methodology is in [benchmarks.md](benchmarks.md).
+
+## References
 
 - RFC 1191: Path MTU Discovery
 - RFC 1981: Path MTU Discovery for IPv6

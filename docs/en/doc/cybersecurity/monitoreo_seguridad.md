@@ -1,6 +1,6 @@
 ---
-title: "Usando Helm"
-tags: ['cybersecurity']
+title: "Security Monitoring"
+tags: ['cybersecurity', 'monitoring', 'siem']
 
 updated: 2026-01-23
 last_reviewed: 2026-01-25
@@ -13,39 +13,39 @@ prerequisites:
   - "Intermediate Linux"
 ---
 
-## Resumen
+## Summary
 
-Esta guía explica cómo implementar monitoreo de seguridad en entornos DevOps, enfocándose en Falco para detección de anomalías en Kubernetes y Wazuh para SIEM básico. Incluye configuración, reglas y integración con alertas.
+This guide explains how to implement security monitoring in DevOps environments, focusing on Falco for anomaly detection in Kubernetes and Wazuh for basic SIEM. It covers configuration, rules and alert integration.
 
-## Prerrequisitos
+## Prerequisites
 
-- Conocimientos básicos de Kubernetes y Linux.
-- Acceso a cluster K8s o servidor Linux.
-- Familiaridad con herramientas de monitoreo (Prometheus, Grafana).
+- Basic knowledge of Kubernetes and Linux.
+- Access to a K8s cluster or a Linux server.
+- Familiarity with monitoring tools (Prometheus, Grafana).
 
 ## Falco
 
-Herramienta de runtime security para Kubernetes, detecta anomalías y amenazas basadas en reglas.
+Runtime security tool for Kubernetes that detects anomalies and threats based on rules.
 
-#### Características
+#### Features
 
-- **Detección:** Basada en eBPF, monitorea syscalls y eventos de K8s.
-- **Reglas:** YAML configurables para definir comportamientos sospechosos.
-- **Integración:** Con Prometheus, Elasticsearch, Slack.
+- **Detection:** Based on eBPF, monitors syscalls and K8s events.
+- **Rules:** Configurable YAML to define suspicious behaviors.
+- **Integration:** With Prometheus, Elasticsearch, Slack.
 
-#### Instalación en Kubernetes
+#### Installation on Kubernetes
 
 ```bash
-# Usando Helm
+# Using Helm
 helm repo add falcosecurity https://falcosecurity.github.io/charts
 helm repo update
 helm install falco falcosecurity/falco
 
-# Verificar
+# Verify
 kubectl get pods -n falco
 ```
 
-#### Reglas Básicas
+#### Basic Rules
 
 ```yaml
 # /etc/falco/falco_rules.yaml
@@ -62,7 +62,7 @@ kubectl get pods -n falco
   priority: WARNING
 ```
 
-#### Reglas Personalizadas
+#### Custom Rules
 
 ```yaml
 - rule: Suspicious file access
@@ -72,10 +72,10 @@ kubectl get pods -n falco
   priority: CRITICAL
 ```
 
-#### Integración con Alertmanager
+#### Integration with Alertmanager
 
 ```yaml
-# Configurar webhook en Falco
+# Configure webhook in Falco
 webhook:
   enabled: true
   http_config:
@@ -84,39 +84,39 @@ webhook:
 
 ## Wazuh
 
-Plataforma open-source para XDR (Extended Detection and Response), incluye SIEM, EDR y gestión de vulnerabilidades.
+Open-source platform for XDR (Extended Detection and Response), including SIEM, EDR and vulnerability management.
 
-#### Componentes
+#### Components
 
-- **Manager:** Servidor central.
-- **Agents:** Instalados en endpoints.
-- **API:** Para integración.
+- **Manager:** Central server.
+- **Agents:** Installed on endpoints.
+- **API:** For integration.
 
-#### Instalación
+#### Installation
 
 ```bash
-# Script automático
+# Automatic script
 curl -sO https://packages.wazuh.com/4.7/wazuh-install.sh
 bash wazuh-install.sh -a
 
-# Acceder a interfaz
-# https://wazuh-server (usuario: admin, password: generado)
+# Access the web interface
+# https://wazuh-server (user: admin, password: generated)
 ```
 
-#### Configuración de Agentes
+#### Agent Configuration
 
 ```bash
-# En servidor a monitorear
+# On the server to monitor
 WAZUH_MANAGER="wazuh-server-ip" apt install wazuh-agent
 systemctl enable wazuh-agent
 systemctl start wazuh-agent
 
-# Registrar agente
+# Register the agent
 /var/ossec/bin/agent-auth -m wazuh-server-ip
 systemctl restart wazuh-agent
 ```
 
-#### Reglas y Alertas
+#### Rules and Alerts
 
 ```xml
 <!-- /var/ossec/etc/rules/local_rules.xml -->
@@ -131,13 +131,13 @@ systemctl restart wazuh-agent
 
 #### Dashboards
 
-Wazuh incluye dashboards en Kibana/Opensearch para visualizar:
-- Alertas de seguridad
-- Estado de agentes
-- Vulnerabilidades
-- Integridad de archivos
+Wazuh includes dashboards in Kibana/OpenSearch to visualize:
+- Security alerts
+- Agent status
+- Vulnerabilities
+- File integrity
 
-## Integración con Stack de Monitoreo
+## Integration with the Monitoring Stack
 
 ### Prometheus + Grafana
 
@@ -149,7 +149,7 @@ scrape_configs:
       - targets: ['falco:9376']
 ```
 
-### Alertas en Slack
+### Alerts in Slack
 
 ```yaml
 # alertmanager.yml
@@ -166,17 +166,17 @@ receivers:
     channel: '#security'
 ```
 
-## Mejores Prácticas
+## Best Practices
 
-- **Reglas Específicas:** Personalizar reglas para el entorno, evitar falsos positivos.
-- **Segmentación:** Monitorear diferentes zonas (DMZ, internal, cloud).
-- **Correlación:** Usar SIEM para correlacionar eventos.
-- **Respuesta:** Definir playbooks para alertas críticas.
-- **Mantenimiento:** Actualizar firmas y reglas regularmente.
+- **Specific Rules:** Customize rules for the environment and avoid false positives.
+- **Segmentation:** Monitor different zones (DMZ, internal, cloud).
+- **Correlation:** Use the SIEM to correlate events.
+- **Response:** Define playbooks for critical alerts.
+- **Maintenance:** Update signatures and rules regularly.
 
-## Ejemplos de Detección
+## Detection Examples
 
-### Falco: Detección de Crypto Mining
+### Falco: Crypto Mining Detection
 
 ```yaml
 - rule: Crypto mining detection
@@ -186,7 +186,7 @@ receivers:
   priority: CRITICAL
 ```
 
-### Wazuh: Detección de Rootkits
+### Wazuh: Rootkit Detection
 
 ```xml
 <rule id="100002" level="12">
@@ -200,17 +200,17 @@ receivers:
 ## Troubleshooting
 
 ```bash
-# Ver logs de Falco
+# View Falco logs
 kubectl logs -n falco deployment/falco
 
-# Ver estado de agentes Wazuh
+# Check Wazuh agent status
 /var/ossec/bin/agent_control -l
 
-# Ver alertas en tiempo real
+# View alerts in real time
 tail -f /var/ossec/logs/alerts/alerts.log
 ```
 
-## Referencias
+## References
 
 - [Falco Documentation](https://falco.org/docs/)
 - [Wazuh Documentation](https://documentation.wazuh.com/)

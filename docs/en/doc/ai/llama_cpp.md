@@ -113,7 +113,7 @@ Vulkan is the best option for AMD/Intel GPUs without relying on ROCm, and it wor
 
 ## 🗜️ GGUF and quantization
 
-**GGUF** (GPT-Generated Unified Format) is llama.cpp's model format. **Quantization** reduces the precision of the weights (from 16 bits down to 4-8 bits) to lower RAM/VRAM usage and speed up inference, at the cost of a controlled loss of quality.
+**GGUF**, the successor to GGML, is llama.cpp's model format. **Quantization** reduces the precision of the weights (from 16 bits down to 4-8 bits) to lower RAM/VRAM usage and speed up inference, at the cost of a controlled loss of quality.
 
 ### Download a model already in GGUF
 

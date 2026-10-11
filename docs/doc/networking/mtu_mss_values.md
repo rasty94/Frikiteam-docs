@@ -2,12 +2,12 @@
 title: MTU/MSS Values
 tags: ['networking']
 description: Valores típicos de Maximum Transmission Unit para diferentes medios (Ethernet, PPPoE, Jumbo Frames).
-updated: 2026-01-09
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 6 min
 category: Redes
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Fundamentos de redes"
@@ -359,6 +359,53 @@ ethtool eth0     # Ver capacidades
 | IPSec tunnel | 1420 | 1380 | 1360 |
 | PPTP | 1460 | 1420 | 1400 |
 | Jumbo frames | 9000 | 8960 | 8940 |
+
+## MTU en redes de 25G, 40G y 100G
+
+A estas velocidades el coste no está solo en el ancho de banda, sino en el número de paquetes por segundo. A 100G con MTU 1500 hacen falta del orden de 8 millones de paquetes por segundo (cálculo teórico, sin contar overhead de capa 2), y cada paquete consume CPU. Subir el MTU reduce ese número, pero no es la única vía.
+
+Los offloads hacen buena parte de ese trabajo en la NIC o en el driver: TSO y GSO trocean buffers grandes en segmentos al transmitir, y GRO y LRO agrupan segmentos recibidos antes de entregarlos al kernel. Con los offloads activos la CPU maneja bastantes menos paquetes aunque el MTU sea 1500, así que no conviene asumir que jumbo sea imprescindible para llenar un enlace de 25G o 100G.
+
+### Jumbo extremo a extremo
+
+Un jumbo frame solo funciona si **todos** los saltos del camino usan el mismo MTU: NIC, bond, bridge (por ejemplo `vmbr` en Proxmox), subinterfaz VLAN y puertos del switch. Basta un salto a 1500 para que los paquetes grandes se pierdan (con el bit DF activo) o se fragmenten. El síntoma típico es un enlace que responde a pings pequeños pero se atasca con transferencias grandes.
+
+Comprueba el MTU de cada capa con `ip link show`:
+
+```bash
+ip link show dev bond0 | grep mtu
+ip link show dev vmbr1 | grep mtu
+ip link show dev bond0.100 | grep mtu
+```
+
+Después valida el camino de extremo a extremo con ping y DF activado. En IPv4 el payload ICMP es MTU − 28 bytes (20 de IP y 8 de ICMP):
+
+```bash
+ping -M do -s 8972 -c 3 <ip_destino>   # MTU 9000 de extremo a extremo
+ping -M do -s 1472 -c 3 <ip_destino>   # MTU 1500
+```
+
+Si el primero falla y el segundo funciona, hay un salto que no admite jumbo.
+
+### Dónde merece la pena
+
+| Red | Jumbo | Motivo |
+|-----|-------|--------|
+| Ceph (red de cluster) | Recomendado | Replicación y recuperación de datos entre OSD en una red dedicada |
+| iSCSI o NFS en red de almacenamiento aislada | Recomendado | Bloques grandes en una red que controlas de punta a punta |
+| Red de clientes o producción | Normalmente no | Clientes, gateways y equipos externos suelen estar en 1500; mezclar MTU genera fallos difíciles de diagnosticar |
+
+### Offloads y ring buffer
+
+```bash
+ethtool -k eth0 | grep -E 'segmentation-offload|receive-offload'   # TSO, GSO, GRO, LRO
+ethtool -g eth0                                                    # ring buffer RX/TX: actual y máximo
+```
+
+Antes de culpar al MTU de un problema de CPU, comprueba que TSO, GSO y GRO estén en `on`. El ring buffer define cuántos paquetes caben en cola ante ráfagas; si el valor actual está muy por debajo del máximo, puede merecer la pena subirlo, y conviene confirmarlo con los contadores de drops del driver (`ethtool -S eth0`).
+
+!!! warning
+    La ganancia real depende de la NIC, el driver, el tipo de carga y el propio camino de red. No hay una cifra universal: mide con iperf3 antes y después del cambio (mismos hosts, mismo número de conexiones, varias ejecuciones) y compara también el uso de CPU. La metodología está en [benchmarks.md](benchmarks.md).
 
 ## Referencias
 

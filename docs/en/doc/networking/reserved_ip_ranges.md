@@ -16,182 +16,178 @@ prerequisites:
 
 # Reserved IP Ranges
 
-Las direcciones IP reservadas son bloques de direcciones que no se enrutan en Internet público. Incluyen rangos privados, de documentación, loopback y otros usos especiales definidos por IANA y RFCs.
+Reserved IP addresses are address blocks that are not routed on the public Internet. They include private ranges, documentation ranges, loopback and other special uses defined by IANA and RFCs.
 
-## Rangos Privados (RFC 1918)
+## Private Ranges (RFC 1918)
 
-### Clase A Privada
+### Private Class A
 
-| Rango | Prefijo CIDR | Hosts Disponibles | Uso |
-|-------|--------------|-------------------|-----|
-| 10.0.0.0 - 10.255.255.255 | 10.0.0.0/8 | 16,777,214 | Redes corporativas grandes |
+| Range | CIDR Prefix | Available Hosts | Use |
+|-------|-------------|-----------------|-----|
+| 10.0.0.0 - 10.255.255.255 | 10.0.0.0/8 | 16,777,214 | Large corporate networks |
 
-**Características:**
-- Un solo bloque de /8
-- Máximo espacio de direcciones privadas
-- Común en grandes organizaciones
-- Soporta VLSM para subredes
+**Characteristics:**
+- A single /8 block
+- Largest private address space
+- Common in large organizations
+- Supports VLSM for subnetting
 
-### Clase B Privada
+### Private Class B
 
-| Rango | Prefijo CIDR | Hosts Disponibles | Uso |
-|-------|--------------|-------------------|-----|
-| 172.16.0.0 - 172.31.255.255 | 172.16.0.0/12 | 1,048,574 | Redes medianas |
+| Range | CIDR Prefix | Available Hosts | Use |
+|-------|-------------|-----------------|-----|
+| 172.16.0.0 - 172.31.255.255 | 172.16.0.0/12 | 1,048,574 | Medium-sized networks |
 
-**Características:**
-- 16 bloques de /16 cada uno
-- Equilibrio entre tamaño y flexibilidad
-- Común en campus universitarios
-- Fácil de recordar y gestionar
+**Characteristics:**
+- 16 blocks of /16 each
+- Balance between size and flexibility
+- Common on university campuses
+- Easy to remember and manage
 
-### Clase C Privada
+### Private Class C
 
-| Rango | Prefijo CIDR | Hosts Disponibles | Uso |
-|-------|--------------|-------------------|-----|
-| 192.168.0.0 - 192.168.255.255 | 192.168.0.0/16 | 65,534 | Redes pequeñas |
+| Range | CIDR Prefix | Available Hosts | Use |
+|-------|-------------|-----------------|-----|
+| 192.168.0.0 - 192.168.255.255 | 192.168.0.0/16 | 65,534 | Small networks |
 
-**Características:**
-- 256 bloques de /24 cada uno
-- Más fácil de gestionar
-- Común en hogares y pequeñas oficinas
-- Soporte nativo en routers domésticos
+**Characteristics:**
+- 256 blocks of /24 each
+- Easiest to manage
+- Common in homes and small offices
+- Native support in home routers
 
-## Rangos Especiales IANA
+## IANA Special Ranges
 
 ### Loopback (RFC 5735)
 
-| Rango | Prefijo CIDR | Uso |
-|-------|--------------|-----|
-| 127.0.0.0 - 127.255.255.255 | 127.0.0.0/8 | Interfaz loopback local |
+| Range | CIDR Prefix | Use |
+|-------|-------------|-----|
+| 127.0.0.0 - 127.255.255.255 | 127.0.0.0/8 | Local loopback interface |
 
-**Detalles:**
-- **127.0.0.1:** Loopback estándar
-- **127.0.0.0/8:** Todo el rango reservado
-- **No enrutable:** Solo accesible localmente
-- **Pruebas:** Usado para testing de servicios locales
+**Details:**
+- **127.0.0.1:** Standard loopback
+- **127.0.0.0/8:** The whole range is reserved
+- **Not routable:** Only reachable locally
+- **Testing:** Used for testing local services
 
 ### Link-Local (RFC 3927)
 
-| Rango | Prefijo CIDR | Uso |
-|-------|--------------|-----|
-| 169.254.0.0 - 169.254.255.255 | 169.254.0.0/16 | Autoconfiguración automática |
+| Range | CIDR Prefix | Use |
+|-------|-------------|-----|
+| 169.254.0.0 - 169.254.255.255 | 169.254.0.0/16 | Automatic autoconfiguration |
 
-**Detalles:**
+**Details:**
 - **APIPA:** Automatic Private IP Addressing
-- **Windows:** Asignado cuando DHCP falla
-- **Zeroconf:** Usado por Bonjour, Avahi
-- **No enrutable:** Solo en enlace local
+- **Windows:** Assigned when DHCP fails
+- **Zeroconf:** Used by Bonjour, Avahi
+- **Not routable:** Local link only
 
-### TEST-NET (RFC 5735)
+### TEST-NET (RFC 5737)
 
-| Rango | Prefijo CIDR | Uso |
-|-------|--------------|-----|
-| 192.0.2.0 - 192.0.2.255 | 192.0.2.0/24 | Documentación y ejemplos |
-| 198.51.100.0 - 198.51.100.255 | 198.51.100.0/24 | Documentación y ejemplos |
-| 203.0.113.0 - 203.0.113.255 | 203.0.113.0/24 | Documentación y ejemplos |
+| Range | CIDR Prefix | Use |
+|-------|-------------|-----|
+| 192.0.2.0 - 192.0.2.255 | 192.0.2.0/24 | Documentation and examples |
+| 198.51.100.0 - 198.51.100.255 | 198.51.100.0/24 | Documentation and examples |
+| 203.0.113.0 - 203.0.113.255 | 203.0.113.0/24 | Documentation and examples |
 
-**Detalles:**
-- **RFC 5735:** Rangos para documentación
-- **No usar en producción:** Solo ejemplos
-- **Libros/Tutoriales:** Común en documentación técnica
+**Details:**
+- **RFC 5737:** Ranges for documentation
+- **Do not use in production:** Examples only
+- **Books/Tutorials:** Common in technical documentation
 
-## Rangos para CGNAT (Carrier-Grade NAT)
+## CGNAT (Carrier-Grade NAT) Ranges
 
 ### RFC 6598 (CGNAT)
 
-| Rango | Prefijo CIDR | Uso |
-|-------|--------------|-----|
+| Range | CIDR Prefix | Use |
+|-------|-------------|-----|
 | 100.64.0.0 - 100.127.255.255 | 100.64.0.0/10 | Shared Address Space |
 
-**Detalles:**
+**Details:**
 - **CGNAT:** Carrier-Grade Network Address Translation
-- **ISPs:** Usado por proveedores de Internet
-- **RFC 6598:** Estándar para espacio compartido
-- **No enrutable:** Solo dentro de redes de operador
+- **ISPs:** Used by Internet service providers
+- **RFC 6598:** Standard for shared address space
+- **Not routable:** Only within carrier networks
 
-### Ejemplos de Uso CGNAT
+### CGNAT Usage Examples
 
 ```
 ISP Network:
-- Public IPs: 203.0.113.0/24 (rango público)
-- CGNAT Pool: 100.64.0.0/16 (para clientes)
-- Cliente 1: 100.64.1.1 (NAT a 203.0.113.10)
-- Cliente 2: 100.64.1.2 (NAT a 203.0.113.10)
+- Public IPs: 203.0.113.0/24 (public range)
+- CGNAT Pool: 100.64.0.0/16 (for customers)
+- Customer 1: 100.64.1.1 (NAT to 203.0.113.10)
+- Customer 2: 100.64.1.2 (NAT to 203.0.113.10)
 ```
 
-## Rangos IANA Reservados
+## IANA Reserved Ranges
 
 ### IPv4 Special-Purpose Address Registry
 
-| Rango | Prefijo CIDR | RFC | Propósito |
-|-------|--------------|-----|----------|
+| Range | CIDR Prefix | RFC | Purpose |
+|-------|-------------|-----|---------|
 | 0.0.0.0/8 | 0.0.0.0/8 | RFC 1122 | "This" network |
 | 192.0.0.0/24 | 192.0.0.0/24 | RFC 5736 | IETF Protocol Assignments |
-| 192.0.2.0/24 | 192.0.2.0/24 | RFC 5735 | TEST-NET-1 |
-| 198.51.100.0/24 | 198.51.100.0/24 | RFC 5735 | TEST-NET-2 |
-| 203.0.113.0/24 | 203.0.113.0/24 | RFC 5735 | TEST-NET-3 |
+| 192.0.2.0/24 | 192.0.2.0/24 | RFC 5737 | TEST-NET-1 |
+| 198.51.100.0/24 | 198.51.100.0/24 | RFC 5737 | TEST-NET-2 |
+| 203.0.113.0/24 | 203.0.113.0/24 | RFC 5737 | TEST-NET-3 |
 | 240.0.0.0/4 | 240.0.0.0/4 | RFC 1112 | Class E (experimental) |
 
-### Rangos por Continente (RIRs)
+### Ranges by Continent (RIRs)
 
-| RIR | Región | Rango Asignado |
-|-----|--------|----------------|
-| ARIN | Norteamérica | 192.168.0.0/16, 172.16.0.0/12, 10.0.0.0/8 |
-| RIPE | Europa/Oriente Medio | 192.168.0.0/16, 172.16.0.0/12, 10.0.0.0/8 |
-| APNIC | Asia/Pacífico | 192.168.0.0/16, 172.16.0.0/12, 10.0.0.0/8 |
-| LACNIC | Latinoamérica | 192.168.0.0/16, 172.16.0.0/12, 10.0.0.0/8 |
-| AFRINIC | África | 192.168.0.0/16, 172.16.0.0/12, 10.0.0/8 |
+!!! note "Private ranges do not depend on the RIR"
+    The five regional registries (ARIN, RIPE NCC, APNIC, LACNIC and AFRINIC) hand out **public** address space. The RFC 1918 private ranges (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) are not assigned by any RIR: they are the same worldwide and anyone can use them inside their own network without requesting them.
+
 
 ## IPv6 Reserved Ranges
 
 ### Unique Local Addresses (ULA)
 
-| Rango | Prefijo | RFC | Uso |
-|-------|---------|-----|-----|
-| fc00::/7 | fc00::/7 | RFC 4193 | Direcciones locales únicas |
+| Range | Prefix | RFC | Use |
+|-------|--------|-----|-----|
+| fc00::/7 | fc00::/7 | RFC 4193 | Unique local addresses |
 
-**Detalles:**
-- **fc00::/8:** Asignadas por LIRs
-- **fd00::/8:** Generadas localmente
-- **No enrutables:** Solo dentro de sitio
+**Details:**
+- **fc00::/8:** Assigned by LIRs
+- **fd00::/8:** Locally generated
+- **Not routable:** Within the site only
 
 ### Link-Local Unicast
 
-| Rango | Prefijo | RFC | Uso |
-|-------|---------|-----|-----|
-| fe80::/10 | fe80::/10 | RFC 4291 | Enlace local |
+| Range | Prefix | RFC | Use |
+|-------|--------|-----|-----|
+| fe80::/10 | fe80::/10 | RFC 4291 | Link-local |
 
-**Detalles:**
-- **fe80::/64:** Por interfaz
-- **Autoconfiguración:** SLAAC
-- **No enrutable:** Solo enlace local
+**Details:**
+- **fe80::/64:** Per interface
+- **Autoconfiguration:** SLAAC
+- **Not routable:** Local link only
 
 ### Multicast
 
-| Rango | Prefijo | RFC | Uso |
-|-------|---------|-----|-----|
-| ff00::/8 | ff00::/8 | RFC 4291 | Direcciones multicast |
+| Range | Prefix | RFC | Use |
+|-------|--------|-----|-----|
+| ff00::/8 | ff00::/8 | RFC 4291 | Multicast addresses |
 
-**Grupos importantes:**
+**Important groups:**
 - **ff02::1:** All nodes
 - **ff02::2:** All routers
 - **ff05::2:** All OSPF routers
 
-## Configuración en Dispositivos
+## Device Configuration
 
-### Router Cisco (IOS)
+### Cisco Router (IOS)
 
 ```cisco
-! Configurar interfaz con IP privada
+! Configure interface with a private IP
 interface GigabitEthernet0/0
  ip address 192.168.1.1 255.255.255.0
  no shutdown
 
-! Configurar NAT para acceso a Internet
+! Configure NAT for Internet access
 ip nat inside source list 1 interface GigabitEthernet0/1 overload
 access-list 1 permit 192.168.1.0 0.0.0.255
 
-! Configurar DHCP para clientes
+! Configure DHCP for clients
 ip dhcp pool LAN
  network 192.168.1.0 255.255.255.0
  default-router 192.168.1.1
@@ -217,27 +213,27 @@ network:
 ### Windows (PowerShell)
 
 ```powershell
-# Configurar IP privada
+# Configure a private IP
 New-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress 192.168.1.100 -PrefixLength 24 -DefaultGateway 192.168.1.1
 
-# Configurar DNS
+# Configure DNS
 Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses ("8.8.8.8","1.1.1.1")
 ```
 
-## Consideraciones de Seguridad
+## Security Considerations
 
-### Riesgos de Rangos Privados
+### Risks of Private Ranges
 
-1. **Conflictos IP:** Múltiples redes usando mismo rango
-2. **Ruteo accidental:** Filtrado insuficiente
-3. **Ataques internos:** Sin segmentación adecuada
+1. **IP conflicts:** Multiple networks using the same range
+2. **Accidental routing:** Insufficient filtering
+3. **Internal attacks:** Without proper segmentation
 
-### Mejores Prácticas
+### Best Practices
 
-#### Segmentación de Red
+#### Network Segmentation
 
 ```bash
-# Linux - Crear VLANs
+# Linux - Create VLANs
 ip link add link eth0 name eth0.10 type vlan id 10
 ip addr add 192.168.10.1/24 dev eth0.10
 
@@ -245,24 +241,24 @@ ip addr add 192.168.10.1/24 dev eth0.10
 iptables -A FORWARD -s 192.168.1.0/24 -d 192.168.2.0/24 -j DROP
 ```
 
-#### Monitoreo de Rangos
+#### Range Monitoring
 
 ```bash
 #!/bin/bash
-# Escanear red privada por dispositivos
+# Scan the private network for devices
 
 NETWORK="192.168.1.0/24"
 
-echo "Escaneando $NETWORK..."
+echo "Scanning $NETWORK..."
 nmap -sn $NETWORK | grep "Nmap scan report" | awk '{print $5}' > hosts.txt
 
-echo "Hosts encontrados:"
+echo "Hosts found:"
 cat hosts.txt
 ```
 
-### VPN y Rangos Privados
+### VPN and Private Ranges
 
-#### OpenVPN con rangos privados
+#### OpenVPN with private ranges
 
 ```openvpn
 server 10.8.0.0 255.255.255.0
@@ -282,59 +278,60 @@ AllowedIPs = 10.0.0.2/32, 192.168.1.0/24
 
 ## Troubleshooting
 
-### Problemas Comunes
+### Common Problems
 
-#### 1. Conflicto de IP
+#### 1. IP Conflict
 ```
-# Verificar IPs en uso
+# Check IPs in use
 arp -a
 nmap -sn 192.168.1.0/24
 ```
 
-#### 2. No hay conectividad
+#### 2. No connectivity
 ```
-# Verificar configuración IP
+# Check IP configuration
 ip addr show
 ip route show
 
-# Probar conectividad
+# Test connectivity
 ping 192.168.1.1
 traceroute 8.8.8.8
 ```
 
-#### 3. DNS no funciona
+#### 3. DNS not working
 ```
-# Verificar servidores DNS
+# Check DNS servers
 cat /etc/resolv.conf
 nslookup google.com
 ```
 
-### Herramientas de Diagnóstico
+### Diagnostic Tools
 
 ```bash
-# Ver tabla ARP
+# View the ARP table
 arp -n
 
-# Ver rutas
+# View routes
 ip route
 
-# Ver interfaces
+# View interfaces
 ip link show
 
-# Test de conectividad
+# Connectivity test
 mtr 8.8.8.8
 
-# Ver procesos de red
+# View network processes
 netstat -tlnp
 ss -tlnp
 ```
 
-## Referencias
+## References
 
 - RFC 1918: Address Allocation for Private Internets
 - RFC 3927: Dynamic Configuration of IPv4 Link-Local Addresses
 - RFC 4193: Unique Local IPv6 Unicast Addresses
-- RFC 5735: Special Use IPv4 Addresses
+- RFC 5735: Special Use IPv4 Addresses (obsoleted by RFC 6890)
+- RFC 5737: IPv4 Address Blocks Reserved for Documentation
 - RFC 6598: IANA-Reserved IPv4 Prefix for Shared Address Space
 - IANA IPv4 Special-Purpose Address Registry
 - IANA IPv6 Special-Purpose Address Registry

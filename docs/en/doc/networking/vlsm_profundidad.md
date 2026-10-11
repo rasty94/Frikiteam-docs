@@ -1,5 +1,5 @@
 ---
-title: "VLSM (Variable Length Subnet Masking)"
+title: "VLSM in Depth"
 description: Guide to Variable Length Subnet Masking to optimize IP address usage.
 tags: ['networking']
 
@@ -16,111 +16,111 @@ prerequisites:
 
 # VLSM (Variable Length Subnet Masking)
 
-VLSM permite crear subredes de diferentes tamaños dentro de una red mayor, optimizando el uso de direcciones IP al asignar exactamente la cantidad necesaria para cada subred.
+VLSM lets you create subnets of different sizes within a larger network, optimizing IP address usage by assigning exactly the number of addresses each subnet needs.
 
-## Conceptos Fundamentales
+## Core Concepts
 
-### ¿Qué es VLSM?
+### What is VLSM?
 
-VLSM es una técnica que permite subdividir una red en subredes de diferentes tamaños, a diferencia del FLSM (Fixed Length Subnet Mask) que usa el mismo tamaño para todas las subredes.
+VLSM is a technique that lets you subdivide a network into subnets of different sizes, unlike FLSM (Fixed Length Subnet Mask), which uses the same size for all subnets.
 
-### Ventajas
+### Advantages
 
-- **Eficiencia:** Reduce el desperdicio de direcciones IP
-- **Escalabilidad:** Permite diseños de red más flexibles
-- **Optimización:** Ajusta el tamaño de subredes a las necesidades reales
+- **Efficiency:** Reduces IP address waste
+- **Scalability:** Allows more flexible network designs
+- **Optimization:** Adjusts subnet sizes to actual needs
 
-## Metodología de Diseño
+## Design Methodology
 
-### Paso 1: Requerimientos
+### Step 1: Requirements
 
-Identificar las subredes necesarias y sus tamaños:
+Identify the required subnets and their sizes:
 
-| Subred | Hosts Requeridos | Hosts Necesarios* |
+| Subnet | Required Hosts | Needed Hosts* |
 |--------|------------------|-------------------|
-| Administración | 50 | 62 (/26) |
-| Ventas | 25 | 30 (/27) |
-| Desarrollo | 12 | 14 (/28) |
-| Servidores | 5 | 6 (/29) |
-| Enlaces WAN | 2 | 2 (/30) |
+| Administration | 50 | 62 (/26) |
+| Sales | 25 | 30 (/27) |
+| Development | 12 | 14 (/28) |
+| Servers | 5 | 6 (/29) |
+| WAN links | 2 | 2 (/30) |
 
-*Hosts necesarios = 2^(bits host) - 2
+*Needed hosts = 2^(host bits) - 2
 
-### Paso 2: Ordenar por Tamaño
+### Step 2: Sort by Size
 
-Ordenar subredes de mayor a menor tamaño para optimizar el espacio:
+Sort subnets from largest to smallest to optimize space:
 
-1. Administración: 62 hosts (/26)
-2. Ventas: 30 hosts (/27)
-3. Desarrollo: 14 hosts (/28)
-4. Servidores: 6 hosts (/29)
+1. Administration: 62 hosts (/26)
+2. Sales: 30 hosts (/27)
+3. Development: 14 hosts (/28)
+4. Servers: 6 hosts (/29)
 5. WAN Links: 2 hosts (/30)
 
-### Paso 3: Asignación de Subredes
+### Step 3: Subnet Assignment
 
-Comenzar desde la red principal (ejemplo: 192.168.1.0/24)
+Start from the main network (example: 192.168.1.0/24)
 
-#### Subred 1: Administración (62 hosts, /26)
+#### Subnet 1: Administration (62 hosts, /26)
 ```
-Red: 192.168.1.0/26
-Rango: 192.168.1.1 - 192.168.1.62
+Network: 192.168.1.0/26
+Range: 192.168.1.1 - 192.168.1.62
 Broadcast: 192.168.1.63
-Siguiente disponible: 192.168.1.64
+Next available: 192.168.1.64
 ```
 
-#### Subred 2: Ventas (30 hosts, /27)
+#### Subnet 2: Sales (30 hosts, /27)
 ```
-Red: 192.168.1.64/27
-Rango: 192.168.1.65 - 192.168.1.94
+Network: 192.168.1.64/27
+Range: 192.168.1.65 - 192.168.1.94
 Broadcast: 192.168.1.95
-Siguiente disponible: 192.168.1.96
+Next available: 192.168.1.96
 ```
 
-#### Subred 3: Desarrollo (14 hosts, /28)
+#### Subnet 3: Development (14 hosts, /28)
 ```
-Red: 192.168.1.96/28
-Rango: 192.168.1.97 - 192.168.1.110
+Network: 192.168.1.96/28
+Range: 192.168.1.97 - 192.168.1.110
 Broadcast: 192.168.1.111
-Siguiente disponible: 192.168.1.112
+Next available: 192.168.1.112
 ```
 
-#### Subred 4: Servidores (6 hosts, /29)
+#### Subnet 4: Servers (6 hosts, /29)
 ```
-Red: 192.168.1.112/29
-Rango: 192.168.1.113 - 192.168.1.118
+Network: 192.168.1.112/29
+Range: 192.168.1.113 - 192.168.1.118
 Broadcast: 192.168.1.119
-Siguiente disponible: 192.168.1.120
+Next available: 192.168.1.120
 ```
 
-#### Subred 5: WAN Links (2 hosts, /30)
+#### Subnet 5: WAN Links (2 hosts, /30)
 ```
-Red: 192.168.1.120/30
-Rango: 192.168.1.121 - 192.168.1.122
+Network: 192.168.1.120/30
+Range: 192.168.1.121 - 192.168.1.122
 Broadcast: 192.168.1.123
-Siguiente disponible: 192.168.1.124
+Next available: 192.168.1.124
 ```
 
-## Cálculo de Subredes
+## Subnet Calculation
 
-### Fórmula General
+### General Formula
 
-Para una red con prefijo base `/N` y subred con `/M`:
+For a network with base prefix `/N` and subnet with `/M`:
 
-- **Bits prestados:** M - N
-- **Número de subredes:** 2^(M - N)
-- **Hosts por subred:** 2^(32 - M) - 2
+- **Borrowed bits:** M - N
+- **Number of subnets:** 2^(M - N)
+- **Hosts per subnet:** 2^(32 - M) - 2
 
-### Herramientas de Cálculo
+### Calculation Tools
 
-#### Script Python para VLSM
+#### Python Script for VLSM
 ```python
 import ipaddress
 
 def calcular_vlsm(red_base, subredes):
     """
-    Calcula subredes VLSM
-    red_base: string como '192.168.1.0/24'
-    subredes: lista de tuplas (nombre, hosts_requeridos)
+    Computes VLSM subnets
+    red_base: string such as '192.168.1.0/24'
+    subredes: list of (name, required_hosts) tuples
     """
     red = ipaddress.ip_network(red_base)
     subredes_ordenadas = sorted(subredes, key=lambda x: x[1], reverse=True)
@@ -129,7 +129,7 @@ def calcular_vlsm(red_base, subredes):
     direccion_actual = red.network_address
     
     for nombre, hosts_req in subredes_ordenadas:
-        # Calcular prefijo necesario
+        # Compute the required prefix
         bits_host = 0
         while (2 ** bits_host) - 2 < hosts_req:
             bits_host += 1
@@ -143,12 +143,12 @@ def calcular_vlsm(red_base, subredes):
             'hosts': list(nueva_red.hosts())
         })
         
-        # Siguiente dirección disponible
+        # Next available address
         direccion_actual = nueva_red.broadcast_address + 1
     
     return resultado
 
-# Ejemplo de uso
+# Usage example
 subredes = [
     ('Administración', 50),
     ('Ventas', 25),
@@ -162,60 +162,60 @@ for subred in resultado:
     print(f"{subred['nombre']}: {subred['red']}")
 ```
 
-#### Comandos Linux
+#### Linux Commands
 ```bash
-# Usar ipcalc para verificar subredes
+# Use ipcalc to verify subnets
 ipcalc 192.168.1.0/26
 
-# Calcular rangos manualmente
-echo "ibase=10; obase=2; 192" | bc  # Convertir a binario
+# Calculate ranges manually
+echo "ibase=10; obase=2; 192" | bc  # Convert to binary
 ```
 
-## Mejores Prácticas
+## Best Practices
 
-### Diseño Eficiente
+### Efficient Design
 
-1. **Ordenar correctamente:** Siempre asignar subredes grandes primero
-2. **Dejar espacio:** Reservar rangos para crecimiento futuro
-3. **Documentar:** Mantener diagramas de red actualizados
-4. **Monitorear uso:** Revisar periódicamente la utilización de direcciones
+1. **Sort correctly:** Always assign large subnets first
+2. **Leave room:** Reserve ranges for future growth
+3. **Document:** Keep network diagrams up to date
+4. **Monitor usage:** Periodically review address utilization
 
-### Consideraciones de Seguridad
+### Security Considerations
 
-- **Segmentación:** Usar VLSM para separar zonas de seguridad
-- **Filtrado:** Configurar ACLs basadas en subredes
-- **Monitoreo:** Implementar alertas de uso de IP
+- **Segmentation:** Use VLSM to separate security zones
+- **Filtering:** Configure ACLs based on subnets
+- **Monitoring:** Implement IP usage alerts
 
-### Casos de Uso
+### Use Cases
 
-#### Redes Empresariales
-- Departamentos con diferentes tamaños
-- Oficinas remotas con requerimientos variables
-- Segmentación por función (servidores, usuarios, invitados)
+#### Enterprise Networks
+- Departments of different sizes
+- Remote offices with varying requirements
+- Segmentation by function (servers, users, guests)
 
-#### Proveedores de Servicios
-- Asignación de subredes a clientes
-- Optimización de espacio IPv4 limitado
-- Migración gradual a IPv6
+#### Service Providers
+- Assigning subnets to customers
+- Optimizing limited IPv4 space
+- Gradual migration to IPv6
 
-## Limitaciones y Consideraciones
+## Limitations and Considerations
 
-### Espacio Perdido
-- Bits no utilizados en subredes pequeñas
-- Broadcast addresses consumen direcciones
-- Reserva para crecimiento futuro
+### Wasted Space
+- Unused bits in small subnets
+- Broadcast addresses consume addresses
+- Reserved space for future growth
 
-### Complejidad
-- Cálculos más complejos que FLSM
-- Mayor posibilidad de errores humanos
-- Necesidad de documentación detallada
+### Complexity
+- Calculations more complex than FLSM
+- Higher chance of human error
+- Need for detailed documentation
 
-### Migración
-- Requiere planificación cuidadosa
-- Posibles interrupciones de servicio
-- Actualización de configuraciones de red
+### Migration
+- Requires careful planning
+- Possible service interruptions
+- Updating network configurations
 
-## Referencias
+## References
 
 - RFC 950: Internet Standard Subnetting Procedure
 - RFC 1812: Requirements for IP Version 4 Routers

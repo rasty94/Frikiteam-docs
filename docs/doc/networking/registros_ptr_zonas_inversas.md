@@ -2,7 +2,7 @@
 title: Registros PTR y Zonas Inversas
 tags: ['networking']
 description: Cómo funcionan las búsquedas inversas (in-addr.arpa) y su importancia para la reputación de IP.
-updated: 2026-01-09
+updated: 2026-01-23
 difficulty: intermediate
 estimated_time: 4 min
 category: Redes
@@ -136,15 +136,15 @@ Para IPv6, se usa `ip6.arpa` en lugar de `in-addr.arpa`.
 
 #### Estructura
 - Dirección IPv6: `2001:db8:85a3::8a2e:370:7334`
-- Reverse: `4.3.3.7.0.7.3.e.2.a.8.0.0.0.0.0.0.3.a.5.8.8.b.d.0.1.0.0.2.ip6.arpa`
+- Reverse: `4.3.3.7.0.7.3.0.e.2.a.8.0.0.0.0.0.0.0.0.3.a.5.8.8.b.d.0.1.0.0.2.ip6.arpa`
 
 #### Simplificación
-Se puede abreviar invirtiendo nibbles (4 bits):
+Se expande la dirección a sus 32 dígitos hexadecimales y se invierten nibble a nibble (4 bits); los ceros comprimidos con `::` también cuentan:
 
 ```
 2001:db8:85a3::8a2e:370:7334
 ↓
-4.3.3.7.0.7.3.e.2.a.8.0.0.0.0.0.0.3.a.5.8.8.b.d.0.1.0.0.2.ip6.arpa
+4.3.3.7.0.7.3.0.e.2.a.8.0.0.0.0.0.0.0.0.3.a.5.8.8.b.d.0.1.0.0.2.ip6.arpa
 ```
 
 ### Configuración IPv6 Reverse
@@ -162,7 +162,7 @@ $TTL 86400
 
     IN NS ns1.example.com.
 
-4.3.3.7.0.7.3.e.2.a.8 IN PTR www.example.com.
+4.3.3.7.0.7.3.0.e.2.a.8.0.0.0.0.0.0.0.0 IN PTR www.example.com.
 ```
 
 ## Importancia para la Reputación

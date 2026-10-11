@@ -16,114 +16,114 @@ prerequisites:
 
 # SPF/DKIM/DMARC
 
-SPF, DKIM y DMARC forman la tríada esencial de autenticación de email, protegiendo contra spoofing y mejorando la entregabilidad del correo electrónico.
+SPF, DKIM and DMARC form the essential triad of email authentication, protecting against spoofing and improving email deliverability.
 
 ## SPF (Sender Policy Framework)
 
-### ¿Qué es SPF?
+### What is SPF?
 
-SPF es un protocolo que permite verificar si un servidor de email está autorizado para enviar correo en nombre de un dominio.
+SPF is a protocol that lets you verify whether an email server is authorized to send mail on behalf of a domain.
 
-### Cómo Funciona
+### How It Works
 
-1. **Publicación:** El dominio publica IPs/servidores autorizados
-2. **Verificación:** El receptor consulta el registro SPF del dominio remitente
-3. **Validación:** Compara la IP del servidor con la lista autorizada
+1. **Publication:** The domain publishes its authorized IPs/servers
+2. **Verification:** The receiver queries the SPF record of the sending domain
+3. **Validation:** It compares the server's IP against the authorized list
 
-### Sintaxis del Registro SPF
+### SPF Record Syntax
 
 ```
-v=spf1 [mecanismos] [modificadores]
+v=spf1 [mechanisms] [modifiers]
 ```
 
-#### Mecanismos Principales
+#### Main Mechanisms
 
-| Mecanismo | Descripción | Ejemplo |
+| Mechanism | Description | Example |
 |-----------|-------------|---------|
-| `+ip4:` | IP IPv4 autorizada | `+ip4:192.168.1.1` |
-| `+ip6:` | IP IPv6 autorizada | `+ip6:2001:db8::1` |
-| `+a` | Autoriza A/AAAA records | `+a:mail.example.com` |
-| `+mx` | Autoriza registros MX | `+mx` |
-| `+include:` | Incluye política de otro dominio | `+include:_spf.google.com` |
-| `+all` | Permite todo (no recomendado) | `+all` |
-| `-all` | Niega todo lo demás | `-all` |
-| `~all` | Soft fail (recomendado) | `~all` |
+| `+ip4:` | Authorized IPv4 address | `+ip4:192.168.1.1` |
+| `+ip6:` | Authorized IPv6 address | `+ip6:2001:db8::1` |
+| `+a` | Authorizes A/AAAA records | `+a:mail.example.com` |
+| `+mx` | Authorizes MX records | `+mx` |
+| `+include:` | Includes another domain's policy | `+include:_spf.google.com` |
+| `+all` | Allows everything (not recommended) | `+all` |
+| `-all` | Denies everything else | `-all` |
+| `~all` | Soft fail (recommended) | `~all` |
 
-#### Ejemplos de Registros SPF
+#### SPF Record Examples
 
-**Básico para dominio propio:**
+**Basic, for your own domain:**
 ```
 v=spf1 +mx +a:mail.example.com -all
 ```
 
-**Con servicios externos:**
+**With external services:**
 ```
 v=spf1 include:_spf.google.com include:spf.protection.outlook.com -all
 ```
 
-**Para mailing lists:**
+**For mailing lists:**
 ```
 v=spf1 include:_spf.google.com include:servers.mcsv.net ~all
 ```
 
-### Configuración SPF
+### SPF Configuration
 
-#### En BIND/DNS
+#### In BIND/DNS
 ```bind
 @ IN TXT "v=spf1 +mx +a:mail.example.com -all"
 ```
 
-#### Verificación
+#### Verification
 ```bash
-# Verificar registro SPF
+# Check the SPF record
 dig TXT example.com
 
-# Probar SPF
+# Test SPF
 spfquery -ip=192.168.1.1 -sender=user@example.com
 ```
 
 ## DKIM (DomainKeys Identified Mail)
 
-### ¿Qué es DKIM?
+### What is DKIM?
 
-DKIM firma criptográficamente los emails salientes, permitiendo verificar que el contenido no ha sido alterado y confirmar la autenticidad del remitente.
+DKIM cryptographically signs outgoing emails, making it possible to verify that the content has not been altered and to confirm the sender's authenticity.
 
-### Cómo Funciona DKIM
+### How DKIM Works
 
-1. **Generación de claves:** El dominio crea par de claves público/privado
-2. **Firma:** El MTA firma el email con la clave privada
-3. **Publicación:** La clave pública se publica en DNS
-4. **Verificación:** El receptor verifica la firma con la clave pública
+1. **Key generation:** The domain creates a public/private key pair
+2. **Signing:** The MTA signs the email with the private key
+3. **Publication:** The public key is published in DNS
+4. **Verification:** The receiver verifies the signature with the public key
 
-### Componentes DKIM
+### DKIM Components
 
 #### Selector
-Identifica qué clave usar cuando hay múltiples:
+Identifies which key to use when there are several:
 
 ```
 selector._domainkey.example.com
 ```
 
-#### Registro DKIM
+#### DKIM Record
 ```bind
 selector._domainkey IN TXT "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC..."
 ```
 
-#### Cabecera DKIM-Signature
+#### DKIM-Signature Header
 ```
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=example.com; s=selector; h=from:to:subject;
  bh=...; b=...
 ```
 
-### Configuración DKIM
+### DKIM Configuration
 
-#### Generar Claves
+#### Generate Keys
 ```bash
-# Usando opendkim
+# Using opendkim
 opendkim-genkey -s selector -d example.com
 
-# Usando Python
+# Using Python
 python3 -c "
 import dkim
 key = dkim.rsa_key_gen()
@@ -134,7 +134,7 @@ print(key[1].decode())
 "
 ```
 
-#### En Postfix
+#### In Postfix
 ```postfix
 # main.cf
 smtpd_milters = inet:localhost:8891
@@ -142,90 +142,90 @@ non_smtpd_milters = inet:localhost:8891
 milter_default_action = accept
 ```
 
-#### Verificación DKIM
+#### DKIM Verification
 ```bash
-# Verificar clave pública
+# Check the public key
 dig TXT selector._domainkey.example.com
 
-# Probar DKIM
+# Test DKIM
 dkimpy-milter --test
 ```
 
 ## DMARC (Domain-based Message Authentication, Reporting and Conformance)
 
-### ¿Qué es DMARC?
+### What is DMARC?
 
-DMARC combina SPF y DKIM, proporcionando políticas para manejar emails que fallan la autenticación y reportes sobre la actividad del dominio.
+DMARC combines SPF and DKIM, providing policies for handling emails that fail authentication and reports on domain activity.
 
-### Cómo Funciona DMARC
+### How DMARC Works
 
-1. **Publicación:** Política DMARC en `_dmarc.example.com`
-2. **Evaluación:** Verifica SPF y/o DKIM
-3. **Acción:** Aplica política según resultado
-4. **Reportes:** Envía reportes XML al dominio
+1. **Publication:** DMARC policy at `_dmarc.example.com`
+2. **Evaluation:** Checks SPF and/or DKIM
+3. **Action:** Applies the policy according to the result
+4. **Reports:** Sends XML reports to the domain
 
-### Registro DMARC
+### DMARC Record
 
 ```
 v=DMARC1; p=quarantine; rua=mailto:dmarc@example.com; ruf=mailto:dmarc@example.com; fo=1
 ```
 
-#### Parámetros Principales
+#### Main Parameters
 
-| Parámetro | Descripción | Valores |
-|-----------|-------------|---------|
-| `p` | Política | `none`, `quarantine`, `reject` |
-| `sp` | Política subdominios | `none`, `quarantine`, `reject` |
-| `rua` | Reportes agregados | `mailto:usuario@dominio.com` |
-| `ruf` | Reportes forenses | `mailto:usuario@dominio.com` |
-| `fo` | Opciones de reporte | `0`, `1`, `d`, `s` |
-| `adkim` | Alineación DKIM | `r` (relaxed), `s` (strict) |
-| `aspf` | Alineación SPF | `r` (relaxed), `s` (strict) |
+| Parameter | Description | Values |
+|-----------|-------------|--------|
+| `p` | Policy | `none`, `quarantine`, `reject` |
+| `sp` | Subdomain policy | `none`, `quarantine`, `reject` |
+| `rua` | Aggregate reports | `mailto:usuario@dominio.com` |
+| `ruf` | Forensic reports | `mailto:usuario@dominio.com` |
+| `fo` | Reporting options | `0`, `1`, `d`, `s` |
+| `adkim` | DKIM alignment | `r` (relaxed), `s` (strict) |
+| `aspf` | SPF alignment | `r` (relaxed), `s` (strict) |
 
-### Políticas DMARC
+### DMARC Policies
 
 #### p=none
-- **Acción:** No hacer nada
-- **Uso:** Modo monitor, solo reportes
-- **Ejemplo:** `p=none; rua=mailto:dmarc@example.com`
+- **Action:** Do nothing
+- **Use:** Monitor mode, reports only
+- **Example:** `p=none; rua=mailto:dmarc@example.com`
 
 #### p=quarantine
-- **Acción:** Enviar a spam
-- **Uso:** Protección moderada
-- **Ejemplo:** `p=quarantine; rua=mailto:dmarc@example.com`
+- **Action:** Send to spam
+- **Use:** Moderate protection
+- **Example:** `p=quarantine; rua=mailto:dmarc@example.com`
 
 #### p=reject
-- **Acción:** Rechazar email
-- **Uso:** Máxima protección
-- **Ejemplo:** `p=reject; rua=mailto:dmarc@example.com`
+- **Action:** Reject the email
+- **Use:** Maximum protection
+- **Example:** `p=reject; rua=mailto:dmarc@example.com`
 
-### Configuración DMARC
+### DMARC Configuration
 
-#### Registro DNS
+#### DNS Record
 ```bind
 _dmarc IN TXT "v=DMARC1; p=quarantine; rua=mailto:dmarc@example.com; ruf=mailto:dmarc@example.com; fo=1; adkim=r; aspf=r"
 ```
 
-#### Verificación
+#### Verification
 ```bash
-# Verificar registro DMARC
+# Check the DMARC record
 dig TXT _dmarc.example.com
 
-# Validar sintaxis
+# Validate syntax
 dmarc-validate example.com
 ```
 
-## Implementación Completa
+## Complete Implementation
 
-### Secuencia de Configuración
+### Configuration Sequence
 
-1. **Configurar SPF**
-2. **Implementar DKIM**
-3. **Publicar DMARC en modo monitor (p=none)**
-4. **Analizar reportes**
-5. **Ajustar políticas gradualmente**
+1. **Configure SPF**
+2. **Implement DKIM**
+3. **Publish DMARC in monitor mode (p=none)**
+4. **Analyze reports**
+5. **Tighten policies gradually**
 
-### Ejemplo Completo
+### Complete Example
 
 #### 1. SPF Record
 ```
@@ -234,8 +234,8 @@ v=spf1 include:_spf.google.com include:spf.protection.outlook.com -all
 
 #### 2. DKIM Keys
 ```bash
-# Generar para Google Workspace
-# Las claves se generan automáticamente en admin.google.com
+# Generate for Google Workspace
+# Keys are generated automatically in admin.google.com
 ```
 
 #### 3. DMARC Record
@@ -243,37 +243,37 @@ v=spf1 include:_spf.google.com include:spf.protection.outlook.com -all
 v=DMARC1; p=quarantine; rua=mailto:dmarc@example.com; ruf=mailto:dmarc@example.com; fo=1; pct=100
 ```
 
-### Herramientas de Testing
+### Testing Tools
 
-#### Validadores Online
+#### Online Validators
 - **MX Toolbox:** SPF, DKIM, DMARC checker
-- **Mail Tester:** Envía email de prueba
-- **DMARC Analyzer:** Analiza reportes
+- **Mail Tester:** Sends a test email
+- **DMARC Analyzer:** Analyzes reports
 
-#### Comandos
+#### Commands
 ```bash
-# Verificar todos los registros
+# Check all records
 dig TXT example.com _dmarc.example.com selector._domainkey.example.com
 
-# Enviar email de prueba
+# Send a test email
 swaks --to test@example.com --from user@example.com --server mail.example.com --tls
 ```
 
-## Reportes DMARC
+## DMARC Reports
 
-### Tipos de Reportes
+### Report Types
 
-#### Reportes Agregados (RUA)
-- **Formato:** XML comprimido
-- **Frecuencia:** Diaria
-- **Contenido:** Estadísticas de autenticación
+#### Aggregate Reports (RUA)
+- **Format:** Compressed XML
+- **Frequency:** Daily
+- **Content:** Authentication statistics
 
-#### Reportes Forenses (RUF)
-- **Formato:** Email con detalles
-- **Frecuencia:** Por email fallido
-- **Contenido:** Headers completos
+#### Forensic Reports (RUF)
+- **Format:** Email with details
+- **Frequency:** Per failed email
+- **Content:** Full headers
 
-### Análisis de Reportes
+### Report Analysis
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -303,11 +303,11 @@ swaks --to test@example.com --from user@example.com --server mail.example.com --
 </feedback>
 ```
 
-### Herramientas de Análisis
+### Analysis Tools
 
-- **DMARC Report Analyzer:** Parser online
-- **dmarcian:** Servicio comercial
-- **Scripts personalizados:** Procesar XML con Python
+- **DMARC Report Analyzer:** Online parser
+- **dmarcian:** Commercial service
+- **Custom scripts:** Process the XML with Python
 
 ```python
 import xml.etree.ElementTree as ET
@@ -326,28 +326,28 @@ def parse_dmarc_report(filename):
         
         print(f"IP: {source_ip}, Count: {count}, Disposition: {disposition}")
 
-# Uso
+# Usage
 parse_dmarc_report('dmarc_report.xml.gz')
 ```
 
-## Mejores Prácticas
+## Best Practices
 
-### Configuración Inicial
-1. **Empezar con p=none** para monitorizar
-2. **Configurar reportes** para análisis
-3. **Gradualmente aumentar** la política
+### Initial Setup
+1. **Start with p=none** to monitor
+2. **Configure reports** for analysis
+3. **Gradually tighten** the policy
 
-### Mantenimiento
-- **Monitorear reportes** regularmente
-- **Actualizar registros** cuando cambian IPs
-- **Usar subdominios** específicos para email
+### Maintenance
+- **Monitor reports** regularly
+- **Update records** when IPs change
+- **Use dedicated subdomains** for email
 
-### Consideraciones de Seguridad
-- **Rotar claves DKIM** periódicamente
-- **Proteger claves privadas** de accesos no autorizados
-- **Usar DNSSEC** para proteger registros
+### Security Considerations
+- **Rotate DKIM keys** periodically
+- **Protect private keys** from unauthorized access
+- **Use DNSSEC** to protect records
 
-## Referencias
+## References
 
 - RFC 7208: Sender Policy Framework (SPF)
 - RFC 6376: DomainKeys Identified Mail (DKIM)

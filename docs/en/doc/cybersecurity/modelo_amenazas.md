@@ -13,84 +13,84 @@ prerequisites:
   - "Intermediate Linux"
 ---
 
-## Resumen
+## Summary
 
-Esta guía explica qué es un modelo de amenazas y cómo identificar amenazas comunes en entornos de infraestructura cloud y DevOps. Se basa en frameworks como OWASP Top 10 para aplicaciones web/infra y MITRE ATT&CK para tácticas de adversarios.
+This guide explains what a threat model is and how to identify common threats in cloud and DevOps infrastructure environments. It is based on frameworks such as OWASP Top 10 for web/infrastructure applications and MITRE ATT&CK for adversary tactics.
 
-## Prerrequisitos
+## Prerequisites
 
-- Conocimientos básicos de ciberseguridad (vulnerabilidades, ataques comunes).
-- Entendimiento de entornos cloud (AWS, Azure, GCP) o infraestructura on-prem (Kubernetes, Docker).
+- Basic knowledge of cybersecurity (vulnerabilities, common attacks).
+- Understanding of cloud environments (AWS, Azure, GCP) or on-premises infrastructure (Kubernetes, Docker).
 
-## ¿Qué es un Modelo de Amenazas?
+## What Is a Threat Model?
 
-Un modelo de amenazas es un proceso estructurado para identificar, cuantificar y priorizar amenazas potenciales a un sistema. Ayuda a entender qué puede salir mal y cómo mitigarlo antes de que ocurra.
+A threat model is a structured process for identifying, quantifying and prioritizing potential threats to a system. It helps you understand what can go wrong and how to mitigate it before it happens.
 
-### Componentes clave
+### Key Components
 
-- **Activos:** Qué proteger (datos, servicios, infraestructura).
-- **Amenazas:** Qué puede dañar los activos (hackers, malware, errores humanos).
-- **Vulnerabilidades:** Debilidades que permiten las amenazas.
-- **Mitigaciones:** Controles para reducir riesgos.
+- **Assets:** What to protect (data, services, infrastructure).
+- **Threats:** What can harm the assets (hackers, malware, human error).
+- **Vulnerabilities:** Weaknesses that enable threats.
+- **Mitigations:** Controls to reduce risks.
 
-## Amenazas Comunes en Infraestructura
+## Common Threats in Infrastructure
 
-### OWASP Top 10 para Infraestructura
+### OWASP Top 10 for Infrastructure
 
-1. **Broken Access Control:** Acceso no autorizado a recursos.
-2. **Cryptographic Failures:** Encriptación débil o mal configurada.
-3. **Injection:** Ataques como SQL injection en APIs o configs.
-4. **Insecure Design:** Arquitecturas con fallos de seguridad inherentes.
-5. **Security Misconfiguration:** Configs por defecto o expuestas.
-6. **Vulnerable Components:** Dependencias con CVEs conocidas.
-7. **Identification and Authentication Failures:** Autenticación débil.
-8. **Software and Data Integrity Failures:** Manipulación de datos o software.
-9. **Security Logging and Monitoring Failures:** Falta de logs para detección.
-10. **Server-Side Request Forgery (SSRF):** Ataques desde el servidor.
+1. **Broken Access Control:** Unauthorized access to resources.
+2. **Cryptographic Failures:** Weak or misconfigured encryption.
+3. **Injection:** Attacks such as SQL injection in APIs or configs.
+4. **Insecure Design:** Architectures with inherent security flaws.
+5. **Security Misconfiguration:** Default or exposed configurations.
+6. **Vulnerable Components:** Dependencies with known CVEs.
+7. **Identification and Authentication Failures:** Weak authentication.
+8. **Software and Data Integrity Failures:** Manipulation of data or software.
+9. **Security Logging and Monitoring Failures:** Missing logs for detection.
+10. **Server-Side Request Forgery (SSRF):** Attacks launched from the server.
 
-### MITRE ATT&CK para Infra
+### MITRE ATT&CK for Infrastructure
 
-Tácticas comunes en entornos cloud/K8s:
+Common tactics in cloud/K8s environments:
 
-- **Reconnaissance:** Escaneo de puertos, enumeración de servicios.
-- **Initial Access:** Explotación de configs expuestas (ej. S3 buckets públicos).
-- **Execution:** Ejecución de código remoto en contenedores.
-- **Persistence:** Backdoors en imágenes Docker o configs K8s.
-- **Privilege Escalation:** De user a root en pods.
-- **Defense Evasion:** Ocultar malware en contenedores efímeros.
+- **Reconnaissance:** Port scanning, service enumeration.
+- **Initial Access:** Exploitation of exposed configs (e.g., public S3 buckets).
+- **Execution:** Remote code execution in containers.
+- **Persistence:** Backdoors in Docker images or K8s configs.
+- **Privilege Escalation:** From user to root in pods.
+- **Defense Evasion:** Hiding malware in ephemeral containers.
 
-## Cómo Crear un Modelo de Amenazas
+## How to Create a Threat Model
 
-### Pasos
+### Steps
 
-1. **Definir alcance:** Diagramar la arquitectura (usar draw.io o Mermaid).
-2. **Identificar activos:** Datos sensibles, APIs, bases de datos.
-3. **Enumerar amenazas:** Usar STRIDE (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege).
-4. **Evaluar riesgos:** Probabilidad vs impacto.
-5. **Definir mitigaciones:** Controles técnicos y procesos.
+1. **Define scope:** Diagram the architecture (use draw.io or Mermaid).
+2. **Identify assets:** Sensitive data, APIs, databases.
+3. **Enumerate threats:** Use STRIDE (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege).
+4. **Assess risks:** Probability vs impact.
+5. **Define mitigations:** Technical controls and processes.
 
-### Herramientas
+### Tools
 
-- **Microsoft Threat Modeling Tool:** Gratuito, guiado.
-- **OWASP Threat Dragon:** Open-source, basado en web.
-- **Mermaid para diagramas:** Integrado en esta documentación.
+- **Microsoft Threat Modeling Tool:** Free, guided.
+- **OWASP Threat Dragon:** Open source, web-based.
+- **Mermaid for diagrams:** Built into this documentation.
 
-## Ejemplos
+## Examples
 
-### Diagrama simple de amenazas en K8s
+### Simple threat diagram in K8s
 
 ```mermaid
 graph TD
-    A[Usuario] --> B[API Server]
+    A[User] --> B[API Server]
     B --> C[Pods]
-    D[Hacker] --> E[Explotar vuln en API]
-    E --> F[Acceso a cluster]
-    F --> G[Escalada de privilegios]
+    D[Hacker] --> E[Exploit vuln in API]
+    E --> F[Cluster access]
+    F --> G[Privilege escalation]
 ```
 
-Mitigaciones: RBAC estricto, Network Policies, admission controllers.
+Mitigations: strict RBAC, Network Policies, admission controllers.
 
-## Referencias
+## References
 
 - [OWASP Threat Modeling](https://owasp.org/www-community/Application_Threat_Modeling)
 - [MITRE ATT&CK](https://attack.mitre.org/)

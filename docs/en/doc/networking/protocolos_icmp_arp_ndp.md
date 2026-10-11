@@ -1,5 +1,5 @@
 ---
-title: "Protocolos ICMP/ARP/NDP"
+title: "ICMP/ARP/NDP Protocols"
 description: Key differences between IPv4 (ARP) and IPv6 (NDP) and ICMP message types for diagnostics.
 tags: ['networking']
 
@@ -14,58 +14,58 @@ prerequisites:
   - "Networking fundamentals"
 ---
 
-# Protocolos ICMP/ARP/NDP
+# ICMP/ARP/NDP Protocols
 
-Los protocolos de red ICMP, ARP y NDP son fundamentales para el funcionamiento de IP. ICMP proporciona diagnóstico y control de errores, mientras que ARP y NDP resuelven direcciones de capa 2 a capa 3.
+The ICMP, ARP and NDP network protocols are fundamental to how IP works. ICMP provides diagnostics and error control, while ARP and NDP resolve layer 2 addresses to layer 3 addresses.
 
 ## ICMP (Internet Control Message Protocol)
 
-### Función Principal
+### Main Function
 
-ICMP transporta mensajes de control y error entre dispositivos IP. Es parte integral del protocolo IP y no usa puertos como TCP/UDP.
+ICMP carries control and error messages between IP devices. It is an integral part of the IP protocol and does not use ports like TCP/UDP.
 
-### Tipos de Mensajes ICMP
+### ICMP Message Types
 
-#### Mensajes de Error
+#### Error Messages
 
-| Tipo | Código | Descripción | Uso |
-|------|--------|-------------|-----|
-| 3 | 0 | Network Unreachable | Red no alcanzable |
-| 3 | 1 | Host Unreachable | Host no alcanzable |
-| 3 | 2 | Protocol Unreachable | Protocolo no soportado |
-| 3 | 3 | Port Unreachable | Puerto no disponible |
-| 3 | 4 | Fragmentation Needed | Fragmentación requerida |
-| 11 | 0 | TTL Exceeded | Tiempo de vida agotado |
-| 12 | 0 | Parameter Problem | Problema de parámetros |
+| Type | Code | Description | Use |
+|------|------|-------------|-----|
+| 3 | 0 | Network Unreachable | Network not reachable |
+| 3 | 1 | Host Unreachable | Host not reachable |
+| 3 | 2 | Protocol Unreachable | Protocol not supported |
+| 3 | 3 | Port Unreachable | Port not available |
+| 3 | 4 | Fragmentation Needed | Fragmentation required |
+| 11 | 0 | TTL Exceeded | Time to live exhausted |
+| 12 | 0 | Parameter Problem | Parameter problem |
 
-#### Mensajes Informativos
+#### Informational Messages
 
-| Tipo | Código | Descripción | Uso |
-|------|--------|-------------|-----|
-| 0 | 0 | Echo Reply | Respuesta a ping |
-| 8 | 0 | Echo Request | Solicitud de ping |
-| 9 | 0 | Router Advertisement | Anuncio de router (raro) |
-| 10 | 0 | Router Solicitation | Solicitud de router |
-| 13 | 0 | Timestamp Request | Solicitud de timestamp |
-| 14 | 0 | Timestamp Reply | Respuesta de timestamp |
+| Type | Code | Description | Use |
+|------|------|-------------|-----|
+| 0 | 0 | Echo Reply | Ping reply |
+| 8 | 0 | Echo Request | Ping request |
+| 9 | 0 | Router Advertisement | Router announcement (rare) |
+| 10 | 0 | Router Solicitation | Router solicitation |
+| 13 | 0 | Timestamp Request | Timestamp request |
+| 14 | 0 | Timestamp Reply | Timestamp reply |
 
-### ICMP en Diagnóstico
+### ICMP in Diagnostics
 
 #### Ping (Echo Request/Reply)
 ```bash
-# Ping básico
+# Basic ping
 ping 192.168.1.1
 
-# Ping con tamaño específico
-ping -s 1472 192.168.1.1  # Para detectar MTU
+# Ping with a specific size
+ping -s 1472 192.168.1.1  # To detect MTU
 
-# Ping continuo
+# Continuous ping
 ping -t 192.168.1.1
 ```
 
 #### Traceroute (TTL Exceeded)
 ```bash
-# Traceroute usando ICMP
+# Traceroute using ICMP
 traceroute 8.8.8.8
 
 # Windows tracert
@@ -74,166 +74,166 @@ tracert 8.8.8.8
 
 ### ICMPv6
 
-IPv6 tiene ICMPv6 integrado (no separado como en IPv4):
+IPv6 has ICMPv6 built in (not separate as in IPv4):
 
-- **Mensajes de error:** Similares a ICMPv4
-- **Mensajes informativos:** Incluye NDP
-- **Tipos adicionales:** Packet Too Big, Parameter Problem
+- **Error messages:** Similar to ICMPv4
+- **Informational messages:** Includes NDP
+- **Additional types:** Packet Too Big, Parameter Problem
 
 ## ARP (Address Resolution Protocol)
 
-### Función en IPv4
+### Role in IPv4
 
-ARP resuelve direcciones IP de capa 3 a direcciones MAC de capa 2. Esencial para comunicación en redes Ethernet.
+ARP resolves layer 3 IP addresses to layer 2 MAC addresses. Essential for communication on Ethernet networks.
 
-### Proceso ARP
+### ARP Process
 
 1. **ARP Request:** Broadcast "Who has IP X?"
 2. **ARP Reply:** Unicast "IP X is at MAC Y"
-3. **Cache:** Almacena mapeo por tiempo limitado
+3. **Cache:** Stores the mapping for a limited time
 
-### Tabla ARP
+### ARP Table
 
 ```bash
-# Ver tabla ARP
+# Show ARP table
 arp -a
 
-# Ver tabla ARP detallada
+# Show detailed ARP table
 ip neigh show
 
-# Limpiar entrada específica
+# Clear a specific entry
 arp -d 192.168.1.1
 
-# Añadir entrada estática
+# Add a static entry
 arp -s 192.168.1.1 aa:bb:cc:dd:ee:ff
 ```
 
-### Tipos de Mensajes ARP
+### ARP Message Types
 
-- **ARP Request (1):** Solicitud de resolución
-- **ARP Reply (2):** Respuesta de resolución
-- **RARP Request (3):** Reverse ARP (obsoleto)
+- **ARP Request (1):** Resolution request
+- **ARP Reply (2):** Resolution reply
+- **RARP Request (3):** Reverse ARP (obsolete)
 - **RARP Reply (4):** Reverse ARP reply
-- **ARP Announcement (8):** Anuncio gratuito (gratuitous ARP)
+- **ARP Announcement (8):** Gratuitous announcement (gratuitous ARP)
 
-### ARP Gratuitous
+### Gratuitous ARP
 
-Un host anuncia su propia IP/MAC sin solicitud previa:
+A host announces its own IP/MAC without a prior request:
 
-- **Uso:** Detección de conflictos IP
-- **Failover:** Actualización de switches/caches
-- **Clustering:** Notificación de cambios
+- **Use:** IP conflict detection
+- **Failover:** Updating switch/cache entries
+- **Clustering:** Notifying changes
 
 ```bash
-# Enviar ARP gratuitous (Linux)
+# Send gratuitous ARP (Linux)
 arping -U -I eth0 192.168.1.100
 ```
 
 ## NDP (Neighbor Discovery Protocol)
 
-### Función en IPv6
+### Role in IPv6
 
-NDP reemplaza ARP, ICMP Router Discovery y Redirect en IPv6. Usa ICMPv6 para todas las funciones.
+NDP replaces ARP, ICMP Router Discovery and Redirect in IPv6. It uses ICMPv6 for all its functions.
 
-### Componentes de NDP
+### NDP Components
 
 #### Neighbor Solicitation (NS) / Neighbor Advertisement (NA)
 
-Equivalente a ARP Request/Reply:
+Equivalent to ARP Request/Reply:
 
-- **NS:** Solicita MAC de un vecino
-- **NA:** Responde con MAC propio
-- **Tipo ICMP:** 135 (NS), 136 (NA)
+- **NS:** Requests the MAC address of a neighbor
+- **NA:** Replies with its own MAC address
+- **ICMP type:** 135 (NS), 136 (NA)
 
 ```bash
-# Ver tabla de vecinos IPv6
+# Show IPv6 neighbor table
 ip -6 neigh show
 
-# Solicitar vecino manualmente
+# Solicit a neighbor manually
 ndisc6 -n 2001:db8::1 eth0
 ```
 
 #### Router Solicitation (RS) / Router Advertisement (RA)
 
-Descubrimiento de routers:
+Router discovery:
 
-- **RS:** Solicita información de routers (tipo 133)
-- **RA:** Anuncia presencia y configuración (tipo 134)
+- **RS:** Requests router information (type 133)
+- **RA:** Announces presence and configuration (type 134)
 
 ```bash
-# Ver RAs
+# Show RAs
 radvdump
 
-# Configurar RA en router
-radvd -d  # Modo debug
+# Configure RA on the router
+radvd -d  # Debug mode
 ```
 
 #### Redirect
 
-Similar a ICMP Redirect en IPv4 (tipo 137).
+Similar to ICMP Redirect in IPv4 (type 137).
 
 ### DAD (Duplicate Address Detection)
 
-Prevención de conflictos de direcciones:
+Address conflict prevention:
 
-1. Host envía NS con dirección tentative
-2. Si recibe NA, dirección está duplicada
-3. Si no recibe respuesta, dirección es válida
+1. Host sends NS with a tentative address
+2. If it receives NA, the address is duplicated
+3. If it receives no reply, the address is valid
 
-## Comparación ARP vs NDP
+## ARP vs NDP Comparison
 
-| Aspecto | ARP (IPv4) | NDP (IPv6) |
+| Aspect | ARP (IPv4) | NDP (IPv6) |
 |---------|------------|------------|
-| Protocolo | Protocolo separado | Parte de ICMPv6 |
-| Mensajes | ARP Request/Reply | NS/NA (ICMP 135/136) |
-| Broadcast | Sí (ARP Request) | No (usa multicast) |
-| Gratuitous | Sí | NA unsolicited |
-| Router Discovery | No (usa ICMP) | Sí (RS/RA) |
-| DAD | No | Sí |
-| Redirect | No (usa ICMP) | Sí |
+| Protocol | Separate protocol | Part of ICMPv6 |
+| Messages | ARP Request/Reply | NS/NA (ICMP 135/136) |
+| Broadcast | Yes (ARP Request) | No (uses multicast) |
+| Gratuitous | Yes | Unsolicited NA |
+| Router Discovery | No (uses ICMP) | Yes (RS/RA) |
+| DAD | No | Yes |
+| Redirect | No (uses ICMP) | Yes |
 
-## Seguridad y Consideraciones
+## Security and Considerations
 
-### Ataques Comunes
+### Common Attacks
 
 #### ARP Spoofing/Poisoning
-- Atacante envía ARP replies falsas
-- Redirige tráfico a través de su máquina
-- **Mitigación:** ARP inspection, certificados
+- Attacker sends forged ARP replies
+- Redirects traffic through their machine
+- **Mitigation:** ARP inspection, certificates
 
 #### ICMP Attacks
-- **Smurf:** Amplificación usando broadcast
-- **Ping of Death:** Paquetes ICMP oversized
-- **Mitigación:** Filtrado ICMP, rate limiting
+- **Smurf:** Amplification using broadcast
+- **Ping of Death:** Oversized ICMP packets
+- **Mitigation:** ICMP filtering, rate limiting
 
 #### NDP Attacks
-- **NDP Spoofing:** Similar a ARP poisoning
-- **RA Spoofing:** Falso router advertisement
-- **Mitigación:** RA Guard, DHCPv6 con auth
+- **NDP Spoofing:** Similar to ARP poisoning
+- **RA Spoofing:** Fake router advertisement
+- **Mitigation:** RA Guard, DHCPv6 with authentication
 
-### Mejores Prácticas
+### Best Practices
 
-#### Configuración Segura
+#### Secure Configuration
 ```bash
-# Deshabilitar ICMP redirects (si no necesario)
+# Disable ICMP redirects (if not needed)
 sysctl -w net.ipv4.conf.all.accept_redirects=0
 
 # Rate limiting ICMP
 iptables -A INPUT -p icmp --icmp-type echo-request -m limit --limit 1/s -j ACCEPT
 ```
 
-#### Monitoreo
+#### Monitoring
 ```bash
-# Monitorear ARP changes
+# Monitor ARP changes
 arpwatch
 
-# Detectar ARP spoofing
+# Detect ARP spoofing
 arpspoof -i eth0 192.168.1.1 192.168.1.2
 ```
 
-## Herramientas de Diagnóstico
+## Diagnostic Tools
 
-### Wireshark Filtros
+### Wireshark Filters
 
 ```
 # ARP
@@ -249,7 +249,7 @@ icmpv6.type == 135 || icmpv6.type == 136
 icmpv6.type == 134
 ```
 
-### Scripts de Monitoreo
+### Monitoring Scripts
 
 ```python
 import subprocess
@@ -270,13 +270,13 @@ def get_arp_table():
     
     return arp_entries
 
-# Uso
+# Usage
 arp_table = get_arp_table()
 for entry in arp_table:
     print(f"{entry['ip']} -> {entry['mac']}")
 ```
 
-## Referencias
+## References
 
 - RFC 792: Internet Control Message Protocol
 - RFC 826: Ethernet Address Resolution Protocol

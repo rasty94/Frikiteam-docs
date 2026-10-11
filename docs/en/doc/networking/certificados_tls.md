@@ -1,5 +1,5 @@
 ---
-title: "Certificados TLS"
+title: "TLS Certificates"
 description: Validation types (DV, OV, EV), chains of trust and configuration best practices.
 tags: ['networking']
 
@@ -14,83 +14,83 @@ prerequisites:
   - "Networking fundamentals"
 ---
 
-# Certificados TLS
+# TLS Certificates
 
-Los certificados TLS (Transport Layer Security) son fundamentales para la seguridad de las comunicaciones web. Este documento cubre los tipos de validación, gestión de cadenas de confianza y mejores prácticas de configuración.
+TLS (Transport Layer Security) certificates are fundamental to the security of web communications. This document covers validation types, chain of trust management and configuration best practices.
 
-## Conceptos Básicos de TLS
+## TLS Basics
 
-### ¿Qué es un Certificado TLS?
+### What Is a TLS Certificate?
 
-Un certificado TLS es un documento digital que vincula una clave pública con una identidad (dominio, organización). Permite establecer conexiones HTTPS seguras mediante cifrado asimétrico.
+A TLS certificate is a digital document that binds a public key to an identity (domain, organization). It makes it possible to establish secure HTTPS connections using asymmetric encryption.
 
-### Componentos de un Certificado
+### Certificate Components
 
-- **Subject:** Identidad del titular (CN, O, OU, etc.)
-- **Issuer:** Autoridad certificadora (CA)
-- **Validity Period:** Fechas de validez
-- **Public Key:** Clave pública para cifrado
-- **Signature:** Firma digital de la CA
-- **Extensions:** Información adicional (SAN, etc.)
+- **Subject:** Identity of the holder (CN, O, OU, etc.)
+- **Issuer:** Certificate authority (CA)
+- **Validity Period:** Validity dates
+- **Public Key:** Public key used for encryption
+- **Signature:** The CA's digital signature
+- **Extensions:** Additional information (SAN, etc.)
 
-## Tipos de Validación
+## Validation Types
 
 ### DV (Domain Validation)
 
-#### Características
-- **Validación:** Solo propiedad del dominio
-- **Proceso:** Email, HTTP-01, DNS-01 challenge
-- **Tiempo:** Minutos a horas
-- **Costo:** Bajo (gratuito con Let's Encrypt)
-- **Indicador:** Candado verde en navegador
+#### Characteristics
+- **Validation:** Domain ownership only
+- **Process:** Email, HTTP-01, DNS-01 challenge
+- **Time:** Minutes to hours
+- **Cost:** Low (free with Let's Encrypt)
+- **Indicator:** Green padlock in the browser
 
-#### Proceso de Emisión
-1. **Solicitud:** Generar CSR con dominio
-2. **Challenge:** CA envía token para verificar
-3. **Validación:** Probar acceso al dominio
-4. **Emisión:** Certificado firmado
+#### Issuance Process
+1. **Request:** Generate a CSR for the domain
+2. **Challenge:** The CA sends a token to verify
+3. **Validation:** Prove control of the domain
+4. **Issuance:** Signed certificate
 
-#### Ejemplo con Certbot
+#### Certbot Example
 ```bash
-# DV con Let's Encrypt
+# DV with Let's Encrypt
 certbot certonly --webroot -w /var/www/html -d example.com
 
-# Con DNS challenge
+# With DNS challenge
 certbot certonly --dns-cloudflare -d example.com
 ```
 
 ### OV (Organization Validation)
 
-#### Características
-- **Validación:** Propiedad del dominio + identidad de organización
-- **Proceso:** Verificación de documentos legales
-- **Tiempo:** Días a semanas
-- **Costo:** Medio-alto
-- **Indicador:** Candado verde + "Empresa verificada"
+#### Characteristics
+- **Validation:** Domain ownership + organization identity
+- **Process:** Verification of legal documents
+- **Time:** Days to weeks
+- **Cost:** Medium-high
+- **Indicator:** Green padlock + "Verified company"
 
-#### Requisitos de Validación
-- **Dominio:** Propiedad verificada
-- **Organización:** Registro comercial válido
-- **Autoridad:** Persona autorizada para firmar
-- **Dirección:** Verificación física
+#### Validation Requirements
+- **Domain:** Verified ownership
+- **Organization:** Valid business registration
+- **Authority:** Person authorized to sign
+- **Address:** Physical verification
 
 ### EV (Extended Validation)
 
-#### Características
-- **Validación:** Verificación exhaustiva de identidad
-- **Proceso:** Auditoría completa de la organización
-- **Tiempo:** Semanas
-- **Costo:** Alto
-- **Indicador:** Candado verde + barra de dirección verde
+#### Characteristics
+- **Validation:** Exhaustive identity verification
+- **Process:** Full audit of the organization
+- **Time:** Weeks
+- **Cost:** High
+- **Indicator:** Green padlock + green address bar
 
-#### Beneficios EV
-- **Confianza:** Máxima confianza del usuario
-- **Protección:** Contra phishing avanzado
-- **SEO:** Potencial boost en rankings
+#### EV Benefits
+- **Trust:** Maximum user trust
+- **Protection:** Against advanced phishing
+- **SEO:** Potential ranking boost
 
-## Cadenas de Certificado
+## Certificate Chains
 
-### Estructura de la Cadena
+### Chain Structure
 
 ```
 Root CA
@@ -101,36 +101,36 @@ Root CA
 └── Server Certificate
 ```
 
-### Tipos de Certificados en la Cadena
+### Certificate Types in the Chain
 
 #### Root Certificate
-- **Emisor:** Auto-firmado
-- **Almacenamiento:** En trust stores del sistema
-- **Validez:** Larga (10-30 años)
-- **Uso:** Firma de intermediate CAs
+- **Issuer:** Self-signed
+- **Storage:** In the system trust stores
+- **Validity:** Long (10-30 years)
+- **Use:** Signing intermediate CAs
 
 #### Intermediate Certificate
-- **Emisor:** Root CA
-- **Propósito:** Firma de server certificates
-- **Cadena:** Múltiples niveles posibles
-- **Rotación:** Periódica
+- **Issuer:** Root CA
+- **Purpose:** Signing server certificates
+- **Chain:** Multiple levels possible
+- **Rotation:** Periodic
 
 #### Server Certificate (Leaf)
-- **Emisor:** Intermediate CA
-- **Dominio:** El sitio web
-- **Validez:** 90 días (Let's Encrypt) a 2 años
-- **SAN:** Múltiples dominios/subdominios
+- **Issuer:** Intermediate CA
+- **Domain:** The website
+- **Validity:** 90 days (Let's Encrypt) to 2 years
+- **SAN:** Multiple domains/subdomains
 
-### Configuración de Cadena Completa
+### Full Chain Configuration
 
-#### En Apache
+#### In Apache
 ```apache
 SSLCertificateFile /etc/ssl/certs/example.com.crt
 SSLCertificateKeyFile /etc/ssl/private/example.com.key
 SSLCertificateChainFile /etc/ssl/certs/intermediate.crt
 ```
 
-#### En Nginx
+#### In Nginx
 ```nginx
 server {
     listen 443 ssl http2;
@@ -142,31 +142,31 @@ server {
 }
 ```
 
-#### Verificar Cadena
+#### Verify the Chain
 ```bash
-# Ver contenido del certificado
+# View the certificate contents
 openssl x509 -in example.com.crt -text -noout
 
-# Verificar cadena
+# Verify the chain
 openssl verify -CAfile chain.pem example.com.crt
 
-# Probar conexión SSL
+# Test the SSL connection
 openssl s_client -connect example.com:443 -servername example.com
 ```
 
-## Gestión de Certificados
+## Certificate Management
 
-### Generación de CSR
+### CSR Generation
 
 ```bash
-# Generar clave privada
+# Generate a private key
 openssl genrsa -out example.com.key 2048
 
-# Crear CSR
+# Create a CSR
 openssl req -new -key example.com.key -out example.com.csr \
   -subj "/C=ES/ST=Madrid/L=Madrid/O=Example Corp/CN=example.com"
 
-# Con SAN (Subject Alternative Names)
+# With SAN (Subject Alternative Names)
 cat > san.cnf << EOF
 [req]
 distinguished_name = req_distinguished_name
@@ -194,57 +194,57 @@ EOF
 openssl req -new -key example.com.key -out example.com.csr -config san.cnf
 ```
 
-### Renovación Automática
+### Automatic Renewal
 
-#### Con Certbot
+#### With Certbot
 ```bash
-# Configurar renovación automática
+# Set up automatic renewal
 certbot renew --dry-run
 
-# Hook post-renovación
+# Post-renewal hook
 certbot certonly --webroot -w /var/www/html -d example.com \
   --post-hook "systemctl reload nginx"
 ```
 
-#### Script Personalizado
+#### Custom Script
 ```bash
 #!/bin/bash
-# Verificar expiración y renovar
+# Check expiry and renew
 
 DOMAIN="example.com"
 DAYS_WARNING=30
 
-# Calcular días hasta expiración
+# Calculate days until expiry
 EXPIRY=$(openssl x509 -enddate -noout -in /etc/ssl/certs/$DOMAIN.crt | cut -d= -f2)
 EXPIRY_SECONDS=$(date -d "$EXPIRY" +%s)
 NOW_SECONDS=$(date +%s)
 DAYS_LEFT=$(( ($EXPIRY_SECONDS - $NOW_SECONDS) / 86400 ))
 
 if [ $DAYS_LEFT -lt $DAYS_WARNING ]; then
-    echo "Certificado expira en $DAYS_LEFT días. Renovando..."
+    echo "Certificate expires in $DAYS_LEFT days. Renewing..."
     certbot renew --cert-name $DOMAIN
     systemctl reload nginx
 fi
 ```
 
-## Configuraciones Seguras
+## Secure Configurations
 
-### Cipher Suites Recomendadas
+### Recommended Cipher Suites
 
-#### Moderno (Recomendado)
+#### Modern (Recommended)
 ```nginx
 ssl_protocols TLSv1.2 TLSv1.3;
 ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384;
 ssl_prefer_server_ciphers off;
 ```
 
-#### Intermedio
+#### Intermediate
 ```nginx
 ssl_protocols TLSv1.2 TLSv1.3;
 ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256;
 ```
 
-#### Compatibilidad Antigua (No recomendado)
+#### Legacy Compatibility (Not Recommended)
 ```nginx
 ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
 ssl_ciphers HIGH:!aNULL:!MD5;
@@ -269,24 +269,24 @@ add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; prelo
 
 ### HPKP (Public Key Pinning) - DEPRECATED
 
-**Nota:** HPKP está obsoleto. Usar Certificate Transparency en su lugar.
+**Note:** HPKP is obsolete. Use Certificate Transparency instead.
 
-## Monitoreo y Alertas
+## Monitoring and Alerts
 
-### Verificación de Certificados
+### Certificate Verification
 
 ```bash
-# Verificar expiración
+# Check expiry
 openssl x509 -enddate -noout -in cert.pem
 
-# Verificar con servidor remoto
+# Check against a remote server
 echo | openssl s_client -servername example.com -connect example.com:443 2>/dev/null | openssl x509 -noout -dates
 
 # SSL Labs test
 curl -s "https://api.ssllabs.com/api/v3/analyze?host=example.com" | jq '.endpoints[0].grade'
 ```
 
-### Scripts de Monitoreo
+### Monitoring Scripts
 
 ```python
 import ssl
@@ -301,7 +301,7 @@ def check_ssl_cert(hostname, port=443):
     cert = conn.getpeercert()
     conn.close()
     
-    # Extraer fechas
+    # Extract dates
     not_before = datetime.strptime(cert['notBefore'], '%b %d %H:%M:%S %Y %Z')
     not_after = datetime.strptime(cert['notAfter'], '%b %d %H:%M:%S %Y %Z')
     
@@ -316,84 +316,84 @@ def check_ssl_cert(hostname, port=443):
         'valid': days_left > 0
     }
 
-# Uso
+# Usage
 cert_info = check_ssl_cert('example.com')
-print(f"Certificado válido por {cert_info['days_left']} días")
+print(f"Certificate valid for {cert_info['days_left']} days")
 ```
 
-### Alertas con Nagios/Icinga
+### Alerts with Nagios/Icinga
 
 ```bash
-# Comando check_ssl_cert
+# check_ssl_cert command
 /usr/lib/nagios/plugins/check_ssl_cert -H example.com -w 30 -c 7
 ```
 
-## Problemas Comunes y Soluciones
+## Common Problems and Solutions
 
 ### 1. Certificate Chain Issues
 
 **Error:** `unable to get local issuer certificate`
 
-**Solución:** Incluir intermediate certificates en la configuración
+**Solution:** Include the intermediate certificates in the configuration
 
 ### 2. Mismatched Domain
 
 **Error:** `Certificate verification error`
 
-**Solución:** Verificar que CN o SAN coincida con el dominio
+**Solution:** Check that the CN or SAN matches the domain
 
 ### 3. Expired Certificate
 
 **Error:** `certificate verify failed`
 
-**Solución:** Renovar certificado antes de expiración
+**Solution:** Renew the certificate before it expires
 
 ### 4. Weak Cipher Suites
 
-**Error:** Vulnerabilidades SSL/TLS
+**Error:** SSL/TLS vulnerabilities
 
-**Solución:** Configurar cipher suites modernas
+**Solution:** Configure modern cipher suites
 
 ## Certificate Transparency
 
-### ¿Qué es CT?
+### What Is CT?
 
-Certificate Transparency es un framework para monitorizar y auditar certificados SSL/TLS emitidos por CAs.
+Certificate Transparency is a framework for monitoring and auditing SSL/TLS certificates issued by CAs.
 
 ### SCT (Signed Certificate Timestamp)
 
-Los certificados incluyen SCTs para probar que fueron registrados en logs públicos de CT.
+Certificates include SCTs to prove they were recorded in public CT logs.
 
-### Verificación CT
+### CT Verification
 
 ```bash
-# Ver SCTs en certificado
+# View SCTs in a certificate
 openssl x509 -in cert.pem -text | grep -A 5 "CT Precertificate SCTs"
 
-# Verificar con crt.sh
+# Check with crt.sh
 curl "https://crt.sh/?q=example.com&output=json"
 ```
 
-## Mejores Prácticas
+## Best Practices
 
-### Gestión
-1. **Automatización:** Usar ACME (Let's Encrypt) para DV
-2. **Monitoreo:** Alertas de expiración
-3. **Backup:** Copias de claves privadas seguras
-4. **Rotación:** Renovar antes de expirar
+### Management
+1. **Automation:** Use ACME (Let's Encrypt) for DV
+2. **Monitoring:** Expiry alerts
+3. **Backup:** Secure copies of private keys
+4. **Rotation:** Renew before expiry
 
-### Seguridad
-1. **Claves fuertes:** Mínimo 2048 bits RSA, preferir ECDSA
-2. **SAN:** Usar Subject Alternative Names
-3. **HSTS:** Implementar HTTP Strict Transport Security
-4. **OCSP:** Configurar OCSP Stapling
+### Security
+1. **Strong keys:** At least 2048-bit RSA, prefer ECDSA
+2. **SAN:** Use Subject Alternative Names
+3. **HSTS:** Implement HTTP Strict Transport Security
+4. **OCSP:** Configure OCSP Stapling
 
-### Rendimiento
+### Performance
 1. **Session resumption:** TLS session tickets
-2. **OCSP stapling:** Evitar consultas OCSP
-3. **CDN:** Usar CDN con certificados gestionados
+2. **OCSP stapling:** Avoid OCSP queries
+3. **CDN:** Use a CDN with managed certificates
 
-## Referencias
+## References
 
 - RFC 5246: The Transport Layer Security (TLS) Protocol Version 1.2
 - RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3

@@ -1,5 +1,5 @@
 ---
-title: "Tablas de Puertos Comunes"
+title: "Common Port Tables"
 description: List of standard TCP/UDP ports and associated services (e.g. 22 SSH, 443 HTTPS, 53 DNS).
 tags: ['networking']
 
@@ -14,54 +14,54 @@ prerequisites:
   - "Networking fundamentals"
 ---
 
-# Tablas de Puertos Comunes
+# Common Port Tables
 
-Esta guía proporciona una referencia completa de los puertos TCP/UDP más comunes utilizados en redes y servicios. Incluye tanto puertos estándar IANA como servicios ampliamente utilizados.
+This guide provides a complete reference of the most common TCP/UDP ports used in networking and services. It includes both IANA standard ports and widely used services.
 
-## Puertos Bien Conocidos (0-1023)
+## Well-Known Ports (0-1023)
 
-### Servicios Web y HTTP
+### Web and HTTP Services
 
-| Puerto | Protocolo | Servicio | Descripción |
+| Port | Protocol | Service | Description |
 |--------|-----------|----------|-------------|
-| 80 | TCP | HTTP | Protocolo de Transferencia de Hipertexto |
-| 443 | TCP | HTTPS | HTTP sobre TLS/SSL |
-| 8080 | TCP | HTTP Alt | HTTP alternativo (proxies, desarrollo) |
-| 8443 | TCP | HTTPS Alt | HTTPS alternativo |
+| 80 | TCP | HTTP | Hypertext Transfer Protocol |
+| 443 | TCP | HTTPS | HTTP over TLS/SSL |
+| 8080 | TCP | HTTP Alt | Alternative HTTP (proxies, development) |
+| 8443 | TCP | HTTPS Alt | Alternative HTTPS |
 
-### Servicios de Correo
+### Mail Services
 
-| Puerto | Protocolo | Servicio | Descripción |
+| Port | Protocol | Service | Description |
 |--------|-----------|----------|-------------|
 | 25 | TCP | SMTP | Simple Mail Transfer Protocol |
 | 110 | TCP | POP3 | Post Office Protocol v3 |
 | 143 | TCP | IMAP | Internet Message Access Protocol |
-| 465 | TCP | SMTPS | SMTP sobre SSL |
+| 465 | TCP | SMTPS | SMTP over SSL |
 | 587 | TCP | SMTP MSA | SMTP Mail Submission Agent |
-| 993 | TCP | IMAPS | IMAP sobre SSL |
-| 995 | TCP | POP3S | POP3 sobre SSL |
+| 993 | TCP | IMAPS | IMAP over SSL |
+| 995 | TCP | POP3S | POP3 over SSL |
 
-### Servicios DNS y Dominios
+### DNS and Domain Services
 
-| Puerto | Protocolo | Servicio | Descripción |
+| Port | Protocol | Service | Description |
 |--------|-----------|----------|-------------|
 | 53 | TCP/UDP | DNS | Domain Name System |
 | 5353 | UDP | mDNS | Multicast DNS (Bonjour) |
 | 5355 | TCP | LLMNR | Link-Local Multicast Name Resolution |
 
-### Servicios de Autenticación y Seguridad
+### Authentication and Security Services
 
-| Puerto | Protocolo | Servicio | Descripción |
+| Port | Protocol | Service | Description |
 |--------|-----------|----------|-------------|
 | 22 | TCP | SSH | Secure Shell |
 | 389 | TCP | LDAP | Lightweight Directory Access Protocol |
-| 636 | TCP | LDAPS | LDAP sobre SSL |
+| 636 | TCP | LDAPS | LDAP over SSL |
 | 1812 | UDP | RADIUS | Remote Authentication Dial-In User Service |
 | 1813 | UDP | RADIUS Acct | RADIUS Accounting |
 
-### Servicios de Base de Datos
+### Database Services
 
-| Puerto | Protocolo | Servicio | Descripción |
+| Port | Protocol | Service | Description |
 |--------|-----------|----------|-------------|
 | 1433 | TCP | MSSQL | Microsoft SQL Server |
 | 1521 | TCP | Oracle | Oracle Database |
@@ -70,53 +70,53 @@ Esta guía proporciona una referencia completa de los puertos TCP/UDP más comun
 | 6379 | TCP | Redis | Redis Key-Value Store |
 | 27017 | TCP | MongoDB | MongoDB Database |
 
-### Servicios de Transferencia de Archivos
+### File Transfer Services
 
-| Puerto | Protocolo | Servicio | Descripción |
+| Port | Protocol | Service | Description |
 |--------|-----------|----------|-------------|
-| 20 | TCP | FTP Data | File Transfer Protocol (datos) |
+| 20 | TCP | FTP Data | File Transfer Protocol (data) |
 | 21 | TCP | FTP | File Transfer Protocol (control) |
 | 69 | UDP | TFTP | Trivial File Transfer Protocol |
-| 989 | TCP | FTPS Data | FTP sobre SSL (datos) |
-| 990 | TCP | FTPS | FTP sobre SSL (control) |
+| 989 | TCP | FTPS Data | FTP over SSL (data) |
+| 990 | TCP | FTPS | FTP over SSL (control) |
 
-### Servicios de Red y Sistema
+### Network and System Services
 
-| Puerto | Protocolo | Servicio | Descripción |
+| Port | Protocol | Service | Description |
 |--------|-----------|----------|-------------|
-| 23 | TCP | Telnet | Telnet (inseguro) |
+| 23 | TCP | Telnet | Telnet (insecure) |
 | 67 | UDP | DHCP Server | Dynamic Host Configuration Protocol |
 | 68 | UDP | DHCP Client | DHCP Client |
 | 123 | UDP | NTP | Network Time Protocol |
 | 161 | UDP | SNMP | Simple Network Management Protocol |
 | 162 | UDP | SNMP Trap | SNMP Traps |
 
-## Puertos Registrados (1024-49151)
+## Registered Ports (1024-49151)
 
-### Servicios de Aplicaciones Web
+### Web Application Services
 
-| Puerto | Protocolo | Servicio | Descripción |
+| Port | Protocol | Service | Description |
 |--------|-----------|----------|-------------|
 | 1433 | TCP | MSSQL | Microsoft SQL Server |
 | 1521 | TCP | Oracle | Oracle Database |
 | 2049 | TCP/UDP | NFS | Network File System |
-| 2375 | TCP | Docker | Docker Daemon (sin TLS) |
-| 2376 | TCP | Docker TLS | Docker Daemon con TLS |
+| 2375 | TCP | Docker | Docker Daemon (without TLS) |
+| 2376 | TCP | Docker TLS | Docker Daemon with TLS |
 | 3306 | TCP | MySQL | MySQL Database |
 | 3389 | TCP | RDP | Remote Desktop Protocol |
 | 5432 | TCP | PostgreSQL | PostgreSQL Database |
 | 5900 | TCP | VNC | Virtual Network Computing |
 | 6379 | TCP | Redis | Redis Key-Value Store |
-| 8080 | TCP | HTTP Alt | HTTP alternativo |
-| 8443 | TCP | HTTPS Alt | HTTPS alternativo |
+| 8080 | TCP | HTTP Alt | Alternative HTTP |
+| 8443 | TCP | HTTPS Alt | Alternative HTTPS |
 | 9000 | TCP | PHP-FPM | PHP FastCGI Process Manager |
 | 9090 | TCP | Prometheus | Prometheus monitoring |
 | 9200 | TCP | Elasticsearch | Elasticsearch search engine |
 | 27017 | TCP | MongoDB | MongoDB Database |
 
-### Servicios de Comunicación
+### Communication Services
 
-| Puerto | Protocolo | Servicio | Descripción |
+| Port | Protocol | Service | Description |
 |--------|-----------|----------|-------------|
 | 1194 | UDP | OpenVPN | OpenVPN |
 | 1701 | UDP | L2TP | Layer 2 Tunneling Protocol |
@@ -126,11 +126,11 @@ Esta guía proporciona una referencia completa de los puertos TCP/UDP más comun
 | 5004 | UDP | RTP | Real-time Transport Protocol |
 | 5005 | UDP | RTCP | Real-time Transport Control Protocol |
 | 5060 | TCP/UDP | SIP | Session Initiation Protocol |
-| 5061 | TCP | SIPS | SIP sobre TLS |
+| 5061 | TCP | SIPS | SIP over TLS |
 
-### Servicios de Monitoreo y Gestión
+### Monitoring and Management Services
 
-| Puerto | Protocolo | Servicio | Descripción |
+| Port | Protocol | Service | Description |
 |--------|-----------|----------|-------------|
 | 161 | UDP | SNMP | Simple Network Management Protocol |
 | 162 | UDP | SNMP Trap | SNMP Traps |
@@ -141,9 +141,9 @@ Esta guía proporciona una referencia completa de los puertos TCP/UDP más comun
 | 5666 | TCP | NRPE | Nagios Remote Plugin Executor |
 | 6556 | TCP | Checkmk | Checkmk monitoring |
 
-### Servicios de Virtualización
+### Virtualization Services
 
-| Puerto | Protocolo | Servicio | Descripción |
+| Port | Protocol | Service | Description |
 |--------|-----------|----------|-------------|
 | 22 | TCP | SSH | Secure Shell (VM access) |
 | 135 | TCP | RPC | Microsoft RPC |
@@ -152,136 +152,136 @@ Esta guía proporciona una referencia completa de los puertos TCP/UDP más comun
 | 902 | TCP | VMware | VMware Server |
 | 903 | TCP | VMware | VMware Remote Console |
 | 2375 | TCP | Docker | Docker Daemon |
-| 2376 | TCP | Docker TLS | Docker Daemon con TLS |
+| 2376 | TCP | Docker TLS | Docker Daemon with TLS |
 | 6443 | TCP | Kubernetes API | Kubernetes API Server |
 | 10250 | TCP | Kubelet | Kubernetes Kubelet |
 
-## Puertos Dinámicos/Efemeros (49152-65535)
+## Dynamic/Ephemeral Ports (49152-65535)
 
-### Rangos por Sistema Operativo
+### Ranges by Operating System
 
-| Sistema | Rango Dinámico | Notas |
+| System | Dynamic Range | Notes |
 |---------|----------------|-------|
-| Linux | 32768-60999 | Configurable en /proc/sys/net/ipv4/ip_local_port_range |
+| Linux | 32768-60999 | Configurable in /proc/sys/net/ipv4/ip_local_port_range |
 | Windows | 49152-65535 | Ephemeral ports |
 | macOS | 49152-65535 | Ephemeral ports |
 | IANA | 49152-65535 | Dynamic/Private ports |
 
-### Servicios Comunes en Puertos Altos
+### Common Services on High Ports
 
-| Puerto | Protocolo | Servicio | Descripción |
+| Port | Protocol | Service | Description |
 |--------|-----------|----------|-------------|
 | 50000-50099 | TCP | SAP | SAP Dispatcher ports |
-| 54321 | TCP | PostgreSQL | PostgreSQL alternativo |
+| 54321 | TCP | PostgreSQL | Alternative PostgreSQL |
 | 55000 | TCP | Oracle | Oracle Listener |
 | 60000-61000 | TCP | X11 | X Window System |
 
-## Puertos por Protocolo
+## Ports by Protocol
 
-### TCP Específicos
+### Specific TCP
 
-| Puerto | Servicio | Uso Principal |
+| Port | Service | Main Use |
 |--------|----------|---------------|
-| 21 | FTP | Transferencia de archivos |
-| 22 | SSH | Acceso remoto seguro |
-| 23 | Telnet | Acceso remoto (inseguro) |
-| 25 | SMTP | Envío de correo |
-| 53 | DNS | Resolución de nombres |
-| 80 | HTTP | Web sin cifrado |
-| 110 | POP3 | Recuperación de correo |
-| 143 | IMAP | Acceso a correo |
-| 443 | HTTPS | Web con cifrado |
-| 993 | IMAPS | IMAP seguro |
-| 995 | POP3S | POP3 seguro |
+| 21 | FTP | File transfer |
+| 22 | SSH | Secure remote access |
+| 23 | Telnet | Remote access (insecure) |
+| 25 | SMTP | Mail sending |
+| 53 | DNS | Name resolution |
+| 80 | HTTP | Unencrypted web |
+| 110 | POP3 | Mail retrieval |
+| 143 | IMAP | Mail access |
+| 443 | HTTPS | Encrypted web |
+| 993 | IMAPS | Secure IMAP |
+| 995 | POP3S | Secure POP3 |
 
-### UDP Específicos
+### Specific UDP
 
-| Puerto | Servicio | Uso Principal |
+| Port | Service | Main Use |
 |--------|----------|---------------|
-| 53 | DNS | Consultas DNS |
-| 67 | DHCP Server | Asignación de IP |
-| 68 | DHCP Client | Solicitud de IP |
-| 69 | TFTP | Transferencia simple de archivos |
-| 123 | NTP | Sincronización de tiempo |
-| 161 | SNMP | Monitoreo de red |
-| 500 | IPSec | VPN IPsec |
-| 1194 | OpenVPN | VPN OpenVPN |
+| 53 | DNS | DNS queries |
+| 67 | DHCP Server | IP assignment |
+| 68 | DHCP Client | IP request |
+| 69 | TFTP | Simple file transfer |
+| 123 | NTP | Time synchronization |
+| 161 | SNMP | Network monitoring |
+| 500 | IPSec | IPsec VPN |
+| 1194 | OpenVPN | OpenVPN VPN |
 
-## Herramientas para Verificar Puertos
+## Tools to Verify Ports
 
-### Comandos Básicos
+### Basic Commands
 
 ```bash
-# Ver puertos abiertos localmente
+# View open ports locally
 netstat -tlnp
 ss -tlnp
 
-# Escanear puertos en host remoto
+# Scan ports on a remote host
 nmap -p 1-1000 example.com
 
-# Ver servicios por puerto
+# View services by port
 lsof -i :80
 
-# Ver tabla de rutas de puertos
+# View port-to-service mapping
 cat /etc/services | grep -E "^[0-9]"
 ```
 
-### Scripts de Verificación
+### Verification Scripts
 
 ```bash
 #!/bin/bash
-# Verificar puertos comunes
+# Check common ports
 
 HOST=$1
 PORTS=(22 80 443 3306 5432)
 
-echo "Verificando puertos en $HOST..."
+echo "Checking ports on $HOST..."
 
 for port in "${PORTS[@]}"; do
     if nc -z -w5 $HOST $port 2>/dev/null; then
         service=$(grep "^$port/" /etc/services | head -1 | awk '{print $1}')
-        echo "✓ Puerto $port abierto ($service)"
+        echo "✓ Port $port open ($service)"
     else
-        echo "✗ Puerto $port cerrado"
+        echo "✗ Port $port closed"
     fi
 done
 ```
 
-### Nmap para Escaneo Avanzado
+### Nmap for Advanced Scanning
 
 ```bash
-# Escaneo rápido de puertos comunes
+# Quick scan of common ports
 nmap --top-ports 100 example.com
 
-# Detección de servicios y versiones
+# Service and version detection
 nmap -sV -p 1-1000 example.com
 
-# Escaneo UDP
+# UDP scan
 nmap -sU -p 53,67,68,123 example.com
 
-# Detección de firewall
+# Firewall detection
 nmap -sA example.com
 ```
 
-## Consideraciones de Seguridad
+## Security Considerations
 
-### Puertos de Riesgo Alto
+### High-Risk Ports
 
-- **23 (Telnet):** Transmisión en claro
-- **21 (FTP):** Credenciales en claro
-- **80 (HTTP):** Sin cifrado
-- **3389 (RDP):** Ataques de fuerza bruta
-- **5900 (VNC):** Acceso remoto sin cifrado
+- **23 (Telnet):** Cleartext transmission
+- **21 (FTP):** Credentials sent in cleartext
+- **80 (HTTP):** No encryption
+- **3389 (RDP):** Brute-force attacks
+- **5900 (VNC):** Unencrypted remote access
 
-### Mejores Prácticas
+### Best Practices
 
-1. **Filtrado:** Usar firewalls para limitar acceso
-2. **Monitoreo:** Alertas de conexiones inesperadas
-3. **Cifrado:** Preferir versiones seguras de protocolos
-4. **Actualización:** Mantener servicios actualizados
-5. **Segmentación:** Separar redes por función
+1. **Filtering:** Use firewalls to limit access
+2. **Monitoring:** Alerts for unexpected connections
+3. **Encryption:** Prefer secure versions of protocols
+4. **Updates:** Keep services up to date
+5. **Segmentation:** Separate networks by function
 
-### Configuración de Firewall
+### Firewall Configuration
 
 ```bash
 # UFW (Ubuntu)
@@ -295,7 +295,7 @@ iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 ```
 
-## Referencias
+## References
 
 - IANA Service Name and Transport Protocol Port Number Registry
 - RFC 6335: Internet Assigned Numbers Authority (IANA) Procedures for the Management of the Service Name and Transport Protocol Port Number Registry

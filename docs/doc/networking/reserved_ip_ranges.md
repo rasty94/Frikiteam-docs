@@ -2,7 +2,7 @@
 title: Reserved IP Ranges
 tags: ['networking']
 description: Bloques de direcciones privadas (RFC 1918), de documentación y reservadas (CG-NAT, Loopback).
-updated: 2026-01-09
+updated: 2026-01-23
 difficulty: intermediate
 estimated_time: 6 min
 category: Redes
@@ -83,7 +83,7 @@ Las direcciones IP reservadas son bloques de direcciones que no se enrutan en In
 - **Zeroconf:** Usado por Bonjour, Avahi
 - **No enrutable:** Solo en enlace local
 
-### TEST-NET (RFC 5735)
+### TEST-NET (RFC 5737)
 
 | Rango | Prefijo CIDR | Uso |
 |-------|--------------|-----|
@@ -92,7 +92,7 @@ Las direcciones IP reservadas son bloques de direcciones que no se enrutan en In
 | 203.0.113.0 - 203.0.113.255 | 203.0.113.0/24 | Documentación y ejemplos |
 
 **Detalles:**
-- **RFC 5735:** Rangos para documentación
+- **RFC 5737:** Rangos para documentación
 - **No usar en producción:** Solo ejemplos
 - **Libros/Tutoriales:** Común en documentación técnica
 
@@ -128,20 +128,16 @@ ISP Network:
 |-------|--------------|-----|----------|
 | 0.0.0.0/8 | 0.0.0.0/8 | RFC 1122 | "This" network |
 | 192.0.0.0/24 | 192.0.0.0/24 | RFC 5736 | IETF Protocol Assignments |
-| 192.0.2.0/24 | 192.0.2.0/24 | RFC 5735 | TEST-NET-1 |
-| 198.51.100.0/24 | 198.51.100.0/24 | RFC 5735 | TEST-NET-2 |
-| 203.0.113.0/24 | 203.0.113.0/24 | RFC 5735 | TEST-NET-3 |
+| 192.0.2.0/24 | 192.0.2.0/24 | RFC 5737 | TEST-NET-1 |
+| 198.51.100.0/24 | 198.51.100.0/24 | RFC 5737 | TEST-NET-2 |
+| 203.0.113.0/24 | 203.0.113.0/24 | RFC 5737 | TEST-NET-3 |
 | 240.0.0.0/4 | 240.0.0.0/4 | RFC 1112 | Class E (experimental) |
 
 ### Rangos por Continente (RIRs)
 
-| RIR | Región | Rango Asignado |
-|-----|--------|----------------|
-| ARIN | Norteamérica | 192.168.0.0/16, 172.16.0.0/12, 10.0.0.0/8 |
-| RIPE | Europa/Oriente Medio | 192.168.0.0/16, 172.16.0.0/12, 10.0.0.0/8 |
-| APNIC | Asia/Pacífico | 192.168.0.0/16, 172.16.0.0/12, 10.0.0.0/8 |
-| LACNIC | Latinoamérica | 192.168.0.0/16, 172.16.0.0/12, 10.0.0.0/8 |
-| AFRINIC | África | 192.168.0.0/16, 172.16.0.0/12, 10.0.0/8 |
+!!! note "Los rangos privados no dependen del RIR"
+    Los cinco registros regionales (ARIN, RIPE NCC, APNIC, LACNIC y AFRINIC) reparten espacio **público**. Los rangos privados del RFC 1918 (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) no los asigna ningún RIR: son los mismos en todo el mundo y cualquiera puede usarlos dentro de su red sin pedirlos.
+
 
 ## IPv6 Reserved Ranges
 
@@ -335,7 +331,8 @@ ss -tlnp
 - RFC 1918: Address Allocation for Private Internets
 - RFC 3927: Dynamic Configuration of IPv4 Link-Local Addresses
 - RFC 4193: Unique Local IPv6 Unicast Addresses
-- RFC 5735: Special Use IPv4 Addresses
+- RFC 5735: Special Use IPv4 Addresses (sustituido por RFC 6890)
+- RFC 5737: IPv4 Address Blocks Reserved for Documentation
 - RFC 6598: IANA-Reserved IPv4 Prefix for Shared Address Space
 - IANA IPv4 Special-Purpose Address Registry
 - IANA IPv6 Special-Purpose Address Registry

@@ -36,18 +36,18 @@ This guide covers the complete implementation of a modern observability stack th
 - Basic understanding of metrics, logs and tracing
 - Working Kubernetes cluster (minikube, k3s, EKS, GKE, AKS, or self-hosted)
 
-## 🏗️ Arquitectura Completa del Stack
+## 🏗️ Complete Stack Architecture
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Aplicaciones  │───▶│   OpenTelemetry │───▶│     Jaeger      │
+│  Applications   │───▶│   OpenTelemetry │───▶│     Jaeger      │
 │   (Instrumented)│    │   Collector     │    │  (Tracing)      │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
          │                       │                       │
          ▼                       ▼                       ▼
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   Prometheus    │    │      Loki       │    │    Grafana      │
-│   (Métricas)    │    │    (Logs)       │    │ (Visualización) │
+│   (Metrics)     │    │    (Logs)       │    │ (Visualization) │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
          │                       │                       │
          └───────────────────────┼───────────────────────┘
@@ -58,36 +58,36 @@ This guide covers the complete implementation of a modern observability stack th
                    └─────────────────┘
 ```
 
-### Componentes del Stack
+### Stack Components
 
-- **Prometheus**: Recolección y almacenamiento de métricas time-series
-- **Grafana**: Visualización, dashboards y alerting
-- **Loki**: Logs centralizados y búsqueda eficiente
-- **Jaeger**: Tracing distribuido y análisis de latencia
-- **OpenTelemetry**: Estándar para instrumentación de aplicaciones
-- **Alertmanager**: Gestión y enrutamiento de alertas
-- **Node Exporter**: Métricas del sistema operativo
-- **cAdvisor/Kubelet**: Métricas de contenedores y Kubernetes
+- **Prometheus**: Time-series metrics collection and storage
+- **Grafana**: Visualization, dashboards and alerting
+- **Loki**: Centralized logs and efficient search
+- **Jaeger**: Distributed tracing and latency analysis
+- **OpenTelemetry**: Standard for application instrumentation
+- **Alertmanager**: Alert management and routing
+- **Node Exporter**: Operating system metrics
+- **cAdvisor/Kubelet**: Container and Kubernetes metrics
 
 ## 🚀 Installation in Kubernetes with Helm
 
 ### Prepare the environment
 
 ```bash
-# Añadir repositorios de Helm
+# Add Helm repositories
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
 helm repo update
 
-# Crear namespace para observabilidad
+# Create namespace for observability
 kubectl create namespace observability
 ```
 
 ### Install complete Prometheus stack
 
 ```bash
-# Instalar kube-prometheus-stack (Prometheus + Grafana + Alertmanager)
+# Install kube-prometheus-stack (Prometheus + Grafana + Alertmanager)
 helm install prometheus prometheus-community/kube-prometheus-stack \
   --namespace observability \
   --set grafana.enabled=true \
@@ -98,10 +98,10 @@ helm install prometheus prometheus-community/kube-prometheus-stack \
   --wait
 ```
 
-### Instalar Loki para logs centralizados
+### Install Loki for Centralized Logs
 
 ```bash
-# Instalar Loki Stack (Loki + Promtail + Grafana datasource)
+# Install Loki Stack (Loki + Promtail + Grafana datasource)
 helm install loki grafana/loki-stack \
   --namespace observability \
   --set grafana.enabled=true \
@@ -112,10 +112,10 @@ helm install loki grafana/loki-stack \
   --wait
 ```
 
-### Instalar Jaeger para tracing distribuido
+### Install Jaeger for Distributed Tracing
 
 ```bash
-# Instalar Jaeger completo con Cassandra
+# Install full Jaeger with Cassandra
 helm install jaeger jaegertracing/jaeger \
   --namespace observability \
   --set cassandra.config.max_heap_size=1024M \
@@ -124,7 +124,7 @@ helm install jaeger jaegertracing/jaeger \
   --wait
 ```
 
-### Instalar OpenTelemetry Collector
+### Install OpenTelemetry Collector
 
 ```yaml
 # otel-collector-values.yaml
@@ -180,44 +180,44 @@ config:
         processors: [memory_limiter, batch]
         exporters: [loki]
 
-# Instalar
+# Install
 helm install opentelemetry-collector open-telemetry/opentelemetry-collector \
   --namespace observability \
   -f otel-collector-values.yaml \
   --wait
 ```
 
-## 📊 Exposición de Servicios
+## 📊 Exposing Services
 
 ```bash
-# Exponer Prometheus
+# Expose Prometheus
 kubectl port-forward -n observability svc/prometheus-kube-prometheus-prometheus 9090:9090
 
-# Exponer Grafana
+# Expose Grafana
 kubectl port-forward -n observability svc/prometheus-grafana 3000:3000
 
-# Exponer Jaeger UI
+# Expose Jaeger UI
 kubectl port-forward -n observability svc/jaeger-query 16686:16686
 
-# Exponer Loki (opcional)
+# Expose Loki (optional)
 kubectl port-forward -n observability svc/loki 3100:3100
 ```
 
-### Acceso inicial a Grafana
+### Initial Access to Grafana
 
 ```bash
-# Obtener contraseña de admin
+# Get admin password
 kubectl get secret -n observability prometheus-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 
-# Usuario: admin
+# User: admin
 # URL: http://localhost:3000
 ```
 
-## 🎨 Dashboards Personalizados en Grafana
+## 🎨 Custom Dashboards in Grafana
 
-### Dashboard de Nodes de Kubernetes
+### Kubernetes Nodes Dashboard
 
-Importa el dashboard ID `1860` (Node Exporter Full) o crea uno personalizado:
+Import dashboard ID `1860` (Node Exporter Full) or create a custom one:
 
 {% raw %}
 ```json
@@ -280,7 +280,7 @@ Importa el dashboard ID `1860` (Node Exporter Full) o crea uno personalizado:
 ```
 {% endraw %}
 
-### Dashboard de Pods y Contenedores
+### Pods and Containers Dashboard
 
 {% raw %}
 ```json
@@ -333,7 +333,7 @@ Importa el dashboard ID `1860` (Node Exporter Full) o crea uno personalizado:
 ```
 {% endraw %}
 
-### Dashboard de Ingress y Services
+### Ingress and Services Dashboard
 
 {% raw %}
 ```json
@@ -378,11 +378,11 @@ Importa el dashboard ID `1860` (Node Exporter Full) o crea uno personalizado:
 ```
 {% endraw %}
 
-## � OpenTelemetry y Tracing Distribuido
+## � OpenTelemetry and Distributed Tracing
 
-### Instrumentación de Aplicaciones
+### Application Instrumentation
 
-#### Python con OpenTelemetry
+#### Python with OpenTelemetry
 
 ```python
 from opentelemetry import trace
@@ -392,11 +392,11 @@ from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExport
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
 
-# Configurar tracing
+# Configure tracing
 trace.set_tracer_provider(TracerProvider())
 tracer = trace.get_tracer(__name__)
 
-# Configurar exportador OTLP
+# Configure OTLP exporter
 otlp_exporter = OTLPSpanExporter(
     endpoint="otel-collector.observability.svc.cluster.local:4317",
     insecure=True
@@ -404,25 +404,25 @@ otlp_exporter = OTLPSpanExporter(
 span_processor = BatchSpanProcessor(otlp_exporter)
 trace.get_tracer_provider().add_span_processor(span_processor)
 
-# Auto-instrumentación para frameworks populares
+# Auto-instrumentation for popular frameworks
 FlaskInstrumentor().instrument()
 RequestsInstrumentor().instrument()
 
-# Instrumentación manual
+# Manual instrumentation
 @app.route('/api/users')
 def get_users():
     with tracer.start_as_current_span("get_users") as span:
         span.set_attribute("operation.name", "database_query")
         span.set_attribute("db.table", "users")
 
-        # Tu lógica de negocio aquí
+        # Your business logic here
         users = db.query("SELECT * FROM users")
 
         span.set_attribute("db.rows_returned", len(users))
         return jsonify(users)
 ```
 
-#### JavaScript/Node.js con OpenTelemetry
+#### JavaScript/Node.js with OpenTelemetry
 
 ```javascript
 const { NodeTracerProvider } = require('@opentelemetry/sdk-trace-node');
@@ -438,16 +438,16 @@ const exporter = new OTLPTraceExporter({
 provider.addSpanProcessor(new BatchSpanProcessor(exporter));
 provider.register();
 
-// Auto-instrumentación
+// Auto-instrumentation
 provider.addSpanProcessor(new ExpressInstrumentation());
 provider.addSpanProcessor(new HttpInstrumentation());
 
-// Instrumentación manual
+// Manual instrumentation
 app.get('/api/users', (req, res) => {
   const span = trace.getTracer('my-service').startSpan('get_users');
   span.setAttribute('operation.name', 'database_query');
 
-  // Tu lógica aquí
+  // Your logic here
   db.query('SELECT * FROM users', (err, results) => {
     span.setAttribute('db.rows_returned', results.length);
     span.end();
@@ -456,7 +456,7 @@ app.get('/api/users', (req, res) => {
 });
 ```
 
-#### Java con OpenTelemetry
+#### Java with OpenTelemetry
 
 ```java
 import io.opentelemetry.api.trace.Tracer;
@@ -474,7 +474,7 @@ public class MyService {
         try (Scope scope = span.makeCurrent()) {
             span.setAttribute("operation.name", "business_logic");
 
-            // Tu lógica de negocio
+            // Your business logic
             doBusinessLogic();
 
             span.setAttribute("result", "success");
@@ -489,7 +489,7 @@ public class MyService {
 }
 ```
 
-### Configuración del Collector OpenTelemetry
+### OpenTelemetry Collector Configuration
 
 ```yaml
 # otel-collector-config.yaml
@@ -501,7 +501,7 @@ receivers:
       http:
         endpoint: 0.0.0.0:4318
 
-  # Receivers adicionales para métricas del sistema
+  # Additional receivers for system metrics
   prometheus:
     config:
       scrape_configs:
@@ -517,7 +517,7 @@ processors:
     limit_mib: 512
     spike_limit_mib: 128
 
-  # Procesador para añadir atributos comunes
+  # Processor to add common attributes
   resource:
     attributes:
       - key: service.namespace
@@ -553,9 +553,9 @@ service:
       exporters: [loki]
 ```
 
-## 🔔 Alerting Avanzado con Alertmanager
+## 🔔 Advanced Alerting with Alertmanager
 
-### Reglas de Alerting para Kubernetes
+### Alerting Rules for Kubernetes
 
 {% raw %}
 ```yaml
@@ -628,7 +628,7 @@ groups:
 ```
 {% endraw %}
 
-### Configuración Avanzada de Alertmanager
+### Advanced Alertmanager Configuration
 
 {% raw %}
 ```yaml
@@ -639,7 +639,7 @@ global:
   smtp_auth_username: 'alerts@frikiteam.es'
   smtp_auth_password: 'your-app-password'
 
-# Plantillas de notificaciones
+# Notification templates
 templates:
   - '/etc/alertmanager/templates/*.tmpl'
 
@@ -704,7 +704,7 @@ receivers:
   email_configs:
   - to: 'backend@frikiteam.es'
 
-# Inhibiciones para evitar alertas duplicadas
+# Inhibitions to avoid duplicate alerts
 inhibit_rules:
   - source_match:
       alertname: 'NodeDown'
@@ -714,9 +714,9 @@ inhibit_rules:
 ```
 {% endraw %}
 
-## � Monitoreo de Storage (Ceph, Pure Storage, NetApp)
+## � Storage Monitoring (Ceph, Pure Storage, NetApp)
 
-### Métricas de Ceph
+### Ceph Metrics
 
 ```yaml
 # ceph-exporter-service-monitor.yaml
@@ -736,7 +736,7 @@ spec:
     scrapeTimeout: 10s
 ```
 
-#### Dashboard de Ceph en Grafana
+#### Ceph Dashboard in Grafana
 
 {% raw %}
 ```json
@@ -791,7 +791,7 @@ spec:
 ```
 {% endraw %}
 
-### Métricas de Pure Storage
+### Pure Storage Metrics
 
 ```yaml
 # pure-storage-servicemonitor.yaml
@@ -809,41 +809,41 @@ spec:
     interval: 60s
 ```
 
-### Métricas de NetApp
+### NetApp Metrics
 
 ```promql
-# Consultas PromQL para NetApp
-# Usage por volumen
+# PromQL queries for NetApp
+# Usage per volume
 netapp_volume_size_used / netapp_volume_size_total * 100
 
-# IOPS por LUN
+# IOPS per LUN
 rate(netapp_lun_read_ops[5m]) + rate(netapp_lun_write_ops[5m])
 
-# Latencia de storage
+# Storage latency
 netapp_lun_avg_read_latency + netapp_lun_avg_write_latency
 ```
 
-## 🌐 Monitoreo de Networking
+## 🌐 Networking Monitoring
 
-### Métricas de Red Básicas
+### Basic Network Metrics
 
 ```promql
-# Bandwidth por interface
+# Bandwidth per interface
 rate(node_network_receive_bytes_total[5m]) * 8 / 1000000
 
-# Latencia de red (si tienes blackbox exporter)
+# Network latency (if you have blackbox exporter)
 probe_duration_seconds
 
-# Errores de red
+# Network errors
 rate(node_network_receive_errs_total[5m])
 rate(node_network_transmit_errs_total[5m])
 
-# Conexiones TCP
+# TCP connections
 node_netstat_Tcp_CurrEstab
 node_netstat_Tcp_ActiveOpens
 ```
 
-### Dashboard de Networking
+### Networking Dashboard
 
 {% raw %}
 ```json
@@ -896,9 +896,9 @@ node_netstat_Tcp_ActiveOpens
 ```
 {% endraw %}
 
-## 🔧 Troubleshooting con Jaeger
+## 🔧 Troubleshooting with Jaeger
 
-### Configuración de Jaeger para Producción
+### Jaeger Configuration for Production
 
 ```yaml
 # jaeger-production-values.yaml
@@ -914,7 +914,7 @@ storage:
   cassandra:
     host: jaeger-cassandra
     keyspace: jaeger_v1_dc1
-    # Para producción, considera Elasticsearch:
+    # For production, consider Elasticsearch:
     # type: elasticsearch
     # elasticsearch:
     #   host: elasticsearch-master
@@ -925,56 +925,56 @@ query:
   service:
     type: ClusterIP
 
-# Configuración de sampling
+# Sampling configuration
 collector:
   otlp:
     enabled: true
   sampling:
     strategies:
       probabilistic:
-        samplingRate: 0.1  # 10% de traces
+        samplingRate: 0.1  # 10% of traces
       rateLimiting:
         maxTracesPerSecond: 100
 ```
 
-### Análisis de Traces en Jaeger
+### Trace Analysis in Jaeger
 
 ```bash
-# Buscar traces por servicio
+# Search traces by service
 curl -G "http://jaeger-query:16686/api/traces" \
   --data-urlencode "service=my-service" \
   --data-urlencode "limit=20"
 
-# Buscar traces con errores
+# Search traces with errors
 curl -G "http://jaeger-query:16686/api/traces" \
   --data-urlencode "service=my-service" \
   --data-urlencode "tags={\"error\":\"true\"}"
 
-# Buscar traces por duración
+# Search traces by duration
 curl -G "http://jaeger-query:16686/api/traces" \
   --data-urlencode "service=my-service" \
   --data-urlencode "maxDuration=5s"
 ```
 
-### Consultas TraceQL en Grafana
+### TraceQL Queries in Grafana
 
 ```traceql
-# Traces lentas
+# Slow traces
 { duration > 5s }
 
-# Traces con errores
+# Traces with errors
 { status = error }
 
-# Traces por servicio y operación
+# Traces by service and operation
 { service.name = "my-service" && name = "http_request" }
 
-# Traces con tags específicos
+# Traces with specific tags
 { resource.service.name = "api-gateway" && span.http.status_code = "500" }
 ```
 
-## 🚀 Configuración de Producción
+## 🚀 Production Configuration
 
-### Alta Disponibilidad
+### High Availability
 
 ```yaml
 # prometheus-ha-values.yaml
@@ -1016,38 +1016,38 @@ alertmanager:
               storage: 10Gi
 ```
 
-### Backup y Recuperación
+### Backup and Recovery
 
 ```bash
-# Backup de Prometheus
+# Backup Prometheus
 kubectl exec -n observability prometheus-prometheus-0 -- tar czf /tmp/prometheus-backup.tar.gz -C /prometheus .
 
-# Backup de Loki
+# Backup Loki
 kubectl exec -n observability loki-0 -- tar czf /tmp/loki-backup.tar.gz -C /loki .
 
-# Backup de Grafana
+# Backup Grafana
 kubectl exec -n observability prometheus-grafana-0 -- tar czf /tmp/grafana-backup.tar.gz -C /var/lib/grafana .
 
-# Copiar backups a storage seguro
+# Copy backups to secure storage
 kubectl cp observability/prometheus-prometheus-0:tmp/prometheus-backup.tar.gz ./backups/
 kubectl cp observability/loki-0:tmp/loki-backup.tar.gz ./backups/
 kubectl cp observability/prometheus-grafana-0:tmp/grafana-backup.tar.gz ./backups/
 ```
 
-### Monitoreo de Costos
+### Cost Monitoring
 
 ```promql
-# Costo estimado por namespace (AWS ejemplo)
+# Estimated cost per namespace (AWS example)
 sum(rate(container_cpu_usage_seconds_total[1h])) by (namespace) * 0.000024 * 730 +
 sum(container_memory_usage_bytes / 1024 / 1024 / 1024) by (namespace) * 0.000018 * 730
 
-# Costo de storage
+# Storage cost
 sum(kube_persistentvolumeclaim_resource_requests_storage_bytes) by (namespace) / 1024 / 1024 / 1024 * 0.12
 ```
 
-## 📊 SLOs y SLIs
+## 📊 SLOs and SLIs
 
-### Definición de SLOs
+### SLO Definition
 
 ```yaml
 # slos.yaml
@@ -1079,7 +1079,7 @@ sum(kube_persistentvolumeclaim_resource_requests_storage_bytes) by (namespace) /
         metric: up{job="ceph-mgr"}
 ```
 
-### Dashboard de SLOs
+### SLO Dashboard
 
 ```json
 {
@@ -1112,55 +1112,55 @@ sum(kube_persistentvolumeclaim_resource_requests_storage_bytes) by (namespace) /
 }
 ```
 
-## 🛠️ Comandos Útiles
+## 🛠️ Useful Commands
 
 ```bash
-# Ver estado de componentes
+# Check component status
 kubectl get pods -n observability
 kubectl get svc -n observability
 
-# Logs de troubleshooting
+# Troubleshooting logs
 kubectl logs -n observability -l app=prometheus --tail=100
 kubectl logs -n observability -l app.kubernetes.io/name=grafana --tail=100
 
-# Reiniciar componentes
+# Restart components
 kubectl rollout restart deployment/prometheus-grafana -n observability
 kubectl rollout restart statefulset/prometheus-prometheus -n observability
 
-# Ver alertas activas
+# Active alerts
 kubectl port-forward -n observability svc/prometheus-kube-prometheus-alertmanager 9093:9093
 # Luego: http://localhost:9093
 
-# Backup de configuraciones
+# Configuration backup
 kubectl get configmap -n observability -o yaml > observability-configs.yaml
 
-# Ver métricas de Prometheus
+# Prometheus metrics
 kubectl port-forward -n observability svc/prometheus-kube-prometheus-prometheus 9090:9090
-# Luego: http://localhost:9090
+# Then: http://localhost:9090
 
-# Consultas directas a Loki
+# Direct queries to Loki
 kubectl port-forward -n observability svc/loki 3100:3100
 curl "http://localhost:3100/loki/api/v1/query_range?query={namespace=\"default\"}&start=1640995200&end=1640998800&step=60"
 
-# Ver traces en Jaeger
+# View traces in Jaeger
 kubectl port-forward -n observability svc/jaeger-query 16686:16686
-# Luego: http://localhost:16686
+# Then: http://localhost:16686
 
-# Monitoreo de recursos
+# Resource monitoring
 kubectl top nodes
 kubectl top pods -n observability
 
-# Ver eventos de Kubernetes
+# View Kubernetes events
 kubectl get events -n observability --sort-by=.metadata.creationTimestamp
 
-# Debug de ServiceMonitors
+# Debug ServiceMonitors
 kubectl get servicemonitor -n observability
 kubectl describe servicemonitor prometheus-kube-prometheus -n observability
 ```
 
-## 📚 Recursos Adicionales
+## 📚 Additional Resources
 
-### Documentación Oficial
+### Official Documentation
 - [Prometheus Documentation](https://prometheus.io/docs/)
 - [Grafana Documentation](https://grafana.com/docs/)
 - [Loki Documentation](https://grafana.com/docs/loki/)
@@ -1168,56 +1168,56 @@ kubectl describe servicemonitor prometheus-kube-prometheus -n observability
 - [OpenTelemetry Documentation](https://opentelemetry.io/docs/)
 - [Alertmanager Documentation](https://prometheus.io/docs/alerting/latest/alertmanager/)
 
-### Dashboards y Configuraciones
+### Dashboards and Configurations
 - [Grafana Dashboards Gallery](https://grafana.com/grafana/dashboards/)
 - [Awesome Prometheus Alerts](https://awesome-prometheus-alerts.grep.to/)
 - [Prometheus Monitoring Mixins](https://monitoring.mixins.dev/)
 
-### Comunidad y Soporte
+### Community and Support
 - [Prometheus Community](https://prometheus.io/community/)
 - [Grafana Community](https://community.grafana.com/)
 - [Kubernetes Slack (#monitoring)](https://slack.k8s.io/)
 
-### Libros y Cursos
+### Books and Courses
 - [Prometheus: Up & Running](https://www.oreilly.com/library/view/prometheus-up/9781492034131/)
 - [Monitoring Kubernetes](https://www.oreilly.com/library/view/monitoring-kubernetes/9781492052685/)
 - [Distributed Tracing in Practice](https://www.oreilly.com/library/view/distributed-tracing-in/9781492056638/)
 
-## ✅ Checklist Completo de Implementación
+## ✅ Complete Implementation Checklist
 
-### Instalación Base
-- [x] Namespace `observability` creado
-- [x] Prometheus instalado con Helm
-- [x] Grafana instalado con Helm
-- [x] Loki instalado con Helm
-- [x] Jaeger instalado con Helm
-- [x] OpenTelemetry Collector configurado
+### Base Installation
+- [x] `observability` namespace created
+- [x] Prometheus installed with Helm
+- [x] Grafana installed with Helm
+- [x] Loki installed with Helm
+- [x] Jaeger installed with Helm
+- [x] OpenTelemetry Collector configured
 
-### Configuración
-- [x] Servicios expuestos correctamente
-- [x] Data sources configurados en Grafana
-- [x] Reglas de alerting definidas
-- [x] Dashboards básicos importados
+### Configuration
+- [x] Services exposed correctly
+- [x] Data sources configured in Grafana
+- [x] Alerting rules defined
+- [x] Basic dashboards imported
 
-### Monitoreo Avanzado
-- [x] Dashboards personalizados para Kubernetes
-- [x] Instrumentación OpenTelemetry en aplicaciones
-- [x] Alerting con enrutamiento por equipos
-- [x] Monitoreo de storage (Ceph/Pure/NetApp)
-- [x] Monitoreo de networking
-- [x] SLOs y SLIs definidos
+### Advanced Monitoring
+- [x] Custom dashboards for Kubernetes
+- [x] OpenTelemetry instrumentation in applications
+- [x] Alerting with per-team routing
+- [x] Storage monitoring (Ceph/Pure/NetApp)
+- [x] Networking monitoring
+- [x] SLOs and SLIs defined
 
-### Producción
-- [x] Alta disponibilidad configurada
-- [x] Persistencia de datos habilitada
-- [x] Backups automáticos configurados
-- [x] Seguridad (TLS, RBAC) implementada
-- [x] Retención de datos optimizada
-- [x] Monitoreo de costos habilitado
+### Production
+- [x] High availability configured
+- [x] Data persistence enabled
+- [x] Automated backups configured
+- [x] Security (TLS, RBAC) implemented
+- [x] Data retention optimized
+- [x] Cost monitoring enabled
 
 ### Troubleshooting
-- [x] Runbooks documentados
-- [x] Alertas con contexto suficiente
-- [x] Tracing distribuido operativo
-- [x] Logs centralizados funcionando
-- [x] Métricas de rendimiento recopiladas
+- [x] Runbooks documented
+- [x] Alerts with sufficient context
+- [x] Distributed tracing operational
+- [x] Centralized logs working
+- [x] Performance metrics collected

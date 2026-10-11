@@ -1,6 +1,6 @@
 ---
 title: "Security Principles"
-tags: ['cybersecurity']
+tags: ['cybersecurity', 'best-practices', 'hardening', 'zero-trust']
 
 updated: 2026-01-23
 last_reviewed: 2026-01-25
@@ -13,100 +13,100 @@ prerequisites:
   - "Intermediate Linux"
 ---
 
-## Resumen
+## Summary
 
-Esta guía cubre principios fundamentales de seguridad aplicados a entornos DevOps e infraestructura moderna. Se enfoca en Defense in Depth, Zero Trust y Least Privilege, con ejemplos prácticos en Kubernetes y Docker.
+This guide covers fundamental security principles applied to DevOps environments and modern infrastructure. It focuses on Defense in Depth, Zero Trust and Least Privilege, with practical examples in Kubernetes and Docker.
 
-## Prerrequisitos
+## Prerequisites
 
-- Conocimientos básicos de contenedores (Docker) y orquestación (Kubernetes).
-- Entendimiento de conceptos de red y autenticación.
+- Basic knowledge of containers (Docker) and orchestration (Kubernetes).
+- Understanding of networking and authentication concepts.
 
 ## Defense in Depth
 
-### Concepto
+### Concept
 
-Defense in Depth (DiD) es una estrategia de seguridad en capas: si una capa falla, otras la protegen. No depender de un solo control de seguridad.
+Defense in Depth (DiD) is a layered security strategy: if one layer fails, others protect the system. Do not rely on a single security control.
 
-### Aplicación en Infraestructura
+### Application in Infrastructure
 
-- **Capa de Red:** Firewalls, VPNs, segmentación.
-- **Capa de Host:** Hardening de OS, SELinux/AppArmor.
-- **Capa de Aplicación:** Autenticación, encriptación.
-- **Capa de Datos:** Encriptación at-rest y in-transit.
+- **Network Layer:** Firewalls, VPNs, segmentation.
+- **Host Layer:** OS hardening, SELinux/AppArmor.
+- **Application Layer:** Authentication, encryption.
+- **Data Layer:** Encryption at rest and in transit.
 
-### Ejemplo en Kubernetes
+### Example in Kubernetes
 
-- Red: Network Policies para aislar namespaces.
-- Host: Pod Security Standards para restringir capabilities.
-- App: RBAC para acceso a APIs.
-- Datos: Secrets encriptados con KMS.
+- Network: Network Policies to isolate namespaces.
+- Host: Pod Security Standards to restrict capabilities.
+- App: RBAC for API access.
+- Data: Secrets encrypted with KMS.
 
 ## Zero Trust
 
-### Concepto
+### Concept
 
-Zero Trust asume que ninguna entidad (usuario, dispositivo, aplicación) es confiable por defecto. Verificar todo acceso continuamente, sin confianza implícita.
+Zero Trust assumes that no entity (user, device, application) is trusted by default. Verify all access continuously, with no implicit trust.
 
-### Principios clave
+### Key Principles
 
-- **Verify explicitly:** Autenticar y autorizar cada request.
-- **Least privilege access:** Solo acceso necesario.
-- **Assume breach:** Monitorear y responder a anomalías.
+- **Verify explicitly:** Authenticate and authorize every request.
+- **Least privilege access:** Only the access that is needed.
+- **Assume breach:** Monitor and respond to anomalies.
 
-### Aplicación en DevOps
+### Application in DevOps
 
-- **Acceso a clusters:** Autenticación fuerte (OIDC, certificados), no IPs confiables.
-- **Microservicios:** mTLS entre servicios.
-- **CI/CD:** Pipelines que verifican integridad de artefactos.
+- **Cluster access:** Strong authentication (OIDC, certificates), not trusted IPs.
+- **Microservices:** mTLS between services.
+- **CI/CD:** Pipelines that verify artifact integrity.
 
-### Ejemplo en Docker/K8s
+### Example in Docker/K8s
 
-- Usar Istio para service mesh con mTLS.
-- Integrar OPA/Gatekeeper para políticas de acceso.
-- Monitoreo con Falco para detectar accesos anómalos.
+- Use Istio for service mesh with mTLS.
+- Integrate OPA/Gatekeeper for access policies.
+- Monitor with Falco to detect anomalous access.
 
 ## Least Privilege
 
-### Concepto
+### Concept
 
-Least Privilege (PoLP) significa otorgar solo los permisos mínimos necesarios para realizar una tarea. Reduce el impacto de compromisos.
+Least Privilege (PoLP) means granting only the minimum permissions needed to perform a task. It reduces the impact of compromises.
 
-### Aplicación
+### Application
 
-- **Usuarios:** Roles específicos, no admin global.
-- **Aplicaciones:** Capabilities limitadas en contenedores.
-- **Redes:** Reglas de firewall restrictivas.
+- **Users:** Specific roles, not global admin.
+- **Applications:** Limited capabilities in containers.
+- **Networks:** Restrictive firewall rules.
 
-### Ejemplo en Kubernetes
+### Example in Kubernetes
 
-- RBAC: Roles por namespace, no cluster-admin.
-- Service Accounts: Con permisos mínimos para pods.
+- RBAC: Roles per namespace, not cluster-admin.
+- Service Accounts: Minimal permissions for pods.
 - Pod Security Context: No privileged containers.
 
-## Implementación Práctica
+## Practical Implementation
 
-### Checklist para Aplicar Principios
+### Checklist for Applying Principles
 
-- [ ] Revisar arquitectura: Identificar capas y puntos de confianza.
-- [ ] Configurar autenticación: OIDC/JWT en lugar de passwords.
-- [ ] Aplicar segmentación: Namespaces en K8s, redes overlay.
-- [ ] Monitorear: Logs y métricas de seguridad.
-- [ ] Auditar regularmente: Revisar permisos y configs.
+- [ ] Review architecture: Identify layers and trust points.
+- [ ] Configure authentication: OIDC/JWT instead of passwords.
+- [ ] Apply segmentation: Namespaces in K8s, overlay networks.
+- [ ] Monitor: Security logs and metrics.
+- [ ] Audit regularly: Review permissions and configs.
 
-### Herramientas
+### Tools
 
 - **Kubernetes:** RBAC, Network Policies, Pod Security Admission.
 - **Docker:** User namespaces, seccomp profiles.
-- **General:** OPA (Open Policy Agent) para políticas.
+- **General:** OPA (Open Policy Agent) for policies.
 
-## Beneficios
+## Benefits
 
-- Mayor resiliencia a ataques.
-- Reducción de superficie de ataque.
-- Cumplimiento con estándares (NIST, ISO 27001).
+- Greater resilience to attacks.
+- Reduced attack surface.
+- Compliance with standards (NIST, ISO 27001).
 
-## Referencias
+## References
 
 - [NIST Zero Trust Architecture](https://csrc.nist.gov/publications/detail/sp/800-207/final)
 - [Kubernetes Security Best Practices](https://kubernetes.io/docs/concepts/security/)

@@ -1,6 +1,6 @@
 ---
-title: "Usando brew (macOS)"
-tags: ['cybersecurity']
+title: "Vulnerability Scanning"
+tags: ['cybersecurity', 'vulnerability-scanning']
 
 updated: 2026-01-24
 last_reviewed: 2026-01-25
@@ -13,51 +13,51 @@ prerequisites:
   - "Intermediate Linux"
 ---
 
-## Resumen
+## Summary
 
-Esta guía explica cómo escanear vulnerabilidades en contenedores, imágenes Docker y dependencias de aplicaciones. Se enfoca en herramientas open-source como Trivy, Clair y Snyk, con integración en pipelines CI/CD.
+This guide explains how to scan for vulnerabilities in containers, Docker images and application dependencies. It focuses on open-source tools such as Trivy, Clair and Snyk, with integration into CI/CD pipelines.
 
-## Prerrequisitos
+## Prerequisites
 
-- Conocimientos básicos de Docker y contenedores.
-- Acceso a un entorno con Docker instalado.
-- Familiaridad con pipelines CI/CD (GitHub Actions, GitLab CI).
+- Basic knowledge of Docker and containers.
+- Access to an environment with Docker installed.
+- Familiarity with CI/CD pipelines (GitHub Actions, GitLab CI).
 
-## Herramientas Principales
+## Main Tools
 
 ### Trivy
 
-Escáner rápido y versátil para vulnerabilidades en contenedores, imágenes, filesystem y repositorios.
+Fast and versatile scanner for vulnerabilities in containers, images, filesystems and repositories.
 
-#### Instalación
+#### Installation
 
 ```bash
-# Usando brew (macOS)
+# Using brew (macOS)
 brew install trivy
 
-# O descarga binaria
+# Or download the binary
 wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_$(uname -s)-$(uname -m).tar.gz
 tar -xzf trivy_*.tar.gz
 sudo mv trivy /usr/local/bin/
 ```
 
-#### Uso Básico
+#### Basic Usage
 
 ```bash
-# Escanear imagen Docker
+# Scan Docker image
 trivy image nginx:latest
 
-# Escanear contenedor corriendo
+# Scan running container
 trivy container my-container
 
-# Escanear filesystem
+# Scan filesystem
 trivy fs /path/to/project
 
-# Salida en JSON
+# JSON output
 trivy image --format json --output results.json nginx:latest
 ```
 
-#### Integración en CI/CD
+#### CI/CD Integration
 
 ```yaml
 # .github/workflows/security-scan.yml
@@ -77,76 +77,76 @@ jobs:
 
 ### Clair
 
-Escáner estático de vulnerabilidades en imágenes de contenedores, desarrollado por Red Hat.
+Static vulnerability scanner for container images, developed by Red Hat.
 
-#### Instalación y Uso
+#### Installation and Usage
 
-Clair requiere una base de datos PostgreSQL y es más complejo de configurar. Se recomienda usar Trivy para casos simples.
+Clair requires a PostgreSQL database and is more complex to configure. Trivy is recommended for simple cases.
 
 ```bash
-# Usando Docker
+# Using Docker
 docker run -d --name clair-db -e POSTGRES_PASSWORD=password postgres:13
 docker run -d --name clair --link clair-db:postgres -p 6060:6060 quay.io/projectquay/clair:latest
 ```
 
 ### Snyk
 
-Herramienta comercial con versión gratuita, escanea vulnerabilidades en código, dependencias y contenedores.
+Commercial tool with a free tier that scans code, dependencies and containers for vulnerabilities.
 
-#### Instalación
+#### Installation
 
 ```bash
 npm install -g snyk
-snyk auth  # Autenticarse
+snyk auth  # Authenticate
 ```
 
-#### Uso
+#### Usage
 
 ```bash
-# Escanear dependencias
+# Scan dependencies
 snyk test
 
-# Escanear imagen Docker
+# Scan Docker image
 snyk container test nginx:latest
 
-# Monitorizar proyecto
+# Monitor project
 snyk monitor
 ```
 
-## Mejores Prácticas
+## Best Practices
 
-- **Escaneo Regular:** Integrar en pipelines para cada commit/PR.
-- **Falsos Positivos:** Configurar excepciones para vulnerabilidades no aplicables.
-- **Actualizaciones:** Mantener imágenes base actualizadas.
-- **SBOM:** Generar Software Bill of Materials para rastreo.
+- **Regular Scanning:** Integrate into pipelines for every commit/PR.
+- **False Positives:** Configure exceptions for vulnerabilities that do not apply.
+- **Updates:** Keep base images up to date.
+- **SBOM:** Generate a Software Bill of Materials for tracking.
 
-## Ejemplos Avanzados
+## Advanced Examples
 
-### Script de escaneo completo
+### Complete scan script
 
 {% raw %}
 ```text
 #!/bin/bash
 # scan.sh
 
-echo "Escaneando vulnerabilidades..."
+echo "Scanning for vulnerabilities..."
 
-# Trivy en imágenes
+# Trivy on images
 for image in $(docker images --format "{{.Repository}}:{{.Tag}}" | grep -v '<none>'); do
-  echo "Escaneando $image"
+  echo "Scanning $image"
   trivy image "$image" --exit-code 1 --no-progress
 done
 
-# Snyk en dependencias
+# Snyk on dependencies
 if [ -f "package.json" ]; then
   snyk test --severity-threshold=high
 fi
 
-echo "Escaneo completado"
+echo "Scan completed"
 ```
 {% endraw %}
 
-## Referencias
+## References
 
 - [Trivy Documentation](https://aquasecurity.github.io/trivy/)
 - [Clair Documentation](https://quay.github.io/clair/)
