@@ -188,6 +188,8 @@ def test_jinja_raw_no_llega_al_post():
     html = markdown_to_html(md)
     assert 'raw %}' not in html, html
     assert '.Values.a' in html, html
+    html = markdown_to_html('Usa `{% raw %}${{ github.sha }}{% endraw %}` en el tag.')
+    assert '<code>${{ github.sha }}</code>' in html, html
 
 if __name__ == '__main__':
     for name, fn in sorted(globals().items()):

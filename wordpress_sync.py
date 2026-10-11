@@ -64,13 +64,14 @@ MD_EXTENSION_CONFIGS = {
 
 # {% raw %}/{% endraw %} son para mkdocs-macros; fuera de MkDocs nadie los
 # procesa y saldrían como texto en el post.
-_JINJA_RAW = re.compile(r'^[ \t]*\{%-?\s*(?:end)?raw\s*-?%\}[ \t]*\n?', re.MULTILINE)
+_JINJA_RAW_LINEA = re.compile(r'^[ \t]*\{%-?\s*(?:end)?raw\s*-?%\}[ \t]*\n?', re.MULTILINE)
+_JINJA_RAW = re.compile(r'\{%-?\s*(?:end)?raw\s*-?%\}')
 
 
 # Función para convertir Markdown a HTML
 def markdown_to_html(markdown_content):
     return markdown.markdown(
-        _JINJA_RAW.sub('', markdown_content),
+        _JINJA_RAW.sub('', _JINJA_RAW_LINEA.sub('', markdown_content)),
         extensions=MD_EXTENSIONS,
         extension_configs=MD_EXTENSION_CONFIGS,
     )
@@ -635,7 +636,8 @@ def update_todo_md(published_posts):
     for post in published_posts:
         # Distinguir borrador de publicado: registrar "Publicado" un draft
         # induce a error al releer el histórico meses después.
-        estado = 'Publicado' if post.get('status') == 'publish' else 'Borrador creado'
+        estado = {'publish': 'Publicado', 'future': 'Programado'}.get(
+            post.get('status'), 'Borrador creado')
         entry = f'- {post["title"]} - {estado} el {datetime.now().strftime("%Y-%m-%d")}\n'
         if entry not in content:
             content = content.replace('## Progreso de Publicación\n\n', f'## Progreso de Publicación\n\n{entry}')
@@ -677,6 +679,11 @@ def _normalize_title(title):
     return ' '.join(t.split()).strip()
 
 
+# Todos los estados en los que puede estar un post nuestro. Sin 'future', los
+# programados no se ven y --all los recrea como borradores duplicados.
+ESTADOS_WP = 'publish,future,draft,pending,private'
+
+
 # Busca un post existente por título (en cualquier estado) y devuelve su id, o
 # None. Evita que --file cree un duplicado de algo ya sincronizado.
 def find_post_by_title(title):
@@ -686,7 +693,7 @@ def find_post_by_title(title):
             endpoint,
             auth=(wp_username, wp_app_password),
             params={'search': title, 'per_page': 20,
-                    'status': 'publish,draft,pending,private'},
+                    'status': ESTADOS_WP},
         )
         resp.raise_for_status()
         for post in resp.json():
@@ -745,7 +752,7 @@ def fetch_all_wp_posts():
     while True:
         resp = requests.get(endpoint, auth=(wp_username, wp_app_password),
                             params={'per_page': 100, 'page': page,
-                                    'status': 'publish,draft,pending,private'})
+                                    'status': ESTADOS_WP})
         if resp.status_code != 200:
             if page == 1:
                 print(f'Error al obtener posts: {resp.status_code} - {resp.text}')
