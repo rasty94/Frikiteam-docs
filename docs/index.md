@@ -16,6 +16,12 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 
 ## 🆕 Últimas Novedades
 
+### 📅 **11 de octubre de 2026**
+
+#### 💾 **Almacenamiento local: ZFS y LVM (ES/EN)**
+
+- **Nueva guía**: [ZFS y LVM en local](doc/storage/zfs_lvm.md) — el disco de un nodo Proxmox explicado desde abajo. PV, VG y LV, thin pools y el riesgo de sobreasignarlos, snapshots y sus límites; pools, vdevs y datasets, `zfs send/receive` para réplica, scrub y por qué el ARC parece comerse la RAM. Con una tabla para elegir entre los dos y mdadm como tercera vía. Proxmox, PBS y la estrategia 3-2-1 los daban por sabidos y ninguna página los explicaba.
+
 ### 📅 **10 de octubre de 2026**
 
 #### 📚 **Dieciséis guías que cabían en una pantalla (ES/EN)**
