@@ -18,6 +18,19 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 
 ### 📅 **11 de octubre de 2026**
 
+#### 🧭 **Cinco guías nuevas del roadmap (ES/EN)**
+
+- **DNS propio**: [resolutor y servidor autoritativo](doc/networking/dns_selfhosted.md) — Unbound como resolutor, BIND o PowerDNS para la zona interna, split-horizon, por qué `home.arpa` o un subdominio propio y no `.local`, y transferencias con TSIG. Es la página base que les faltaba a [DNSSEC](doc/networking/dnssec.md) y a las zonas inversas.
+- **Kubernetes en homelab**: [k3s, Ingress y cert-manager](doc/kubernetes/k3s_ingress_certmanager.md) — de un clúster vacío a un servicio con HTTPS válido: ServiceLB o MetalLB, Traefik o ingress-nginx, y HTTP-01 frente a DNS-01.
+- **eBPF y Cilium**: [red, seguridad y observabilidad](doc/kubernetes/ebpf_cilium.md) — Cilium como CNI y sustituto de kube-proxy, políticas L7 y por FQDN, y Hubble para ver qué paquete bloquea qué regla.
+- **Backup de Kubernetes**: [Velero y snapshots de etcd](doc/backups/kubernetes_backup.md) — qué copiar y qué ya está en Git, snapshots CSI frente a copia de ficheros con Kopia, hooks para bases de datos y la prueba de restauración.
+- **Forense en Linux**: [evidencias, memoria y línea temporal](doc/cybersecurity/forense_digital.md) — la continuación de [respuesta a incidentes](doc/cybersecurity/respuesta_incidentes.md): orden de volatilidad, cadena de custodia, triaje en vivo y volcado de memoria de una VM desde Proxmox.
+- **MTU a 25G, 40G y 100G**: nueva sección en [valores MTU/MSS](doc/networking/mtu_mss_values.md).
+
+#### 🌍 **Diecisiete páginas inglesas que seguían en español**
+
+La versión inglesa de 17 páginas tenía el frontmatter traducido y el cuerpo en español: casi toda la sección de redes básica, siete de ciberseguridad, optimización de modelos y el stack de observabilidad. Cuatro tenían además un título sin sentido sacado de un comentario de código («Instalar», «Usando Helm»). Ya están traducidas, y `check_sync.py --strict` falla si vuelve a pasar. De paso se corrigieron errores que estaban en los dos idiomas: el nombre inverso IPv6 de los PTR tenía 29 nibbles en vez de 32, la tabla de rangos IP atribuía los rangos privados a cada registro regional, y TEST-NET citaba el RFC equivocado.
+
 #### 💾 **Almacenamiento local: ZFS y LVM (ES/EN)**
 
 - **Nueva guía**: [ZFS y LVM en local](doc/storage/zfs_lvm.md) — el disco de un nodo Proxmox explicado desde abajo. PV, VG y LV, thin pools y el riesgo de sobreasignarlos, snapshots y sus límites; pools, vdevs y datasets, `zfs send/receive` para réplica, scrub y por qué el ARC parece comerse la RAM. Con una tabla para elegir entre los dos y mdadm como tercera vía. Proxmox, PBS y la estrategia 3-2-1 los daban por sabidos y ninguna página los explicaba.

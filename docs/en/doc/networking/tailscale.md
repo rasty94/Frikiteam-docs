@@ -2,12 +2,12 @@
 title: "Tailscale: installation and basic configuration"
 description: "Documentation on tailscale: installation and basic configuration"
 tags: ['networking']
-updated: 2025-11-15
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 10 min
 category: Networking
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Basic DevOps knowledge"
   - "Networking fundamentals"
@@ -83,7 +83,7 @@ mindmap
       Routes all traffic
       ACL configuration
     App Connector
-      Coming soon
+      --advertise-connector
       Connects to SaaS services
       No public exposure
 ```

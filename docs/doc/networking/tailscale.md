@@ -2,12 +2,12 @@
 title: "Tailscale: instalación y configuración básica"
 description: "Documentación sobre tailscale: instalación y configuración básica"
 tags: ['networking']
-updated: 2025-11-15
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 10 min
 category: Redes
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Fundamentos de redes"
@@ -83,7 +83,7 @@ mindmap
       Enruta todo el tráfico
       Configuración de ACLs
     App Connector
-      Próximamente
+      --advertise-connector
       Conexión a servicios SaaS
       Sin exposición pública
 ```

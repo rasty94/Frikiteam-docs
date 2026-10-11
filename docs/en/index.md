@@ -18,6 +18,19 @@ My idea is to provide practical, clear, and useful documentation about the techn
 
 ### 📅 **October 11, 2026**
 
+#### 🧭 **Five new guides from the roadmap (ES/EN)**
+
+- **Self-hosted DNS**: [resolver and authoritative server](doc/networking/dns_selfhosted.md) — Unbound as the resolver, BIND or PowerDNS for the internal zone, split-horizon, why `home.arpa` or a subdomain you own and not `.local`, and transfers with TSIG. The parent page that [DNSSEC](doc/networking/dnssec.md) and reverse zones were missing.
+- **Kubernetes at home**: [k3s, Ingress and cert-manager](doc/kubernetes/k3s_ingress_certmanager.md) — from an empty cluster to a service with valid HTTPS: ServiceLB or MetalLB, Traefik or ingress-nginx, and HTTP-01 versus DNS-01.
+- **eBPF and Cilium**: [networking, security and observability](doc/kubernetes/ebpf_cilium.md) — Cilium as the CNI and kube-proxy replacement, L7 and FQDN policies, and Hubble to see which packet a rule drops.
+- **Kubernetes backup**: [Velero and etcd snapshots](doc/backups/kubernetes_backup.md) — what to back up and what already lives in Git, CSI snapshots versus file-level backup with Kopia, hooks for databases and the restore test.
+- **Linux forensics**: [evidence, memory and timeline](doc/cybersecurity/forense_digital.md) — the follow-up to [incident response](doc/cybersecurity/respuesta_incidentes.md): order of volatility, chain of custody, live triage and dumping a VM's memory from Proxmox.
+- **MTU at 25G, 40G and 100G**: new section in [MTU/MSS values](doc/networking/mtu_mss_values.md).
+
+#### 🌍 **Seventeen English pages that were still in Spanish**
+
+The English version of 17 pages had a translated front matter and a Spanish body: most of the basic networking section, seven cybersecurity pages, model optimization and the observability stack. Four also had a meaningless title taken from a code comment. They are now translated, and `check_sync.py --strict` fails if it happens again. Errors present in both languages were fixed along the way: the IPv6 PTR reverse name had 29 nibbles instead of 32, the IP ranges table attributed the private ranges to each regional registry, and TEST-NET cited the wrong RFC.
+
 #### 💾 **Local storage: ZFS and LVM (ES/EN)**
 
 - **New guide**: [ZFS and LVM on local disks](doc/storage/zfs_lvm.md) — the disk of a Proxmox node explained from the ground up. PVs, VGs and LVs, thin pools and the risk of overcommitting them, snapshots and their limits; pools, vdevs and datasets, `zfs send/receive` for replication, scrubs and why the ARC seems to eat the RAM. With a table to choose between the two and mdadm as a third way. Proxmox, PBS and the 3-2-1 strategy took them for granted and no page explained them.
