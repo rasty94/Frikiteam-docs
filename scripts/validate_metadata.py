@@ -394,6 +394,32 @@ def check_en_fields(docs_paths):
     return problemas
 
 
+def check_twin_parity(docs_paths):
+    """Devuelve [(ruta_en, motivo)] cuando tags, updated o last_reviewed difieren entre gemelas.
+
+    El CLAUDE.md del proyecto exige los mismos tags en ambos idiomas y las mismas
+    fechas. check_sync.py solo detecta la ES mas nueva que la EN, no el caso
+    contrario ni los tags: el 2026-10-11 habia 44 fechas y 6 tags desparejados.
+    """
+    problemas = []
+    for docs_path in docs_paths:
+        if 'docs/en/' in str(docs_path).replace('\\', '/'):
+            continue
+        for md in sorted(Path(docs_path).rglob('*.md')):
+            gemelo = Path(str(md).replace('docs/', 'docs/en/', 1))
+            if not gemelo.exists():
+                continue
+            es, en = extract_frontmatter(md), extract_frontmatter(gemelo)
+            if not es or not en:
+                continue
+            if 'tags' in es and 'tags' in en and sorted(map(str, es['tags'] or [])) != sorted(map(str, en['tags'] or [])):
+                problemas.append((str(gemelo), f"tags {en['tags']} distintos de la ES {es['tags']}"))
+            for campo in ('updated', 'last_reviewed'):
+                if campo in es and campo in en and str(es[campo]) != str(en[campo]):
+                    problemas.append((str(gemelo), f"{campo} {en[campo]} distinto de la ES {es[campo]}"))
+    return problemas
+
+
 def check_vocabulary(docs_paths):
     """Recorre los arboles y devuelve [(ruta, tags_invalidos)] de los ficheros infractores."""
     offenders = []
@@ -492,6 +518,16 @@ def main():
             print(f"   Campos espejo: {', '.join(CAMPOS_ESPEJO)}. Traducir desde la ES.")
         else:
             print("✅ Las gemelas EN declaran los mismos campos espejo que su ES")
+
+        paridad = check_twin_parity(args.docs_path)
+        if paridad:
+            fallo = True
+            print(f"\n❌ {len(paridad)} diferencias de tags o fechas entre gemelas:")
+            for path, motivo in paridad:
+                print(f"  {path}: {motivo}")
+            print("   Tags, updated y last_reviewed deben ser iguales en ES y EN.")
+        else:
+            print("✅ Tags y fechas coinciden entre ES y EN")
 
         if fallo:
             print("\nAmbos vocabularios se definen en scripts/validate_metadata.py")

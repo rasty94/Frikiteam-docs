@@ -140,12 +140,40 @@ def medir_asimetria(es_file, en_file):
     return (es_n, en_n, ratio) if ratio > UMBRAL_ASIMETRIA else None
 
 
+# Una gemela EN puede tener la fecha y el tamaño correctos y seguir con el cuerpo
+# en español: es lo que pasa cuando se copia la ES y solo se traduce el
+# frontmatter. Se detecta contando palabras vacías de cada idioma en la prosa
+# (sin bloques de código). Una página EN real queda por debajo del 0,10; las 17
+# que se encontraron el 2026-10-11 estaban entre 0,42 y 1,00.
+UMBRAL_IDIOMA = 0.30
+_VACIAS_ES = set('el la los las de del que en y para con por una un es se no lo como más pero sus al este esta son también cuando hay puede'.split())
+_VACIAS_EN = set('the of and to in is for with that on as are this be it you by can not when your from'.split())
+
+
+def medir_espanol(en_file):
+    """Proporción de palabras vacías españolas en la prosa de una página EN, o None si es corta."""
+    try:
+        texto = open(en_file, encoding='utf-8').read()
+    except OSError:
+        return None
+    if texto.startswith('---'):
+        texto = texto.split('---', 2)[-1]
+    texto = re.sub(r'```.*?```', '', texto, flags=re.S)
+    palabras = re.findall(r'[a-záéíóúñ]+', texto.lower())
+    if len(palabras) < 50:
+        return None
+    es = sum(p in _VACIAS_ES for p in palabras)
+    en = sum(p in _VACIAS_EN for p in palabras)
+    return es / max(1, es + en)
+
+
 def check_sync_status(es_docs_path, en_docs_path, fix=False, verbose=False):
     """Verifica el estado de sincronización entre ES y EN."""
     out_of_sync = []
     up_to_date = []
     errors = []
     asimetricos = []
+    sin_traducir = []
 
     # Recorrer archivos ES
     for es_file in Path(es_docs_path).rglob('*.md'):
@@ -166,6 +194,10 @@ def check_sync_status(es_docs_path, en_docs_path, fix=False, verbose=False):
         asim = medir_asimetria(es_file, en_file)
         if asim:
             asimetricos.append((es_file, en_file, *asim))
+
+        ratio_es = medir_espanol(en_file)
+        if ratio_es is not None and ratio_es > UMBRAL_IDIOMA:
+            sin_traducir.append((en_file, ratio_es))
 
         # Comparar fechas de actualización
         es_updated = extract_updated_date(es_file)
@@ -216,7 +248,7 @@ def check_sync_status(es_docs_path, en_docs_path, fix=False, verbose=False):
             else:
                 up_to_date.append((es_file, en_file, es_updated, en_updated, "Sincronizado"))
 
-    return out_of_sync, up_to_date, errors, asimetricos
+    return out_of_sync, up_to_date, errors, asimetricos, sin_traducir
 
 
 def main():
@@ -240,7 +272,7 @@ def main():
     print(f"   Modo fix: {'Sí' if args.fix else 'No'}")
     print()
 
-    out_of_sync, up_to_date, errors, asimetricos = check_sync_status(
+    out_of_sync, up_to_date, errors, asimetricos, sin_traducir = check_sync_status(
         Path(args.es_path), Path(args.en_path), args.fix, args.verbose
     )
 
@@ -283,17 +315,26 @@ def main():
             print(f"  {es_file}  ES:{es_n} EN:{en_n}  ({int(ratio * 100)}% de diferencia)")
         print()
 
+    if sin_traducir:
+        print(f"⚠️  EN CON EL CUERPO EN ESPAÑOL ({len(sin_traducir)}):")
+        print("=" * 80)
+        print("   Frontmatter y fechas correctos, pero la prosa sigue en español.")
+        for en_file, ratio in sorted(sin_traducir, key=lambda x: -x[1]):
+            print(f"  {en_file}  ({int(ratio * 100)}% de palabras vacías españolas)")
+        print()
+
     print("=" * 80)
     print("📊 RESUMEN:")
     print(f"  - Desincronizados: {len(out_of_sync)}")
     print(f"  - Sincronizados: {len(up_to_date)}")
     print(f"  - Errores: {len(errors)}")
     print(f"  - Asimetría de contenido: {len(asimetricos)}")
+    print(f"  - EN sin traducir: {len(sin_traducir)}")
 
     if out_of_sync and not args.fix:
         print("\n💡 Ejecuta con --fix para aplicar correcciones automáticamente")
 
-    if args.strict and (out_of_sync or errors or asimetricos):
+    if args.strict and (out_of_sync or errors or asimetricos or sin_traducir):
         return 1
     return 0
 
