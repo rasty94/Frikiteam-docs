@@ -182,6 +182,13 @@ def test_todo_log_distingue_borrador_de_publicado():
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+
+def test_jinja_raw_no_llega_al_post():
+    md = '{% raw %}\n```yaml\nx: "{{ .Values.a }}"\n```\n{% endraw %}\n'
+    html = markdown_to_html(md)
+    assert 'raw %}' not in html, html
+    assert '.Values.a' in html, html
+
 if __name__ == '__main__':
     for name, fn in sorted(globals().items()):
         if name.startswith('test_'):

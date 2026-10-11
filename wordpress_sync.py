@@ -62,10 +62,15 @@ MD_EXTENSION_CONFIGS = {
                        'emoji_generator': pymdownx.emoji.to_svg},
 }
 
+# {% raw %}/{% endraw %} son para mkdocs-macros; fuera de MkDocs nadie los
+# procesa y saldrían como texto en el post.
+_JINJA_RAW = re.compile(r'^[ \t]*\{%-?\s*(?:end)?raw\s*-?%\}[ \t]*\n?', re.MULTILINE)
+
+
 # Función para convertir Markdown a HTML
 def markdown_to_html(markdown_content):
     return markdown.markdown(
-        markdown_content,
+        _JINJA_RAW.sub('', markdown_content),
         extensions=MD_EXTENSIONS,
         extension_configs=MD_EXTENSION_CONFIGS,
     )
@@ -887,6 +892,7 @@ PAGINAS_NO_ARTICULO = {
     os.path.join('docs', 'glossary.md'),
     os.path.join('docs', 'quickstart.md'),
     os.path.join('docs', 'troubleshooting.md'),
+    os.path.join('docs', 'tags.md'),
 }
 
 
