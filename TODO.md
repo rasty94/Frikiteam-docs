@@ -38,6 +38,7 @@ TheHive/MISP y vLLM se verificaron el 2026-09-03 (ver `done.md`). Queda OpenSCAP
     - `identity/keycloak.md`: `KC_BOOTSTRAP_ADMIN_*` frente a `KEYCLOAK_ADMIN`; `KC_HOSTNAME` con URL completa; `KC_PROXY_HEADERS=xforwarded`; puerto de gestión para health; alcance de `kc.sh export`.
     - `monitoring/uptime_kuma.md`: rama `:2` y BD externa; autenticación de `/metrics`; ruta `/api/push/<token>`; ajuste de proxy de confianza; `kuma.db`.
     - `programming/fastapi.md`: paquete `uvicorn-worker`; `Notify=healthy` en Quadlet; versiones `@vN` de las acciones; etiquetas de healthcheck de Traefik y `http-check` de HAProxy; `--proxy-headers`, `--forwarded-allow-ips`, `--root-path`.
+- [ ] **`storage/zfs_lvm.md` (2026-10-11), escrita de conocimiento, sin ejecutar.** Contrastar: expansión de raidz con `zpool attach` (OpenZFS 2.3); `lvchange -ay -K` para snapshots finos; entrada `lvmthin` de `storage.cfg` y VG `pve`/thin pool `data` del instalador de Proxmox; `thin_pool_autoextend_threshold`/`_percent` y `dmeventd`; campos `data_percent`/`metadata_percent` de `lvs`; `zpool online -e` con `autoexpand=on`; `update-initramfs` tras fijar `zfs_arc_max`. Ya corregidas al revisar: `zfs send` de datasets cifrados (solo `-w` los mantiene cifrados) y el tamaño por defecto del ARC (ya no se afirma una cifra).
 
 ### 2. Otra deuda operativa
 - [ ] **Desplegar Plausible** en servidor o revisar logs existentes para analytics básico.
@@ -54,7 +55,6 @@ TheHive/MISP y vLLM se verificaron el 2026-09-03 (ver `done.md`). Queda OpenSCAP
 
 Revisado contra el repo el 2026-10-11, contando páginas ES que mencionan el tema y comprobando si ya tiene página propia, aunque sea con otro título. Por orden de valor:
 
-- [ ] **ZFS y LVM en local** (`doc/storage/zfs_lvm.md`): 8 y 11 páginas los mencionan, ninguna los explica. Proxmox, PBS y 3-2-1 los dan por sabidos. *En curso el 2026-10-11.*
 - [ ] **DNS propio** (resolutor + autoritativo: Unbound, BIND, PowerDNS): 18 páginas mencionan BIND/PowerDNS. Existen `dnssec.md` y `registros_ptr_zonas_inversas.md` pero no la página base que las sostiene.
 - [ ] **Kubernetes en homelab** (ingress, cert-manager, k3s): ingress 2 menciones, cert-manager 0. La sección Kubernetes tiene 3 páginas; sería el puente con `certificados_tls.md`.
 - [ ] **Backup de Kubernetes** (Velero, snapshot de etcd): 1 mención. La sección Backups no cubre clústeres.

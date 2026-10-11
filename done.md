@@ -2,6 +2,12 @@
 
 Registro de tareas completadas y logs de progreso, archivados desde `TODO.md` para mantener ese archivo centrado en lo pendiente.
 
+## 💾 ZFS y LVM, y roadmap de contenido revisado (11/10/2026)
+
+- [x] **Roadmap de contenido nuevo revisado contra el repo**: cinco huecos reales ordenados, tres temas reducidos a una sección de página existente y retirados los que no encajan (nube, costes) o ya estaban cubiertos con otro título (Prometheus/Grafana, Vault, Falco, Keepalived, LUKS).
+- [x] **`storage/zfs_lvm.md` nueva en ES y EN** (342/342 líneas), primera del roadmap revisado. Enlazada en la navegación de Storage y en Novedades. Escrita por un agente de conocimiento; al revisarla se corrigieron dos afirmaciones (`zfs send` de datasets cifrados y el tamaño por defecto del ARC) y el resto de dudas queda en `TODO.md`.
+- [x] **Comprobado**: `mkdocs build --strict`, `validate_metadata.py --strict`, `check_sync.py --strict` y `test_wordpress_format.py` limpios; HTML de ambas versiones sin Jinja sin renderizar y con la página presente en la navegación.
+
 ## 📚 Dieciséis guías cortas ampliadas y frontmatter EN completado (10/10/2026)
 
 - [x] **16 páginas de `docs/doc` de 38-59 líneas pasan a 207-373 líneas en ES y EN**, con paridad exacta de líneas, bloques de código y enlaces relativos: estrategia 3-2-1, PBS, Restic/Borg, NetApp, Pure Storage, tuning de Ceph, systemd, seguridad SSH, WireGuard, VyOS, benchmarks de red, Redis, PostgreSQL, Keycloak, Uptime Kuma y FastAPI. Estructura de `quadlets.md`, troubleshooting en tabla y `!!! warning` donde depende de la versión. En `benchmarks.md` se retiró una tabla de cifras que no venía de ninguna medición. Escritas por agentes de conocimiento, no ejecutadas: la lista de afirmaciones a contrastar está en `TODO.md`.
