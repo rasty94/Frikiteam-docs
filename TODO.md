@@ -22,23 +22,6 @@ La estructura está sana y el problema es de mantenimiento, no de contenido nuev
 ### 1. Cerrar la deuda "sin ejecutar"
 TheHive/MISP y vLLM se verificaron el 2026-09-03 (ver `done.md`). Queda OpenSCAP y la hornada del 2026-10-10:
 - [ ] **OpenSCAP:** los comandos `oscap` y los paquetes SSG de Debian no se han probado. Necesita una máquina Debian real; no se puede verificar desde el repositorio.
-- [ ] **Lo que no se pudo contrastar con fuente oficial** en la verificación del 2026-10-11 (40 páginas: las 22 escritas el 10 y 11 de octubre y las 18 que llevaban más de 90 días). Todo lo demás se comprobó contra documentación oficial, páginas de manual o el repositorio del proyecto; ver `done.md`. Queda, por página:
-    - **Sin acceso a la fuente**: NetApp (docs.netapp.com devolvió 403: `volume create`, `export-policy rule create -superuser sys`, `cifs share create`, StorageClass de Trident) y la CLI de Purity de Pure Storage (documentación tras login; también el `provisioner` del driver PX-CSI).
-    - `backups/pbs.md`: `remote create --auth-id` (el manual de usuario usa `--userid` en un ejemplo); plazo por defecto de `--outdated-after` en verify.
-    - `backups/restic_borg.md`: `--compression zstd,3` en borg; `restic mount` y `stats --mode raw-data`.
-    - `storage/zfs_lvm.md`: `lvchange -ay -K`, `thin_pool_autoextend_*` con `dmeventd`, campos `data_percent`/`metadata_percent`, `zpool online -e` (man7.org no respondía).
-    - `storage/ceph/troubleshooting_ceph.md`: `ceph-objectstore-tool --op fsck` frente a `ceph-bluestore-tool fsck` en BlueStore; valores por defecto de los ratios full.
-    - `backups/kubernetes_backup.md`: pasos con el resto de nodos de control tras `--cluster-reset` en k3s; TTL de Velero frente a Object Lock.
-    - `cybersecurity/hardening_linux.md`: las líneas de `pam_faillock` añadidas sin fuente consultada.
-    - `networking/vrouter_vyos.md`: `show ip bgp summary`, `show ip ospf neighbor`.
-    - `networking/dns_selfhosted.md`: sintaxis de `pdnsutil` en PowerDNS 5.x (la página usa la de 4.x con aviso); `drill -T/-S`; opciones DNS de `pct set`/`qm set`.
-    - `kubernetes/k3s_ingress_certmanager.md`: `HelmChartConfig` de Traefik, `cmctl status certificate`, puerto 8472 de Flannel.
-    - `kubernetes/ebpf_cilium.md`: flags de `cilium hubble`, one-liners de bpftrace, `TracingPolicy` de Tetragon.
-    - `cybersecurity/forense_digital.md`: `dump-guest-memory` desde `qm monitor`.
-    - `cybersecurity/ci_security_scanning.md`: el nombre del SARIF que deja `checkov-action` en su directorio de salida.
-    - `openstack/troubleshooting_openstack.md`: `nova_novncproxy_base_url`, `port list --device-owner none`, `volume set --detached`, `orchestration template validate -t`.
-    - `ai/rag_basics.md` y `ai/local_ecosystems.md`: nombre `llama3.2` en la biblioteca de Ollama; `ai/vector_databases.md`: valores de la tabla comparativa.
-    - `monitoring/plausible_analytics.md`: snippet de seguimiento vigente y el fragmento de `mkdocs.yml` de la página (claves `extra:` duplicadas).
 - [ ] **`ai/analisis_logs.md`: ES y EN son dos documentos distintos**, no una traducción a medias (comprobado el 2026-10-11): secciones y casos de uso diferentes a partir del segundo, 14 cercas de código en ES y 16 en EN, 933 frente a 1257 líneas. Reescribir la EN como traducción de la ES, que es la fuente.
 - [ ] **Desplegar Plausible** en servidor o revisar logs existentes para analytics básico.
 - [ ] **19 borradores en WordPress esperando revisión humana** en `frikiteam.es/wp-admin`. El pipeline no los publica: el paso a `publish` es decisión manual.
