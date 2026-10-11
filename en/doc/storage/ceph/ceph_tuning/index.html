@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Ceph tuning for high-performance block workloads and database pools.">
+        <meta name="description" content="Ceph tuning for RBD block storage and databases: pools, BlueStore, OSD memory, network, client, capacity and maintenance in self-hosted clusters.">
       
       
       
@@ -72,7 +72,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Ceph — Optimization and Capacity Planning - Frikiteam Docs" />
-<meta property="og:description" content="Ceph tuning for high-performance block workloads and database pools." />
+<meta property="og:description" content="Ceph tuning for RBD block storage and databases: pools, BlueStore, OSD memory, network, client, capacity and maintenance in self-hosted clusters." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/en/doc/storage/ceph/ceph_tuning.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -80,7 +80,7 @@
 <meta property="og:url" content="https://docs.frikiteam.es/en/doc/storage/ceph/ceph_tuning/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="Ceph — Optimization and Capacity Planning - Frikiteam Docs" />
-<meta property="twitter:description" content="Ceph tuning for high-performance block workloads and database pools." />
+<meta property="twitter:description" content="Ceph tuning for RBD block storage and databases: pools, BlueStore, OSD memory, network, client, capacity and maintenance in self-hosted clusters." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/en/doc/storage/ceph/ceph_tuning.png" />
 </head>
   
@@ -1172,6 +1172,8 @@
       
         
       
+        
+      
     
     
     
@@ -1224,6 +1226,41 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../zfs_lvm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local (ZFS y LVM)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1250,10 +1287,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
             
   
   
@@ -1271,8 +1308,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_3_1">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_2">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1398,10 +1435,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
+  <a href="#the-problem" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary
+        The problem
       
     </span>
   </a>
@@ -1409,10 +1446,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-checklist-databases-on-rbd" class="md-nav__link">
+  <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick checklist (databases on RBD)
+        📋 Table of Contents
       
     </span>
   </a>
@@ -1420,10 +1457,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pool-and-rbd-tuning-for-postgresqlmysql" class="md-nav__link">
+  <a href="#measure-before-touching" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pool and RBD tuning for PostgreSQL/MySQL
+        Measure before touching
       
     </span>
   </a>
@@ -1431,10 +1468,120 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#monitoring-and-operations" class="md-nav__link">
+  <a href="#pools-and-placement-groups" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Monitoring and operations
+        Pools and placement groups
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bluestore-waldb-and-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BlueStore: WAL/DB and memory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rbd-and-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RBD and client
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-with-fio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing with fio
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capacity-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capacity planning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recovery-and-rebalancing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recovery and rebalancing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-and-alerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoring and alerts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
       
     </span>
   </a>
@@ -1694,10 +1841,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_7" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_8" >
         
           
-          <label class="md-nav__link" for="__nav_2_3_7" id="__nav_2_3_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_3_8" id="__nav_2_3_8_label" tabindex="0">
             
   
   
@@ -1715,8 +1862,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_3_7">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2100,6 +2247,8 @@
       
         
       
+        
+      
     
     
     
@@ -2232,6 +2381,41 @@
     
   
     DNSSEC
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../networking/dns_selfhosted/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS propio (Unbound/BIND)
   
 
     
@@ -3634,6 +3818,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -3766,6 +3954,76 @@
     
   
     Service Mesh (Istio vs Linkerd vs Cilium)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kubernetes/k3s_ingress_certmanager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    k3s, Ingress y cert-manager
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kubernetes/ebpf_cilium/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    eBPF y Cilium
   
 
     
@@ -4685,6 +4943,8 @@
       
         
       
+        
+      
     
     
     
@@ -4817,6 +5077,41 @@
     
   
     Estrategia 3-2-1
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backups/kubernetes_backup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubernetes (Velero/etcd)
   
 
     
@@ -8744,6 +9039,8 @@
       
         
       
+        
+      
     
     
     
@@ -8806,6 +9103,41 @@
     
   
     Respuesta a Incidentes (TheHive/MISP)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cybersecurity/forense_digital/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forense Digital en Linux
   
 
     
@@ -9017,13 +9349,8 @@
   
     
     
-      
-  
-  
-    
-    
       <li class="md-path__item">
-        <a href="../ceph_base/" class="md-path__link">
+        <a href="../../zfs_lvm/" class="md-path__link">
           
   <span class="md-ellipsis">
     Storage
@@ -9031,9 +9358,6 @@
 
         </a>
       </li>
-    
-  
-
     
   
 
@@ -9060,7 +9384,7 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--red">Expert</span> <span class="md-badge md-badge--secondary">Estimated time: 1 min</span> <span class="md-badge md-badge--primary">Category: Storage</span> <span class="md-badge md-badge--green">Published</span> <span class="md-badge md-badge--secondary" title="Prerequisites: ["Basic DevOps knowledge"]">💡 Prerequisites</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--red">Expert</span> <span class="md-badge md-badge--secondary">Estimated time: 15 min</span> <span class="md-badge md-badge--primary">Category: Storage</span> <span class="md-badge md-badge--green">Published</span></div>
                 
                   
 
@@ -9086,39 +9410,235 @@
 
 
 <h1 id="ceph-optimization-and-capacity-planning">Ceph — Optimization and Capacity Planning<a class="headerlink" href="#ceph-optimization-and-capacity-planning" title="Permanent link">&para;</a></h1>
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
-<p>Minimal tuning for Ceph clusters running high-performance block workloads (databases and VMs).</p>
-<h2 id="quick-checklist-databases-on-rbd">Quick checklist (databases on RBD)<a class="headerlink" href="#quick-checklist-databases-on-rbd" title="Permanent link">&para;</a></h2>
+<h2 id="the-problem">The problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h2>
+<p>Ceph starts with reasonable defaults and a small cluster runs fine for months. Then the database on RBD arrives and tail latencies show up, or usage grows and one day an OSD hits 95% and the cluster stops accepting writes. Neither is a Ceph failure: they are design decisions (replicas, DB on NVMe, network, capacity reserves) that were left at their defaults.</p>
+<p>This page gathers the settings that weigh most in a self-hosted cluster with block and database workloads, and how to check with commands whether what you changed helped. Measure first, then touch.</p>
+<div class="admonition note">
+<p class="admonition-title">What this covers and what it does not</p>
+<p>This is tuning and capacity planning. Installation and architecture are in <a href="../ceph_base/">Ceph — Base Guide</a>; incident diagnosis, in <a href="../troubleshooting_ceph/">Ceph Troubleshooting</a>; and usage with PostgreSQL, in <a href="../../postgresql_ceph/">PostgreSQL on Ceph</a>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Options change between versions</p>
+<p>The names, defaults and behavior of many options (BlueStore cache, autoscaler, <code>bluestore_compression_mode</code>) vary between Ceph versions. Before applying a setting, check with <code>ceph config help &lt;option&gt;</code> what it means in your version and do not copy values from another cluster without measuring.</p>
+</div>
+<h2 id="table-of-contents">📋 Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Pools</strong>: replicas <code>size=3</code> (minimum <code>min_size=2</code>), <code>pg_num</code> sized for OSDs; avoid EC for OLTP.</li>
-<li><strong>WAL/DB on NVMe</strong>: place <code>bluestore_block_db</code>/<code>bluestore_block_wal</code> on low-latency NVMe/SSD devices.</li>
-<li><strong>Network</strong>: 25/40G recommended, MTU 9000 only if the full path supports it; set <code>ms_bind_ipv4=true</code> and <code>ms_bind_ipv6=false</code> when IPv6 is unused.</li>
-<li><strong>RBD features</strong>: enable <code>exclusive-lock, object-map, fast-diff, deep-flatten</code> to accelerate snapshots and resyncs.</li>
-<li><strong>Client (qemu/libvirt)</strong>: <code>cache=none</code>, <code>io=native</code>, <code>discard=on</code>, 4K alignment; prefer <code>virtio-scsi</code> with multiqueue.</li>
-<li><strong>Guest FS</strong>: <code>ext4</code> or <code>xfs</code> with <code>noatime</code>; avoid disabling barriers.</li>
+<li><a href="#measure-before-touching">Measure before touching</a></li>
+<li><a href="#pools-and-placement-groups">Pools and placement groups</a></li>
+<li><a href="#bluestore-waldb-and-memory">BlueStore: WAL/DB and memory</a></li>
+<li><a href="#network">Network</a></li>
+<li><a href="#rbd-and-client">RBD and client</a></li>
+<li><a href="#testing-with-fio">Testing with fio</a></li>
+<li><a href="#capacity-planning">Capacity planning</a></li>
+<li><a href="#recovery-and-rebalancing">Recovery and rebalancing</a></li>
+<li><a href="#monitoring-and-alerts">Monitoring and alerts</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#best-practices">Best Practices</a></li>
+<li><a href="#references">References</a></li>
 </ul>
-<h2 id="pool-and-rbd-tuning-for-postgresqlmysql">Pool and RBD tuning for PostgreSQL/MySQL<a class="headerlink" href="#pool-and-rbd-tuning-for-postgresqlmysql" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Create a dedicated OLTP pool (e.g., <code>db-rbd</code>) with replicas, <code>target_size_ratio</code> for autoscaler hints, and enable <code>pg_autoscaler</code>.</li>
-<li>Set <code>rbd_cache=true</code>, <code>rbd_cache_writethrough_until_flush=false</code>, <code>rbd_cache_max_dirty=33554432</code> for low latency (verify against your librbd version).</li>
-<li>Enable <code>rbd exclusive-lock</code> and <code>rbd feature enable ...</code> per image; enable <code>discard</code> in the guest to reclaim blocks.</li>
-</ul>
-<p>Example <code>ceph config set</code> (adjust to your version):</p>
-<div class="highlight"><pre><span></span><code>ceph<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>osd<span class="w"> </span>osd_memory_target<span class="w"> </span>4096M
-ceph<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>osd<span class="w"> </span>bluestore_cache_autotune<span class="w"> </span><span class="nb">true</span>
-ceph<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>osd<span class="w"> </span>bluestore_compression_mode<span class="w"> </span>aggressive
-ceph<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>mon<span class="w"> </span>mon_osd_down_out_interval<span class="w"> </span><span class="m">600</span>
+<h2 id="measure-before-touching">Measure before touching<a class="headerlink" href="#measure-before-touching" title="Permanent link">&para;</a></h2>
+<p>Three commands give the baseline picture. Keep their output before and after each change to compare.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Global state: health, OSDs, PGs, client I/O</span>
+ceph<span class="w"> </span>-s
+
+<span class="c1"># Usage per OSD and per class; look for imbalances</span>
+ceph<span class="w"> </span>osd<span class="w"> </span>df
+
+<span class="c1"># What the PG autoscaler does with each pool</span>
+ceph<span class="w"> </span>osd<span class="w"> </span>pool<span class="w"> </span>autoscale-status
 </code></pre></div>
-<p>Quick <code>fio</code> smoke test (image mapped as block device):</p>
+<p>In <code>ceph osd df</code>, look at the usage column (<code>%USE</code>) and the spread between OSDs: if one OSD is well above the average, the cluster's usable capacity is set by it, not by the average. In <code>ceph -s</code>, any <code>slow ops</code> or any PG that is not <code>active+clean</code> must be resolved before tuning anything.</p>
+<h2 id="pools-and-placement-groups">Pools and placement groups<a class="headerlink" href="#pools-and-placement-groups" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Replicas</strong>: <code>size=3</code> and <code>min_size=2</code> for data that matters. With <code>size=2</code> or <code>min_size=1</code> you gain capacity, but a double failure can lose data or accept writes without a redundant copy.</li>
+<li><strong>Erasure coding</strong>: saves capacity, but every small write costs more. Avoid it for OLTP; use it for cold objects or backups.</li>
+<li><strong>One pool per workload type</strong>: one pool for databases, another for VM disks, another for cold data, each with its own CRUSH rule (for example, restricted to a device class).</li>
+<li><strong>PGs</strong>: leave the autoscaler <code>on</code> and tell Ceph how much each pool should take with <code>target_size_ratio</code>; that way it distributes PGs from the start and does not reshuffle as the pool grows.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Replicas for the database pool</span>
+ceph<span class="w"> </span>osd<span class="w"> </span>pool<span class="w"> </span><span class="nb">set</span><span class="w"> </span>db-rbd<span class="w"> </span>size<span class="w"> </span><span class="m">3</span>
+ceph<span class="w"> </span>osd<span class="w"> </span>pool<span class="w"> </span><span class="nb">set</span><span class="w"> </span>db-rbd<span class="w"> </span>min_size<span class="w"> </span><span class="m">2</span>
+
+<span class="c1"># Active autoscaler and expected share of the cluster</span>
+ceph<span class="w"> </span>osd<span class="w"> </span>pool<span class="w"> </span><span class="nb">set</span><span class="w"> </span>db-rbd<span class="w"> </span>pg_autoscale_mode<span class="w"> </span>on
+ceph<span class="w"> </span>osd<span class="w"> </span>pool<span class="w"> </span><span class="nb">set</span><span class="w"> </span>db-rbd<span class="w"> </span>target_size_ratio<span class="w"> </span><span class="m">0</span>.3
+
+<span class="c1"># Tag the pool for RBD</span>
+ceph<span class="w"> </span>osd<span class="w"> </span>pool<span class="w"> </span>application<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>db-rbd<span class="w"> </span>rbd
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Review after every PG change</p>
+<p>A change in the number of PGs triggers data movement. Do it during off-peak hours and watch <code>ceph -s</code> until everything is back to <code>active+clean</code>.</p>
+</div>
+<h2 id="bluestore-waldb-and-memory">BlueStore: WAL/DB and memory<a class="headerlink" href="#bluestore-waldb-and-memory" title="Permanent link">&para;</a></h2>
+<p>BlueStore stores data on the main device and the metadata (RocksDB) and write-ahead log (WAL) wherever you tell it. On spinning disks, moving DB/WAL to NVMe or SSD is the change with the most impact on latency.</p>
+<ul>
+<li><strong>DB/WAL on a fast device</strong>: they are split when creating the OSD (with <code>cephadm</code>, through an OSD service specification that assigns data and DB devices). Size the DB with headroom: if it fills up, RocksDB spills over to the slow disk and latency collapses.</li>
+<li><strong>Memory per OSD</strong>: <code>osd_memory_target</code> sets how much memory each OSD tries to use; the BlueStore cache auto-tunes around that value. The total across all OSDs on a node plus the other services must not exceed physical RAM, or the node starts swapping.</li>
+<li><strong>Compression</strong>: enabled per pool or per OSD. It helps with compressible data and costs CPU; measure it with your real data.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Target memory per OSD (value in bytes; 4 GiB)</span>
+ceph<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>osd<span class="w"> </span>osd_memory_target<span class="w"> </span><span class="m">4294967296</span>
+
+<span class="c1"># BlueStore cache autotuning</span>
+ceph<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>osd<span class="w"> </span>bluestore_cache_autotune<span class="w"> </span><span class="nb">true</span>
+
+<span class="c1"># See the effective value of an option</span>
+ceph<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span>osd<span class="w"> </span>osd_memory_target
+
+<span class="c1"># Options changed from the default</span>
+ceph<span class="w"> </span>config<span class="w"> </span>dump
+</code></pre></div>
+<p>The practical calculation: node RAM, minus what the OS and other services use (monitor, manager, containers), divided by the number of OSDs. If the result falls below your version's default, it is better to reduce OSDs per node than to force a minimal value.</p>
+<div class="admonition warning">
+<p class="admonition-title">Compression and version</p>
+<p><code>bluestore_compression_mode</code> accepts several modes and its default behavior depends on the version. On databases with already compressed or encrypted pages it adds nothing and burns CPU. Try it first on a test pool.</p>
+</div>
+<h2 id="network">Network<a class="headerlink" href="#network" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Bandwidth</strong>: 25 GbE or more is reasonable for NVMe. With 1 GbE, the network is the bottleneck before the disks.</li>
+<li><strong>Public and cluster network</strong>: separating replication traffic from client traffic reduces interference. In a small cluster, a single network with enough bandwidth is simpler to operate.</li>
+<li><strong>MTU 9000</strong>: only if the <strong>whole</strong> path (NICs, switches, VLAN) supports it. A single 1500 hop in the middle causes intermittent failures that are hard to diagnose.</li>
+<li><strong>IPv6</strong>: if you do not use it, do not bind it (<code>ms_bind_ipv6=false</code>); if you do, use it consistently across the whole cluster.</li>
+<li><strong>Latency between nodes</strong>: Ceph writes to all replicas before acknowledging, so network latency adds to every write.</li>
+</ul>
+<h2 id="rbd-and-client">RBD and client<a class="headerlink" href="#rbd-and-client" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Image features</strong>: <code>exclusive-lock</code>, <code>object-map</code>, <code>fast-diff</code> and <code>deep-flatten</code> speed up snapshots, clones and diffs. Enable them on production images and check compatibility with the client kernel or library.</li>
+<li><strong>RBD cache</strong> (librbd): on databases, <code>rbd_cache</code> enabled with safe writes (<code>rbd_cache_writethrough_until_flush</code>) usually fits; adjust sizes with measurements, not intuition.</li>
+<li><strong>QEMU/libvirt</strong>: <code>cache=none</code>, <code>io=native</code> and <code>discard=on</code>, with <code>virtio-scsi</code> and multiple queues. Align the guest partitions to 4K.</li>
+<li><strong>Guest filesystem</strong>: <code>ext4</code> or <code>xfs</code> with <code>noatime</code>; do not disable barriers.</li>
+<li><strong>Returning space</strong>: <code>discard</code> in the guest and periodic <code>fstrim</code> let Ceph free blocks; without them, the space of thin images only grows.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Features of an image</span>
+rbd<span class="w"> </span>info<span class="w"> </span>db-rbd/pg-data
+
+<span class="c1"># Enable features on an existing image</span>
+rbd<span class="w"> </span>feature<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>db-rbd/pg-data<span class="w"> </span>exclusive-lock<span class="w"> </span>object-map<span class="w"> </span>fast-diff
+
+<span class="c1"># Real space used by the image</span>
+rbd<span class="w"> </span>du<span class="w"> </span>db-rbd/pg-data
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Feature order</p>
+<p><code>object-map</code> and <code>fast-diff</code> depend on <code>exclusive-lock</code>. On images already in use, after enabling them you may need to rebuild the object map (<code>rbd object-map rebuild</code>). Do it with the image idle.</p>
+</div>
+<h2 id="testing-with-fio">Testing with fio<a class="headerlink" href="#testing-with-fio" title="Permanent link">&para;</a></h2>
+<p>Always measure with a pattern close to the real one. For an OLTP database: small blocks, mixed read/write and moderate concurrency. Run it on a test image, not on real data.</p>
 <div class="highlight"><pre><span></span><code>fio<span class="w"> </span>--name<span class="o">=</span>db-randrw<span class="w"> </span>--filename<span class="o">=</span>/dev/rbd0<span class="w"> </span>--ioengine<span class="o">=</span>libaio<span class="w"> </span>--direct<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--bs<span class="o">=</span>8k<span class="w"> </span>--rw<span class="o">=</span>randrw<span class="w"> </span>--rwmixread<span class="o">=</span><span class="m">70</span><span class="w"> </span>--iodepth<span class="o">=</span><span class="m">32</span><span class="w"> </span>--numjobs<span class="o">=</span><span class="m">4</span><span class="w"> </span>--time_based<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--runtime<span class="o">=</span><span class="m">120</span><span class="w"> </span>--group_reporting
 </code></pre></div>
-<h2 id="monitoring-and-operations">Monitoring and operations<a class="headerlink" href="#monitoring-and-operations" title="Permanent link">&para;</a></h2>
+<p>Look at the <strong>tail latency</strong> (high percentiles), not just average IOPS. A good average with a bad tail shows up in the database as sporadic stalls. Repeat the test after each change, one at a time, and again with the cluster busy (recovery in progress) to learn the worst case.</p>
+<h2 id="capacity-planning">Capacity planning<a class="headerlink" href="#capacity-planning" title="Permanent link">&para;</a></h2>
+<p>Ceph is not an array: usable capacity is lower than the sum of the disks.</p>
 <ul>
-<li>Grafana: watch <code>osd.op_r_lat</code>, <code>osd.op_w_lat</code>, <code>client_io_rate</code>, and NIC saturation.</li>
-<li>Alerts: <code>pg_degraded</code>, <code>pg_backfill</code>, <code>nearfull</code>, <code>slow ops</code> with conservative thresholds.</li>
-<li>Rebalance hygiene: if rebalances are frequent, tune <code>mon_osd_min_down_reporters</code> and review CRUSH weights/placement groups.</li>
+<li><strong>3x replication</strong>: usable capacity is a third of raw. With erasure coding it is higher, at the cost of performance.</li>
+<li><strong>Failure reserve</strong>: the cluster must be able to rebuild the loss of a node (or a failure domain) with the space left. Plan so that, after losing what your design tolerates, usage stays below the thresholds.</li>
+<li><strong>Thresholds</strong>: Ceph warns at <code>nearfull</code>, stops rebalancing at <code>backfillfull</code> and blocks writes at <code>full</code>. The defaults are conservative; do not raise them to gain space, add capacity.</li>
+<li><strong>Imbalance between OSDs</strong>: the fullest OSD sets the limit. The <code>balancer</code> module redistributes PGs to even out usage; check it is active.</li>
+<li><strong>Growth</strong>: adding OSDs triggers rebalancing. Do it in batches and with recovery limits if there are sensitive workloads.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Usage of each OSD and deviation</span>
+ceph<span class="w"> </span>osd<span class="w"> </span>df<span class="w"> </span>tree
+
+<span class="c1"># Balancer module state</span>
+ceph<span class="w"> </span>balancer<span class="w"> </span>status
+
+<span class="c1"># Usage per pool</span>
+ceph<span class="w"> </span>df
+</code></pre></div>
+<h2 id="recovery-and-rebalancing">Recovery and rebalancing<a class="headerlink" href="#recovery-and-rebalancing" title="Permanent link">&para;</a></h2>
+<p>Recovery and rebalancing compete with clients for disk and network. Two levers:</p>
+<ul>
+<li><strong>Recovery limit</strong>: lowering backfill and recovery priority protects client latency at the cost of taking longer to return to full redundancy. Scheduler option names change between versions; look them up with <code>ceph config help</code>.</li>
+<li><strong><code>mon_osd_down_out_interval</code></strong>: time the monitor waits before marking a down OSD <code>out</code> and starting to rebuild. A higher value avoids rebalancing on short restarts, and a lower one shortens the window without redundancy.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Wait 10 minutes before marking a down OSD out</span>
+ceph<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>mon<span class="w"> </span>mon_osd_down_out_interval<span class="w"> </span><span class="m">600</span>
+
+<span class="c1"># Before a planned node shutdown</span>
+ceph<span class="w"> </span>osd<span class="w"> </span><span class="nb">set</span><span class="w"> </span>noout
+<span class="c1"># ... maintenance ...</span>
+ceph<span class="w"> </span>osd<span class="w"> </span><span class="nb">unset</span><span class="w"> </span>noout
+</code></pre></div>
+<p>If there is frequent rebalancing without cluster changes, check the CRUSH weights, the network between nodes and OSDs that flap.</p>
+<h2 id="monitoring-and-alerts">Monitoring and alerts<a class="headerlink" href="#monitoring-and-alerts" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Metrics</strong>: the manager's <code>prometheus</code> module exports metrics to Prometheus. In Grafana: OSD read and write latency, client I/O, NIC saturation and per-OSD usage.</li>
+<li><strong>Useful alerts</strong>: PGs degraded or in backfill for a long time, <code>nearfull</code>, <code>slow ops</code>, down OSDs and clock skew between monitors.</li>
+<li><strong>Conservative thresholds</strong>: alert on usage with enough margin to rebuild a node, not when it is almost full.</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Probable cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High write latency on HDD</td>
+<td>DB/WAL on the same spinning disk</td>
+<td>Move DB/WAL to NVMe/SSD when recreating the OSD</td>
+</tr>
+<tr>
+<td>Repeated <code>slow ops</code></td>
+<td>Saturated disk or network, misbehaving OSD</td>
+<td><code>ceph -s</code>, locate the affected OSD and check the node's disk and network</td>
+</tr>
+<tr>
+<td>One OSD much fuller than the rest</td>
+<td>Uneven PG distribution</td>
+<td>Check <code>ceph balancer status</code>; enable the balancer or adjust weights</td>
+</tr>
+<tr>
+<td><code>nearfull</code> warning</td>
+<td>Capacity near the limit</td>
+<td>Add OSDs, delete data or reduce replicas only if the design allows it</td>
+</tr>
+<tr>
+<td>Node swapping, slow OSDs</td>
+<td>Sum of <code>osd_memory_target</code> exceeds RAM</td>
+<td>Lower <code>osd_memory_target</code> or reduce OSDs per node</td>
+</tr>
+<tr>
+<td>Slow clients during recovery</td>
+<td>Backfill competes with client traffic</td>
+<td>Lower recovery priority and schedule changes off-peak</td>
+</tr>
+<tr>
+<td>Rebalancing after rebooting a node</td>
+<td><code>down_out_interval</code> too low</td>
+<td>Raise it, or use <code>noout</code> for planned maintenance</td>
+</tr>
+<tr>
+<td>Image space does not drop after deleting data</td>
+<td>The guest does not send <code>discard</code></td>
+<td>Enable <code>discard</code> and run <code>fstrim</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Measure before and after each change, one at a time, and keep the outputs.</li>
+<li>One pool per workload type, with <code>size=3</code> and <code>min_size=2</code> for what matters.</li>
+<li>DB/WAL on NVMe when the main storage is spinning, with headroom in size.</li>
+<li>Calculate <code>osd_memory_target</code> from the node's real RAM, not from another cluster's figure.</li>
+<li>Do not raise the <code>full</code> thresholds to gain space: add capacity before reaching them.</li>
+<li>Use <code>noout</code> for planned maintenance and remove it afterwards.</li>
+<li>Check <code>ceph config help &lt;option&gt;</code> on your version before copying settings from tutorials.</li>
+<li>Test recovery on a lab cluster before you need it in production.</li>
+</ul>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://docs.ceph.com/">Official Ceph documentation</a></li>
+<li><a href="../ceph_base/">Ceph — Base Guide</a></li>
+<li><a href="../troubleshooting_ceph/">Ceph Troubleshooting</a></li>
+<li><a href="../../postgresql_ceph/">PostgreSQL on Ceph</a></li>
+<li><a href="../../kubernetes_csi/">Kubernetes CSI</a></li>
 </ul>
 
 
