@@ -2,7 +2,7 @@
 title: CIDR Notation
 tags: ['networking']
 description: Explicación detallada de la notación Classless Inter-Domain Routing y cómo calcular rangos.
-updated: 2026-01-09
+updated: 2026-01-23
 difficulty: beginner
 estimated_time: 3 min
 category: Redes

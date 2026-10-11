@@ -3,7 +3,7 @@ title: "MeshLLM: inferencia LLM distribuida en malla P2P"
 description: "Guía de Mesh LLM: agrupa GPUs de varias máquinas en una malla P2P sobre iroh y expón un único endpoint OpenAI-compatible en localhost:9337/v1"
 keywords: "meshllm, mesh-llm, llm distribuido, p2p, iroh, gpu, inferencia, openai compatible, skippy"
 tags: ['ai', 'llm', 'high-availability', 'networking', 'gpu']
-updated: 2026-07-18
+updated: 2026-07-19
 difficulty: advanced
 estimated_time: 9 min
 category: Inteligencia Artificial

@@ -2,7 +2,7 @@
 title: "Ciberseguridad"
 tags: ['cybersecurity']
 description: "Guías completas de ciberseguridad para entornos DevOps e infraestructura"
-updated: 2026-01-09
+updated: 2026-01-23
 ---
 
 # Ciberseguridad en DevOps e Infraestructura

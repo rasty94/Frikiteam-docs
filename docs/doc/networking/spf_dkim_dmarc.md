@@ -2,7 +2,7 @@
 title: SPF/DKIM/DMARC
 tags: ['networking']
 description: Tríada de seguridad del correo electrónico para prevenir spoofing y asegurar la entregabilidad.
-updated: 2026-01-09
+updated: 2026-01-23
 difficulty: intermediate
 estimated_time: 5 min
 category: Redes

@@ -6,7 +6,7 @@ difficulty: advanced
 estimated_time: 45 minutos
 category: Inteligencia Artificial
 prerequisites: [ollama_basics, model_evaluation, fine_tuning_basico]
-updated: 2026-01-25
+updated: 2026-07-18
 ---
 
 # Despliegue de LLMs a Escala con Kubernetes

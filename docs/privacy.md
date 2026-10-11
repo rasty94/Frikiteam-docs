@@ -3,7 +3,7 @@ title: Política de Privacidad
 tags: ['documentation']
 description: Información sobre cómo manejamos tus datos personales y cookies en Frikiteam Docs.
 keywords: privacidad, cookies, datos personales, política
-updated: 2025-11-15
+updated: 2026-07-18
 ---
 
 # Política de Privacidad

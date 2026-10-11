@@ -1,7 +1,7 @@
 ---
 title: "Monitoreo de Seguridad"
 tags: ['cybersecurity', 'monitoring', 'siem']
-updated: 2026-01-09
+updated: 2026-01-23
 difficulty: intermediate
 estimated_time: 10 min
 category: Ciberseguridad

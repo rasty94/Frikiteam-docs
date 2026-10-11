@@ -1,7 +1,7 @@
 ---
 title: "Firewall y Seguridad de Red"
 tags: ['cybersecurity', 'firewall', 'networking', 'siem']
-updated: 2026-01-09
+updated: 2026-01-23
 difficulty: intermediate
 estimated_time: 15 min
 category: Ciberseguridad

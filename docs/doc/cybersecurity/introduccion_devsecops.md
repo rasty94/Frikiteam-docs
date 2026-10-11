@@ -1,7 +1,7 @@
 ---
 title: "Introducción a Ciberseguridad en DevOps"
 tags: ['cybersecurity', 'devsecops', 'devops']
-updated: 2026-01-09
+updated: 2026-01-25
 difficulty: intermediate
 estimated_time: 2 min
 category: Ciberseguridad

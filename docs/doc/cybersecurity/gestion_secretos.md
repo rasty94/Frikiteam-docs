@@ -1,7 +1,7 @@
 ---
 title: "Gestión de Secretos"
 tags: ['cybersecurity', 'secrets', 'kubernetes', 'devops']
-updated: 2026-01-09
+updated: 2026-01-24
 difficulty: intermediate
 estimated_time: 5 min
 category: Ciberseguridad

@@ -2,7 +2,7 @@
 title: ASN & BGP
 tags: ['networking']
 description: Conceptos sobre Sistemas Autónomos y enrutamiento global mediante BGP.
-updated: 2026-01-09
+updated: 2026-01-24
 difficulty: intermediate
 estimated_time: 8 min
 category: Redes

@@ -1,7 +1,7 @@
 ---
 title: "Autenticación y Autorización"
 tags: ['cybersecurity', 'identity']
-updated: 2026-01-09
+updated: 2026-01-23
 difficulty: intermediate
 estimated_time: 10 min
 category: Ciberseguridad

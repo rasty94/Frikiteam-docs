@@ -2,7 +2,7 @@
 title: Tablas de Puertos Comunes
 tags: ['networking']
 description: Lista de puertos TCP/UDP estándar y servicios asociados (ej. 22 SSH, 443 HTTPS, 53 DNS).
-updated: 2026-01-09
+updated: 2026-01-23
 difficulty: intermediate
 estimated_time: 9 min
 category: Redes

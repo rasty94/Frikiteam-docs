@@ -7,7 +7,7 @@ estimated_time: "55 min"
 category: Inteligencia Artificial
 status: published
 prerequisites: ["llms_fundamentals", "ollama_basics", "model_evaluation"]
-updated: 2026-01-25
+updated: 2026-07-18
 ---
 
 # Fine-tuning Básico de LLMs
