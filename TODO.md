@@ -50,30 +50,28 @@ TheHive/MISP y vLLM se verificaron el 2026-09-03 (ver `done.md`). Queda OpenSCAP
 
 - [ ] **Servidor de inferencia en `http://` sobre IP desnuda** (`INFERENCE_SERVERS` en `.env`, usado por `wordpress_sync.py`). La clave de API y el contenido reescrito viajan sin cifrar. Hoy el valor por defecto es `http://localhost:11434`, que no sale de la máquina; solo importa si se apunta a un servidor remoto. Cambiar la URL a https o meterlo tras VPN cuando eso ocurra.
 
-## 📅 Contenido nuevo (solo cuando lo anterior esté cerrado)
+## 📅 Contenido nuevo
 
-Huecos reales, comprobados contra el repo el 2026-09-02. Los 13 stubs ya están cerrados, así que esta sección es la siguiente en la cola:
+Revisado contra el repo el 2026-10-11, contando páginas ES que mencionan el tema y comprobando si ya tiene página propia, aunque sea con otro título. Por orden de valor:
 
-### Cybersecurity / Networking
-- [ ] **Zero-trust con Cilium** en Kubernetes (solo 2 menciones de paso en el repo).
-- [ ] **Forense digital:** recolección de logs, chain of custody, Volatility para memory forensics (1 mención).
-- [ ] **Cifrado at-rest en storage:** LUKS/dm-crypt, secure erase, protección contra ransomware en Ceph/Pure/NetApp (LUKS aparece en 2 docs).
-- [ ] **eBPF** como tema propio (hoy solo aparece dentro de service mesh y monitoreo).
-- [ ] **Cloud Security:** CIS Benchmarks en AWS/Azure/GCP, IAM best practices.
-- [ ] Optimización de MTU y MSS para 10G/40G.
-- [ ] BGP avanzado para multi-homing y load balancing.
-- [ ] Cross-references entre ciberseguridad y storage/networking.
+- [ ] **ZFS y LVM en local** (`doc/storage/zfs_lvm.md`): 8 y 11 páginas los mencionan, ninguna los explica. Proxmox, PBS y 3-2-1 los dan por sabidos. *En curso el 2026-10-11.*
+- [ ] **DNS propio** (resolutor + autoritativo: Unbound, BIND, PowerDNS): 18 páginas mencionan BIND/PowerDNS. Existen `dnssec.md` y `registros_ptr_zonas_inversas.md` pero no la página base que las sostiene.
+- [ ] **Kubernetes en homelab** (ingress, cert-manager, k3s): ingress 2 menciones, cert-manager 0. La sección Kubernetes tiene 3 páginas; sería el puente con `certificados_tls.md`.
+- [ ] **Backup de Kubernetes** (Velero, snapshot de etcd): 1 mención. La sección Backups no cubre clústeres.
+- [ ] **eBPF con Cilium** como una sola página: eBPF 2 menciones, Cilium 3, solo de paso en `service_mesh.md`. Fusiona dos entradas del roadmap anterior.
+- [ ] **Forense** como continuación de `respuesta_incidentes.md` (4 menciones). Prioridad media.
 
-### Plataforma
-- [ ] Chaos Engineering.
-- [ ] Optimización de costes en Kubernetes.
+### Reducido a una sección de una página existente
+- [ ] **MTU 25G/40G/100G** en `networking/mtu_mss_values.md`: las tramas jumbo ya están cubiertas; las velocidades altas tienen 0 menciones.
+- [ ] **Cifrado en reposo en cabinas** (Ceph/Pure/NetApp): LUKS ya está a fondo en `cybersecurity/criptografia_aplicada.md` (14 menciones); falta solo el ángulo de cabina.
+- [ ] `doc/storage/protocols/protocols.md`: más ejemplos reales.
+- [ ] **Tailscale**: el diagrama de `tailscale.md` marca App Connector como «Próximamente». Probablemente desactualizado; comprobar contra la documentación de Tailscale.
 
-### Storage
-- [ ] `doc/storage/protocols/protocols.md`: añadir más ejemplos reales.
-- [ ] Storage para modelos: checkpoints en Ceph/Pure, versionado con DVC.
-
-### Ya cubierto, retirado del roadmap
-Podman rootless (`doc/docker/podman_rootless.md`), PostgreSQL HA (`doc/databases/postgresql_ha.md`), WireGuard (15 docs), Let's Encrypt/certbot (9), Tailscale/NetBird, Nmap/Metasploit/Burp (pentesting básico), TLS.
+### Retirado del roadmap el 2026-10-11
+- **CIS Benchmarks en nube y optimización de costes en Kubernetes**: no encajan en un sitio de infraestructura propia (costes: 0 menciones).
+- **Chaos engineering, DVC, BGP multihoming**: 0-1 menciones y ninguna página vecina que los pida. Aparcados sin fecha.
+- **Falsos huecos**, ya cubiertos con otro título: Prometheus, Grafana, Alertmanager y Helm (`monitoring/observability_stack.md`), Vault (`cybersecurity/gestion_secretos.md`, `secrets_gitops.md`), Falco y Kyverno (`monitoreo_seguridad.md`, `kubernetes_security.md`), Keepalived (`haproxy/haproxy_advanced.md`).
+- Ya cubierto antes: Podman rootless, PostgreSQL HA, WireGuard, Let's Encrypt/certbot, Tailscale/NetBird, Nmap/Metasploit/Burp, TLS.
 
 ### Aparcado: Inteligencia Artificial
 AI ya es la segunda sección más grande (25 docs). Los 13 stubs que bloqueaban esta sección se cerraron el 2026-09-03, así que queda desbloqueada; se mantiene aparcada por prioridad, no por impedimento:
