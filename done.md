@@ -2,6 +2,14 @@
 
 Registro de tareas completadas y logs de progreso, archivados desde `TODO.md` para mantener ese archivo centrado en lo pendiente.
 
+## 🔁 Sync con WordPress y duplicados de posts programados (11/10/2026)
+
+- `wordpress_sync.py --all` creó 97 borradores en vez de 7: `fetch_all_wp_posts` y `find_post_by_title` pedían `publish,draft,pending,private` y no `future`, así que los 77 posts programados no se veían y se recrearon. Arreglado con `ESTADOS_WP`, que incluye `future`.
+- 73 de los 97 duplicaban un post programado (65 por título y 8 cuyo título en el Markdown cambió en esta versión). Se mandaron a la papelera de WordPress (recuperables 30 días), el estado local se reapuntó a los programados y `--all --force` los actualizó sin crear ninguno y conservando su fecha de publicación.
+- Los otros 24 borradores son páginas sin post en WordPress: las 6 nuevas de esta versión y 18 cuyo post ya no existía.
+- El HTML del post llevaba `{% raw %}`/`{% endraw %}` como texto en 29 páginas; ahora `markdown_to_html` los quita, en línea propia y en mitad de una línea. `docs/tags.md` queda excluido como página de navegación.
+- Comprobado contra la API: 42 publicados, 77 programados, 33 borradores, 0 posts con `raw %}`. `test_wordpress_format.py` cubre el `{% raw %}`.
+
 ## 🪵 Análisis de logs con LLMs: EN reescrita y código corregido (11/10/2026)
 
 - [x] **La EN era un documento distinto de la ES**; se reescribió como traducción fiel de la ES (973/973 líneas, 14 cercas y 6 bloques Python en ambas), con el código idéntico y solo comentarios, prompts y mensajes traducidos.
@@ -695,6 +703,150 @@ Verificado ejecutando los scripts, no por inspección manual:
 
 ## Progreso de Publicación
 
+- Traefik - Programado el 2026-10-11
+- Terraform — Backend de Estado y Migración - Programado el 2026-10-11
+- Terraform & OpenTofu - Infraestructura como Código - Programado el 2026-10-11
+- Almacenamiento local en Linux: ZFS y LVM - Borrador creado el 2026-10-11
+- Pure Storage — Guía base - Programado el 2026-10-11
+- Protocolos y Métricas de Almacenamiento - Programado el 2026-10-11
+- fio — medir IOPS, latencia y ancho de banda sin engañarte - Programado el 2026-10-11
+- Storage para bases de datos: PostgreSQL + Ceph - Programado el 2026-10-11
+- NetApp ONTAP — Guía base - Programado el 2026-10-11
+- Storage en Kubernetes: Ceph RBD vs Longhorn vs OpenEBS - Publicado el 2026-10-11
+- Ceph Troubleshooting: Common Issues and Solutions - Borrador creado el 2026-10-11
+- Ceph — Optimización y Planificación de Capacidad - Programado el 2026-10-11
+- Ceph - Publicado el 2026-10-11
+- Recetas Rápidas - Programado el 2026-10-11
+- Proxmox — Redes definidas por software (SDN) - Programado el 2026-10-11
+- Proxmox VE Complete Guide: Enterprise Virtualization Platform - Programado el 2026-10-11
+- Proxmox — Migración de VMs y contenedores - Programado el 2026-10-11
+- React en producción — build, despliegue y operación - Borrador creado el 2026-10-11
+- Flutter en producción — build, firma y distribución - Borrador creado el 2026-10-11
+- FastAPI - Borrador creado el 2026-10-11
+- OpenStack Troubleshooting: Common Issues and Solutions - Borrador creado el 2026-10-11
+- OpenStack + Ceph Integration: Complete Storage Backend Guide - Borrador creado el 2026-10-11
+- OpenStack Guide: Complete Cloud Platform Overview - Programado el 2026-10-11
+- OpenStack Deployment with Kolla-Ansible: Complete Production Guide - Borrador creado el 2026-10-11
+- OpenStack Day-2 Operations: Maintenance and Production Management - Borrador creado el 2026-10-11
+- ZeroTier: instalación y configuración básica - Programado el 2026-10-11
+- vRouters y firewalls virtuales - Programado el 2026-10-11
+- VyOS (vRouter orientado a automatización) - Programado el 2026-10-11
+- pfSense (vRouter/cortafuegos virtual) - Programado el 2026-10-11
+- OPNsense (vRouter/cortafuegos virtual) - Programado el 2026-10-11
+- MikroTik CHR (enrutador en la nube) - Programado el 2026-10-11
+- Plantilla de pruebas de rendimiento de vRouters - Programado el 2026-10-11
+- Migración de VPN Tradicionales a Mesh Networking - Programado el 2026-10-11
+- Comparación VPN Overlay: Tailscale vs NetBird vs ZeroTier - Programado el 2026-10-11
+- VLSM en Profundidad - Publicado el 2026-10-11
+- Resolución de problemas (Networking) - Programado el 2026-10-11
+- Benchmarks de Rendimiento: Tailscale vs NetBird - Programado el 2026-10-11
+- Tailscale: instalación y configuración básica - Programado el 2026-10-11
+- Tablas de Puertos Comunes - Programado el 2026-10-11
+- SPF/DKIM/DMARC - Programado el 2026-10-11
+- SDN Empresarial: OpenStack Neutron vs VMware NSX vs Cisco ACI - Programado el 2026-10-11
+- Reserved IP Ranges - Publicado el 2026-10-11
+- Registros PTR y Zonas Inversas - Programado el 2026-10-11
+- Protocolos ICMP/ARP/NDP - Programado el 2026-10-11
+- NetBird: instalación y configuración básica - Programado el 2026-10-11
+- MTU/MSS Values - Programado el 2026-10-11
+- Load Balancing Avanzado: HAProxy vs NGINX vs Traefik - Programado el 2026-10-11
+- IPv6 Addressing - Borrador creado el 2026-10-11
+- DNSSEC - Borrador creado el 2026-10-11
+- DNS propio: resolutor y servidor autoritativo - Borrador creado el 2026-10-11
+- Comparativa rápida: NetBird vs Tailscale vs ZeroTier - Publicado el 2026-10-11
+- CIDR Notation - Borrador creado el 2026-10-11
+- Certificados TLS - Programado el 2026-10-11
+- Networking: Comparativa de Rendimiento - Programado el 2026-10-11
+- ASN & BGP - Borrador creado el 2026-10-11
+- Observabilidad: Centralización de Logs con Wazuh - Programado el 2026-10-11
+- Monitorización con Uptime Kuma - Programado el 2026-10-11
+- Plausible Analytics Self-Hosted - Borrador creado el 2026-10-11
+- Stack Completo de Observabilidad - Publicado el 2026-10-11
+- WireGuard VPN - Borrador creado el 2026-10-11
+- Monitorización desde la terminal — TUIs para diagnóstico en vivo - Programado el 2026-10-11
+- Systemd: Gestión de Servicios - Publicado el 2026-10-11
+- Seguridad SSH - Programado el 2026-10-11
+- Bash y APIs REST — curl, jq y scripts que no mienten - Programado el 2026-10-11
+- Service Mesh en Kubernetes: Istio vs Linkerd vs Cilium - Publicado el 2026-10-11
+- Kubernetes — Readiness y Liveness Probes - Programado el 2026-10-11
+- Kubernetes - Orquestación de Contenedores - Publicado el 2026-10-11
+- Kubernetes en homelab: k3s, Ingress y cert-manager - Borrador creado el 2026-10-11
+- eBPF y Cilium: red, seguridad y observabilidad en Kubernetes - Borrador creado el 2026-10-11
+- OpenStack Keystone — Identidad, catálogo y tokens - Borrador creado el 2026-10-11
+- Keycloak: Gestión de Identidad - Borrador creado el 2026-10-11
+- Dex IdP (OIDC Federado) - Borrador creado el 2026-10-11
+- Authentik — SSO, flows y forward auth - Borrador creado el 2026-10-11
+- HAProxy - Borrador creado el 2026-10-11
+- HAProxy Avanzado — Balanceo, TLS y Alta Disponibilidad - Programado el 2026-10-11
+- Podman Quadlet — Contenedores como servicios de systemd - Programado el 2026-10-11
+- Podman Rootless — Contenedores sin daemon ni root - Programado el 2026-10-11
+- Docker — Seguridad: hardening, secretos y escaneo - Programado el 2026-10-11
+- Docker — Seguridad Runtime (gVisor y Kata Containers) - Publicado el 2026-10-11
+- Docker — Optimización y Buenas Prácticas - Programado el 2026-10-11
+- Docker - Contenedores - Programado el 2026-10-11
+- Redis: Caché de Alto Rendimiento - Borrador creado el 2026-10-11
+- PostgreSQL en Alta Disponibilidad: replicación, Patroni y failover probado - Programado el 2026-10-11
+- PostgreSQL en Docker - Borrador creado el 2026-10-11
+- Zero Trust en Práctica - Programado el 2026-10-11
+- Trivy Operator: Escaneo Continuo en Kubernetes - Programado el 2026-10-11
+- Supply Chain Security: SBOM, SLSA y Firma de Imágenes - Programado el 2026-10-11
+- Seguridad en IaC (Checkov y TFLint) - Publicado el 2026-10-11
+- Secretos en GitOps: SOPS, Sealed Secrets y External Secrets Operator - Publicado el 2026-10-11
+- Respuesta a Incidentes: playbook práctico con TheHive y MISP - Programado el 2026-10-11
+- Principios de Seguridad - Programado el 2026-10-11
+- Pentesting Básico: metodología de ethical hacking para auditar tu propia infraestructura - Programado el 2026-10-11
+- nftables + fail2ban — Muralla y portero - Programado el 2026-10-11
+- Monitoreo de Seguridad - Programado el 2026-10-11
+- Modelo de Amenazas - Programado el 2026-10-11
+- Seguridad en Kubernetes - Programado el 2026-10-11
+- Introducción a Ciberseguridad en DevOps - Publicado el 2026-10-11
+- Hardening de Servidores Linux - Programado el 2026-10-11
+- Gestión de Secretos - Programado el 2026-10-11
+- Forense digital en Linux: evidencias, memoria y línea temporal - Borrador creado el 2026-10-11
+- Firewall y Seguridad de Red - Programado el 2026-10-11
+- Escaneo de Vulnerabilidades - Programado el 2026-10-11
+- Cumplimiento y Auditoría en DevOps: GDPR, ISO 27001 y OpenSCAP - Programado el 2026-10-11
+- Criptografía Aplicada: primitivas, hashing y gestión de claves - Programado el 2026-10-11
+- CI Security Scanning: SAST, DAST y Contenedores - Programado el 2026-10-11
+- Backup Seguro: cifrado, inmutabilidad y testing de restauración - Programado el 2026-10-11
+- Autenticación y Autorización - Programado el 2026-10-11
+- Actualizar Proxmox VE 8 a Proxmox VE 9 (Debian 13 Trixie) - Programado el 2026-10-11
+- Proxmox vs VMware vs OpenStack: Migración hacia Soluciones Open Source - Programado el 2026-10-11
+- Instalar Proxmox VE 9 sobre Debian 13 (Trixie) - Publicado el 2026-10-11
+- Docker vs Kubernetes vs Máquinas Virtuales: Una Comparación Curiosa - Publicado el 2026-10-11
+- Introducción a GitHub Actions - Programado el 2026-10-11
+- Cloud-native: GitOps con ArgoCD - Programado el 2026-10-11
+- Estrategia de Backup 3-2-1 - Borrador creado el 2026-10-11
+- Backups Agnósticos: Restic y Borg - Borrador creado el 2026-10-11
+- Proxmox Backup Server (PBS) - Borrador creado el 2026-10-11
+- Backup de Kubernetes: Velero y snapshots de etcd - Borrador creado el 2026-10-11
+- Ansible — Roles y testing con Molecule - Borrador creado el 2026-10-11
+- Ansible - Automatización de Infraestructura - Publicado el 2026-10-11
+- vLLM: servir LLMs a escala con alto throughput - Publicado el 2026-10-11
+- Vector Databases para IA - Programado el 2026-10-11
+- Testing de Seguridad en LLMs - Publicado el 2026-10-11
+- RAG - Retrieval-Augmented Generation - Borrador creado el 2026-10-11
+- Prompt Engineering Avanzado para LLMs - Publicado el 2026-10-11
+- LLMs open-source vs cloud: coste, latencia, privacidad y control - Publicado el 2026-10-11
+- Ollama: Instalación y primeros pasos - Publicado el 2026-10-11
+- Monitoreo y Observabilidad de LLMs - Publicado el 2026-10-11
+- Optimización de Modelos LLM - Borrador creado el 2026-10-11
+- Evaluación y Testing de Modelos LLM - Publicado el 2026-10-11
+- MeshLLM: inferencia LLM distribuida en malla P2P - Publicado el 2026-10-11
+- MCP (Model Context Protocol) y FastMCP - Publicado el 2026-10-11
+- Ecosistema de Modelos Locales - Publicado el 2026-10-11
+- LM Studio: LLMs locales con interfaz gráfica - Publicado el 2026-10-11
+- LLMs en Kubernetes con Helm y ArgoCD - Publicado el 2026-10-11
+- Introducción a Large Language Models (LLMs) - Publicado el 2026-10-11
+- LLaMA.cpp: Compilación, cuantización y benchmarking - Publicado el 2026-10-11
+- LiteLLM: gateway unificado para LLMs - Publicado el 2026-10-11
+- Fine-tuning Básico de LLMs - Publicado el 2026-10-11
+- Evaluación de Coherencia en LLMs - Publicado el 2026-10-11
+- Despliegue de LLMs a Escala con Kubernetes - Publicado el 2026-10-11
+- Generación de Contenido Técnico con LLMs - Publicado el 2026-10-11
+- Chatbots Locales con LLMs - Publicado el 2026-10-11
+- Análisis de Logs y Troubleshooting con LLMs - Publicado el 2026-10-11
+- Mermaid — Verificación y uso - Publicado el 2026-10-11
 - Traefik - Borrador creado el 2026-08-03
 - Protocolos y Métricas de Almacenamiento - Borrador creado el 2026-08-03
 - Migración de VPN Tradicionales a Mesh Networking - Borrador creado el 2026-08-03
