@@ -1,11 +1,11 @@
 ---
 title: "Pure Storage — Guía base"
 description: "Pure Storage FlashArray en infraestructura propia: tiers, volúmenes, hosts, snapshots, protection groups, ActiveCluster y CSI para Kubernetes y virtualización."
-keywords: "pure storage, flasharray, purity, purevol, purehost, protection group, activecluster, csi, iscsi, multipath, snapshots"
+keywords: "pure storage, flasharray, purity, ansible, purestorage.flasharray, protection group, activecluster, csi, iscsi, multipath, snapshots"
 tags: ['storage', 'pure-storage']
 updated: 2026-10-11
 difficulty: beginner
-estimated_time: 12 min
+estimated_time: 17 min
 category: Almacenamiento
 status: published
 last_reviewed: 2026-10-11
@@ -53,40 +53,53 @@ La idea de tier en un entorno propio es sencilla: lo que duele si va lento va a 
 
 ## Modelo de objetos
 
-| Objeto | Qué es | Comando CLI (familia) |
+| Objeto | Qué es | Módulo de Ansible |
 |--------|--------|-----------------------|
-| Volumen | Bloque fino, con nombre y tamaño | `purevol` |
-| Host | Iniciadores (IQN, WWN o NQN) de un consumidor | `purehost` |
-| Host group | Conjunto de hosts que comparten volúmenes (clústeres) | `purehgroup` |
-| Protection group | Volúmenes + calendario de snapshots + destino de replicación | `purepgroup` |
-| Array | Estado global, versión de Purity, capacidad | `purearray` |
+| Volumen | Bloque fino, con nombre y tamaño | `purefa_volume` |
+| Host | Iniciadores (IQN, WWN o NQN) de un consumidor | `purefa_host` |
+| Host group | Conjunto de hosts que comparten volúmenes (clústeres) | `purefa_hg` |
+| Protection group | Volúmenes + calendario de snapshots + destino de replicación | `purefa_pg` |
+| Array | Estado global, versión de Purity, capacidad | `purefa_info` |
 
 La regla práctica: **los volúmenes compartidos entre nodos se conectan al host group, no a cada host**. Así, añadir un nodo al clúster es añadirlo al grupo, y todos los LUN aparecen con el mismo número.
 
-## Provisioning por CLI
+## Provisioning con Ansible
 
-Todo lo que hace la GUI está en el CLI por SSH, útil para scripts y para dejar el proceso documentado. Comprueba la sintaxis exacta de tu versión con `--help` antes de automatizar.
+La referencia de la CLI de Purity solo está disponible con acceso al soporte de Pure. Para automatizar con una fuente pública, la colección oficial `purestorage.flasharray` de Ansible cubre lo mismo: inventario del array, volúmenes, hosts, snapshots y protection groups. Este playbook crea un volumen y lo presenta a un host:
 
-```bash
-# Estado general del array y versión de Purity
-purearray list
+```yaml
+# provision.yml: ejecutar con ansible-playbook provision.yml
+- hosts: localhost
+  gather_facts: false
+  vars:
+    fa: &fa
+      fa_url: flasharray.lab.example
+      api_token: REEMPLAZA_POR_TU_TOKEN
+  tasks:
+    - name: Estado general del array
+      purestorage.flasharray.purefa_info:
+        <<: *fa
+      register: array_info
 
-# Volumen fino de 2 TiB para la base de datos
-purevol create --size 2T db-prod
+    - name: Volumen fino de 2 TiB para la base de datos
+      purestorage.flasharray.purefa_volume:
+        <<: *fa
+        name: db-prod
+        size: 2T
+        state: present
 
-# Definir el host con sus iniciadores iSCSI
-purehost create --iqnlist iqn.2026-01.lab.example:esx01 esx01
-
-# Presentar el volumen al host
-purevol connect --host esx01 db-prod
-
-# Revisar volúmenes y conexiones
-purevol list
-purehost list --connect
+    - name: Host con su iniciador iSCSI y el volumen presentado
+      purestorage.flasharray.purefa_host:
+        <<: *fa
+        name: esx01
+        iqn:
+          - iqn.2026-01.lab.example:esx01
+        volume: db-prod
+        state: present
 ```
 
-!!! warning "Límites de QoS dependen de la versión"
-    Los límites de IOPS y ancho de banda por volumen existen en versiones recientes de Purity, y su sintaxis cambia entre versiones. Antes de aplicarlos, mira la ayuda de `purevol setattr` y la nota de versión de tu array. Sin límites, un volumen ruidoso puede perjudicar a los demás.
+!!! tip "Límites de QoS por volumen"
+    `purefa_volume` acepta `bw_qos` e `iops_qos` para limitar ancho de banda e IOPS de un volumen. Sin límites, un volumen ruidoso puede perjudicar a los demás.
 
 ## Conectar hosts: iSCSI, multipath y NFS
 
@@ -112,15 +125,22 @@ Los volúmenes son finos por diseño y el array aplica deduplicación y compresi
 
 Un snapshot de FlashArray es de coste casi nulo al crearlo y consistente a nivel de crash. Para consistencia de aplicación, congela o notifica a la aplicación antes (por ejemplo, un `CHECKPOINT` en PostgreSQL o el modo backup de la herramienta que uses).
 
-```bash
-# Snapshot manual de un volumen con un sufijo legible
-purevol snap --suffix pre-upgrade db-prod
+```yaml
+# Dentro de la misma lista de tareas del playbook anterior
+- name: Snapshot manual con un sufijo legible (db-prod.pre-upgrade)
+  purestorage.flasharray.purefa_snap:
+    <<: *fa
+    name: db-prod
+    suffix: pre-upgrade
+    state: present
 
-# Clonar un volumen (o un snapshot) para pruebas
-purevol copy db-prod db-test
-
-# Listar snapshots
-purevol list --snap
+- name: Clon de lectura/escritura del snapshot para pruebas
+  purestorage.flasharray.purefa_snap:
+    <<: *fa
+    name: db-prod
+    suffix: pre-upgrade
+    target: db-test
+    state: copy
 ```
 
 Para lo recurrente, no programes crones: usa un **protection group**. Reúne volúmenes, un calendario de snapshots (por ejemplo, horario con retención corta y diario con retención larga) y, opcionalmente, un destino de replicación. Cambiar la política en un sitio cambia el comportamiento de todos los volúmenes del grupo.
@@ -180,7 +200,7 @@ Para el almacenamiento de métricas y alertas puedes usar el exportador de Prome
 
 | Síntoma | Causa probable | Arreglo |
 |---------|----------------|---------|
-| El host no ve el LUN | Iniciador mal declarado en `purehost` o volumen sin conectar | `purehost list`, comparar IQN/WWN con el del host y reconectar con `purevol connect` |
+| El host no ve el LUN | Iniciador mal declarado en el host o volumen sin presentar | Comparar en la GUI del array el IQN/WWN declarado con el del host y volver a presentar el volumen con `purefa_host` (`volume`) |
 | Cada LUN aparece varias veces en el host | Multipath sin configurar | Instalar y habilitar multipath y aplicar la política recomendada por el fabricante |
 | Latencia errática en iSCSI | MTU inconsistente o red compartida con gestión | Verificar MTU en toda la ruta, aislar VLAN o red de almacenamiento |
 | El espacio libre no sube tras borrar datos | El guest o hipervisor no envía `discard`/`UNMAP` | Activar `discard` en el guest o ejecutar `fstrim` periódicamente |
@@ -206,3 +226,8 @@ Para el almacenamiento de métricas y alertas puedes usar el exportador de Prome
 - [Kubernetes CSI](../kubernetes_csi.md)
 - [NetApp ONTAP](../netapp/netapp_base.md)
 - [Estrategia de backup 3-2-1](../../backups/strategy_321.md)
+- [Colección purestorage.flasharray de Ansible](https://docs.ansible.com/projects/ansible/latest/collections/purestorage/flasharray/index.html)
+- [purefa_volume](https://docs.ansible.com/projects/ansible/latest/collections/purestorage/flasharray/purefa_volume_module.html)
+- [purefa_host](https://docs.ansible.com/projects/ansible/latest/collections/purestorage/flasharray/purefa_host_module.html)
+- [purefa_snap](https://docs.ansible.com/projects/ansible/latest/collections/purestorage/flasharray/purefa_snap_module.html)
+- [purefa_pg](https://docs.ansible.com/projects/ansible/latest/collections/purestorage/flasharray/purefa_pg_module.html)

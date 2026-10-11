@@ -371,3 +371,6 @@ Wrong-passphrase errors are unmistakable in both tools and have no technical fix
 - [Secure backup: ransomware, append-only and restore tests](../cybersecurity/backup_seguro.md)
 - [Secrets management](../cybersecurity/gestion_secretos.md) · [Systemd](../linux/systemd.md)
 - [Storage protocols](../storage/protocols/protocols.md) · [PostgreSQL](../databases/postgres.md)
+- [Borg: compression](https://borgbackup.readthedocs.io/en/stable/usage/help.html)
+- [restic: restore (includes mount)](https://restic.readthedocs.io/en/stable/050_restore.html)
+- [restic: manual (stats)](https://restic.readthedocs.io/en/stable/manual_rest.html)

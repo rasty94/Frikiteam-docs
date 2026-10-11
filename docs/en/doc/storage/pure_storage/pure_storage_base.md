@@ -1,11 +1,11 @@
 ---
 title: "Pure Storage — Quick Guide"
 description: "Pure Storage FlashArray in self-hosted infrastructure: tiers, volumes, hosts, snapshots, protection groups, ActiveCluster and CSI for Kubernetes and virtualization."
-keywords: "pure storage, flasharray, purity, purevol, purehost, protection group, activecluster, csi, iscsi, multipath, snapshots"
+keywords: "pure storage, flasharray, purity, ansible, purestorage.flasharray, protection group, activecluster, csi, iscsi, multipath, snapshots"
 tags: ['storage', 'pure-storage']
 updated: 2026-10-11
 difficulty: beginner
-estimated_time: 12 min
+estimated_time: 17 min
 category: Storage
 status: published
 last_reviewed: 2026-10-11
@@ -53,40 +53,53 @@ The tier idea in a self-hosted environment is simple: whatever hurts when slow g
 
 ## Object model
 
-| Object | What it is | CLI command (family) |
+| Object | What it is | Ansible module |
 |--------|------------|----------------------|
-| Volume | Thin block device, with a name and size | `purevol` |
-| Host | Initiators (IQN, WWN or NQN) of a consumer | `purehost` |
-| Host group | Set of hosts sharing volumes (clusters) | `purehgroup` |
-| Protection group | Volumes + snapshot schedule + replication target | `purepgroup` |
-| Array | Global state, Purity version, capacity | `purearray` |
+| Volume | Thin block device, with a name and size | `purefa_volume` |
+| Host | Initiators (IQN, WWN or NQN) of a consumer | `purefa_host` |
+| Host group | Set of hosts sharing volumes (clusters) | `purefa_hg` |
+| Protection group | Volumes + snapshot schedule + replication target | `purefa_pg` |
+| Array | Global state, Purity version, capacity | `purefa_info` |
 
 The rule of thumb: **volumes shared between nodes are connected to the host group, not to each host**. That way, adding a node to the cluster means adding it to the group, and every LUN shows up with the same number.
 
-## Provisioning from the CLI
+## Provisioning with Ansible
 
-Everything the GUI does is in the CLI over SSH, which is handy for scripts and for documenting the process. Check the exact syntax for your version with `--help` before automating.
+The Purity CLI reference is only available with access to Pure support. To automate from a public source, the official `purestorage.flasharray` Ansible collection covers the same ground: array inventory, volumes, hosts, snapshots and protection groups. This playbook creates a volume and presents it to a host:
 
-```bash
-# General array state and Purity version
-purearray list
+```yaml
+# provision.yml: run with ansible-playbook provision.yml
+- hosts: localhost
+  gather_facts: false
+  vars:
+    fa: &fa
+      fa_url: flasharray.lab.example
+      api_token: REPLACE_WITH_YOUR_TOKEN
+  tasks:
+    - name: Overall array status
+      purestorage.flasharray.purefa_info:
+        <<: *fa
+      register: array_info
 
-# 2 TiB thin volume for the database
-purevol create --size 2T db-prod
+    - name: Thin 2 TiB volume for the database
+      purestorage.flasharray.purefa_volume:
+        <<: *fa
+        name: db-prod
+        size: 2T
+        state: present
 
-# Define the host with its iSCSI initiators
-purehost create --iqnlist iqn.2026-01.lab.example:esx01 esx01
-
-# Present the volume to the host
-purevol connect --host esx01 db-prod
-
-# Review volumes and connections
-purevol list
-purehost list --connect
+    - name: Host with its iSCSI initiator and the volume presented
+      purestorage.flasharray.purefa_host:
+        <<: *fa
+        name: esx01
+        iqn:
+          - iqn.2026-01.lab.example:esx01
+        volume: db-prod
+        state: present
 ```
 
-!!! warning "QoS limits depend on the version"
-    Per-volume IOPS and bandwidth limits exist in recent Purity versions, and their syntax changes between versions. Before applying them, check the help for `purevol setattr` and your array's release notes. Without limits, a noisy volume can hurt all the others.
+!!! tip "Per-volume QoS limits"
+    `purefa_volume` accepts `bw_qos` and `iops_qos` to cap a volume's bandwidth and IOPS. Without limits, a noisy volume can hurt all the others.
 
 ## Connecting hosts: iSCSI, multipath and NFS
 
@@ -112,15 +125,22 @@ Volumes are thin by design and the array applies inline deduplication and compre
 
 A FlashArray snapshot costs almost nothing to create and is crash-consistent. For application consistency, quiesce or notify the application first (for example, a `CHECKPOINT` in PostgreSQL or the backup mode of whatever tool you use).
 
-```bash
-# Manual snapshot of a volume with a readable suffix
-purevol snap --suffix pre-upgrade db-prod
+```yaml
+# Inside the same task list as the previous playbook
+- name: Manual snapshot with a readable suffix (db-prod.pre-upgrade)
+  purestorage.flasharray.purefa_snap:
+    <<: *fa
+    name: db-prod
+    suffix: pre-upgrade
+    state: present
 
-# Clone a volume (or a snapshot) for testing
-purevol copy db-prod db-test
-
-# List snapshots
-purevol list --snap
+- name: Read/write clone of the snapshot for testing
+  purestorage.flasharray.purefa_snap:
+    <<: *fa
+    name: db-prod
+    suffix: pre-upgrade
+    target: db-test
+    state: copy
 ```
 
 For anything recurring, do not schedule crons: use a **protection group**. It bundles volumes, a snapshot schedule (for example, hourly with short retention and daily with long retention) and, optionally, a replication target. Changing the policy in one place changes the behavior of every volume in the group.
@@ -180,7 +200,7 @@ For metrics and alerting you can use the vendor's Prometheus exporter and Grafan
 
 | Symptom | Probable cause | Fix |
 |---------|----------------|-----|
-| The host does not see the LUN | Initiator wrongly declared in `purehost` or volume not connected | `purehost list`, compare IQN/WWN with the host's and reconnect with `purevol connect` |
+| The host does not see the LUN | Initiator wrongly declared on the host or volume not presented | Compare the IQN/WWN declared in the array GUI with the host's and present the volume again with `purefa_host` (`volume`) |
 | Each LUN appears several times on the host | Multipath not configured | Install and enable multipath and apply the vendor-recommended policy |
 | Erratic iSCSI latency | Inconsistent MTU or network shared with management | Verify MTU along the whole path, isolate the storage VLAN or network |
 | Free space does not rise after deleting data | Guest or hypervisor does not send `discard`/`UNMAP` | Enable `discard` in the guest or run `fstrim` periodically |
@@ -206,3 +226,8 @@ For metrics and alerting you can use the vendor's Prometheus exporter and Grafan
 - [Kubernetes CSI](../kubernetes_csi.md)
 - [NetApp ONTAP](../netapp/netapp_base.md)
 - [3-2-1 backup strategy](../../backups/strategy_321.md)
+- [purestorage.flasharray Ansible collection](https://docs.ansible.com/projects/ansible/latest/collections/purestorage/flasharray/index.html)
+- [purefa_volume](https://docs.ansible.com/projects/ansible/latest/collections/purestorage/flasharray/purefa_volume_module.html)
+- [purefa_host](https://docs.ansible.com/projects/ansible/latest/collections/purestorage/flasharray/purefa_host_module.html)
+- [purefa_snap](https://docs.ansible.com/projects/ansible/latest/collections/purestorage/flasharray/purefa_snap_module.html)
+- [purefa_pg](https://docs.ansible.com/projects/ansible/latest/collections/purestorage/flasharray/purefa_pg_module.html)

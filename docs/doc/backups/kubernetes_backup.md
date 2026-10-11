@@ -335,7 +335,7 @@ Aplicando la lógica de [Estrategia de Backup 3-2-1](strategy_321.md) a un clús
 | Bucket MinIO en otro host con Velero y snapshots de etcd | **Sí**, es la copia 2 | Otro dispositivo, otro dominio de fallo |
 | Réplica del bucket a otro sitio (replicación de MinIO, `rclone`, restic sobre el bucket) | **Sí**, es la copia 3 fuera del sitio | Otra ubicación física y administrativa |
 
-El patrón completo: Velero y los snapshots de etcd escriben en un MinIO que corre fuera del clúster (copia 2), y ese bucket se replica a un destino externo con credenciales distintas (copia 3). El "1 fuera del sitio" se rompe con facilidad: si las credenciales de Velero tienen permiso de borrado sobre el bucket y el clúster se compromete, el atacante borra los backups. Usa credenciales con el mínimo permiso y, para la copia remota, inmutabilidad como se explica en [Backup Seguro](../cybersecurity/backup_seguro.md). Ojo con la interacción: el TTL de Velero borra backups caducados, lo que choca con un bucket con Object Lock; decide qué componente gobierna la retención y verifica el comportamiento en tu versión.
+El patrón completo: Velero y los snapshots de etcd escriben en un MinIO que corre fuera del clúster (copia 2), y ese bucket se replica a un destino externo con credenciales distintas (copia 3). El "1 fuera del sitio" se rompe con facilidad: si las credenciales de Velero tienen permiso de borrado sobre el bucket y el clúster se compromete, el atacante borra los backups. Usa credenciales con el mínimo permiso y, para la copia remota, inmutabilidad como se explica en [Backup Seguro](../cybersecurity/backup_seguro.md). Ojo con la retención: Velero borra los backups cuyo TTL ha caducado (30 días si no se indica `--ttl`) en el siguiente ciclo de su recolector; si el bucket tiene además su propia retención o inmutabilidad, decide cuál de los dos la gobierna.
 
 Las claves cuentan igual que en cualquier backup: la contraseña del repositorio de Kopia y las credenciales del bucket deben existir fuera del clúster. Un backup perfecto con la clave dentro del clúster perdido es un backup perdido.
 
@@ -372,3 +372,5 @@ Las claves cuentan igual que en cualquier backup: la contraseña del repositorio
 - [Velero: documentación oficial](https://velero.io/docs/)
 - [Kubernetes: operar un clúster etcd](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/)
 - [K3s: backup y restauración](https://docs.k3s.io/datastore/backup-restore)
+- [Velero: cómo funciona (TTL y recolección)](https://velero.io/docs/main/how-velero-works/)
+- [k3s: etcd-snapshot](https://docs.k3s.io/cli/etcd-snapshot)

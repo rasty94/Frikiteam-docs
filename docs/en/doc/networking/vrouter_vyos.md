@@ -183,7 +183,7 @@ Operational commands to check status:
 ```bash
 show ip route
 show ip ospf neighbor
-show ip bgp summary
+show bgp ipv4 summary
 ```
 
 The last two show neighbor state; a session in `Established` (BGP) or `Full` (OSPF) is the healthy sign. The exact output depends on the version.
@@ -260,3 +260,5 @@ For backups, besides the repository, VyOS can archive each `commit` to a remote 
 - [ASN and BGP](asn_bgp.md)
 - [WireGuard](../linux/wireguard.md)
 - [Ansible base](../ansible/ansible_base.md)
+- [VyOS: BGP](https://docs.vyos.io/en/latest/configuration/protocols/bgp.html)
+- [VyOS: OSPF](https://docs.vyos.io/en/latest/configuration/protocols/ospf.html)

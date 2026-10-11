@@ -667,3 +667,4 @@ echo "Limpieza completada"
 
 !!! tip "Automatización"
     Automatiza todo lo posible con Ansible, scripts y monitorización proactiva.
+- [Keystone: notificaciones de eventos (CADF)](https://docs.openstack.org/keystone/latest/admin/event_notifications.html)

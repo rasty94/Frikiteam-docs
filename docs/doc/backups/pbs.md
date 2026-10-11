@@ -233,3 +233,5 @@ En un homelab típico: uno o varios nodos PVE hacen backup nocturno al PBS local
 - [Estrategia de Backup 3-2-1](strategy_321.md)
 - [restic y Borg](restic_borg.md)
 - [Proxmox base](../proxmox/proxmox_base.md)
+- [Proxmox Backup Server: proxmox-backup-manager](https://pbs.proxmox.com/docs/proxmox-backup-manager/synopsis.html)
+- [Proxmox Backup Server: remotos y sincronización](https://pbs.proxmox.com/docs/managing-remotes.html)

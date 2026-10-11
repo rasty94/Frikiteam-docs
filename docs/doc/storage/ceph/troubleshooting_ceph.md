@@ -608,3 +608,5 @@ ceph tell 'osd.*' injectargs '--osd-recovery-sleep-hdd 0.1'
 
 !!! tip "Antes de Hacer Cambios"
     Siempre ejecuta `ceph -s` y `ceph health detail` para tener un baseline del estado del clúster.
+- [ceph-objectstore-tool](https://docs.ceph.com/en/latest/man/8/ceph-objectstore-tool/)
+- [Ceph: referencia de configuración de monitores (ratios full)](https://docs.ceph.com/en/latest/rados/configuration/mon-config-ref/)

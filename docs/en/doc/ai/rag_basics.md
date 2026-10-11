@@ -339,6 +339,7 @@ def query_rag(question):
 - [LlamaIndex](https://developers.llamaindex.ai/python/framework/)
 - [RAG Paper - Lewis et al.](https://arxiv.org/abs/2005.11401)
 - [Chroma DB](https://www.trychroma.com/)
+- [Ollama: llama3.2](https://ollama.com/library/llama3.2)
 
 ## Next Steps
 

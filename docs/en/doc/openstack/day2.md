@@ -667,3 +667,4 @@ echo "Cleanup completed"
 
 !!! tip "Automation"
     Automate as much as possible with Ansible, scripts and proactive monitoring.
+- [Keystone: event notifications (CADF)](https://docs.openstack.org/keystone/latest/admin/event_notifications.html)

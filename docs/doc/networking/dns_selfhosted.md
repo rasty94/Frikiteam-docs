@@ -270,16 +270,16 @@ webserver-port=8081
 ```
 
 ```bash
-pdnsutil create-zone lab.ejemplo.org ns1.lab.ejemplo.org
-pdnsutil add-record lab.ejemplo.org nas A 3600 192.168.10.20
-pdnsutil check-all-zones
+pdnsutil zone create lab.ejemplo.org ns1.lab.ejemplo.org
+pdnsutil rrset add lab.ejemplo.org nas.lab.ejemplo.org A 3600 192.168.10.20
+pdnsutil zone check-all
 
 curl -s -H 'X-API-Key: CAMBIA-ESTE-VALOR' \
   http://127.0.0.1:8081/api/v1/servers/localhost/zones
 ```
 
 !!! warning "Depende de la versión"
-    Los nombres de las opciones del backend y la sintaxis de `pdnsutil` han cambiado entre PowerDNS 3.x, 4.x y 5.x. El ejemplo sigue la línea 4.x (la documentación actual de `pdnsutil` usa `zone create`, `rrset add` y `zone check-all`); confirma con `pdnsutil --help` y la documentación de tu versión antes de copiarlo. El esquema SQL inicial lo da el propio paquete.
+    Los nombres de las opciones del backend y la sintaxis de `pdnsutil` han cambiado entre PowerDNS 3.x, 4.x y 5.x. El ejemplo usa la sintaxis de la documentación actual de `pdnsutil` (`zone create`, `rrset add` con el nombre absoluto, `zone check-all`); en versiones anteriores los subcomandos tenían otros nombres, así que confirma con `pdnsutil --help` antes de copiarlo. El esquema SQL inicial lo da el propio paquete.
 
 Diferencias con BIND que importan en la práctica:
 
@@ -365,7 +365,7 @@ En cada nodo, `Nodo → Sistema → DNS` fija servidores y dominio de búsqueda,
 
 ```bash
 pct set 201 --nameserver 192.168.10.2 --searchdomain lab.ejemplo.org
-qm set 301 --nameserver 192.168.10.2 --searchdomain lab.ejemplo.org
+qm set 301 --nameserver 192.168.10.2 --searchdomain lab.ejemplo.org   # cloud-init
 ```
 
 El nombre de cada nodo debe resolverse a su IP **real** (no a `127.0.1.1`) y, para la comunicación del clúster, conviene no depender solo del DNS: mantén los nodos también en `/etc/hosts`. Un clúster que no arranca porque el DNS está en una VM del propio clúster es un clásico. Detalles en [Proxmox base](../proxmox/proxmox_base.md).
@@ -520,3 +520,7 @@ Para Unbound, `verbosity: 2` en `server:` da detalle de resolución, y `log-quer
 - [DNSSEC](dnssec.md) · [Registros PTR y zonas inversas](registros_ptr_zonas_inversas.md)
 - [Troubleshooting de red](troubleshooting.md) · [Tablas de puertos comunes](tablas_puertos_comunes.md) · [SPF, DKIM y DMARC](spf_dkim_dmarc.md)
 - [Proxmox base](../proxmox/proxmox_base.md) · [Kubernetes base](../kubernetes/kubernetes_base.md)
+- [drill(1)](https://manpages.debian.org/stable/ldnsutils/drill.1.en.html)
+- [pdnsutil](https://doc.powerdns.com/authoritative/manpages/pdnsutil.1.html)
+- [Proxmox VE: pct(1)](https://pve.proxmox.com/pve-docs/pct.1.html)
+- [Proxmox VE: qm(1) (opciones de cloud-init)](https://pve.proxmox.com/pve-docs/qm.1.html)

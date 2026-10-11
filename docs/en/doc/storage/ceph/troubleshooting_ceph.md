@@ -608,3 +608,5 @@ ceph tell 'osd.*' injectargs '--osd-recovery-sleep-hdd 0.1'
 
 !!! tip "Before Making Changes"
     Always run `ceph -s` and `ceph health detail` first so you have a baseline of the cluster state.
+- [ceph-objectstore-tool](https://docs.ceph.com/en/latest/man/8/ceph-objectstore-tool/)
+- [Ceph: monitor configuration reference (full ratios)](https://docs.ceph.com/en/latest/rados/configuration/mon-config-ref/)

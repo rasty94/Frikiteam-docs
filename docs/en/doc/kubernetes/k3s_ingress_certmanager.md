@@ -400,3 +400,6 @@ The workflow for a stuck certificate, from least to most effort: read the `Chall
 - [Kubernetes](kubernetes_base.md) · [Probes](probes.md) · [Service Mesh](service_mesh.md)
 - [TLS Certificates](../networking/certificados_tls.md) · [Traefik](../traefik/traefik_base.md) · [Kubernetes CSI](../storage/kubernetes_csi.md)
 - [Load balancer comparison](../networking/load_balancer_comparison.md)
+- [k3s: networking requirements](https://docs.k3s.io/installation/requirements)
+- [cert-manager: cmctl](https://cert-manager.io/docs/reference/cmctl/)
+- [k3s: Helm and HelmChartConfig](https://docs.k3s.io/add-ons/helm)

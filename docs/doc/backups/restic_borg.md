@@ -371,3 +371,6 @@ Los errores de passphrase incorrecta son inequívocos en ambas herramientas y no
 - [Backup seguro: ransomware, append-only y pruebas de restauración](../cybersecurity/backup_seguro.md)
 - [Gestión de secretos](../cybersecurity/gestion_secretos.md) · [Systemd](../linux/systemd.md)
 - [Protocolos de almacenamiento](../storage/protocols/protocols.md) · [PostgreSQL](../databases/postgres.md)
+- [Borg: compresión](https://borgbackup.readthedocs.io/en/stable/usage/help.html)
+- [restic: restaurar (incluye mount)](https://restic.readthedocs.io/en/stable/050_restore.html)
+- [restic: manual (stats)](https://restic.readthedocs.io/en/stable/manual_rest.html)

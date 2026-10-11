@@ -155,14 +155,7 @@ docker compose up -d
 ```yaml
 extra:
   analytics:
-    provider: custom
-    # Plausible self-hosted
-  
-extra_javascript:
-  - https://analytics.frikiteam.es/js/script.js
-  
-extra:
-  analytics:
+    provider: custom   # loads overrides/partials/integrations/analytics/custom.html
     feedback:
       title: Was this page helpful?
       ratings:
@@ -177,6 +170,8 @@ extra:
           note: >-
             Thanks for your feedback. We'll work on improving it.
 ```
+
+Material's `custom` provider loads the `overrides/partials/integrations/analytics/custom.html` partial: paste there the tracking snippet your Plausible instance shows in the site settings. `extra_javascript` cannot do it, because the snippet needs its own attributes on the `<script>` tag.
 
 ### Configure the domain in Plausible
 
@@ -304,6 +299,8 @@ If Plausible doesn't fit your needs:
 - [Self-hosting guide](https://plausible.io/docs/self-hosting)
 - [GitHub - plausible/analytics](https://github.com/plausible/analytics)
 - [Comparison: Plausible vs Google Analytics](https://plausible.io/vs-google-analytics)
+- [Plausible: adding the tracking script](https://plausible.io/docs/plausible-script)
+- [Material for MkDocs: custom analytics](https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-analytics/)
 
 ## 🎓 Best Practices
 

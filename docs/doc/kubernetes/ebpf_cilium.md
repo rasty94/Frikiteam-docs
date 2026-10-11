@@ -278,7 +278,7 @@ El flujo de trabajo que más se repite:
 
 ## Seguridad en runtime con Tetragon
 
-Las políticas de red controlan quién habla con quién; no ven qué hace un proceso dentro del contenedor. **Tetragon** (proyecto hermano de Cilium, mismo ecosistema eBPF) cubre ese hueco: observa ejecuciones de procesos, accesos a ficheros y conexiones de red a nivel de kernel, sin modificar las aplicaciones, y con políticas `TracingPolicy` puede además **imponer** reglas (por ejemplo, terminar un proceso que abre un fichero sensible). Se instala por separado de Cilium y se puede usar con otro CNI.
+Las políticas de red controlan quién habla con quién; no ven qué hace un proceso dentro del contenedor. **Tetragon** (proyecto hermano de Cilium, mismo ecosistema eBPF) cubre ese hueco: observa ejecuciones de procesos, accesos a ficheros y conexiones de red a nivel de kernel, sin modificar las aplicaciones, y con políticas `TracingPolicy` puede además **imponer** reglas (por ejemplo, terminar un proceso que abre un fichero sensible). Se instala con su propio chart de Helm, aparte de Cilium.
 
 Empieza en modo observación: una política que mata procesos puede tumbar una carga legítima. El modelo de amenazas, el endurecimiento y la respuesta a incidentes están en otras páginas del sitio y no se duplican aquí:
 
@@ -294,7 +294,7 @@ No hace falta un clúster para sacar partido de eBPF. En un host Linux (un nodo 
 
 ```bash
 # Qué proceso abre qué fichero, en vivo
-sudo bpftrace -e 'tracepoint:syscalls:sys_enter_openat { printf("%s %s\n", comm, str(args->filename)); }'
+sudo bpftrace -e 'tracepoint:syscalls:sys_enter_openat { printf("%s %s\n", comm, str(args.filename)); }'
 
 # Llamadas al sistema por proceso, resumen al pulsar Ctrl-C
 sudo bpftrace -e 'tracepoint:raw_syscalls:sys_enter { @[comm] = count(); }'
@@ -352,3 +352,9 @@ Para inspeccionar lo que tiene cargado el propio nodo (incluido Cilium), `bpftoo
 - [bpftrace](https://github.com/bpftrace/bpftrace)
 - [BCC tools](https://github.com/iovisor/bcc)
 - [ebpf.io](https://ebpf.io/what-is-ebpf/)
+- [Cilium: configurar Hubble](https://docs.cilium.io/en/stable/observability/hubble/setup/)
+- [Cilium: Hubble UI](https://docs.cilium.io/en/stable/observability/hubble/hubble-ui/)
+- [bpftrace: tutorial de one-liners](https://github.com/bpftrace/bpftrace/blob/master/docs/tutorial_one_liners.md)
+- [Tetragon: TracingPolicy](https://tetragon.io/docs/concepts/tracing-policy/)
+- [Tetragon: instalación en Kubernetes](https://tetragon.io/docs/installation/kubernetes/)
+- [Hubble CLI: flags de observe (código fuente)](https://github.com/cilium/cilium/blob/main/hubble/cmd/observe/flows.go)

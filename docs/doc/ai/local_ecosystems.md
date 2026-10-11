@@ -85,3 +85,4 @@ cmake -B build && cmake --build build --config Release
 - [Ollama Docs](https://github.com/ollama/ollama)
 - [LM Studio](https://lmstudio.ai/)
 - [LLaMA.cpp](https://github.com/ggml-org/llama.cpp)
+- [Ollama: llama3.2](https://ollama.com/library/llama3.2)

@@ -285,13 +285,13 @@ results = client.query_points(
 
 ## Comparativa Técnica
 
-| Vector DB | Hosting | Escalabilidad | Integración LangChain | Precio |
-|-----------|---------|---------------|------------------------|--------|
-| Chroma | Local/Self-hosted | Media | Excelente | Gratis |
-| Milvus | Self-hosted | Alta | Buena | Gratis |
-| Weaviate | Cloud/Self-hosted | Alta | Buena | Freemium |
-| Pinecone | Cloud | Alta | Excelente | Pago |
-| Qdrant | Self-hosted/Cloud | Alta | Buena | Freemium |
+| Vector DB | Despliegue | Licencia del código |
+|-----------|------------|---------------------|
+| Chroma | Local/Self-hosted | Apache-2.0 |
+| Milvus | Self-hosted | Apache-2.0 |
+| Weaviate | Cloud/Self-hosted | BSD-3-Clause o Weaviate License, según el componente |
+| Pinecone | Servicio gestionado | Propietaria |
+| Qdrant | Self-hosted/Cloud | Apache-2.0 |
 
 ## Algoritmos de Indexación
 
@@ -511,6 +511,11 @@ top_docs = sorted(zip(scores, candidates), reverse=True)[:10]
 - [Pinecone](https://www.pinecone.io/)
 - [Qdrant](https://qdrant.tech/)
 - [HNSW Paper](https://arxiv.org/abs/1603.09320)
+- [Licencia de Chroma](https://github.com/chroma-core/chroma/blob/main/LICENSE)
+- [Licencia de Milvus](https://github.com/milvus-io/milvus/blob/master/LICENSE)
+- [Licencia de Weaviate](https://github.com/weaviate/weaviate/blob/main/LICENSE)
+- [Licencia de Qdrant](https://github.com/qdrant/qdrant/blob/master/LICENSE)
+- [Pinecone: documentación](https://docs.pinecone.io/)
 
 ## Próximos Pasos
 

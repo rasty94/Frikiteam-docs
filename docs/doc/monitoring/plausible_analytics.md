@@ -155,14 +155,7 @@ docker compose up -d
 ```yaml
 extra:
   analytics:
-    provider: custom
-    # Plausible self-hosted
-  
-extra_javascript:
-  - https://analytics.frikiteam.es/js/script.js
-  
-extra:
-  analytics:
+    provider: custom   # carga overrides/partials/integrations/analytics/custom.html
     feedback:
       title: ¿Te ha sido útil esta página?
       ratings:
@@ -177,6 +170,8 @@ extra:
           note: >-
             Gracias por tu feedback. Trabajaremos en mejorarlo.
 ```
+
+El proveedor `custom` de Material carga el parcial `overrides/partials/integrations/analytics/custom.html`: pega ahí el snippet de seguimiento que muestra tu instancia de Plausible en la configuración del sitio. Con `extra_javascript` no se puede, porque el snippet necesita atributos propios en la etiqueta `<script>`.
 
 ### Configurar dominio en Plausible
 
@@ -304,6 +299,8 @@ Si Plausible no se ajusta a tus necesidades:
 - [Self-hosting guide](https://plausible.io/docs/self-hosting)
 - [GitHub - plausible/analytics](https://github.com/plausible/analytics)
 - [Comparison: Plausible vs Google Analytics](https://plausible.io/vs-google-analytics)
+- [Plausible: añadir el script de seguimiento](https://plausible.io/docs/plausible-script)
+- [Material for MkDocs: analítica personalizada](https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-analytics/)
 
 ## 🎓 Mejores Prácticas
 

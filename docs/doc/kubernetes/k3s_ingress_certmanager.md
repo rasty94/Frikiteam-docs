@@ -400,3 +400,6 @@ El flujo para un certificado atascado, de menor a mayor esfuerzo: leer el `Chall
 - [Kubernetes](kubernetes_base.md) · [Probes](probes.md) · [Service Mesh](service_mesh.md)
 - [Certificados TLS](../networking/certificados_tls.md) · [Traefik](../traefik/traefik_base.md) · [Kubernetes CSI](../storage/kubernetes_csi.md)
 - [Comparativa de balanceadores](../networking/load_balancer_comparison.md)
+- [k3s: requisitos de red](https://docs.k3s.io/installation/requirements)
+- [cert-manager: cmctl](https://cert-manager.io/docs/reference/cmctl/)
+- [k3s: Helm y HelmChartConfig](https://docs.k3s.io/add-ons/helm)

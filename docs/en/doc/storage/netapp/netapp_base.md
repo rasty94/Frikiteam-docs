@@ -3,7 +3,7 @@ title: "NetApp ONTAP — Base Guide"
 description: "ONTAP concepts (cluster, aggregates, SVM, volumes, LIFs), basic CLI, NFS exports and SMB shares, snapshots and SnapMirror, space efficiency and integration with Proxmox and Kubernetes over NFS and iSCSI."
 keywords: "netapp, ontap, svm, flexvol, aggregate, lif, snapshot, snapmirror, nfs, smb, iscsi, trident, proxmox"
 tags: ['storage', 'netapp']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 18 min
 category: Storage
@@ -228,3 +228,8 @@ allowVolumeExpansion: true
 - [Pure Storage](../pure_storage/pure_storage_base.md) · [Ceph](../ceph/ceph_base.md)
 - [3-2-1 Strategy](../../backups/strategy_321.md) · [Restic and Borg](../../backups/restic_borg.md)
 - [Proxmox base](../../proxmox/proxmox_base.md)
+- [ONTAP: volume create](https://docs.netapp.com/us-en/ontap-cli/volume-create.html)
+- [ONTAP: vserver export-policy rule create](https://docs.netapp.com/us-en/ontap-cli/vserver-export-policy-rule-create.html)
+- [ONTAP: vserver cifs share create](https://docs.netapp.com/us-en/ontap-cli/vserver-cifs-share-create.html)
+- [Trident: backend ontap-nas](https://docs.netapp.com/us-en/trident/trident-use/ontap-nas.html)
+- [Trident: creating a StorageClass](https://docs.netapp.com/us-en/trident/trident-use/create-stor-class.html)

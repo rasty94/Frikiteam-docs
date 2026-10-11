@@ -319,8 +319,9 @@ docker exec nova_compute grep -A5 "\[vnc\]" /etc/nova/nova.conf
 
 ```bash
 # Verificar que novncproxy_base_url sea accesible
-# En /etc/kolla/globals.yml:
-nova_novncproxy_base_url: "http://192.168.100.100:6080/vnc_auto.html"
+# En /etc/kolla/config/nova.conf (override de Kolla que se fusiona con nova.conf):
+[vnc]
+novncproxy_base_url = http://192.168.100.100:6080/vnc_auto.html
 
 # Reconfigura
 kolla-ansible -i /etc/kolla/multinode reconfigure --tags nova
@@ -692,8 +693,8 @@ openstack volume service list
 
 echo "Limpiando recursos huérfanos..."
 
-# Eliminar ports sin dispositivo
-for port in $(openstack port list --device-owner none -f value -c ID); do
+# Eliminar ports sin dispositivo (columna Device Owner vacía)
+for port in $(openstack port list --long -f value -c ID -c "Device Owner" | awk 'NF==1 {print $1}'); do
   echo "Eliminando port $port"
   openstack port delete $port
 done
@@ -748,6 +749,12 @@ kolla-ansible -i /etc/kolla/multinode reconfigure --tags <servicio>
 - [OpenStack Operations Guide](https://docs.openstack.org/operations-guide/)
 - [Kolla-Ansible Troubleshooting](https://docs.openstack.org/kolla-ansible/latest/user/troubleshooting.html)
 - [OpenStack Logging](https://docs.openstack.org/oslo.log/latest/)
+- [Kolla Ansible: configuración avanzada (overrides)](https://docs.openstack.org/kolla-ansible/latest/admin/advanced-configuration.html)
+- [Kolla Ansible: Nova (consolas)](https://docs.openstack.org/kolla-ansible/latest/reference/compute/nova-guide.html)
+- [Nova: referencia de configuración](https://docs.openstack.org/nova/latest/configuration/config.html)
+- [OpenStack CLI: port](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/port.html)
+- [OpenStack CLI: volume](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/volume.html)
+- [Heat: orchestration template validate](https://docs.openstack.org/python-heatclient/latest/cli/orchestration.html)
 
 ## 🎓 Próximos Pasos
 

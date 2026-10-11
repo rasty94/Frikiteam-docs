@@ -335,7 +335,7 @@ Applying the logic of [3-2-1 Backup Strategy](strategy_321.md) to a cluster:
 | MinIO bucket on another host with Velero and etcd snapshots | **Yes**, it is copy 2 | Another device, another failure domain |
 | Bucket replica to another site (MinIO replication, `rclone`, restic over the bucket) | **Yes**, it is the off-site copy 3 | Another physical and administrative location |
 
-The full pattern: Velero and the etcd snapshots write to a MinIO running outside the cluster (copy 2), and that bucket is replicated to an external destination with different credentials (copy 3). The "1 off-site" breaks easily: if Velero's credentials can delete from the bucket and the cluster is compromised, the attacker deletes the backups. Use minimum-permission credentials and, for the remote copy, immutability as explained in [Secure Backup](../cybersecurity/backup_seguro.md). Watch the interaction: Velero's TTL deletes expired backups, which clashes with a bucket under Object Lock; decide which component governs retention and verify the behavior in your version.
+The full pattern: Velero and the etcd snapshots write to a MinIO running outside the cluster (copy 2), and that bucket is replicated to an external destination with different credentials (copy 3). The "1 off-site" breaks easily: if Velero's credentials can delete from the bucket and the cluster is compromised, the attacker deletes the backups. Use minimum-permission credentials and, for the remote copy, immutability as explained in [Secure Backup](../cybersecurity/backup_seguro.md). Watch the retention: Velero deletes backups whose TTL has expired (30 days if `--ttl` is not given) on the next run of its garbage collector; if the bucket also has its own retention or immutability, decide which of the two governs it.
 
 Keys count as in any backup: the Kopia repository password and the bucket credentials must exist outside the cluster. A perfect backup with the key inside the lost cluster is a lost backup.
 
@@ -372,3 +372,5 @@ Keys count as in any backup: the Kopia repository password and the bucket creden
 - [Velero: official documentation](https://velero.io/docs/)
 - [Kubernetes: operating an etcd cluster](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/)
 - [K3s: backup and restore](https://docs.k3s.io/datastore/backup-restore)
+- [Velero: how it works (TTL and garbage collection)](https://velero.io/docs/main/how-velero-works/)
+- [k3s: etcd-snapshot](https://docs.k3s.io/cli/etcd-snapshot)

@@ -237,7 +237,7 @@ qm monitor 100
 ```
 
 !!! warning "Depende de la versión y no está probado aquí"
-    El comando `dump-guest-memory` y su comportamiento (si pausa la VM mientras escribe, qué formatos admite, cómo se convierte el resultado a algo que lea Volatility) dependen de la versión de QEMU y de Proxmox VE. Compruébalo en un laboratorio antes del día malo y lee `help dump-guest-memory` en el propio monitor. El fichero se escribe en el **host**, así que necesita espacio libre allí y se debe mover y hashear de inmediato.
+    Según la documentación de QEMU, `dump-guest-memory` escribe un ELF que pueden leer `crash` o `gdb`, y con `-z`, `-l` o `-s` usa el formato kdump comprimido. Si Volatility lee ese volcado sin conversión depende de su versión: pruébalo en un laboratorio antes del día malo. El fichero se escribe en el **host**, así que necesita espacio libre allí y se debe mover y hashear de inmediato.
 
 Sea cual sea el método, el procedimiento es el mismo: copia el artefacto fuera del hipervisor, calcula el `sha256sum`, regístralo en la custodia y trabaja sobre la copia.
 
@@ -426,3 +426,5 @@ Cómo montar la recolección y las reglas en Wazuh está en [Wazuh: logs y regla
 - [Respuesta a incidentes](respuesta_incidentes.md) · [Monitoreo de seguridad](monitoreo_seguridad.md) · [Hardening Linux](hardening_linux.md)
 - [Wazuh: logs y reglas](../monitoring/wazuh_logs.md) · [Seguridad SSH](../linux/ssh_security.md) · [Systemd](../linux/systemd.md)
 - [Backup seguro](backup_seguro.md) · [Cumplimiento y auditoría](cumplimiento_auditoria.md)
+- [QEMU: monitor](https://www.qemu.org/docs/master/system/monitor.html)
+- [QEMU: comandos HMP (dump-guest-memory)](https://gitlab.com/qemu-project/qemu/-/blob/master/hmp-commands.hx)

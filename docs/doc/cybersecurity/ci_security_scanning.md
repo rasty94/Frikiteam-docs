@@ -68,10 +68,10 @@ jobs:
         with:
           directory: .
           output_format: sarif
-          output_file_path: checkov-results
+          output_file_path: results.sarif
       - uses: github/codeql-action/upload-sarif@v4
         with:
-          sarif_file: checkov-results
+          sarif_file: results.sarif
 ```
 {% endraw %}
 

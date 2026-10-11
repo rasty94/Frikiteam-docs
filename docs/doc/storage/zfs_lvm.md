@@ -340,3 +340,5 @@ Qué vigilar: un pool distinto de `ONLINE`, errores de lectura/escritura/checksu
 - [lvmthin(7)](https://manpages.debian.org/stable/lvm2/lvmthin.7.en.html) · [Proxmox VE — Storage](https://pve.proxmox.com/wiki/Storage)
 - [Proxmox base](../proxmox/proxmox_base.md) · [Proxmox Backup Server](../backups/pbs.md) · [Estrategia 3-2-1](../backups/strategy_321.md)
 - [Ceph](ceph/ceph_base.md) · [CSI en Kubernetes](kubernetes_csi.md) · [Benchmarks con fio](protocols/examples/fio_example.md) · [Criptografía aplicada](../cybersecurity/criptografia_aplicada.md)
+- [lvchange(8)](https://manpages.debian.org/stable/lvm2/lvchange.8.en.html)
+- [zpool-online(8)](https://openzfs.github.io/openzfs-docs/man/master/8/zpool-online.8.html)

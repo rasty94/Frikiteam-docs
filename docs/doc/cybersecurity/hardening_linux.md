@@ -577,3 +577,5 @@ aide --check
 - [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
 - [Debian Hardening (wiki)](https://wiki.debian.org/Hardening)
 - [Red Hat Security Hardening (RHEL 9)](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/security_hardening/index)
+- [pam_faillock(8)](https://manpages.ubuntu.com/manpages/noble/man8/pam_faillock.8.html)
+- [Ubuntu: cambiar Port con ssh.socket (bug 2069041)](https://bugs.launchpad.net/ubuntu/+source/openssh/+bug/2069041)

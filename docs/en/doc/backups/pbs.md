@@ -233,3 +233,5 @@ In a typical homelab: one or more PVE nodes back up nightly to the local PBS; st
 - [3-2-1 Backup Strategy](strategy_321.md)
 - [restic and Borg](restic_borg.md)
 - [Proxmox base](../proxmox/proxmox_base.md)
+- [Proxmox Backup Server: proxmox-backup-manager](https://pbs.proxmox.com/docs/proxmox-backup-manager/synopsis.html)
+- [Proxmox Backup Server: remotes and sync](https://pbs.proxmox.com/docs/managing-remotes.html)

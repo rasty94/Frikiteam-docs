@@ -270,16 +270,16 @@ webserver-port=8081
 ```
 
 ```bash
-pdnsutil create-zone lab.ejemplo.org ns1.lab.ejemplo.org
-pdnsutil add-record lab.ejemplo.org nas A 3600 192.168.10.20
-pdnsutil check-all-zones
+pdnsutil zone create lab.ejemplo.org ns1.lab.ejemplo.org
+pdnsutil rrset add lab.ejemplo.org nas.lab.ejemplo.org A 3600 192.168.10.20
+pdnsutil zone check-all
 
 curl -s -H 'X-API-Key: CAMBIA-ESTE-VALOR' \
   http://127.0.0.1:8081/api/v1/servers/localhost/zones
 ```
 
 !!! warning "Version dependent"
-    Backend option names and `pdnsutil` syntax have changed between PowerDNS 3.x, 4.x and 5.x. The example follows the 4.x line (current `pdnsutil` documentation uses `zone create`, `rrset add` and `zone check-all`); confirm with `pdnsutil --help` and the documentation for your version before copying it. The initial SQL schema ships with the package.
+    Backend option names and `pdnsutil` syntax have changed between PowerDNS 3.x, 4.x and 5.x. The example uses the syntax of the current `pdnsutil` documentation (`zone create`, `rrset add` with the absolute name, `zone check-all`); earlier versions named the subcommands differently, so confirm with `pdnsutil --help` before copying it. The initial SQL schema ships with the package.
 
 Differences from BIND that matter in practice:
 
@@ -365,7 +365,7 @@ On each node, `Node → System → DNS` sets servers and search domain, and it i
 
 ```bash
 pct set 201 --nameserver 192.168.10.2 --searchdomain lab.ejemplo.org
-qm set 301 --nameserver 192.168.10.2 --searchdomain lab.ejemplo.org
+qm set 301 --nameserver 192.168.10.2 --searchdomain lab.ejemplo.org   # cloud-init
 ```
 
 Each node's name must resolve to its **real** IP (not `127.0.1.1`) and, for cluster communication, it is wise not to depend on DNS alone: keep the nodes in `/etc/hosts` too. A cluster that will not start because the DNS lives in a VM of that same cluster is a classic. Details in [Proxmox base](../proxmox/proxmox_base.md).
@@ -520,3 +520,7 @@ For Unbound, `verbosity: 2` under `server:` gives resolution detail, and `log-qu
 - [DNSSEC](dnssec.md) · [PTR records and reverse zones](registros_ptr_zonas_inversas.md)
 - [Network troubleshooting](troubleshooting.md) · [Common port tables](tablas_puertos_comunes.md) · [SPF, DKIM and DMARC](spf_dkim_dmarc.md)
 - [Proxmox base](../proxmox/proxmox_base.md) · [Kubernetes base](../kubernetes/kubernetes_base.md)
+- [drill(1)](https://manpages.debian.org/stable/ldnsutils/drill.1.en.html)
+- [pdnsutil](https://doc.powerdns.com/authoritative/manpages/pdnsutil.1.html)
+- [Proxmox VE: pct(1)](https://pve.proxmox.com/pve-docs/pct.1.html)
+- [Proxmox VE: qm(1) (cloud-init options)](https://pve.proxmox.com/pve-docs/qm.1.html)
