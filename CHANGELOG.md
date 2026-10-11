@@ -6,6 +6,9 @@ Todos los cambios relevantes en el repositorio.
 
 ## 2026-10-11
 
+- `9b43fd3` docs(todo): cerrar analisis_logs (2 archivos)
+- `406ca0c` docs: analisis_logs EN como traducción de la ES y código corregido con fuente (2 archivos)
+- `518bbc6` docs: regenerar CHANGELOG (1 archivo)
 - `ce248b8` docs(todo): registrar que todo lo publicado cita fuente (2 archivos)
 - `7e3276a` docs: fuente primaria para cada afirmación pendiente y referencias completas (ES/EN) (40 archivos)
 - `8a8f3a9` docs: fuentes referenciadas en todas las páginas (ES/EN) (176 archivos)
