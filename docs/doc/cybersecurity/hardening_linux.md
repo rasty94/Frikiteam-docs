@@ -3,7 +3,7 @@ title: "Hardening de Servidores Linux"
 updated: 2026-01-25
 tags: ['cybersecurity', 'linux', 'hardening', 'firewall']
 difficulty: intermediate
-estimated_time: 8 min
+estimated_time: 35 min
 category: Ciberseguridad
 status: published
 last_reviewed: 2026-01-25

@@ -5,7 +5,7 @@ keywords: "Kubernetes, CSI, storage, PersistentVolume, StorageClass, Ceph, Rook,
 tags: ['storage', 'kubernetes', 'ceph']
 updated: 2026-07-18
 difficulty: advanced
-estimated_time: 18 min
+estimated_time: 36 min
 category: Almacenamiento
 status: published
 last_reviewed: 2026-07-18

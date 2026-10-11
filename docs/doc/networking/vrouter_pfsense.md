@@ -4,7 +4,7 @@ description: "Guía rápida para desplegar pfSense como firewall y router virtua
 tags: ['networking', 'cybersecurity', 'vrouter']
 updated: 2026-04-18
 difficulty: intermediate
-estimated_time: 8 min
+estimated_time: 1 min
 category: Redes
 status: published
 last_reviewed: 2026-04-18

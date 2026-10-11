@@ -5,7 +5,7 @@ keywords: "argocd, gitops, kubernetes, ci-cd, kustomize, helm, sincronización, 
 tags: ['ci-cd', 'gitops', 'argocd', 'kubernetes']
 updated: 2026-09-03
 difficulty: beginner
-estimated_time: 15 min
+estimated_time: 9 min
 category: DevOps
 status: published
 last_reviewed: 2026-09-03

@@ -3,7 +3,7 @@ title: "Evaluación de Coherencia en LLMs"
 description: "Evaluación de consistencia, reproducibilidad y detección de sesgos en modelos de lenguaje"
 tags: ['ai', 'llm', 'evaluation', 'best-practices']
 difficulty: advanced
-estimated_time: "40 min"
+estimated_time: 88 min
 category: Inteligencia Artificial
 status: published
 prerequisites: ["llms_fundamentals", "model_evaluation"]

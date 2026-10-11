@@ -8,7 +8,7 @@ updated: 2026-01-25
 last_reviewed: 2026-01-25
 difficulty: beginner
 status: published
-estimated_time: 6 min
+estimated_time: 18 min
 prerequisites: ["Basic Python"]
 ---
 

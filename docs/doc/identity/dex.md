@@ -3,7 +3,7 @@ title: "Dex IdP (OIDC Federado)"
 tags: ['identity', 'cybersecurity']
 updated: 2026-03-01
 difficulty: intermediate
-estimated_time: 3 min
+estimated_time: 7 min
 category: Gestión de Identidad
 status: published
 last_reviewed: 2026-03-01

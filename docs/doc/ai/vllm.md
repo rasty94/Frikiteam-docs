@@ -5,7 +5,7 @@ keywords: "vllm, llm serving, paged attention, continuous batching, tensor paral
 tags: ['ai', 'llm', 'vllm', 'inference', 'gpu']
 updated: 2026-07-19
 difficulty: advanced
-estimated_time: 12 min
+estimated_time: 23 min
 category: Inteligencia Artificial
 status: published
 last_reviewed: 2026-07-18

@@ -5,7 +5,7 @@ keywords: "podman, rootless, contenedores, user namespaces, subuid, subgid, daem
 tags: ['containers', 'podman', 'cybersecurity']
 updated: 2026-07-19
 difficulty: intermediate
-estimated_time: "12 min"
+estimated_time: 20 min
 category: Contenedores
 status: published
 last_reviewed: 2026-07-19

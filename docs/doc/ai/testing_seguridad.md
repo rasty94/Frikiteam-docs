@@ -3,7 +3,7 @@ title: "Testing de Seguridad en LLMs"
 description: "Evaluación de vulnerabilidades en modelos de lenguaje: inyección de prompts, jailbreaking, detección de alucinaciones y medidas de protección"
 tags: ['ai', 'llm', 'cybersecurity', 'testing', 'evaluation']
 difficulty: advanced
-estimated_time: "45 min"
+estimated_time: 86 min
 category: Inteligencia Artificial
 status: published
 prerequisites: ["llms_fundamentals", "prompt_engineering"]

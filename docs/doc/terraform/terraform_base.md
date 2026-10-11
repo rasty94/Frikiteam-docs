@@ -4,7 +4,7 @@ description: "Documentación sobre terraform & opentofu - infraestructura como c
 tags: ['terraform']
 updated: 2025-11-15
 difficulty: beginner
-estimated_time: 4 min
+estimated_time: 9 min
 category: DevOps
 status: published
 last_reviewed: 2026-01-25

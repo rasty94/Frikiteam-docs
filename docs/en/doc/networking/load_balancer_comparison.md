@@ -7,7 +7,7 @@ updated: 2026-01-24
 last_reviewed: 2026-01-25
 difficulty: intermediate
 status: published
-estimated_time: 8 min
+estimated_time: 32 min
 prerequisites:
   - "Basic DevOps knowledge"
   - "Networking fundamentals"

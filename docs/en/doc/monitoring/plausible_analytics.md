@@ -5,7 +5,7 @@ keywords: "analytics, plausible, privacy, gdpr, self-hosted, docker"
 tags: ['monitoring', 'compliance']
 updated: 2026-07-18
 difficulty: intermediate
-estimated_time: 4 min
+estimated_time: 15 min
 category: Monitoring
 status: published
 last_reviewed: 2026-01-25

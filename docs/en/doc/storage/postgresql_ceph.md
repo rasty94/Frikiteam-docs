@@ -7,7 +7,7 @@ updated: 2026-01-24
 last_reviewed: 2026-01-25
 difficulty: advanced
 status: published
-estimated_time: 6 min
+estimated_time: 21 min
 prerequisites: ["Basic DevOps knowledge"]
 ---
 

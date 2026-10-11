@@ -4,7 +4,7 @@ description: "Documentación sobre instalar proxmox ve 9 sobre debian 13 (trixie
 tags: ['documentation']
 updated: 2026-01-24
 difficulty: advanced
-estimated_time: 5 min
+estimated_time: 13 min
 category: General
 status: published
 last_reviewed: 2026-01-25

@@ -5,7 +5,7 @@ description: "Comprehensive guide to diagnose and fix common Ceph problems. OSDs
 keywords: Ceph, troubleshooting, debugging, OSD down, PG stuck, slow ops, cluster health, recovery, ceph health
 updated: 2026-07-18
 difficulty: intermediate
-estimated_time: 8 min
+estimated_time: 31 min
 category: Almacenamiento
 status: published
 last_reviewed: 2026-01-25

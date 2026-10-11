@@ -6,7 +6,7 @@ tags: ['ai', 'vector-db']
 difficulty: beginner
 category: Artificial Intelligence
 status: published
-estimated_time: 7 min
+estimated_time: 28 min
 prerequisites: ["Basic Python"]
 ---
 

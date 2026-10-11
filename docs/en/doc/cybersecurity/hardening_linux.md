@@ -6,7 +6,7 @@ tags: ['cybersecurity', 'linux', 'hardening', 'firewall']
 difficulty: intermediate
 category: Cybersecurity
 status: published
-estimated_time: 8 min
+estimated_time: 35 min
 prerequisites:
   - "Basic DevOps knowledge"
   - "Intermediate Linux"

@@ -3,7 +3,7 @@ title: "Basic LLM Fine-tuning"
 description: "A complete introduction to fine-tuning language models: data preparation, training techniques, evaluation and deployment"
 tags: ['ai', 'llm', 'fine-tuning', 'performance']
 difficulty: advanced
-estimated_time: "55 min"
+estimated_time: 107 min
 category: Artificial Intelligence
 status: published
 prerequisites: ["llms_fundamentals", "ollama_basics", "model_evaluation"]

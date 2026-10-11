@@ -4,7 +4,7 @@ description: "Guía rápida para desplegar MikroTik CHR orientado a enrutamiento
 tags: ['networking', 'vrouter']
 updated: 2026-04-18
 difficulty: advanced
-estimated_time: 10 min
+estimated_time: 1 min
 category: Redes
 status: published
 last_reviewed: 2026-04-18

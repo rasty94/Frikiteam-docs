@@ -5,7 +5,7 @@ keywords: "incident response, thehive, misp, cortex, nist 800-61, forensics, mem
 tags: ['cybersecurity', 'incident-response', 'siem', 'forensics', 'kubernetes']
 updated: 2026-09-03
 difficulty: advanced
-estimated_time: "18 min"
+estimated_time: 47 min
 category: Ciberseguridad
 status: published
 last_reviewed: 2026-09-03

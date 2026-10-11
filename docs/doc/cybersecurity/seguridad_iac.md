@@ -5,7 +5,7 @@ keywords: [iac security, checkov, tflint, terraform, ansible, devsecops, misconf
 tags: ['cybersecurity', 'devops', 'terraform', 'ansible', 'devsecops']
 updated: 2026-07-18
 difficulty: intermediate
-estimated_time: 8 min
+estimated_time: 19 min
 category: Ciberseguridad
 status: published
 last_reviewed: 2026-07-18

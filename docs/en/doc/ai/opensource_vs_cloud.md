@@ -5,7 +5,7 @@ keywords: "llm local, llm cloud, open source llm, coste inferencia, ttft, latenc
 tags: ['ai', 'llm', 'devops', 'cost', 'compliance', 'high-availability']
 updated: 2026-07-19
 difficulty: intermediate
-estimated_time: 15 min
+estimated_time: 39 min
 category: Artificial Intelligence
 status: published
 last_reviewed: 2026-07-19

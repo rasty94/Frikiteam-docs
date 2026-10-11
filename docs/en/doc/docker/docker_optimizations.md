@@ -7,7 +7,7 @@ updated: 2026-09-03
 difficulty: expert
 category: Containers
 status: published
-estimated_time: 1 min
+estimated_time: 5 min
 last_reviewed: 2026-09-03
 prerequisites: ["Basic knowledge of Docker and Dockerfile"]
 ---

@@ -3,7 +3,7 @@ title: "Log Analysis and Troubleshooting with LLMs"
 description: "Using Large Language Models for automatic log analysis, error detection and problem-solving suggestions"
 tags: ['ai', 'llm', 'logs', 'troubleshooting', 'observability']
 difficulty: intermediate
-estimated_time: "35 min"
+estimated_time: 71 min
 category: Artificial Intelligence
 status: published
 prerequisites: ["ollama_basics", "chatbots_locales"]

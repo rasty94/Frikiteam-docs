@@ -3,7 +3,7 @@ title: "Vector Databases para IA"
 updated: 2026-01-25
 tags: ['ai', 'vector-db']
 difficulty: beginner
-estimated_time: 7 min
+estimated_time: 28 min
 category: Inteligencia Artificial
 status: published
 last_reviewed: 2026-01-25

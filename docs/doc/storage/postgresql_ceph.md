@@ -4,7 +4,7 @@ description: "Documentación sobre storage para bases de datos: postgresql + cep
 tags: ['storage']
 updated: 2026-01-24
 difficulty: advanced
-estimated_time: 6 min
+estimated_time: 21 min
 category: Almacenamiento
 status: published
 last_reviewed: 2026-01-25

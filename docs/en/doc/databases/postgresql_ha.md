@@ -5,7 +5,7 @@ keywords: "postgresql ha, alta disponibilidad postgresql, patroni, etcd, replica
 tags: ['databases', 'high-availability']
 updated: 2026-07-19
 difficulty: advanced
-estimated_time: "18 min"
+estimated_time: 42 min
 category: Databases
 status: published
 last_reviewed: 2026-07-19

@@ -5,7 +5,7 @@ keywords: "mcp, model context protocol, fastmcp, llm, api, devops"
 tags: ['ai', 'llm', 'mcp', 'api']
 updated: 2026-07-18
 difficulty: intermediate
-estimated_time: 5 min
+estimated_time: 10 min
 category: Inteligencia Artificial
 status: published
 last_reviewed: 2026-07-18

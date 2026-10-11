@@ -3,7 +3,7 @@ title: "Coherence Evaluation in LLMs"
 description: "Evaluating consistency, reproducibility and bias detection in language models"
 tags: ['ai', 'llm', 'evaluation', 'best-practices']
 difficulty: advanced
-estimated_time: "40 min"
+estimated_time: 88 min
 category: Artificial Intelligence
 status: published
 prerequisites: ["llms_fundamentals", "model_evaluation"]

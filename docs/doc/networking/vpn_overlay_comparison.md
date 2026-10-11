@@ -4,7 +4,7 @@ description: "Documentación sobre comparación vpn overlay: tailscale vs netbir
 tags: ['networking']
 updated: 2026-01-24
 difficulty: advanced
-estimated_time: 5 min
+estimated_time: 14 min
 category: Redes
 status: published
 last_reviewed: 2026-01-25

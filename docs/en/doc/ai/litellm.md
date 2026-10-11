@@ -5,7 +5,7 @@ keywords: "litellm, llm gateway, llm proxy, openai compatible, cost tracking, fa
 tags: ['ai', 'llm', 'networking', 'devops']
 updated: 2026-07-18
 difficulty: intermediate
-estimated_time: 8 min
+estimated_time: 21 min
 category: Artificial Intelligence
 status: published
 last_reviewed: 2026-07-18

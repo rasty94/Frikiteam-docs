@@ -4,7 +4,7 @@ tags: ['networking']
 description: Tríada de seguridad del correo electrónico para prevenir spoofing y asegurar la entregabilidad.
 updated: 2026-01-23
 difficulty: intermediate
-estimated_time: 5 min
+estimated_time: 12 min
 category: Redes
 status: published
 last_reviewed: 2026-01-25

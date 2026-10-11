@@ -4,7 +4,7 @@ description: "Practical guide to hardening a Kubernetes cluster: RBAC, Network P
 updated: 2026-07-18
 tags: ['cybersecurity', 'kubernetes', 'rbac', 'hardening']
 difficulty: intermediate
-estimated_time: 5 min
+estimated_time: 33 min
 category: Cybersecurity
 status: published
 last_reviewed: 2026-01-25

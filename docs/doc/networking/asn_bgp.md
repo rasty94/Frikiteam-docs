@@ -4,7 +4,7 @@ tags: ['networking']
 description: Conceptos sobre Sistemas Autónomos y enrutamiento global mediante BGP.
 updated: 2026-01-24
 difficulty: intermediate
-estimated_time: 8 min
+estimated_time: 16 min
 category: Redes
 status: published
 last_reviewed: 2026-01-25

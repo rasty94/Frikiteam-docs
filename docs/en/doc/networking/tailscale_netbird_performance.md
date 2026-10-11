@@ -9,7 +9,7 @@ state: stable
 prerequisites: [docker, linux-basics]
 updated: 2026-01-25
 status: published
-estimated_time: "45 minutes"
+estimated_time: 10 min
 ---
 
 # Performance Benchmarks: Tailscale vs NetBird

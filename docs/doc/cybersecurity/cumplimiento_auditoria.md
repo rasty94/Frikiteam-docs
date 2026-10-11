@@ -5,7 +5,7 @@ keywords: "gdpr, iso 27001, openscap, oscap, scap security guide, compliance as 
 tags: ['cybersecurity', 'compliance', 'logs', 'devsecops']
 updated: 2026-07-19
 difficulty: intermediate
-estimated_time: "18 min"
+estimated_time: 45 min
 category: Ciberseguridad
 status: published
 last_reviewed: 2026-07-19

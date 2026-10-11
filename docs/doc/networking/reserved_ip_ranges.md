@@ -4,7 +4,7 @@ tags: ['networking']
 description: Bloques de direcciones privadas (RFC 1918), de documentación y reservadas (CG-NAT, Loopback).
 updated: 2026-01-23
 difficulty: intermediate
-estimated_time: 6 min
+estimated_time: 13 min
 category: Redes
 status: published
 last_reviewed: 2026-01-25

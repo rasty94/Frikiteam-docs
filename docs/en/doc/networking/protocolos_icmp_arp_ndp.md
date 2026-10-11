@@ -8,7 +8,7 @@ last_reviewed: 2026-01-25
 difficulty: advanced
 category: Networking
 status: published
-estimated_time: 5 min
+estimated_time: 11 min
 prerequisites:
   - "Basic DevOps knowledge"
   - "Networking fundamentals"

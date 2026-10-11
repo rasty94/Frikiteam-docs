@@ -5,7 +5,7 @@ keywords: "authentik, sso, oidc, saml, forward auth, proxy provider, outpost, fl
 tags: ['identity', 'cybersecurity']
 updated: 2026-09-02
 difficulty: intermediate
-estimated_time: 20 min
+estimated_time: 30 min
 category: Identity Management
 status: published
 last_reviewed: 2026-09-02

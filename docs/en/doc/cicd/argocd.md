@@ -8,7 +8,7 @@ updated: 2026-09-03
 difficulty: beginner
 category: DevOps
 status: published
-estimated_time: 1 min
+estimated_time: 9 min
 last_reviewed: 2026-09-03
 prerequisites: ["None"]
 ---

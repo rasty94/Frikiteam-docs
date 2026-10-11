@@ -3,7 +3,7 @@ title: "Generación de Contenido Técnico con LLMs"
 description: "Automatización de documentación, generación de posts de blog y resumen de artículos técnicos usando Large Language Models"
 tags: ['ai', 'llm', 'automation']
 difficulty: intermediate
-estimated_time: "30 min"
+estimated_time: 65 min
 category: Inteligencia Artificial
 status: published
 prerequisites: ["ollama_basics", "chatbots_locales"]

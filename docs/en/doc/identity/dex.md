@@ -6,7 +6,7 @@ last_reviewed: 2026-03-01
 difficulty: intermediate
 category: Identity Management
 status: published
-estimated_time: 3 min
+estimated_time: 7 min
 prerequisites: ["Basic knowledge of OAuth2/OIDC"]
 ---
 

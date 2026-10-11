@@ -7,7 +7,7 @@ updated: 2026-04-18
 last_reviewed: 2026-04-18
 difficulty: intermediate
 status: published
-estimated_time: 12 min
+estimated_time: 4 min
 prerequisites:
   - "Networking fundamentals"
   - "Basic virtualization knowledge"

@@ -3,7 +3,7 @@ title: "Local Chatbots with LLMs"
 description: "Building conversational chatbots using Ollama and LLaMA.cpp, with integration to Slack, Discord and Telegram"
 tags: ['ai', 'llm', 'ollama', 'monitoring']
 difficulty: intermediate
-estimated_time: "30 min"
+estimated_time: 42 min
 category: Artificial Intelligence
 status: published
 prerequisites: ["ollama_basics", "model_optimization"]

@@ -5,7 +5,7 @@ keywords: "kubernetes, helm, argocd, gitops, vllm, ollama, inference, gpu, start
 tags: ['ai', 'kubernetes', 'helm', 'argocd', 'gitops', 'vllm', 'ollama', 'gpu']
 updated: 2026-07-19
 difficulty: advanced
-estimated_time: "16 min"
+estimated_time: 48 min
 category: Artificial Intelligence
 status: published
 last_reviewed: 2026-07-19

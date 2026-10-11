@@ -5,7 +5,7 @@ keywords: "criptografia aplicada, argon2, bcrypt, aead, aes-gcm, chacha20, ed255
 tags: ['cybersecurity', 'encryption']
 updated: 2026-07-19
 difficulty: intermediate
-estimated_time: "16 min"
+estimated_time: 32 min
 category: Cybersecurity
 status: published
 last_reviewed: 2026-07-19

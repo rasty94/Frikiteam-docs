@@ -5,7 +5,7 @@ keywords: "flutter, dart, build web, flutter build apk, appbundle, keystore, fir
 tags: ['programming', 'ci-cd', 'docker', 'secrets', 'performance']
 updated: 2026-09-03
 difficulty: intermediate
-estimated_time: 20 min
+estimated_time: 30 min
 category: Desarrollo
 status: published
 last_reviewed: 2026-09-03

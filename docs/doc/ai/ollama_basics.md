@@ -5,7 +5,7 @@ keywords: "ollama, llm, local models, docker, api, devops"
 tags: ['ai', 'ollama', 'llm', 'docker', 'api']
 updated: 2026-01-25
 difficulty: intermediate
-estimated_time: 4 min
+estimated_time: 17 min
 category: Inteligencia Artificial
 status: published
 last_reviewed: 2026-01-25

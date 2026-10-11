@@ -5,7 +5,7 @@ description: "Step-by-step guide to deploy OpenStack in production using Kolla-A
 keywords: OpenStack, Kolla-Ansible, deployment, production, containers, Docker, infrastructure, cloud, installation guide
 updated: 2026-07-18
 difficulty: intermediate
-estimated_time: 8 min
+estimated_time: 33 min
 category: Cloud Computing
 status: published
 last_reviewed: 2026-01-25

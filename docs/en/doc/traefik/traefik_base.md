@@ -4,7 +4,7 @@ description: "Dynamic reverse proxy with automatic service discovery, TLS and mi
 tags: ['networking', 'containers']
 updated: 2026-08-03
 difficulty: intermediate
-estimated_time: 25 min
+estimated_time: 18 min
 category: Networking
 status: published
 last_reviewed: 2026-08-03

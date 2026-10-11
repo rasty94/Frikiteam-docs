@@ -5,7 +5,7 @@ keywords: "sops, sealed secrets, external secrets operator, gitops, argocd, kube
 tags: ['cybersecurity', 'gitops', 'secrets', 'argocd']
 updated: 2026-07-18
 difficulty: intermediate
-estimated_time: "14 min"
+estimated_time: 20 min
 category: Ciberseguridad
 status: published
 last_reviewed: 2026-07-18

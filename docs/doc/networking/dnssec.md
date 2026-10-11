@@ -4,7 +4,7 @@ tags: ['networking']
 description: Introducción a la firma criptográfica de zonas DNS para evitar envenenamiento de caché.
 updated: 2026-01-24
 difficulty: intermediate
-estimated_time: 5 min
+estimated_time: 12 min
 category: Redes
 status: published
 last_reviewed: 2026-01-25

@@ -5,7 +5,7 @@ keywords: "llama.cpp, llm, gguf, quantization, cuda, metal, vulkan, llama-server
 tags: ['ai', 'llm', 'quantization']
 updated: 2026-07-18
 difficulty: intermediate
-estimated_time: 8 min
+estimated_time: 14 min
 category: Artificial Intelligence
 status: published
 last_reviewed: 2026-07-18

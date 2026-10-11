@@ -5,7 +5,7 @@ keywords: "observability, prometheus, grafana, loki, tempo, jaeger, opentelemetr
 tags: ['monitoring', 'observability', 'prometheus', 'grafana', 'loki']
 updated: 2026-01-25
 difficulty: advanced
-estimated_time: 45 min
+estimated_time: 81 min
 category: Monitoreo
 status: published
 last_reviewed: 2026-01-25

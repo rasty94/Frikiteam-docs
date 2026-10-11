@@ -3,7 +3,7 @@ title: "LLM Security Testing"
 description: "Assessing vulnerabilities in language models: prompt injection, jailbreaking, hallucination detection and protective measures"
 tags: ['ai', 'llm', 'cybersecurity', 'testing', 'evaluation']
 difficulty: advanced
-estimated_time: "45 min"
+estimated_time: 86 min
 category: Artificial Intelligence
 status: published
 prerequisites: ["llms_fundamentals", "prompt_engineering"]

@@ -4,7 +4,7 @@ description: "Documentación sobre load balancing avanzado: haproxy vs nginx vs 
 tags: ['networking']
 updated: 2026-01-24
 difficulty: intermediate
-estimated_time: 8 min
+estimated_time: 32 min
 category: Redes
 status: published
 last_reviewed: 2026-01-25

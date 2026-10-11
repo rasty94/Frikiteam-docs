@@ -5,7 +5,7 @@ keywords: "llm evaluation, benchmarks, mmlu, hellaswag, bleu, rouge, latency tes
 tags: ['ai', 'llm', 'evaluation', 'benchmarks', 'testing']
 updated: 2026-01-25
 difficulty: beginner
-estimated_time: 6 min
+estimated_time: 18 min
 category: Inteligencia Artificial
 status: published
 last_reviewed: 2026-01-25

@@ -5,7 +5,7 @@ keywords: "backup seguro, ransomware, restic, borg, append-only, s3 object lock,
 tags: ['cybersecurity', 'backups']
 updated: 2026-07-19
 difficulty: intermediate
-estimated_time: "16 min"
+estimated_time: 36 min
 category: Ciberseguridad
 status: published
 last_reviewed: 2026-07-19

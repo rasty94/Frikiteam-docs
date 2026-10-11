@@ -5,7 +5,7 @@ keywords: "docker, seguridad, hardening, contenedores, capabilities, seccomp, ap
 tags: ['docker', 'containers', 'hardening', 'cybersecurity']
 updated: 2026-09-02
 difficulty: intermediate
-estimated_time: 18 min
+estimated_time: 25 min
 category: Contenedores
 status: published
 last_reviewed: 2026-09-02

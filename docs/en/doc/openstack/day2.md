@@ -5,7 +5,7 @@ description: "Complete guide for Day-2 operations in OpenStack: upgrades, backup
 keywords: OpenStack, Day-2, operations, maintenance, upgrades, backups, monitoring, capacity planning, production, ops
 updated: 2026-07-18
 difficulty: intermediate
-estimated_time: 11 min
+estimated_time: 41 min
 category: Cloud Computing
 status: published
 last_reviewed: 2026-01-25

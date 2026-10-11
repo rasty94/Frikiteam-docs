@@ -5,7 +5,7 @@ keywords: "meshllm, mesh-llm, llm distribuido, p2p, iroh, gpu, inferencia, opena
 tags: ['ai', 'llm', 'high-availability', 'networking', 'gpu']
 updated: 2026-07-19
 difficulty: advanced
-estimated_time: 9 min
+estimated_time: 19 min
 category: Inteligencia Artificial
 status: published
 last_reviewed: 2026-07-18

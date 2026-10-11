@@ -4,7 +4,7 @@ description: "Proxy inverso dinámico con descubrimiento automático de servicio
 tags: ['networking', 'containers']
 updated: 2026-08-03
 difficulty: intermediate
-estimated_time: 25 min
+estimated_time: 18 min
 category: Redes
 status: published
 last_reviewed: 2026-08-03

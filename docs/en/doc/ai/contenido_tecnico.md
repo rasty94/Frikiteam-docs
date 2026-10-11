@@ -3,7 +3,7 @@ title: "Automated Technical Content Generation with LLMs"
 description: "Complete guide to generating technical documentation, READMEs, blog posts, and changelogs using local LLMs"
 tags: ['ai', 'llm', 'automation']
 difficulty: intermediate
-estimated_time: "30 min"
+estimated_time: 65 min
 category: Artificial Intelligence
 status: published
 prerequisites: ["llms_fundamentals", "ollama_basics", "chatbots_locales"]

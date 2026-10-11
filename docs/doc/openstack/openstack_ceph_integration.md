@@ -5,7 +5,7 @@ description: "Comprehensive guide to integrate Ceph as storage backend for OpenS
 keywords: OpenStack, Ceph, RBD, integration, Glance, Cinder, Nova, storage backend, cephx, pools, images, volumes
 updated: 2026-07-18
 difficulty: intermediate
-estimated_time: 10 min
+estimated_time: 33 min
 category: Cloud Computing
 status: published
 last_reviewed: 2026-01-25

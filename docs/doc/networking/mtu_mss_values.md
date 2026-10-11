@@ -4,7 +4,7 @@ tags: ['networking']
 description: Valores típicos de Maximum Transmission Unit para diferentes medios (Ethernet, PPPoE, Jumbo Frames).
 updated: 2026-10-11
 difficulty: intermediate
-estimated_time: 6 min
+estimated_time: 15 min
 category: Redes
 status: published
 last_reviewed: 2026-10-11

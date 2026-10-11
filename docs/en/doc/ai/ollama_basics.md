@@ -8,7 +8,7 @@ updated: 2026-01-25
 last_reviewed: 2026-01-25
 difficulty: intermediate
 status: published
-estimated_time: 4 min
+estimated_time: 17 min
 prerequisites:
   - "Basic DevOps knowledge"
   - "Basic Python"

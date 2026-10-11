@@ -4,7 +4,7 @@ tags: ['networking']
 description: Cómo funcionan las búsquedas inversas (in-addr.arpa) y su importancia para la reputación de IP.
 updated: 2026-01-23
 difficulty: intermediate
-estimated_time: 4 min
+estimated_time: 12 min
 category: Redes
 status: published
 last_reviewed: 2026-01-25

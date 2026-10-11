@@ -4,7 +4,7 @@ description: "Documentación sobre sdn empresarial: openstack neutron vs vmware 
 tags: ['networking']
 updated: 2026-01-24
 difficulty: advanced
-estimated_time: 6 min
+estimated_time: 15 min
 category: Redes
 status: published
 last_reviewed: 2026-01-25

@@ -4,7 +4,7 @@ tags: ['networking']
 description: Guía sobre Variable Length Subnet Masking para optimizar el uso de direcciones IP.
 updated: 2026-01-23
 difficulty: intermediate
-estimated_time: 4 min
+estimated_time: 9 min
 category: Redes
 status: published
 last_reviewed: 2026-01-25

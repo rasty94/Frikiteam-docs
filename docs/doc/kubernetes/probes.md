@@ -5,7 +5,7 @@ updated: 2026-09-03
 difficulty: expert
 category: Contenedores
 status: published
-estimated_time: 3 min
+estimated_time: 5 min
 last_reviewed: 2026-09-03
 prerequisites:
   - "Conocimientos básicos de DevOps"

@@ -5,7 +5,7 @@ keywords: "llm monitoring, observability, prometheus, grafana, ttft, tpot, token
 tags: ['ai', 'llm', 'monitoring', 'observability', 'prometheus', 'grafana', 'vllm', 'cost']
 updated: 2026-09-03
 difficulty: advanced
-estimated_time: 14 min
+estimated_time: 48 min
 category: Artificial Intelligence
 status: published
 last_reviewed: 2026-09-03

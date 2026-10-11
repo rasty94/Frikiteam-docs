@@ -4,7 +4,7 @@ description: "Documentación sobre comparativa rápida: netbird vs tailscale vs 
 tags: ['networking']
 updated: 2025-11-15
 difficulty: beginner
-estimated_time: 2 min
+estimated_time: 9 min
 category: Redes
 status: published
 last_reviewed: 2026-01-25

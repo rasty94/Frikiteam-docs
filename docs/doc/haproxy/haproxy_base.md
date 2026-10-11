@@ -4,7 +4,7 @@ description: "Documentación sobre haproxy"
 tags: ['networking', 'high-availability']
 updated: 2025-11-15
 difficulty: beginner
-estimated_time: 5 min
+estimated_time: 14 min
 category: Redes
 status: published
 last_reviewed: 2026-01-25

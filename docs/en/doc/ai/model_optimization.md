@@ -3,7 +3,7 @@ title: "LLM Model Optimization"
 description: "Optimization techniques for running LLMs on limited hardware: quantization, pruning, distillation and deployment strategies"
 tags: ['ai', 'llm', 'performance', 'quantization']
 difficulty: intermediate
-estimated_time: "25 min"
+estimated_time: 13 min
 category: Artificial Intelligence
 status: published
 prerequisites: ["llms_fundamentals", "ollama_basics"]

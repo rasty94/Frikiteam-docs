@@ -5,7 +5,7 @@ keywords: "openstack, keystone, identidad, fernet, tokens, rbac, policy.yaml, ca
 tags: ['identity', 'openstack']
 updated: 2026-09-02
 difficulty: intermediate
-estimated_time: 18 min
+estimated_time: 26 min
 category: Gestión de Identidad
 status: published
 last_reviewed: 2026-09-02

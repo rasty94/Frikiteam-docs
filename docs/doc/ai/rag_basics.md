@@ -3,7 +3,7 @@ title: "RAG - Retrieval-Augmented Generation"
 updated: 2026-01-25
 tags: ['ai', 'rag', 'llm', 'vector-db']
 difficulty: intermediate
-estimated_time: 4 min
+estimated_time: 17 min
 category: Inteligencia Artificial
 status: published
 last_reviewed: 2026-01-25
