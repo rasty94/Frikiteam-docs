@@ -2,6 +2,17 @@
 
 Registro de tareas completadas y logs de progreso, archivados desde `TODO.md` para mantener ese archivo centrado en lo pendiente.
 
+## 🧭 Roadmap completado, 17 páginas EN traducidas y paridad ES/EN reforzada (11/10/2026)
+
+- [x] **Cinco páginas nuevas en ES y EN**, escritas por agentes de Sonnet y revisadas: DNS propio (522 líneas), k3s con Ingress y cert-manager (402), eBPF y Cilium (354), backup de Kubernetes (374) y forense en Linux (428). Paridad exacta de líneas, cercas de código y encabezados; enlaces y anclas comprobados contra el HTML. Se quitó una versión de Unbound sin fuente. Dudas de cada página en `TODO.md`.
+- [x] **Sección de MTU a 25G/40G/100G** en `mtu_mss_values.md` (Haiku).
+- [x] **Tailscale**: el diagrama marcaba App Connector como «Próximamente»; es GA desde junio de 2025. Validado con `validate_mermaid.sh`.
+- [x] **17 páginas EN con el cuerpo en español, traducidas**: certificados TLS, MTU/MSS, SPF/DKIM/DMARC, rangos IP reservados, PTR, ICMP/ARP/NDP, tablas de puertos, VLSM, firewall, autenticación, monitoreo de seguridad, escaneo de vulnerabilidades, principios, modelo de amenazas, índice de ciberseguridad, optimización de modelos y el stack de observabilidad. Cuatro tenían de título un comentario de código («Instalar», «Usando Helm», «Usando brew (macOS)», «Ubuntu/Debian»). Lo detectó un agente de Haiku al añadir la sección de MTU; ningún validador lo veía.
+- [x] **Errores corregidos en los dos idiomas** al traducir: el nombre inverso IPv6 de los PTR tenía 29 nibbles (comprobado calculándolo desde la dirección expandida); la tabla de rangos IP atribuía los rangos RFC 1918 a cada RIR y escribía `10.0.0/8`; TEST-NET citaba el RFC 5735 en vez del 5737; GGUF se expandía como «GPT-Generated Unified Format», que no es oficial.
+- [x] **44 fechas y 6 listas de tags desparejadas entre ES y EN, igualadas** (fecha más reciente de la pareja; tags de la ES, salvo Ceph base, donde `ceph` se añadió también a la ES).
+- [x] **Dos comprobaciones nuevas en la CI**: `check_sync.py --strict` falla si una EN tiene la prosa en español (proporción de palabras vacías; marcó las 17 antes de traducir y 0 después), y `validate_metadata.py --strict` falla si tags, `updated` o `last_reviewed` difieren entre gemelas (probado con un par de ficheros desparejado).
+- [x] **Comprobado**: `mkdocs build --strict`, ambos validadores, `test_wordpress_format.py` y `validate_mermaid.sh` limpios; HTML de las páginas tocadas sin Jinja fuera de bloques de código; las cinco páginas nuevas presentes en la navegación.
+
 ## 💾 ZFS y LVM, y roadmap de contenido revisado (11/10/2026)
 
 - [x] **Roadmap de contenido nuevo revisado contra el repo**: cinco huecos reales ordenados, tres temas reducidos a una sección de página existente y retirados los que no encajan (nube, costes) o ya estaban cubiertos con otro título (Prometheus/Grafana, Vault, Falco, Keepalived, LUKS).

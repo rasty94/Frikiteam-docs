@@ -38,6 +38,13 @@ TheHive/MISP y vLLM se verificaron el 2026-09-03 (ver `done.md`). Queda OpenSCAP
     - `identity/keycloak.md`: `KC_BOOTSTRAP_ADMIN_*` frente a `KEYCLOAK_ADMIN`; `KC_HOSTNAME` con URL completa; `KC_PROXY_HEADERS=xforwarded`; puerto de gestión para health; alcance de `kc.sh export`.
     - `monitoring/uptime_kuma.md`: rama `:2` y BD externa; autenticación de `/metrics`; ruta `/api/push/<token>`; ajuste de proxy de confianza; `kuma.db`.
     - `programming/fastapi.md`: paquete `uvicorn-worker`; `Notify=healthy` en Quadlet; versiones `@vN` de las acciones; etiquetas de healthcheck de Traefik y `http-check` de HAProxy; `--proxy-headers`, `--forwarded-allow-ips`, `--root-path`.
+- [ ] **Cinco páginas nuevas del 2026-10-11, escritas de conocimiento, sin ejecutar.** Dudas que dejaron los agentes:
+    - `networking/dns_selfhosted.md`: opciones `serve-expired-*` de Unbound; `type primary`/`primaries` en BIND; sintaxis de `pdnsutil` y opciones de PowerDNS 4.x (`launch=gsqlite3`, `api-key`, `webserver-*`, `SOA-EDIT`); `unbound-control list_forwards`/`flush_zone`; `drill -T`/`-S`; `dhcp-option=option:domain-search` en dnsmasq; opciones de `pct set`/`qm set` para DNS.
+    - `kubernetes/k3s_ingress_certmanager.md`: claves de `config.yaml` de k3s (`disable`, `flannel-backend`, `write-kubeconfig-mode`, `tls-san`); `HelmChartConfig` para el Traefik de k3s; `crds.enabled` del chart de cert-manager; `apiVersion` de MetalLB; `ingressClassName` en el solver HTTP-01; `cmctl status certificate`; estado de ingress-nginx.
+    - `kubernetes/ebpf_cilium.md`: valores de `kubeProxyReplacement` por versión; `cilium-dbg`; flags de k3s para quitar flannel y kube-proxy; formato de `hubble observe --pod`; flags de `cilium hubble`; regla DNS para `toFQDNs`; nombres de paquetes de bcc y los one-liners de bpftrace.
+    - `backups/kubernetes_backup.md`: `etcdutl` frente a `etcdctl` en 3.5+; ruta y receta de copia de k3s con SQLite; claves `etcd-snapshot-*`/`etcd-s3-*` y `--cluster-reset-restore-path`; flags de Velero (`--use-node-agent`, `--default-volumes-to-fs-backup`, `--snapshot-move-data`, `--features=EnableCSI`); anotaciones de hooks con `fsfreeze`; interacción del TTL con Object Lock.
+    - `cybersecurity/forense_digital.md`: `dump-guest-memory` desde `qm monitor` y su formato; `qm snapshot --vmstate 1`; `link_down=1`; sintaxis de LiME y AVML; plugins de Volatility 3; `mactime`/`fls`; formatos de `find -printf`.
+    - `networking/mtu_mss_values.md`, sección de 25G/40G/100G: escrita por Haiku; revisar entera.
 - [ ] **`storage/zfs_lvm.md` (2026-10-11), escrita de conocimiento, sin ejecutar.** Contrastar: expansión de raidz con `zpool attach` (OpenZFS 2.3); `lvchange -ay -K` para snapshots finos; entrada `lvmthin` de `storage.cfg` y VG `pve`/thin pool `data` del instalador de Proxmox; `thin_pool_autoextend_threshold`/`_percent` y `dmeventd`; campos `data_percent`/`metadata_percent` de `lvs`; `zpool online -e` con `autoexpand=on`; `update-initramfs` tras fijar `zfs_arc_max`. Ya corregidas al revisar: `zfs send` de datasets cifrados (solo `-w` los mantiene cifrados) y el tamaño por defecto del ARC (ya no se afirma una cifra).
 
 ### 2. Otra deuda operativa
@@ -53,19 +60,12 @@ TheHive/MISP y vLLM se verificaron el 2026-09-03 (ver `done.md`). Queda OpenSCAP
 
 ## 📅 Contenido nuevo
 
-Revisado contra el repo el 2026-10-11, contando páginas ES que mencionan el tema y comprobando si ya tiene página propia, aunque sea con otro título. Por orden de valor:
+Revisado contra el repo el 2026-10-11. Los seis primeros huecos (ZFS/LVM, DNS propio, Kubernetes en homelab, backup de Kubernetes, eBPF con Cilium y forense) se escribieron ese mismo día; ver `done.md`. No queda ningún hueco grande verificado: el siguiente paso es contrastar la deuda de verificación de arriba antes de abrir temas.
 
-- [ ] **DNS propio** (resolutor + autoritativo: Unbound, BIND, PowerDNS): 18 páginas mencionan BIND/PowerDNS. Existen `dnssec.md` y `registros_ptr_zonas_inversas.md` pero no la página base que las sostiene.
-- [ ] **Kubernetes en homelab** (ingress, cert-manager, k3s): ingress 2 menciones, cert-manager 0. La sección Kubernetes tiene 3 páginas; sería el puente con `certificados_tls.md`.
-- [ ] **Backup de Kubernetes** (Velero, snapshot de etcd): 1 mención. La sección Backups no cubre clústeres.
-- [ ] **eBPF con Cilium** como una sola página: eBPF 2 menciones, Cilium 3, solo de paso en `service_mesh.md`. Fusiona dos entradas del roadmap anterior.
-- [ ] **Forense** como continuación de `respuesta_incidentes.md` (4 menciones). Prioridad media.
 
 ### Reducido a una sección de una página existente
-- [ ] **MTU 25G/40G/100G** en `networking/mtu_mss_values.md`: las tramas jumbo ya están cubiertas; las velocidades altas tienen 0 menciones.
 - [ ] **Cifrado en reposo en cabinas** (Ceph/Pure/NetApp): LUKS ya está a fondo en `cybersecurity/criptografia_aplicada.md` (14 menciones); falta solo el ángulo de cabina.
 - [ ] `doc/storage/protocols/protocols.md`: más ejemplos reales.
-- [ ] **Tailscale**: el diagrama de `tailscale.md` marca App Connector como «Próximamente». Probablemente desactualizado; comprobar contra la documentación de Tailscale.
 
 ### Retirado del roadmap el 2026-10-11
 - **CIS Benchmarks en nube y optimización de costes en Kubernetes**: no encajan en un sitio de infraestructura propia (costes: 0 menciones).
