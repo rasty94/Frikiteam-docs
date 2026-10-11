@@ -8,20 +8,21 @@ category: Inteligencia Artificial
 status: published
 prerequisites: ["ollama_basics", "chatbots_locales"]
 updated: 2026-10-11
+last_reviewed: 2026-10-11
 ---
 
 # Análisis de Logs y Troubleshooting con LLMs
 
 ## Resumen
 
-Los LLMs pueden analizar logs de sistemas, detectar patrones de errores y sugerir soluciones automáticamente. Esta guía cubre técnicas prácticas para usar modelos locales en troubleshooting de infraestructura, reduciendo significativamente el tiempo medio de resolución (MTTR).
+Los LLMs pueden analizar logs de sistemas, detectar patrones de errores y sugerir soluciones automáticamente. Esta guía cubre técnicas prácticas para usar modelos locales en troubleshooting de infraestructura, con el objetivo de reducir el tiempo medio de resolución (MTTR).
 
 ## 🎯 Por Qué Usar LLMs para Análisis de Logs
 
 ### Problemas Comunes en Troubleshooting
 
-- **Volumen abrumador:** Millones de líneas de logs por día
-- **Ruido excesivo:** 99% de logs son información normal
+- **Volumen abrumador:** Demasiadas líneas para leerlas a mano
+- **Ruido excesivo:** La mayoría de líneas son información rutinaria
 - **Contexto distribuido:** Errores span múltiples servicios
 - **Expertise escasa:** No todos conocen cada sistema
 - **Tiempo crítico:** Downtime cuesta dinero
@@ -39,6 +40,7 @@ Los LLMs pueden analizar logs de sistemas, detectar patrones de errores y sugeri
 ### Parser Inteligente de Stack Traces
 
 ```python
+import json
 import re
 import requests
 from dataclasses import dataclass
@@ -104,15 +106,14 @@ Formato JSON:
             "model": self.model,
             "prompt": prompt,
             "stream": False,
-            "temperature": 0.2,  # Baja temperatura para precisión
-            "format": "json"
+            "format": "json",
+            "options": {"temperature": 0.2},  # los parámetros del modelo van en options
         })
         
         if response.status_code == 200:
             result = response.json()["response"]
             
             # Parsear JSON
-            import json
             analysis_data = json.loads(result)
             
             return LogAnalysis(
@@ -151,7 +152,9 @@ print(f"💡 Causa raíz: {analysis.root_cause}")
 print(f"🔧 Solución: {analysis.suggested_fix}")
 ```
 
-### Resultado Esperado
+### Ejemplo de respuesta
+
+Ilustrativo: la salida del modelo cambia en cada ejecución y hay que validarla antes de actuar.
 
 ```
 🔴 Severidad: medium
@@ -176,7 +179,9 @@ print(f"🔧 Solución: {analysis.suggested_fix}")
 ```python
 import subprocess
 import json
-from datetime import datetime, timedelta
+import requests
+from datetime import datetime
+from typing import List, Dict
 
 class KubernetesLogAnalyzer:
     def __init__(self, model: str = "llama2:13b-chat-q4_0"):
@@ -238,8 +243,8 @@ Formato JSON:
             "model": self.model,
             "prompt": prompt,
             "stream": False,
-            "temperature": 0.2,
-            "format": "json"
+            "format": "json",
+            "options": {"temperature": 0.2},
         })
         
         return json.loads(response.json()["response"])
@@ -247,11 +252,10 @@ Formato JSON:
     def analyze_resource_issues(self, namespace: str) -> List[Dict]:
         """Analiza problemas de recursos en un namespace."""
         
-        # Obtener pods con problemas
+        # Obtener todos los pods del namespace
         cmd = [
             "kubectl", "get", "pods",
             f"--namespace={namespace}",
-            "--field-selector=status.phase!=Running",
             "-o", "json"
         ]
         
@@ -262,7 +266,17 @@ Formato JSON:
         
         for pod in pods_data["items"]:
             pod_name = pod["metadata"]["name"]
-            status = pod["status"]["phase"]
+            phase = pod["status"]["phase"]
+            
+            # CrashLoopBackOff no es una fase del pod (que sigue en Running):
+            # es el motivo de espera de un contenedor
+            reasons = [
+                cs.get("state", {}).get("waiting", {}).get("reason")
+                for cs in pod["status"].get("containerStatuses", [])
+            ]
+            crash_loop = "CrashLoopBackOff" in reasons
+            if phase not in ("Pending", "Failed", "Unknown") and not crash_loop:
+                continue
             
             # Obtener eventos del pod
             events_cmd = [
@@ -276,19 +290,18 @@ Formato JSON:
             events = json.loads(events_result.stdout)
             
             # Analizar con LLM
-            if status in ["Pending", "CrashLoopBackOff", "Error"]:
-                logs = self.get_pod_logs(namespace, pod_name)
-                
-                analysis = self.detect_crash_loop(
-                    logs,
-                    json.dumps(events, indent=2)
-                )
-                
-                issues.append({
-                    "pod": pod_name,
-                    "status": status,
-                    "analysis": analysis
-                })
+            logs = self.get_pod_logs(namespace, pod_name)
+            
+            analysis = self.detect_crash_loop(
+                logs,
+                json.dumps(events, indent=2)
+            )
+            
+            issues.append({
+                "pod": pod_name,
+                "status": "CrashLoopBackOff" if crash_loop else phase,
+                "analysis": analysis
+            })
         
         return issues
     
@@ -315,7 +328,7 @@ Formato Markdown, profesional, conciso.
             "model": self.model,
             "prompt": prompt,
             "stream": False,
-            "temperature": 0.4
+            "options": {"temperature": 0.4},
         })
         
         return response.json()["response"]
@@ -345,7 +358,9 @@ if issues:
 ### Detector de Anomalías en Access Logs
 
 ```python
+import json
 import re
+import requests
 from collections import defaultdict
 from datetime import datetime
 from typing import List, Dict
@@ -386,7 +401,7 @@ class WebServerLogAnalyzer:
         suspicious_ips = []
         
         for ip, requests in by_ip.items():
-            # Brute force: >100 requests/min desde misma IP
+            # Fuerza bruta: más de 100 peticiones de una IP en el fragmento analizado
             if len(requests) > 100:
                 suspicious_ips.append({
                     "ip": ip,
@@ -451,8 +466,8 @@ Formato JSON:
             "model": self.model,
             "prompt": prompt,
             "stream": False,
-            "temperature": 0.2,
-            "format": "json"
+            "format": "json",
+            "options": {"temperature": 0.2},
         })
         
         return json.loads(response.json()["response"])
@@ -507,15 +522,24 @@ Identifica:
 4. **Diagnóstico:** Pasos para investigar
 5. **Mitigación:** Acciones inmediatas
 
-Formato JSON.
+Formato JSON:
+{% raw %}
+{
+  "common_pattern": "...",
+  "probable_cause": "...",
+  "affected_endpoints": ["..."],
+  "diagnosis": "...",
+  "mitigation": "..."
+}
+{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
             "model": self.model,
             "prompt": prompt,
             "stream": False,
-            "temperature": 0.2,
-            "format": "json"
+            "format": "json",
+            "options": {"temperature": 0.2},
         })
         
         return json.loads(response.json()["response"])
@@ -551,11 +575,14 @@ if error_analysis.get("status") != "normal":
 ### Sistema de Respuesta Automática a Incidentes
 
 ```python
+import json
+import shlex
+import subprocess
+import requests
+from datetime import datetime
 from enum import Enum
 from dataclasses import dataclass
-from typing import Optional
-import smtplib
-from email.mime.text import MIMEText
+from typing import Dict, List, Optional
 
 class Severity(Enum):
     CRITICAL = "critical"
@@ -652,8 +679,8 @@ Si NO hay anomalías, responde: {% raw %}{"anomalies": []}{% endraw %}
             "model": self.model,
             "prompt": prompt,
             "stream": False,
-            "temperature": 0.1,
-            "format": "json"
+            "format": "json",
+            "options": {"temperature": 0.1},
         })
         
         result = json.loads(response.json()["response"])
@@ -710,8 +737,8 @@ Si requiere intervención humana:
             "model": self.model,
             "prompt": prompt,
             "stream": False,
-            "temperature": 0.2,
-            "format": "json"
+            "format": "json",
+            "options": {"temperature": 0.2},
         })
         
         fix_plan = json.loads(response.json()["response"])
@@ -723,7 +750,8 @@ Si requiere intervención humana:
             # Ejecutar comandos (con validación de seguridad)
             for cmd in fix_plan["commands"]:
                 if self.is_safe_command(cmd):
-                    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+                    # Sin shell: un comando del LLM nunca se interpreta como script
+                    result = subprocess.run(shlex.split(cmd), capture_output=True, text=True)
                     print(f"   ✓ Ejecutado: {cmd}")
                     print(f"     Resultado: {result.stdout[:200]}")
                 else:
@@ -749,6 +777,10 @@ Si requiere intervención humana:
         ]
         
         dangerous_keywords = ["rm -rf", "dd if", "> /dev", "mkfs"]
+        
+        # Rechazar metacaracteres de shell: con ellos se encadenan comandos
+        if any(c in cmd for c in ";&|`$<>\n"):
+            return False
         
         # Verificar lista blanca
         is_safe = any(cmd.startswith(prefix) for prefix in safe_prefixes)
@@ -799,7 +831,7 @@ Formato Markdown.
             "model": self.model,
             "prompt": prompt,
             "stream": False,
-            "temperature": 0.3
+            "options": {"temperature": 0.3},
         })
         
         return response.json()["response"]
@@ -825,6 +857,8 @@ troubleshooter.monitor_and_respond(
 ## 📈 Métricas y KPIs
 
 ```python
+from datetime import datetime
+
 class TroubleshootingMetrics:
     def __init__(self):
         self.metrics = {
@@ -909,14 +943,16 @@ def sanitize_logs(logs: str) -> str:
     logs = re.sub(r'\b192\.168\.\d{1,3}\.\d{1,3}\b', '192.168.x.x', logs)
     
     # Remover emails
-    logs = re.sub(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', 'email@REDACTED', logs)
+    logs = re.sub(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b', 'email@REDACTED', logs)
     
     return logs
 ```
 
 ## Referencias
 
-- [Ollama API Documentation](https://github.com/jmorganca/ollama/blob/main/docs/api.md)
+- [Ollama: API (parámetros en `options`)](https://github.com/ollama/ollama/blob/main/docs/api.md)
+- [Kubernetes: ciclo de vida del pod (fases frente a CrashLoopBackOff)](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/)
+- [Python: shlex](https://docs.python.org/3/library/shlex.html)
 - [ELK Stack](https://www.elastic.co/what-is/elk-stack)
 - [Prometheus + Grafana](https://prometheus.io/)
 - [Kubernetes Logging](https://kubernetes.io/docs/concepts/cluster-administration/logging/)
@@ -930,7 +966,7 @@ def sanitize_logs(logs: str) -> str:
 Después de implementar análisis de logs, considera:
 
 1. **[Prompt Engineering](prompt_engineering.md)** - Técnicas para mejores diagnósticos
-2. **[Monitoreo de LLMs](model_evaluation.md)** - Métricas del sistema de análisis
+2. **[Monitoreo de LLMs](monitoreo_llms.md)** - Métricas del sistema de análisis
 3. **[Fine-tuning](fine_tuning_basico.md)** - Personalizar para tus sistemas específicos
 
 ---
