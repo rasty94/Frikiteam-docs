@@ -2,12 +2,12 @@
 title: "MikroTik CHR (enrutador en la nube)"
 description: "Guía rápida para desplegar MikroTik CHR orientado a enrutamiento L3 y laboratorios ISP/WISP"
 tags: ['networking', 'vrouter']
-updated: 2026-04-18
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 1 min
 category: Redes
 status: published
-last_reviewed: 2026-04-18
+last_reviewed: 2026-10-11
 prerequisites:
   - "Fundamentos de redes"
   - "Conocimientos básicos de virtualización"
@@ -29,7 +29,7 @@ MikroTik CHR destaca cuando necesitas rendimiento L3 y funciones de enrutamiento
 - 2-4 vNIC según topología
 - CPU: 2+ vCPU, RAM: 2-4 GB
 - Disco: 2-8 GB (según logs/paquetes)
-- Licencia CHR ajustada al rendimiento esperado
+- Licencia CHR ajustada al rendimiento esperado (límite de subida por interfaz: gratuita 1 Mbps, P1 1 Gbps, P10 10 Gbps)
 
 ## Configuración base
 

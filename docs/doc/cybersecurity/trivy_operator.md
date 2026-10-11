@@ -1,12 +1,12 @@
 ---
 title: "Trivy Operator: Escaneo Continuo en Kubernetes"
-updated: 2026-07-18
+updated: 2026-10-11
 tags: ['cybersecurity', 'kubernetes', 'vulnerability-scanning', 'devsecops', 'monitoring']
 difficulty: intermediate
 estimated_time: 5 min
 category: Ciberseguridad
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
@@ -22,7 +22,7 @@ helm repo add aqua https://aquasecurity.github.io/helm-charts
 helm repo update
 helm install trivy-operator aqua/trivy-operator -n trivy-system --create-namespace \
   --set trivy.ignoreUnfixed=true \
-  --set trivy.severity=HIGH,CRITICAL
+  --set 'trivy.severity=HIGH\,CRITICAL'
 ```
 
 ## Recursos que genera
@@ -69,7 +69,7 @@ kind: ClusterPolicy
 metadata:
   name: block-high-cves
 spec:
-  validationFailureAction: Enforce
+  validationFailureAction: Enforce   # en Kyverno 1.13+ se declara por regla: validate.failureAction
   background: true
   rules:
   - name: image-must-have-report

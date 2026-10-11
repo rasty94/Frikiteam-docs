@@ -2,12 +2,12 @@
 title: "OPNsense (vRouter/cortafuegos virtual)"
 description: "Guía rápida para desplegar OPNsense en entornos virtualizados"
 tags: ['networking', 'cybersecurity', 'vrouter']
-updated: 2026-04-18
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 1 min
 category: Redes
 status: published
-last_reviewed: 2026-04-18
+last_reviewed: 2026-10-11
 prerequisites:
   - "Fundamentos de redes"
   - "Conocimientos básicos de virtualización"
@@ -28,8 +28,8 @@ OPNsense es una opción muy sólida cuando priorizas funciones de cortafuegos, s
 - 2 vNIC mínimo:
   - WAN (enlace ascendente)
   - LAN (red interna)
-- CPU: 2 vCPU (mínimo), RAM: 2-4 GB
-- Disco: 16 GB+
+- CPU: 2 vCPU (mínimo), RAM: 4 GB (mínimo oficial 3 GB)
+- Disco: 40 GB+ SSD (recomendación oficial «razonable»)
 
 ## Configuración base
 

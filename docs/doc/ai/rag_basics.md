@@ -1,12 +1,12 @@
 ---
 title: "RAG - Retrieval-Augmented Generation"
-updated: 2026-01-25
+updated: 2026-10-11
 tags: ['ai', 'rag', 'llm', 'vector-db']
 difficulty: intermediate
 estimated_time: 17 min
 category: Inteligencia Artificial
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Python básico"
@@ -41,12 +41,15 @@ graph LR
 
 ## Casos de Uso en DevOps
 
+!!! warning "Depende de la versión"
+    Los ejemplos usan LangChain 1.x: los paquetes `langchain-community`, `langchain-chroma`, `langchain-ollama` y `langchain-text-splitters` sustituyen a los antiguos imports de `langchain.*`, y las cadenas clásicas (`RetrievalQA`) viven en `langchain-classic`. Comprueba los imports en tu versión instalada.
+
 ### 1. Knowledge Base Interna
 ```python
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import Chroma
-from langchain.llms import Ollama
-from langchain.chains import RetrievalQA
+from langchain_openai import OpenAIEmbeddings
+from langchain_chroma import Chroma
+from langchain_ollama import OllamaLLM
+from langchain_classic.chains import RetrievalQA
 
 # Inicializar embedding model
 embeddings = OpenAIEmbeddings()
@@ -59,20 +62,20 @@ vectorstore = Chroma.from_documents(
 )
 
 # Crear chain RAG
-llm = Ollama(model="llama2")
+llm = OllamaLLM(model="llama3.2")
 qa_chain = RetrievalQA.from_chain_type(
     llm=llm,
     retriever=vectorstore.as_retriever()
 )
 
 # Consultar
-response = qa_chain.run("¿Cómo configurar Prometheus en Kubernetes?")
+response = qa_chain.invoke({"query": "¿Cómo configurar Prometheus en Kubernetes?"})
 ```
 
 ### 2. Análisis de Logs
 ```python
-from langchain.document_loaders import DirectoryLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import DirectoryLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # Cargar logs
 loader = DirectoryLoader('/var/log/', glob='**/*.log')
@@ -92,7 +95,7 @@ vectorstore = Chroma.from_documents(chunks, embeddings)
 ### 3. Documentación Técnica Asistida
 ```python
 # Cargar documentación de proyectos
-from langchain.document_loaders import UnstructuredMarkdownLoader
+from langchain_community.document_loaders import UnstructuredMarkdownLoader
 
 docs = []
 for md_file in ["README.md", "CONTRIBUTING.md", "docs/**/*.md"]:
@@ -101,7 +104,7 @@ for md_file in ["README.md", "CONTRIBUTING.md", "docs/**/*.md"]:
 
 # RAG para responder sobre el proyecto
 qa = RetrievalQA.from_chain_type(
-    llm=Ollama(model="mistral"),
+    llm=OllamaLLM(model="mistral"),
     retriever=Chroma.from_documents(docs, embeddings).as_retriever()
 )
 ```
@@ -118,7 +121,7 @@ Framework más popular para RAG con Python.
 
 **Instalación:**
 ```bash
-pip install langchain chromadb openai
+pip install langchain langchain-classic langchain-community langchain-chroma langchain-ollama langchain-openai langchain-text-splitters chromadb
 ```
 
 ### LlamaIndex
@@ -156,8 +159,8 @@ text_splitter = RecursiveCharacterTextSplitter(
 
 ### 2. Reranking
 ```python
-from langchain.retrievers import ContextualCompressionRetriever
-from langchain.retrievers.document_compressors import LLMChainExtractor
+from langchain_classic.retrievers import ContextualCompressionRetriever
+from langchain_classic.retrievers.document_compressors import LLMChainExtractor
 
 # Usar LLM para reordenar resultados
 compressor = LLMChainExtractor.from_llm(llm)
@@ -170,7 +173,8 @@ compression_retriever = ContextualCompressionRetriever(
 ### 3. Hybrid Search
 ```python
 # Combinar búsqueda semántica con keyword search
-from langchain.retrievers import BM25Retriever, EnsembleRetriever
+from langchain_community.retrievers import BM25Retriever  # requiere rank_bm25
+from langchain_classic.retrievers import EnsembleRetriever
 
 bm25_retriever = BM25Retriever.from_documents(docs)
 ensemble_retriever = EnsembleRetriever(
@@ -183,10 +187,10 @@ ensemble_retriever = EnsembleRetriever(
 
 ### 1. Relevancia de Documentos Recuperados
 ```python
-from langchain.evaluation import RetrievalQAEvalChain
+from langchain_classic.evaluation import QAEvalChain
 
 # Evaluar calidad de retrieval
-eval_chain = RetrievalQAEvalChain.from_llm(llm)
+eval_chain = QAEvalChain.from_llm(llm)
 results = eval_chain.evaluate(
     examples=test_cases,
     predictions=predictions
@@ -198,17 +202,17 @@ results = eval_chain.evaluate(
 import time
 
 start = time.time()
-response = qa_chain.run(query)
+response = qa_chain.invoke({"query": query})
 latency = time.time() - start
 print(f"Latencia: {latency:.2f}s")
 ```
 
 ### 3. Costos
 ```python
-from langchain.callbacks import get_openai_callback
+from langchain_community.callbacks import get_openai_callback
 
 with get_openai_callback() as cb:
-    response = qa_chain.run(query)
+    response = qa_chain.invoke({"query": query})
     print(f"Tokens: {cb.total_tokens}")
     print(f"Costo: ${cb.total_cost}")
 ```
@@ -217,7 +221,6 @@ with get_openai_callback() as cb:
 
 ### Docker Compose
 ```yaml
-version: '3.8'
 services:
   rag-api:
     image: rag-service:latest
@@ -242,7 +245,7 @@ services:
     ports:
       - "8001:8000"
     volumes:
-      - chroma_data:/chroma/chroma
+      - chroma_data:/data
 
 volumes:
   ollama_data:
@@ -306,7 +309,7 @@ rag_latency = Histogram('rag_query_duration_seconds', 'RAG query duration')
 @rag_latency.time()
 def query_rag(question):
     rag_queries.inc()
-    return qa_chain.run(question)
+    return qa_chain.invoke({"query": question})
 ```
 
 ## Troubleshooting
@@ -331,8 +334,8 @@ def query_rag(question):
 
 ## Referencias
 
-- [LangChain Documentation](https://python.langchain.com/docs/get_started/introduction)
-- [LlamaIndex](https://docs.llamaindex.ai/)
+- [LangChain Documentation](https://docs.langchain.com/oss/python/langchain/quickstart)
+- [LlamaIndex](https://developers.llamaindex.ai/python/framework/)
 - [RAG Paper - Lewis et al.](https://arxiv.org/abs/2005.11401)
 - [Chroma DB](https://www.trychroma.com/)
 

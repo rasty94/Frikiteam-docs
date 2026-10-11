@@ -8,7 +8,7 @@ difficulty: expert
 estimated_time: 15 min
 category: Almacenamiento
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Un clúster Ceph funcionando"
   - "[Ceph — Guía base](ceph_base.md)"

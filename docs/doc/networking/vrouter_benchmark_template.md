@@ -7,7 +7,7 @@ difficulty: intermediate
 estimated_time: 4 min
 category: Redes
 status: published
-last_reviewed: 2026-04-18
+last_reviewed: 2026-10-11
 prerequisites:
   - "Fundamentos de redes"
   - "Conocimientos básicos de virtualización"

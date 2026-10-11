@@ -1,12 +1,12 @@
 ---
 title: "Supply Chain Security: SBOM, SLSA y Firma de Imágenes"
-updated: 2026-07-18
+updated: 2026-10-11
 tags: ['cybersecurity', 'supply-chain']
 difficulty: intermediate
 estimated_time: 6 min
 category: Ciberseguridad
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
@@ -27,7 +27,7 @@ Esta guía refuerza la seguridad end-to-end del ciclo de software: generación d
 
 ```bash
 # Generar SBOM (CycloneDX o SPDX)
-syft packages myapp:latest -o cyclonedx-json > sbom.json
+syft scan myapp:latest -o cyclonedx-json > sbom.json
 
 # Para repositorios
 syft dir:./ -o spdx-json > repo-sbom.json
@@ -46,7 +46,7 @@ grype myregistry/myapp:1.2.3 --fail-on high
 
 # Trivy contra Dockerfile y FS
 trivy image myregistry/myapp:1.2.3 --severity HIGH,CRITICAL
-trivy fs . --security-checks vuln,secret,config
+trivy fs . --scanners vuln,secret,misconfig
 ```
 
 Integración CI:
@@ -56,14 +56,14 @@ Integración CI:
 ## Firma y Verificación con Cosign (Sigstore)
 
 ```bash
-# Login OIDC y keyless
+# Autenticación contra el registro (no es el login OIDC: la firma keyless lo pide sola)
 cosign login myregistry.example.com
 
 # Firma keyless con OIDC (GitHub/GitLab/Workload Identity)
-COSIGN_EXPERIMENTAL=1 cosign sign myregistry/myapp:1.2.3
+cosign sign --yes myregistry/myapp@sha256:<digest>
 
 # Verificación (incluye identidad y provisión)
-COSIGN_EXPERIMENTAL=1 cosign verify myregistry/myapp:1.2.3 \
+cosign verify myregistry/myapp@sha256:<digest> \
   --certificate-identity "https://github.com/org/repo/.github/workflows/release.yml@refs/heads/main" \
   --certificate-oidc-issuer "https://token.actions.githubusercontent.com"
 ```
@@ -75,19 +75,19 @@ Recomendaciones:
 ## Registro en Rekor
 
 ```bash
-# Publicar artefacto firmado en transparencia log
-cosign upload blob --yes --rekor-url https://rekor.sigstore.dev signed.json
+# Firmar un artefacto suelto: la firma keyless queda registrada en Rekor
+cosign sign-blob --yes --bundle release.tar.gz.bundle release.tar.gz
 
 # Buscar evidencia
-rekor-cli search --artifact myregistry/myapp:1.2.3
+rekor-cli search --artifact release.tar.gz
 ```
 
 ## SLSA: Niveles de Garantía
 
-- SLSA 1: Origen rastreable
-- SLSA 2: Build controlado
-- SLSA 3: Builds reproducibles, aislamiento de entorno
-- SLSA 4: End-to-end hardened, verificaciones independientes
+- Build L0: sin garantías (la escala de SLSA 1.0 sustituyó a los antiguos niveles 1-4)
+- Build L1: existe provenance que describe cómo se construyó el artefacto
+- Build L2: build en una plataforma alojada que firma la provenance
+- Build L3: plataforma endurecida que aísla los builds entre sí y protege la clave de firma
 
 Guía práctica:
 - Build en entornos aislados (ephemeral runners)
@@ -99,7 +99,7 @@ Guía práctica:
 Ejemplo OPA Gatekeeper que exige firma verificada:
 
 ```yaml
-apiVersion: templates.gatekeeper.sh/v1beta1
+apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
   name: k8sverifiedimages

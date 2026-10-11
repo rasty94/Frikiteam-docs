@@ -3,12 +3,12 @@ title: "WireGuard VPN"
 description: "WireGuard en infraestructura propia: claves, servidor y clientes, enrutado y NAT, acceso remoto frente a site-to-site, operación con wg-quick y diagnóstico."
 keywords: "wireguard, vpn, wg-quick, allowedips, persistentkeepalive, nat, site-to-site, homelab, mtu"
 tags: ['linux', 'vpn', 'wireguard']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 17 min
 category: Linux
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Linux con acceso root y systemd"
   - "Direccionamiento IP y rutas básicas"
@@ -194,10 +194,10 @@ sudo wg set wg0 peer <PUBLICKEY_NUEVO> allowed-ips 10.100.0.4/32
 Eso no se guarda en el fichero (salvo con `SaveConfig`), así que añádelo también a `wg0.conf`. Si editas el fichero y quieres aplicarlo sin tumbar las conexiones existentes, `wg-quick strip` produce la configuración sin las directivas propias de `wg-quick` y `wg syncconf` la aplica:
 
 ```bash
-sudo wg syncconf wg0 <(wg-quick strip wg0)
+sudo bash -c 'wg syncconf wg0 <(wg-quick strip wg0)'
 ```
 
-`syncconf` solo cambia claves, pares y `AllowedIPs`; no toca `Address`, rutas ni `PostUp`. Si cambias esos, hay que bajar y subir la interfaz.
+`syncconf` solo aplica lo que entiende `wg` (clave privada, puerto, pares y sus `AllowedIPs`, `Endpoint`, etc.); no toca `Address`, rutas ni `PostUp`. Si cambias esos, hay que bajar y subir la interfaz.
 
 ### Revocar un acceso
 
@@ -231,7 +231,7 @@ La sede B es el espejo, con `192.168.10.0/24` en su `AllowedIPs`. Los dispositiv
 | Handshake correcto pero no hay tráfico | `AllowedIPs` no incluye la IP origen o destino | Revisa `AllowedIPs` en ambos extremos; recuerda que filtra al recibir |
 | El cliente llega al servidor pero no a la LAN | Falta `ip_forward` o la LAN no conoce la ruta de vuelta | Activa el reenvío; añade ruta estática o NAT |
 | El túnel funciona de cliente a servidor pero no al revés | Cliente tras NAT sin keepalive | Añade `PersistentKeepalive = 25` en el cliente |
-| Conexiones colgadas con páginas grandes o SSH que se congela | MTU: el encapsulado reduce el tamaño útil | Baja `MTU` en `[Interface]`; el valor por defecto de `wg-quick` suele ser 1420, pero depende del enlace |
+| Conexiones colgadas con páginas grandes o SSH que se congela | MTU: el encapsulado reduce el tamaño útil | Baja `MTU` en `[Interface]`; si no lo fijas, `wg-quick` lo calcula a partir de la interfaz de la ruta hacia el `Endpoint` (o de la ruta por defecto) |
 | `wg-quick up` falla con error de DNS o resolvconf | Línea `DNS` sin `resolvconf` ni `systemd-resolved` | Instala uno de los dos o quita `DNS` y configura el resolvedor a mano |
 | Tras `down`, los cambios y comentarios de `wg0.conf` se pierden | `SaveConfig = true` | Desactívalo y gestiona el fichero a mano o con Git |
 | Dos clientes con el mismo `AllowedIPs` y solo uno funciona | Cada IP solo puede pertenecer a un par | Asigna una `/32` única por cliente |

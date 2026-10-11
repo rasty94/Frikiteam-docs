@@ -3,12 +3,12 @@ title: "FastAPI"
 description: "Empaquetar y desplegar una API FastAPI: Dockerfile multi-stage, uvicorn/gunicorn con workers, endpoint de health para probes, proxy inverso, Quadlet y CI con GitHub Actions."
 keywords: "fastapi, uvicorn, gunicorn, dockerfile, multi-stage, healthcheck, traefik, haproxy, quadlet, github actions"
 tags: ['programming', 'api']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 21 min
 category: Desarrollo
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Python 3 y conceptos básicos de APIs HTTP"
   - "[Docker](../docker/docker_base.md) o Podman"
@@ -76,10 +76,10 @@ FastAPI es una aplicación ASGI; necesita un servidor. Las formas habituales:
 |---|---|---|
 | **uvicorn solo** | Un contenedor por réplica y el orquestador escala (Kubernetes, varias unidades Quadlet) | `uvicorn app.main:app --host 0.0.0.0 --port 8000` |
 | **uvicorn con `--workers`** | Una sola máquina o contenedor y quieres aprovechar varios núcleos | `uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4` |
-| **gunicorn con workers uvicorn** | Quieres el gestor de procesos de gunicorn (reinicio de workers, graceful timeout) | `gunicorn app.main:app -k uvicorn.workers.UvicornWorker -w 4 -b 0.0.0.0:8000` |
+| **gunicorn con workers uvicorn** | Quieres el gestor de procesos de gunicorn (reinicio de workers, graceful timeout) | `gunicorn app.main:app -k uvicorn_worker.UvicornWorker -w 4 -b 0.0.0.0:8000` |
 
 !!! warning "Dependiente de la versión"
-    La clase `uvicorn.workers.UvicornWorker` está en proceso de pasar a un paquete separado (`uvicorn-worker`). Comprueba en la documentación de tu versión de uvicorn cuál es la ruta vigente antes de fijarla en el Dockerfile.
+    El módulo `uvicorn.workers` está deprecado y se eliminará en una versión futura: la documentación de uvicorn recomienda el paquete aparte `uvicorn-worker` (`pip install uvicorn-worker`, clase `uvicorn_worker.UvicornWorker`). Comprueba la ruta vigente en tu versión antes de fijarla en el Dockerfile.
 
 Cuántos workers: el proceso es CPU-bound dentro de cada worker (el bucle de eventos es de un solo hilo), así que más workers que núcleos rara vez ayuda. Empieza con el número de núcleos asignados al contenedor y mide. Si orquestas réplicas (Kubernetes), suele ser mejor **un worker por contenedor** y escalar réplicas: los límites de CPU y memoria se aplican por contenedor y son más predecibles.
 
@@ -171,7 +171,7 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
 
 En producción la API no da la cara: la protege un proxy que termina TLS. Tres consecuencias para la app:
 
-1. **IP real del cliente.** Sin configuración, uvicorn ve la IP del proxy. Activa la lectura de cabeceras `X-Forwarded-*` y limita a qué proxies se las crees:
+1. **IP real del cliente.** Sin configuración, uvicorn ve la IP del proxy. uvicorn lee `X-Forwarded-*` por defecto (`--proxy-headers`), pero solo de IPs de confianza (por defecto `127.0.0.1` y `::1`); amplía `--forwarded-allow-ips` a tus proxies:
 
 ```bash
 uvicorn app.main:app --host 0.0.0.0 --port 8000 \
@@ -289,7 +289,7 @@ Etiqueta con la versión (`v1.2.0`), no solo con `latest`: la reproducibilidad y
 | Síntoma | Causa probable | Arreglo |
 |---|---|---|
 | Conexión rechazada desde fuera del contenedor | uvicorn escucha en `127.0.0.1` (valor por defecto) | Arrancar con `--host 0.0.0.0` |
-| Los logs muestran la IP del proxy | Faltan `--proxy-headers` y `--forwarded-allow-ips` | Activarlos limitando a las IPs del proxy |
+| Los logs muestran la IP del proxy | `--forwarded-allow-ips` no incluye la IP del proxy (por defecto solo localhost) | Ampliarlo limitando a las IPs del proxy |
 | El contenedor tarda en apagarse y acaba con `SIGKILL` | `CMD` en formato shell: la señal no llega a uvicorn | Usar formato exec (lista JSON) |
 | Reinicios en bucle cuando cae la base de datos | Liveness depende de dependencias externas | Mover esas comprobaciones al readiness |
 | 502/504 intermitentes en el proxy | Timeout del proxy menor que el de la app, o workers saturados | Alinear timeouts; revisar workers y latencia |

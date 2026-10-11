@@ -194,7 +194,7 @@ Traefik ships with k3s, is configured with CRDs (`IngressRoute`, `Middleware`) a
 For a homelab, **stick with Traefik**: it is already installed, understands standard `Ingress` and, if you later need middlewares (redirects, basic auth, rate limiting), you have them without changing controller. Its configuration and dashboard are covered in [Traefik](../traefik/traefik_base.md). To customize the Traefik that k3s ships (ports, logs, plugins) do not edit its manifests, which k3s regenerates: create a `HelmChartConfig` resource named `traefik` in the `kube-system` namespace with your `valuesContent`.
 
 !!! warning "Depends on the version"
-    The Kubernetes community's ingress-nginx project announced its retirement and a move to limited maintenance. Before choosing it for anything new, check its status in the repository. If you need a replacement, look at the other controllers and, above all, Gateway API.
+    The Kubernetes community's ingress-nginx project announced its retirement in November 2025: best-effort maintenance until March 2026 and, after that, no new releases or security fixes. Do not choose it for anything new. If you need a replacement, look at the other controllers and, above all, Gateway API.
 
 ### Gateway API: where this is heading
 

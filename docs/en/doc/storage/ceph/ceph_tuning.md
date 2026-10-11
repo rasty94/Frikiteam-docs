@@ -8,7 +8,7 @@ difficulty: expert
 estimated_time: 15 min
 category: Storage
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "A working Ceph cluster"
   - "[Ceph — Base Guide](ceph_base.md)"

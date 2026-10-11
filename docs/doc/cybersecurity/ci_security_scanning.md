@@ -1,12 +1,12 @@
 ---
 title: "CI Security Scanning: SAST, DAST y Contenedores"
-updated: 2026-07-18
+updated: 2026-10-11
 tags: ['cybersecurity', 'ci-cd', 'devsecops', 'containers', 'vulnerability-scanning']
 difficulty: intermediate
 estimated_time: 5 min
 category: Ciberseguridad
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
@@ -33,46 +33,45 @@ on:
 jobs:
   sast:
     runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
     steps:
-      - uses: actions/checkout@v4
-      - uses: semgrep/semgrep-action@v1
-        with:
-          config: "p/ci"
-          generateSarif: true
-      - uses: github/codeql-action/upload-sarif@v3
+      - uses: actions/checkout@v7
+      - run: semgrep scan --config p/ci --sarif --output semgrep.sarif
+      - uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: semgrep.sarif
 
   containers:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Build image
         run: docker build -t myapp:${{ github.sha }} .
       - name: Trivy scan
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: myapp:${{ github.sha }}
           severity: HIGH,CRITICAL
           format: sarif
           output: trivy.sarif
-      - uses: github/codeql-action/upload-sarif@v3
+      - uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: trivy.sarif
 
   iac:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Checkov IaC scan
         uses: bridgecrewio/checkov-action@v12
         with:
           directory: .
           output_format: sarif
-          output_file_path: checkov.sarif
-      - uses: github/codeql-action/upload-sarif@v3
+          output_file_path: checkov-results
+      - uses: github/codeql-action/upload-sarif@v4
         with:
-          sarif_file: checkov.sarif
+          sarif_file: checkov-results
 ```
 {% endraw %}
 
@@ -84,7 +83,7 @@ jobs:
 ## DAST con OWASP ZAP
 
 ```bash
-docker run -t owasp/zap2docker-stable zap-baseline.py \
+docker run -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
   -t https://staging.myapp.example.com \
   -r zap-report.html --minlevel WARN
 ```

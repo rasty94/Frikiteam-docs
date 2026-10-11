@@ -3,12 +3,12 @@ title: "Seguridad SSH"
 description: "Endurecer OpenSSH en servidores y homelabs: claves ed25519, sshd_config, Match, jump hosts, certificados SSH y fail2ban."
 keywords: "ssh, sshd_config, openssh, ed25519, ssh-keygen, certificados ssh, fail2ban, ProxyJump, hardening, homelab"
 tags: ['linux', 'hardening']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 16 min
 category: Linux
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Servidor Linux con OpenSSH instalado y acceso por consola alternativo"
   - "Conocimientos básicos de usuarios y permisos Linux"
@@ -113,7 +113,7 @@ X11Forwarding no
 - **`X11Forwarding no`**: sin motivo para tenerlo en un servidor.
 
 !!! warning "Dependiente de la versión"
-    El nombre `KbdInteractiveAuthentication` es el actual en versiones recientes de OpenSSH; en las más antiguas se llamaba `ChallengeResponseAuthentication`. Comprueba con `man sshd_config` cuál reconoce tu versión; una directiva desconocida hace fallar `sshd -t`.
+    El nombre `KbdInteractiveAuthentication` es el actual en versiones recientes de OpenSSH; en las más antiguas (antes de OpenSSH 8.7) se llamaba `ChallengeResponseAuthentication`, que hoy sigue como alias obsoleto. Comprueba con `man sshd_config` cuál reconoce tu versión; una directiva desconocida hace fallar `sshd -t`.
 
 Aplica el cambio sin cortar las sesiones existentes:
 
@@ -212,7 +212,7 @@ bantime = 3600
 
 - Los cambios van en `jail.local`, nunca en `jail.conf`, que un paquete puede sobrescribir.
 - Si cambiaste el puerto de SSH, `port` debe reflejarlo.
-- `logpath` depende de la distribución: en sistemas que solo usan el journal puede no existir `/var/log/auth.log`. En ese caso, consulta la documentación de fail2ban sobre el *backend* `systemd`.
+- `logpath` depende de la distribución: en sistemas que solo usan el journal puede no existir `/var/log/auth.log`. En ese caso, usa `backend = systemd` (y quita `logpath`); consulta la documentación de fail2ban.
 
 Para aplicar y comprobar:
 
@@ -265,6 +265,6 @@ Para depurar desde el cliente, `ssh -v usuario@host` (más `v` para más detalle
 
 - [sshd_config(5)](https://man.openbsd.org/sshd_config) · [ssh_config(5)](https://man.openbsd.org/ssh_config)
 - [ssh-keygen(1)](https://man.openbsd.org/ssh-keygen) — claves y certificados
-- [Documentación de fail2ban](https://github.com/fail2ban/fail2ban)
+- [Documentación de fail2ban](https://github.com/fail2ban/fail2ban/wiki)
 - [Hardening de Linux](../cybersecurity/hardening_linux.md) · [nftables y fail2ban](../cybersecurity/nftables_fail2ban.md)
 - [Systemd](systemd.md) · [WireGuard](wireguard.md)

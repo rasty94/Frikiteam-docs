@@ -3,12 +3,12 @@ title: "VyOS (automation-first virtual router)"
 description: "VyOS as a virtual router in a homelab or lab: deployment, base configuration with NAT and firewall, BGP/OSPF, commit/rollback and configuration as code."
 keywords: "vyos, vrouter, bgp, ospf, nat, firewall, commit, rollback, ansible, gitops, homelab"
 tags: ['networking', 'vrouter', 'automation']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 16 min
 category: Networking
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Networking fundamentals"
   - "Basic virtualization knowledge"
@@ -54,8 +54,8 @@ If what you want is a firewall with a web interface and browsable rule lists, [O
 ## Recommended deployment
 
 - 2+ vNICs depending on design
-- CPU: 2+ vCPU, RAM: 2-4 GB
-- Disk: 8 GB+
+- CPU: 2+ vCPU, RAM: 4 GB
+- Disk: 10 GB+
 
 A practical interface layout for a home lab:
 
@@ -65,7 +65,7 @@ A practical interface layout for a home lab:
 | `eth1` | LAN or VLAN trunk | Internal addressing; `vif` subinterfaces for VLANs |
 | `eth2` (optional) | Management | Administration network separate from data traffic |
 
-On Proxmox, each vNIC connects to a different bridge (`vmbr0` towards the WAN, `vmbr1` towards the LAN). Use a paravirtualized network driver (VirtIO) and check that the LAN bridge has no gateway of its own competing with the router. The live installation image is used to install to disk with the `install image` command; rolling releases are published daily and stable ones require a subscription or your own build, so check which channel you use before depending on it in production.
+On Proxmox, each vNIC connects to a different bridge (`vmbr0` towards the WAN, `vmbr1` towards the LAN). Use a paravirtualized network driver (VirtIO) and check that the LAN bridge has no gateway of its own competing with the router. The live installation image is used to install to disk with the `install image` command; rolling releases can be downloaded freely and stable (LTS) ones require a subscription or your own build (the documented minimum requirements are 4 GB of RAM and 10 GB of disk), so check which channel you use before depending on it in production.
 
 ## How you work: configure, commit, save
 
@@ -169,14 +169,14 @@ commit
 `passive` avoids sending OSPF advertisements to interfaces where there is no other router. And BGP, for example for a peering with your provider or another lab:
 
 ```bash
-set protocols bgp system-as-number '65001'
+set protocols bgp system-as '65001'
 set protocols bgp neighbor 192.0.2.2 remote-as '65002'
 set protocols bgp neighbor 192.0.2.2 address-family ipv4-unicast
 set protocols bgp address-family ipv4-unicast network '192.168.10.0/24'
 commit
 ```
 
-The way of declaring the autonomous system changed between versions (there are releases where the AS is part of the `bgp` node itself instead of `system-as-number`), so verify with your version. To understand the AS number scheme, private ranges and basic concepts, read [ASN and BGP](asn_bgp.md). In a homelab, use AS numbers from the private range and always filter what you announce and what you accept using allowed prefixes, even with trusted neighbors.
+The local AS is declared with `system-as` (not `system-as-number`); the VyOS documentation does not compare versions for this node, so verify with yours. To understand the AS number scheme, private ranges and basic concepts, read [ASN and BGP](asn_bgp.md). In a homelab, use AS numbers from the private range and always filter what you announce and what you accept using allowed prefixes, even with trusted neighbors.
 
 Operational commands to check status:
 

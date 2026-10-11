@@ -3,12 +3,12 @@ title: "Ceph Troubleshooting: Common Issues and Solutions"
 tags: ['storage', 'ceph']
 description: "Comprehensive guide to diagnose and fix common Ceph problems. OSDs down, PG issues, slow operations, and cluster health recovery."
 keywords: Ceph, troubleshooting, debugging, OSD down, PG stuck, slow ops, cluster health, recovery, ceph health
-updated: 2026-07-18
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 31 min
 category: Storage
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Basic DevOps knowledge"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -77,9 +77,9 @@ done
 # 1. Add more OSDs
 ceph orch daemon add osd <host>:<device>
 
-# 2. Temporarily adjust thresholds
+# 2. Temporarily adjust thresholds (must satisfy nearfull < backfillfull < full)
 ceph osd set-full-ratio 0.95
-ceph osd set-nearfull-ratio 0.90
+ceph osd set-nearfull-ratio 0.88
 
 # 3. Remove unnecessary data
 # Delete old snapshots
@@ -106,7 +106,7 @@ $ ceph -s
 # Identify the OSDs that are down
 ceph osd tree | grep down
 
-# Find out why they are down
+# Find out why they are down (with cephadm the unit is ceph-<fsid>@osd.5)
 systemctl status ceph-osd@5
 journalctl -u ceph-osd@5 -n 100
 
@@ -229,6 +229,9 @@ ceph tell 'osd.*' injectargs '--osd-recovery-max-active 4'
 ceph tell 'osd.*' injectargs '--osd-max-backfills 1'
 ceph tell 'osd.*' injectargs '--osd-recovery-max-active 3'
 ```
+
+!!! warning "Version dependent: mClock"
+    With the mClock scheduler (the default in recent releases), `osd_max_backfills` and `osd_recovery_max_active` cannot be changed with `injectargs` unless `osd_mclock_override_recovery_settings` is `true`, and `osd_recovery_sleep_hdd` is disabled. Check what applies in your version with `ceph config help <option>`.
 
 ## ⚡ Performance Problems
 
@@ -390,7 +393,7 @@ ceph config set mon mon_allow_pool_delete false
 ```bash
 # Check the image
 rbd info <pool>/<image>
-rbd check <pool>/<image>
+rbd object-map check <pool>/<image>
 
 # List the snapshots
 rbd snap ls <pool>/<image>
@@ -399,10 +402,10 @@ rbd snap ls <pool>/<image>
 **Solution**:
 
 ```bash
-# Try a repair
-rbd repair <pool>/<image>
+# Rebuild the object map if it is invalid
+rbd object-map rebuild <pool>/<image>
 
-# If there are snapshots, flatten the image
+# If the image is a clone, flatten it (only applies to clones)
 rbd flatten <pool>/<image>
 
 # Restore from a valid snapshot
@@ -456,7 +459,7 @@ ceph mon stat
 # If more than 50% of the MONs are UP, wait for them to form a quorum
 
 # If you have lost the majority, recover manually:
-# On the surviving MON:
+# On the surviving MON, with its daemon stopped (extract-monmap requires it):
 ceph-mon -i <mon-id> --extract-monmap /tmp/monmap
 monmaptool --print /tmp/monmap
 
@@ -494,7 +497,7 @@ echo -e "\n=== Pool Usage ==="
 ceph df
 
 echo -e "\n=== Slow Ops ==="
-ceph daemon osd.* dump_historic_slow_ops | grep -A5 "slow_ops"
+ceph health detail | grep -i "slow ops"   # ceph daemon does not accept wildcards
 
 echo -e "\n=== Network Check ==="
 ceph tell mon.* version

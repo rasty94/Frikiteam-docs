@@ -1,12 +1,12 @@
 ---
 title: "Zero Trust in Practice"
-updated: 2026-07-18
+updated: 2026-10-11
 tags: ['cybersecurity', 'zero-trust', 'encryption', 'identity', 'devsecops', 'kubernetes']
 difficulty: intermediate
 estimated_time: 6 min
 category: Cybersecurity
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
@@ -26,30 +26,31 @@ Roll out strong identities, mTLS, least-privilege access control and continuous 
 
 ```bash
 # Install SPIRE Server/Agent (official Helm chart)
-helm repo add spiffe https://spiffe.github.io/helm-charts
-helm install spire spiffe/spire -n spire --create-namespace
+helm repo add spiffe https://spiffe.github.io/helm-charts-hardened/
+helm upgrade --install spire-crds spiffe/spire-crds -n spire-server --create-namespace
+helm upgrade --install spire spiffe/spire -n spire-server
 
 # Example of a SPIFFE ID issued to a deployment
+{% raw %}
 kubectl apply -f - <<'EOF'
 apiVersion: spire.spiffe.io/v1alpha1
-kind: SpiffeID
+kind: ClusterSPIFFEID
 metadata:
   name: api-frontend
-  namespace: default
 spec:
-  spiffeId: spiffe://example.org/ns/default/sa/api-frontend
-  parentId: spiffe://example.org/spire/server
-  selector:
+  spiffeIDTemplate: "spiffe://example.org/ns/{{ .PodMeta.Namespace }}/sa/{{ .PodSpec.ServiceAccountName }}"
+  podSelector:
     matchLabels:
       app: api-frontend
 EOF
+{% endraw %}
 ```
 
 ## mTLS with a Service Mesh (Istio)
 
 ```yaml
 # Strict mTLS policy in the "prod" namespace
-apiVersion: security.istio.io/v1beta1
+apiVersion: security.istio.io/v1
 kind: PeerAuthentication
 metadata:
   name: default
@@ -61,7 +62,7 @@ spec:
 
 ```yaml
 # Least-privilege AuthorizationPolicy
-apiVersion: security.istio.io/v1beta1
+apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
   name: allow-frontend-to-api
@@ -111,6 +112,7 @@ spec:
 ## Admission Policies (OPA Gatekeeper)
 
 ```yaml
+# Requires the K8sRequireLabels ConstraintTemplate (Gatekeeper library)
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sRequireLabels
 metadata:
@@ -126,7 +128,7 @@ spec:
 
 ## Continuous Posture
 - Scan images and manifests (Trivy, Checkov)
-- Review RBAC periodically (rbacker/ rbac-police)
+- Review RBAC periodically (rbac-police)
 - Detect drift against a baseline (Kyverno policies in audit/enforce mode)
 
 ## Quick Checklist

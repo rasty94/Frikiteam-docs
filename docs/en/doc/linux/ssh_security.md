@@ -3,12 +3,12 @@ title: "SSH Security"
 description: "Hardening OpenSSH on servers and homelabs: ed25519 keys, sshd_config, Match, jump hosts, SSH certificates and fail2ban."
 keywords: "ssh, sshd_config, openssh, ed25519, ssh-keygen, ssh certificates, fail2ban, ProxyJump, hardening, homelab"
 tags: ['linux', 'hardening']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 16 min
 category: Linux
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Linux server with OpenSSH installed and an alternative console access"
   - "Basic knowledge of Linux users and permissions"
@@ -113,7 +113,7 @@ X11Forwarding no
 - **`X11Forwarding no`**: no reason to have it on a server.
 
 !!! warning "Version dependent"
-    The name `KbdInteractiveAuthentication` is the current one in recent OpenSSH versions; older ones called it `ChallengeResponseAuthentication`. Check with `man sshd_config` which one your version recognises; an unknown directive makes `sshd -t` fail.
+    The name `KbdInteractiveAuthentication` is the current one in recent OpenSSH versions; older ones (before OpenSSH 8.7) called it `ChallengeResponseAuthentication`, which survives today as a deprecated alias. Check with `man sshd_config` which one your version recognises; an unknown directive makes `sshd -t` fail.
 
 Apply the change without cutting existing sessions:
 
@@ -212,7 +212,7 @@ bantime = 3600
 
 - Changes go in `jail.local`, never in `jail.conf`, which a package may overwrite.
 - If you changed the SSH port, `port` must reflect it.
-- `logpath` depends on the distribution: on systems that only use the journal `/var/log/auth.log` may not exist. In that case, check fail2ban's documentation on the `systemd` *backend*.
+- `logpath` depends on the distribution: on systems that only use the journal `/var/log/auth.log` may not exist. In that case, use `backend = systemd` (and drop `logpath`); check fail2ban's documentation.
 
 To apply and check:
 
@@ -265,6 +265,6 @@ To debug from the client, `ssh -v user@host` (more `v` for more detail) shows wh
 
 - [sshd_config(5)](https://man.openbsd.org/sshd_config) · [ssh_config(5)](https://man.openbsd.org/ssh_config)
 - [ssh-keygen(1)](https://man.openbsd.org/ssh-keygen) — keys and certificates
-- [fail2ban documentation](https://github.com/fail2ban/fail2ban)
+- [fail2ban documentation](https://github.com/fail2ban/fail2ban/wiki)
 - [Linux hardening](../cybersecurity/hardening_linux.md) · [nftables and fail2ban](../cybersecurity/nftables_fail2ban.md)
 - [Systemd](systemd.md) · [WireGuard](wireguard.md)

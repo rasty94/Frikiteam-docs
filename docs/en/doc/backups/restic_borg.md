@@ -3,12 +3,12 @@ title: "Agnostic Backups: Restic and Borg"
 description: "File backup with deduplication and encryption on any Linux: choosing between restic and borg, local and remote repositories (SFTP, S3, rest-server), retention, verification, systemd automation and restores that actually work."
 keywords: "restic, borg, borgbackup, backup, deduplication, encryption, sftp, s3, rest-server, prune, forget, systemd timer, restore"
 tags: ['backups', 'linux']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 20 min
 category: Backups
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Linux shell and SSH with keys"
   - "Basic systemd (units, timers, journalctl)"
@@ -273,7 +273,7 @@ Concurrency settings and how restic coexists with a Ceph cluster are covered in 
 command="borg serve --restrict-to-repository /srv/borg/servidor-web --append-only",restrict ssh-ed25519 AAAA... backup@servidor-web
 ```
 
-That key can only run `borg serve` on that repository and can only append. The full reasoning, and why append-only is the defense that really matters against ransomware, is in [Secure backup](../cybersecurity/backup_seguro.md).
+That key can only run `borg serve` on that repository, in append-only mode: committed data is never overwritten or deleted (`prune` and `delete` are still allowed, but only mark data; space is not freed without `borg compact`). Run `prune` and `compact` from the trusted side. The full reasoning, and why append-only is the defense that really matters against ransomware, is in [Secure backup](../cybersecurity/backup_seguro.md).
 
 ## Automating with systemd
 
@@ -328,7 +328,7 @@ Copying the data files of a running database produces an inconsistent backup tha
 pg_dump -Fc mi_base | restic backup --stdin --stdin-filename mi_base.dump --tag postgres
 ```
 
-Borg has the equivalent in `borg create` with `-` as the path (it reads from stdin). Deduplication works on dumps too: an uncompressed *custom*-format `pg_dump` deduplicates much better than a compressed one, because compression destroys the matches between versions. Let the backup tool compress. PostgreSQL backups in Docker are detailed in [PostgreSQL](../databases/postgres.md).
+Borg has the equivalent in `borg create` with `-` as the path (it reads from stdin). With a pipe, if `pg_dump` fails the tool cannot tell and may store a truncated dump: the documentation recommends `--stdin-from-command` (restic) and `--content-from-command` (borg). Deduplication works on dumps too: an uncompressed *custom*-format `pg_dump` deduplicates much better than a compressed one, because compression destroys the matches between versions. Let the backup tool compress. PostgreSQL backups in Docker are detailed in [PostgreSQL](../databases/postgres.md).
 
 For container volumes, the most robust approach is to copy the volume directory from the host (`/var/lib/docker/volumes/<name>/_data`, or the bind mount path) with the container stopped or the application in a consistent state. A container with the database inside follows the rule above: dump, not files.
 
@@ -345,7 +345,7 @@ Virtual machines are a different problem: a file backup inside the VM does not r
 | `borg: command not found` when connecting over SSH | borg not installed on the remote server, or outside the `PATH` of non-interactive sessions | Install it; if it is in an odd location, `BORG_REMOTE_PATH` |
 | Very slow backup the first time over S3 | Normal: everything is new. Later runs only upload new blocks | Limit with `--limit-upload` if it saturates the network |
 | The timer did not run on time | Machine was off; without `Persistent=true` it is not recovered | Add `Persistent=true` and check `systemctl list-timers` |
-| `restic check` warns about *pack files* without index | Backup interrupted midway | `restic rebuild-index` and repeat `check`; if it persists, do not ignore it |
+| `restic check` warns about *pack files* without index | Backup interrupted midway | `restic repair index` and repeat `check`; if it persists, do not ignore it |
 | Restores files as `root:root` instead of the original owner | Restore run without privileges | Restore as root, or consciously accept the loss of ownership |
 
 Wrong-passphrase errors are unmistakable in both tools and have no technical fix: the only question is where you stored the copy of the key.

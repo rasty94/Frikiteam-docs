@@ -8,7 +8,7 @@ difficulty: intermediate
 estimated_time: 17 min
 category: Networking
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "SSH access to two test nodes"
   - "Networking fundamentals (TCP, MTU, latency)"

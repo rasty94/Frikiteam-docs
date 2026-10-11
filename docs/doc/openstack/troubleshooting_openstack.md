@@ -3,12 +3,12 @@ title: "OpenStack Troubleshooting: Common Issues and Solutions"
 tags: ['openstack']
 description: "Comprehensive troubleshooting guide for OpenStack. Diagnose and fix common problems with Nova, Neutron, Cinder, Glance, and more."
 keywords: OpenStack, troubleshooting, debugging, errors, Nova, Neutron, Cinder, Glance, Keystone, logs, diagnostics
-updated: 2026-07-18
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 38 min
 category: Cloud Computing
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Conocimientos básicos de DevOps"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -175,7 +175,7 @@ openstack hypervisor list
 openstack hypervisor show <id>
 
 # Verificar recursos disponibles
-openstack hypervisor stats show
+openstack hypervisor stats show   # retirado en la microversión 2.88 de Nova; en releases recientes usa openstack resource provider usage show
 
 # Verificar estado de compute services
 openstack compute service list
@@ -189,7 +189,7 @@ docker logs nova_scheduler | grep -i "no valid host"
 1. **Recursos insuficientes**:
 ```bash
 # Ver recursos
-openstack hypervisor stats show
+openstack hypervisor stats show   # retirado en la microversión 2.88 de Nova; en releases recientes usa openstack resource provider usage show
 
 # Output:
 # +----------------------+-------+
@@ -235,12 +235,12 @@ docker restart nova_compute
 3. **Filtros de placement demasiado restrictivos**:
 ```bash
 # Ver filtros activos
-docker exec nova_scheduler grep scheduler_default_filters /etc/nova/nova.conf
+docker exec nova_scheduler grep enabled_filters /etc/nova/nova.conf
 
 # Deshabilitar filtros temporalmente (solo para debug)
 # Editar /etc/kolla/config/nova/nova-scheduler.conf:
 [filter_scheduler]
-enabled_filters = RetryFilter,AvailabilityZoneFilter,ComputeFilter
+enabled_filters = AvailabilityZoneFilter,ComputeFilter
 
 # Reconfigura
 kolla-ansible -i /etc/kolla/multinode reconfigure --tags nova
@@ -361,8 +361,8 @@ docker restart neutron_l3_agent
 docker restart neutron_openvswitch_agent
 
 # 2. Recrear ports DHCP
-neutron dhcp-agent-network-remove <dhcp-agent-id> <network-id>
-neutron dhcp-agent-network-add <dhcp-agent-id> <network-id>
+openstack network agent remove network --dhcp <dhcp-agent-id> <network-id>
+openstack network agent add network --dhcp <dhcp-agent-id> <network-id>
 
 # 3. Verificar configuración de red externa
 openstack network show public1 --fit-width
@@ -523,7 +523,7 @@ Volumen no se adjunta a la instancia.
 openstack volume show <volume-id>
 
 # Ver conexiones
-docker exec cinder_volume cinder-manage volume list
+openstack volume show <volume-id> -c attachments
 
 # Logs de nova-compute
 docker logs nova_compute | grep <volume-id>
@@ -642,7 +642,7 @@ docker logs heat_engine
 openstack stack template show <stack-name> > /tmp/template.yaml
 
 # Validar sintaxis
-heat template-validate -f /tmp/template.yaml
+openstack orchestration template validate -t /tmp/template.yaml
 
 # Recrear stack
 openstack stack delete <stack-name>
@@ -734,7 +734,6 @@ Editar `/etc/kolla/config/<servicio>/<servicio>.conf`:
 ```ini
 [DEFAULT]
 debug = True
-verbose = True
 log_date_format = %Y-%m-%d %H:%M:%S
 ```
 

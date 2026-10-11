@@ -3,12 +3,12 @@ title: "Systemd: Gestión de Servicios"
 description: "Units, timers, drop-ins, sandboxing y journalctl en systemd: cómo ejecutar, supervisar y endurecer servicios propios en un servidor o homelab Linux."
 keywords: "systemd, systemctl, journalctl, unit, timer, drop-in, sandboxing, systemd-analyze, servicio, homelab"
 tags: ['linux', 'systemd']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 20 min
 category: Linux
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Terminal Linux con permisos de sudo"
   - "Conocimientos básicos de procesos y usuarios Linux"
@@ -51,8 +51,8 @@ Las units viven en tres sitios, de menor a mayor prioridad:
 | Ruta | Quién la gestiona | Para qué |
 |------|-------------------|----------|
 | `/usr/lib/systemd/system/` | El paquete de la distro | Units del sistema; no se editan a mano |
-| `/etc/systemd/system/` | Tú | Units propias y *overrides* de las del paquete |
 | `/run/systemd/system/` | Systemd, en tiempo de ejecución | Units transitorias, desaparecen al reiniciar |
+| `/etc/systemd/system/` | Tú | Units propias y *overrides* de las del paquete |
 
 Systemd lee los ficheros al arrancar o en `daemon-reload`, no cada vez que consultas el estado. Editar una unit sin recargar no cambia nada: `systemctl status` avisa de que la unit ha cambiado en disco.
 
@@ -81,7 +81,7 @@ Qué hace cada bloque:
 - **`[Service]`**: cómo se ejecuta el proceso. `Type=simple` asume que `ExecStart` es el proceso principal y se queda en primer plano; es lo correcto para casi cualquier script o binario que no haga *fork* a segundo plano. `User=` evita que corra como root.
 - **`[Install]`**: qué ocurre con `systemctl enable`. `WantedBy=multi-user.target` lo engancha al arranque normal de un servidor.
 
-`ExecStart` exige **ruta absoluta** al ejecutable. No hay `PATH` de shell ni expansión de `~`, pipes o redirecciones: si necesitas una shell, invócala de forma explícita con `/bin/sh -c '...'`.
+`ExecStart` espera **ruta absoluta** al ejecutable (systemd admite también un nombre simple sin barras, que busca en `/usr/bin` y similares; con la ruta absoluta no hay ambigüedad). No hay `PATH` de shell ni expansión de `~`, pipes o redirecciones: si necesitas una shell, invócala de forma explícita con `/bin/sh -c '...'`.
 
 Para pasar variables sin escribirlas en la unit, apunta a un fichero de entorno:
 
@@ -292,10 +292,10 @@ Para medir cuánto expone una unit, systemd incluye un analizador:
 systemd-analyze security mi-servicio
 ```
 
-Muestra una tabla con cada directiva evaluada y una puntuación global de exposición, de `UNSAFE` a `SAFE`. No pretende llegar a cero: sirve para ver qué falta y comparar antes y después. El detalle exacto de la salida y de las directivas disponibles depende de la versión de systemd instalada, así que contrasta con `man systemd.exec` en tu sistema.
+Muestra una tabla con cada directiva evaluada y una puntuación global de exposición de 0.0 a 10.0 (más alta, menos aislamiento) con una etiqueta como `OK` o `UNSAFE`. No pretende llegar a cero: sirve para ver qué falta y comparar antes y después. El detalle exacto de la salida y de las directivas disponibles depende de la versión de systemd instalada, así que contrasta con `man systemd.exec` en tu sistema.
 
 !!! warning "Dependiente de la versión"
-    Algunas directivas de sandboxing (por ejemplo, las de filtrado de llamadas al sistema como `SystemCallFilter=`, o `ProtectProc=`) han ido apareciendo en versiones concretas. Una directiva desconocida se ignora con un aviso en el journal, así que activarla no garantiza que esté haciendo algo.
+    Algunas directivas de sandboxing (por ejemplo, las de filtrado de llamadas al sistema como `SystemCallFilter=`, o `ProtectProc=`, añadida en systemd 247) han ido apareciendo en versiones concretas. Una directiva desconocida se ignora con un aviso en el journal, así que activarla no garantiza que esté haciendo algo.
 
 El mismo enfoque de mínimo privilegio aplica a todo el sistema; ver [hardening de Linux](../cybersecurity/hardening_linux.md).
 

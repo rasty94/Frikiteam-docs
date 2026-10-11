@@ -8,7 +8,7 @@ difficulty: intermediate
 estimated_time: 21 min
 category: Bases de Datos
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Docker o Podman instalado"
   - "[Docker Base](../docker/docker_base.md)"

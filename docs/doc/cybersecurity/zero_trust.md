@@ -1,12 +1,12 @@
 ---
 title: "Zero Trust en Práctica"
-updated: 2026-07-18
+updated: 2026-10-11
 tags: ['cybersecurity', 'zero-trust', 'encryption', 'identity', 'devsecops', 'kubernetes']
 difficulty: intermediate
 estimated_time: 6 min
 category: Ciberseguridad
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
@@ -26,30 +26,31 @@ Implementa identidades fuertes, mTLS, control de acceso mínimo y validación co
 
 ```bash
 # Instalar SPIRE Server/Agent (Helm chart oficial)
-helm repo add spiffe https://spiffe.github.io/helm-charts
-helm install spire spiffe/spire -n spire --create-namespace
+helm repo add spiffe https://spiffe.github.io/helm-charts-hardened/
+helm upgrade --install spire-crds spiffe/spire-crds -n spire-server --create-namespace
+helm upgrade --install spire spiffe/spire -n spire-server
 
 # Ejemplo de SPIFFE ID emitido a un deployment
+{% raw %}
 kubectl apply -f - <<'EOF'
 apiVersion: spire.spiffe.io/v1alpha1
-kind: SpiffeID
+kind: ClusterSPIFFEID
 metadata:
   name: api-frontend
-  namespace: default
 spec:
-  spiffeId: spiffe://example.org/ns/default/sa/api-frontend
-  parentId: spiffe://example.org/spire/server
-  selector:
+  spiffeIDTemplate: "spiffe://example.org/ns/{{ .PodMeta.Namespace }}/sa/{{ .PodSpec.ServiceAccountName }}"
+  podSelector:
     matchLabels:
       app: api-frontend
 EOF
+{% endraw %}
 ```
 
 ## mTLS con Service Mesh (Istio)
 
 ```yaml
 # Política mTLS estricta en namespace "prod"
-apiVersion: security.istio.io/v1beta1
+apiVersion: security.istio.io/v1
 kind: PeerAuthentication
 metadata:
   name: default
@@ -61,7 +62,7 @@ spec:
 
 ```yaml
 # AuthorizationPolicy de menor privilegio
-apiVersion: security.istio.io/v1beta1
+apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
   name: allow-frontend-to-api
@@ -111,6 +112,7 @@ spec:
 ## Políticas de Admisión (OPA Gatekeeper)
 
 ```yaml
+# Requiere la ConstraintTemplate K8sRequireLabels (librería de Gatekeeper)
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sRequireLabels
 metadata:
@@ -126,7 +128,7 @@ spec:
 
 ## Postura Continua
 - Escaneo de imágenes y manifiestos (Trivy, Checkov)
-- Revisiones periódicas de RBAC (rbacker/ rbac-police)
+- Revisiones periódicas de RBAC (rbac-police)
 - Detección de drift y baseline (Kyverno policies en modo audit/enforce)
 
 ## Checklist Rápido

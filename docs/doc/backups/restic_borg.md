@@ -3,12 +3,12 @@ title: "Backups Agnósticos: Restic y Borg"
 description: "Backup de ficheros con deduplicación y cifrado en cualquier Linux: elegir entre restic y borg, repositorios locales y remotos (SFTP, S3, rest-server), retención, verificación, automatización con systemd y restauraciones que funcionan."
 keywords: "restic, borg, borgbackup, backup, deduplicación, cifrado, sftp, s3, rest-server, prune, forget, systemd timer, restore"
 tags: ['backups', 'linux']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 20 min
 category: Copias de Seguridad
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Shell de Linux y SSH con claves"
   - "systemd básico (units, timers, journalctl)"
@@ -273,7 +273,7 @@ Los ajustes de concurrencia y la convivencia de restic con un clúster Ceph se t
 command="borg serve --restrict-to-repository /srv/borg/servidor-web --append-only",restrict ssh-ed25519 AAAA... backup@servidor-web
 ```
 
-Esa clave solo puede ejecutar `borg serve` sobre ese repositorio y solo añadir. El razonamiento completo, y por qué el append-only es la defensa que de verdad importa frente a ransomware, está en [Backup seguro](../cybersecurity/backup_seguro.md).
+Esa clave solo puede ejecutar `borg serve` sobre ese repositorio, en modo append-only: no se sobrescriben ni borran datos ya confirmados (`prune` y `delete` siguen permitidos, pero solo marcan; el espacio no se libera sin `borg compact`). Ejecuta `prune` y `compact` desde el lado de confianza. El razonamiento completo, y por qué el append-only es la defensa que de verdad importa frente a ransomware, está en [Backup seguro](../cybersecurity/backup_seguro.md).
 
 ## Automatizar con systemd
 
@@ -328,7 +328,7 @@ Copiar los ficheros de datos de una base de datos en marcha produce un backup in
 pg_dump -Fc mi_base | restic backup --stdin --stdin-filename mi_base.dump --tag postgres
 ```
 
-Borg tiene el equivalente en `borg create` con `-` como path (lee de stdin). La deduplicación funciona también sobre volcados: un `pg_dump` en formato *custom* sin comprimir deduplica mucho mejor que uno comprimido, porque la compresión destruye las coincidencias entre versiones. Deja que comprima la herramienta de backup. Los backups de PostgreSQL en Docker se detallan en [PostgreSQL](../databases/postgres.md).
+Borg tiene el equivalente en `borg create` con `-` como path (lee de stdin). Con una tubería, si `pg_dump` falla la herramienta no lo detecta y puede guardar un volcado truncado: la documentación recomienda `--stdin-from-command` (restic) y `--content-from-command` (borg). La deduplicación funciona también sobre volcados: un `pg_dump` en formato *custom* sin comprimir deduplica mucho mejor que uno comprimido, porque la compresión destruye las coincidencias entre versiones. Deja que comprima la herramienta de backup. Los backups de PostgreSQL en Docker se detallan en [PostgreSQL](../databases/postgres.md).
 
 Para volúmenes de contenedores, lo más robusto es copiar desde el host el directorio del volumen (`/var/lib/docker/volumes/<nombre>/_data`, o la ruta del bind mount) con el contenedor parado o con la aplicación en un estado consistente. Un contenedor con la base de datos dentro sigue la regla anterior: volcado, no ficheros.
 
@@ -345,7 +345,7 @@ Las máquinas virtuales son otro problema: un backup de ficheros dentro de la VM
 | `borg: command not found` al conectar por SSH | borg no instalado en el servidor remoto, o fuera del `PATH` de sesiones no interactivas | Instalarlo; si está en una ruta rara, `BORG_REMOTE_PATH` |
 | Backup muy lento la primera vez por S3 | Normal: todo es nuevo. Las siguientes solo suben bloques nuevos | Limitar con `--limit-upload` si satura la red |
 | El timer no se ejecutó a su hora | Máquina apagada; sin `Persistent=true` no se recupera | Añadir `Persistent=true` y revisar `systemctl list-timers` |
-| `restic check` avisa de *pack files* sin índice | Backup interrumpido a mitad | `restic rebuild-index` y repetir `check`; si persiste, no ignorarlo |
+| `restic check` avisa de *pack files* sin índice | Backup interrumpido a mitad | `restic repair index` y repetir `check`; si persiste, no ignorarlo |
 | Restaura ficheros con `root:root` en vez del dueño original | Restauración ejecutada sin privilegios | Restaurar como root, o aceptar la pérdida de propietario conscientemente |
 
 Los errores de passphrase incorrecta son inequívocos en ambas herramientas y no tienen arreglo técnico: la única pregunta es dónde guardaste la copia de la clave.

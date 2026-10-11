@@ -3,12 +3,12 @@ title: "3-2-1 Backup Strategy"
 description: "Design a backup plan for self-hosted infrastructure with the 3-2-1 rule: what counts as a copy, what counts as a different medium, how to choose RPO, RTO and retention, and how to build it with PBS, restic and object storage."
 keywords: "backup, 3-2-1, 3-2-1-1-0, RPO, RTO, retention, offsite, restic, PBS, homelab, recovery"
 tags: ['backups', 'best-practices']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 18 min
 category: Backups
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Basic DevOps knowledge"
   - "Basic Linux administration (cron or systemd timers, SSH)"
@@ -106,7 +106,7 @@ The usual mistake is treating "off-site" as a geographic question. It also has t
 
 The original rule dates from when the threat was hardware. With ransomware as the main threat, two conditions are added:
 
-- **1** copy **offline or immutable**: an unplugged disk, a tape, a bucket with *object lock*, a borg repository in `--append-only` mode or a PBS datastore with snapshot protection. Something an attacker with administrator access to the server **cannot delete**.
+- **1** copy **offline or immutable**: an unplugged disk, a tape, a bucket with *object lock*, a borg repository in `--append-only` mode (`prune` and `delete` are still accepted but do not free space until `borg compact`) or a PBS datastore with snapshot protection. Something an attacker with administrator access to the server **cannot delete**.
 - **0** verification errors: every backup is checked (`restic check`, datastore verification in PBS) and at least one **test restore** is done periodically. A backup that has never been restored is a hypothesis.
 
 The "0" is the one most often broken. It costs no hardware, it costs discipline. The way to make it stick is to automate it and have it **fail loudly** when it is not met: the scheduled verification that sends an alert if it does not finish cleanly, not the one that writes a log nobody reads.
@@ -129,7 +129,7 @@ For retention, the standard scheme is **GFS** (*Grandfather-Father-Son*): keep t
 restic forget --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 2 --prune
 ```
 
-This keeps one copy per day for the last week, one per week for the last month, one per month for the last half year and one per year for the last two. Thanks to deduplication, the space cost of long retention is far smaller than the snapshot count suggests: only the blocks that changed are stored. PBS uses exactly the same model in its *prune jobs*; see [PBS: retention and prune](pbs.md#retention-prune-and-garbage-collection).
+This keeps one copy per day for the last week, one per week for the last month, one per month for the last half year and one per year for the last two. Thanks to deduplication, the space cost of long retention is far smaller than the snapshot count suggests: only the blocks that changed are stored. PBS uses exactly the same model in its *prune jobs*; see [PBS: retention and prune](pbs.md#prune-and-garbage-collection).
 
 !!! tip "Classify before you back up"
     What makes a plan cheapest is deciding what **not** to back up. Container images, downloaded packages, build caches and the media library you can download again do not need three copies; they need a list of how to get them back. Save the full 3-2-1 for what is irreplaceable: personal data, databases, configuration and secrets.

@@ -202,7 +202,7 @@ La RAM contiene lo que el disco no: procesos sin fichero, claves en claro, conex
 
 ```bash
 # AVML: un solo binario, ejecutado desde el medio de confianza
-sudo ./avml /mnt/usb/memoria/web-prod-01.lime
+sudo ./avml acquire /mnt/usb/memoria/web-prod-01.lime
 
 # LiME: módulo compilado ANTES (en una VM limpia con el mismo kernel)
 sudo insmod ./lime-$(uname -r).ko "path=/mnt/usb/memoria/web-prod-01.lime format=lime"

@@ -4,7 +4,7 @@ description: "Quick guide to deploy pfSense as a virtual firewall and router"
 tags: ['networking', 'cybersecurity', 'vrouter']
 category: Networking
 updated: 2026-04-18
-last_reviewed: 2026-04-18
+last_reviewed: 2026-10-11
 difficulty: intermediate
 status: published
 estimated_time: 1 min

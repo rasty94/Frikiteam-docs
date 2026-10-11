@@ -124,7 +124,7 @@ k3s has two storage modes and the procedure depends on which one you use.
 ```bash
 k3s etcd-snapshot save --name before-upgrade
 k3s etcd-snapshot ls
-k3s etcd-snapshot prune --name before-upgrade --etcd-snapshot-retention 3
+k3s etcd-snapshot prune --snapshot-retention 3
 ```
 
 With embedded etcd, k3s also takes scheduled snapshots on its own, configurable in `/etc/rancher/k3s/config.yaml`:

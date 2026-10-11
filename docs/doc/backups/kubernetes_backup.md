@@ -124,7 +124,7 @@ k3s tiene dos modos de almacenamiento y el procedimiento depende de cuál usas.
 ```bash
 k3s etcd-snapshot save --name antes-de-actualizar
 k3s etcd-snapshot ls
-k3s etcd-snapshot prune --name antes-de-actualizar --etcd-snapshot-retention 3
+k3s etcd-snapshot prune --snapshot-retention 3
 ```
 
 Con etcd embebido k3s además toma snapshots programados por su cuenta, configurables en `/etc/rancher/k3s/config.yaml`:

@@ -3,12 +3,12 @@ title: "FastAPI"
 description: "Packaging and deploying a FastAPI API: multi-stage Dockerfile, uvicorn/gunicorn workers, health endpoint for probes, reverse proxy, Quadlet and GitHub Actions CI."
 keywords: "fastapi, uvicorn, gunicorn, dockerfile, multi-stage, healthcheck, traefik, haproxy, quadlet, github actions"
 tags: ['programming', 'api']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 21 min
 category: Development
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Python 3 and basic HTTP API concepts"
   - "[Docker](../docker/docker_base.md) or Podman"
@@ -76,10 +76,10 @@ FastAPI is an ASGI application; it needs a server. The usual options:
 |---|---|---|
 | **uvicorn alone** | One container per replica and the orchestrator scales (Kubernetes, several Quadlet units) | `uvicorn app.main:app --host 0.0.0.0 --port 8000` |
 | **uvicorn with `--workers`** | A single machine or container and you want to use several cores | `uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4` |
-| **gunicorn with uvicorn workers** | You want gunicorn's process manager (worker restarts, graceful timeout) | `gunicorn app.main:app -k uvicorn.workers.UvicornWorker -w 4 -b 0.0.0.0:8000` |
+| **gunicorn with uvicorn workers** | You want gunicorn's process manager (worker restarts, graceful timeout) | `gunicorn app.main:app -k uvicorn_worker.UvicornWorker -w 4 -b 0.0.0.0:8000` |
 
 !!! warning "Version dependent"
-    The `uvicorn.workers.UvicornWorker` class is moving to a separate package (`uvicorn-worker`). Check your uvicorn version's documentation for the current path before hardcoding it in the Dockerfile.
+    The `uvicorn.workers` module is deprecated and will be removed in a future release: the uvicorn documentation recommends the separate `uvicorn-worker` package (`pip install uvicorn-worker`, class `uvicorn_worker.UvicornWorker`). Check the current path for your version before hardcoding it in the Dockerfile.
 
 How many workers: inside each worker the work is CPU-bound (the event loop is single-threaded), so more workers than cores rarely helps. Start with the number of cores assigned to the container and measure. If you orchestrate replicas (Kubernetes), **one worker per container** and scaling replicas is usually better: CPU and memory limits apply per container and are more predictable.
 
@@ -171,7 +171,7 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
 
 In production the API does not face the world: a proxy that terminates TLS protects it. Three consequences for the app:
 
-1. **Real client IP.** With no configuration, uvicorn sees the proxy IP. Enable reading `X-Forwarded-*` headers and limit which proxies you trust:
+1. **Real client IP.** With no configuration, uvicorn sees the proxy IP. uvicorn reads `X-Forwarded-*` by default (`--proxy-headers`), but only from trusted IPs (by default `127.0.0.1` and `::1`); extend `--forwarded-allow-ips` to your proxies:
 
 ```bash
 uvicorn app.main:app --host 0.0.0.0 --port 8000 \
@@ -289,7 +289,7 @@ Tag with the version (`v1.2.0`), not just `latest`: reproducibility and rollback
 | Symptom | Likely cause | Fix |
 |---|---|---|
 | Connection refused from outside the container | uvicorn listens on `127.0.0.1` (the default) | Start with `--host 0.0.0.0` |
-| Logs show the proxy IP | `--proxy-headers` and `--forwarded-allow-ips` missing | Enable them, limited to the proxy IPs |
+| Logs show the proxy IP | `--forwarded-allow-ips` does not include the proxy IP (localhost only by default) | Extend it, limited to the proxy IPs |
 | The container is slow to stop and ends with `SIGKILL` | `CMD` in shell form: the signal does not reach uvicorn | Use exec form (JSON list) |
 | Restart loops when the database goes down | Liveness depends on external dependencies | Move those checks to readiness |
 | Intermittent 502/504 at the proxy | Proxy timeout lower than the app's, or saturated workers | Align timeouts; review workers and latency |

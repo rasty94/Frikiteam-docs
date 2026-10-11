@@ -202,7 +202,7 @@ RAM holds what the disk does not: fileless processes, cleartext keys, connection
 
 ```bash
 # AVML: a single binary, run from the trusted medium
-sudo ./avml /mnt/usb/memoria/web-prod-01.lime
+sudo ./avml acquire /mnt/usb/memoria/web-prod-01.lime
 
 # LiME: module compiled BEFORE (on a clean VM with the same kernel)
 sudo insmod ./lime-$(uname -r).ko "path=/mnt/usb/memoria/web-prod-01.lime format=lime"

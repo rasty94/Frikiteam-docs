@@ -1,7 +1,7 @@
 ---
 title: "Linux Server Hardening"
-updated: 2026-01-25
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 tags: ['cybersecurity', 'linux', 'hardening', 'firewall']
 difficulty: intermediate
 category: Cybersecurity
@@ -82,6 +82,8 @@ chage -M 90 -m 7 -W 14 admin
 # Account lockout after failed attempts
 # /etc/pam.d/common-auth (Debian) or /etc/pam.d/system-auth (RHEL)
 auth required pam_faillock.so preauth silent audit deny=5 unlock_time=900
+auth [default=die] pam_faillock.so authfail audit deny=5 unlock_time=900
+account required pam_faillock.so
 ```
 
 ### 3. Advanced SSH Hardening
@@ -90,12 +92,11 @@ auth required pam_faillock.so preauth silent audit deny=5 unlock_time=900
 ```bash
 # /etc/ssh/sshd_config
 Port 2222                              # Change default port
-Protocol 2
 PermitRootLogin no
 PasswordAuthentication no
 PubkeyAuthentication yes
 PermitEmptyPasswords no
-ChallengeResponseAuthentication no
+KbdInteractiveAuthentication no
 UsePAM yes
 X11Forwarding no
 AllowTcpForwarding no
@@ -140,7 +141,7 @@ google-authenticator
 auth required pam_google_authenticator.so
 
 # /etc/ssh/sshd_config
-ChallengeResponseAuthentication yes
+KbdInteractiveAuthentication yes
 AuthenticationMethods publickey,keyboard-interactive
 ```
 
@@ -219,12 +220,12 @@ net.ipv4.icmp_echo_ignore_all = 1
 # ASLR (Address Space Layout Randomization)
 kernel.randomize_va_space = 2
 
-# Core dumps (disable)
+# Core dumps of setuid binaries (disable)
 kernel.core_uses_pid = 1
 fs.suid_dumpable = 0
 
 # Apply changes
-sysctl -p
+sysctl --system
 ```
 
 ### 6. Advanced Logging and Auditing
@@ -338,7 +339,7 @@ apt install clamav clamav-daemon -y
 freshclam
 
 # Scan system
-clamscan -r --infected --remove /home
+clamscan -r --infected --move=/var/lib/clamav-quarantine /home
 
 # Scheduled scan (crontab)
 0 2 * * * /usr/bin/clamscan -r --quiet --infected --log=/var/log/clamav/scan.log /home
@@ -373,8 +374,8 @@ mount -o remount /tmp
 #### Configure critical permissions
 ```bash
 # Protect sensitive files
-chmod 600 /etc/shadow
-chmod 600 /etc/gshadow
+chmod 640 /etc/shadow
+chmod 640 /etc/gshadow
 chmod 644 /etc/passwd
 chmod 644 /etc/group
 
@@ -383,7 +384,7 @@ find / -perm /4000 -type f -exec ls -ld {} \;
 find / -perm /2000 -type f -exec ls -ld {} \;
 
 # Remove SUID from non-essential files
-chmod u-s /usr/bin/wall
+chmod g-s /usr/bin/wall
 ```
 
 ## Automated Hardening Script
@@ -410,7 +411,7 @@ apt update && apt upgrade -y
 log "Configuring UFW..."
 ufw default deny incoming
 ufw default allow outgoing
-ufw allow 2222/tcp
+ufw allow 22/tcp
 ufw --force enable
 
 # SSH hardening
@@ -458,13 +459,13 @@ cat /var/log/lynis.log
 apt install libopenscap8 -y
 
 # Download CIS profiles
-wget https://github.com/ComplianceAsCode/content/releases/download/v0.1.66/scap-security-guide-0.1.66.zip
-unzip scap-security-guide-0.1.66.zip
+wget https://github.com/ComplianceAsCode/content/releases/download/v0.1.82/scap-security-guide-0.1.82.zip
+unzip scap-security-guide-0.1.82.zip
 
 # Scan system
-oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_cis \
+oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_cis_level1_server \
   --results scan-results.xml \
-  ssg-ubuntu2004-ds.xml
+  scap-security-guide-0.1.82/ssg-ubuntu2204-ds.xml
 
 # Generate HTML report
 oscap xccdf generate report scan-results.xml > report.html
@@ -573,5 +574,5 @@ aide --check
 - [Lynis](https://cisofy.com/lynis/)
 - [OpenSCAP](https://www.open-scap.org/)
 - [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
-- [Debian Security Manual](https://www.debian.org/doc/manuals/securing-debian-manual/)
-- [Red Hat Security Guide](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/index)
+- [Debian Hardening (wiki)](https://wiki.debian.org/Hardening)
+- [Red Hat Security Hardening (RHEL 9)](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/security_hardening/index)

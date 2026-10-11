@@ -3,12 +3,12 @@ title: "VyOS (vRouter orientado a automatización)"
 description: "VyOS como router virtual en un homelab o laboratorio: despliegue, configuración base con NAT y firewall, BGP/OSPF, commit/rollback y gestión de la configuración como código."
 keywords: "vyos, vrouter, bgp, ospf, nat, firewall, commit, rollback, ansible, gitops, homelab"
 tags: ['networking', 'vrouter', 'automation']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 16 min
 category: Redes
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Fundamentos de redes"
   - "Conocimientos básicos de virtualización"
@@ -54,8 +54,8 @@ Si lo que buscas es un cortafuegos con interfaz web y listas de reglas navegable
 ## Despliegue recomendado
 
 - 2+ vNIC según diseño
-- CPU: 2+ vCPU, RAM: 2-4 GB
-- Disco: 8 GB+
+- CPU: 2+ vCPU, RAM: 4 GB
+- Disco: 10 GB+
 
 Una guía práctica de reparto de interfaces para un laboratorio doméstico:
 
@@ -65,7 +65,7 @@ Una guía práctica de reparto de interfaces para un laboratorio doméstico:
 | `eth1` | LAN o troncal de VLAN | Direccionamiento interno; subinterfaces `vif` para VLAN |
 | `eth2` (opcional) | Gestión | Red de administración separada del tráfico de datos |
 
-En Proxmox, cada vNIC se conecta a un bridge distinto (`vmbr0` hacia la WAN, `vmbr1` hacia la LAN). Usa un controlador de red paravirtualizado (VirtIO) y comprueba que el bridge de la LAN no tenga una pasarela propia compitiendo con el router. La imagen de instalación en vivo sirve para instalar en disco con el comando `install image`; las versiones rolling se publican a diario y las estables requieren suscripción o compilación propia, así que comprueba qué canal usas antes de depender de él en producción.
+En Proxmox, cada vNIC se conecta a un bridge distinto (`vmbr0` hacia la WAN, `vmbr1` hacia la LAN). Usa un controlador de red paravirtualizado (VirtIO) y comprueba que el bridge de la LAN no tenga una pasarela propia compitiendo con el router. La imagen de instalación en vivo sirve para instalar en disco con el comando `install image`; las versiones rolling se descargan libremente y las estables (LTS) requieren suscripción o compilación propia (los requisitos mínimos de la documentación son 4 GB de RAM y 10 GB de disco), así que comprueba qué canal usas antes de depender de él en producción.
 
 ## Cómo se trabaja: configure, commit, save
 
@@ -169,14 +169,14 @@ commit
 `passive` evita enviar anuncios OSPF hacia interfaces donde no hay otro router. Y BGP, por ejemplo para un par con tu proveedor o con otro laboratorio:
 
 ```bash
-set protocols bgp system-as-number '65001'
+set protocols bgp system-as '65001'
 set protocols bgp neighbor 192.0.2.2 remote-as '65002'
 set protocols bgp neighbor 192.0.2.2 address-family ipv4-unicast
 set protocols bgp address-family ipv4-unicast network '192.168.10.0/24'
 commit
 ```
 
-La forma de declarar el sistema autónomo cambió entre versiones (hay releases en las que el AS es parte del propio nodo `bgp` en lugar de `system-as-number`), así que verifica con tu versión. Para entender el esquema de números AS, rangos privados y conceptos básicos, lee [ASN y BGP](asn_bgp.md). En un homelab, usa números AS del rango privado y filtra siempre lo que anuncias y lo que aceptas mediante prefijos permitidos, incluso con vecinos de confianza.
+El AS local se declara con `system-as` (no `system-as-number`); la documentación de VyOS no compara versiones para este nodo, así que verifica con la tuya. Para entender el esquema de números AS, rangos privados y conceptos básicos, lee [ASN y BGP](asn_bgp.md). En un homelab, usa números AS del rango privado y filtra siempre lo que anuncias y lo que aceptas mediante prefijos permitidos, incluso con vecinos de confianza.
 
 Comandos operativos para comprobar el estado:
 

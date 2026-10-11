@@ -8,7 +8,7 @@ difficulty: intermediate
 estimated_time: 18 min
 category: Storage
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "NFS, SMB and iSCSI concepts"
   - "[Storage protocols](../protocols/protocols.md)"

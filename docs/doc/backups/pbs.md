@@ -3,12 +3,12 @@ title: "Proxmox Backup Server (PBS)"
 description: "Montar Proxmox Backup Server en infraestructura propia: datastores, usuarios y tokens, integración con PVE, prune, garbage collection, verificación, sync jobs a un segundo PBS, cliente en servidores Linux y troubleshooting."
 keywords: "PBS, Proxmox Backup Server, datastore, prune, garbage collection, verify, sync job, deduplicación, proxmox-backup-client, homelab"
 tags: ['backups', 'proxmox']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 15 min
 category: Copias de Seguridad
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Un nodo Proxmox VE operativo (ver Proxmox base)"
@@ -69,7 +69,7 @@ Sobre Debian necesitas antes añadir el repositorio de Proxmox para tu versión 
 
 ## Datastore
 
-Un datastore es un directorio en un sistema de ficheros. El rendimiento del PBS depende casi por completo de ese disco: PBS escribe y lee millones de chunks pequeños, así que los discos rotativos van lentos en verificación y GC y lo ideal es un pool ZFS con SSD (aunque sea para metadatos) o discos SSD directamente. Evita montajes NFS/SMB como datastore: la documentación oficial lo desaconseja por rendimiento y consistencia.
+Un datastore es un directorio en un sistema de ficheros. El rendimiento del PBS depende casi por completo de ese disco: PBS escribe y lee millones de chunks pequeños, así que los discos rotativos van lentos en verificación y GC y lo ideal es un pool ZFS con SSD (aunque sea para metadatos) o discos SSD directamente. Evita montajes NFS/SMB como datastore: la documentación oficial pide almacenamiento local con muchos IOPS y describe el datastore sobre un sistema de ficheros Unix local (ext4, xfs o zfs).
 
 Ejemplo con un dataset ZFS dedicado, creado en el host PBS:
 
@@ -90,7 +90,7 @@ proxmox-backup-manager user create pve-backup@pbs --password 'cambia-esto'
 proxmox-backup-manager acl update /datastore/main DatastoreBackup --auth-id pve-backup@pbs
 ```
 
-`DatastoreBackup` permite crear backups y leer los propios, pero no borrar los de otros: un PVE comprometido no puede destruir el histórico. Para tareas que sí deben borrar (prune desde el cliente) existe `DatastoreBackup` más permisos de prune, o el rol `DatastoreAdmin`; revisa la lista de roles en la interfaz.
+`DatastoreBackup` permite crear backups y leer los propios, pero no borrar los de otros: un PVE comprometido no puede destruir el histórico. Para tareas que sí deben borrar (prune desde el cliente) existe el rol `DatastorePowerUser` (backup, restauración y prune de las copias propias) o `DatastoreAdmin`; revisa la lista de roles en la interfaz.
 
 Para automatizar mejor un **token de API** que una contraseña, porque se puede revocar sin tocar el usuario:
 
@@ -223,7 +223,7 @@ En un homelab típico: uno o varios nodos PVE hacen backup nocturno al PBS local
 - Guarda la clave de cifrado fuera de la infraestructura que protege.
 - Vigila el espacio del datastore y las alertas de fallos de job (la interfaz permite notificaciones).
 - Restaura una VM de prueba de forma periódica; es la única prueba válida.
-- No pongas el datastore sobre NFS/SMB.
+- Usa almacenamiento local rápido para el datastore, no NFS/SMB.
 - Actualiza PVE y PBS en versiones compatibles y lee las notas de versión antes de saltar de mayor.
 
 ## Referencias

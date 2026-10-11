@@ -4,7 +4,7 @@ description: "Reusable template to measure performance and stability on OPNsense
 tags: ['networking', 'performance', 'vrouter']
 category: Networking
 updated: 2026-04-18
-last_reviewed: 2026-04-18
+last_reviewed: 2026-10-11
 difficulty: intermediate
 status: published
 estimated_time: 4 min

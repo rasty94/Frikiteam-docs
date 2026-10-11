@@ -1,7 +1,7 @@
 ---
 title: "Vector Databases for AI"
-updated: 2026-01-25
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 tags: ['ai', 'vector-db']
 difficulty: beginner
 category: Artificial Intelligence
@@ -58,13 +58,9 @@ results = vector_db.search(query_vector, top_k=5)
 pip install chromadb
 
 import chromadb
-from chromadb.config import Settings
 
 # Local client
-client = chromadb.Client(Settings(
-    chroma_db_impl="duckdb+parquet",
-    persist_directory="./chroma_data"
-))
+client = chromadb.PersistentClient(path="./chroma_data")
 
 # Create collection
 collection = client.create_collection("docs")
@@ -93,28 +89,15 @@ results = collection.query(
 - Support for billions of vectors
 - GPU acceleration
 - Native horizontal distribution
-- Multiple indexes (HNSW, IVF, ANNOY)
+- Multiple indexes (HNSW, IVF, SCANN)
 
 **Docker Installation:**
 ```bash
-docker-compose up -d
+curl -sfL https://raw.githubusercontent.com/milvus-io/milvus/master/scripts/standalone_embed.sh -o standalone_embed.sh
+bash standalone_embed.sh start
 ```
 
-```yaml
-version: '3.5'
-services:
-  etcd:
-    image: quay.io/coreos/etcd:latest
-  minio:
-    image: minio/minio:latest
-  milvus:
-    image: milvusdb/milvus:latest
-    ports:
-      - "19530:19530"
-    depends_on:
-      - etcd
-      - minio
-```
+Official Milvus Standalone script (single container with embedded etcd; port 19530). For Docker Compose or cluster deployments, follow the official installation guide: <https://milvus.io/docs/install_standalone-docker-compose.md>.
 
 **Python Usage:**
 ```python
@@ -145,6 +128,7 @@ collection.insert([
     [embedding_vector],
     ["Kubernetes documentation"]
 ])
+collection.load()  # Milvus requires loading the collection into memory before searching
 
 # Search
 search_params = {"metric_type": "L2", "params": {"nprobe": 10}}
@@ -171,44 +155,41 @@ results = collection.search(
 **Docker Installation:**
 ```bash
 docker run -d \
-  -p 8080:8080 \
+  -p 8080:8080 -p 50051:50051 \
   -e QUERY_DEFAULTS_LIMIT=25 \
   -e AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED=true \
   -e PERSISTENCE_DATA_PATH='/var/lib/weaviate' \
-  semitechnologies/weaviate:latest
+  cr.weaviate.io/semitechnologies/weaviate:1.40.0
 ```
 
 **Python Usage:**
 ```python
 import weaviate
+from weaviate.classes.config import Configure, Property, DataType
 
-client = weaviate.Client("http://localhost:8080")
+client = weaviate.connect_to_local()  # HTTP 8080 and gRPC 50051
 
-# Create class (schema)
-class_obj = {
-    "class": "Document",
-    "vectorizer": "text2vec-transformers",
-    "properties": [
-        {"name": "content", "dataType": ["text"]},
-        {"name": "source", "dataType": ["string"]}
-    ]
-}
-client.schema.create_class(class_obj)
+# Create collection (schema), with vectors you supply
+client.collections.create(
+    "Document",
+    vector_config=Configure.Vectors.self_provided(),
+    properties=[
+        Property(name="content", data_type=DataType.TEXT),
+        Property(name="source", data_type=DataType.TEXT),
+    ],
+)
+docs = client.collections.use("Document")
 
 # Insert
-client.data_object.create(
-    data_object={
-        "content": "Kubernetes orchestrates containers",
-        "source": "k8s-docs"
-    },
-    class_name="Document"
+docs.data.insert(
+    properties={"content": "Kubernetes orchestrates containers", "source": "k8s-docs"},
+    vector=embedding_vector,
 )
 
-# Search with GraphQL
-result = client.query.get("Document", ["content", "source"])\
-    .with_near_text({"concepts": ["container orchestration"]})\
-    .with_limit(5)\
-    .do()
+# Search
+result = docs.query.near_vector(near_vector=query_vector, limit=5)
+
+client.close()
 ```
 
 **Use Case**: Applications with structured and unstructured data, GraphQL needs.
@@ -225,13 +206,18 @@ result = client.query.get("Document", ["content", "source"])\
 
 **Usage:**
 ```python
-import pinecone
+from pinecone import Pinecone, ServerlessSpec
 
-pinecone.init(api_key="YOUR_API_KEY", environment="us-west1-gcp")
+pc = Pinecone(api_key="YOUR_API_KEY")
 
-# Create index
-pinecone.create_index("docs", dimension=768, metric="cosine")
-index = pinecone.Index("docs")
+# Create index (serverless)
+pc.create_index(
+    name="docs",
+    dimension=768,
+    metric="cosine",
+    spec=ServerlessSpec(cloud="aws", region="us-east-1"),
+)
+index = pc.Index("docs")
 
 # Insert
 index.upsert([
@@ -289,11 +275,11 @@ client.upsert(
 )
 
 # Search
-results = client.search(
+results = client.query_points(
     collection_name="docs",
-    query_vector=query_vector,
+    query=query_vector,
     limit=5
-)
+).points
 ```
 
 **Use Case**: On-premise apps, high performance, total control.
@@ -326,6 +312,10 @@ results = client.search(
 - **Use**: Approximate searches in billions of vectors
 
 ## Kubernetes Architecture
+
+!!! warning "Illustrative only"
+    This manifest is illustrative: it is not a supported Milvus deployment. On Kubernetes, Milvus is installed with the Milvus Operator or the official Helm chart, which manage etcd, object storage and messaging.
+
 
 ```yaml
 apiVersion: v1
@@ -434,7 +424,7 @@ batch_size = 100
 for i in range(0, len(documents), batch_size):
     batch = documents[i:i+batch_size]
     embeddings = model.encode(batch)
-    collection.add(embeddings=embeddings, documents=batch)
+    collection.add(ids=[str(i + j) for j in range(len(batch))], embeddings=embeddings, documents=batch)
 ```
 
 ### 3. Monitoring
@@ -474,7 +464,7 @@ results = collection.query(image_embedding, n_results=10)
 results = collection.query(
     query_embeddings=[query_vector],
     n_results=20,
-    where={"source": "kubernetes-docs", "year": {"$gte": 2023}}
+    where={"$and": [{"source": "kubernetes-docs"}, {"year": {"$gte": 2023}}]}
 )
 ```
 

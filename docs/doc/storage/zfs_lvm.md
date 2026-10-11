@@ -252,7 +252,7 @@ Programa un scrub periódico y revisa el resultado. Carga los discos: no lo lanc
 ```bash
 # Límite de 4 GiB (valor en bytes) de forma persistente
 echo "options zfs zfs_arc_max=4294967296" > /etc/modprobe.d/zfs.conf
-update-initramfs -u -k all      # Debian/Proxmox; reiniciar después
+update-initramfs -u -k all      # solo si la raíz está en ZFS; reiniciar después
 # En caliente: echo 4294967296 > /sys/module/zfs/parameters/zfs_arc_max
 ```
 

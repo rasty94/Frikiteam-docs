@@ -1,12 +1,12 @@
 ---
 title: "Hardening de Servidores Linux"
-updated: 2026-01-25
+updated: 2026-10-11
 tags: ['cybersecurity', 'linux', 'hardening', 'firewall']
 difficulty: intermediate
 estimated_time: 35 min
 category: Ciberseguridad
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Linux intermedio"
@@ -81,6 +81,8 @@ chage -M 90 -m 7 -W 14 admin
 # Bloqueo de cuenta tras intentos fallidos
 # /etc/pam.d/common-auth (Debian) o /etc/pam.d/system-auth (RHEL)
 auth required pam_faillock.so preauth silent audit deny=5 unlock_time=900
+auth [default=die] pam_faillock.so authfail audit deny=5 unlock_time=900
+account required pam_faillock.so
 ```
 
 ### 3. SSH Hardening Avanzado
@@ -89,12 +91,11 @@ auth required pam_faillock.so preauth silent audit deny=5 unlock_time=900
 ```bash
 # /etc/ssh/sshd_config
 Port 2222                              # Cambiar puerto por defecto
-Protocol 2
 PermitRootLogin no
 PasswordAuthentication no
 PubkeyAuthentication yes
 PermitEmptyPasswords no
-ChallengeResponseAuthentication no
+KbdInteractiveAuthentication no
 UsePAM yes
 X11Forwarding no
 AllowTcpForwarding no
@@ -139,7 +140,7 @@ google-authenticator
 auth required pam_google_authenticator.so
 
 # /etc/ssh/sshd_config
-ChallengeResponseAuthentication yes
+KbdInteractiveAuthentication yes
 AuthenticationMethods publickey,keyboard-interactive
 ```
 
@@ -218,12 +219,12 @@ net.ipv4.icmp_echo_ignore_all = 1
 # ASLR (Address Space Layout Randomization)
 kernel.randomize_va_space = 2
 
-# Core dumps (deshabilitar)
+# Core dumps de binarios setuid (deshabilitar)
 kernel.core_uses_pid = 1
 fs.suid_dumpable = 0
 
 # Aplicar cambios
-sysctl -p
+sysctl --system
 ```
 
 ### 6. Logging y Auditoría Avanzada
@@ -337,7 +338,7 @@ apt install clamav clamav-daemon -y
 freshclam
 
 # Escanear sistema
-clamscan -r --infected --remove /home
+clamscan -r --infected --move=/var/lib/clamav-quarantine /home
 
 # Escaneo programado (crontab)
 0 2 * * * /usr/bin/clamscan -r --quiet --infected --log=/var/log/clamav/scan.log /home
@@ -372,8 +373,8 @@ mount -o remount /tmp
 #### Configurar permisos críticos
 ```bash
 # Proteger archivos sensibles
-chmod 600 /etc/shadow
-chmod 600 /etc/gshadow
+chmod 640 /etc/shadow
+chmod 640 /etc/gshadow
 chmod 644 /etc/passwd
 chmod 644 /etc/group
 
@@ -382,7 +383,7 @@ find / -perm /4000 -type f -exec ls -ld {} \;
 find / -perm /2000 -type f -exec ls -ld {} \;
 
 # Remover SUID de archivos no esenciales
-chmod u-s /usr/bin/wall
+chmod g-s /usr/bin/wall
 ```
 
 ## Script de Hardening Automatizado
@@ -409,7 +410,7 @@ apt update && apt upgrade -y
 log "Configurando UFW..."
 ufw default deny incoming
 ufw default allow outgoing
-ufw allow 2222/tcp
+ufw allow 22/tcp
 ufw --force enable
 
 # SSH hardening
@@ -457,13 +458,13 @@ cat /var/log/lynis.log
 apt install libopenscap8 -y
 
 # Descargar perfiles CIS
-wget https://github.com/ComplianceAsCode/content/releases/download/v0.1.66/scap-security-guide-0.1.66.zip
-unzip scap-security-guide-0.1.66.zip
+wget https://github.com/ComplianceAsCode/content/releases/download/v0.1.82/scap-security-guide-0.1.82.zip
+unzip scap-security-guide-0.1.82.zip
 
 # Escanear sistema
-oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_cis \
+oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_cis_level1_server \
   --results scan-results.xml \
-  ssg-ubuntu2004-ds.xml
+  scap-security-guide-0.1.82/ssg-ubuntu2204-ds.xml
 
 # Generar reporte HTML
 oscap xccdf generate report scan-results.xml > report.html
@@ -572,5 +573,5 @@ aide --check
 - [Lynis](https://cisofy.com/lynis/)
 - [OpenSCAP](https://www.open-scap.org/)
 - [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
-- [Debian Security Manual](https://www.debian.org/doc/manuals/securing-debian-manual/)
-- [Red Hat Security Guide](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/index)
+- [Debian Hardening (wiki)](https://wiki.debian.org/Hardening)
+- [Red Hat Security Hardening (RHEL 9)](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/security_hardening/index)

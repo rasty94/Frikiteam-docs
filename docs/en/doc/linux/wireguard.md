@@ -3,12 +3,12 @@ title: "WireGuard VPN"
 description: "WireGuard on your own infrastructure: keys, server and clients, routing and NAT, remote access versus site-to-site, operation with wg-quick and troubleshooting."
 keywords: "wireguard, vpn, wg-quick, allowedips, persistentkeepalive, nat, site-to-site, homelab, mtu"
 tags: ['linux', 'vpn', 'wireguard']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 17 min
 category: Linux
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Linux with root access and systemd"
   - "IP addressing and basic routing"
@@ -194,10 +194,10 @@ sudo wg set wg0 peer <PUBLICKEY_NUEVO> allowed-ips 10.100.0.4/32
 That is not saved to the file (except with `SaveConfig`), so add it to `wg0.conf` too. If you edit the file and want to apply it without tearing down existing connections, `wg-quick strip` produces the configuration without `wg-quick`-specific directives and `wg syncconf` applies it:
 
 ```bash
-sudo wg syncconf wg0 <(wg-quick strip wg0)
+sudo bash -c 'wg syncconf wg0 <(wg-quick strip wg0)'
 ```
 
-`syncconf` only changes keys, peers and `AllowedIPs`; it does not touch `Address`, routes or `PostUp`. If you change those, bring the interface down and up.
+`syncconf` only applies what `wg` understands (private key, port, peers and their `AllowedIPs`, `Endpoint`, etc.); it does not touch `Address`, routes or `PostUp`. If you change those, bring the interface down and up.
 
 ### Revoking access
 
@@ -231,7 +231,7 @@ Site B is the mirror image, with `192.168.10.0/24` in its `AllowedIPs`. Devices 
 | Handshake succeeds but there is no traffic | `AllowedIPs` does not include the source or destination IP | Review `AllowedIPs` on both ends; remember it filters on receive |
 | The client reaches the server but not the LAN | `ip_forward` missing or the LAN does not know the return route | Enable forwarding; add a static route or NAT |
 | The tunnel works from client to server but not the other way | Client behind NAT without keepalive | Add `PersistentKeepalive = 25` on the client |
-| Hung connections with large pages or SSH that freezes | MTU: encapsulation reduces the usable size | Lower `MTU` in `[Interface]`; the `wg-quick` default is usually 1420, but it depends on the link |
+| Hung connections with large pages or SSH that freezes | MTU: encapsulation reduces the usable size | Lower `MTU` in `[Interface]`; if you do not set it, `wg-quick` derives it from the interface of the route to the `Endpoint` (or the default route) |
 | `wg-quick up` fails with a DNS or resolvconf error | `DNS` line without `resolvconf` or `systemd-resolved` | Install one of them or remove `DNS` and configure the resolver by hand |
 | After `down`, changes and comments in `wg0.conf` are lost | `SaveConfig = true` | Disable it and manage the file by hand or with Git |
 | Two clients with the same `AllowedIPs` and only one works | Each IP can belong to only one peer | Assign a unique `/32` per client |

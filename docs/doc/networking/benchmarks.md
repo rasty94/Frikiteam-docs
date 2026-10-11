@@ -8,7 +8,7 @@ difficulty: intermediate
 estimated_time: 17 min
 category: Redes
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Acceso SSH a dos nodos de prueba"
   - "Fundamentos de redes (TCP, MTU, latencia)"

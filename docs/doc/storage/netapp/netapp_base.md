@@ -8,7 +8,7 @@ difficulty: intermediate
 estimated_time: 18 min
 category: Almacenamiento
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conceptos de NFS, SMB e iSCSI"
   - "[Protocolos de almacenamiento](../protocols/protocols.md)"

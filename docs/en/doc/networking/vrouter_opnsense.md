@@ -3,8 +3,8 @@ title: "OPNsense (virtual router/firewall)"
 description: "Quick guide to deploy OPNsense in virtualized environments"
 tags: ['networking', 'cybersecurity', 'vrouter']
 category: Networking
-updated: 2026-04-18
-last_reviewed: 2026-04-18
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: intermediate
 status: published
 estimated_time: 1 min
@@ -28,8 +28,8 @@ OPNsense is a strong choice when you prioritize firewalling, segmentation and da
 - At least 2 vNICs:
   - WAN (uplink)
   - LAN (internal network)
-- CPU: 2 vCPU minimum, RAM: 2-4 GB
-- Disk: 16 GB+
+- CPU: 2 vCPU minimum, RAM: 4 GB (official minimum 3 GB)
+- Disk: 40 GB+ SSD (official "reasonable" recommendation)
 
 ## Baseline setup
 

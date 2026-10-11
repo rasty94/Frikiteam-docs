@@ -3,12 +3,12 @@ title: "Keycloak: Gestión de Identidad"
 description: "Desplegar y operar Keycloak en infraestructura propia: PostgreSQL, reverse proxy, realms, clients OIDC, mappers, federación LDAP y copias de seguridad."
 keywords: "keycloak, iam, sso, oidc, realm, client, mapper, ldap, reverse proxy, postgresql, backup"
 tags: ['identity', 'cybersecurity']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 17 min
 category: Gestión de Identidad
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Docker o Podman con Compose"
   - "Un reverse proxy con TLS ([Traefik](../traefik/traefik_base.md) o [HAProxy](../haproxy/haproxy_base.md))"
@@ -140,7 +140,7 @@ Con Traefik basta una etiqueta de router y el puerto del servicio; Traefik añad
 Con HAProxy hay que declararlas explícitamente con `http-request set-header`. Ver [HAProxy](../haproxy/haproxy_base.md).
 
 !!! warning "No expongas la consola de administración"
-    El realm `master` y la consola `/admin` no deberían ser accesibles desde Internet. Filtra por IP o red de gestión en el proxy y deja a los usuarios solo la ruta `/realms/`. Si `KC_PROXY_HEADERS` confía en cabeceras que cualquier cliente puede falsificar, un atacante puede suplantar IP y esquema: el proxy debe sobrescribirlas, no reenviarlas.
+    El realm `master` y la consola `/admin` no deberían ser accesibles desde Internet. Filtra por IP o red de gestión en el proxy y deja a los usuarios solo las rutas `/realms/` y `/resources/`. Si `KC_PROXY_HEADERS` confía en cabeceras que cualquier cliente puede falsificar, un atacante puede suplantar IP y esquema: el proxy debe sobrescribirlas, no reenviarlas.
 
 ## Realms y usuarios
 
@@ -218,7 +218,7 @@ docker compose exec -T postgres pg_dump -U keycloak keycloak | gzip > keycloak-$
 gunzip -c keycloak-2026-10-10.sql.gz | docker compose exec -T postgres psql -U keycloak keycloak
 ```
 
-Copia el volcado fuera del host (ver [Restic y Borg](../backups/restic_borg.md)). Además, `kc.sh export` puede volcar la configuración de un realm a ficheros JSON, útil para versionar la configuración o clonar un entorno, pero no sustituye al volcado de la base de datos: por defecto no es una copia completa de sesiones ni de todos los secretos.
+Copia el volcado fuera del host (ver [Restic y Borg](../backups/restic_borg.md)). Además, `kc.sh export` puede volcar la configuración de un realm a ficheros JSON, útil para versionar la configuración o clonar un entorno, pero no sustituye al volcado de la base de datos: no incluye eventos, sesiones persistidas ni tokens revocados, y su consistencia solo está garantizada con todos los nodos parados.
 
 !!! warning "Actualiza con copia previa"
     Keycloak migra el esquema de la base de datos en el primer arranque de una versión nueva, y esa migración no es reversible. Haz el volcado antes de cambiar la etiqueta de la imagen, sube de una versión mayor cada vez y lee las notas de actualización de la versión destino.

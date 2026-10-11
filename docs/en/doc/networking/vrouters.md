@@ -3,8 +3,8 @@ title: "vRouters and virtual firewalls"
 description: "Practical comparison of OPNsense, pfSense, MikroTik CHR and VyOS for labs and production"
 tags: ['networking', 'cybersecurity', 'vrouter']
 category: Networking
-updated: 2026-04-18
-last_reviewed: 2026-04-18
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: intermediate
 status: published
 estimated_time: 6 min
@@ -13,89 +13,139 @@ prerequisites:
   - "Basic virtualization knowledge"
 ---
 
-# vRouters and virtual firewalls
+When you need advanced routing, firewalling and network services in virtual form, the most common options are **OPNsense**, **pfSense**, **MikroTik CHR** and **VyOS**.
 
-When you need advanced routing, firewalling and virtual network services, the most common choices are **OPNsense**, **pfSense**, **MikroTik CHR** and **VyOS**.
-
-This document summarizes key differences and helps you choose based on your scenario.
+This document summarizes the key differences and helps you choose according to the scenario.
 
 ## Platform guides
 
-- [vRouter benchmark template](vrouter_benchmark_template.md)
-- [OPNsense: quick guide for homelab and edge](vrouter_opnsense.md)
+- [vRouter performance test template](vrouter_benchmark_template.md)
+- [OPNsense: quick guide for home lab and perimeter](vrouter_opnsense.md)
 - [pfSense: quick guide for traditional production](vrouter_pfsense.md)
 - [MikroTik CHR: quick guide for L3 routing](vrouter_mikrotik_chr.md)
 - [VyOS: quick guide for automation and BGP/OSPF](vrouter_vyos.md)
 
+## Typical use cases
+
+- Networking and cybersecurity labs
+- Virtual routers in a home lab or at the perimeter
+- Perimeter firewall in on-prem infrastructure
+- Static and dynamic BGP/OSPF in hybrid environments
+- Site-to-site VPN and remote access
+
 ## Quick comparison
 
-| Solution | Tech base | Strengths | Limitations | Best fit |
-| -------- | --------- | --------- | ----------- | -------- |
-| **OPNsense** | FreeBSD + pf | Modern UI, rich plugin ecosystem, frequent updates | Less legacy documentation than pfSense | Homelab, SMB, secure edge |
-| **pfSense** | FreeBSD + pf | Stable, mature and widely used | Licensing/ecosystem considerations by edition | Traditional production environments |
-| **MikroTik CHR** | RouterOS | Excellent cost/performance, advanced routing features | RouterOS learning curve, throughput license tiers | ISP/WISP, heavy L3 routing labs |
-| **VyOS** | Linux + FRR + nftables/iptables | Declarative CLI, strong IaC and advanced routing | Less friendly if your team needs full GUI workflows | Automation-driven BGP/OSPF environments |
+| Solution | Technology base | Strengths | Limitations | Recommended scenario |
+| -------- | --------------- | --------- | ----------- | -------------------- |
+| **OPNsense** | FreeBSD + pf | Modern interface, good plugin ecosystem, frequent updates | Less historical documentation than pfSense | Home lab, SMB, security-focused perimeter |
+| **pfSense** | FreeBSD + pf | Very stable, large community, high operational maturity | Licensing/ecosystem changes depending on edition | Traditional production and established environments |
+| **MikroTik CHR** | RouterOS | High performance per cost, very broad routing features | RouterOS learning curve, performance-based licence | ISP/WISP, intensive L3 routing, operator labs |
+| **VyOS** | Linux + FRR + nftables/iptables | Declarative CLI, strong in IaC automation and advanced routing | Less friendly for those who prefer a full graphical interface | Automation, BGP/OSPF, virtual backbone |
 
 ## Advanced technical matrix
 
-| Criteria | OPNsense | pfSense | MikroTik CHR | VyOS |
-| -------- | -------- | ------- | ------------ | ---- |
-| Management plane | Full web UI + limited CLI | Full web UI + shell | WinBox/WebFig + RouterOS CLI | Declarative CLI + automation tooling |
-| Dynamic routing (BGP/OSPF) | Supported (plugins/FRR) | Supported (FRR package) | Very strong in RouterOS | Very strong with native FRR |
-| Main focus | Modern firewall/UTM | Stable mature firewall | High-performance routing | Routing + infrastructure automation |
-| Typical VPN stack | IPsec, OpenVPN, WireGuard | IPsec, OpenVPN, WireGuard | IPsec, WireGuard, L2TP/PPTP legacy | IPsec, OpenVPN, WireGuard |
-| HA options | CARP/failover + config sync | CARP/failover + config sync | VRRP/failover by design | VRRP/HA by architecture |
+| Criterion | OPNsense | pfSense | MikroTik CHR | VyOS |
+| --------- | -------- | ------- | ------------ | ---- |
+| Management plane | Web interface + limited CLI | Web interface + shell | WinBox/WebFig interface + RouterOS CLI | Declarative CLI + API/automation |
+| Dynamic routing (BGP/OSPF) | Supported (plugins/FRR) | Supported (FRR package) | Very robust in RouterOS | Very robust with native FRR |
+| Main focus | Modern firewall/UTM | Stable, mature firewall | High-performance routing | Routing + automation as code |
+| Usual VPN | IPsec, OpenVPN, WireGuard | IPsec, OpenVPN, WireGuard | IPsec, WireGuard, legacy L2TP/PPTP | IPsec, OpenVPN, WireGuard |
+| High availability | CARP/failover and configuration sync | CARP/failover and configuration sync | VRRP/failover depending on design | VRRP/high availability depending on architecture |
 | Learning curve | Low-medium | Low-medium | Medium-high | Medium-high |
-| Automation fit | Medium (API/plugins) | Medium (API/config backup) | High (scripts/Ansible/API) | High (GitOps + templates) |
-| Recommended profile | SMB, secure edge, homelab | Conservative production | ISP/WISP and carrier labs | DevOps/NetOps automated teams |
+| Automation | Medium (API/plugins) | Medium (API/configuration backup) | High (scripts/Ansible/RouterOS API) | High (GitOps + CLI templates) |
+| Recommended profile | SMB, secure perimeter, home lab | Classic, conservative production | ISP/WISP and operator labs | Network and security automation environments |
 
-## Baseline benchmark targets (initial lab)
+## Performance targets (initial lab)
 
-| KPI | Baseline target | How to measure | Acceptance criteria |
-| --- | --------------- | -------------- | ------------------- |
-| L3 throughput (no encryption) | >= 1 Gbps sustained | `iperf3` TCP/UDP across segments | < 15% variance across 3 runs |
-| Site-to-site VPN throughput | >= 300 Mbps sustained | `iperf3` through tunnel path | Average CPU < 80% |
-| Intra-site latency overhead | <= 5 ms additional | baseline `ping` vs with vRouter | Stable delta without abnormal spikes |
-| Packet loss | <= 0.5% | `mtr` / controlled `ping -f` | No sustained loss > 1 minute |
-| Failover convergence time | <= 30 s | controlled link/peer failure test | Recovery without manual intervention |
-| Session stability | 0 unplanned restarts | 24-72 h monitoring window | No control plane crash |
+| KPI | Baseline target | How to measure it | Acceptance criterion |
+| --- | --------------- | ----------------- | -------------------- |
+| L3 throughput (unencrypted) | >= 1 Gbps sustained | `iperf3` TCP/UDP between segments | Variation < 15% across 3 runs |
+| Site-to-site VPN throughput | >= 300 Mbps sustained | `iperf3` through the tunnel | Average CPU usage < 80% |
+| Intra-site latency | <= 5 ms added | Baseline `ping` vs with vRouter | Stable delta without abnormal spikes |
+| Packet loss | <= 0.5% | Controlled `mtr`/`ping -f` | No sustained loss > 1 minute |
+| Failover convergence | <= 30 s | Controlled link/neighbour cut | Recovery without manual intervention |
+| Session stability | 0 unplanned restarts | 24-72 h monitoring | No control-plane outage |
 
 Notes:
 
-- Run tests in off-peak and peak periods to identify load-related degradation.
-- Keep packet size and parallel streams consistent across platforms.
-- Re-run the benchmark after upgrades, driver changes or hypervisor changes.
-- For environment-specific targets (homelab, SMB, ISP/WISP), use the [vRouter benchmark template](vrouter_benchmark_template.md).
+- Run tests at off-peak and peak hours to detect degradation under load.
+- Keep the same packet size and parallelism when comparing platforms.
+- Repeat tests after version, driver or hypervisor type changes.
+- If you need targets per context (home lab, SMB, ISP/WISP), use the [vRouter performance test template](vrouter_benchmark_template.md).
 
-## Minimum baseline hardening (all platforms)
+## Minimum uniform hardening (all platforms)
 
-- Change default credentials and remove unnecessary users.
-- Restrict management access to dedicated management networks.
-- Enable MFA for administrative GUI/portal where supported.
+- Change default credentials and remove unneeded users.
+- Restrict administrative access by IP/dedicated management network.
+- Enable MFA for the GUI/admin portal when available.
 - Disable unused management services (SSH, API, public GUI).
-- Apply `deny by default` on WAN and explicit allow rules per service.
-- Segment management, user and server networks (VLANs/zones).
-- Enable security logging and forward logs to a central collector.
-- Use reliable NTP for event correlation and auditability.
-- Encrypt configuration backups and test restore periodically.
-- Define patching windows with tested rollback procedures.
-- Close each evaluation with a short executive summary (risks, 7/30-day actions and final recommendation).
+- Apply a `deny by default` policy on the WAN and explicit rules per service.
+- Separate management, user and server networks (VLANs/zones).
+- Enable security logs and send them to a central collector.
+- Configure reliable NTP for event traceability and auditing.
+- Encrypt and validate configuration backups; test restoring them periodically.
+- Define a patching process with a maintenance window and a rollback plan.
 
-## Decision flow
+## What to choose by priority
 
 ```mermaid
 flowchart TD
-    A[What is your top priority?] --> B{Primary interface}
+    A[What do you prioritize?] --> B{Main interface}
 
-    B -->|GUI| C{Preferred profile}
+    B -->|GUI| C{Profile?}
     B -->|CLI + IaC| D[VyOS]
 
     C -->|Modern firewall + plugins| E[OPNsense]
     C -->|Traditional stability| F[pfSense]
     C -->|Aggressive routing + cost| G[MikroTik CHR]
 
-    E --> H[Homelab / SMB / Edge]
-    F --> I[Traditional production]
-    G --> J[ISP / WISP / Carrier lab]
-    D --> K[Automation + BGP]
+    E --> H[Home lab / SMB / perimeter]
+    F --> I[Classic production]
+    G --> J[ISP / WISP / operator lab]
+    D --> K[Automation and BGP]
+
+    style E fill:#4caf50,color:#ffffff
+    style F fill:#1e88e5,color:#ffffff
+    style G fill:#f57c00,color:#ffffff
+    style D fill:#8e24aa,color:#ffffff
 ```
+
+## Key technical criteria
+
+### 1) Dynamic routing
+
+- **VyOS** and **MikroTik CHR** stand out in BGP/OSPF for complex topologies.
+- **OPNsense/pfSense** cover dynamic routing, but tend to shine more as firewalls/UTM.
+
+### 2) Day-to-day operation
+
+- If you prefer a **full GUI**, OPNsense/pfSense reduce friction.
+- If you prioritize **GitOps/automation**, VyOS fits better thanks to its declarative CLI model.
+
+### 3) VPN and remote access
+
+- All of them support site-to-site VPN and remote access (IPsec/WireGuard/OpenVPN depending on version and packages).
+- Check exact compatibility per version before standardizing in production.
+
+### 4) Licensing and support
+
+- Always review the current edition/commercial model to avoid surprises on upgrades.
+- In critical environments, validate enterprise support or a local partner.
+
+## Practical recommendations
+
+- Start with a **proof of concept** using realistic traffic (north-south and east-west).
+- Define key indicators (KPIs): latency, throughput, failover, recovery time.
+- Document configuration backup/restore and the rollback procedure.
+- Version the configuration (where possible) to audit changes.
+- Close each evaluation with a short executive report (risks, 7/30-day actions and final decision).
+
+## Decision checklist
+
+- Do you need a GUI or a declarative CLI?
+- Is the priority firewalling, advanced routing or both?
+- How many VPN tunnels and BGP peers will you maintain?
+- What operational capacity does the networking and security team have?
+- Are there commercial support and SLA requirements?
+
+If you are torn between two options, compare both in the same lab for a week and decide on metrics, not personal preference.

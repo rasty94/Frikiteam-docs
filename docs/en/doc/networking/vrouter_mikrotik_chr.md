@@ -3,8 +3,8 @@ title: "MikroTik CHR (Cloud Hosted Router)"
 description: "Quick guide to deploy MikroTik CHR for L3 routing and ISP/WISP labs"
 tags: ['networking', 'vrouter']
 category: Networking
-updated: 2026-04-18
-last_reviewed: 2026-04-18
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: advanced
 status: published
 estimated_time: 1 min
@@ -29,7 +29,7 @@ MikroTik CHR is a strong fit when you need high-performance L3 routing with a ti
 - 2-4 vNICs depending on topology
 - CPU: 2+ vCPU, RAM: 2-4 GB
 - Disk: 2-8 GB (based on logs and packages)
-- CHR license tier aligned to expected throughput
+- CHR license tier aligned to expected throughput (upload limit per interface: free 1 Mbps, P1 1 Gbps, P10 10 Gbps)
 
 ## Baseline setup
 

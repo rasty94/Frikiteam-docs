@@ -100,7 +100,7 @@ It looks like YAML but **is not**: it is Unbound's own format (`key: value` unde
 
 - `interface` is repeated once per address. If you put `0.0.0.0` on a host running `systemd-resolved`, you will collide with its stub on `127.0.0.53:53`; bind to specific IPs.
 - `access-control` applies the most specific rule. By default Unbound only allows localhost, so without these lines your clients get `REFUSED`.
-- `do-ip6: no` only disables outgoing queries over IPv6. If your network has real IPv6 connectivity, leave it at `yes`.
+- `do-ip6: no` disables IPv6 as a transport: it neither answers nor sends queries over IPv6 (it does not affect the AAAA records carried inside). If your network has real IPv6 connectivity, leave it at `yes`.
 
 ### Cache
 
@@ -279,7 +279,7 @@ curl -s -H 'X-API-Key: CAMBIA-ESTE-VALOR' \
 ```
 
 !!! warning "Version dependent"
-    Backend option names and `pdnsutil` syntax have changed between PowerDNS 3.x, 4.x and 5.x. The example follows the 4.x line; confirm with `pdnsutil --help` and the documentation for your version before copying it. The initial SQL schema ships with the package.
+    Backend option names and `pdnsutil` syntax have changed between PowerDNS 3.x, 4.x and 5.x. The example follows the 4.x line (current `pdnsutil` documentation uses `zone create`, `rrset add` and `zone check-all`); confirm with `pdnsutil --help` and the documentation for your version before copying it. The initial SQL schema ships with the package.
 
 Differences from BIND that matter in practice:
 

@@ -1,13 +1,13 @@
 ---
 title: "Kubernetes Security"
 description: "Practical guide to hardening a Kubernetes cluster: RBAC, Network Policies, Pod Security Standards, admission controllers, secrets management, image scanning, runtime security and auditing."
-updated: 2026-07-18
+updated: 2026-10-11
 tags: ['cybersecurity', 'kubernetes', 'rbac', 'hardening']
 difficulty: intermediate
 estimated_time: 33 min
 category: Cybersecurity
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Basic DevOps knowledge"
   - "Docker basics"
@@ -202,7 +202,7 @@ spec:
 
 ## Pod Security Standards
 
-### Pod Security Policy (deprecated, use Pod Security Admission instead)
+### Pod Security Policy (removed in Kubernetes 1.25; legacy clusters only)
 
 ```yaml
 # pod-security-policy.yaml
@@ -306,7 +306,7 @@ spec:
 ### OPA Gatekeeper
 
 ```yaml
-# gatekeeper-install.yaml
+# gatekeeper-install.yaml (release-3.14 is an example: use the current release)
 kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.14/deploy/gatekeeper.yaml
 ```
 
@@ -356,7 +356,7 @@ spec:
 ### Kyverno Policies
 
 ```yaml
-# kyverno-install.yaml
+# kyverno-install.yaml (v1.11.0 is an example: use the current release)
 kubectl create -f https://github.com/kyverno/kyverno/releases/download/v1.11.0/install.yaml
 ```
 
@@ -392,9 +392,9 @@ spec:
 kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.24.0/controller.yaml
 
 # Install the kubeseal CLI
-wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.24.0/kubeseal-linux-amd64
-chmod +x kubeseal-linux-amd64
-sudo mv kubeseal-linux-amd64 /usr/local/bin/kubeseal
+wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.24.0/kubeseal-0.24.0-linux-amd64.tar.gz
+tar -xzf kubeseal-0.24.0-linux-amd64.tar.gz kubeseal
+sudo install -m 755 kubeseal /usr/local/bin/kubeseal
 
 # Create a sealed secret
 echo -n 'my-secret-password' | kubectl create secret generic db-password \
@@ -408,7 +408,7 @@ kubectl apply -f sealed-secret.yaml
 
 ```yaml
 # external-secret.yaml
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: SecretStore
 metadata:
   name: vault-backend
@@ -424,7 +424,7 @@ spec:
           mountPath: "kubernetes"
           role: "production-role"
 ---
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: db-credentials
@@ -460,18 +460,18 @@ jobs:
   scan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
       - name: Build image
         run: docker build -t myapp:{% raw %}${{ github.sha }}{% endraw %} .
       - name: Run Trivy scan
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: 'myapp:{% raw %}${{ github.sha }}{% endraw %}'
           format: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'
       - name: Upload results
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: 'trivy-results.sarif'
 ```

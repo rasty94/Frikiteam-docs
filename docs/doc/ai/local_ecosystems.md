@@ -1,12 +1,12 @@
 ---
 title: "Ecosistema de Modelos Locales"
-updated: 2026-01-25
+updated: 2026-10-11
 tags: ['ai', 'llm', 'ollama', 'vllm']
 difficulty: intermediate
 estimated_time: 2 min
 category: Inteligencia Artificial
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Python básico"
@@ -53,16 +53,16 @@ Esta guía compara los principales frameworks para ejecutar modelos de lenguaje 
 | Framework | Lenguaje | GPU Support | API | Facilidad |
 |-----------|----------|-------------|-----|-----------|
 | Ollama    | Go       | Sí         | REST| Alta     |
-| LM Studio | C++      | Sí         | Local| Alta     |
-| LLaMA.cpp | C++      | Sí         | CLI | Media    |
+| LM Studio | App cerrada | Sí      | HTTP (compat. OpenAI)| Alta     |
+| LLaMA.cpp | C++      | Sí         | CLI/HTTP | Media    |
 | vLLM      | Python   | Sí         | HTTP| Baja     |
 
 ## Instalación y Configuración
 
 ### Ollama
 ```bash
-curl -fsSL https://ollama.ai/install.sh | sh
-ollama pull llama2
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull llama3.2
 ```
 
 ### LM Studio
@@ -70,9 +70,9 @@ Descargar desde https://lmstudio.ai/
 
 ### LLaMA.cpp
 ```bash
-git clone https://github.com/ggerganov/llama.cpp
+git clone https://github.com/ggml-org/llama.cpp
 cd llama.cpp
-make
+cmake -B build && cmake --build build --config Release
 ```
 
 ## Casos Prácticos
@@ -82,6 +82,6 @@ make
 - **Procesamiento offline**: LLaMA.cpp en edge devices
 
 ## Referencias
-- [Ollama Docs](https://github.com/jmorganca/ollama)
+- [Ollama Docs](https://github.com/ollama/ollama)
 - [LM Studio](https://lmstudio.ai/)
-- [LLaMA.cpp](https://github.com/ggerganov/llama.cpp)
+- [LLaMA.cpp](https://github.com/ggml-org/llama.cpp)

@@ -3,12 +3,12 @@ title: "Plausible Analytics Self-Hosted"
 description: "Guía completa para implementar Plausible Analytics auto-hospedado: alternativa ligera y respetuosa con la privacidad a Google Analytics"
 keywords: "analytics, plausible, privacy, gdpr, self-hosted, docker"
 tags: ['monitoring', 'compliance']
-updated: 2026-07-18
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 15 min
 category: Monitoreo
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Conocimientos básicos de DevOps"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -17,7 +17,7 @@ contributors: ["@rasty94"]
 # Plausible Analytics Self-Hosted
 
 **Fecha de creación**: 2026-01-25  
-**Última actualización**: 2026-01-25
+**Última actualización**: 2026-10-11
 
 ## 🎯 Introducción
 
@@ -27,7 +27,7 @@ contributors: ["@rasty94"]
 
 - ✅ **Sin cookies**: No requiere banner de consentimiento
 - ✅ **GDPR/PECR compliant**: Cumple con normativas europeas de privacidad
-- ✅ **Ligero**: Script de ~1KB (vs 45KB de Google Analytics)
+- ✅ **Ligero**: Script mucho más pequeño que el de Google Analytics
 - ✅ **Open Source**: [Código disponible en GitHub](https://github.com/plausible/analytics)
 - ✅ **Self-hosted**: Control total de tus datos
 - ✅ **Simple**: Dashboard intuitivo y minimalista
@@ -50,7 +50,7 @@ services:
       - POSTGRES_DB=plausible
 
   plausible_events_db:
-    image: clickhouse/clickhouse-server:23.11-alpine
+    image: clickhouse/clickhouse-server:24.12-alpine
     restart: unless-stopped
     volumes:
       - plausible-event-data:/var/lib/clickhouse
@@ -62,7 +62,7 @@ services:
         hard: 262144
 
   plausible:
-    image: plausible/analytics:v2.0
+    image: ghcr.io/plausible/community-edition:v3.2.1
     restart: unless-stopped
     command: sh -c "sleep 10 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh run"
     depends_on:
@@ -76,7 +76,7 @@ services:
       - TOTP_VAULT_KEY=your-totp-key-here     # Generar con: openssl rand -base64 32
       - DATABASE_URL=postgres://postgres:postgres@plausible_db:5432/plausible
       - CLICKHOUSE_DATABASE_URL=http://plausible_events_db:8123/plausible_events_db
-      - DISABLE_REGISTRATION=true  # Desactivar después del primer registro
+      - DISABLE_REGISTRATION=true  # Valores: true, false, invite_only (por defecto)
       - MAILER_EMAIL=noreply@frikiteam.es
       - SMTP_HOST_ADDR=smtp.yourdomain.com
       - SMTP_HOST_PORT=587
@@ -136,7 +136,7 @@ openssl rand -base64 32
 
 ```bash
 cd /path/to/plausible
-docker-compose up -d
+docker compose up -d
 ```
 
 ### 3. Crear primer usuario
@@ -144,8 +144,8 @@ docker-compose up -d
 Accede a `http://localhost:8000/register` y crea tu cuenta. Luego, establece `DISABLE_REGISTRATION=true` y reinicia:
 
 ```bash
-docker-compose down
-docker-compose up -d
+docker compose down
+docker compose up -d
 ```
 
 ## 🌐 Integración en MkDocs Material
@@ -211,8 +211,8 @@ plausible('Signup', {props: {method: 'email'}})
 
 ### ¿Por qué es GDPR-compliant?
 
-1. **No usa cookies**: Solo localStorage para evitar doble conteo (opcional)
-2. **IP anónima**: Hash de IP + rotación diaria
+1. **No usa cookies ni localStorage**: Tampoco caché del navegador
+2. **IP anónima**: Hash de sal diaria + dominio + IP + User-Agent; la sal se descarta cada 24 h
 3. **Sin información personal**: No trackea usuarios individuales
 4. **Sin tracking entre sitios**: Sin fingerprinting
 5. **Data residency**: Tus datos en tu servidor
@@ -222,9 +222,9 @@ plausible('Signup', {props: {method: 'email'}})
 ```yaml
 # En docker-compose.yml
 environment:
-  - IP_GEOLOCATION=false  # Desactivar geolocalización si no es necesario
-  - DISABLE_AUTH=false    # Mantener autenticación activa
-  - LOG_FAILED_LOGIN_ATTEMPTS=true
+  - DISABLE_REGISTRATION=invite_only  # Solo usuarios invitados (por defecto)
+  - IP_GEOLOCATION_DB=/ruta/geo.mmdb  # Opcional; por defecto db-ip de país incluida en la imagen
+  - MAILER_EMAIL=noreply@frikiteam.es
 ```
 
 ## 🛡️ Proxy Inverso con Nginx
@@ -259,11 +259,11 @@ BACKUP_DIR="/backups/plausible"
 DATE=$(date +%Y%m%d_%H%M%S)
 
 # PostgreSQL backup
-docker exec plausible_plausible_db_1 pg_dump -U postgres plausible > \
+docker compose exec -T plausible_db pg_dump -U postgres plausible > \
   "$BACKUP_DIR/plausible_db_$DATE.sql"
 
 # ClickHouse backup (opcional, datos de eventos)
-# docker exec plausible_plausible_events_db_1 clickhouse-client --query \
+# docker compose exec -T plausible_events_db clickhouse-client --query \
 #   "BACKUP DATABASE plausible_events_db TO Disk('backups', '$DATE.zip')"
 
 # Retener últimos 30 días
@@ -307,8 +307,8 @@ Si Plausible no se ajusta a tus necesidades:
 
 ## 🎓 Mejores Prácticas
 
-1. **Actualiza regularmente**: `docker-compose pull && docker-compose up -d`
+1. **Actualiza regularmente**: `docker compose pull && docker compose up -d`
 2. **Monitoriza recursos**: ClickHouse puede consumir bastante RAM
 3. **Configura alertas**: Para caídas del servicio
-4. **Revisa logs**: `docker-compose logs -f plausible`
+4. **Revisa logs**: `docker compose logs -f plausible`
 5. **Protege el acceso**: Usa contraseñas fuertes y 2FA

@@ -3,12 +3,12 @@ title: "Estrategia de Backup 3-2-1"
 description: "Diseñar un plan de backup para infraestructura propia con la regla 3-2-1: qué cuenta como copia, qué es un medio distinto, cómo elegir RPO, RTO y retención, y cómo montarlo con PBS, restic y almacenamiento de objetos."
 keywords: "backup, 3-2-1, 3-2-1-1-0, RPO, RTO, retención, offsite, restic, PBS, homelab, recuperación"
 tags: ['backups', 'best-practices']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 18 min
 category: Copias de Seguridad
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Administración básica de Linux (cron o systemd timers, SSH)"
@@ -106,7 +106,7 @@ El error habitual es tratar "fuera del sitio" como una cuestión geográfica. Ta
 
 La regla original es de los tiempos en que la amenaza era el hardware. Con el ransomware como amenaza principal, se añaden dos condiciones:
 
-- **1** copia **offline o inmutable**: un disco desconectado, una cinta, un bucket con *object lock*, un repositorio borg en modo `--append-only` o un datastore de PBS con protección de snapshots. Algo que un atacante con acceso de administrador al servidor **no pueda borrar**.
+- **1** copia **offline o inmutable**: un disco desconectado, una cinta, un bucket con *object lock*, un repositorio borg en modo `--append-only` (`prune` y `delete` siguen aceptándose, pero no liberan espacio hasta `borg compact`) o un datastore de PBS con protección de snapshots. Algo que un atacante con acceso de administrador al servidor **no pueda borrar**.
 - **0** errores de verificación: cada backup se comprueba (`restic check`, verificación de datastore en PBS) y se hace al menos una **restauración de prueba** periódica. Un backup que nunca se ha restaurado es una hipótesis.
 
 El "0" es el que más se incumple. No cuesta hardware, cuesta disciplina. La forma de que se cumpla es automatizarlo y que **falle ruidosamente** cuando no se cumple: la verificación programada que envía una alerta si no termina bien, no la que escribe un log que nadie lee.
@@ -129,7 +129,7 @@ Para la retención, el esquema estándar es **GFS** (*Grandfather-Father-Son*): 
 restic forget --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 2 --prune
 ```
 
-Esto conserva una copia por día de la última semana, una por semana del último mes, una por mes del último medio año y una por año de los dos últimos. Gracias a la deduplicación, el coste en espacio de la retención larga es mucho menor de lo que sugiere el recuento de snapshots: solo se guardan los bloques que cambiaron. PBS usa exactamente el mismo modelo en sus *prune jobs*; ver [PBS: retención y prune](pbs.md#retencion-prune-y-garbage-collection).
+Esto conserva una copia por día de la última semana, una por semana del último mes, una por mes del último medio año y una por año de los dos últimos. Gracias a la deduplicación, el coste en espacio de la retención larga es mucho menor de lo que sugiere el recuento de snapshots: solo se guardan los bloques que cambiaron. PBS usa exactamente el mismo modelo en sus *prune jobs*; ver [PBS: retención y prune](pbs.md#prune-y-garbage-collection).
 
 !!! tip "Clasifica antes de respaldar"
     Lo que más abarata un plan es decidir qué **no** se respalda. Imágenes de contenedores, paquetes descargados, caches de compilación y la biblioteca multimedia que puedes volver a bajar no necesitan tres copias; necesitan una lista de cómo volver a obtenerlos. Reserva el 3-2-1 completo para lo que es irreemplazable: datos personales, bases de datos, configuración y secretos.

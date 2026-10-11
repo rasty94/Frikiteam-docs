@@ -3,12 +3,12 @@ title: "Monitorización con Uptime Kuma"
 description: "Desplegar y operar Uptime Kuma auto-hospedado: contenedor, reverse proxy, tipos de monitor, notificaciones, status pages, integración con Prometheus y copias de seguridad."
 keywords: "uptime kuma, monitoring, status pages, notifications, self-hosted, docker, reverse proxy, push monitor, backup"
 tags: ['monitoring']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 14 min
 category: Monitoreo
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Docker o Podman con Compose"
   - "Un reverse proxy con TLS ([Traefik](../traefik/traefik_base.md) o [HAProxy](../haproxy/haproxy_base.md))"
@@ -72,7 +72,7 @@ services:
 El puerto solo escucha en `127.0.0.1`: lo publica el reverse proxy. Si no tienes proxy y lo usas solo en tu red local, cambia a `"3001:3001"`.
 
 !!! warning "Dependiente de la versión"
-    La etiqueta `:1` sigue la rama 1.x. Existe una rama 2.x con cambios de almacenamiento (entre ellos, soporte de bases de datos externas además del fichero local) y una migración propia. No cambies de rama a ciegas: haz copia del directorio de datos y lee las notas de la versión antes de subir.
+    La etiqueta `:1` sigue la rama 1.x; la guía de instalación actual del proyecto usa `:2`. La rama 2.x tiene cambios de almacenamiento (entre ellos, soporte de bases de datos externas además del fichero local) y una migración propia. No cambies de rama a ciegas: haz copia del directorio de datos y lee las notas de la versión antes de subir.
 
 Para monitorizar contenedores Docker del host, el contenedor necesita acceso al socket (`/var/run/docker.sock`) y eso equivale a darle control sobre el demonio. Úsalo solo si lo necesitas, en modo lectura cuando sea posible, o prefiere monitores HTTP/TCP que no requieren el socket. Para ejecutarlo como servicio de systemd, ver [Quadlets](../docker/quadlets.md).
 
@@ -91,7 +91,7 @@ La interfaz depende de WebSocket. Un proxy que no lo reenvíe produce el síntom
       - "traefik.http.services.kuma.loadbalancer.server.port=3001"
 ```
 
-En los ajustes de la aplicación hay una opción de proxy de confianza (*Settings → Reverse Proxy*) para que Uptime Kuma lea la IP real del cliente desde las cabeceras `X-Forwarded-*`. Actívala solo cuando el proxy las sobrescriba.
+En los ajustes de la aplicación hay una opción de proxy de confianza (*Settings → Reverse Proxy → HTTP Headers → Trust Proxy*) para que Uptime Kuma lea la IP real del cliente desde las cabeceras `X-Forwarded-*`. Actívala solo cuando el proxy las sobrescriba.
 
 ## Primeros pasos
 
@@ -149,7 +149,7 @@ Que una página sea pública no significa que deba mostrar nombres de host, IPs 
 
 ## Integración con Prometheus
 
-Uptime Kuma expone un endpoint `/metrics` en formato Prometheus con el estado y la latencia de cada monitor. Está protegido: se accede con autenticación básica usando un usuario y contraseña de la aplicación o una clave de API creada en los ajustes.
+Uptime Kuma expone un endpoint `/metrics` en formato Prometheus con el estado y la latencia de cada monitor. Está protegido: se accede con autenticación básica usando un usuario y contraseña de la aplicación o una clave de API creada en los ajustes. Al crear la primera clave de API, la autenticación básica con usuario y contraseña deja de aceptarse de forma permanente.
 
 ```yaml
 scrape_configs:

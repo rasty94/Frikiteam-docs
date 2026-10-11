@@ -252,7 +252,7 @@ Schedule a periodic scrub and review the result. It loads the disks: don't start
 ```bash
 # 4 GiB limit (value in bytes), persistent
 echo "options zfs zfs_arc_max=4294967296" > /etc/modprobe.d/zfs.conf
-update-initramfs -u -k all      # Debian/Proxmox; reboot afterwards
+update-initramfs -u -k all      # only if root is on ZFS; reboot afterwards
 # Live: echo 4294967296 > /sys/module/zfs/parameters/zfs_arc_max
 ```
 

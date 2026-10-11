@@ -3,12 +3,12 @@ title: "Systemd: Service Management"
 description: "Units, timers, drop-ins, sandboxing and journalctl in systemd: how to run, monitor and harden your own services on a Linux server or homelab."
 keywords: "systemd, systemctl, journalctl, unit, timer, drop-in, sandboxing, systemd-analyze, service, homelab"
 tags: ['linux', 'systemd']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 20 min
 category: Linux
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Linux terminal with sudo access"
   - "Basic knowledge of Linux processes and users"
@@ -51,8 +51,8 @@ Units live in three places, from lowest to highest priority:
 | Path | Managed by | Purpose |
 |------|------------|---------|
 | `/usr/lib/systemd/system/` | The distro package | System units; not edited by hand |
-| `/etc/systemd/system/` | You | Your own units and *overrides* of packaged ones |
 | `/run/systemd/system/` | Systemd, at runtime | Transient units, gone after a reboot |
+| `/etc/systemd/system/` | You | Your own units and *overrides* of packaged ones |
 
 Systemd reads the files at boot or on `daemon-reload`, not every time you query the status. Editing a unit without reloading changes nothing: `systemctl status` warns that the unit has changed on disk.
 
@@ -81,7 +81,7 @@ What each block does:
 - **`[Service]`**: how the process runs. `Type=simple` assumes `ExecStart` is the main process and stays in the foreground; it is right for almost any script or binary that does not fork into the background. `User=` prevents it from running as root.
 - **`[Install]`**: what happens on `systemctl enable`. `WantedBy=multi-user.target` hooks it into the normal boot of a server.
 
-`ExecStart` requires an **absolute path** to the executable. There is no shell `PATH` and no expansion of `~`, pipes or redirections: if you need a shell, invoke it explicitly with `/bin/sh -c '...'`.
+`ExecStart` expects an **absolute path** to the executable (systemd also accepts a plain name without slashes, which it looks up in `/usr/bin` and similar; an absolute path leaves no ambiguity). There is no shell `PATH` and no expansion of `~`, pipes or redirections: if you need a shell, invoke it explicitly with `/bin/sh -c '...'`.
 
 To pass variables without writing them in the unit, point to an environment file:
 
@@ -292,10 +292,10 @@ To measure how exposed a unit is, systemd includes an analyser:
 systemd-analyze security my-service
 ```
 
-It shows a table with each directive evaluated and an overall exposure score, from `UNSAFE` to `SAFE`. It does not aim for zero: it helps you see what is missing and compare before and after. The exact detail of the output and of the available directives depends on the installed systemd version, so check with `man systemd.exec` on your system.
+It shows a table with each directive evaluated and an overall exposure score from 0.0 to 10.0 (higher means less isolation) with a label such as `OK` or `UNSAFE`. It does not aim for zero: it helps you see what is missing and compare before and after. The exact detail of the output and of the available directives depends on the installed systemd version, so check with `man systemd.exec` on your system.
 
 !!! warning "Version dependent"
-    Some sandboxing directives (for example, system call filtering such as `SystemCallFilter=`, or `ProtectProc=`) appeared in specific versions. An unknown directive is ignored with a warning in the journal, so enabling it does not guarantee that it is doing anything.
+    Some sandboxing directives (for example, system call filtering such as `SystemCallFilter=`, or `ProtectProc=`, added in systemd 247) appeared in specific versions. An unknown directive is ignored with a warning in the journal, so enabling it does not guarantee that it is doing anything.
 
 The same least-privilege approach applies to the whole system; see [Linux hardening](../cybersecurity/hardening_linux.md).
 

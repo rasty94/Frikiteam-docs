@@ -3,12 +3,12 @@ title: "Keycloak: Identity Management"
 description: "Deploy and operate Keycloak on your own infrastructure: PostgreSQL, reverse proxy, realms, OIDC clients, mappers, LDAP federation and backups."
 keywords: "keycloak, iam, sso, oidc, realm, client, mapper, ldap, reverse proxy, postgresql, backup"
 tags: ['identity', 'cybersecurity']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 17 min
 category: Identity Management
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Docker or Podman with Compose"
   - "A reverse proxy with TLS ([Traefik](../traefik/traefik_base.md) or [HAProxy](../haproxy/haproxy_base.md))"
@@ -140,7 +140,7 @@ With Traefik a router label and the service port are enough; Traefik adds the `X
 With HAProxy you must declare them explicitly with `http-request set-header`. See [HAProxy](../haproxy/haproxy_base.md).
 
 !!! warning "Do not expose the admin console"
-    The `master` realm and the `/admin` console should not be reachable from the Internet. Filter by IP or management network in the proxy and leave users only the `/realms/` path. If `KC_PROXY_HEADERS` trusts headers any client can forge, an attacker can spoof IP and scheme: the proxy must overwrite them, not forward them.
+    The `master` realm and the `/admin` console should not be reachable from the Internet. Filter by IP or management network in the proxy and leave users only the `/realms/` and `/resources/` paths. If `KC_PROXY_HEADERS` trusts headers any client can forge, an attacker can spoof IP and scheme: the proxy must overwrite them, not forward them.
 
 ## Realms and users
 
@@ -218,7 +218,7 @@ docker compose exec -T postgres pg_dump -U keycloak keycloak | gzip > keycloak-$
 gunzip -c keycloak-2026-10-10.sql.gz | docker compose exec -T postgres psql -U keycloak keycloak
 ```
 
-Copy the dump off the host (see [Restic and Borg](../backups/restic_borg.md)). In addition, `kc.sh export` can dump a realm's configuration to JSON files, useful for versioning configuration or cloning an environment, but it does not replace the database dump: by default it is not a full copy of sessions or of every secret.
+Copy the dump off the host (see [Restic and Borg](../backups/restic_borg.md)). In addition, `kc.sh export` can dump a realm's configuration to JSON files, useful for versioning configuration or cloning an environment, but it does not replace the database dump: it does not include events, persisted sessions or revoked tokens, and its consistency is only guaranteed with all nodes stopped.
 
 !!! warning "Upgrade with a prior backup"
     Keycloak migrates the database schema on the first boot of a new version, and that migration is not reversible. Take the dump before changing the image tag, upgrade one major version at a time and read the upgrade notes of the target version.

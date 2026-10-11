@@ -3,12 +3,12 @@ title: "OpenStack Day-2 Operations: Maintenance and Production Management"
 tags: ['openstack']
 description: "Complete guide for Day-2 operations in OpenStack: upgrades, backups, monitoring, capacity planning, and incident response."
 keywords: OpenStack, Day-2, operations, maintenance, upgrades, backups, monitoring, capacity planning, production, ops
-updated: 2026-07-18
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 41 min
 category: Cloud Computing
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Basic DevOps knowledge"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -60,7 +60,7 @@ openstack server list --all-projects --status ERROR \
 ls -lh /backups/openstack/ | tail -10
 
 # Review resource usage
-openstack hypervisor stats show
+openstack hypervisor stats show   # removed in Nova microversion 2.88; on recent releases use openstack resource provider usage show
 ceph df  # If Ceph is in use
 ```
 
@@ -99,13 +99,13 @@ kolla-ansible -i /etc/kolla/multinode reconfigure
 
 ### Upgrade Strategy
 
-OpenStack follows a SLURP model (stable releases roughly every year):
+OpenStack ships a release every 6 months; SLURP releases (every other one, ~yearly) let you skip the intermediate one:
 
 ```
-2023.1 (Antelope) → 2023.2 (Bobcat) → 2024.1 (Caracal) → 2024.2 (Dalmatian)
+2024.1 Caracal (SLURP) → 2025.1 Epoxy (SLURP) → 2026.1 Gazpacho (SLURP)  # no-SLURP: 2024.2, 2025.2, 2026.2
 ```
 
-**Recommendation**: upgrade every 2-3 releases (skip the intermediate ones when using SLURP)
+**Recommendation**: SLURP to SLURP (skipping the intermediate) or release by release; never skip more. Check the supported paths in the release notes
 
 ### Pre-Upgrade Checklist
 
@@ -121,7 +121,7 @@ openstack --version
 kolla-ansible -i /etc/kolla/multinode prechecks
 
 # 4. Read the release notes
-# https://releases.openstack.org/caracal/index.html
+# https://releases.openstack.org/
 
 # 5. Prepare the maintenance window
 # Notify users, schedule the downtime
@@ -134,7 +134,7 @@ kolla-ansible -i /etc/kolla/multinode prechecks
 
 ```bash
 # 1. Update Kolla-Ansible
-pip install --upgrade kolla-ansible==18.0.0  # New version
+pip install --upgrade kolla-ansible==<target release version>
 
 # 2. Update Ansible dependencies
 kolla-ansible install-deps
@@ -175,7 +175,7 @@ kolla-ansible -i /etc/kolla/multinode stop
 
 # 2. Restore the previous images
 # Edit /etc/kolla/globals.yml:
-# openstack_release: "2023.2"  # Previous version
+# openstack_release: "<previous release>"  # Kolla-Ansible does not document downgrades: restoring the DB backup is the reliable path
 
 # 3. Reconfigure with the previous version
 kolla-ansible -i /etc/kolla/multinode reconfigure
@@ -657,7 +657,7 @@ echo "Cleanup completed"
 
 - [OpenStack Operations Guide](https://docs.openstack.org/operations-guide/)
 - [Kolla-Ansible Operations](https://docs.openstack.org/kolla-ansible/latest/user/operating-kolla.html)
-- [OpenStack Upgrade Guide](https://docs.openstack.org/operations-guide/ops-upgrades.html)
+- [Kolla-Ansible Upgrade](https://docs.openstack.org/kolla-ansible/latest/user/operating-kolla.html)
 
 ---
 

@@ -3,12 +3,12 @@ title: "Pure Storage — Quick Guide"
 description: "Pure Storage FlashArray in self-hosted infrastructure: tiers, volumes, hosts, snapshots, protection groups, ActiveCluster and CSI for Kubernetes and virtualization."
 keywords: "pure storage, flasharray, purity, purevol, purehost, protection group, activecluster, csi, iscsi, multipath, snapshots"
 tags: ['storage', 'pure-storage']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: beginner
 estimated_time: 12 min
 category: Storage
 status: published
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-11
 prerequisites:
   - "Basic SAN concepts (LUN, iSCSI, multipath)"
   - "Administrative access to a FlashArray (CLI over SSH or GUI)"
@@ -144,7 +144,7 @@ In a homelab or small business, the usual setup is a single array plus asynchron
 
 ## Kubernetes with the CSI driver
 
-Pure offers a CSI driver (Portworx/Pure Service Orchestrator, depending on the case) that creates and expands volumes on demand. General details of the CSI model are in [Kubernetes CSI](../kubernetes_csi.md). With a well-defined StorageClass, the developer asks for a PVC and the array creates the volume.
+Pure offers the Portworx CSI driver (PX-CSI) —the older Pure Service Orchestrator was announced as discontinued in 2022— that creates and expands volumes on demand. General details of the CSI model are in [Kubernetes CSI](../kubernetes_csi.md). With a well-defined StorageClass, the developer asks for a PVC and the array creates the volume.
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -201,6 +201,7 @@ For metrics and alerting you can use the vendor's Prometheus exporter and Grafan
 ## References
 
 - [Official Pure Storage documentation](https://support.purestorage.com/)
+- [Portworx CSI (docs.portworx.com)](https://docs.portworx.com/portworx-csi/)
 - [Storage protocols](../protocols/protocols.md)
 - [Kubernetes CSI](../kubernetes_csi.md)
 - [NetApp ONTAP](../netapp/netapp_base.md)
