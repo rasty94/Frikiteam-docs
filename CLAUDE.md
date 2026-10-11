@@ -11,8 +11,8 @@ publicado sea correcto y verificable, no que haya mucho.
 
   ```bash
   mkdocs build --strict
-  python scripts/validate_metadata.py --strict   # tags, categorías, borradores ES/EN
-  python scripts/check_sync.py --strict          # fechas ES/EN; avisa de asimetría de tamaño
+  python scripts/validate_metadata.py --strict   # vocabularios, borradores, campos y fechas ES/EN, estimated_time
+  python scripts/check_sync.py --strict          # fechas, asimetría de tamaño y EN con el cuerpo en español
   python test_wordpress_format.py
   ```
 
@@ -28,9 +28,10 @@ publicado sea correcto y verificable, no que haya mucho.
 - Cada `docs/doc/**/x.md` tiene su gemela en `docs/en/doc/**/x.md`, y `docs/x.md` en
   `docs/en/x.md`. Misma estructura, mismas secciones, mismos bloques de código, mismo
   número de líneas aproximado. Los enlaces relativos se mantienen idénticos.
-- `updated` y `last_reviewed` deben ser iguales en las dos. `check_sync.py` solo
-  compara fechas: una traducción a medias con la fecha correcta pasa. Comprueba la
-  paridad de líneas tú mismo.
+- `updated`, `last_reviewed` y `tags` deben ser iguales en las dos; lo exige
+  `validate_metadata.py --strict`. `check_sync.py --strict` falla si el tamaño difiere
+  más de un 40% o si la prosa de una EN sigue en español, pero una traducción a medias
+  del mismo tamaño pasa: comprueba la paridad de secciones y bloques tú mismo.
 - `category` va traducida según `CATEGORY_VOCABULARY` en `scripts/validate_metadata.py`.
   Los tags son los mismos en ambos idiomas.
 - Si un agente muere a medias, lo típico es ES escrito y EN sin tocar. Revisa antes de
@@ -45,8 +46,10 @@ publicado sea correcto y verificable, no que haya mucho.
   enlaces entrantes o `--strict` falla. El estado editorial normal se lleva en `status`.
 - `date:` y `draft: false` aparecen en páginas antiguas y no los lee nadie. No los
   añadas. La plantilla completa está en `TODO.md`, sección "Convenciones".
-- `estimated_time` lo ve el lector como badge. Unas 150 palabras/min de prosa más 5 s
-  por línea de código; una página de 300 líneas ronda los 20 min.
+- `estimated_time` lo ve el lector como badge: 150 palabras/min de prosa más 5 s por
+  línea de código, igual en ES y EN. `--strict` falla si se aleja de la fórmula;
+  `python scripts/validate_metadata.py --fix-reading-time` lo recalcula en las dos.
+  No lo repitas a mano en el cuerpo de la página.
 
 ## Jinja dentro de bloques de código
 

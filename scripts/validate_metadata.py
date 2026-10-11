@@ -420,6 +420,66 @@ def check_twin_parity(docs_paths):
     return problemas
 
 
+# estimated_time se pinta como badge. Formula del proyecto: 150 palabras/min de
+# prosa mas 5 s por linea de codigo. El 2026-10-11 habia 56 paginas muy lejos de
+# ella (badges de 10-40 min en paginas de 46-89). Se calcula sobre la ES y la EN
+# debe llevar el mismo valor.
+TOLERANCIA_LECTURA = (3, 0.25)  # minutos absolutos, fraccion relativa
+
+
+def minutos_lectura(file_path):
+    texto = open(file_path, encoding='utf-8').read()
+    if texto.startswith('---'):
+        texto = texto.split('---', 2)[-1]
+    bloques = re.findall(r'^```.*?^```', texto, flags=re.S | re.M)
+    lineas_codigo = sum(max(0, b.count('\n') - 1) for b in bloques)
+    prosa = re.sub(r'^```.*?^```', '', texto, flags=re.S | re.M)
+    palabras = len(re.findall(r'\w+', prosa))
+    return max(1, round(palabras / 150 + lineas_codigo * 5 / 60))
+
+
+def _minutos_declarados(fields):
+    m = re.match(r'\s*(\d+)', str(fields.get('estimated_time', '')))
+    return int(m.group(1)) if m else None
+
+
+def check_reading_time(docs_paths, fix=False):
+    """Devuelve [(ruta, motivo)] si estimated_time se aleja de la formula o difiere ES/EN.
+
+    Con fix=True reescribe el valor calculado en la ES y en su gemela EN.
+    """
+    problemas = []
+    for docs_path in docs_paths:
+        if 'docs/en/' in str(docs_path).replace('\\', '/'):
+            continue
+        for md in sorted(Path(docs_path).rglob('*.md')):
+            es = extract_frontmatter(md)
+            if not es or _minutos_declarados(es) is None:
+                continue
+            gemelo = Path(str(md).replace('docs/', 'docs/en/', 1))
+            en = extract_frontmatter(gemelo) if gemelo.exists() else None
+            esperado = minutos_lectura(md)
+            declarado = _minutos_declarados(es)
+            declarado_en = _minutos_declarados(en) if en else None
+            abs_tol, rel_tol = TOLERANCIA_LECTURA
+            lejos = abs(declarado - esperado) > max(abs_tol, esperado * rel_tol)
+            desparejado = declarado_en is not None and declarado_en != declarado
+            if not (lejos or desparejado):
+                continue
+            if fix:
+                for ruta in (md, gemelo if en else None):
+                    if ruta is None:
+                        continue
+                    t = open(ruta, encoding='utf-8').read()
+                    t = re.sub(r'^estimated_time:.*$', f'estimated_time: {esperado} min', t, count=1, flags=re.M)
+                    open(ruta, 'w', encoding='utf-8').write(t)
+            motivo = f"declara {declarado} min, la fórmula da {esperado}"
+            if desparejado:
+                motivo += f"; la EN declara {declarado_en}"
+            problemas.append((str(md), motivo))
+    return problemas
+
+
 def check_vocabulary(docs_paths):
     """Recorre los arboles y devuelve [(ruta, tags_invalidos)] de los ficheros infractores."""
     offenders = []
@@ -443,6 +503,8 @@ def main():
                         help='Analizar solo archivos de una categoría específica')
     parser.add_argument('--report', action='store_true',
                         help='Generar reporte completo')
+    parser.add_argument('--fix-reading-time', action='store_true',
+                        help='Recalcular estimated_time con la fórmula del proyecto en ES y EN')
     parser.add_argument('--strict', action='store_true',
                         help='Salir con codigo 1 si hay tags fuera del vocabulario')
 
@@ -474,6 +536,10 @@ def main():
         if stats['issues']:
             print(f"\n🚨 {len(stats['issues'])} archivos con problemas")
             print("Ejecuta con --report para ver detalles")
+
+    if args.fix_reading_time:
+        corregidas = check_reading_time(args.docs_path, fix=True)
+        print(f"\n🕒 estimated_time recalculado en {len(corregidas)} páginas (ES y su gemela EN)")
 
     if args.strict:
         fallo = False
@@ -518,6 +584,16 @@ def main():
             print(f"   Campos espejo: {', '.join(CAMPOS_ESPEJO)}. Traducir desde la ES.")
         else:
             print("✅ Las gemelas EN declaran los mismos campos espejo que su ES")
+
+        lectura = check_reading_time(args.docs_path)
+        if lectura:
+            fallo = True
+            print(f"\n❌ {len(lectura)} páginas con estimated_time fuera de la fórmula:")
+            for path, motivo in lectura:
+                print(f"  {path}: {motivo}")
+            print("   Corrígelo con: python scripts/validate_metadata.py --fix-reading-time")
+        else:
+            print("✅ estimated_time coherente con la fórmula y igual en ES y EN")
 
         paridad = check_twin_parity(args.docs_path)
         if paridad:
