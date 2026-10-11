@@ -6,6 +6,11 @@ Todos los cambios relevantes en el repositorio.
 
 ## 2026-10-11
 
+- `ce248b8` docs(todo): registrar que todo lo publicado cita fuente (2 archivos)
+- `7e3276a` docs: fuente primaria para cada afirmación pendiente y referencias completas (ES/EN) (40 archivos)
+- `8a8f3a9` docs: fuentes referenciadas en todas las páginas (ES/EN) (176 archivos)
+- `4150e5f` feat(ci): validate_metadata exige una sección de referencias con fuentes externas (1 archivo)
+- `0b55171` docs: regenerar CHANGELOG hasta el cierre del 2026-10-11 (1 archivo)
 - `720844b` docs(todo): segunda pasada de verificación y diagnóstico de analisis_logs (2 archivos)
 - `7af59e8` docs: Keystone audita con notificaciones CADF, no con una sección [audit]; aviso de ssh.socket en Ubuntu 24.04+ (4 archivos)
 - `33a5648` docs(todo): registrar la verificación del 2026-10-11 y dejar solo lo que no tuvo fuente (2 archivos)
