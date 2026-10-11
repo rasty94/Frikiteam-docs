@@ -29,17 +29,17 @@ TheHive/MISP y vLLM se verificaron el 2026-09-03 (ver `done.md`). Queda OpenSCAP
     - `storage/zfs_lvm.md`: `lvchange -ay -K`, `thin_pool_autoextend_*` con `dmeventd`, campos `data_percent`/`metadata_percent`, `zpool online -e` (man7.org no respondía).
     - `storage/ceph/troubleshooting_ceph.md`: `ceph-objectstore-tool --op fsck` frente a `ceph-bluestore-tool fsck` en BlueStore; valores por defecto de los ratios full.
     - `backups/kubernetes_backup.md`: pasos con el resto de nodos de control tras `--cluster-reset` en k3s; TTL de Velero frente a Object Lock.
-    - `linux/ssh_security.md` y `cybersecurity/hardening_linux.md`: activación por socket (`ssh.socket`) en Ubuntu 22.10+, que hace que `Port` en `sshd_config` no baste; las líneas de `pam_faillock` añadidas sin fuente consultada.
+    - `cybersecurity/hardening_linux.md`: las líneas de `pam_faillock` añadidas sin fuente consultada.
     - `networking/vrouter_vyos.md`: `show ip bgp summary`, `show ip ospf neighbor`.
     - `networking/dns_selfhosted.md`: sintaxis de `pdnsutil` en PowerDNS 5.x (la página usa la de 4.x con aviso); `drill -T/-S`; opciones DNS de `pct set`/`qm set`.
     - `kubernetes/k3s_ingress_certmanager.md`: `HelmChartConfig` de Traefik, `cmctl status certificate`, puerto 8472 de Flannel.
     - `kubernetes/ebpf_cilium.md`: flags de `cilium hubble`, one-liners de bpftrace, `TracingPolicy` de Tetragon.
     - `cybersecurity/forense_digital.md`: `dump-guest-memory` desde `qm monitor`.
-    - `cybersecurity/ci_security_scanning.md` y `kubernetes_security.md`: `actions/checkout@v7` (tomado de la API de etiquetas, sin changelog) y el nombre del SARIF que deja `checkov-action`.
-    - `openstack/day2.md`: sección `[audit]` de `keystone.conf` (probablemente se configura en keystonemiddleware); `openstack/troubleshooting_openstack.md`: `nova_novncproxy_base_url`, `port list --device-owner none`, `volume set --detached`, `orchestration template validate -t`.
+    - `cybersecurity/ci_security_scanning.md`: el nombre del SARIF que deja `checkov-action` en su directorio de salida.
+    - `openstack/troubleshooting_openstack.md`: `nova_novncproxy_base_url`, `port list --device-owner none`, `volume set --detached`, `orchestration template validate -t`.
     - `ai/rag_basics.md` y `ai/local_ecosystems.md`: nombre `llama3.2` en la biblioteca de Ollama; `ai/vector_databases.md`: valores de la tabla comparativa.
     - `monitoring/plausible_analytics.md`: snippet de seguimiento vigente y el fragmento de `mkdocs.yml` de la página (claves `extra:` duplicadas).
-- [ ] **`ai/analisis_logs.md`: la EN tiene 1257 líneas y la ES 933** (26%, por debajo del umbral del 40% de `check_sync.py`). Medido el 2026-10-11. Igualar traduciendo el lado largo.
+- [ ] **`ai/analisis_logs.md`: ES y EN son dos documentos distintos**, no una traducción a medias (comprobado el 2026-10-11): secciones y casos de uso diferentes a partir del segundo, 14 cercas de código en ES y 16 en EN, 933 frente a 1257 líneas. Reescribir la EN como traducción de la ES, que es la fuente.
 - [ ] **Desplegar Plausible** en servidor o revisar logs existentes para analytics básico.
 - [ ] **19 borradores en WordPress esperando revisión humana** en `frikiteam.es/wp-admin`. El pipeline no los publica: el paso a `publish` es decisión manual.
 - [ ] **4 `index.md` del árbol ES sin frontmatter.** Es deliberado, por convención del proyecto los índices quedan excluidos del campo `updated`.
