@@ -2,12 +2,12 @@
 title: "Resolución de problemas (Networking)"
 description: "Documentación sobre resolución de problemas (networking)"
 tags: ['networking']
-updated: 2025-09-10
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 1 min
 category: Redes
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Fundamentos de redes"
@@ -62,3 +62,11 @@ sudo ip link set dev ztXXXXXX mtu 1400 || true
 After=network-online.target
 Wants=network-online.target
 ```
+
+## Referencias
+
+- [ping(8)](https://manpages.debian.org/stable/iputils-ping/ping.8.en.html)
+- [mtr(8)](https://manpages.debian.org/stable/mtr/mtr.8.en.html)
+- [dig(1)](https://manpages.debian.org/stable/bind9-dnsutils/dig.1.en.html)
+- [ip-route(8)](https://manpages.debian.org/stable/iproute2/ip-route.8.en.html)
+- [systemd: red en línea](https://systemd.io/NETWORK_ONLINE/)

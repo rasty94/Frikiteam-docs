@@ -2,8 +2,8 @@
 title: CIDR Notation
 tags: ['networking']
 description: Detailed explanation of Classless Inter-Domain Routing notation and how to calculate IP ranges.
-updated: 2026-01-23
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: beginner
 category: Networking
 status: published
@@ -133,6 +133,7 @@ print(f"Hosts: {list(network.hosts())[:5]}...")  # First 5 hosts
 
 ## References
 
-- RFC 4632: Classless Inter-domain Routing (CIDR)
-- RFC 1918: Address Allocation for Private Internets
-- IANA IPv4 Address Space Registry
+- [RFC 4632: Classless Inter-domain Routing (CIDR)](https://www.rfc-editor.org/rfc/rfc4632)
+- [RFC 1918: Address Allocation for Private Internets](https://www.rfc-editor.org/rfc/rfc1918)
+- [IANA IPv4 Address Space Registry](https://www.iana.org/assignments/ipv4-address-space/ipv4-address-space.xhtml)
+- [RFC 4291: Addressing architecture IPv6](https://www.rfc-editor.org/rfc/rfc4291)

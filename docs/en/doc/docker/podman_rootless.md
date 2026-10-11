@@ -3,12 +3,12 @@ title: "Rootless Podman — Containers without a daemon or root"
 description: "Why rootless changes the threat model: user namespaces, subuid/subgid, daemonless architecture, migrating from Docker, pods and Quadlet, networking with pasta/slirp4netns and real limitations."
 keywords: "podman, rootless, contenedores, user namespaces, subuid, subgid, daemonless, quadlet, pasta, slirp4netns, seguridad, docker"
 tags: ['containers', 'podman', 'cybersecurity']
-updated: 2026-07-19
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 20 min
 category: Containers
 status: published
-last_reviewed: 2026-07-19
+last_reviewed: 2026-10-11
 prerequisites:
   - "Docker knowledge"
   - "Intermediate Linux (users, permissions, systemd)"
@@ -299,7 +299,7 @@ No sugar coating, this is what you will not be able to do:
 - [ ] Backups of user storage, not of `/var/lib/containers`.
 - [ ] Untrusted workloads additionally run under a sandboxed runtime.
 
-## 🔗 Related links
+## References
 
 - [Docker — Base](docker_base.md) — container and image concepts.
 - [Docker — Security and Scanning](docker_security.md) — image hardening, secrets and scanning.

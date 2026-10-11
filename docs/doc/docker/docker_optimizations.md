@@ -3,12 +3,12 @@ title: "Docker — Optimización y Buenas Prácticas"
 description: "Reducir tiempo de build, tamaño y superficie de ataque de las imágenes Docker: multi-stage builds, minimización de capas, gestión de secretos, persistencia con volúmenes y un Dockerfile de producción de ejemplo."
 keywords: "docker, optimización, multi-stage, dockerfile, capas, tamaño de imagen, secretos, volúmenes, buenas prácticas"
 tags: ['docker']
-updated: 2026-09-03
+updated: 2026-10-11
 difficulty: expert
 category: Contenedores
 status: published
 estimated_time: 5 min
-last_reviewed: 2026-09-03
+last_reviewed: 2026-10-11
 prerequisites: ["Conocimientos básicos de Docker y Dockerfile"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -117,6 +117,12 @@ CMD ["./app"]
 ```
 
 ## Ver También
+
+- [Docker Best Practices](https://docs.docker.com/develop/dev-best-practices/)
+- [Multi-stage Builds](https://docs.docker.com/build/building/multi-stage/)
+- [Dockerfile Reference](https://docs.docker.com/engine/reference/builder/)
+
+## Referencias
 
 - [Docker Best Practices](https://docs.docker.com/develop/dev-best-practices/)
 - [Multi-stage Builds](https://docs.docker.com/build/building/multi-stage/)

@@ -4,8 +4,8 @@ tags: ['proxmox']
 description: "Learn to install, configure and manage Proxmox Virtual Environment. Complete virtualization guide with KVM, LXC, clustering and high availability."
 keywords: "Proxmox VE, virtualization, KVM, LXC, clustering, high availability, Debian, open source"
 sync_date: "2025-11-15"
-updated: 2025-11-15
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: beginner
 category: Virtualization
 status: published
@@ -575,12 +575,9 @@ docker compose run --rm pvetui
 
 ## References
 
-- **Official documentation**: https://pve.proxmox.com/wiki/Documentation
-- **Proxmox Wiki**: https://pve.proxmox.com/wiki/Main_Page
-- **Community forum**: https://forum.proxmox.com/
-- **Git repository**: https://git.proxmox.com/
-- **Downloads**: https://www.proxmox.com/en/downloads
-- **ProxMenuX**: https://github.com/ayufan/proxmox-ve-helper
-- **Proxmox VE Helper**: https://github.com/ayufan/proxmox-ve-helper
-- **PVETUI**: https://github.com/devnullvoid/pvetui
-
+- [Official documentation](https://pve.proxmox.com/pve-docs/)
+- [Proxmox Wiki](https://pve.proxmox.com/wiki/Main_Page)
+- [Community forum](https://forum.proxmox.com/)
+- [Git repository](https://git.proxmox.com/)
+- [Downloads](https://www.proxmox.com/en/downloads)
+- [PVETUI](https://github.com/devnullvoid/pvetui)

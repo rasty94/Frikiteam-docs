@@ -4,8 +4,8 @@ description: "Complete Ollama guide: installation, local model management, REST 
 keywords: "ollama, llm, local models, docker, api, devops"
 tags: ['ai', 'ollama', 'llm', 'docker', 'api']
 category: Artificial Intelligence
-updated: 2026-01-25
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: intermediate
 status: published
 estimated_time: 17 min
@@ -319,7 +319,7 @@ ollama run llama2 "Create a README.md for a user REST API"
 ollama run codellama "Document this Python function:"
 ```
 
-## 🔗 Additional Resources
+## References
 
 - [Official Documentation](https://github.com/ollama/ollama)
 - [Available Models](https://ollama.ai/library)

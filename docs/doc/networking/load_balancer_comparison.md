@@ -2,12 +2,12 @@
 title: "Load Balancing Avanzado: HAProxy vs NGINX vs Traefik"
 description: "Documentación sobre load balancing avanzado: haproxy vs nginx vs traefik"
 tags: ['networking']
-updated: 2026-01-24
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 32 min
 category: Redes
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Fundamentos de redes"
@@ -543,3 +543,9 @@ curl http://localhost:8080/metrics
 - Configuración dinámica y Let's Encrypt
 
 Cada herramienta excel en su dominio específico. La elección depende de tu arquitectura, requisitos de rendimiento y stack tecnológico.
+
+## Referencias
+
+- [HAProxy: documentación](https://docs.haproxy.org/)
+- [NGINX: balanceo de carga HTTP](https://nginx.org/en/docs/http/load_balancing.html)
+- [Traefik: documentación](https://doc.traefik.io/traefik/)

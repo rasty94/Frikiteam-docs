@@ -3,8 +3,8 @@ title: "TLS Certificates"
 description: Validation types (DV, OV, EV), chains of trust and configuration best practices.
 tags: ['networking']
 
-updated: 2026-01-23
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: intermediate
 category: Networking
 status: published
@@ -395,8 +395,12 @@ curl "https://crt.sh/?q=example.com&output=json"
 
 ## References
 
-- RFC 5246: The Transport Layer Security (TLS) Protocol Version 1.2
-- RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3
-- RFC 5280: Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile
-- RFC 6962: Certificate Transparency
-- CA/Browser Forum Baseline Requirements
+- [RFC 5246: The Transport Layer Security (TLS) Protocol Version 1.2](https://www.rfc-editor.org/rfc/rfc5246)
+- [RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3](https://www.rfc-editor.org/rfc/rfc8446)
+- [RFC 5280: Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile](https://www.rfc-editor.org/rfc/rfc5280)
+- [RFC 6962: Certificate Transparency](https://www.rfc-editor.org/rfc/rfc6962)
+- [CA/Browser Forum: Baseline Requirements](https://cabforum.org/working-groups/server/baseline-requirements/documents/)
+- [RFC 8555: ACME](https://www.rfc-editor.org/rfc/rfc8555)
+- [Let's Encrypt: documentation](https://letsencrypt.org/docs/)
+- [Certbot: documentation](https://eff-certbot.readthedocs.io/en/stable/)
+- [OpenSSL: páginas de manual](https://docs.openssl.org/master/man1/)

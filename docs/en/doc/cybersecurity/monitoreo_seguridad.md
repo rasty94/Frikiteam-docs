@@ -2,8 +2,8 @@
 title: "Security Monitoring"
 tags: ['cybersecurity', 'monitoring', 'siem']
 
-updated: 2026-01-23
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: intermediate
 category: Cybersecurity
 status: published
@@ -215,4 +215,3 @@ tail -f /var/ossec/logs/alerts/alerts.log
 - [Falco Documentation](https://falco.org/docs/)
 - [Wazuh Documentation](https://documentation.wazuh.com/)
 - [CNCF Falco](https://github.com/falcosecurity/falco)
-- [SIEM Best Practices](https://www.csoonline.com/article/3656967/what-is-siem-a-guide-to-security-information-and-event-management.html)

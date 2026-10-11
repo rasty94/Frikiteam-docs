@@ -52,3 +52,7 @@ MikroTik CHR is a strong fit when you need high-performance L3 routing with a ti
 - Are anti-spoofing and bogon filters in place?
 - Are CPU, pps and queue metrics monitored?
 - Is there a tested rollback path by version?
+
+## References
+
+- [MikroTik: Cloud Hosted Router](https://help.mikrotik.com/docs/spaces/ROS/pages/18350234/Cloud+Hosted+Router+CHR)

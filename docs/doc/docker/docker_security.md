@@ -3,12 +3,12 @@ title: "Docker — Seguridad: hardening, secretos y escaneo"
 description: "Endurecer imágenes y contenedores Docker: por qué el daemon es root equivalente, usuario no-root, capabilities, filesystem de solo lectura, no-new-privileges, límites de recursos, seccomp/AppArmor, secretos fuera de la imagen, escaneo con Trivy y publicación segura de puertos."
 keywords: "docker, seguridad, hardening, contenedores, capabilities, seccomp, apparmor, no-new-privileges, read-only, secretos, trivy, escaneo, cosign, dockerfile"
 tags: ['docker', 'containers', 'hardening', 'cybersecurity']
-updated: 2026-09-02
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 25 min
 category: Contenedores
 status: published
-last_reviewed: 2026-09-02
+last_reviewed: 2026-10-11
 prerequisites:
   - "[Docker — Base](docker_base.md)"
   - "Linux intermedio (usuarios, permisos, procesos)"
@@ -318,7 +318,7 @@ Para una base de datos que solo consume otro contenedor ni siquiera hace falta p
 - [ ] Puertos publicados solo donde deben, verificado desde otra máquina.
 - [ ] Reconstrucción periódica programada: la base envejece aunque tu código no cambie.
 
-## Enlaces relacionados
+## Referencias
 
 - [Docker — Base](docker_base.md) · [Optimización de Docker](docker_optimizations.md)
 - [Podman Rootless](podman_rootless.md) — eliminar el daemon root del modelo de amenaza.
@@ -327,3 +327,5 @@ Para una base de datos que solo consume otro contenedor ni siquiera hace falta p
 - [Escaneo de seguridad en CI](../cybersecurity/ci_security_scanning.md) · [Trivy Operator](../cybersecurity/trivy_operator.md)
 - [Hardening de servidores Linux](../cybersecurity/hardening_linux.md) — el host que sostiene todo lo anterior.
 - [Docker — Seguridad (documentación oficial)](https://docs.docker.com/engine/security/) · [CIS Docker Benchmark](https://www.cisecurity.org/benchmark/docker)
+- [Trivy](https://trivy.dev/)
+- [Cosign](https://docs.sigstore.dev/)

@@ -2,12 +2,12 @@
 title: "Kubernetes - Orquestación de Contenedores"
 description: "Documentación sobre kubernetes - orquestación de contenedores"
 tags: ['kubernetes']
-updated: 2025-11-15
+updated: 2026-10-11
 difficulty: beginner
 estimated_time: 10 min
 category: Contenedores
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Docker básico"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -25,7 +25,6 @@ Kubernetes (K8s) es una plataforma de orquestación de contenedores de código a
 
 - **[Tutorial oficial: Primeros pasos](https://kubernetes.io/docs/tutorials/kubernetes-basics/)** - Crea tu primer cluster y despliega una app
 - **[Play with Kubernetes](https://labs.play-with-k8s.com/)** - Entorno interactivo online gratuito
-- **[Katacoda Kubernetes scenarios](https://www.katacoda.com/courses/kubernetes)** - Tutoriales interactivos paso a paso
 
 ## Arquitectura de Kubernetes
 
@@ -154,7 +153,7 @@ En las siguientes secciones exploraremos:
 !!! question "¿Cuál es la diferencia entre ConfigMap y Secret?"
     **ConfigMap**: Almacena datos no sensibles (variables de entorno, archivos de config). **Secret**: Para datos sensibles (passwords, tokens, certificados) - están base64 encoded pero no encriptados por defecto.
 
-## Recursos adicionales
+## Referencias
 
 ### Videos tutoriales
 
@@ -172,7 +171,6 @@ En las siguientes secciones exploraremos:
 
 ### Comunidad
 - **Reddit:** [r/kubernetes](https://www.reddit.com/r/kubernetes/)
-- **Stack Overflow:** [stackoverflow.com/questions/tagged/kubernetes](https://stackoverflow.com/questions/tagged/kubernetes)
 - **Slack:** [slack.k8s.io](https://slack.k8s.io/)
 - **Discord:** [discord.gg/kubernetes](https://discord.gg/kubernetes)
 
@@ -183,3 +181,5 @@ En las siguientes secciones exploraremos:
 
 !!! warning "¿Problemas con Kubernetes?"
     Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md)** para soluciones a errores comunes.
+- [Tutorial oficial: Primeros pasos](https://kubernetes.io/docs/tutorials/kubernetes-basics/)
+- [Play with Kubernetes](https://labs.play-with-k8s.com/)

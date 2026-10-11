@@ -3,12 +3,12 @@ title: "Service Mesh en Kubernetes: Istio vs Linkerd vs Cilium"
 description: "Comparativa práctica de Istio, Linkerd y Cilium Service Mesh: arquitectura, instalación real, mTLS, traffic splitting, overhead y cuándo NO necesitas un service mesh"
 keywords: "service mesh, istio, linkerd, cilium, ebpf, kubernetes, mtls, ambient mode, ztunnel, sidecar, traffic splitting, canary"
 tags: ['kubernetes', 'service-mesh', 'ebpf']
-updated: 2026-07-18
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 25 min
 category: Contenedores
 status: published
-last_reviewed: 2026-07-18
+last_reviewed: 2026-10-11
 prerequisites:
   - "Fundamentos de Kubernetes"
   - "Conceptos de redes"
@@ -426,7 +426,7 @@ La sección más importante de esta guía. Un service mesh es una base de datos 
 - **Tienes una inversión grande en filtros Envoy o EnvoyFilter a medida** → **Istio sidecar**, hasta que ambient cubra tu caso.
 - **Ninguna de las anteriores describe tu situación** → probablemente no necesites un service mesh todavía. Vuelve cuando tengas el problema.
 
-## 🔗 Enlaces relacionados
+## Referencias
 
 - [Kubernetes - Orquestación de contenedores](kubernetes_base.md)
 - [Probes en Kubernetes](probes.md)

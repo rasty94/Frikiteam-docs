@@ -3,8 +3,8 @@ title: "Storage for Databases: PostgreSQL + Ceph"
 description: "Documentation on storage for databases: PostgreSQL + Ceph"
 tags: ['storage']
 category: Storage
-updated: 2026-01-24
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: advanced
 status: published
 estimated_time: 21 min
@@ -364,9 +364,8 @@ ceph status
 watch ceph -s
 ```
 
-## 📚 Additional Resources
+## References
 
 - [Ceph Documentation - RBD](https://docs.ceph.com/en/latest/rbd/)
-- [PostgreSQL + Ceph Best Practices](https://ceph.io/community/postgresql-and-ceph/)
 - [Ceph Performance Tuning](https://docs.ceph.com/en/latest/rados/configuration/bluestore-config-ref/)
 - [PostgreSQL Tuning](https://www.postgresql.org/docs/current/runtime-config.html)

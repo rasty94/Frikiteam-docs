@@ -4,12 +4,12 @@ description: "Declarative GitOps for Kubernetes with ArgoCD: installation, repos
 keywords: "argocd, gitops, kubernetes, ci-cd, kustomize, helm, synchronization, rbac"
 tags: ['ci-cd', 'gitops', 'argocd', 'kubernetes']
 
-updated: 2026-09-03
+updated: 2026-10-11
 difficulty: beginner
 category: DevOps
 status: published
 estimated_time: 9 min
-last_reviewed: 2026-09-03
+last_reviewed: 2026-10-11
 prerequisites: ["None"]
 ---
 
@@ -229,6 +229,13 @@ kubectl apply -f https://raw.githubusercontent.com/argoproj-labs/argocd-notifica
 ```
 
 ## See Also
+
+- [ArgoCD Documentation](https://argo-cd.readthedocs.io/)
+- [GitOps Best Practices](https://opengitops.dev/)
+- [Kustomize Documentation](https://kustomize.io/)
+- [Helm Best Practices](https://helm.sh/docs/chart_best_practices/)
+
+## References
 
 - [ArgoCD Documentation](https://argo-cd.readthedocs.io/)
 - [GitOps Best Practices](https://opengitops.dev/)

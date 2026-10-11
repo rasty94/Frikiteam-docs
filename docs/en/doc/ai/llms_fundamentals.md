@@ -4,8 +4,8 @@ description: "Fundamental concepts of LLMs, transformer architecture, difference
 keywords: "llms, transformers, openai, anthropic, meta, mistral, devops, ai"
 tags: ['ai', 'llm', 'devops']
 category: Artificial Intelligence
-updated: 2026-01-25
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: beginner
 status: published
 estimated_time: 5 min
@@ -163,9 +163,8 @@ ollama run llama2
 3. **Experiment**: Test simple prompts and measure responses
 4. **Integrate**: Connect with your existing DevOps tools
 
-## 📚 Additional Resources
+## References
 
 - [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/)
 - [Hugging Face Model Hub](https://huggingface.co/models)
 - [Papers with Code - Language Models](https://paperswithcode.com/task/language-modelling)
-- [LLM Comparison](https://llm-comparison.com/)

@@ -3,8 +3,8 @@ title: "Reserved IP Ranges"
 description: Private (RFC 1918), documentation and reserved address blocks (CG-NAT, Loopback).
 tags: ['networking']
 
-updated: 2026-01-23
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: intermediate
 category: Networking
 status: published
@@ -327,11 +327,12 @@ ss -tlnp
 
 ## References
 
-- RFC 1918: Address Allocation for Private Internets
-- RFC 3927: Dynamic Configuration of IPv4 Link-Local Addresses
-- RFC 4193: Unique Local IPv6 Unicast Addresses
-- RFC 5735: Special Use IPv4 Addresses (obsoleted by RFC 6890)
-- RFC 5737: IPv4 Address Blocks Reserved for Documentation
-- RFC 6598: IANA-Reserved IPv4 Prefix for Shared Address Space
-- IANA IPv4 Special-Purpose Address Registry
-- IANA IPv6 Special-Purpose Address Registry
+- [RFC 1918: Address Allocation for Private Internets](https://www.rfc-editor.org/rfc/rfc1918)
+- [RFC 3927: Dynamic Configuration of IPv4 Link-Local Addresses](https://www.rfc-editor.org/rfc/rfc3927)
+- [RFC 4193: Unique Local IPv6 Unicast Addresses](https://www.rfc-editor.org/rfc/rfc4193)
+- [RFC 5735: Special Use IPv4 Addresses (obsoleted by RFC 6890)](https://www.rfc-editor.org/rfc/rfc5735)
+- [RFC 5737: IPv4 Address Blocks Reserved for Documentation](https://www.rfc-editor.org/rfc/rfc5737)
+- [RFC 6598: IANA-Reserved IPv4 Prefix for Shared Address Space](https://www.rfc-editor.org/rfc/rfc6598)
+- [IANA IPv4 Special-Purpose Address Registry](https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml)
+- [IANA IPv6 Special-Purpose Address Registry](https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry.xhtml)
+- [RFC 6890: Special-purpose address registries](https://www.rfc-editor.org/rfc/rfc6890)

@@ -3,8 +3,8 @@ title: "Install Proxmox VE 9 on Debian 13 (Trixie)"
 description: "Documentation about installing Proxmox VE 9 on Debian 13 (Trixie)"
 tags: ['documentation']
 category: General
-updated: 2026-01-24
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: advanced
 status: published
 estimated_time: 13 min
@@ -262,8 +262,8 @@ bridge link
 proxmox-backup-manager datastore list || true
 ```
 
-## 9) References
+## References
 
-- Official documentation: https://pve.proxmox.com/wiki/Main_Page
-- Proxmox repos: https://enterprise.proxmox.com/debian/pve
-- Proxmox 9 on Debian guide: https://pve.proxmox.com/wiki/Install_Proxmox_VE_on_Debian_13_Trixie
+- [Official documentation](https://pve.proxmox.com/wiki/Main_Page)
+- [Proxmox repos](https://pve.proxmox.com/wiki/Package_Repositories)
+- [Proxmox 9 on Debian guide](https://pve.proxmox.com/wiki/Install_Proxmox_VE_on_Debian_13_Trixie)

@@ -4,8 +4,8 @@ tags: ['openstack']
 description: "Discover OpenStack: open-source platform for cloud computing. Learn about its modules, deployments and use cases in public and private cloud infrastructures."
 keywords: "OpenStack, cloud computing, cloud infrastructure, virtualization, Nova, Neutron, Cinder, Swift, Glance, Keystone, Horizon"
 sync_date: "2025-11-15"
-updated: 2025-11-15
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: beginner
 category: Cloud Computing
 status: published
@@ -74,7 +74,7 @@ These use cases demonstrate the versatility and capability of OpenStack to adapt
 
 **Additionally, as a collaborative open-source project**, OpenStack benefits from a global community of developers and users who continuously contribute to its improvement and evolution. This ensures that the platform remains up-to-date with the latest technological innovations and that emerging issues and needs can be quickly addressed. The open nature of OpenStack also allows organizations to customize and adapt the platform to their specific needs, fostering innovation and flexibility in cloud infrastructure management.
 
-## Additional resources
+## References
 
 ### Official documentation
 - **Official website:** [openstack.org](https://www.openstack.org/)
@@ -93,11 +93,9 @@ These use cases demonstrate the versatility and capability of OpenStack to adapt
 - **Red Hat OpenStack Platform:** [redhat.com/en/technologies/linux-platforms/openstack-platform](https://www.redhat.com/en/technologies/linux-platforms/openstack-platform)
 - **Mirantis OpenStack:** [mirantis.com/software/openstack](https://www.mirantis.com/software/openstack/)
 - **Canonical OpenStack:** [ubuntu.com/openstack](https://ubuntu.com/openstack)
-- **SUSE OpenStack Cloud:** [suse.com/products/openstack-cloud](https://www.suse.com/products/openstack-cloud/)
 
 ### Community and support
 - **Reddit:** [r/openstack](https://www.reddit.com/r/openstack/)
-- **Stack Overflow:** [stackoverflow.com/questions/tagged/openstack](https://stackoverflow.com/questions/tagged/openstack)
 - **IRC:** #openstack on freenode
 - **Official forums:** [ask.openstack.org](https://ask.openstack.org/)
 

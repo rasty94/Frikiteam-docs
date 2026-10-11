@@ -1,12 +1,12 @@
 ---
 title: "Introducción a Ciberseguridad en DevOps"
 tags: ['cybersecurity', 'devsecops', 'devops']
-updated: 2026-01-25
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 2 min
 category: Ciberseguridad
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Linux intermedio"
@@ -75,8 +75,7 @@ jobs:
         uses: dependency-check/Dependency-Check_Action@main
 ```
 
-## Referencias y lecturas adicionales
+## Referencias
 
 - [OWASP DevSecOps Guideline](https://owasp.org/www-project-devsecops-guideline/)
-- [Microsoft DevSecOps](https://learn.microsoft.com/en-us/devops/develop/security/devsecops)
 - Libros: "The DevOps Handbook" (incluye capítulos de seguridad).

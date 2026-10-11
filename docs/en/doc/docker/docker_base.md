@@ -4,8 +4,8 @@ description: Basic Docker guide for beginners, including fundamental concepts an
 keywords: docker, containers, images, dockerfile, commands
 tags: ['docker', 'containers', 'virtualization']
 category: Containers
-updated: 2025-12-07
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: beginner
 status: published
 estimated_time: 5 min
@@ -24,7 +24,6 @@ New to Docker? Start here:
 
 - **[Official tutorial: Get started](https://docs.docker.com/get-started/)** - Your first container in minutes
 - **[Play with Docker](https://labs.play-with-docker.com/)** - Free online interactive environment
-- **[Docker Cheat Sheet](https://dockerlabs.collabnix.com/docker/cheatsheet/)** - Essential commands
 
 ## Fundamental concepts
 
@@ -111,7 +110,7 @@ In the following sections we will explore:
 - Container security
 - Orchestration with Kubernetes
 
-## Additional resources
+## References
 
 ### Official documentation
 - **Official website:** [docker.com](https://www.docker.com/)
@@ -121,5 +120,6 @@ In the following sections we will explore:
 
 ### Community
 - **Reddit:** [r/docker](https://www.reddit.com/r/docker/)
-- **Stack Overflow:** [stackoverflow.com/questions/tagged/docker](https://stackoverflow.com/questions/tagged/docker)
 - **Official forums:** [forums.docker.com](https://forums.docker.com/)
+- [Official tutorial: Get started](https://docs.docker.com/get-started/)
+- [Play with Docker](https://labs.play-with-docker.com/)

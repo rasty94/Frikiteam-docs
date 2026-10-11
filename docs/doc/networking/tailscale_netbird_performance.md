@@ -7,7 +7,7 @@ estimated_time: 10 min
 category: Redes
 status: published
 prerequisites: [docker, linux-basics]
-updated: 2026-01-25
+updated: 2026-10-11
 ---
 
 # Benchmarks de Rendimiento: Tailscale vs NetBird
@@ -249,3 +249,4 @@ graph LR
 ---
 
 *Última actualización: 25 enero 2026*
+- [VPN Overlay Networks Comparison](https://docs.frikiteam.es/en/doc/networking/vpn_overlay_comparison/)

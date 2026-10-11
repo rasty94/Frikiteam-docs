@@ -3,8 +3,8 @@ title: "Troubleshooting (Networking)"
 description: "Documentation on troubleshooting (networking)"
 tags: ['networking']
 category: Networking
-updated: 2025-09-10
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: intermediate
 status: published
 estimated_time: 1 min
@@ -60,3 +60,11 @@ sudo ip link set dev ztXXXXXX mtu 1400 || true
 After=network-online.target
 Wants=network-online.target
 ```
+
+## References
+
+- [ping(8)](https://manpages.debian.org/stable/iputils-ping/ping.8.en.html)
+- [mtr(8)](https://manpages.debian.org/stable/mtr/mtr.8.en.html)
+- [dig(1)](https://manpages.debian.org/stable/bind9-dnsutils/dig.1.en.html)
+- [ip-route(8)](https://manpages.debian.org/stable/iproute2/ip-route.8.en.html)
+- [systemd: network online](https://systemd.io/NETWORK_ONLINE/)

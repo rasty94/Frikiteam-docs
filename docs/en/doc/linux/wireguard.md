@@ -253,7 +253,7 @@ To see why a packet does not get in, `tcpdump -ni eth0 udp port 51820` on the se
 ## References
 
 - [WireGuard: official documentation](https://www.wireguard.com/)
-- [wg(8) and wg-quick(8)](https://man7.org/linux/man-pages/man8/wg.8.html)
+- [wg(8) and wg-quick(8)](https://manpages.debian.org/stable/wireguard-tools/wg.8.en.html)
 - [Tailscale](../networking/tailscale.md)
 - [NetBird](../networking/netbird.md)
 - [VPN overlay: comparison](../networking/vpn_overlay_comparison.md)

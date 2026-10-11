@@ -4,12 +4,12 @@ title: "Introducción a Large Language Models (LLMs)"
 description: "Conceptos fundamentales de LLMs, arquitectura transformers, diferencias entre modelos open-source vs proprietary y aplicaciones en DevOps"
 keywords: "llms, transformers, openai, anthropic, meta, mistral, devops, ia"
 tags: ['ai', 'llm', 'devops']
-updated: 2026-01-25
+updated: 2026-10-11
 difficulty: beginner
 estimated_time: 5 min
 category: Inteligencia Artificial
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Python básico"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -163,9 +163,8 @@ ollama run llama2
 3. **Experimenta**: Prueba prompts simples y mide respuestas
 4. **Integra**: Conecta con tus herramientas DevOps existentes
 
-## 📚 Recursos adicionales
+## Referencias
 
 - [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/)
 - [Hugging Face Model Hub](https://huggingface.co/models)
 - [Papers with Code - Language Models](https://paperswithcode.com/task/language-modelling)
-- [LLM Comparison](https://llm-comparison.com/)

@@ -94,3 +94,11 @@ docker run -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
 - Exportar SARIF y publicar alertas en Security tab
 - Usar runners efímeros (aislados) para scans
 - Automatizar excepciones con plazos (no indefinidas)
+
+## Referencias
+
+- [Semgrep: documentación](https://semgrep.dev/docs/)
+- [trivy-action](https://github.com/aquasecurity/trivy-action)
+- [checkov-action](https://github.com/bridgecrewio/checkov-action)
+- [ZAP: baseline scan con Docker](https://www.zaproxy.org/docs/docker/baseline-scan/)
+- [GitHub: subir un fichero SARIF](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/uploading-a-sarif-file-to-github)

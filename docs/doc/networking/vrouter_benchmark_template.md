@@ -2,7 +2,7 @@
 title: "Plantilla de pruebas de rendimiento de vRouters"
 description: "Plantilla reutilizable para medir rendimiento y estabilidad en OPNsense, pfSense, MikroTik CHR y VyOS"
 tags: ['networking', 'performance', 'vrouter']
-updated: 2026-04-18
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 4 min
 category: Redes
@@ -138,3 +138,8 @@ Recomendación:
 - Se documentó la configuración exacta de cada plataforma.
 - Se adjuntaron evidencias (comandos/salidas/gráficas).
 - La decisión fue revisada por los equipos de redes y seguridad.
+
+## Referencias
+
+- [iperf3: opciones](https://software.es.net/iperf/invoking.html)
+- [mtr(8)](https://manpages.debian.org/stable/mtr/mtr.8.en.html)

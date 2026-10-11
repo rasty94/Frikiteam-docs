@@ -3,12 +3,12 @@ title: "Docker — Seguridad Runtime (gVisor y Kata Containers)"
 description: "Aislamiento en runtime de contenedores con gVisor (runsc) y Kata Containers (microVMs): cuándo usar cada uno, instalación, configuración con containerd/Docker, RuntimeClass en Kubernetes, rendimiento vs seguridad y limitaciones."
 keywords: docker, security, gvisor, kata, sandboxing, runsc, containerd, runtimeclass, kubernetes, microvm, aislamiento, runtime
 tags: ['docker', 'cybersecurity', 'containers']
-updated: 2026-07-18
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 14 min
 category: Contenedores
 status: published
-last_reviewed: 2026-07-18
+last_reviewed: 2026-10-11
 prerequisites: ["Conocimientos de Docker", "Fundamentos de contenedores/Kubernetes"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -263,11 +263,11 @@ scheduling:
     - Mayor consumo de memoria por microVM y arranque más lento que runc/gVisor.
     - Passthrough de dispositivos (GPU, red SR-IOV) es más complejo de configurar.
 
-## 🔗 Enlaces relacionados
+## Referencias
 
 - [Docker — Seguridad y Scanning](docker_security.md) — hardening de imágenes, secrets y escaneo (complemento de esta guía).
 - [Docker — Base](docker_base.md)
 - [Docker — Optimizaciones](docker_optimizations.md)
 - [gVisor — Documentación oficial](https://gvisor.dev/docs/)
-- [Kata Containers — Documentación oficial](https://katacontainers.io/docs/)
+- [Kata Containers — Documentación oficial](https://github.com/kata-containers/kata-containers/tree/main/docs)
 - [Kubernetes — RuntimeClass](https://kubernetes.io/docs/concepts/containers/runtime-class/)

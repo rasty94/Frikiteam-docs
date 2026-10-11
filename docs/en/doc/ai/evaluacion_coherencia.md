@@ -7,7 +7,7 @@ estimated_time: 88 min
 category: Artificial Intelligence
 status: published
 prerequisites: ["llms_fundamentals", "model_evaluation"]
-updated: 2026-07-18
+updated: 2026-10-11
 ---
 
 # Coherence Evaluation in LLMs
@@ -1113,7 +1113,7 @@ Neutrality guidelines:
         }
 ```
 
-## 📚 Additional Resources
+## References
 
 - [Consistency in Language Models](https://arxiv.org/abs/2212.09741)
 - [Bias Detection in LLMs](https://arxiv.org/abs/2305.15056)

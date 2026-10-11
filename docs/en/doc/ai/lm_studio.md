@@ -3,12 +3,12 @@ title: "LM Studio: local LLMs with a graphical interface"
 description: "Practical guide to LM Studio: installation, downloading and managing models, configuring context length and GPU offload, a local OpenAI-compatible API server, and the lms CLI"
 keywords: "lm studio, llm, local models, gguf, mlx, openai api, lms cli, gpu offload"
 tags: ['ai', 'llm']
-updated: 2026-07-18
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 6 min
 category: Artificial Intelligence
 status: published
-last_reviewed: 2026-07-18
+last_reviewed: 2026-10-11
 prerequisites:
   - "A machine with at least 8 GB of RAM (16 GB recommended)"
   - "Basic understanding of LLMs (see LLM Fundamentals)"
@@ -172,9 +172,9 @@ lms server start --port 1234
 
 For automated deployments on servers or Kubernetes, [Ollama](ollama_basics.md) or [llama.cpp](llama_cpp.md) fit better thanks to their CLI/headless nature.
 
-## 🔗 Additional resources
+## References
 
 - [Official LM Studio site](https://lmstudio.ai/)
-- [LM Studio documentation](https://lmstudio.ai/docs)
+- [LM Studio documentation](https://lmstudio.ai/docs/app)
 - [lms CLI reference](https://lmstudio.ai/docs/cli)
 - [Local Model Ecosystems](local_ecosystems.md) · [Ollama](ollama_basics.md) · [LLaMA.cpp](llama_cpp.md)

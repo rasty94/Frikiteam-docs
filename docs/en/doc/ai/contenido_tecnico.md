@@ -7,7 +7,7 @@ estimated_time: 65 min
 category: Artificial Intelligence
 status: published
 prerequisites: ["llms_fundamentals", "ollama_basics", "chatbots_locales"]
-updated: 2026-01-25
+updated: 2026-10-11
 ---
 
 # Automated Technical Content Generation with LLMs
@@ -1233,12 +1233,16 @@ class ContentMetrics:
 - **Rate Limiting:** Implement limits to avoid abuse
 - **Content Filtering:** Check for inappropriate or harmful content
 
-## 📚 Additional Resources
+## References
 
 - [Documentation as Code](https://www.writethedocs.org/guide/docs-as-code/)
 - [Keep a Changelog](https://keepachangelog.com/)
 - [Semantic Versioning](https://semver.org/)
 - [Technical Writing Best Practices](https://developers.google.com/tech-writing)
+- [Ollama API Documentation](https://github.com/jmorganca/ollama/blob/main/docs/api.md)
+- [MkDocs Material](https://squidfunk.github.io/mkdocs-material/)
+- [Sphinx Documentation](https://www.sphinx-doc.org/)
+- [Docusaurus](https://docusaurus.io/)
 
 ## 📊 Next Steps
 

@@ -3,12 +3,12 @@ title: "Proxmox VE Complete Guide: Enterprise Virtualization Platform"
 tags: ['proxmox']
 description: "Comprehensive guide to Proxmox Virtual Environment. Learn KVM virtualization, LXC containers, clustering, storage, networking, backup, and management tools for enterprise-grade virtualization."
 keywords: Proxmox VE, virtualization, KVM, QEMU, LXC containers, clustering, high availability, backup, storage, networking, enterprise, open source, Debian, virtual machines, containers
-updated: 2025-11-15
+updated: 2026-10-11
 difficulty: beginner
 estimated_time: 28 min
 category: Virtualización
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Ninguno"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -576,7 +576,7 @@ docker compose run --rm pvetui
 - Navegar con Alt+1 (Nodos), Alt+2 (Guests), Alt+3 (Tareas)
 - Usar 'm' para menús de acciones, 's' para SSH, 'v' para VNC
 
-## Referencias
+## Vídeos
 
 ### Videos tutoriales
 
@@ -586,13 +586,11 @@ docker compose run --rm pvetui
 
 *Video: Proxmox VE desde cero - Instalación y configuración completa*
 
-- **Documentación oficial**: https://pve.proxmox.com/wiki/Documentation
+- **Documentación oficial**: https://pve.proxmox.com/pve-docs/
 - **Wiki de Proxmox**: https://pve.proxmox.com/wiki/Main_Page
 - **Foro de la comunidad**: https://forum.proxmox.com/
 - **Repositorio Git**: https://git.proxmox.com/
 - **Descargas**: https://www.proxmox.com/en/downloads
-- **ProxMenuX**: https://github.com/ayufan/proxmox-ve-helper
-- **Proxmox VE Helper**: https://github.com/ayufan/proxmox-ve-helper
 - **PVETUI**: https://github.com/devnullvoid/pvetui
 
 ---
@@ -602,3 +600,12 @@ docker compose run --rm pvetui
 
 !!! warning "¿Problemas con Proxmox?"
     Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md)** para soluciones a errores comunes.
+
+## Referencias
+
+- [proxmox.com](https://www.proxmox.com/en/downloads)
+- [Official documentation](https://pve.proxmox.com/pve-docs/)
+- [Proxmox Wiki](https://pve.proxmox.com/wiki/Main_Page)
+- [Community forum](https://forum.proxmox.com/)
+- [Git repository](https://git.proxmox.com/)
+- [PVETUI](https://github.com/devnullvoid/pvetui)

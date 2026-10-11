@@ -3,8 +3,8 @@ title: "Advanced Load Balancing: HAProxy vs NGINX vs Traefik"
 description: "Documentation on advanced load balancing: haproxy vs nginx vs traefik"
 tags: ['networking']
 category: Networking
-updated: 2026-01-24
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: intermediate
 status: published
 estimated_time: 32 min
@@ -541,3 +541,9 @@ curl http://localhost:8080/metrics
 - Dynamic configuration and Let's Encrypt
 
 Each tool excels in its specific domain. The choice depends on your architecture, performance requirements, and technology stack.
+
+## References
+
+- [HAProxy: documentation](https://docs.haproxy.org/)
+- [NGINX: load balancing HTTP](https://nginx.org/en/docs/http/load_balancing.html)
+- [Traefik: documentation](https://doc.traefik.io/traefik/)

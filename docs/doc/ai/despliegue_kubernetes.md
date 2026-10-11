@@ -6,7 +6,7 @@ difficulty: advanced
 estimated_time: 45 minutos
 category: Inteligencia Artificial
 prerequisites: [ollama_basics, model_evaluation, fine_tuning_basico]
-updated: 2026-07-18
+updated: 2026-10-11
 ---
 
 # Despliegue de LLMs a Escala con Kubernetes
@@ -650,12 +650,13 @@ spec:
 - Monitorea costos en tiempo real
 - Optimiza uso de GPU
 
-## 📚 Recursos Adicionales
+## Referencias
 
 - [vLLM Documentation](https://vllm.readthedocs.io/)
-- [Kubernetes GPU Guide](https://kubernetes.io/docs/tasks/manage-gpus/)
+- [Kubernetes GPU Guide](https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/)
 - [NVIDIA GPU Operator](https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/)
 - [Prometheus Metrics](https://prometheus.io/docs/)
+- [prometheus-adapter](https://github.com/kubernetes-sigs/prometheus-adapter)
 
 ## 🤝 Contribuir
 

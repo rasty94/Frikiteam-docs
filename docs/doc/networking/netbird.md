@@ -2,12 +2,12 @@
 title: "NetBird: instalación y configuración básica"
 description: "Documentación sobre netbird: instalación y configuración básica"
 tags: ['networking']
-updated: 2025-11-15
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 10 min
 category: Redes
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Fundamentos de redes"
@@ -174,3 +174,8 @@ docker run -d --name netbird --cap-add NET_ADMIN --device /dev/net/tun \
 ```
 
 - Opción 3 (red Docker dedicada): crea una red Docker y enruta a través del contenedor NetBird (requiere iptables/masquerade en el contenedor VPN).
+
+## Referencias
+
+- [NetBird: documentación](https://docs.netbird.io/)
+- [WireGuard: protocolo](https://www.wireguard.com/protocol/)

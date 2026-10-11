@@ -2,12 +2,12 @@
 title: DNSSEC
 tags: ['networking']
 description: Introducción a la firma criptográfica de zonas DNS para evitar envenenamiento de caché.
-updated: 2026-01-24
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 12 min
 category: Redes
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Fundamentos de redes"
@@ -326,8 +326,10 @@ fi
 
 ## Referencias
 
-- RFC 4033: DNS Security Introduction and Requirements
-- RFC 4034: Resource Records for the DNS Security Extensions
-- RFC 4035: Protocol Modifications for the DNS Security Extensions
-- RFC 5155: DNS Security (DNSSEC) Hashed Authenticated Denial of Existence
-- RFC 6781: DNSSEC Operational Practices, Version 2
+- [RFC 4033: DNS Security Introduction and Requirements](https://www.rfc-editor.org/rfc/rfc4033)
+- [RFC 4034: Resource Records for the DNS Security Extensions](https://www.rfc-editor.org/rfc/rfc4034)
+- [RFC 4035: Protocol Modifications for the DNS Security Extensions](https://www.rfc-editor.org/rfc/rfc4035)
+- [RFC 5155: DNS Security (DNSSEC) Hashed Authenticated Denial of Existence](https://www.rfc-editor.org/rfc/rfc5155)
+- [RFC 6781: DNSSEC Operational Practices, Version 2](https://www.rfc-editor.org/rfc/rfc6781)
+- [RFC 8624: Algoritmos DNSSEC](https://www.rfc-editor.org/rfc/rfc8624)
+- [BIND 9: guía de DNSSEC](https://bind9.readthedocs.io/en/latest/dnssec-guide.html)

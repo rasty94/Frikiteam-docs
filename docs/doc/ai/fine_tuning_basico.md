@@ -7,7 +7,7 @@ estimated_time: 107 min
 category: Inteligencia Artificial
 status: published
 prerequisites: ["llms_fundamentals", "ollama_basics", "model_evaluation"]
-updated: 2026-07-18
+updated: 2026-10-11
 ---
 
 # Fine-tuning Básico de LLMs
@@ -1348,7 +1348,7 @@ print("🎉 Fine-tuning completado exitosamente!")
 print(f"Resultados: {results}")
 ```
 
-## 📚 Recursos Adicionales
+## Referencias
 
 - [Hugging Face PEFT Documentation](https://huggingface.co/docs/peft/index)
 - [LoRA Paper](https://arxiv.org/abs/2106.09685)

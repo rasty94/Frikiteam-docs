@@ -3,12 +3,12 @@ title: "LiteLLM: gateway unificado para LLMs"
 description: "Guía de LiteLLM: una API OpenAI-compatible para 100+ proveedores, proxy server con config.yaml, claves virtuales, presupuestos, cost tracking, fallbacks, load balancing y despliegue en Docker/Kubernetes"
 keywords: "litellm, llm gateway, proxy llm, openai compatible, cost tracking, fallbacks, load balancing, devops"
 tags: ['ai', 'llm', 'networking', 'devops']
-updated: 2026-07-18
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 21 min
 category: Inteligencia Artificial
 status: published
-last_reviewed: 2026-07-18
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de LLMs"
   - "Python y Docker básicos"
@@ -348,5 +348,10 @@ Existe además un chart oficial de Helm que resuelve Postgres, Redis (incluido m
 - [LLaMA.cpp](llama_cpp.md) — servidor OpenAI-compatible, se enchufa con el prefijo `openai/`
 - [LM Studio](lm_studio.md) — otro backend local expuesto vía API
 - [Ecosistemas locales](local_ecosystems.md) — visión de conjunto del stack local
+- [Documentación oficial de LiteLLM](https://docs.litellm.ai/)
+- [Repositorio en GitHub](https://github.com/BerriAI/litellm)
+
+## Referencias
+
 - [Documentación oficial de LiteLLM](https://docs.litellm.ai/)
 - [Repositorio en GitHub](https://github.com/BerriAI/litellm)

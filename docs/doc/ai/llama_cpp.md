@@ -3,12 +3,12 @@ title: "LLaMA.cpp: Compilación, cuantización y benchmarking"
 description: "Guía práctica de llama.cpp: compilación para CPU, CUDA, Metal y Vulkan, formato GGUF y cuantización, uso de llama-cli y llama-server con API compatible OpenAI, y benchmarking con llama-bench"
 keywords: "llama.cpp, llm, gguf, quantization, cuda, metal, vulkan, llama-server, benchmarking"
 tags: ['ai', 'llm', 'quantization']
-updated: 2026-07-18
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 14 min
 category: Inteligencia Artificial
 status: published
-last_reviewed: 2026-07-18
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de línea de comandos (Linux/macOS)"
   - "Compilador C/C++ (gcc/clang) y CMake instalados"
@@ -300,7 +300,7 @@ Salida típica (resumida):
 - **Máximo rendimiento por vatio**: kernels optimizados a mano.
 - Si quieres una experiencia *plug and play*, usa [Ollama](ollama_basics.md) (que usa llama.cpp por debajo) o [LM Studio](lm_studio.md) para una interfaz gráfica.
 
-## 🔗 Recursos adicionales
+## Referencias
 
 - [Repositorio oficial (ggml-org/llama.cpp)](https://github.com/ggml-org/llama.cpp)
 - [Documentación de build](https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md)

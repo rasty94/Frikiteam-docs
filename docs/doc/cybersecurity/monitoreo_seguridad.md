@@ -1,12 +1,12 @@
 ---
 title: "Monitoreo de Seguridad"
 tags: ['cybersecurity', 'monitoring', 'siem']
-updated: 2026-01-23
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 10 min
 category: Ciberseguridad
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Linux intermedio"
@@ -216,4 +216,3 @@ tail -f /var/ossec/logs/alerts/alerts.log
 - [Falco Documentation](https://falco.org/docs/)
 - [Wazuh Documentation](https://documentation.wazuh.com/)
 - [CNCF Falco](https://github.com/falcosecurity/falco)
-- [SIEM Best Practices](https://www.csoonline.com/article/3656967/what-is-siem-a-guide-to-security-information-and-event-management.html)

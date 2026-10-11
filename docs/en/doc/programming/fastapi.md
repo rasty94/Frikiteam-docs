@@ -313,7 +313,7 @@ Tag with the version (`v1.2.0`), not just `latest`: reproducibility and rollback
 
 - [FastAPI official documentation](https://fastapi.tiangolo.com/)
 - [FastAPI: deployment](https://fastapi.tiangolo.com/deployment/)
-- [uvicorn documentation](https://www.uvicorn.org/)
+- [uvicorn documentation](https://uvicorn.dev/)
 - [gunicorn documentation](https://docs.gunicorn.org/)
 - [FastAPI on GitHub](https://github.com/tiangolo/fastapi)
 - Related pages: [Quadlets](../docker/quadlets.md), [Docker Optimizations](../docker/docker_optimizations.md), [Kubernetes Probes](../kubernetes/probes.md), [Traefik](../traefik/traefik_base.md), [HAProxy](../haproxy/haproxy_base.md), [GitHub Actions](../cicd/github_actions.md)

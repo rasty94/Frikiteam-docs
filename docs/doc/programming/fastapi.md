@@ -313,7 +313,7 @@ Etiqueta con la versión (`v1.2.0`), no solo con `latest`: la reproducibilidad y
 
 - [Documentación oficial de FastAPI](https://fastapi.tiangolo.com/)
 - [FastAPI: despliegue](https://fastapi.tiangolo.com/deployment/)
-- [Documentación de uvicorn](https://www.uvicorn.org/)
+- [Documentación de uvicorn](https://uvicorn.dev/)
 - [Documentación de gunicorn](https://docs.gunicorn.org/)
 - [GitHub de FastAPI](https://github.com/tiangolo/fastapi)
 - Páginas relacionadas: [Quadlets](../docker/quadlets.md), [Optimizaciones de Docker](../docker/docker_optimizations.md), [Probes de Kubernetes](../kubernetes/probes.md), [Traefik](../traefik/traefik_base.md), [HAProxy](../haproxy/haproxy_base.md), [GitHub Actions](../cicd/github_actions.md)

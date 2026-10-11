@@ -2,12 +2,12 @@
 title: "ZeroTier: installation and basic configuration"
 description: "Documentation on zerotier: installation and basic configuration"
 tags: ['networking']
-updated: 2025-11-15
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 10 min
 category: Networking
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Basic DevOps knowledge"
   - "Networking fundamentals"
@@ -180,3 +180,7 @@ docker run -d --name zerotier \
 ```
 
 - Option 3 (router container): enable NAT inside the ZeroTier container so a Docker network can reach the VPN (iptables MASQUERADE).
+
+## References
+
+- [ZeroTier: documentation](https://docs.zerotier.com/)

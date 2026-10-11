@@ -3,12 +3,12 @@ title: "Protocolos y Métricas de Almacenamiento"
 tags: ['storage']
 description: Resumen de protocolos (iSCSI, NFS, SMB, Ceph RBD, S3), métricas clave (IOPS, latencia, throughput), y buenas prácticas de medición.
 keywords: iops, latencia, throughput, iSCSI, NFS, SMB, rbd, s3, storage protocols, métricas
-updated: 2026-09-03
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 10 min
 category: Almacenamiento
 status: published
-last_reviewed: 2026-09-03
+last_reviewed: 2026-10-11
 prerequisites: ["Conocimientos básicos de DevOps"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -164,3 +164,10 @@ volumeBindingMode: WaitForFirstConsumer
 - [Kubernetes CSI](../kubernetes_csi.md) — estos mismos protocolos vistos desde el aprovisionamiento dinámico de volúmenes.
 
 ---
+
+## Referencias
+
+- [RFC 7530: NFSv4.0](https://www.rfc-editor.org/rfc/rfc7530)
+- [RFC 8881: NFSv4.1](https://www.rfc-editor.org/rfc/rfc8881)
+- [RFC 7143: iSCSI](https://www.rfc-editor.org/rfc/rfc7143)
+- [fio: documentación](https://fio.readthedocs.io/en/latest/fio_doc.html)

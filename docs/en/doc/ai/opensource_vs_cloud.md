@@ -3,12 +3,12 @@ title: "Open-source vs cloud LLMs: cost, latency, privacy and control"
 description: "A practical analysis of when to use a local LLM and when to use a cloud API: real cost formula, TTFT versus tokens/s, legal privacy requirements, model versioning and a multi-server fallback architecture implemented in this repository"
 keywords: "llm local, llm cloud, open source llm, coste inferencia, ttft, latencia, privacidad, fallback, vllm, ollama"
 tags: ['ai', 'llm', 'devops', 'cost', 'compliance', 'high-availability']
-updated: 2026-07-19
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 39 min
 category: Artificial Intelligence
 status: published
-last_reviewed: 2026-07-19
+last_reviewed: 2026-10-11
 prerequisites:
   - "LLM fundamentals"
   - "Basic use of an HTTP API"
@@ -546,3 +546,9 @@ Before committing to an architecture:
 - [LiteLLM](litellm.md) — the gateway to move to when the two-dialect heuristic falls short
 - [Model evaluation](model_evaluation.md) — the suite without which migrating models is an act of faith
 - [Model optimization](model_optimization.md) — quantisation and the real ceiling of your memory
+
+## References
+
+- [vLLM: documentation](https://docs.vllm.ai/en/latest/)
+- [llama.cpp](https://github.com/ggml-org/llama.cpp)
+- [Ollama](https://github.com/ollama/ollama)

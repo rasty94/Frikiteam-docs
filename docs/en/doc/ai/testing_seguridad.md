@@ -7,7 +7,7 @@ estimated_time: 86 min
 category: Artificial Intelligence
 status: published
 prerequisites: ["llms_fundamentals", "prompt_engineering"]
-updated: 2026-07-18
+updated: 2026-10-11
 ---
 
 # LLM Security Testing
@@ -1113,11 +1113,11 @@ class ProductionSecurityLayer:
         }
 ```
 
-## 📚 Further Reading
+## References
 
-- [OWASP AI Security](https://owasp.org/www-project-ai-security/)
+- [OWASP AI Security](https://genai.owasp.org/)
 - [NIST AI Risk Management](https://www.nist.gov/itl/ai-risk-management-framework)
-- [Anthropic Red Teaming](https://www.anthropic.com/news/red-teaming-language-models)
+- [Anthropic Red Teaming](https://www.anthropic.com/research/red-teaming-language-models-to-reduce-harms-methods-scaling-behaviors-and-lessons-learned)
 - [OpenAI Preparedness](https://openai.com/safety/preparedness/)
 
 ## 🔄 Next Steps

@@ -137,3 +137,11 @@ spec:
 - NetworkPolicies default to deny-all plus minimal rules
 - Admission policies for labels, limits and image signatures
 - Continuous image/manifest scanning and RBAC review
+
+## References
+
+- [NIST SP 800-207: Zero Trust Architecture](https://csrc.nist.gov/pubs/sp/800/207/final)
+- [SPIFFE/SPIRE: documentation](https://spiffe.io/docs/latest/)
+- [spire-controller-manager](https://github.com/spiffe/spire-controller-manager)
+- [Istio: PeerAuthentication](https://istio.io/latest/docs/reference/config/security/peer_authentication/)
+- [OPA Gatekeeper](https://open-policy-agent.github.io/gatekeeper/website/docs/)

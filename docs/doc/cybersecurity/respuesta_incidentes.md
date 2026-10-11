@@ -3,12 +3,12 @@ title: "Respuesta a Incidentes: playbook práctico con TheHive y MISP"
 description: "Qué hacer cuando la alerta ya ha saltado. Ciclo NIST SP 800-61 aterrizado en infraestructura real: preservación de evidencia, contención en Kubernetes, gestión de casos con TheHive, threat intel con MISP y post-mortem sin culpa."
 keywords: "incident response, thehive, misp, cortex, nist 800-61, forensics, memory dump, chain of custody, post-mortem, kubernetes, ioc"
 tags: ['cybersecurity', 'incident-response', 'siem', 'forensics', 'kubernetes']
-updated: 2026-09-03
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 47 min
 category: Ciberseguridad
 status: published
-last_reviewed: 2026-09-03
+last_reviewed: 2026-10-11
 prerequisites:
   - "Monitoreo de seguridad desplegado (Falco/Wazuh)"
   - "Acceso administrativo a la infraestructura"
@@ -653,3 +653,9 @@ Imprime esto. Pégalo donde la guardia lo vea.
 
 !!! note "La regla de las 4 horas"
     Si un incidente pasa de 4 horas, releva al IC. El agotamiento produce decisiones destructivas e irreversibles, y el relevo obliga a un traspaso que a menudo destapa lo que el primer IC había pasado por alto.
+
+## Referencias
+
+- [NIST SP 800-61 Rev. 3](https://csrc.nist.gov/pubs/sp/800/61/r3/final)
+- [TheHive: documentación](https://docs.strangebee.com/)
+- [MISP: documentación](https://www.misp-project.org/documentation/)

@@ -3,8 +3,8 @@ title: "Common Port Tables"
 description: List of standard TCP/UDP ports and associated services (e.g. 22 SSH, 443 HTTPS, 53 DNS).
 tags: ['networking']
 
-updated: 2026-01-23
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: intermediate
 category: Networking
 status: published
@@ -297,6 +297,5 @@ iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 
 ## References
 
-- IANA Service Name and Transport Protocol Port Number Registry
-- RFC 6335: Internet Assigned Numbers Authority (IANA) Procedures for the Management of the Service Name and Transport Protocol Port Number Registry
-- Common Ports and Protocols Cheat Sheet (SANS Institute)
+- [IANA Service Name and Transport Protocol Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml)
+- [RFC 6335: Internet Assigned Numbers Authority (IANA) Procedures for the Management of the Service Name and Transport Protocol Port Number Registry](https://www.rfc-editor.org/rfc/rfc6335)

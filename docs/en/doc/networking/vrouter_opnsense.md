@@ -52,3 +52,8 @@ OPNsense is a strong choice when you prioritize firewalling, segmentation and da
 - Is config backup and restore tested?
 - Are latency, packet loss and session counters monitored?
 - Is there a rollback procedure?
+
+## References
+
+- [OPNsense: hardware requirements](https://docs.opnsense.org/manual/hardware.html)
+- [OPNsense: two-factor authentication](https://docs.opnsense.org/manual/how-tos/two_factor.html)

@@ -3,12 +3,12 @@ title: "Stack Completo de Observabilidad"
 description: "Guía completa para implementar un sistema de observabilidad moderno con Prometheus, Grafana, Loki, Tempo, Jaeger y OpenTelemetry en entornos Kubernetes y cloud"
 keywords: "observability, prometheus, grafana, loki, tempo, jaeger, opentelemetry, kubernetes, monitoring, alerting"
 tags: ['monitoring', 'observability', 'prometheus', 'grafana', 'loki']
-updated: 2026-01-25
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 81 min
 category: Monitoreo
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Conocimientos básicos de Kubernetes", "Familiaridad con Docker", "Entendimiento de métricas y logs"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -1158,7 +1158,7 @@ kubectl get servicemonitor -n observability
 kubectl describe servicemonitor prometheus-kube-prometheus -n observability
 ```
 
-## 📚 Recursos Adicionales
+## Referencias
 
 ### Documentación Oficial
 - [Prometheus Documentation](https://prometheus.io/docs/)
@@ -1170,7 +1170,7 @@ kubectl describe servicemonitor prometheus-kube-prometheus -n observability
 
 ### Dashboards y Configuraciones
 - [Grafana Dashboards Gallery](https://grafana.com/grafana/dashboards/)
-- [Awesome Prometheus Alerts](https://awesome-prometheus-alerts.grep.to/)
+- [Awesome Prometheus Alerts](https://samber.github.io/awesome-prometheus-alerts/)
 - [Prometheus Monitoring Mixins](https://monitoring.mixins.dev/)
 
 ### Comunidad y Soporte

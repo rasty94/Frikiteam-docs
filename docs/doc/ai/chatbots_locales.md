@@ -7,7 +7,7 @@ estimated_time: 42 min
 category: Inteligencia Artificial
 status: published
 prerequisites: ["ollama_basics", "model_optimization"]
-updated: 2026-01-25
+updated: 2026-10-11
 ---
 
 # Chatbots Locales con LLMs
@@ -665,12 +665,14 @@ sudo ufw deny 8000
 sudo certbot --nginx -d chatbot.midominio.com
 ```
 
-## 🔗 Recursos Adicionales
+## Referencias
 
 - [Ollama API Documentation](https://github.com/jmorganca/ollama/blob/main/docs/api.md)
-- [Slack Bolt for Python](https://slack.dev/bolt-python/concepts)
+- [Slack Bolt for Python](https://tools.slack.dev/bolt-python/)
 - [Discord.py Documentation](https://discordpy.readthedocs.io/)
 - [Telegram Bot API](https://core.telegram.org/bots/api)
+- [api.slack.com/apps](https://api.slack.com/apps)
+- [discord.com/developers](https://discord.com/developers/applications)
 
 ## 📚 Próximos Pasos
 

@@ -3,7 +3,7 @@ title: "Networking: Comparativa de Rendimiento"
 description: "Cómo medir el rendimiento de una red con iperf3, ping, mtr, ethtool y ss: metodología reproducible, MTU y offloads, e interpretación de resultados para comparar VPN y overlays."
 keywords: "iperf3, ping, mtr, ethtool, ss, benchmark, throughput, latencia, jitter, mtu, offloads, wireguard, tailscale"
 tags: ['networking']
-updated: 2026-10-10
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 17 min
 category: Redes
@@ -248,5 +248,5 @@ El análisis comparativo de Tailscale y NetBird está en [Tailscale vs NetBird: 
 
 - [Documentación de iperf3](https://iperf.fr/iperf-doc.php)
 - [Documentación de WireGuard](https://www.wireguard.com/)
-- [Páginas de manual de ethtool, ss y mtr](https://man7.org/linux/man-pages/)
+- [Páginas de manual de ethtool, ss y mtr](https://manpages.debian.org/)
 - Páginas relacionadas: [MTU y MSS](mtu_mss_values.md), [Tailscale vs NetBird: rendimiento](tailscale_netbird_performance.md), [vRouter Benchmark Template](vrouter_benchmark_template.md), [Troubleshooting de red](troubleshooting.md)

@@ -337,6 +337,6 @@ What to watch: a pool that is not `ONLINE`, read/write/checksum errors in `zpool
 ## References
 
 - [OpenZFS — documentation](https://openzfs.github.io/openzfs-docs/) · [zpool(8)](https://openzfs.github.io/openzfs-docs/man/master/8/zpool.8.html) · [zfs(8)](https://openzfs.github.io/openzfs-docs/man/master/8/zfs.8.html)
-- [lvmthin(7)](https://man7.org/linux/man-pages/man7/lvmthin.7.html) · [Proxmox VE — Storage](https://pve.proxmox.com/wiki/Storage)
+- [lvmthin(7)](https://manpages.debian.org/stable/lvm2/lvmthin.7.en.html) · [Proxmox VE — Storage](https://pve.proxmox.com/wiki/Storage)
 - [Proxmox base](../proxmox/proxmox_base.md) · [Proxmox Backup Server](../backups/pbs.md) · [3-2-1 strategy](../backups/strategy_321.md)
 - [Ceph](ceph/ceph_base.md) · [CSI on Kubernetes](kubernetes_csi.md) · [fio benchmarks](protocols/examples/fio_example.md) · [Applied cryptography](../cybersecurity/criptografia_aplicada.md)

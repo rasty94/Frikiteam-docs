@@ -2,12 +2,12 @@
 title: "Quick Recipes"
 description: "Documentation on quick recipes"
 tags: ['documentation']
-updated: 2026-07-18
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 5 min
 category: General
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Basic DevOps knowledge"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -161,3 +161,7 @@ For detailed explanations and complete guides, see:
 - **[Ceph Base](storage/ceph/ceph_base.md)** - Complete Ceph guide
 
 Need help with troubleshooting? Check out our **[troubleshooting section](../troubleshooting.md)**.
+
+## References
+
+- [repository](https://github.com/rasty94/Frikiteam-docs)

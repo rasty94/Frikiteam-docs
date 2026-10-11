@@ -3,12 +3,12 @@ title: "MCP (Model Context Protocol) y FastMCP"
 description: "Guía rápida de MCP: protocolo para compartir contexto entre clientes y servidores de modelos, y FastMCP como implementación ligera"
 keywords: "mcp, model context protocol, fastmcp, llm, api, devops"
 tags: ['ai', 'llm', 'mcp', 'api']
-updated: 2026-07-18
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 10 min
 category: Inteligencia Artificial
 status: published
-last_reviewed: 2026-07-18
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de LLMs"
   - "Python o Node.js básico"
@@ -203,3 +203,10 @@ CMD ["uvicorn","fastmcp:app","--host","0.0.0.0","--port","8080"]
 - `examples/` — clientes Python/Node.js
 
 Si quieres, puedo: 1) añadir los archivos de ejemplo al repo y 2) mostrar cómo desplegarlo en Docker Compose o en Kubernetes (manifiestos). ¿Cuál prefieres primero?
+
+## Referencias
+
+- [Model Context Protocol: especificación](https://modelcontextprotocol.io/specification/latest)
+- [FastMCP: documentación](https://gofastmcp.com/getting-started/welcome)
+- [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
+- [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)

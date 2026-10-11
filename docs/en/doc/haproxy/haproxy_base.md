@@ -3,8 +3,8 @@ title: "HAProxy"
 description: "Documentation about haproxy"
 tags: ['networking', 'high-availability']
 category: Networking
-updated: 2025-11-15
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: beginner
 status: published
 estimated_time: 14 min
@@ -43,7 +43,6 @@ New to HAProxy? Start here:
 
 - **[Official tutorial: Get started](https://www.haproxy.com/documentation/hapee/latest/getting-started/)** - Step-by-step basic configuration
 - **[HAProxy Wizard](https://www.haproxy.com/blog/haproxy-configuration-basics-load-balancing/)** - Online configuration generator
-- **[Load Balancing 101](https://www.haproxy.com/blog/load-balancing-101/)** - Fundamental concepts
 
 ## Installation
 
@@ -321,6 +320,7 @@ sequenceDiagram
 
 ## References
 
-- **Official documentation**: https://www.haproxy.org/
-- **Configuration guide**: https://www.haproxy.org/download/2.8/doc/configuration.txt
-- **Community**: https://www.haproxy.org/community/
+- [Official documentation](https://www.haproxy.org/)
+- [Configuration guide](https://www.haproxy.org/download/2.8/doc/configuration.txt)
+- [Official tutorial: Get started](https://www.haproxy.com/documentation/hapee/latest/getting-started/)
+- [HAProxy Wizard](https://www.haproxy.com/blog/haproxy-configuration-basics-load-balancing/)

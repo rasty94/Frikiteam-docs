@@ -2,12 +2,12 @@
 title: ASN & BGP
 tags: ['networking']
 description: Conceptos sobre Sistemas Autónomos y enrutamiento global mediante BGP.
-updated: 2026-01-24
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 16 min
 category: Redes
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Fundamentos de redes"
@@ -444,8 +444,11 @@ BGPsec añade firmas criptográficas a anuncios BGP para prevenir manipulación.
 
 ## Referencias
 
-- RFC 4271: A Border Gateway Protocol 4 (BGP-4)
-- RFC 1997: BGP Communities Attribute
-- RFC 6793: BGP Support for Four-Octet Autonomous System (AS) Number Space
-- RFC 6811: BGP Prefix Origin Validation
-- RFC 8205: BGPsec Protocol Specification
+- [RFC 4271: A Border Gateway Protocol 4 (BGP-4)](https://www.rfc-editor.org/rfc/rfc4271)
+- [RFC 1997: BGP Communities Attribute](https://www.rfc-editor.org/rfc/rfc1997)
+- [RFC 6793: BGP Support for Four-Octet Autonomous System (AS) Number Space](https://www.rfc-editor.org/rfc/rfc6793)
+- [RFC 6811: BGP Prefix Origin Validation](https://www.rfc-editor.org/rfc/rfc6811)
+- [RFC 8205: BGPsec Protocol Specification](https://www.rfc-editor.org/rfc/rfc8205)
+- [RFC 6996: ASN privados](https://www.rfc-editor.org/rfc/rfc6996)
+- [RFC 8092: Large Communities](https://www.rfc-editor.org/rfc/rfc8092)
+- [FRRouting: BGP](https://docs.frrouting.org/en/latest/bgp.html)

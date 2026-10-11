@@ -1,12 +1,12 @@
 ---
 title: Kubernetes — Readiness and Liveness Probes
 tags: ['kubernetes']
-updated: 2026-09-03
+updated: 2026-10-11
 difficulty: expert
 category: Containers
 status: published
 estimated_time: 5 min
-last_reviewed: 2026-09-03
+last_reviewed: 2026-10-11
 prerequisites:
   - "Basic DevOps knowledge"
   - "Basic Docker"
@@ -101,3 +101,7 @@ kubectl get events --sort-by='.lastTimestamp'
 - [Kubernetes Documentation: Configure Liveness, Readiness Probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 
 ---
+
+## References
+
+- [Kubernetes Documentation: Configure Liveness, Readiness Probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)

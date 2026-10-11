@@ -3,12 +3,12 @@ title: Docker — Optimization and Best Practices
 description: "Reduce build time, size and attack surface of Docker images: multi-stage builds, layer minimization, secrets management, persistence with volumes and an example production Dockerfile."
 keywords: "docker, optimization, multi-stage, dockerfile, layers, image size, secrets, volumes, best practices"
 tags: ['docker']
-updated: 2026-09-03
+updated: 2026-10-11
 difficulty: expert
 category: Containers
 status: published
 estimated_time: 5 min
-last_reviewed: 2026-09-03
+last_reviewed: 2026-10-11
 prerequisites: ["Basic knowledge of Docker and Dockerfile"]
 ---
 
@@ -115,6 +115,12 @@ CMD ["./app"]
 ```
 
 ## See Also
+
+- [Docker Best Practices](https://docs.docker.com/develop/dev-best-practices/)
+- [Multi-stage Builds](https://docs.docker.com/build/building/multi-stage/)
+- [Dockerfile Reference](https://docs.docker.com/engine/reference/builder/)
+
+## References
 
 - [Docker Best Practices](https://docs.docker.com/develop/dev-best-practices/)
 - [Multi-stage Builds](https://docs.docker.com/build/building/multi-stage/)

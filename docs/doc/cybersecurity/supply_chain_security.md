@@ -132,3 +132,12 @@ spec:
 - Políticas de admisión que bloquean imágenes no verificadas
 - Evidencias registradas en Rekor
 - Objetivo SLSA ≥ 3 documentado
+
+## Referencias
+
+- [SLSA 1.0: niveles](https://slsa.dev/spec/v1.0/levels)
+- [Sigstore: firmar con cosign](https://docs.sigstore.dev/cosign/signing/overview/)
+- [Syft](https://github.com/anchore/syft)
+- [Grype](https://github.com/anchore/grype)
+- [Trivy: documentación](https://trivy.dev/latest/docs/)
+- [OPA Gatekeeper](https://open-policy-agent.github.io/gatekeeper/website/docs/)

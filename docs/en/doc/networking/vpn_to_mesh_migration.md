@@ -7,7 +7,7 @@ time: "60 minutes"
 category: Networking
 state: stable
 prerequisites: [linux-basics, networking-fundamentals]
-updated: 2026-01-25
+updated: 2026-10-11
 status: published
 estimated_time: 22 min
 ---
@@ -404,7 +404,7 @@ top -p $(pgrep wireguard | tr '\n' ',' | sed 's/,$//')
 - [WireGuard Official Documentation](https://www.wireguard.com/)
 - [ZeroTier Documentation](https://docs.zerotier.com/)
 - [WireGuard Performance Tuning](https://www.wireguard.com/performance/)
-- [ZeroTier Best Practices](https://docs.zerotier.com/bestpractices/)
+- [ZeroTier Best Practices](https://docs.zerotier.com/)
 
 ---
 

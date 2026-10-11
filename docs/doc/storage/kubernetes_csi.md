@@ -3,12 +3,12 @@ title: "Storage en Kubernetes: Ceph RBD vs Longhorn vs OpenEBS"
 description: "Comparativa práctica de almacenamiento persistente en Kubernetes vía CSI: Ceph RBD/CephFS con Rook, Longhorn y OpenEBS. Arquitectura, StorageClasses, snapshots, expansión, benchmarks fio reproducibles y operación día 2."
 keywords: "Kubernetes, CSI, storage, PersistentVolume, StorageClass, Ceph, Rook, RBD, CephFS, Longhorn, OpenEBS, Mayastor, snapshots, Velero, fio"
 tags: ['storage', 'kubernetes', 'ceph']
-updated: 2026-07-18
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 36 min
 category: Almacenamiento
 status: published
-last_reviewed: 2026-07-18
+last_reviewed: 2026-10-11
 prerequisites:
   - "Fundamentos de Kubernetes"
   - "Conceptos básicos de almacenamiento"
@@ -594,3 +594,12 @@ Para el detalle de errores de Ceph (PG inactivas, `HEALTH_WARN`, OSD full) usa [
 - [Ejemplo fio](protocols/examples/fio_example.md) — jobs base de medición
 - [Protocolos y Métricas](protocols/protocols.md) — iSCSI, NFS, NVMe-oF
 - [NetApp](netapp/netapp_base.md) y [Pure Storage](pure_storage/pure_storage_base.md) — cabinas externas con CSI propio
+
+## Referencias
+
+- [Especificación CSI](https://github.com/container-storage-interface/spec)
+- [Kubernetes CSI: documentación](https://kubernetes-csi.github.io/docs/)
+- [Rook: documentación](https://rook.io/docs/rook/latest/)
+- [Longhorn: documentación](https://longhorn.io/docs/)
+- [OpenEBS: documentación](https://openebs.io/docs)
+- [external-snapshotter](https://github.com/kubernetes-csi/external-snapshotter)

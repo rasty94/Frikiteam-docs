@@ -132,3 +132,12 @@ spec:
 - Admission policies blocking unverified images
 - Evidence recorded in Rekor
 - A documented SLSA ≥ 3 target
+
+## References
+
+- [SLSA 1.0: levels](https://slsa.dev/spec/v1.0/levels)
+- [Sigstore: signing with cosign](https://docs.sigstore.dev/cosign/signing/overview/)
+- [Syft](https://github.com/anchore/syft)
+- [Grype](https://github.com/anchore/grype)
+- [Trivy: documentation](https://trivy.dev/latest/docs/)
+- [OPA Gatekeeper](https://open-policy-agent.github.io/gatekeeper/website/docs/)

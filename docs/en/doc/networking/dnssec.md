@@ -2,8 +2,8 @@
 title: DNSSEC
 tags: ['networking']
 description: DNS Security Extensions to authenticate DNS data, avoid cache poisoning, and prove non-existence.
-updated: 2026-01-24
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: intermediate
 category: Networking
 status: published
@@ -213,8 +213,10 @@ fi
 
 ## References
 
-- RFC 4033: DNS Security Introduction and Requirements
-- RFC 4034: Resource Records for the DNS Security Extensions
-- RFC 4035: Protocol Modifications for the DNS Security Extensions
-- RFC 5155: DNS Security (DNSSEC) Hashed Authenticated Denial of Existence
-- RFC 6781: DNSSEC Operational Practices, Version 2
+- [RFC 4033: DNS Security Introduction and Requirements](https://www.rfc-editor.org/rfc/rfc4033)
+- [RFC 4034: Resource Records for the DNS Security Extensions](https://www.rfc-editor.org/rfc/rfc4034)
+- [RFC 4035: Protocol Modifications for the DNS Security Extensions](https://www.rfc-editor.org/rfc/rfc4035)
+- [RFC 5155: DNS Security (DNSSEC) Hashed Authenticated Denial of Existence](https://www.rfc-editor.org/rfc/rfc5155)
+- [RFC 6781: DNSSEC Operational Practices, Version 2](https://www.rfc-editor.org/rfc/rfc6781)
+- [RFC 8624: Algorithms DNSSEC](https://www.rfc-editor.org/rfc/rfc8624)
+- [BIND 9: guide to DNSSEC](https://bind9.readthedocs.io/en/latest/dnssec-guide.html)

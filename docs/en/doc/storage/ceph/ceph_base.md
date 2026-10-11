@@ -4,8 +4,8 @@ tags: ['storage', 'ceph']
 description: "Discover Ceph: highly scalable and reliable distributed storage system. Learn about its architecture, installation and use cases in cloud and data center environments."
 keywords: "Ceph, distributed storage, storage, OSD, MON, MGR, MDS, cloud storage, big data"
 sync_date: "2025-11-15"
-updated: 2026-07-19
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: beginner
 category: Storage
 status: published
@@ -70,3 +70,11 @@ To install Ceph Reef version using `cephadm`, you can follow these basic steps:
 
 For more details, you can refer to the [official Ceph documentation](https://docs.ceph.com/en/latest/).
 
+## References
+
+- [ceph.io](https://ceph.io/en/)
+- [docs.ceph.com](https://docs.ceph.com/)
+- [github.com/ceph/ceph](https://github.com/ceph/ceph)
+- [wiki.ceph.com](https://docs.ceph.com/en/latest/)
+- [r/ceph](https://www.reddit.com/r/ceph/)
+- [official Ceph documentation](https://docs.ceph.com/en/latest/)

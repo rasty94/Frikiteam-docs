@@ -3,12 +3,12 @@ title: "Service Mesh on Kubernetes: Istio vs Linkerd vs Cilium"
 description: "Practical comparison of Istio, Linkerd and Cilium Service Mesh: architecture, real installation, mTLS, traffic splitting, overhead and when you do NOT need a service mesh"
 keywords: "service mesh, istio, linkerd, cilium, ebpf, kubernetes, mtls, ambient mode, ztunnel, sidecar, traffic splitting, canary"
 tags: ['kubernetes', 'service-mesh', 'ebpf']
-updated: 2026-07-18
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 25 min
 category: Containers
 status: published
-last_reviewed: 2026-07-18
+last_reviewed: 2026-10-11
 prerequisites:
   - "Kubernetes fundamentals"
   - "Networking concepts"
@@ -426,7 +426,7 @@ The most important section of this guide. A service mesh is a distributed networ
 - **You have a large investment in custom Envoy filters or EnvoyFilter resources** → **Istio sidecar**, until ambient covers your case.
 - **None of the above describes you** → you probably don't need a service mesh yet. Come back when you have the problem.
 
-## 🔗 Related links
+## References
 
 - [Kubernetes - Container Orchestration](kubernetes_base.md)
 - [Kubernetes Probes](probes.md)

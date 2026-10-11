@@ -253,7 +253,7 @@ Para ver por qué un paquete no entra, `tcpdump -ni eth0 udp port 51820` en el s
 ## Referencias
 
 - [WireGuard: documentación oficial](https://www.wireguard.com/)
-- [wg(8) y wg-quick(8)](https://man7.org/linux/man-pages/man8/wg.8.html)
+- [wg(8) y wg-quick(8)](https://manpages.debian.org/stable/wireguard-tools/wg.8.en.html)
 - [Tailscale](../networking/tailscale.md)
 - [NetBird](../networking/netbird.md)
 - [VPN overlay: comparativa](../networking/vpn_overlay_comparison.md)

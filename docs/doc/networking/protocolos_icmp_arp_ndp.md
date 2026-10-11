@@ -2,12 +2,12 @@
 title: Protocolos ICMP/ARP/NDP
 tags: ['networking']
 description: Diferencias clave entre IPv4 (ARP) e IPv6 (NDP) y tipos de mensajes ICMP para diagnóstico.
-updated: 2026-01-23
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 11 min
 category: Redes
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Fundamentos de redes"
@@ -279,7 +279,8 @@ for entry in arp_table:
 
 ## Referencias
 
-- RFC 792: Internet Control Message Protocol
-- RFC 826: Ethernet Address Resolution Protocol
-- RFC 4861: Neighbor Discovery for IP version 6 (IPv6)
-- RFC 4862: IPv6 Stateless Address Autoconfiguration
+- [RFC 792: Internet Control Message Protocol](https://www.rfc-editor.org/rfc/rfc792)
+- [RFC 826: Ethernet Address Resolution Protocol](https://www.rfc-editor.org/rfc/rfc826)
+- [RFC 4861: Neighbor Discovery for IP version 6 (IPv6)](https://www.rfc-editor.org/rfc/rfc4861)
+- [RFC 4862: IPv6 Stateless Address Autoconfiguration](https://www.rfc-editor.org/rfc/rfc4862)
+- [RFC 4443: ICMPv6](https://www.rfc-editor.org/rfc/rfc4443)

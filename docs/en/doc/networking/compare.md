@@ -2,12 +2,12 @@
 title: "Quick comparison: NetBird vs Tailscale vs ZeroTier"
 description: "Documentation on quick comparison: netbird vs tailscale vs zerotier"
 tags: ['networking']
-updated: 2025-11-15
+updated: 2026-10-11
 difficulty: beginner
 estimated_time: 9 min
 category: Networking
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Networking fundamentals"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -138,3 +138,9 @@ graph TB
     style ZT fill:#2196f3,color:#ffffff
 ```
 
+## References
+
+- [Tailscale: documentation](https://tailscale.com/kb)
+- [NetBird: documentation](https://docs.netbird.io/)
+- [ZeroTier: documentation](https://docs.zerotier.com/)
+- [WireGuard: protocol](https://www.wireguard.com/protocol/)

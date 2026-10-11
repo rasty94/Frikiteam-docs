@@ -3,8 +3,8 @@ title: "VLSM in Depth"
 description: Guide to Variable Length Subnet Masking to optimize IP address usage.
 tags: ['networking']
 
-updated: 2026-01-23
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: intermediate
 category: Networking
 status: published
@@ -217,6 +217,5 @@ echo "ibase=10; obase=2; 192" | bc  # Convert to binary
 
 ## References
 
-- RFC 950: Internet Standard Subnetting Procedure
-- RFC 1812: Requirements for IP Version 4 Routers
-- Cisco Networking Academy: VLSM Concepts
+- [RFC 950: Internet Standard Subnetting Procedure](https://www.rfc-editor.org/rfc/rfc950)
+- [RFC 1812: Requirements for IP Version 4 Routers](https://www.rfc-editor.org/rfc/rfc1812)

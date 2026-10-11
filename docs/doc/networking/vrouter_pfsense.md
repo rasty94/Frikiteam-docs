@@ -2,7 +2,7 @@
 title: "pfSense (vRouter/cortafuegos virtual)"
 description: "Guía rápida para desplegar pfSense como firewall y router virtual"
 tags: ['networking', 'cybersecurity', 'vrouter']
-updated: 2026-04-18
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 1 min
 category: Redes
@@ -59,3 +59,8 @@ pfSense es una plataforma madura y estable, especialmente útil para entornos qu
 - ¿Reglas LAN/DMZ siguen mínimo privilegio?
 - ¿Copia y restauración están verificadas?
 - ¿El equipo conoce el procedimiento de caída?
+
+## Referencias
+
+- [pfSense: requisitos mínimos](https://docs.netgate.com/pfsense/en/latest/hardware/minimum-requirements.html)
+- [pfSense: documentación](https://docs.netgate.com/pfsense/en/latest/)

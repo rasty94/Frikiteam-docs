@@ -2,12 +2,12 @@
 title: "Ansible - Automatización de Infraestructura"
 description: "Documentación sobre ansible - automatización de infraestructura"
 tags: ['ansible']
-updated: 2025-11-15
+updated: 2026-10-11
 difficulty: beginner
 estimated_time: 2 min
 category: DevOps
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["SSH y Linux básico"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -86,7 +86,7 @@ En las siguientes secciones exploraremos:
 - Integración con CI/CD
 - Mejores prácticas
 
-## Recursos adicionales
+## Referencias
 
 ### Videos tutoriales
 
@@ -104,7 +104,6 @@ En las siguientes secciones exploraremos:
 
 ### Comunidad
 - **Reddit:** [r/ansible](https://www.reddit.com/r/ansible/)
-- **Stack Overflow:** [stackoverflow.com/questions/tagged/ansible](https://stackoverflow.com/questions/tagged/ansible)
 
 ---
 
@@ -113,3 +112,6 @@ En las siguientes secciones exploraremos:
 
 !!! warning "¿Problemas con Ansible?"
     Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md)** para soluciones a errores comunes.
+- [Tutorial oficial: Get started](https://docs.ansible.com/ansible/latest/getting_started/index.html)
+- [Ansible Lab](https://lab.redhat.com/ansible-automation-platform-trial)
+- [Learn Ansible](https://www.ansible.com/resources/webinars-training/introduction-to-ansible)

@@ -3,12 +3,12 @@ title: Docker - Contenedores
 description: Guía básica de Docker para principiantes, incluyendo conceptos fundamentales y comandos básicos.
 keywords: docker, contenedores, imágenes, dockerfile, comandos
 tags: ['docker', 'containers', 'virtualization']
-updated: 2025-12-07
+updated: 2026-10-11
 difficulty: beginner
 estimated_time: 5 min
 category: Contenedores
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Ninguno"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -19,12 +19,12 @@ title: Docker - Contenedores
 description: Guía básica de Docker para principiantes, incluyendo conceptos fundamentales y comandos básicos.
 keywords: docker, contenedores, imágenes, dockerfile, comandos
 tags: [docker, contenedores, base, virtualización]
-updated: 2026-01-25
+updated: 2026-10-11
 difficulty: beginner
 estimated_time: 3 min
 category: Contenedores
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Ninguno"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -40,7 +40,6 @@ Docker es una plataforma de contenedores que permite empaquetar aplicaciones y s
 
 - **[Tutorial oficial: Get started](https://docs.docker.com/get-started/)** - Tu primer contenedor en minutos
 - **[Play with Docker](https://labs.play-with-docker.com/)** - Entorno interactivo online gratuito
-- **[Docker Cheat Sheet](https://dockerlabs.collabnix.com/docker/cheatsheet/)** - Comandos esenciales
 
 ## Conceptos fundamentales
 
@@ -150,7 +149,7 @@ En las siguientes secciones exploraremos:
   - **CMD**: Define el comando por defecto que se ejecuta cuando el contenedor inicia. Puede ser sobreescrito.
   - **ENTRYPOINT**: Define el ejecutable principal. Los argumentos de CMD se pasan como parámetros al ENTRYPOINT.
 
-## Recursos adicionales
+## Referencias
 
 ### Videos tutoriales
 
@@ -168,7 +167,6 @@ En las siguientes secciones exploraremos:
 
 ### Comunidad
 - **Reddit:** [r/docker](https://www.reddit.com/r/docker/)
-- **Stack Overflow:** [stackoverflow.com/questions/tagged/docker](https://stackoverflow.com/questions/tagged/docker)
 - **Foros oficiales:** [forums.docker.com](https://forums.docker.com/)
 
 ---
@@ -178,3 +176,5 @@ En las siguientes secciones exploraremos:
 
 !!! warning "¿Problemas con Docker?"
   Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md)** para soluciones a errores comunes.
+- [Tutorial oficial: Get started](https://docs.docker.com/get-started/)
+- [Play with Docker](https://labs.play-with-docker.com/)

@@ -3,12 +3,12 @@ title: "LLaMA.cpp: Compilation, quantization and benchmarking"
 description: "Practical guide to llama.cpp: building for CPU, CUDA, Metal and Vulkan, the GGUF format and quantization, using llama-cli and llama-server with an OpenAI-compatible API, and benchmarking with llama-bench"
 keywords: "llama.cpp, llm, gguf, quantization, cuda, metal, vulkan, llama-server, benchmarking"
 tags: ['ai', 'llm', 'quantization']
-updated: 2026-07-18
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 14 min
 category: Artificial Intelligence
 status: published
-last_reviewed: 2026-07-18
+last_reviewed: 2026-10-11
 prerequisites:
   - "Basic command-line skills (Linux/macOS)"
   - "A C/C++ compiler (gcc/clang) and CMake installed"
@@ -300,7 +300,7 @@ Typical output (trimmed):
 - **Maximum performance per watt**: hand-optimized kernels.
 - If you want a *plug and play* experience, use [Ollama](ollama_basics.md) (which uses llama.cpp underneath) or [LM Studio](lm_studio.md) for a graphical interface.
 
-## 🔗 Additional resources
+## References
 
 - [Official repository (ggml-org/llama.cpp)](https://github.com/ggml-org/llama.cpp)
 - [Build documentation](https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md)

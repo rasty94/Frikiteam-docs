@@ -1,8 +1,8 @@
 ---
 title: "Dex IdP (Federated OIDC)"
 tags: ['identity', 'cybersecurity']
-updated: 2026-03-01
-last_reviewed: 2026-03-01
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: intermediate
 category: Identity Management
 status: published
@@ -95,3 +95,8 @@ connectors:
       keystoneUsername: dex-service
       keystonePassword: <keystone-password>
 ```
+
+## References
+
+- [rasty94/dex](https://github.com/rasty94/dex)
+- [https://dexidp.io/docs/](https://dexidp.io/docs/)

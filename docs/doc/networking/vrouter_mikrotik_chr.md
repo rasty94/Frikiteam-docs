@@ -58,3 +58,7 @@ MikroTik CHR destaca cuando necesitas rendimiento L3 y funciones de enrutamiento
 - ¿Existen filtros anti-spoofing y bogons?
 - ¿Se monitoriza CPU, paquetes/s y colas?
 - ¿Hay procedimiento de reversión por versión?
+
+## Referencias
+
+- [MikroTik: Cloud Hosted Router](https://help.mikrotik.com/docs/spaces/ROS/pages/18350234/Cloud+Hosted+Router+CHR)

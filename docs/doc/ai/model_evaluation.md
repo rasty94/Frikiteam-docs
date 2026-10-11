@@ -3,12 +3,12 @@ title: "Evaluación y Testing de Modelos LLM"
 description: "Guía completa para evaluar rendimiento de LLMs: benchmarks MMLU, HellaSwag, métricas BLEU/ROUGE, testing de latencia y herramientas de evaluación"
 keywords: "llm evaluation, benchmarks, mmlu, hellaswag, bleu, rouge, latency testing"
 tags: ['ai', 'llm', 'evaluation', 'benchmarks', 'testing']
-updated: 2026-01-25
+updated: 2026-10-11
 difficulty: beginner
 estimated_time: 18 min
 category: Inteligencia Artificial
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Python básico"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -337,7 +337,7 @@ def monitor_model_performance():
     pass
 ```
 
-## 📚 Recursos adicionales
+## Referencias
 
 - [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness)
 - [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)

@@ -3,12 +3,12 @@ title: "OpenStack Guide: Complete Cloud Platform Overview"
 tags: ['openstack']
 description: "Comprehensive guide to OpenStack, the open-source cloud computing platform. Learn about modules, deployments, use cases, and resources for building private and public clouds."
 keywords: OpenStack, cloud computing, Nova, Neutron, Cinder, Swift, Glance, Keystone, Horizon, Heat, Ceilometer, IaaS, PaaS, private cloud, public cloud, infrastructure as a service
-updated: 2025-11-15
+updated: 2026-10-11
 difficulty: beginner
 estimated_time: 7 min
 category: Cloud Computing
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Ninguno"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -76,7 +76,7 @@ Estos casos de uso demuestran la versatilidad y capacidad de OpenStack para adap
 
 **Además, al ser un proyecto de código abierto colaborativo**, OpenStack se beneficia de una comunidad global de desarrolladores y usuarios que contribuyen continuamente a su mejora y evolución. Esto asegura que la plataforma se mantenga actualizada con las últimas innovaciones tecnológicas y que se puedan abordar rápidamente los problemas y necesidades emergentes. La naturaleza abierta de OpenStack también permite a las organizaciones personalizar y adaptar la plataforma a sus necesidades específicas, fomentando la innovación y la flexibilidad en la gestión de infraestructuras de nube.
 
-## Recursos adicionales
+## Referencias
 
 ### Documentación oficial
 - **Sitio web oficial:** [openstack.org](https://www.openstack.org/)
@@ -95,7 +95,6 @@ Estos casos de uso demuestran la versatilidad y capacidad de OpenStack para adap
 - **Red Hat OpenStack Platform:** [redhat.com/en/technologies/linux-platforms/openstack-platform](https://www.redhat.com/en/technologies/linux-platforms/openstack-platform)
 - **Mirantis OpenStack:** [mirantis.com/software/openstack](https://www.mirantis.com/software/openstack/)
 - **Canonical OpenStack:** [ubuntu.com/openstack](https://ubuntu.com/openstack)
-- **SUSE OpenStack Cloud:** [suse.com/products/openstack-cloud](https://www.suse.com/products/openstack-cloud/)
 
 ### Comunidad y soporte
 
@@ -108,7 +107,6 @@ Estos casos de uso demuestran la versatilidad y capacidad de OpenStack para adap
 *Video: OpenStack desde cero - Plataforma de nube completa*
 
 - **Reddit:** [r/openstack](https://www.reddit.com/r/openstack/)
-- **Stack Overflow:** [stackoverflow.com/questions/tagged/openstack](https://stackoverflow.com/questions/tagged/openstack)
 - **IRC:** #openstack en freenode
 - **Foros oficiales:** [ask.openstack.org](https://ask.openstack.org/)
 

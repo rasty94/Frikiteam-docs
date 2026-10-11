@@ -3,12 +3,12 @@ title: "MeshLLM: inferencia LLM distribuida en malla P2P"
 description: "Guía de Mesh LLM: agrupa GPUs de varias máquinas en una malla P2P sobre iroh y expón un único endpoint OpenAI-compatible en localhost:9337/v1"
 keywords: "meshllm, mesh-llm, llm distribuido, p2p, iroh, gpu, inferencia, openai compatible, skippy"
 tags: ['ai', 'llm', 'high-availability', 'networking', 'gpu']
-updated: 2026-07-19
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 19 min
 category: Inteligencia Artificial
 status: published
-last_reviewed: 2026-07-18
+last_reviewed: 2026-10-11
 prerequisites:
   - "Fundamentos de LLMs locales"
   - "Conceptos de redes P2P"
@@ -293,9 +293,7 @@ Fuentes oficiales consultadas el 2026-07-18:
 - [Mesh LLM — sitio oficial](https://meshllm.cloud/)
 - [Repositorio oficial: Mesh-LLM/mesh-llm (Apache-2.0)](https://github.com/Mesh-LLM/mesh-llm)
 - [Mesh LLM: distributed AI computing on iroh — blog de iroh](https://www.iroh.computer/blog/mesh-llm)
-- [`docs/MESHES.md`](https://github.com/Mesh-LLM/mesh-llm/blob/main/docs/MESHES.md) — mallas privadas, publicación, tokens, clientes API-only.
-- [`docs/SKIPPY_SPLITS.md`](https://github.com/Mesh-LLM/mesh-llm/blob/main/docs/SKIPPY_SPLITS.md) — splits por capas.
-- [`docs/CLI.md`](https://github.com/Mesh-LLM/mesh-llm/blob/main/docs/CLI.md) — referencia completa de comandos y flags.
+- [`docs/CLI.md`](https://github.com/Mesh-LLM/mesh-llm) — referencia completa de comandos y flags.
 - [`docs/USAGE.md`](https://github.com/Mesh-LLM/mesh-llm/blob/main/docs/USAGE.md) — guía operativa.
 - [Documentación de iroh](https://docs.iroh.computer/)
 

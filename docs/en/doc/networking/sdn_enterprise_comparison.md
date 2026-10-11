@@ -3,8 +3,8 @@ title: "Enterprise SDN: OpenStack Neutron vs VMware NSX vs Cisco ACI"
 description: "Documentation on enterprise SDN: openstack neutron vs vmware nsx vs cisco aci"
 tags: ['networking']
 category: Networking
-updated: 2026-01-24
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: advanced
 status: published
 estimated_time: 15 min
@@ -326,3 +326,9 @@ show epg
 - Advanced automation and analytics
 
 The choice depends on your current infrastructure, budget, and specific security and performance requirements.
+
+## References
+
+- [OpenStack Neutron: documentation](https://docs.openstack.org/neutron/latest/)
+- [VMware NSX: documentation](https://techdocs.broadcom.com/us/en/vmware-cis/nsx.html)
+- [Cisco ACI](https://www.cisco.com/c/en/us/solutions/data-center-virtualization/application-centric-infrastructure/index.html)

@@ -7,7 +7,7 @@ estimated_time: 80 min
 category: Artificial Intelligence
 status: published
 prerequisites: ["llms_fundamentals", "ollama_basics"]
-updated: 2026-01-25
+updated: 2026-10-11
 ---
 
 # Advanced Prompt Engineering for LLMs
@@ -1111,7 +1111,7 @@ print(final_result["final_output"])
    use_directly(response)  # No validation
    ```
 
-## 🔗 Additional Resources
+## References
 
 - [Prompt Engineering Guide](https://www.promptingguide.ai/)
 - [OpenAI Best Practices](https://platform.openai.com/docs/guides/prompt-engineering)

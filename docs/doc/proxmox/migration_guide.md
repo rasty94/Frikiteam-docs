@@ -3,12 +3,12 @@ title: "Proxmox — Migración de VMs y contenedores"
 description: "Migración en frío y en caliente entre nodos, requisitos reales de la migración en vivo, almacenamiento local y replicación, importación desde VMware, Hyper-V y máquinas físicas, drivers virtio, ventana de mantenimiento y verificación posterior."
 keywords: "proxmox, migración, qm migrate, pct migrate, live migration, importdisk, vmware, hyper-v, p2v, virtio, replicación, zfs"
 tags: ['proxmox', 'virtualization', 'migration']
-updated: 2026-09-02
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 22 min
 category: Virtualización
 status: published
-last_reviewed: 2026-09-02
+last_reviewed: 2026-10-11
 prerequisites:
   - "[Proxmox VE](proxmox_base.md)"
   - "Cluster con quórum y almacenamiento configurado"
@@ -342,7 +342,7 @@ journalctl -u pvedaemon -u pveproxy -f
 
 ## Referencias
 
-- [Migración de VMs y contenedores — documentación oficial](https://pve.proxmox.com/wiki/Manual:_qm#qm_migration)
+- [Migración de VMs y contenedores — documentación oficial](https://pve.proxmox.com/pve-docs/qm.1.html)
 - [qm(1) — manual de referencia](https://pve.proxmox.com/pve-docs/qm.1.html) · [pct(1)](https://pve.proxmox.com/pve-docs/pct.1.html)
 - [Replicación de almacenamiento (pvesr)](https://pve.proxmox.com/wiki/Storage_Replication)
 - [Migrar desde VMware ESXi](https://pve.proxmox.com/wiki/Migrate_to_Proxmox_VE)

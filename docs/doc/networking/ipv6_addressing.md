@@ -2,12 +2,12 @@
 title: IPv6 Addressing
 tags: ['networking']
 description: Estructura de direcciones IPv6, tipos (Link-Local, Global Unicast, Multicast) y reglas de abreviación.
-updated: 2026-01-24
+updated: 2026-10-11
 difficulty: advanced
-estimated_time: 4 min
+estimated_time: 8 min
 category: Redes
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Fundamentos de redes"
@@ -234,7 +234,10 @@ ip -6 neigh show
 
 ## Referencias
 
-- RFC 4291: IP Version 6 Addressing Architecture
-- RFC 4862: IPv6 Stateless Address Autoconfiguration
-- RFC 4941: Privacy Extensions for Stateless Address Autoconfiguration
-- RFC 7343: An IPv6 Prefix for Overlay Routable Cryptographic Hash Identifiers (ORCHIDv2)
+- [RFC 4291: IP Version 6 Addressing Architecture](https://www.rfc-editor.org/rfc/rfc4291)
+- [RFC 4862: IPv6 Stateless Address Autoconfiguration](https://www.rfc-editor.org/rfc/rfc4862)
+- [RFC 4941: Privacy Extensions for Stateless Address Autoconfiguration](https://www.rfc-editor.org/rfc/rfc4941)
+- [RFC 7343: An IPv6 Prefix for Overlay Routable Cryptographic Hash Identifiers (ORCHIDv2)](https://www.rfc-editor.org/rfc/rfc7343)
+- [RFC 4193: Direcciones locales únicas (ULA)](https://www.rfc-editor.org/rfc/rfc4193)
+- [RFC 8200: IPv6](https://www.rfc-editor.org/rfc/rfc8200)
+- [RFC 3849: Prefijo de documentación IPv6](https://www.rfc-editor.org/rfc/rfc3849)

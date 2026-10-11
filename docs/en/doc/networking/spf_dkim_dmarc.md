@@ -3,8 +3,8 @@ title: "SPF/DKIM/DMARC"
 description: Email security triad to prevent spoofing and ensure deliverability.
 tags: ['networking']
 
-updated: 2026-01-23
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: intermediate
 category: Networking
 status: published
@@ -349,7 +349,7 @@ parse_dmarc_report('dmarc_report.xml.gz')
 
 ## References
 
-- RFC 7208: Sender Policy Framework (SPF)
-- RFC 6376: DomainKeys Identified Mail (DKIM)
-- RFC 7489: Domain-based Message Authentication, Reporting, and Conformance (DMARC)
-- RFC 8461: SMTP MTA Strict Transport Security (MTA-STS)
+- [RFC 7208: Sender Policy Framework (SPF)](https://www.rfc-editor.org/rfc/rfc7208)
+- [RFC 6376: DomainKeys Identified Mail (DKIM)](https://www.rfc-editor.org/rfc/rfc6376)
+- [RFC 7489: Domain-based Message Authentication, Reporting, and Conformance (DMARC)](https://www.rfc-editor.org/rfc/rfc7489)
+- [RFC 8461: SMTP MTA Strict Transport Security (MTA-STS)](https://www.rfc-editor.org/rfc/rfc8461)

@@ -95,3 +95,9 @@ spec:
 - Set `trivy.ignoreUnfixed=true` to cut down the initial noise
 - Export metrics to Prometheus and alert via Slack/Email
 - Review RBAC and exposed-secret findings on a regular basis
+
+## References
+
+- [Trivy Operator: documentation](https://aquasecurity.github.io/trivy-operator/latest/)
+- [Kyverno: documentation](https://kyverno.io/docs/)
+- [Prometheus Operator: documentation](https://prometheus-operator.dev/docs/)

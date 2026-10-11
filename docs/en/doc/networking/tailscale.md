@@ -195,3 +195,8 @@ docker run -d --name tailscale \
 ```
 
 - Option 3 (host networking): run Tailscale on the host or in a container with `--network host`, and everything else uses the host network.
+
+## References
+
+- [Tailscale: documentation](https://tailscale.com/kb)
+- [WireGuard: protocol](https://www.wireguard.com/protocol/)

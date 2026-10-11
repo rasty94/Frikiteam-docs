@@ -3,12 +3,12 @@ title: "Cloud-native: GitOps con ArgoCD"
 description: "GitOps declarativo para Kubernetes con ArgoCD: instalación, estructura de repositorio, Applications, sincronización, RBAC y resolución de problemas."
 keywords: "argocd, gitops, kubernetes, ci-cd, kustomize, helm, sincronización, rbac"
 tags: ['ci-cd', 'gitops', 'argocd', 'kubernetes']
-updated: 2026-09-03
+updated: 2026-10-11
 difficulty: beginner
 estimated_time: 9 min
 category: DevOps
 status: published
-last_reviewed: 2026-09-03
+last_reviewed: 2026-10-11
 prerequisites: ["Ninguno"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -230,6 +230,13 @@ kubectl apply -f https://raw.githubusercontent.com/argoproj-labs/argocd-notifica
 ```
 
 ## Ver También
+
+- [ArgoCD Documentation](https://argo-cd.readthedocs.io/)
+- [GitOps Best Practices](https://opengitops.dev/)
+- [Kustomize Documentation](https://kustomize.io/)
+- [Helm Best Practices](https://helm.sh/docs/chart_best_practices/)
+
+## Referencias
 
 - [ArgoCD Documentation](https://argo-cd.readthedocs.io/)
 - [GitOps Best Practices](https://opengitops.dev/)

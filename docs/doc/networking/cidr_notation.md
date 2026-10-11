@@ -2,12 +2,12 @@
 title: CIDR Notation
 tags: ['networking']
 description: Explicación detallada de la notación Classless Inter-Domain Routing y cómo calcular rangos.
-updated: 2026-01-23
+updated: 2026-10-11
 difficulty: beginner
 estimated_time: 3 min
 category: Redes
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Fundamentos de redes"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -135,6 +135,7 @@ print(f"Hosts: {list(red.hosts())[:5]}...")  # Primeros 5 hosts
 
 ## Referencias
 
-- RFC 4632: Classless Inter-domain Routing (CIDR)
-- RFC 1918: Address Allocation for Private Internets
-- IANA IPv4 Address Space Registry
+- [RFC 4632: Classless Inter-domain Routing (CIDR)](https://www.rfc-editor.org/rfc/rfc4632)
+- [RFC 1918: Address Allocation for Private Internets](https://www.rfc-editor.org/rfc/rfc1918)
+- [IANA IPv4 Address Space Registry](https://www.iana.org/assignments/ipv4-address-space/ipv4-address-space.xhtml)
+- [RFC 4291: Arquitectura de direcciones IPv6](https://www.rfc-editor.org/rfc/rfc4291)

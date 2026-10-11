@@ -3,12 +3,12 @@ title: "Ollama: Instalación y primeros pasos"
 description: "Guía completa de Ollama: instalación, gestión de modelos locales, APIs REST, integración con Docker y casos de uso en DevOps"
 keywords: "ollama, llm, local models, docker, api, devops"
 tags: ['ai', 'ollama', 'llm', 'docker', 'api']
-updated: 2026-01-25
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 17 min
 category: Inteligencia Artificial
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Python básico"
@@ -318,7 +318,7 @@ ollama run llama2 "Crea un README.md para una API REST de usuarios"
 ollama run codellama "Documenta esta función Python:"
 ```
 
-## 🔗 Recursos adicionales
+## Referencias
 
 - [Documentación oficial](https://github.com/ollama/ollama)
 - [Modelos disponibles](https://ollama.ai/library)

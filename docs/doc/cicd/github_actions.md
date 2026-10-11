@@ -2,12 +2,12 @@
 title: "Introducción a GitHub Actions"
 description: "Documentación sobre introducción a github actions"
 tags: ['ci-cd', 'automation']
-updated: 2025-12-07
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 1 min
 category: DevOps
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Conocimientos básicos de DevOps"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -74,3 +74,9 @@ jobs:
       - run: pip install -r requirements.txt
       - run: mkdocs gh-deploy --force
 ```
+
+## Referencias
+
+- [GitHub Actions: documentación](https://docs.github.com/en/actions)
+- [Sintaxis de workflows](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax)
+- [MkDocs: desplegar la documentación](https://www.mkdocs.org/user-guide/deploying-your-docs/)

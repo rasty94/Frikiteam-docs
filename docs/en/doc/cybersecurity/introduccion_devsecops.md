@@ -1,8 +1,8 @@
 ---
 title: Introduction to Cybersecurity in DevOps
 tags: ['cybersecurity', 'devsecops', 'devops']
-updated: 2026-01-25
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: intermediate
 category: Cybersecurity
 status: published
@@ -74,8 +74,7 @@ jobs:
         uses: dependency-check/Dependency-Check_Action@main
 ```
 
-## Further Reading
+## References
 
 - [OWASP DevSecOps Guideline](https://owasp.org/www-project-devsecops-guideline/)
-- [Microsoft DevSecOps](https://learn.microsoft.com/en-us/devops/develop/security/devsecops)
 - Book: *The DevOps Handbook* (security chapters)

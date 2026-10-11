@@ -7,7 +7,7 @@ estimated_time: 13 min
 category: Artificial Intelligence
 status: published
 prerequisites: ["llms_fundamentals", "ollama_basics"]
-updated: 2026-01-25
+updated: 2026-10-11
 ---
 
 # LLM Model Optimization
@@ -308,11 +308,11 @@ print(f'Memory: {torch.cuda.memory_allocated()/1e9:.2f}GB')
 - ✅ **A/B testing** between optimized versions
 - ✅ **Document trade-offs** for stakeholders
 
-## 🔗 Additional Resources
+## References
 
 - [llama.cpp Documentation](https://github.com/ggerganov/llama.cpp)
 - [Hugging Face Optimum](https://huggingface.co/docs/optimum/index)
-- [vLLM Performance Guide](https://vllm.readthedocs.io/en/latest/performance.html)
+- [vLLM Performance Guide](https://docs.vllm.ai/en/latest/)
 - [GPTQ Paper](https://arxiv.org/abs/2210.17323)
 
 ## 📚 Next Steps

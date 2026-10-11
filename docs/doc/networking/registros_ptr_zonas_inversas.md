@@ -2,12 +2,12 @@
 title: Registros PTR y Zonas Inversas
 tags: ['networking']
 description: Cómo funcionan las búsquedas inversas (in-addr.arpa) y su importancia para la reputación de IP.
-updated: 2026-01-23
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 12 min
 category: Redes
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Fundamentos de redes"
@@ -297,7 +297,8 @@ PTR para IPs asignadas dinámicamente:
 
 ## Referencias
 
-- RFC 1035: Domain Names - Implementation and Specification
-- RFC 2317: Classless IN-ADDR.ARPA delegation
-- RFC 3596: DNS Extensions to Support IP Version 6
-- RFC 5855: Nameservers for IPv4 and IPv6 Reverse Zones
+- [RFC 1035: Domain Names - Implementation and Specification](https://www.rfc-editor.org/rfc/rfc1035)
+- [RFC 2317: Classless IN-ADDR.ARPA delegation](https://www.rfc-editor.org/rfc/rfc2317)
+- [RFC 3596: DNS Extensions to Support IP Version 6](https://www.rfc-editor.org/rfc/rfc3596)
+- [RFC 5855: Nameservers for IPv4 and IPv6 Reverse Zones](https://www.rfc-editor.org/rfc/rfc5855)
+- [BIND 9: manual de referencia](https://bind9.readthedocs.io/en/latest/reference.html)

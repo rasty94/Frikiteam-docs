@@ -2,12 +2,12 @@
 title: "Ceph"
 description: "Documentación sobre ceph"
 tags: ['storage', 'ceph']
-updated: 2026-07-19
+updated: 2026-10-11
 difficulty: beginner
 estimated_time: 3 min
 category: Almacenamiento
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Ninguno"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -77,7 +77,7 @@ Para instalar Ceph versión Reef utilizando `cephadm`, se pueden seguir los sigu
     ```
 
 
-## Recursos adicionales
+## Referencias
 
 ### Videos tutoriales
 
@@ -88,14 +88,13 @@ Para instalar Ceph versión Reef utilizando `cephadm`, se pueden seguir los sigu
 *Video: Introducción a Ceph - Sistema de almacenamiento distribuido*
 
 ### Documentación oficial
-- **Sitio web oficial:** [ceph.io](https://ceph.io/)
+- **Sitio web oficial:** [ceph.io](https://ceph.io/en/)
 - **Documentación:** [docs.ceph.com](https://docs.ceph.com/)
 - **GitHub:** [github.com/ceph/ceph](https://github.com/ceph/ceph)
-- **Wiki:** [wiki.ceph.com](https://wiki.ceph.com/)
+- **Wiki:** [wiki.ceph.com](https://docs.ceph.com/en/latest/)
 
 ### Comunidad
 - **Reddit:** [r/ceph](https://www.reddit.com/r/ceph/)
-- **Stack Overflow:** [stackoverflow.com/questions/tagged/ceph](https://stackoverflow.com/questions/tagged/ceph)
 - **IRC:** #ceph en freenode
 
 ---
@@ -105,4 +104,4 @@ Para instalar Ceph versión Reef utilizando `cephadm`, se pueden seguir los sigu
 
 !!! warning "¿Problemas con Ceph?"
     Revisa nuestra **[sección de troubleshooting](../../../troubleshooting.md)** para soluciones a errores comunes.
-
+- [official Ceph documentation](https://docs.ceph.com/en/latest/)

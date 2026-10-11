@@ -2,12 +2,12 @@
 title: Tablas de Puertos Comunes
 tags: ['networking']
 description: Lista de puertos TCP/UDP estándar y servicios asociados (ej. 22 SSH, 443 HTTPS, 53 DNS).
-updated: 2026-01-23
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 9 min
 category: Redes
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Fundamentos de redes"
@@ -298,6 +298,5 @@ iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 
 ## Referencias
 
-- IANA Service Name and Transport Protocol Port Number Registry
-- RFC 6335: Internet Assigned Numbers Authority (IANA) Procedures for the Management of the Service Name and Transport Protocol Port Number Registry
-- Common Ports and Protocols Cheat Sheet (SANS Institute)
+- [IANA Service Name and Transport Protocol Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml)
+- [RFC 6335: Internet Assigned Numbers Authority (IANA) Procedures for the Management of the Service Name and Transport Protocol Port Number Registry](https://www.rfc-editor.org/rfc/rfc6335)

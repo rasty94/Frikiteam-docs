@@ -3,8 +3,8 @@ title: "Docker vs Kubernetes vs Virtual Machines: An Interesting Comparison"
 description: "Documentation about Docker vs Kubernetes vs virtual machines: an interesting comparison"
 tags: ['documentation']
 category: General
-updated: 2025-09-03
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: advanced
 status: published
 estimated_time: 5 min
@@ -169,3 +169,9 @@ The key is understanding when to use each one and how they can complement each o
 ---
 
 *Did you enjoy this comparison? Explore more about each technology in the corresponding sections of our documentation!*
+
+## References
+
+- [Docker: overview](https://docs.docker.com/get-started/docker-overview/)
+- [Kubernetes: overview](https://kubernetes.io/docs/concepts/overview/)
+- [KVM in the Linux kernel](https://docs.kernel.org/virt/kvm/index.html)

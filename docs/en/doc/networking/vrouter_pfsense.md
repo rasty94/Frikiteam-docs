@@ -3,7 +3,7 @@ title: "pfSense (virtual router/firewall)"
 description: "Quick guide to deploy pfSense as a virtual firewall and router"
 tags: ['networking', 'cybersecurity', 'vrouter']
 category: Networking
-updated: 2026-04-18
+updated: 2026-10-11
 last_reviewed: 2026-10-11
 difficulty: intermediate
 status: published
@@ -53,3 +53,8 @@ pfSense is a mature and stable platform, especially useful for teams that value 
 - Do LAN/DMZ policies follow least privilege?
 - Is backup/restore fully validated?
 - Does the team have a clear outage runbook?
+
+## References
+
+- [pfSense: minimum requirements](https://docs.netgate.com/pfsense/en/latest/hardware/minimum-requirements.html)
+- [pfSense: documentation](https://docs.netgate.com/pfsense/en/latest/)

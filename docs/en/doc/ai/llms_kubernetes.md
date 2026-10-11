@@ -3,12 +3,12 @@ title: "LLMs on Kubernetes with Helm and ArgoCD"
 description: "Packaging an inference service (vLLM, Ollama) as a Helm chart and shipping it via GitOps with ArgoCD: values, probes for models that take minutes to load, weight management, secrets, multi-release and queue-based scaling."
 keywords: "kubernetes, helm, argocd, gitops, vllm, ollama, inference, gpu, startupprobe, applicationset"
 tags: ['ai', 'kubernetes', 'helm', 'argocd', 'gitops', 'vllm', 'ollama', 'gpu']
-updated: 2026-07-19
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 48 min
 category: Artificial Intelligence
 status: published
-last_reviewed: 2026-07-19
+last_reviewed: 2026-10-11
 prerequisites:
   - "Kubernetes fundamentals"
   - "GitOps and Helm concepts"
@@ -633,7 +633,7 @@ The details of HPA on external GPU metrics and the cost optimizations (spot, pre
     9. Rollout strategy chosen deliberately: `Recreate` if there is no spare GPU.
     10. An `ApplicationSet` as soon as you have the second model.
 
-## Related resources
+## References
 
 - [vLLM](vllm.md) — the engine: PagedAttention, memory tuning and benchmarking
 - [Deployment at scale with Kubernetes](despliegue_kubernetes.md) — manifests, GPU-based HPA and cost optimization

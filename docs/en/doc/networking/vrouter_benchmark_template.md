@@ -3,7 +3,7 @@ title: "vRouter benchmark template"
 description: "Reusable template to measure performance and stability on OPNsense, pfSense, MikroTik CHR and VyOS"
 tags: ['networking', 'performance', 'vrouter']
 category: Networking
-updated: 2026-04-18
+updated: 2026-10-11
 last_reviewed: 2026-10-11
 difficulty: intermediate
 status: published
@@ -138,3 +138,8 @@ Recommendation:
 - Exact platform configuration was documented.
 - Evidence was attached (commands/output/charts).
 - Decision was reviewed by NetOps/SecOps.
+
+## References
+
+- [iperf3: options](https://software.es.net/iperf/invoking.html)
+- [mtr(8)](https://manpages.debian.org/stable/mtr/mtr.8.en.html)

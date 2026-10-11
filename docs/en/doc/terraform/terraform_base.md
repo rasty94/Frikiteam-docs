@@ -3,8 +3,8 @@ title: "Terraform & OpenTofu - Infrastructure as Code"
 description: "Documentation on Terraform & OpenTofu - infrastructure as code"
 tags: ['terraform']
 category: DevOps
-updated: 2025-11-15
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: beginner
 status: published
 estimated_time: 9 min
@@ -178,7 +178,7 @@ In the following sections we will explore:
 - Policies with Sentinel
 - Terraform Cloud
 
-## Additional resources
+## References
 
 ### Terraform (HashiCorp)
 - **Official website:** [terraform.io](https://www.terraform.io/)
@@ -195,11 +195,12 @@ In the following sections we will explore:
 
 ### Community
 - **Reddit:** [r/terraform](https://www.reddit.com/r/terraform/), [r/opentofu](https://www.reddit.com/r/opentofu/)
-- **Stack Overflow:** [stackoverflow.com/questions/tagged/terraform](https://stackoverflow.com/questions/tagged/terraform), [stackoverflow.com/questions/tagged/opentofu](https://stackoverflow.com/questions/tagged/opentofu)
 - **Discord:** [discord.gg/hashicorp](https://discord.gg/hashicorp)
 - **Official forums:** [discuss.hashicorp.com](https://discuss.hashicorp.com/)
 
 ### Articles and comparisons
 - **License analysis:** [hashicorp.com/blog/announcing-hashicorp-license-v2](https://www.hashicorp.com/blog/announcing-hashicorp-license-v2)
-- **OpenTofu birth:** [opentofu.org/blog/opentofu-announcement](https://opentofu.org/blog/opentofu-announcement)
-- **Migration guide:** [gruntwork.io/blog/opentofu-vs-terraform](https://gruntwork.io/blog/opentofu-vs-terraform)
+- **OpenTofu birth:** [opentofu.org/blog/opentofu-announcement](https://opentofu.org/manifesto/)
+- [Tutorial: First steps with Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/infrastructure-as-code)
+- [Quick installation guide](https://developer.hashicorp.com/terraform/install)
+- [Interactive tutorial](https://learn.hashicorp.com/terraform)

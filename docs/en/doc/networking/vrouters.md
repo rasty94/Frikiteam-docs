@@ -149,3 +149,10 @@ flowchart TD
 - Are there commercial support and SLA requirements?
 
 If you are torn between two options, compare both in the same lab for a week and decide on metrics, not personal preference.
+
+## References
+
+- [OPNsense: hardware requirements](https://docs.opnsense.org/manual/hardware.html)
+- [pfSense: minimum requirements](https://docs.netgate.com/pfsense/en/latest/hardware/minimum-requirements.html)
+- [MikroTik: Cloud Hosted Router](https://help.mikrotik.com/docs/spaces/ROS/pages/18350234/Cloud+Hosted+Router+CHR)
+- [VyOS: documentation](https://docs.vyos.io/en/latest/)

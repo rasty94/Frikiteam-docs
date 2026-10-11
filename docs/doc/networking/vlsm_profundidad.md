@@ -2,12 +2,12 @@
 title: VLSM en Profundidad
 tags: ['networking']
 description: Guía sobre Variable Length Subnet Masking para optimizar el uso de direcciones IP.
-updated: 2026-01-23
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 9 min
 category: Redes
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Fundamentos de redes"
@@ -218,6 +218,5 @@ echo "ibase=10; obase=2; 192" | bc  # Convertir a binario
 
 ## Referencias
 
-- RFC 950: Internet Standard Subnetting Procedure
-- RFC 1812: Requirements for IP Version 4 Routers
-- Cisco Networking Academy: VLSM Concepts
+- [RFC 950: Internet Standard Subnetting Procedure](https://www.rfc-editor.org/rfc/rfc950)
+- [RFC 1812: Requirements for IP Version 4 Routers](https://www.rfc-editor.org/rfc/rfc1812)

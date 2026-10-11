@@ -2,12 +2,12 @@
 title: "Terraform & OpenTofu - Infraestructura como Código"
 description: "Documentación sobre terraform & opentofu - infraestructura como código"
 tags: ['terraform']
-updated: 2025-11-15
+updated: 2026-10-11
 difficulty: beginner
 estimated_time: 9 min
 category: DevOps
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Conceptos de cloud"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -180,7 +180,7 @@ En las siguientes secciones exploraremos:
 - Políticas con Sentinel
 - Terraform Cloud
 
-## Recursos adicionales
+## Referencias
 
 ### Terraform (HashiCorp)
 - **Sitio web oficial:** [terraform.io](https://www.terraform.io/)
@@ -206,14 +206,12 @@ En las siguientes secciones exploraremos:
 *Video: Terraform desde cero - Infraestructura como Código completa*
 
 - **Reddit:** [r/terraform](https://www.reddit.com/r/terraform/), [r/opentofu](https://www.reddit.com/r/opentofu/)
-- **Stack Overflow:** [stackoverflow.com/questions/tagged/terraform](https://stackoverflow.com/questions/tagged/terraform), [stackoverflow.com/questions/tagged/opentofu](https://stackoverflow.com/questions/tagged/opentofu)
 - **Discord:** [discord.gg/hashicorp](https://discord.gg/hashicorp)
 - **Foros oficiales:** [discuss.hashicorp.com](https://discuss.hashicorp.com/)
 
 ### Artículos y comparativas
 - **Análisis de licencias:** [hashicorp.com/blog/announcing-hashicorp-license-v2](https://www.hashicorp.com/blog/announcing-hashicorp-license-v2)
-- **Nacimiento de OpenTofu:** [opentofu.org/blog/opentofu-announcement](https://opentofu.org/blog/opentofu-announcement)
-- **Guía de migración:** [gruntwork.io/blog/opentofu-vs-terraform](https://gruntwork.io/blog/opentofu-vs-terraform)
+- **Nacimiento de OpenTofu:** [opentofu.org/blog/opentofu-announcement](https://opentofu.org/manifesto/)
 
 ---
 
@@ -222,3 +220,6 @@ En las siguientes secciones exploraremos:
 
 !!! warning "¿Problemas con Terraform?"
     Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md)** para soluciones a errores comunes.
+- [Tutorial: Primeros pasos con Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/infrastructure-as-code)
+- [Guía de instalación rápida](https://developer.hashicorp.com/terraform/install)
+- [Tutorial interactivo](https://learn.hashicorp.com/terraform)

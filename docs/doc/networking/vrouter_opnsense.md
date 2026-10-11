@@ -58,3 +58,8 @@ OPNsense es una opción muy sólida cuando priorizas funciones de cortafuegos, s
 - ¿Existe una copia de seguridad probada de la configuración?
 - ¿Se monitoriza latencia, pérdida y sesiones activas?
 - ¿Hay procedimiento de reversión?
+
+## Referencias
+
+- [OPNsense: requisitos de hardware](https://docs.opnsense.org/manual/hardware.html)
+- [OPNsense: autenticación de dos factores](https://docs.opnsense.org/manual/how-tos/two_factor.html)

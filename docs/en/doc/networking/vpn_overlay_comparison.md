@@ -3,8 +3,8 @@ title: "VPN Overlay Comparison: Tailscale vs NetBird vs ZeroTier"
 description: "Documentation on VPN overlay comparison: Tailscale vs NetBird vs ZeroTier"
 tags: ['networking']
 category: Networking
-updated: 2026-01-24
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: advanced
 status: published
 estimated_time: 14 min
@@ -308,3 +308,10 @@ sudo zerotier-cli reset
 - You operate in environments with limited connectivity
 
 Each tool excels in its specific niche. The choice depends on your current architecture and scalability requirements.
+
+## References
+
+- [Tailscale: documentation](https://tailscale.com/kb)
+- [NetBird: documentation](https://docs.netbird.io/)
+- [ZeroTier: documentation](https://docs.zerotier.com/)
+- [WireGuard: protocol](https://www.wireguard.com/protocol/)

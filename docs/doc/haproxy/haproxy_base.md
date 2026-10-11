@@ -2,12 +2,12 @@
 title: "HAProxy"
 description: "Documentación sobre haproxy"
 tags: ['networking', 'high-availability']
-updated: 2025-11-15
+updated: 2026-10-11
 difficulty: beginner
 estimated_time: 14 min
 category: Redes
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-10-11
 prerequisites: ["Ninguno"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -45,7 +45,6 @@ HAProxy es un balanceador de carga y proxy de alto rendimiento para TCP/HTTP que
 
 - **[Tutorial oficial: Get started](https://www.haproxy.com/documentation/hapee/latest/getting-started/)** - Configuración básica paso a paso
 - **[HAProxy Wizard](https://www.haproxy.com/blog/haproxy-configuration-basics-load-balancing/)** - Generador de configuración online
-- **[Load Balancing 101](https://www.haproxy.com/blog/load-balancing-101/)** - Conceptos fundamentales
 
 ## Instalación
 
@@ -321,7 +320,7 @@ sequenceDiagram
 - ✅ **Usar sticky sessions** solo cuando sea necesario
 - ✅ **Monitorear logs** y métricas regularmente
 
-## Referencias
+## Vídeos
 
 ### Videos tutoriales
 
@@ -333,7 +332,6 @@ sequenceDiagram
 
 - **Documentación oficial**: https://www.haproxy.org/
 - **Guía de configuración**: https://www.haproxy.org/download/2.8/doc/configuration.txt
-- **Comunidad**: https://www.haproxy.org/community/
 
 ---
 
@@ -342,3 +340,10 @@ sequenceDiagram
 
 !!! warning "¿Problemas con HAProxy?"
     Revisa nuestra **[sección de troubleshooting](../../troubleshooting.md)** para soluciones a errores comunes.
+
+## Referencias
+
+- [Tutorial oficial: Get started](https://www.haproxy.com/documentation/hapee/latest/getting-started/)
+- [HAProxy Wizard](https://www.haproxy.com/blog/haproxy-configuration-basics-load-balancing/)
+- [Official documentation](https://www.haproxy.org/)
+- [Configuration guide](https://www.haproxy.org/download/2.8/doc/configuration.txt)

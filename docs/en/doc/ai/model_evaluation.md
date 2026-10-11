@@ -4,8 +4,8 @@ description: "Complete guide to evaluating LLM performance: MMLU and HellaSwag b
 keywords: "llm evaluation, benchmarks, mmlu, hellaswag, bleu, rouge, latency testing"
 tags: ['ai', 'llm', 'evaluation', 'benchmarks', 'testing']
 category: Artificial Intelligence
-updated: 2026-01-25
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: beginner
 status: published
 estimated_time: 18 min
@@ -338,7 +338,7 @@ def monitor_model_performance():
     pass
 ```
 
-## 📚 Additional Resources
+## References
 
 - [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness)
 - [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)

@@ -3,8 +3,8 @@ title: "Kubernetes - Container Orchestration"
 description: "Documentation about kubernetes - container orchestration"
 tags: ['kubernetes']
 category: Containers
-updated: 2025-11-15
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: beginner
 status: published
 estimated_time: 10 min
@@ -23,7 +23,6 @@ New to Kubernetes? Start here:
 
 - **[Official tutorial: Getting started](https://kubernetes.io/docs/tutorials/kubernetes-basics/)** - Create your first cluster and deploy an app
 - **[Play with Kubernetes](https://labs.play-with-k8s.com/)** - Free online interactive environment
-- **[Katacoda Kubernetes scenarios](https://www.katacoda.com/courses/kubernetes)** - Step-by-step interactive tutorials
 
 ## Kubernetes Architecture
 
@@ -135,7 +134,7 @@ In the following sections we will explore:
 - Monitoring and logging
 - Helm and package management
 
-## Additional resources
+## References
 
 ### Official documentation
 - **Official website:** [kubernetes.io](https://kubernetes.io/)
@@ -145,6 +144,7 @@ In the following sections we will explore:
 
 ### Community
 - **Reddit:** [r/kubernetes](https://www.reddit.com/r/kubernetes/)
-- **Stack Overflow:** [stackoverflow.com/questions/tagged/kubernetes](https://stackoverflow.com/questions/tagged/kubernetes)
 - **Slack:** [slack.k8s.io](https://slack.k8s.io/)
 - **Discord:** [discord.gg/kubernetes](https://discord.gg/kubernetes)
+- [Official tutorial: Getting started](https://kubernetes.io/docs/tutorials/kubernetes-basics/)
+- [Play with Kubernetes](https://labs.play-with-k8s.com/)

@@ -7,7 +7,7 @@ estimated_time: 71 min
 category: Artificial Intelligence
 status: published
 prerequisites: ["ollama_basics", "chatbots_locales"]
-updated: 2026-01-25
+updated: 2026-10-11
 ---
 
 # Log Analysis and Troubleshooting with LLMs
@@ -1238,12 +1238,16 @@ for cmd in safe_commands + dangerous_commands:
         print(f"  Reason: {result['error']}")
 ```
 
-## 📚 Additional Resources
+## References
 
 - [Kubernetes Troubleshooting Guide](https://kubernetes.io/docs/tasks/debug/)
 - [ELK Stack for Log Analysis](https://www.elastic.co/elastic-stack)
 - [Prometheus Monitoring](https://prometheus.io/docs/introduction/overview/)
 - [OWASP Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)
+- [Ollama API Documentation](https://github.com/jmorganca/ollama/blob/main/docs/api.md)
+- [ELK Stack](https://www.elastic.co/what-is/elk-stack)
+- [Prometheus + Grafana](https://prometheus.io/)
+- [Kubernetes Logging](https://kubernetes.io/docs/concepts/cluster-administration/logging/)
 
 ## 🔄 Next Steps
 

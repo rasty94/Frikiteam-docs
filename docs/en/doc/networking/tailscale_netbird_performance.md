@@ -7,7 +7,7 @@ time: "45 minutes"
 category: Networking
 state: stable
 prerequisites: [docker, linux-basics]
-updated: 2026-01-25
+updated: 2026-10-11
 status: published
 estimated_time: 10 min
 ---
@@ -251,3 +251,4 @@ graph LR
 ---
 
 *Last updated: January 25, 2026*
+- [VPN Overlay Networks Comparison](https://docs.frikiteam.es/doc/networking/vpn_overlay_comparison/)

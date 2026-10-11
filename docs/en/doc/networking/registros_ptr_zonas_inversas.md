@@ -3,8 +3,8 @@ title: "PTR Records and Reverse Zones"
 description: How reverse lookups (in-addr.arpa) work and their importance for IP reputation.
 tags: ['networking']
 
-updated: 2026-01-23
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: intermediate
 category: Networking
 status: published
@@ -296,7 +296,8 @@ PTR for dynamically assigned IPs:
 
 ## References
 
-- RFC 1035: Domain Names - Implementation and Specification
-- RFC 2317: Classless IN-ADDR.ARPA delegation
-- RFC 3596: DNS Extensions to Support IP Version 6
-- RFC 5855: Nameservers for IPv4 and IPv6 Reverse Zones
+- [RFC 1035: Domain Names - Implementation and Specification](https://www.rfc-editor.org/rfc/rfc1035)
+- [RFC 2317: Classless IN-ADDR.ARPA delegation](https://www.rfc-editor.org/rfc/rfc2317)
+- [RFC 3596: DNS Extensions to Support IP Version 6](https://www.rfc-editor.org/rfc/rfc3596)
+- [RFC 5855: Nameservers for IPv4 and IPv6 Reverse Zones](https://www.rfc-editor.org/rfc/rfc5855)
+- [BIND 9: reference manual](https://bind9.readthedocs.io/en/latest/reference.html)

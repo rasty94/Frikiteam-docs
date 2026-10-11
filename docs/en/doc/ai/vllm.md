@@ -3,12 +3,12 @@ title: "vLLM: serving LLMs at scale with high throughput"
 description: "Advanced vLLM guide: PagedAttention, continuous batching, OpenAI-compatible server, multi-GPU tensor parallelism, AWQ/GPTQ/FP8 quantization, memory tuning and benchmarking"
 keywords: "vllm, llm serving, paged attention, continuous batching, tensor parallelism, gpu, inference, throughput"
 tags: ['ai', 'llm', 'vllm', 'inference', 'gpu']
-updated: 2026-07-19
+updated: 2026-10-11
 difficulty: advanced
 estimated_time: 23 min
 category: Artificial Intelligence
 status: published
-last_reviewed: 2026-07-18
+last_reviewed: 2026-10-11
 prerequisites:
   - "LLM fundamentals"
   - "GPU and CUDA concepts"
@@ -359,7 +359,7 @@ Sensible procedure: fix the load, vary **one** parameter at a time (`max-num-bat
     4. Use tensor parallelism only when the model does not fit; if it fits, replicate.
     5. Measure with `vllm bench serve` against your real workload, not someone else's blog.
 
-## 🔗 Related resources
+## References
 
 - [Deployment at scale with Kubernetes](despliegue_kubernetes.md) — HPA, probes and operating vLLM in a cluster
 - [LiteLLM (Gateway)](litellm.md) — routing, fallback and cost control in front of vLLM
@@ -367,3 +367,4 @@ Sensible procedure: fix the load, vary **one** parameter at a time (`max-num-bat
 - [Ollama](ollama_basics.md) · [llama.cpp](llama_cpp.md) · [LM Studio](lm_studio.md) — single-node local inference
 - [Official vLLM documentation](https://docs.vllm.ai/en/stable/)
 - [PagedAttention: Efficient Memory Management for LLM Serving (SOSP 2023)](https://arxiv.org/abs/2309.06180)
+- [project benchmark dashboard](https://blog.vllm.ai/)

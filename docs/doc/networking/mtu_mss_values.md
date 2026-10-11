@@ -409,8 +409,13 @@ Antes de culpar al MTU de un problema de CPU, comprueba que TSO, GSO y GRO esté
 
 ## Referencias
 
-- RFC 1191: Path MTU Discovery
-- RFC 1981: Path MTU Discovery for IPv6
-- RFC 2923: TCP Problems with Path MTU Discovery
-- RFC 879: The TCP Maximum Segment Size and Related Topics
-- IEEE 802.3: Ethernet Standards
+- [RFC 1191: Path MTU Discovery](https://www.rfc-editor.org/rfc/rfc1191)
+- [RFC 1981: Path MTU Discovery for IPv6](https://www.rfc-editor.org/rfc/rfc1981)
+- [RFC 2923: TCP Problems with Path MTU Discovery](https://www.rfc-editor.org/rfc/rfc2923)
+- [RFC 879: The TCP Maximum Segment Size and Related Topics](https://www.rfc-editor.org/rfc/rfc879)
+- [RFC 894: IP sobre Ethernet (MTU de 1500)](https://www.rfc-editor.org/rfc/rfc894)
+- [RFC 791: IPv4](https://www.rfc-editor.org/rfc/rfc791)
+- [RFC 8201: Path MTU Discovery en IPv6](https://www.rfc-editor.org/rfc/rfc8201)
+- [RFC 4821: Packetization Layer PMTUD](https://www.rfc-editor.org/rfc/rfc4821)
+- [RFC 8200: IPv6 (MTU mínimo de 1280)](https://www.rfc-editor.org/rfc/rfc8200)
+- [ip-link(8)](https://manpages.debian.org/stable/iproute2/ip-link.8.en.html)

@@ -3,8 +3,8 @@ title: "Ansible - Infrastructure Automation"
 description: "Documentation about Ansible - infrastructure automation"
 tags: ['ansible']
 category: DevOps
-updated: 2025-11-15
-last_reviewed: 2026-01-25
+updated: 2026-10-11
+last_reviewed: 2026-10-11
 difficulty: beginner
 status: published
 estimated_time: 2 min
@@ -84,7 +84,7 @@ In the following sections we will explore:
 - CI/CD integration
 - Best practices
 
-## Additional resources
+## References
 
 ### Official documentation
 - **Official website:** [ansible.com](https://www.ansible.com/)
@@ -94,4 +94,6 @@ In the following sections we will explore:
 
 ### Community
 - **Reddit:** [r/ansible](https://www.reddit.com/r/ansible/)
-- **Stack Overflow:** [stackoverflow.com/questions/tagged/ansible](https://stackoverflow.com/questions/tagged/ansible)
+- [Official tutorial: Get started](https://docs.ansible.com/ansible/latest/getting_started/index.html)
+- [Ansible Lab](https://lab.redhat.com/ansible-automation-platform-trial)
+- [Learn Ansible](https://www.ansible.com/resources/webinars-training/introduction-to-ansible)

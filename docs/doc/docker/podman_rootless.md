@@ -3,12 +3,12 @@ title: "Podman Rootless — Contenedores sin daemon ni root"
 description: "Por qué rootless cambia el modelo de amenaza: user namespaces, subuid/subgid, arquitectura daemonless, migración desde Docker, pods y Quadlet, networking con pasta/slirp4netns y limitaciones reales."
 keywords: "podman, rootless, contenedores, user namespaces, subuid, subgid, daemonless, quadlet, pasta, slirp4netns, seguridad, docker"
 tags: ['containers', 'podman', 'cybersecurity']
-updated: 2026-07-19
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 20 min
 category: Contenedores
 status: published
-last_reviewed: 2026-07-19
+last_reviewed: 2026-10-11
 prerequisites:
   - "Conocimientos de Docker"
   - "Linux intermedio (usuarios, permisos, systemd)"
@@ -299,7 +299,7 @@ Sin adornos, esto es lo que no vas a poder hacer:
 - [ ] Backups del storage de usuario, no de `/var/lib/containers`.
 - [ ] Cargas no confiables, además, con un runtime sandboxeado.
 
-## 🔗 Enlaces relacionados
+## Referencias
 
 - [Docker — Base](docker_base.md) — conceptos de contenedores e imágenes.
 - [Docker — Seguridad y Scanning](docker_security.md) — hardening de imágenes, secretos y escaneo.

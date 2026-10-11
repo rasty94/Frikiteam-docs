@@ -1,12 +1,12 @@
 ---
 title: "Dex IdP (OIDC Federado)"
 tags: ['identity', 'cybersecurity']
-updated: 2026-03-01
+updated: 2026-10-11
 difficulty: intermediate
 estimated_time: 7 min
 category: Gestión de Identidad
 status: published
-last_reviewed: 2026-03-01
+last_reviewed: 2026-10-11
 prerequisites: ["Conocimientos básicos de OAuth2/OIDC"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
@@ -125,7 +125,7 @@ connectors:
 - Definir expiraciones y políticas de rotación de claves.
 - Activar telemetría y health checks para operación day-2.
 
-## Recursos
+## Referencias
 
 - Fork Frikiteam: [https://github.com/rasty94/dex](https://github.com/rasty94/dex)
 - Documentación oficial Dex: [https://dexidp.io/docs/](https://dexidp.io/docs/)
