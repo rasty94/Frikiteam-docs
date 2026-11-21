@@ -51,18 +51,6 @@ markdown_extensions:
 
 No hace falta `extra_javascript` para Mermaid: Material lo carga solo. Añadir un Mermaid propio por CDN mezcla dos versiones en la misma página.
 
-### 5. Verificar el JavaScript
-
-El archivo `docs/javascripts/extra.js` debe contener:
-
-```javascript
-window.mermaid.initialize({ 
-  startOnLoad: false,
-  securityLevel: 'loose',
-  theme: 'default'
-});
-```
-
 ## Pasos de Diagnóstico
 
 ### Paso 1: Verificar la Configuración

@@ -88,24 +88,6 @@ def check_mermaid_files():
                 if not any(first_line.startswith(t) for t in supported_types):
                     print(f"      ⚠️  Tipo no soportado: {first_line}")
 
-def check_js_files():
-    """Verifica archivos JavaScript"""
-    print("\n🔍 Verificando archivos JavaScript...")
-    
-    js_file = Path("docs/javascripts/extra.js")
-    if js_file.exists():
-        print("✅ Archivo extra.js encontrado")
-        
-        with open(js_file, 'r', encoding='utf-8') as f:
-            content = f.read()
-            
-        if 'mermaid' in content:
-            print("✅ Código Mermaid encontrado en extra.js")
-        else:
-            print("❌ Código Mermaid NO encontrado en extra.js")
-    else:
-        print("❌ Archivo extra.js NO encontrado")
-
 def check_css_files():
     """Verifica archivos CSS"""
     print("\n🔍 Verificando archivos CSS...")
@@ -167,7 +149,6 @@ def main():
     
     check_mermaid_config()
     check_mermaid_files()
-    check_js_files()
     check_css_files()
     generate_test_html()
     
