@@ -23,7 +23,12 @@ flowchart TD
 
 ### 2. Verificar la Versión de Mermaid
 
-La documentación usa Mermaid versión 9.4.3. Algunas sintaxis pueden variar entre versiones.
+Hay dos renderizadores, y cada uno trae su propia versión de Mermaid:
+
+- **Web MkDocs**: la que incluye el tema Material (soporte nativo vía `superfences`). No se carga ningún Mermaid aparte.
+- **PNG del blog y validación en CI**: `mermaid-cli` (`mmdc`), fijado a la mayor **12** en `.github/workflows/docs-ci.yml`.
+
+Algunas sintaxis cambian entre versiones mayores: si un diagrama pasa en una y falla en otra, compara la versión de `mmdc --version` con la de Material.
 
 ### 3. Probar el Diagrama en el Editor Online
 
@@ -42,11 +47,9 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-
-extra_javascript:
-  - https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js
-  - javascripts/extra.js
 ```
+
+No hace falta `extra_javascript` para Mermaid: Material lo carga solo. Añadir un Mermaid propio por CDN mezcla dos versiones en la misma página.
 
 ### 5. Verificar el JavaScript
 
