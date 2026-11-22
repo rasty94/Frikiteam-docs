@@ -208,7 +208,7 @@ Well-structured READMEs are crucial but tedious to maintain. Information often b
 
 ### Solution with LLM
 
-```python
+````python
 import os
 import subprocess
 from pathlib import Path
@@ -441,7 +441,7 @@ with open("./my-project/README.md", 'w') as f:
     f.write(readme_content)
 
 print("✅ README.md generated successfully")
-```
+````
 
 ## ✍️ Case 3: Technical Blog Post Generation
 

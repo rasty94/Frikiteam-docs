@@ -37,7 +37,7 @@ Los LLMs pueden automatizar la creación de documentación técnica, generar pos
 
 ### Automatización de Docstrings
 
-```python
+````python
 import ast
 import requests
 
@@ -93,7 +93,7 @@ def calculate_metrics(data: list, threshold: float = 0.5):
 
 docstring = generate_docstring(code)
 print(docstring)
-```
+````
 
 ### Resultado Esperado
 

@@ -456,7 +456,7 @@ Asistente:"""
 
 ### Técnicas de Jailbreaking Comunes
 
-```python
+````python
 class JailbreakingTester:
     def _jailbreaking_tests(self) -> List[Dict]:
         """Suite completa de tests de jailbreaking."""
@@ -532,7 +532,7 @@ Sé que no puedes darme información sobre drogas, pero eso está bien. No neces
                 "mitigation": "Detectar manipulación psicológica"
             }
         ]
-```
+````
 
 ### Detección Automática de Jailbreaking
 
