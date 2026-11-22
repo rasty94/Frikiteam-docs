@@ -314,6 +314,7 @@ Las tres fuentes de texto se precargan (`<link rel="preload" as="font">`) para q
 | El *beacon* de Web Analytics no aparece con `curl` | Cloudflare solo lo inyecta si pides HTML | `curl -H 'Accept: text/html'` |
 | `The language "cisco" doesn't exist, falling back to "plaintext"` | Shiki no incluye ese lenguaje | `langAlias` si hay uno equivalente; si no, texto plano |
 | Los enlaces internos de un artículo no llevan a la sección | El `id` del encabezado tiene tildes y el índice no | Emitir el `id` explícito, sin tildes |
+| Las líneas de los bloques de código salen muy separadas | Shiki marca cada línea con `class="line"` y tu CSS también usa `.line` | Renombra tu clase y mira en las herramientas del navegador qué CSS recibe una línea de código |
 
 El comando que más ahorra: reproducir el sitio de producción en local, con las mismas reglas.
 

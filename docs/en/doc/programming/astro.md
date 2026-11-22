@@ -314,6 +314,7 @@ The three text fonts are preloaded (`<link rel="preload" as="font">`) so they do
 | The Web Analytics *beacon* does not show up with `curl` | Cloudflare only injects it if you ask for HTML | `curl -H 'Accept: text/html'` |
 | `The language "cisco" doesn't exist, falling back to "plaintext"` | Shiki does not include that language | `langAlias` if there is an equivalent one; otherwise plain text |
 | A post's internal links do not reach the section | The heading `id` has accents and the index does not | Emit the explicit `id`, without accents |
+| Code block lines are spaced far apart | Shiki puts `class="line"` on every line and your CSS also uses `.line` | Rename your class and check in the browser tools which CSS a code line receives |
 
 The command that saves the most: reproduce the production site locally, with the same rules.
 
