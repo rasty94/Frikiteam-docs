@@ -16,6 +16,12 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 
 ## 🆕 Últimas Novedades
 
+### 📅 **22 de noviembre de 2026**
+
+#### 🛠️ **Una guía nueva sobre cómo está hecho este blog (ES/EN)**
+
+- **Astro**: [un blog estático con series, búsqueda y publicación programada](doc/programming/astro.md) — colecciones con esquema, publicación programada sin servidor y por qué el `cron` de GitHub no es un reloj, series dibujadas como líneas de metro, Pagefind, Cloudflare Workers (`_redirects`, `_headers`) y el peso real de cada página.
+
 ### 📅 **11 de octubre de 2026**
 
 #### 🧭 **Cinco guías nuevas del roadmap (ES/EN)**

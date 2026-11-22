@@ -2,6 +2,13 @@
 
 Registro de tareas completadas y logs de progreso, archivados desde `TODO.md` para mantener ese archivo centrado en lo pendiente.
 
+## 🛠️ Guía de Astro: cómo está hecho el blog (22/11/2026)
+
+- Página nueva `doc/programming/astro.md` (y su gemela EN): arquitectura del blog en Astro 7, con colecciones con esquema, publicación programada sin servidor, series como líneas de metro, Sätteri, Pagefind, Workers (`_redirects`, `_headers`), SEO y troubleshooting. Entrada en «Últimas Novedades» de ES y EN, y en el `nav`.
+- **Cada cifra y cada fallo salen del propio sitio, no de memoria**: versiones de `package.json`; 147 artículos, 83 páginas, build de 4 s y 0 ficheros JS propios medidos; peso de portada y entrada con Chromium (caché desactivada); límites de `_redirects` (2.000 estáticas y 100 dinámicas) y `_headers` (100 reglas) y el comportamiento de `data-pagefind-ignore` contrastados con la documentación de Cloudflare y de Pagefind; la nota sobre el `cron` de GitHub, con su texto oficial.
+- **Comprobado**: las 20 URL de «Referencias» responden 200; el error de «serie inexistente» se reprodujo y se copió tal cual; el diagrama Mermaid se renderiza con `mmdc` en las dos páginas; `mkdocs build --strict`, `validate_metadata.py --strict` (`estimated_time` coherente), `check_sync.py --strict` y los dos tests pasan; el bloque de la Action conserva `${{ secrets.CF_DEPLOY_HOOK }}` en el HTML renderizado.
+- Es el primer artículo nuevo real que pasa por `scripts/publish_to_astro.py`.
+
 ## 🔁 Sync con WordPress y duplicados de posts programados (11/10/2026)
 
 - `wordpress_sync.py --all` creó 97 borradores en vez de 7: `fetch_all_wp_posts` y `find_post_by_title` pedían `publish,draft,pending,private` y no `future`, así que los 77 posts programados no se veían y se recrearon. Arreglado con `ESTADOS_WP`, que incluye `future`.

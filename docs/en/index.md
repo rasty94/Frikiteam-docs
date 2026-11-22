@@ -16,6 +16,12 @@ My idea is to provide practical, clear, and useful documentation about the techn
 
 ## 🆕 Latest Updates
 
+### 📅 **November 22, 2026**
+
+#### 🛠️ **A new guide on how this blog is built (ES/EN)**
+
+- **Astro**: [a static blog with series, search and scheduled publishing](doc/programming/astro.md) — schema-validated collections, serverless scheduled publishing and why GitHub's `cron` is not a clock, series drawn as metro lines, Pagefind, Cloudflare Workers (`_redirects`, `_headers`) and what each page really weighs.
+
 ### 📅 **October 11, 2026**
 
 #### 🧭 **Five new guides from the roadmap (ES/EN)**
