@@ -20,7 +20,7 @@ contributors: ["@rasty94"]
 # ¡Hemos migrado! Frikiteam, ahora un blog estático con Astro
 
 !!! tip "¡Hemos migrado!"
-    Desde el **22 de noviembre de 2026**, frikiteam.es ya no es WordPress: es el sitio que describe esta página. **Para ti casi nada cambia**: las direcciones de siempre siguen funcionando (las 76 antiguas, con sus redirecciones), el RSS sigue en `/feed/`, y las entradas cargan en unos 170 KB. Lo nuevo: un buscador en la cabecera (pulsa `/` o `Ctrl/⌘+K`), series dibujadas como líneas de metro, y la fe de erratas y las dudas por [GitHub](https://github.com/rasty94/Frikiteam-docs/issues/new/choose). El sitio no usa cookies.
+    Desde el **22 de noviembre de 2026**, frikiteam.es ya no es WordPress: es el sitio que describe esta página. **Para ti casi nada cambia**: las direcciones de siempre siguen funcionando (las 76 antiguas, con sus redirecciones), el RSS sigue en `/feed/`, y las entradas cargan en unos 170 KB. Lo nuevo: un buscador en la cabecera (pulsa `/` o `Ctrl/⌘+K`), series dibujadas como líneas de metro, y las erratas y las dudas se mandan por [GitHub](https://github.com/rasty94/Frikiteam-docs/issues/new/choose). El sitio no usa cookies.
 
 ## El problema
 
