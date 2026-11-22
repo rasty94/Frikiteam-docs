@@ -97,6 +97,10 @@ def _images(line, image):
     return _IMG.sub(one, line)
 
 
+# Emojis al principio de un título («🎯 Introducción»): en la web de docs son estilo de la casa; en el blog suenan a plantilla.
+_EMOJI = re.compile(r'^\s*(?:[\U0001F000-\U0001FAFF←-⇿⌀-➿⬀-⯿][️‍]*)+\s*')
+
+
 def _blocks(lines, ids, diagram, image, state):
     out, i, n = [], 0, len(lines)
     while i < n:
@@ -130,8 +134,14 @@ def _blocks(lines, ids, diagram, image, state):
             i = j
             continue
         head = _HEAD.match(line)
+        if head and re.fullmatch(r'tabla de contenidos?', _EMOJI.sub('', head.group(2)).strip(), re.I):
+            # El índice a mano del documento: el blog ya pinta el suyo («En este artículo») y saldrían dos.
+            i += 1
+            while i < n and not _HEAD.match(lines[i]):
+                i += 1
+            continue
         if head:
-            h = _heading(len(head.group(1)), head.group(2), ids)
+            h = _heading(len(head.group(1)), _EMOJI.sub('', head.group(2)), ids)
             state['heading'] = html.unescape(re.sub(r'<[^>]+>', '', h))
             out += ['', h, '']
         else:

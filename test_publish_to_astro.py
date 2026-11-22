@@ -85,6 +85,12 @@ def test_slug_como_wordpress():
     assert wp_slug('MTU/MSS Values') == 'mtu-mss-values' and wp_slug('LLaMA.cpp: Compilación') == 'llama-cpp-compilacion'
 
 
+def test_titulos_sin_emoji_y_sin_indice_a_mano():
+    out = body('## 📋 Tabla de Contenidos\n\n- [Uso](#uso)\n\n## 🎯 Uso\n\nTexto\n\n### ⚠️ Ojo\n')
+    assert 'Tabla' not in out and '- [Uso]' not in out
+    assert '<h2 id="uso">Uso</h2>' in out and '<h3 id="ojo">Ojo</h3>' in out
+
+
 if __name__ == '__main__':
     tests = [v for k, v in sorted(globals().items()) if k.startswith('test_')]
     for t in tests:
