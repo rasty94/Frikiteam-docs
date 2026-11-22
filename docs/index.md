@@ -18,9 +18,9 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 
 ### 📅 **22 de noviembre de 2026**
 
-#### 🛠️ **Una guía nueva sobre cómo está hecho este blog (ES/EN)**
+#### 🚀 **¡Hemos migrado! Frikiteam ya no es WordPress (ES/EN)**
 
-- **Astro**: [un blog estático con series, búsqueda y publicación programada](doc/programming/astro.md) — colecciones con esquema, publicación programada sin servidor y por qué el `cron` de GitHub no es un reloj, series dibujadas como líneas de metro, Pagefind, Cloudflare Workers (`_redirects`, `_headers`) y el peso real de cada página.
+- **Astro**: [¡Hemos migrado! Frikiteam, ahora un blog estático con Astro](doc/programming/astro.md) — desde el 22 de noviembre de 2026 el blog es un sitio estático. Qué cambia para ti (casi nada: las mismas direcciones y el mismo RSS, y un buscador nuevo con `/`), cómo está hecho —series dibujadas como líneas de metro, publicación programada sin servidor, Pagefind, Cloudflare Workers— y qué pasó el día del cambio.
 
 ### 📅 **11 de octubre de 2026**
 

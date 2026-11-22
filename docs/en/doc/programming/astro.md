@@ -1,11 +1,11 @@
 ---
-title: "Astro — A static blog with series, search and scheduled publishing"
-description: "How the Frikiteam blog is built with Astro 7: schema-validated collections, serverless scheduled publishing, series as metro lines, Pagefind, Cloudflare Workers and the real failures along the way."
+title: "We have migrated! Frikiteam, now a static blog with Astro"
+description: "Frikiteam has left WordPress: since 22 November 2026 it is a static site built with Astro 7 on Cloudflare Workers. What changes for you, how it is built (series, search, scheduled publishing) and what happened on the day of the switch."
 keywords: "astro, satteri, pagefind, cloudflare workers, static assets, scheduled publishing, github actions, _redirects, json-ld, sitemap"
 tags: ['programming', 'ci-cd', 'performance']
 updated: 2026-11-22
 difficulty: intermediate
-estimated_time: 20 min
+estimated_time: 28 min
 category: Development
 status: published
 last_reviewed: 2026-11-22
@@ -17,7 +17,10 @@ reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
 
-# Astro — A static blog with series, search and scheduled publishing
+# We have migrated! Frikiteam, now a static blog with Astro
+
+!!! tip "We have migrated!"
+    Since **22 November 2026**, frikiteam.es is no longer WordPress: it is the site this page describes. **For you almost nothing changes**: the usual addresses keep working (all 76 old ones, with their redirects), the RSS stays at `/feed/`, and posts load in about 170 KB. What is new: a search box in the header (press `/` or `Ctrl/⌘+K`), series drawn as metro lines, and errata and questions through [GitHub](https://github.com/rasty94/Frikiteam-docs/issues/new/choose). The site uses no cookies.
 
 ## The problem
 
@@ -41,6 +44,7 @@ In numbers, as of 22 November 2026: **147 posts** in **11 series**, 83 HTML page
 - [Redirects, caching and headers on Workers](#redirects-caching-and-headers-on-workers)
 - [SEO without plugins](#seo-without-plugins)
 - [What it really weighs](#what-it-really-weighs)
+- [The day of the switch](#the-day-of-the-switch)
 - [Troubleshooting](#troubleshooting)
 - [Best practices](#best-practices)
 - [References](#references)
@@ -300,6 +304,23 @@ Measured with Chromium and the cache disabled, on the published site and with a 
 Breakdown of a post: **fonts are 81 %** (four files, 138 KB), the HTML weighs 12 KB, the stylesheet 5 KB and the JavaScript of its own is 0: the site's two scripts (search and *tooltip*) go inside the HTML, about 2 KB. The 10 KB of "Script" is Cloudflare Web Analytics' *beacon*, not the site's. Opening search adds about 50 KB, paid only by whoever uses it.
 
 The three text fonts are preloaded (`<link rel="preload" as="font">`) so they do not arrive after the stylesheet and shift the text.
+
+## The day of the switch
+
+On 22 November 2026 WordPress was switched off. It was done in four phases, each with its own check and its way back, and with a script that repeats the same ~45 checks before and after (`scripts/preflight.mjs`: the 63 posts, the 76 old URLs, the 157 redirects one by one, 656 old images, indexing and headers).
+
+1. **Final backup** of WordPress: 796 `wp_posts` rows in the dump, the same as the live database, and a copy outside the rotation.
+2. **Deploy the site as indexable.**
+3. **Switch the domain** in Cloudflare.
+4. **Switch WordPress off**, without deleting it: containers stopped and set to `restart=no`, and the data kept for 30 days.
+
+Three things worth knowing if you do something similar:
+
+- **WordPress was served cached for a year at the edge** (`s-maxage=31536000`, from a page-cache plugin). Changing the origin without purging Cloudflare's cache and without deleting the rules the plugin had created would have kept serving the old pages.
+- **Stopping the containers is not enough**: they had `restart: always`, and without `docker update --restart=no` they would have started again after the next reboot.
+- **Two real slips**, which the automatic check caught: for a few minutes the live site was served with `noindex`, because the switch was on another branch that had not been deployed yet; and `www` was without a DNS record for a few hours. That is why the script looks at indexing and redirects, not just at "it loads".
+
+Since then, one Action checks every day that the post due is online, and another repeats the whole battery every Monday and alerts through Telegram if anything fails.
 
 ## Troubleshooting
 

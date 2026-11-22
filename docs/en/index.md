@@ -18,9 +18,9 @@ My idea is to provide practical, clear, and useful documentation about the techn
 
 ### 📅 **November 22, 2026**
 
-#### 🛠️ **A new guide on how this blog is built (ES/EN)**
+#### 🚀 **We have migrated! Frikiteam is no longer WordPress (ES/EN)**
 
-- **Astro**: [a static blog with series, search and scheduled publishing](doc/programming/astro.md) — schema-validated collections, serverless scheduled publishing and why GitHub's `cron` is not a clock, series drawn as metro lines, Pagefind, Cloudflare Workers (`_redirects`, `_headers`) and what each page really weighs.
+- **Astro**: [We have migrated! Frikiteam, now a static blog with Astro](doc/programming/astro.md) — since 22 November 2026 the blog is a static site. What changes for you (almost nothing: the same addresses and the same RSS, plus a new search box with `/`), how it is built —series drawn as metro lines, serverless scheduled publishing, Pagefind, Cloudflare Workers— and what happened on the day of the switch.
 
 ### 📅 **October 11, 2026**
 

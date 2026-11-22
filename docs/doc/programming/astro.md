@@ -1,11 +1,11 @@
 ---
-title: "Astro — Un blog estático con series, búsqueda y publicación programada"
-description: "Cómo está construido el blog de Frikiteam con Astro 7: colecciones con esquema, publicación programada sin servidor, series como líneas de metro, Pagefind, Cloudflare Workers y los fallos reales que aparecieron."
+title: "¡Hemos migrado! Frikiteam, ahora un blog estático con Astro"
+description: "Frikiteam deja WordPress: desde el 22 de noviembre de 2026 es un sitio estático con Astro 7 en Cloudflare Workers. Qué cambia para ti, cómo está hecho (series, búsqueda, publicación programada) y qué pasó el día del cambio."
 keywords: "astro, satteri, pagefind, cloudflare workers, static assets, publicación programada, github actions, _redirects, json-ld, sitemap"
 tags: ['programming', 'ci-cd', 'performance']
 updated: 2026-11-22
 difficulty: intermediate
-estimated_time: 20 min
+estimated_time: 28 min
 category: Desarrollo
 status: published
 last_reviewed: 2026-11-22
@@ -17,7 +17,10 @@ reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
 
-# Astro — Un blog estático con series, búsqueda y publicación programada
+# ¡Hemos migrado! Frikiteam, ahora un blog estático con Astro
+
+!!! tip "¡Hemos migrado!"
+    Desde el **22 de noviembre de 2026**, frikiteam.es ya no es WordPress: es el sitio que describe esta página. **Para ti casi nada cambia**: las direcciones de siempre siguen funcionando (las 76 antiguas, con sus redirecciones), el RSS sigue en `/feed/`, y las entradas cargan en unos 170 KB. Lo nuevo: un buscador en la cabecera (pulsa `/` o `Ctrl/⌘+K`), series dibujadas como líneas de metro, y la fe de erratas y las dudas por [GitHub](https://github.com/rasty94/Frikiteam-docs/issues/new/choose). El sitio no usa cookies.
 
 ## El problema
 
@@ -41,6 +44,7 @@ En cifras, a 22 de noviembre de 2026: **147 artículos** en **11 series**, 83 p�
 - [Redirecciones, caché y cabeceras en Workers](#redirecciones-cache-y-cabeceras-en-workers)
 - [SEO sin plugins](#seo-sin-plugins)
 - [Lo que pesa de verdad](#lo-que-pesa-de-verdad)
+- [El día del cambio](#el-dia-del-cambio)
 - [Troubleshooting](#troubleshooting)
 - [Buenas prácticas](#buenas-practicas)
 - [Referencias](#referencias)
@@ -300,6 +304,23 @@ Medido con Chromium y la caché desactivada, sobre el sitio publicado y con una 
 Desglose de una entrada: **las fuentes son el 81 %** (cuatro ficheros, 138 KB), el HTML pesa 12 KB, la hoja de estilos 5 KB y el JavaScript propio es 0: los dos scripts del sitio (buscador y *tooltip*) van dentro del HTML, unos 2 KB. Los 10 KB de «Script» son el *beacon* de Cloudflare Web Analytics, no del sitio. Abrir el buscador añade unos 50 KB, pagados solo por quien lo usa.
 
 Las tres fuentes de texto se precargan (`<link rel="preload" as="font">`) para que no lleguen después de la hoja de estilos y desplacen el texto.
+
+## El día del cambio
+
+El 22 de noviembre de 2026 se apagó WordPress. Se hizo en cuatro fases, cada una con su comprobación y su vuelta atrás, y con un script que repite las mismas ~45 comprobaciones antes y después (`scripts/preflight.mjs`: las 63 entradas, las 76 URL antiguas, las 157 redirecciones una a una, 656 imágenes antiguas, la indexación y las cabeceras).
+
+1. **Backup final** de WordPress: 796 filas de `wp_posts` en el dump, las mismas que la base de datos viva, y una copia fuera de la rotación.
+2. **Desplegar el sitio como indexable.**
+3. **Cambiar el dominio** en Cloudflare.
+4. **Apagar WordPress**, sin borrarlo: contenedores parados y con `restart=no`, y los datos guardados 30 días.
+
+Tres cosas que conviene saber si haces algo parecido:
+
+- **WordPress se servía cacheado un año en el borde** (`s-maxage=31536000`, por un plugin de caché de página). Cambiar el origen sin purgar la caché de Cloudflare y sin borrar las reglas que el plugin había creado habría seguido entregando las páginas viejas.
+- **Apagar los contenedores no basta**: tenían `restart: always`, y sin `docker update --restart=no` habrían vuelto a arrancar tras el siguiente reinicio.
+- **Dos tropiezos reales**, que la comprobación automática encontró: durante unos minutos la web real se sirvió con `noindex`, porque el interruptor estaba en otra rama que aún no se había desplegado; y `www` estuvo unas horas sin registro DNS. Por eso el script mira indexación y redirecciones y no solo que «cargue».
+
+Desde entonces, una Action comprueba cada día que la entrada que toca está en línea, y otra repite la batería completa cada lunes y avisa por Telegram si algo falla.
 
 ## Troubleshooting
 
