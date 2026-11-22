@@ -18,10 +18,10 @@ jobs:
     name: Build (strict)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.13'
           cache: pip
@@ -44,14 +44,14 @@ jobs:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Configure Git Credentials
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.13'
           cache: pip
@@ -60,7 +60,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libjpeg-dev zlib1g-dev libfreetype6-dev
       - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           key: mkdocs-material-${{ env.cache_id }}
           path: .cache
@@ -75,14 +75,14 @@ jobs:
     name: Mermaid + enlaces
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.13'
           cache: pip
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: '20'
       - name: Install system dependencies
@@ -98,7 +98,7 @@ jobs:
         run: ./validate_links.sh site
       - name: Upload link checker results
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: linkchecker-results
           path: linkchecker_output.txt
