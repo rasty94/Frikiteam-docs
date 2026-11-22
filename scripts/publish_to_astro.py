@@ -75,7 +75,27 @@ def _heading(level, text, ids):
     return f'<h{level} id="{unique(slugify(plain, "-"), ids)}">{inner}</h{level}>'
 
 
-def _blocks(lines, ids, diagram, image):
+def _alt(state):
+    """Texto alternativo de un diagrama: la sección en la que está, que es lo que lo describe."""
+    return f'Diagrama: {state["heading"]}' if state.get('heading') else 'Diagrama'
+
+
+_IMG = re.compile(r'!\[([^\]]*)\]\(([^)\s]+)\)(\{[^}]*\})?')
+
+
+def _images(line, image):
+    """Imágenes locales a public/img; y `{width=50%}` (attr_list de MkDocs), que Markdown a secas dejaría como texto."""
+    def one(m):
+        alt, src, attrs = m.group(1), image(m.group(2)), m.group(3)
+        if not attrs:
+            return f'![{alt}]({src})'
+        css = [f'{k}:{v if v.endswith("%") or not v.isdigit() else v + "px"}'
+               for k, v in re.findall(r'\b(width|height)\s*=\s*"?([\w.%]+)"?', attrs)]
+        return f'<img src="{src}" alt="{html.escape(alt)}"' + (f' style="{";".join(css)}"' if css else '') + '>'
+    return _IMG.sub(one, line)
+
+
+def _blocks(lines, ids, diagram, image, state):
     out, i, n = [], 0, len(lines)
     while i < n:
         line = lines[i]
@@ -88,7 +108,7 @@ def _blocks(lines, ids, diagram, image):
             block = lines[i:j + 1]
             code = '\n'.join(block[1:-1]) if j < n else '\n'.join(block[1:])
             png = diagram(code) if info.split(' ')[0] == 'mermaid' else None
-            out += [f'![Diagrama Mermaid]({png})'] if png else block
+            out += [f'![{_alt(state)}]({png})'] if png else block
             i = j + 1
             continue
         adm = _ADMON.match(line)
@@ -104,14 +124,16 @@ def _blocks(lines, ids, diagram, image):
             out += [f'<div class="admonition {kind}">']
             if title:
                 out += [f'<p class="admonition-title">{html.escape(title, quote=False)}</p>']
-            out += ['', *_blocks([b[4:] if b.startswith('    ') else '' for b in body], ids, diagram, image), '', '</div>', '']  # sin esa línea en blanco, el <div> se traga lo que sigue
+            out += ['', *_blocks([b[4:] if b.startswith('    ') else '' for b in body], ids, diagram, image, state), '', '</div>', '']  # sin esa línea en blanco, el <div> se traga lo que sigue
             i = j
             continue
         head = _HEAD.match(line)
         if head:
-            out += ['', _heading(len(head.group(1)), head.group(2), ids), '']
+            h = _heading(len(head.group(1)), head.group(2), ids)
+            state['heading'] = html.unescape(re.sub(r'<[^>]+>', '', h))
+            out += ['', h, '']
         else:
-            out.append(re.sub(r'(!\[[^\]]*\]\()([^)\s]+)', lambda m: m.group(1) + image(m.group(2)), line))
+            out.append(_images(line, image))
         i += 1
     return out
 
@@ -119,7 +141,7 @@ def _blocks(lines, ids, diagram, image):
 def convert_body(text, title, diagram=lambda code: None, image=lambda src: src):
     text = _RAW.sub('', _RAW_LINE.sub('', text))
     text = re.sub(r'\A\s*# .+\n+', '', text)  # el título de la página: la plantilla de Astro pinta el suyo
-    body = '\n'.join(_blocks(text.split('\n'), set(), diagram, image))
+    body = '\n'.join(_blocks(text.split('\n'), set(), diagram, image, {'heading': title}))
     return re.sub(r'\n{3,}', '\n\n', body).strip('\n') + '\n'
 
 

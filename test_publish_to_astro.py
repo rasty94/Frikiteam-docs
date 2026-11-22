@@ -55,12 +55,21 @@ def test_raw_de_jinja():
 def test_mermaid_con_y_sin_imagen():
     fence = '```mermaid\ngraph TD\n  A-->B\n```\n'
     assert body(fence) == fence  # sin imagen disponible el bloque queda como estaba
-    assert convert_body(fence, 'T', lambda code: '/diagrams/x.png') == '![Diagrama Mermaid](/diagrams/x.png)\n'
+    assert convert_body(fence, 'T', lambda code: '/diagrams/x.png') == '![Diagrama: T](/diagrams/x.png)\n'
+    # el texto alternativo es la sección en la que está el diagrama, también dentro de una admonición
+    out = convert_body('## Arquitectura de Ceph\n\n' + fence + '\n!!! note "N"\n    ' + fence.replace('\n', '\n    ').rstrip() + '\n', 'T', lambda c: '/d.png')
+    assert out.count('![Diagrama: Arquitectura de Ceph](/d.png)') == 2
 
 
 def test_valla_larga_con_otra_dentro():
     code = '````markdown\n```python\nx = 1\n```\n````\n'
     assert body(code) == code
+
+
+def test_atributos_de_imagen():
+    assert body('![Logo](a.png){width=50%}\n') == '<img src="a.png" alt="Logo" style="width:50%">\n'
+    assert body('![Logo](a.png){ width="300" height=100 }\n') == '<img src="a.png" alt="Logo" style="width:300px;height:100px">\n'
+    assert body('![Logo](a.png)\n') == '![Logo](a.png)\n'
 
 
 def test_slug_como_wordpress():
