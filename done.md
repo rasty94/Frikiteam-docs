@@ -703,6 +703,10 @@ Verificado ejecutando los scripts, no por inspección manual:
 
 ## Progreso de Publicación
 
+- Ceph - Publicado el 2026-11-22
+- Docker - Contenedores - Publicado el 2026-11-22
+- Testing de Seguridad en LLMs - Publicado el 2026-11-22
+- Generación de Contenido Técnico con LLMs - Publicado el 2026-11-22
 - Traefik - Programado el 2026-10-11
 - Terraform — Backend de Estado y Migración - Programado el 2026-10-11
 - Terraform & OpenTofu - Infraestructura como Código - Programado el 2026-10-11
