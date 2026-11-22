@@ -14,22 +14,6 @@ reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
 
----
-title: Docker - Contenedores
-description: Guía básica de Docker para principiantes, incluyendo conceptos fundamentales y comandos básicos.
-keywords: docker, contenedores, imágenes, dockerfile, comandos
-tags: [docker, contenedores, base, virtualización]
-updated: 2026-10-11
-difficulty: beginner
-estimated_time: 3 min
-category: Contenedores
-status: published
-last_reviewed: 2026-10-11
-prerequisites: ["Ninguno"]
-reviewers: ["@rasty94"]
-contributors: ["@rasty94"]
----
-
 ## Introducción a Docker
 
 Docker es una plataforma de contenedores que permite empaquetar aplicaciones y sus dependencias en contenedores ligeros y portables. Esto facilita el desarrollo, despliegue y escalado de aplicaciones.
