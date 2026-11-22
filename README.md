@@ -1,6 +1,6 @@
 # FrikiTeam Docs
 
-Documentación técnica multi‑idioma (ES/EN) basada en MkDocs Material, con despliegue continuo. Las entradas de blog se publican en frikiteam.es vía `wordpress_sync.py`.
+Documentación técnica multi‑idioma (ES/EN) basada en MkDocs Material, con despliegue continuo. Las entradas del blog se publican con `scripts/publish_to_astro.py` (ver `CLAUDE.md`); `wordpress_sync.py` es el flujo anterior, hasta apagar WordPress.
 
 ## Estructura del proyecto
 

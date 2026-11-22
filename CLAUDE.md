@@ -14,6 +14,7 @@ publicado sea correcto y verificable, no que haya mucho.
   python scripts/validate_metadata.py --strict   # vocabularios, borradores, campos y fechas ES/EN, estimated_time
   python scripts/check_sync.py --strict          # fechas, asimetría de tamaño y EN con el cuerpo en español
   python test_wordpress_format.py
+  python test_publish_to_astro.py
   ```
 
 - `./validate_mermaid.sh` renderiza todos los diagramas y tarda minutos: lánzalo en
@@ -22,6 +23,19 @@ publicado sea correcto y verificable, no que haya mucho.
   fallos del plugin de macros son invisibles en el Markdown.
 - Nunca ejecutes más de un `mkdocs build` a la vez. Si despachas agentes en paralelo,
   diles que no compilen y compila tú una vez al final.
+
+## Publicar en el blog
+
+El blog (`frikiteam.es`, en migración a Astro) se genera desde estas páginas con `scripts/publish_to_astro.py`, que escribe en el repo
+hermano `../frikiteam-astro`. `python scripts/publish_to_astro.py` solo informa; `--write` escribe. El flujo y qué vive dónde (serie, fecha, URL)
+están en el README de `frikiteam-astro`. Lo que importa al escribir aquí:
+
+- Cada página con título es un artículo, salvo `index.md`, `draft: true`, las seis de navegación de `NO_ARTICULO` y las de `EXCLUIR` (el script).
+- El `# Título` inicial se descarta: la plantilla del blog pinta el suyo.
+- Del Markdown solo se convierten las admoniciones `!!!`, mermaid y `{% raw %}`; `???`, pestañas `===`, emojis `:x:`, `==marca==`, notas al pie o
+  `{ .clase }` **no se soportan** (hoy no se usan). Si los necesitas, amplía el script y su test antes.
+- Un `:` sin comillas en el título deja el frontmatter ilegible: el script salta la página y lo avisa.
+- `wordpress_sync.py` sigue ahí hasta apagar WordPress; no lo lances: duplicaría el trabajo y escribe en producción.
 
 ## Árbol bilingüe
 
