@@ -2,7 +2,7 @@
 import sys
 
 sys.path.insert(0, 'scripts')
-from publish_to_astro import convert_body, wp_slug, _inline_html  # noqa: E402
+from publish_to_astro import at_nine, convert_body, wp_slug, _inline_html  # noqa: E402
 
 no_diagram = lambda code: None
 
@@ -71,6 +71,11 @@ def test_atributos_de_imagen():
     assert body('![Logo](a.png){width=50%}\n') == '<img src="a.png" alt="Logo" style="width:50%">\n'
     assert body('![Logo](a.png){ width="300" height=100 }\n') == '<img src="a.png" alt="Logo" style="width:300px;height:100px">\n'
     assert body('![Logo](a.png)\n') == '![Logo](a.png)\n'
+
+
+def test_fecha_a_las_nueve_de_madrid():
+    assert at_nine('2027-05-19') == '2027-05-19T07:00:00Z'  # verano: UTC+2
+    assert at_nine('2027-01-10') == '2027-01-10T08:00:00Z'  # invierno: UTC+1
 
 
 def test_slug_como_wordpress():

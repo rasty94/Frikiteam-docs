@@ -11,7 +11,8 @@ artículo que ya existe: solo refresca título, extracto, etiquetas, fecha de ac
     python scripts/publish_to_astro.py --adopt         # una vez: añade `source:` a los artículos de WordPress
 
 Un artículo nuevo necesita serie (la propone el mapa category -> serie, o `--serie ruta=serie`)
-y recibe el siguiente hueco libre: un artículo cada 2 días a las 09:00 de Madrid.
+y recibe el siguiente hueco libre: un artículo cada 2 días a las 09:00 de Madrid. Para otro día,
+`--fecha ruta=AAAA-MM-DD` (también a las 09:00 de Madrid).
 """
 import argparse
 import hashlib
@@ -276,6 +277,12 @@ def next_slot(posts, extra=0):
     return datetime(day.year, day.month, day.day, 9, 0, tzinfo=MADRID).astimezone(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
 
 
+def at_nine(day):
+    """'AAAA-MM-DD' -> las 09:00 de Madrid de ese día, en UTC (07:00 o 08:00 según el horario)."""
+    y, m, d = map(int, day.split('-'))
+    return datetime(y, m, d, 9, 0, tzinfo=MADRID).astimezone(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+
+
 def adopt(astro):
     """Añade `source:` a los artículos que vinieron de WordPress, usando el estado del pipeline antiguo."""
     state = json.loads((DOCS_ROOT / '.wp_sync_state.json').read_text())
@@ -297,6 +304,7 @@ def main():
     ap.add_argument('--out', type=Path)
     ap.add_argument('--adopt', action='store_true')
     ap.add_argument('--serie', action='append', default=[], metavar='RUTA=SERIE')
+    ap.add_argument('--fecha', action='append', default=[], metavar='RUTA=AAAA-MM-DD', help='día de salida de un artículo nuevo (09:00 Madrid)')
     ap.add_argument('--no-render', action='store_true', help='no ejecutar mmdc (los diagramas nuevos quedan sin imagen)')
     a = ap.parse_args()
     if a.adopt:
@@ -307,6 +315,7 @@ def main():
     if not by_source:
         sys.exit('Ningún artículo tiene `source`. Lanza antes --adopt.')
     series = dict(s.split('=', 1) for s in a.serie)
+    fechas = dict(s.split('=', 1) for s in a.fecha)
     diagrams = Diagrams(a.astro, render=not a.no_render)
     outdir = a.out or a.astro / 'src' / 'content' / 'posts'
     upd, new, blocked, seen = [], [], [], set()
@@ -329,7 +338,7 @@ def main():
         card = f'/wp-content/uploads/2026/09/frikiteam-serie-{serie}-1200x630.png'
         name = next((c['name'] for c in json.loads((a.astro / 'src/data/categories.json').read_text()) if c['slug'] == serie), serie)
         has_card = (a.astro / 'public' / card.lstrip('/')).exists()  # la serie `desarrollo` aún no tiene tarjeta
-        m = dict(title=meta['title'], source=rel, date=next_slot(posts, len(new)), updated=_iso(meta.get('updated')),
+        m = dict(title=meta['title'], source=rel, date=at_nine(fechas[rel]) if rel in fechas else next_slot(posts, len(new)), updated=_iso(meta.get('updated')),
                  category=serie, description=meta.get('description'), tags=meta.get('tags') or [],
                  image=card if has_card else '', imageAlt=f'Serie {name} — Frikiteam' if has_card else '')
         new.append((slug, m, body, rel))
