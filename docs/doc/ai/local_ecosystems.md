@@ -16,8 +16,6 @@ contributors: ["@rasty94"]
 
 # Ecosistemas de Modelos Locales
 
-🚧 **TRADUCCIÓN PENDIENTE** - Contenido en desarrollo
-
 ## Introducción
 
 Esta guía compara los principales frameworks para ejecutar modelos de lenguaje grandes (LLMs) localmente, enfocándonos en facilidad de uso, rendimiento y casos de uso.
