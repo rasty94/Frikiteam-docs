@@ -59,6 +59,7 @@ def test_mermaid_con_y_sin_imagen():
     # el texto alternativo es la sección en la que está el diagrama, también dentro de una admonición
     out = convert_body('## Arquitectura de Ceph\n\n' + fence + '\n!!! note "N"\n    ' + fence.replace('\n', '\n    ').rstrip() + '\n', 'T', lambda c: '/d.png')
     assert out.count('![Diagrama: Arquitectura de Ceph](/d.png)') == 2
+    assert '![Diagrama de flujo](/d.png)' in convert_body('## Diagrama de flujo\n\n' + fence, 'T', lambda c: '/d.png')  # sin repetir la palabra
 
 
 def test_valla_larga_con_otra_dentro():

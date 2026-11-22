@@ -77,7 +77,8 @@ def _heading(level, text, ids):
 
 def _alt(state):
     """Texto alternativo de un diagrama: la sección en la que está, que es lo que lo describe."""
-    return f'Diagrama: {state["heading"]}' if state.get('heading') else 'Diagrama'
+    h = state.get('heading') or ''
+    return h if h.lower().startswith('diagrama') else f'Diagrama: {h}' if h else 'Diagrama'
 
 
 _IMG = re.compile(r'!\[([^\]]*)\]\(([^)\s]+)\)(\{[^}]*\})?')
