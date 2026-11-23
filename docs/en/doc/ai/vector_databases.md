@@ -10,8 +10,6 @@ estimated_time: 28 min
 prerequisites: ["Basic Python"]
 ---
 
-🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25
-
 
 # Vector Databases
 

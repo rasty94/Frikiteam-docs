@@ -12,8 +12,6 @@ prerequisites:
   - "Intermediate Linux"
 ---
 
-🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25
-
 
 ## Overview
 

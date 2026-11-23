@@ -12,8 +12,6 @@ prerequisites:
   - "Basic Python"
 ---
 
-🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25
-
 
 # RAG: Retrieval-Augmented Generation
 

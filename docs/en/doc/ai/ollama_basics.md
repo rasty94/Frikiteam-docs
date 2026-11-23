@@ -16,8 +16,6 @@ prerequisites:
 
 # Ollama: Installation and Getting Started
 
-🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25
-
 
 Ollama is a tool that simplifies running Large Language Models (LLMs) locally. This guide will help you install and start using Ollama in your DevOps environment.
 

@@ -12,12 +12,8 @@ prerequisites:
   - "Basic Python"
 ---
 
-🚧 **TRANSLATION PENDING** - Last updated in Spanish: 2026-01-25
-
 
 # Local Model Ecosystems
-
-🚧 **TRANSLATION PENDING** - Content under development
 
 ## Introduction
 
