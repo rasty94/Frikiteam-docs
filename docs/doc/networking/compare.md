@@ -1,19 +1,31 @@
 ---
 title: "Comparativa rápida: NetBird vs Tailscale vs ZeroTier"
-description: "Documentación sobre comparativa rápida: netbird vs tailscale vs zerotier"
+description: "Resumen visual y criterios rápidos para elegir entre NetBird, Tailscale y ZeroTier en redes VPN mesh."
 tags: ['networking']
-updated: 2026-10-11
+updated: 2026-11-23
 difficulty: beginner
 estimated_time: 9 min
 category: Redes
 status: published
-last_reviewed: 2026-10-11
+last_reviewed: 2026-11-23
 prerequisites: ["Fundamentos de redes"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
 
 # Comparativa rápida: NetBird vs Tailscale vs ZeroTier
+
+## El problema
+
+Cuando necesitas conectar servidores, portátiles o sedes sin abrir puertos ni pelearte con túneles IPsec a mano, las tres opciones más habituales son **NetBird**, **Tailscale** y **ZeroTier**. Todas resuelven el mismo problema de base, pero cambian bastante en modelo de despliegue, control de acceso y capa de red.
+
+Esta página es la **chuleta visual** para decidir rápido. Si quieres el análisis técnico en detalle (arquitectura, rendimiento, NAT traversal y tabla completa), revisa la [comparativa completa de VPNs overlay](vpn_overlay_comparison.md).
+
+**Regla rápida de decisión:**
+
+- **Tailscale**: mejor opción si quieres estar funcionando en minutos con SSO corporativo y no te importa depender del plano de control SaaS (con Headscale como alternativa comunitaria si algún día quieres alojarlo tú).
+- **NetBird**: mejor opción si necesitas alojar el plano de control en tu propia infraestructura con políticas zero-trust granulares sobre WireGuard.
+- **ZeroTier**: mejor opción si necesitas tráfico de capa 2 (broadcast, multicast, redes virtuales tipo Ethernet) o integrar equipos donde WireGuard no encaja.
 
 ## Diagrama de comparación visual
 
