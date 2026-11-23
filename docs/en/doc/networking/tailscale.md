@@ -1,6 +1,6 @@
 ---
 title: "Tailscale: installation and basic configuration"
-description: "Documentation on tailscale: installation and basic configuration"
+description: "Basic installation and configuration of Tailscale: WireGuard mesh VPN with MagicDNS, subnet routing, and ACLs in minutes."
 tags: ['networking']
 updated: 2026-10-11
 difficulty: advanced

@@ -1,6 +1,6 @@
 ---
 title: "Terraform & OpenTofu - Infrastructure as Code"
-description: "Documentation on Terraform & OpenTofu - infrastructure as code"
+description: "Infrastructure as code with Terraform and OpenTofu: providers, remote state, modules, plan/apply, and team workflows."
 tags: ['terraform']
 category: DevOps
 updated: 2026-10-11

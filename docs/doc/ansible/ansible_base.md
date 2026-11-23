@@ -1,6 +1,6 @@
 ---
 title: "Ansible - Automatización de Infraestructura"
-description: "Documentación sobre ansible - automatización de infraestructura"
+description: "Automatización de infraestructura con Ansible: inventarios, playbooks, roles, Ansible Vault y buenas prácticas en producción."
 tags: ['ansible']
 updated: 2026-10-11
 difficulty: beginner

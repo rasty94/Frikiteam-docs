@@ -1,6 +1,6 @@
 ---
 title: "Proxmox vs VMware vs OpenStack: Migration to Open Source Solutions"
-description: "Documentation about Proxmox vs VMware vs OpenStack: migration to open source solutions"
+description: "Comparison of Proxmox VE, VMware, and OpenStack to plan a realistic migration to open-source virtualization."
 tags: ['documentation']
 category: General
 updated: 2026-10-11

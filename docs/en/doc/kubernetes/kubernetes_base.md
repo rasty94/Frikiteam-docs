@@ -1,6 +1,6 @@
 ---
 title: "Kubernetes - Container Orchestration"
-description: "Documentation about kubernetes - container orchestration"
+description: "Practical Kubernetes guide: cluster architecture, Pods, Deployments, Services, Ingress, storage, and day-2 operations."
 tags: ['kubernetes']
 category: Containers
 updated: 2026-10-11

@@ -1,6 +1,6 @@
 ---
 title: "Instalar Proxmox VE 9 sobre Debian 13 (Trixie)"
-description: "Documentación sobre instalar proxmox ve 9 sobre debian 13 (trixie)"
+description: "Instalación paso a paso de Proxmox VE 9 sobre Debian 13 (Trixie): repositorios, kernel, puente de red y verificaciones."
 tags: ['documentation']
 updated: 2026-10-11
 difficulty: advanced

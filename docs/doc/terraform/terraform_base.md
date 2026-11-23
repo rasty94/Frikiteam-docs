@@ -1,6 +1,6 @@
 ---
 title: "Terraform & OpenTofu - Infraestructura como Código"
-description: "Documentación sobre terraform & opentofu - infraestructura como código"
+description: "Infraestructura como código con Terraform y OpenTofu: providers, estado remoto, módulos, plan/apply y flujo en equipo."
 tags: ['terraform']
 updated: 2026-10-11
 difficulty: beginner

@@ -1,6 +1,6 @@
 ---
 title: "ZeroTier: installation and basic configuration"
-description: "Documentation on zerotier: installation and basic configuration"
+description: "Basic installation and configuration of ZeroTier: encrypted L2/L3 virtual networks to connect hosts and distributed labs."
 tags: ['networking']
 updated: 2026-10-11
 difficulty: advanced

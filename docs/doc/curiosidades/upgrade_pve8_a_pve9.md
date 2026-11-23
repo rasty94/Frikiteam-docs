@@ -1,6 +1,6 @@
 ---
 title: "Actualizar Proxmox VE 8 a Proxmox VE 9 (Debian 13 Trixie)"
-description: "Documentación sobre actualizar proxmox ve 8 a proxmox ve 9 (debian 13 trixie)"
+description: "Cómo actualizar Proxmox VE 8 a Proxmox VE 9 (Debian 13 Trixie) sin sustos: comprobaciones previas, pve8to9 y validación."
 tags: ['documentation']
 updated: 2026-10-11
 difficulty: advanced

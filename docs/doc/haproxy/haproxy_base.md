@@ -1,6 +1,6 @@
 ---
 title: "HAProxy"
-description: "Documentación sobre haproxy"
+description: "Balanceo de carga y proxy inverso con HAProxy: frontends, backends, TLS, health checks, ACLs y logging en producción."
 tags: ['networking', 'high-availability']
 updated: 2026-10-11
 difficulty: beginner

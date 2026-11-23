@@ -1,6 +1,6 @@
 ---
 title: "Kubernetes - Orquestación de Contenedores"
-description: "Documentación sobre kubernetes - orquestación de contenedores"
+description: "Guía práctica de Kubernetes: arquitectura del clúster, Pods, Deployments, Services, Ingress, almacenamiento y operación diaria."
 tags: ['kubernetes']
 updated: 2026-10-11
 difficulty: beginner

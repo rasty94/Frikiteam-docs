@@ -1,6 +1,6 @@
 ---
 title: "Ceph"
-description: "Documentación sobre ceph"
+description: "Arquitectura y operación básica de Ceph: MON, OSD, MGR, pools, RBD, CephFS y comprobación de salud del clúster."
 tags: ['storage', 'ceph']
 updated: 2026-10-11
 difficulty: beginner

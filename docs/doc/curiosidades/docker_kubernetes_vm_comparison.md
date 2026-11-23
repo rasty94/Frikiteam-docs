@@ -1,6 +1,6 @@
 ---
 title: "Docker vs Kubernetes vs Máquinas Virtuales: Una Comparación Curiosa"
-description: "Documentación sobre docker vs kubernetes vs máquinas virtuales: una comparación curiosa"
+description: "Cuándo usar Docker, Kubernetes o máquinas virtuales: arquitectura, aislamiento, sobrecarga y casos de uso reales."
 tags: ['documentation']
 updated: 2026-10-11
 difficulty: advanced

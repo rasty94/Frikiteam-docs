@@ -1,6 +1,6 @@
 ---
 title: "NetBird: instalación y configuración básica"
-description: "Documentación sobre netbird: instalación y configuración básica"
+description: "Instalación y configuración básica de NetBird: red VPN mesh sobre WireGuard con control de acceso zero-trust y opción self-hosted."
 tags: ['networking']
 updated: 2026-10-11
 difficulty: advanced

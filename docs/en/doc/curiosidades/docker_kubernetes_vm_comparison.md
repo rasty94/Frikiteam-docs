@@ -1,6 +1,6 @@
 ---
 title: "Docker vs Kubernetes vs Virtual Machines: An Interesting Comparison"
-description: "Documentation about Docker vs Kubernetes vs virtual machines: an interesting comparison"
+description: "When to use Docker, Kubernetes, or virtual machines: architecture, isolation, overhead, and real-world use cases."
 tags: ['documentation']
 category: General
 updated: 2026-10-11

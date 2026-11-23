@@ -99,5 +99,5 @@ connectors:
 
 ## References
 
-- [rasty94/dex](https://github.com/rasty94/dex)
-- [https://dexidp.io/docs/](https://dexidp.io/docs/)
+- [Frikiteam Dex fork on GitHub](https://github.com/rasty94/dex)
+- [Dex official documentation](https://dexidp.io/docs/)

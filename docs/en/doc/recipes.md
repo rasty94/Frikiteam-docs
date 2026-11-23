@@ -1,6 +1,6 @@
 ---
 title: "Quick Recipes"
-description: "Documentation on quick recipes"
+description: "Quick Linux, Docker, networking, and Kubernetes administration recipes ready to copy and use day to day."
 tags: ['documentation']
 updated: 2026-10-11
 difficulty: intermediate

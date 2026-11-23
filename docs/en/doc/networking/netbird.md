@@ -1,6 +1,6 @@
 ---
 title: "NetBird: basic installation and configuration"
-description: "Documentation on netbird: basic installation and configuration"
+description: "Basic installation and configuration of NetBird: WireGuard-based mesh VPN with zero-trust access control and self-hosting."
 tags: ['networking']
 updated: 2026-10-11
 difficulty: advanced

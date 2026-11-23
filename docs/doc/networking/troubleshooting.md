@@ -1,6 +1,6 @@
 ---
 title: "Resolución de problemas (Networking)"
-description: "Documentación sobre resolución de problemas (networking)"
+description: "Metodología y comandos clave para diagnosticar problemas de red en Linux: ip, ss, tcpdump, dig, mtr y análisis de capas."
 tags: ['networking']
 updated: 2026-10-11
 difficulty: intermediate

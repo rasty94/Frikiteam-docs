@@ -1,6 +1,6 @@
 ---
 title: "Recetas Rápidas"
-description: "Documentación sobre recetas rápidas"
+description: "Recetas rápidas de administración Linux, Docker, redes y Kubernetes listas para copiar y usar en el día a día."
 tags: ['documentation']
 updated: 2026-10-11
 difficulty: intermediate

@@ -190,19 +190,10 @@ CMD ["uvicorn","fastmcp:app","--host","0.0.0.0","--port","8080"]
 ---
 
 ## Recursos y siguientes pasos
-- Ejemplo en este repo: copia `fastmcp.py` y pruébalo localmente.
-- Para producción: implementar autenticación, TLS y despliegue en k8s usando `Deployment` + `Ingress`.
+- Prueba el servidor `fastmcp.py` en local y conéctalo a un cliente MCP o a un pipeline RAG.
+- Para producción: añade autenticación, TLS y despliegue en Kubernetes usando `Deployment` + `Ingress` (o detrás de un reverse proxy como HAProxy/Nginx).
 
 > Nota: FastMCP en esta guía es una implementación didáctica. Para un gateway en producción, integra con tu proveedor de modelos (OpenAI/Anthropic/llama-servers) o con un runtime local (vLLM, Ollama, etc.).
-
----
-
-### Archivos incluidos (ejemplo)
-- `fastmcp.py` — servidor demo
-- `Dockerfile` — contenedor mínimo
-- `examples/` — clientes Python/Node.js
-
-Si quieres, puedo: 1) añadir los archivos de ejemplo al repo y 2) mostrar cómo desplegarlo en Docker Compose o en Kubernetes (manifiestos). ¿Cuál prefieres primero?
 
 ## Referencias
 

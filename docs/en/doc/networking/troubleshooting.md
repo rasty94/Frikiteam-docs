@@ -1,6 +1,6 @@
 ---
 title: "Troubleshooting (Networking)"
-description: "Documentation on troubleshooting (networking)"
+description: "Methodology and key commands for Linux network troubleshooting: ip, ss, tcpdump, dig, mtr, and layer-by-layer checks."
 tags: ['networking']
 category: Networking
 updated: 2026-10-11

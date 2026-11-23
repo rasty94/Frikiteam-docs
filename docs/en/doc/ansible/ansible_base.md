@@ -1,6 +1,6 @@
 ---
 title: "Ansible - Infrastructure Automation"
-description: "Documentation about Ansible - infrastructure automation"
+description: "Infrastructure automation with Ansible: inventories, playbooks, roles, Ansible Vault, and production best practices."
 tags: ['ansible']
 category: DevOps
 updated: 2026-10-11

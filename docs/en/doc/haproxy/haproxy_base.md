@@ -1,6 +1,6 @@
 ---
 title: "HAProxy"
-description: "Documentation about haproxy"
+description: "Load balancing and reverse proxying with HAProxy: frontends, backends, TLS, health checks, ACLs, and production logging."
 tags: ['networking', 'high-availability']
 category: Networking
 updated: 2026-10-11

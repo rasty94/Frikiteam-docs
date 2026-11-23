@@ -128,5 +128,5 @@ connectors:
 
 ## Referencias
 
-- Fork Frikiteam: [https://github.com/rasty94/dex](https://github.com/rasty94/dex)
-- Documentación oficial Dex: [https://dexidp.io/docs/](https://dexidp.io/docs/)
+- [Fork de Dex de Frikiteam en GitHub](https://github.com/rasty94/dex)
+- [Documentación oficial de Dex](https://dexidp.io/docs/)
