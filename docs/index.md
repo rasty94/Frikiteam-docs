@@ -16,6 +16,13 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 
 ## 🆕 Últimas Novedades
 
+### 📅 **23 de noviembre de 2026**
+
+#### 📡 **Monitorización clásica: Zabbix y Nagios (ES/EN)**
+
+- **Zabbix**: [Zabbix 8.0 LTS: monitorización de servidores y red](doc/monitoring/zabbix.md) — instalación en Debian 13 con PostgreSQL y Nginx desde el repositorio oficial, agente 2 en modo activo y con PSK, plantillas y macros, descubrimiento, alertas que no se ignoran, proxies y cómo evitar que la base de datos se coma el disco.
+- **Nagios**: [Nagios Core: monitorización clásica con plugins](doc/monitoring/nagios.md) — el paquete de Debian 13 y por qué hay que activarle la autenticación, hosts y servicios en ficheros, los Monitoring Plugins (`check_curl` en vez de `check_http`), NRPE sin `dont_blame_nrpe` y un plugin propio para vigilar las copias.
+
 ### 📅 **22 de noviembre de 2026**
 
 #### 🚀 **¡Hemos migrado! Frikiteam ya no es WordPress (ES/EN)**
