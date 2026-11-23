@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Quick guide to deploy MikroTik CHR for L3 routing and ISP/WISP labs">
+        <meta name="description" content="Deployment, licensing, RouterOS v7 baseline configuration, and hardening for MikroTik CHR in L3 routing and labs.">
       
       
       
@@ -74,7 +74,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="MikroTik CHR (Cloud Hosted Router) - Frikiteam Docs" />
-<meta property="og:description" content="Quick guide to deploy MikroTik CHR for L3 routing and ISP/WISP labs" />
+<meta property="og:description" content="Deployment, licensing, RouterOS v7 baseline configuration, and hardening for MikroTik CHR in L3 routing and labs." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/en/doc/networking/vrouter_mikrotik_chr.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -82,7 +82,7 @@
 <meta property="og:url" content="https://docs.frikiteam.es/en/doc/networking/vrouter_mikrotik_chr/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="MikroTik CHR (Cloud Hosted Router) - Frikiteam Docs" />
-<meta property="twitter:description" content="Quick guide to deploy MikroTik CHR for L3 routing and ISP/WISP labs" />
+<meta property="twitter:description" content="Deployment, licensing, RouterOS v7 baseline configuration, and hardening for MikroTik CHR in L3 routing and labs." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/en/doc/networking/vrouter_mikrotik_chr.png" />
 </head>
   
@@ -3019,6 +3019,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The problem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#when-to-choose-mikrotik-chr" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3030,10 +3041,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#recommended-deployment" class="md-nav__link">
+  <a href="#recommended-deployment-and-licensing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Recommended deployment
+        Recommended deployment and licensing
       
     </span>
   </a>
@@ -3041,10 +3052,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#baseline-setup" class="md-nav__link">
+  <a href="#routeros-v7-baseline-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Baseline setup
+        RouterOS v7 baseline configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backups-and-rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backups and rollback
       
     </span>
   </a>
@@ -3056,6 +3078,17 @@
     <span class="md-ellipsis">
       
         Good practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common risks
       
     </span>
   </a>
@@ -9549,7 +9582,7 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--orange">Advanced</span> <span class="md-badge md-badge--secondary">Estimated time: 1 min</span> <span class="md-badge md-badge--primary">Category: Networking</span> <span class="md-badge md-badge--green">Published</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--orange">Advanced</span> <span class="md-badge md-badge--secondary">Estimated time: 4 min</span> <span class="md-badge md-badge--primary">Category: Networking</span> <span class="md-badge md-badge--green">Published</span></div>
                 
                   
 
@@ -9582,45 +9615,116 @@
 
 
 <h1 id="mikrotik-chr-cloud-hosted-router">MikroTik CHR (Cloud Hosted Router)<a class="headerlink" href="#mikrotik-chr-cloud-hosted-router" title="Permanent link">&para;</a></h1>
-<p>MikroTik CHR is a strong fit when you need high-performance L3 routing with a tight cost envelope.</p>
+<h2 id="the-problem">The problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h2>
+<p>When you need a virtual router with advanced L3 capabilities (BGP, OSPF, VRF, WireGuard, or MPLS) on Proxmox, KVM, or a cloud provider, many commercial appliances either cost too much or demand heavy VMs. <strong>MikroTik Cloud Hosted Router (CHR)</strong> runs 64-bit RouterOS built specifically for hypervisors: it boots in seconds, uses minimal RAM, and exposes the same networking stack as physical MikroTik hardware.</p>
 <h2 id="when-to-choose-mikrotik-chr">When to choose MikroTik CHR<a class="headerlink" href="#when-to-choose-mikrotik-chr" title="Permanent link">&para;</a></h2>
 <ul>
-<li>ISP/WISP scenarios or carrier-style labs</li>
-<li>Advanced routing policy requirements</li>
-<li>Teams comfortable with RouterOS operations</li>
+<li>ISP/WISP scenarios, carrier-style labs, or multi-site interconnects with BGP/OSPF.</li>
+<li>Advanced routing policy requirements (VRF, Policy-Based Routing, GRE/WireGuard/IPsec tunnels).</li>
+<li>Teams already comfortable with RouterOS who want reproducible virtual topologies with a small footprint.</li>
 </ul>
-<h2 id="recommended-deployment">Recommended deployment<a class="headerlink" href="#recommended-deployment" title="Permanent link">&para;</a></h2>
+<p>If you prioritize a guided web UI for perimeter firewalling and office segmentation, <a href="../vrouter_opnsense/">OPNsense</a> or <a href="../vrouter_pfsense/">pfSense</a> is usually a better fit.</p>
+<h2 id="recommended-deployment-and-licensing">Recommended deployment and licensing<a class="headerlink" href="#recommended-deployment-and-licensing" title="Permanent link">&para;</a></h2>
 <ul>
-<li>2-4 vNICs depending on topology</li>
-<li>CPU: 2+ vCPU, RAM: 2-4 GB</li>
-<li>Disk: 2-8 GB (based on logs and packages)</li>
-<li>CHR license tier aligned to expected throughput (upload limit per interface: free 1 Mbps, P1 1 Gbps, P10 10 Gbps)</li>
+<li><strong>vNICs</strong>: 2–4 <code>virtio</code> (or <code>vmxnet3</code> on ESXi) interfaces depending on topology, with a dedicated management interface where possible.</li>
+<li><strong>CPU and RAM</strong>: 2+ vCPU, 512 MB–2 GB RAM (up to 4 GB if carrying full BGP tables).</li>
+<li><strong>Disk</strong>: 2–8 GB (official CHR raw/qcow2 image; grow it if storing local logs).</li>
 </ul>
-<h2 id="baseline-setup">Baseline setup<a class="headerlink" href="#baseline-setup" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Define interface and addressing plan.</li>
-<li>Lock down management access (ACL + service ports).</li>
-<li>Configure static or dynamic routing policies.</li>
-<li>Apply ingress/egress firewall filters.</li>
-<li>Enable export/binary backups and VM snapshots.</li>
-</ol>
+<p>CHR licensing caps <strong>upload throughput per interface</strong> rather than locking RouterOS features:</p>
+<table>
+<thead>
+<tr>
+<th>CHR license</th>
+<th>Per-interface upload cap</th>
+<th>Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Free</strong></td>
+<td>1 Mbps</td>
+<td>Functional labs, BGP/OSPF testing</td>
+</tr>
+<tr>
+<td><strong>P1</strong></td>
+<td>1 Gbps</td>
+<td>Branch edge, VPN concentrator, labs with real traffic</td>
+</tr>
+<tr>
+<td><strong>P10</strong></td>
+<td>10 Gbps</td>
+<td>Virtualized core, high-capacity trunks</td>
+</tr>
+<tr>
+<td><strong>P-Unlimited</strong></td>
+<td>No license cap</td>
+<td>Carriers and nodes with 25G/40G+ interfaces</td>
+</tr>
+</tbody>
+</table>
+<h2 id="routeros-v7-baseline-configuration">RouterOS v7 baseline configuration<a class="headerlink" href="#routeros-v7-baseline-configuration" title="Permanent link">&para;</a></h2>
+<p>After importing the CHR disk into your hypervisor, the initial account is <code>admin</code> with an empty password (set it immediately on the console). A minimal hardened baseline with WAN (<code>ether1</code>) and LAN (<code>ether2</code>):</p>
+<div class="highlight"><pre><span></span><code># 1. Identity and admin password
+/system/identity/set name=chr-edge-01
+/user/set admin password="CHANGE-THIS-LONG-PASSWORD"
+
+# 2. Addressing and default route
+/ip/address/add address=203.0.113.10/24 interface=ether1 comment="WAN"
+/ip/address/add address=10.10.20.1/24 interface=ether2 comment="LAN"
+/ip/route/add dst-address=0.0.0.0/0 gateway=203.0.113.1
+
+# 3. Disable unused management services and restrict SSH/WinBox to LAN
+/ip/service/disable telnet,ftp,www,api,api-ssl
+/ip/service/set ssh address=10.10.20.0/24
+/ip/service/set winbox address=10.10.20.0/24
+
+# 4. Minimal stateful firewall (input + forward)
+/ip/firewall/filter/add chain=input connection-state=established,related action=accept
+/ip/firewall/filter/add chain=input in-interface=ether2 action=accept comment="Allow LAN management"
+/ip/firewall/filter/add chain=input action=drop comment="Drop everything else to router"
+
+/ip/firewall/filter/add chain=forward connection-state=established,related action=accept
+/ip/firewall/filter/add chain=forward connection-state=invalid action=drop
+/ip/firewall/filter/add chain=forward in-interface=ether2 out-interface=ether1 action=accept
+/ip/firewall/filter/add chain=forward action=drop comment="Drop everything else in forward"
+
+# 5. Outbound NAT for LAN
+/ip/firewall/nat/add chain=srcnat out-interface=ether1 action=masquerade
+</code></pre></div>
+<h2 id="backups-and-rollback">Backups and rollback<a class="headerlink" href="#backups-and-rollback" title="Permanent link">&para;</a></h2>
+<p>Combine both backup formats before making routing changes or upgrading RouterOS:</p>
+<div class="highlight"><pre><span></span><code># Human-readable plain-text export (ideal for Git versioning and diffs)
+/export file=chr-edge-01-base
+
+# Full binary backup (only restorable on matching version/architecture)
+/system/backup/save name=chr-edge-01-bin
+</code></pre></div>
+<p>Take a hypervisor VM snapshot as well before jumping RouterOS release trains.</p>
 <h2 id="good-practices">Good practices<a class="headerlink" href="#good-practices" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Separate management and data planes.</li>
-<li>Document route filters and policy routing logic.</li>
-<li>Evaluate FastTrack/FastPath impact before production.</li>
-<li>Control RouterOS versioning to reduce regressions.</li>
+<li>Separate management and data planes (dedicated VLAN or VRF) and restrict WinBox/SSH by source address.</li>
+<li>Document BGP/OSPF route filters and avoid advertising prefixes without explicit prefix lists.</li>
+<li>Evaluate <strong>FastTrack</strong> carefully: it speeds up forwarding significantly, but bypasses simple queues, IPsec, and parts of packet marking.</li>
+<li>Pin a tested RouterOS release across your fleet and validate upgrades on a cloned CHR before touching production.</li>
+</ul>
+<h2 id="common-risks">Common risks<a class="headerlink" href="#common-risks" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Leaving management services (<code>www</code>, <code>api</code>, <code>winbox</code>, <code>ssh</code>) reachable on the WAN interface.</li>
+<li>Forgetting that the <strong>Free</strong> tier caps each interface at 1 Mbps upload and mistaking it for a hypervisor bottleneck.</li>
+<li>Editing firewall rules remotely without enabling <strong>Safe Mode</strong> (<code>Ctrl+X</code> in console) and locking yourself out.</li>
 </ul>
 <h2 id="operational-checklist">Operational checklist<a class="headerlink" href="#operational-checklist" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Is CHR license tier sufficient for real traffic?</li>
-<li>Are anti-spoofing and bogon filters in place?</li>
-<li>Are CPU, pps and queue metrics monitored?</li>
-<li>Is there a tested rollback path by version?</li>
+<li>Does the CHR license tier cover real upload throughput per interface?</li>
+<li>Are <code>telnet</code>, <code>ftp</code>, <code>www</code> disabled and <code>ssh</code>/<code>winbox</code> restricted to the management network?</li>
+<li>Are default-deny <code>input</code>/<code>forward</code> rules and anti-spoofing/bogon filters in place?</li>
+<li>Are CPU, pps, queues, and per-interface traffic monitored (SNMP or remote syslog)?</li>
+<li>Are plain-text exports and a tested version rollback path in place?</li>
 </ul>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://help.mikrotik.com/docs/spaces/ROS/pages/18350234/Cloud+Hosted+Router+CHR">MikroTik: Cloud Hosted Router</a></li>
+<li><a href="https://help.mikrotik.com/docs/spaces/ROS/pages/18350234/Cloud+Hosted+Router+CHR">MikroTik: Cloud Hosted Router (CHR)</a></li>
+<li><a href="https://help.mikrotik.com/docs/spaces/ROS/pages/328353/Securing+your+router">MikroTik: Securing your router (RouterOS)</a></li>
 </ul>
 
 

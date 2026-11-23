@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Quick guide to deploy OPNsense in virtualized environments">
+        <meta name="description" content="Virtualized deployment, VirtIO tuning, VLAN segmentation, CARP high availability, and day-2 operations for OPNsense.">
       
       
       
@@ -74,7 +74,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="OPNsense (virtual router/firewall) - Frikiteam Docs" />
-<meta property="og:description" content="Quick guide to deploy OPNsense in virtualized environments" />
+<meta property="og:description" content="Virtualized deployment, VirtIO tuning, VLAN segmentation, CARP high availability, and day-2 operations for OPNsense." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/en/doc/networking/vrouter_opnsense.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -82,7 +82,7 @@
 <meta property="og:url" content="https://docs.frikiteam.es/en/doc/networking/vrouter_opnsense/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="OPNsense (virtual router/firewall) - Frikiteam Docs" />
-<meta property="twitter:description" content="Quick guide to deploy OPNsense in virtualized environments" />
+<meta property="twitter:description" content="Virtualized deployment, VirtIO tuning, VLAN segmentation, CARP high availability, and day-2 operations for OPNsense." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/en/doc/networking/vrouter_opnsense.png" />
 </head>
   
@@ -2949,6 +2949,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The problem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#when-to-choose-opnsense" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2960,10 +2971,38 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#recommended-deployment-homelabedge" class="md-nav__link">
+  <a href="#recommended-hypervisor-deployment-proxmox-kvm" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Recommended deployment (homelab/edge)
+        Recommended hypervisor deployment (Proxmox / KVM)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recommended hypervisor deployment (Proxmox / KVM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#critical-virtio-tuning-on-freebsd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Critical VirtIO tuning on FreeBSD
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-by-step-baseline-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step-by-step baseline setup
       
     </span>
   </a>
@@ -2971,10 +3010,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#baseline-setup" class="md-nav__link">
+  <a href="#high-availability-backups-and-upgrades" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Baseline setup
+        High availability, backups, and upgrades
       
     </span>
   </a>
@@ -2986,6 +3025,17 @@
     <span class="md-ellipsis">
       
         Good practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common risks
       
     </span>
   </a>
@@ -9549,7 +9599,7 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermediate</span> <span class="md-badge md-badge--secondary">Estimated time: 1 min</span> <span class="md-badge md-badge--primary">Category: Networking</span> <span class="md-badge md-badge--green">Published</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermediate</span> <span class="md-badge md-badge--secondary">Estimated time: 4 min</span> <span class="md-badge md-badge--primary">Category: Networking</span> <span class="md-badge md-badge--green">Published</span></div>
                 
                   
 
@@ -9589,47 +9639,70 @@
 
 
 <h1 id="opnsense-virtual-routerfirewall">OPNsense (virtual router/firewall)<a class="headerlink" href="#opnsense-virtual-routerfirewall" title="Permanent link">&para;</a></h1>
-<p>OPNsense is a strong choice when you prioritize firewalling, segmentation and day-to-day operations through a clear web UI.</p>
+<h2 id="the-problem">The problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h2>
+<p>Maintaining a perimeter firewall with hand-written <code>nftables</code> works until you have to segment ten VLANs, manage WireGuard/IPsec VPNs, audit rules across a team, and patch without dropping traffic. <strong>OPNsense</strong> (built on FreeBSD) covers that layer with a clear web UI, predictable release cycles, and built-in high availability via CARP.</p>
 <h2 id="when-to-choose-opnsense">When to choose OPNsense<a class="headerlink" href="#when-to-choose-opnsense" title="Permanent link">&para;</a></h2>
 <ul>
-<li>You need a full GUI for daily operations</li>
-<li>You want robust firewalling with auditable rules</li>
-<li>You want a good balance between usability and enterprise features</li>
+<li>You need a clear, auditable web GUI for day-to-day firewall operations.</li>
+<li>You want VLAN segmentation, VPNs (WireGuard/OpenVPN/IPsec), local DNS (Unbound), and optional IDS/proxy in a single appliance.</li>
+<li>You want a predictable update cadence (two major releases per year) without proprietary hardware lock-in.</li>
 </ul>
-<h2 id="recommended-deployment-homelabedge">Recommended deployment (homelab/edge)<a class="headerlink" href="#recommended-deployment-homelabedge" title="Permanent link">&para;</a></h2>
+<p>If you need pure carrier-style L3 routing (complex BGP, MPLS, minimal footprint), see <a href="../vrouter_mikrotik_chr/">MikroTik CHR</a>.</p>
+<h2 id="recommended-hypervisor-deployment-proxmox-kvm">Recommended hypervisor deployment (Proxmox / KVM)<a class="headerlink" href="#recommended-hypervisor-deployment-proxmox-kvm" title="Permanent link">&para;</a></h2>
 <ul>
-<li>At least 2 vNICs:</li>
-<li>WAN (uplink)</li>
-<li>LAN (internal network)</li>
-<li>CPU: 2 vCPU minimum, RAM: 4 GB (official minimum 3 GB)</li>
-<li>Disk: 40 GB+ SSD (official "reasonable" recommendation)</li>
+<li><strong>vNICs</strong>: at least 2 <code>virtio</code> interfaces (<code>vtnet0</code> for WAN and <code>vtnet1</code> for LAN; add a dedicated <code>SYNC</code> interface for HA).</li>
+<li><strong>CPU and RAM</strong>: 2 vCPU minimum, 4 GB RAM (official minimum 3 GB; 8 GB+ if enabling Suricata IDS/IPS or Zenarmor).</li>
+<li><strong>Disk</strong>: 40 GB+ SSD (official "reasonable" recommendation), ideally on <strong>ZFS</strong> for Boot Environments during upgrades.</li>
 </ul>
-<h2 id="baseline-setup">Baseline setup<a class="headerlink" href="#baseline-setup" title="Permanent link">&para;</a></h2>
+<h3 id="critical-virtio-tuning-on-freebsd">Critical VirtIO tuning on FreeBSD<a class="headerlink" href="#critical-virtio-tuning-on-freebsd" title="Permanent link">&para;</a></h3>
+<p>When running OPNsense on KVM/Proxmox with <code>virtio</code> NICs, hardware-offloaded checksums often break traffic between VMs or across the host bridge. Under <strong>Interfaces → Settings</strong>, check all three offload disable options:</p>
+<ul>
+<li><strong>Disable hardware checksum offload</strong></li>
+<li><strong>Disable hardware TCP segmentation offload (TSO)</strong></li>
+<li><strong>Disable hardware large receive offload (LRO)</strong></li>
+</ul>
+<p>Apply the settings and reboot the VM so all <code>vtnet</code> interfaces come up cleanly.</p>
+<h2 id="step-by-step-baseline-setup">Step-by-step baseline setup<a class="headerlink" href="#step-by-step-baseline-setup" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Assign WAN/LAN interfaces correctly.</li>
-<li>Replace default credentials and enable MFA where possible.</li>
-<li>Define LAN addressing and DHCP scope.</li>
-<li>Keep WAN on deny-by-default policy.</li>
-<li>Add explicit service and source-based rules.</li>
+<li><strong>Assign interfaces</strong> on the console (<code>vtnet0</code> = WAN, <code>vtnet1</code> = LAN) and set the LAN management IP.</li>
+<li><strong>Harden access</strong>: change the <code>root</code> password, create a named admin user, keep the web GUI off WAN, and enable two-factor authentication (TOTP) under <strong>System → Access → Servers</strong>.</li>
+<li><strong>Configure WAN and LAN</strong>: block private networks (RFC1918) and bogons on WAN (when WAN is public) and set up LAN DHCP/DNS (Unbound).</li>
+<li><strong>Segment with VLANs</strong>: create VLANs under <strong>Interfaces → Other Types → VLAN</strong> on the LAN trunk and enforce explicit inter-VLAN rules (deny by default between segments).</li>
+<li><strong>Tighten firewall rules</strong>: keep the <em>anti-lockout</em> rule on LAN; replace broad <code>any any</code> rules on server or IoT VLANs with explicit port and destination rules.</li>
 </ol>
+<h2 id="high-availability-backups-and-upgrades">High availability, backups, and upgrades<a class="headerlink" href="#high-availability-backups-and-upgrades" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>High availability (HA)</strong>: two OPNsense nodes sharing <strong>CARP</strong> virtual IPs on WAN/LAN, state synchronization (<code>pfsync</code>) over a dedicated interface, and XMLRPC config replication from primary to secondary.</li>
+<li><strong>Configuration backup (<code>config.xml</code>)</strong>: exportable from <strong>System → Configuration → Backups</strong> (or automated to Nextcloud/Git). The entire configuration lives in that single XML file.</li>
+<li><strong>Safe upgrades</strong>: before a major upgrade, download <code>config.xml</code>, take a hypervisor VM snapshot, and keep console access handy in case an interface name or plugin changes.</li>
+</ul>
 <h2 id="good-practices">Good practices<a class="headerlink" href="#good-practices" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Use VLAN segmentation when possible.</li>
-<li>Export config backups before critical changes.</li>
-<li>Keep firmware/plugins updated in maintenance windows.</li>
-<li>Enable firewall logging and review deny patterns.</li>
+<li>Segment networks with VLANs (management, servers, users, guest/IoT) and use <strong>Aliases</strong> to group hosts and ports cleanly.</li>
+<li>Export <code>config.xml</code> before critical changes and keep copies off the firewall.</li>
+<li>Keep firmware and plugins updated in maintenance windows and avoid installing unused plugins.</li>
+<li>Enable logging on deny rules and forward logs via syslog to your observability stack.</li>
+</ul>
+<h2 id="common-risks">Common risks<a class="headerlink" href="#common-risks" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Leaving permissive <code>any any</code> rules on internal VLANs, defeating the purpose of segmentation.</li>
+<li>Forgetting to disable hardware checksum/TSO/LRO offloading on <code>virtio</code> NICs, causing intermittent drops or stalled TCP sessions.</li>
+<li>Skipping MTU/MSS clamping on PPPoE, WireGuard, or IPsec tunnels (leading to half-loaded pages).</li>
+<li>Undocumented NAT port forwards or third-party plugins blocking major upgrades.</li>
 </ul>
 <h2 id="operational-checklist">Operational checklist<a class="headerlink" href="#operational-checklist" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Are WAN and LAN mapped to different interfaces with no overlap?</li>
-<li>Is config backup and restore tested?</li>
-<li>Are latency, packet loss and session counters monitored?</li>
-<li>Is there a rollback procedure?</li>
+<li>Are WAN and LAN on separate interfaces with no overlap and no management access from WAN?</li>
+<li>Are checksum offload, TSO, and LRO disabled on VirtIO deployments?</li>
+<li>Is a recent, tested <code>config.xml</code> backup stored off the firewall?</li>
+<li>Are gateway latency, packet loss, CARP state, and state table usage monitored?</li>
+<li>Is there a rollback path (VM snapshot or ZFS Boot Environment)?</li>
 </ul>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://docs.opnsense.org/manual/hardware.html">OPNsense: hardware requirements</a></li>
 <li><a href="https://docs.opnsense.org/manual/how-tos/two_factor.html">OPNsense: two-factor authentication</a></li>
+<li><a href="https://docs.opnsense.org/manual/hacarp.html">OPNsense: High Availability (CARP)</a></li>
 </ul>
 
 

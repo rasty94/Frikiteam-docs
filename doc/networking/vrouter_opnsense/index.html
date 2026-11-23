@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Guía rápida para desplegar OPNsense en entornos virtualizados">
+        <meta name="description" content="Despliegue virtualizado, ajustes de VirtIO, segmentación VLAN, alta disponibilidad CARP y operación de OPNsense.">
       
       
       
@@ -74,7 +74,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="OPNsense (vRouter/cortafuegos virtual) - Frikiteam Docs" />
-<meta property="og:description" content="Guía rápida para desplegar OPNsense en entornos virtualizados" />
+<meta property="og:description" content="Despliegue virtualizado, ajustes de VirtIO, segmentación VLAN, alta disponibilidad CARP y operación de OPNsense." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/doc/networking/vrouter_opnsense.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -82,7 +82,7 @@
 <meta property="og:url" content="https://docs.frikiteam.es/doc/networking/vrouter_opnsense/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="OPNsense (vRouter/cortafuegos virtual) - Frikiteam Docs" />
-<meta property="twitter:description" content="Guía rápida para desplegar OPNsense en entornos virtualizados" />
+<meta property="twitter:description" content="Despliegue virtualizado, ajustes de VirtIO, segmentación VLAN, alta disponibilidad CARP y operación de OPNsense." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/doc/networking/vrouter_opnsense.png" />
 </head>
   
@@ -103,7 +103,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cuando-elegir-opnsense" class="md-skip">
+        <a href="#opnsense-vroutercortafuegos-virtual" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -2881,6 +2881,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -2937,12 +2939,25 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Tabla de contenidos
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#el-problema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El problema
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#cuando-elegir-opnsense" class="md-nav__link">
@@ -2956,10 +2971,38 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#despliegue-recomendado-laboratorio-domesticoperimetro" class="md-nav__link">
+  <a href="#despliegue-recomendado-en-hipervisor-proxmox-kvm" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Despliegue recomendado (laboratorio doméstico/perímetro)
+        Despliegue recomendado en hipervisor (Proxmox / KVM)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Despliegue recomendado en hipervisor (Proxmox / KVM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ajuste-critico-con-virtio-en-freebsd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ajuste crítico con VirtIO en FreeBSD
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-base-paso-a-paso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuración base paso a paso
       
     </span>
   </a>
@@ -2967,10 +3010,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuracion-base" class="md-nav__link">
+  <a href="#alta-disponibilidad-copias-de-seguridad-y-actualizaciones" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuración base
+        Alta disponibilidad, copias de seguridad y actualizaciones
       
     </span>
   </a>
@@ -9556,7 +9599,7 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermedio</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 1 min</span> <span class="md-badge md-badge--primary">Categoría: Redes</span> <span class="md-badge md-badge--green">Publicado</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermedio</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 4 min</span> <span class="md-badge md-badge--primary">Categoría: Redes</span> <span class="md-badge md-badge--green">Publicado</span></div>
                 
                   
 
@@ -9595,55 +9638,71 @@
   
 
 
-  <h1>OPNsense</h1>
-
-<p>OPNsense es una opción muy sólida cuando priorizas funciones de cortafuegos, segmentación y operación cómoda desde interfaz web.</p>
+<h1 id="opnsense-vroutercortafuegos-virtual">OPNsense (vRouter/cortafuegos virtual)<a class="headerlink" href="#opnsense-vroutercortafuegos-virtual" title="Permanent link">&para;</a></h1>
+<h2 id="el-problema">El problema<a class="headerlink" href="#el-problema" title="Permanent link">&para;</a></h2>
+<p>Montar un cortafuegos perimetral con <code>nftables</code> a mano funciona bien hasta que necesitas segmentar diez VLANs, gestionar VPNs WireGuard/IPsec, auditar reglas en equipo y aplicar actualizaciones sin cortar la red. <strong>OPNsense</strong> (basado en FreeBSD) resuelve esa capa con una interfaz web clara, actualizaciones frecuentes bien empaquetadas y soporte nativo de alta disponibilidad mediante CARP.</p>
 <h2 id="cuando-elegir-opnsense">Cuándo elegir OPNsense<a class="headerlink" href="#cuando-elegir-opnsense" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Necesitas una interfaz gráfica clara para la operación diaria</li>
-<li>Quieres un cortafuegos robusto con reglas visibles y auditables</li>
-<li>Buscas equilibrio entre facilidad de uso y funciones profesionales</li>
+<li>Necesitas una interfaz gráfica clara y auditable para la operación diaria del cortafuegos.</li>
+<li>Quieres segmentación por VLAN, VPN (WireGuard/OpenVPN/IPsec), DNS local (Unbound) y proxy/IDS opcional en un mismo appliance.</li>
+<li>Buscas un ciclo de actualizaciones predecible (dos ramas mayores al año) sin atarte a hardware propietario.</li>
 </ul>
-<h2 id="despliegue-recomendado-laboratorio-domesticoperimetro">Despliegue recomendado (laboratorio doméstico/perímetro)<a class="headerlink" href="#despliegue-recomendado-laboratorio-domesticoperimetro" title="Permanent link">&para;</a></h2>
+<p>Si necesitas enrutamiento puro de operador (BGP complejo, MPLS, consumo mínimo), revisa <a href="../vrouter_mikrotik_chr/">MikroTik CHR</a>.</p>
+<h2 id="despliegue-recomendado-en-hipervisor-proxmox-kvm">Despliegue recomendado en hipervisor (Proxmox / KVM)<a class="headerlink" href="#despliegue-recomendado-en-hipervisor-proxmox-kvm" title="Permanent link">&para;</a></h2>
 <ul>
-<li>2 vNIC mínimo:</li>
-<li>WAN (enlace ascendente)</li>
-<li>LAN (red interna)</li>
-<li>CPU: 2 vCPU (mínimo), RAM: 4 GB (mínimo oficial 3 GB)</li>
-<li>Disco: 40 GB+ SSD (recomendación oficial «razonable»)</li>
+<li><strong>vNIC</strong>: mínimo 2 interfaces <code>virtio</code> (<code>vtnet0</code> para WAN y <code>vtnet1</code> para LAN; una tercera interfaz dedicada <code>SYNC</code> si montas alta disponibilidad).</li>
+<li><strong>CPU y RAM</strong>: 2 vCPU mínimo, 4 GB de RAM (mínimo oficial 3 GB; 8 GB+ si activas Suricata IDS/IPS o Zenarmor).</li>
+<li><strong>Disco</strong>: 40 GB+ SSD (recomendación oficial «razonable»), idealmente sobre <strong>ZFS</strong> para disponer de <em>Boot Environments</em> al actualizar.</li>
 </ul>
-<h2 id="configuracion-base">Configuración base<a class="headerlink" href="#configuracion-base" title="Permanent link">&para;</a></h2>
+<h3 id="ajuste-critico-con-virtio-en-freebsd">Ajuste crítico con VirtIO en FreeBSD<a class="headerlink" href="#ajuste-critico-con-virtio-en-freebsd" title="Permanent link">&para;</a></h3>
+<p>Al virtualizar OPNsense sobre KVM/Proxmox con tarjetas <code>virtio</code>, los paquetes con checksum descargado en hardware suelen fallar al salir hacia otras VMs o al puente físico. En <strong>Interfaces → Settings</strong>, marca las tres casillas de desactivación de offload:</p>
+<ul>
+<li><strong>Disable hardware checksum offload</strong></li>
+<li><strong>Disable hardware TCP segmentation offload (TSO)</strong></li>
+<li><strong>Disable hardware large receive offload (LRO)</strong></li>
+</ul>
+<p>Aplica los cambios y reinicia la VM para que tomen efecto limpio en todas las interfaces <code>vtnet</code>.</p>
+<h2 id="configuracion-base-paso-a-paso">Configuración base paso a paso<a class="headerlink" href="#configuracion-base-paso-a-paso" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Asigna interfaces WAN/LAN correctamente.</li>
-<li>Cambia credenciales por defecto y habilita autenticación multifactor (MFA) si aplica.</li>
-<li>Define direccionamiento LAN y DHCP.</li>
-<li>Aplica política por defecto de denegación en WAN.</li>
-<li>Crea reglas explícitas por servicio y origen.</li>
+<li><strong>Asigna interfaces</strong> desde consola (<code>vtnet0</code> = WAN, <code>vtnet1</code> = LAN) y fija la IP de gestión LAN.</li>
+<li><strong>Endurece el acceso</strong>: cambia la contraseña de <code>root</code>, crea un usuario nominal, desactiva el acceso web en WAN y activa autenticación de dos factores (TOTP) en <strong>System → Access → Servers</strong>.</li>
+<li><strong>Configura WAN y LAN</strong>: bloquea redes privadas (RFC1918) y bogons en WAN (si la WAN es pública) y define el rango DHCP/DNS (Unbound) en LAN.</li>
+<li><strong>Segmenta por VLAN</strong>: crea interfaces en <strong>Interfaces → Other Types → VLAN</strong> sobre el trunk LAN y aplica reglas explícitas por VLAN (denegación por defecto entre segmentos).</li>
+<li><strong>Revisa las reglas de firewall</strong>: la regla <em>anti-lockout</em> evita perder acceso a la GUI en LAN; sustituye cualquier regla genérica <code>any any</code> en VLANs de servidores o IoT por reglas por puerto y destino.</li>
 </ol>
+<h2 id="alta-disponibilidad-copias-de-seguridad-y-actualizaciones">Alta disponibilidad, copias de seguridad y actualizaciones<a class="headerlink" href="#alta-disponibilidad-copias-de-seguridad-y-actualizaciones" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Alta disponibilidad (HA)</strong>: dos nodos OPNsense con IP virtuales <strong>CARP</strong> en WAN/LAN, sincronización de estados (<code>pfsync</code>) por una interfaz dedicada y replicación de configuración XMLRPC desde el primario al secundario.</li>
+<li><strong>Copia de seguridad (<code>config.xml</code>)</strong>: exportable desde <strong>System → Configuration → Backups</strong> (o automatizada hacia Nextcloud/Git). Toda la configuración vive en ese único XML.</li>
+<li><strong>Actualizaciones seguras</strong>: antes de subir de versión mayor, descarga <code>config.xml</code>, toma un snapshot de la VM en el hipervisor y verifica la consola serie por si cambia algún nombre de interfaz o plugin.</li>
+</ul>
 <h2 id="buenas-practicas">Buenas prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Separa redes por VLAN cuando puedas.</li>
-<li>Exporta copia de seguridad de configuración antes de cambios críticos.</li>
-<li>Mantén firmware y complementos al día en ventana de mantenimiento.</li>
-<li>Activa registros del cortafuegos y revisa patrones de denegación.</li>
+<li>Separa redes por VLAN (gestión, servidores, usuarios, invitados/IoT) y usa <strong>Aliases</strong> para agrupar IPs y puertos en las reglas.</li>
+<li>Exporta <code>config.xml</code> antes de cualquier cambio crítico y conserva copias fuera del propio cortafuegos.</li>
+<li>Mantén firmware y complementos al día en ventana de mantenimiento y evita instalar plugins que no operes.</li>
+<li>Activa el registro (<em>logging</em>) en las reglas de denegación y envía los logs por syslog a tu stack de observabilidad.</li>
 </ul>
 <h2 id="riesgos-comunes">Riesgos comunes<a class="headerlink" href="#riesgos-comunes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Reglas permisivas tipo <code>any any</code> en LAN sin control.</li>
-<li>No documentar NAT/redirecciones de puertos críticos.</li>
-<li>No validar MTU/MSS en túneles VPN y enlaces WAN.</li>
+<li>Dejar reglas permisivas <code>any any</code> en VLANs internas, anulando el beneficio de segmentar.</li>
+<li>Olvidar desactivar <em>hardware checksum/TSO/LRO</em> en interfaces <code>virtio</code>, causando pérdidas intermitentes o conexiones TCP colgadas.</li>
+<li>No ajustar MTU/MSS en túneles PPPoE, WireGuard o IPsec (provoca páginas que cargan a medias).</li>
+<li>No documentar redirecciones NAT ni comprobar si un plugin de terceros bloquea una actualización mayor.</li>
 </ul>
 <h2 id="lista-de-comprobacion-operativa">Lista de comprobación operativa<a class="headerlink" href="#lista-de-comprobacion-operativa" title="Permanent link">&para;</a></h2>
 <ul>
-<li>¿WAN y LAN están en interfaces distintas sin solapamiento?</li>
-<li>¿Existe una copia de seguridad probada de la configuración?</li>
-<li>¿Se monitoriza latencia, pérdida y sesiones activas?</li>
-<li>¿Hay procedimiento de reversión?</li>
+<li>¿WAN y LAN están en interfaces distintas sin solapamiento y sin acceso de gestión desde WAN?</li>
+<li>¿Están desactivados checksum offload, TSO y LRO en entornos VirtIO?</li>
+<li>¿Existe copia reciente y probada de <code>config.xml</code> fuera del firewall?</li>
+<li>¿Se monitorizan latencia de gateway, pérdida de paquetes, estado de CARP y tabla de estados?</li>
+<li>¿Hay procedimiento de reversión (snapshot o <em>Boot Environment</em> ZFS)?</li>
 </ul>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://docs.opnsense.org/manual/hardware.html">OPNsense: requisitos de hardware</a></li>
 <li><a href="https://docs.opnsense.org/manual/how-tos/two_factor.html">OPNsense: autenticación de dos factores</a></li>
+<li><a href="https://docs.opnsense.org/manual/hacarp.html">OPNsense: alta disponibilidad (CARP)</a></li>
 </ul>
 
 

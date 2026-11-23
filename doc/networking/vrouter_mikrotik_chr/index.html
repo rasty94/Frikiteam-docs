@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Guía rápida para desplegar MikroTik CHR orientado a enrutamiento L3 y laboratorios ISP/WISP">
+        <meta name="description" content="Despliegue, licencias, configuración base en RouterOS v7 y endurecimiento de MikroTik CHR para enrutamiento L3 y laboratorios.">
       
       
       
@@ -74,7 +74,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="MikroTik CHR (enrutador en la nube) - Frikiteam Docs" />
-<meta property="og:description" content="Guía rápida para desplegar MikroTik CHR orientado a enrutamiento L3 y laboratorios ISP/WISP" />
+<meta property="og:description" content="Despliegue, licencias, configuración base en RouterOS v7 y endurecimiento de MikroTik CHR para enrutamiento L3 y laboratorios." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/doc/networking/vrouter_mikrotik_chr.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -82,7 +82,7 @@
 <meta property="og:url" content="https://docs.frikiteam.es/doc/networking/vrouter_mikrotik_chr/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="MikroTik CHR (enrutador en la nube) - Frikiteam Docs" />
-<meta property="twitter:description" content="Guía rápida para desplegar MikroTik CHR orientado a enrutamiento L3 y laboratorios ISP/WISP" />
+<meta property="twitter:description" content="Despliegue, licencias, configuración base en RouterOS v7 y endurecimiento de MikroTik CHR para enrutamiento L3 y laboratorios." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/doc/networking/vrouter_mikrotik_chr.png" />
 </head>
   
@@ -103,7 +103,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cuando-elegir-mikrotik-chr" class="md-skip">
+        <a href="#mikrotik-chr-enrutador-en-la-nube" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -2951,6 +2951,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -3007,12 +3009,25 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Tabla de contenidos
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#el-problema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El problema
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#cuando-elegir-mikrotik-chr" class="md-nav__link">
@@ -3026,10 +3041,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#despliegue-recomendado" class="md-nav__link">
+  <a href="#despliegue-recomendado-y-licencias" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Despliegue recomendado
+        Despliegue recomendado y licencias
       
     </span>
   </a>
@@ -3037,10 +3052,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuracion-base" class="md-nav__link">
+  <a href="#configuracion-base-en-routeros-v7" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuración base
+        Configuración base en RouterOS v7
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#copias-de-seguridad-y-reversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Copias de seguridad y reversión
       
     </span>
   </a>
@@ -9556,7 +9582,7 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--orange">Avanzado</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 1 min</span> <span class="md-badge md-badge--primary">Categoría: Redes</span> <span class="md-badge md-badge--green">Publicado</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--orange">Avanzado</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 4 min</span> <span class="md-badge md-badge--primary">Categoría: Redes</span> <span class="md-badge md-badge--green">Publicado</span></div>
                 
                   
 
@@ -9588,53 +9614,117 @@
   
 
 
-  <h1>MikroTik CHR</h1>
-
-<p>MikroTik CHR destaca cuando necesitas rendimiento L3 y funciones de enrutamiento avanzadas con coste contenido.</p>
+<h1 id="mikrotik-chr-enrutador-en-la-nube">MikroTik CHR (enrutador en la nube)<a class="headerlink" href="#mikrotik-chr-enrutador-en-la-nube" title="Permanent link">&para;</a></h1>
+<h2 id="el-problema">El problema<a class="headerlink" href="#el-problema" title="Permanent link">&para;</a></h2>
+<p>Cuando necesitas un router virtual con enrutamiento L3 avanzado (BGP, OSPF, VRF, WireGuard o MPLS) en Proxmox, KVM o un proveedor cloud, muchas opciones se disparan en licencia o exigen máquinas sobredimensionadas. <strong>MikroTik Cloud Hosted Router (CHR)</strong> ejecuta RouterOS 64-bit pensado específicamente para hipervisores: arranca en segundos, consume poca RAM y ofrece el mismo conjunto de funciones de red que un router físico de MikroTik.</p>
 <h2 id="cuando-elegir-mikrotik-chr">Cuándo elegir MikroTik CHR<a class="headerlink" href="#cuando-elegir-mikrotik-chr" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Escenarios ISP/WISP o laboratorios de operador</li>
-<li>Necesidad de políticas de enrutamiento avanzadas</li>
-<li>Equipos con experiencia en RouterOS</li>
+<li>Escenarios ISP/WISP, laboratorios de operador o interconexión multi-sede con BGP/OSPF.</li>
+<li>Necesidad de políticas de enrutamiento avanzadas (VRF, Policy-Based Routing, túneles GRE/WireGuard/IPsec).</li>
+<li>Equipos que ya operan RouterOS y quieren reproducir topologías en virtualizado con bajo consumo.</li>
 </ul>
-<h2 id="despliegue-recomendado">Despliegue recomendado<a class="headerlink" href="#despliegue-recomendado" title="Permanent link">&para;</a></h2>
+<p>Si priorizas una interfaz web guiada orientada a cortafuegos perimetral y segmentación de oficina, suele encajar mejor <a href="../vrouter_opnsense/">OPNsense</a> o <a href="../vrouter_pfsense/">pfSense</a>.</p>
+<h2 id="despliegue-recomendado-y-licencias">Despliegue recomendado y licencias<a class="headerlink" href="#despliegue-recomendado-y-licencias" title="Permanent link">&para;</a></h2>
 <ul>
-<li>2-4 vNIC según topología</li>
-<li>CPU: 2+ vCPU, RAM: 2-4 GB</li>
-<li>Disco: 2-8 GB (según logs/paquetes)</li>
-<li>Licencia CHR ajustada al rendimiento esperado (límite de subida por interfaz: gratuita 1 Mbps, P1 1 Gbps, P10 10 Gbps)</li>
+<li><strong>vNIC</strong>: 2-4 interfaces <code>virtio</code> (o <code>vmxnet3</code> en ESXi) según topología, separando gestión si es posible.</li>
+<li><strong>CPU y RAM</strong>: 2+ vCPU, 512 MB–2 GB de RAM (hasta 4 GB si manejas tablas BGP completas).</li>
+<li><strong>Disco</strong>: 2-8 GB (imagen raw/qcow2 oficial de CHR; ampliar si guardas logs locales).</li>
 </ul>
-<h2 id="configuracion-base">Configuración base<a class="headerlink" href="#configuracion-base" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Define esquema de interfaces y direcciones.</li>
-<li>Asegura acceso de administración (ACL + puertos).</li>
-<li>Configura rutas estáticas o protocolos dinámicos.</li>
-<li>Aplica filtros de entrada/salida en firewall.</li>
-<li>Activa copias export/binarias e instantáneas de la máquina virtual.</li>
-</ol>
+<p>El modelo de licencia de CHR limita la <strong>velocidad de subida por interfaz</strong>, no las funcionalidades de RouterOS:</p>
+<table>
+<thead>
+<tr>
+<th>Licencia CHR</th>
+<th>Límite de subida por interfaz</th>
+<th>Uso habitual</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Free</strong></td>
+<td>1 Mbps</td>
+<td>Laboratorios funcionales, pruebas de BGP/OSPF</td>
+</tr>
+<tr>
+<td><strong>P1</strong></td>
+<td>1 Gbps</td>
+<td>Perímetro de oficina, VPN concentrator, laboratorios con tráfico real</td>
+</tr>
+<tr>
+<td><strong>P10</strong></td>
+<td>10 Gbps</td>
+<td>Core virtualizado, enlaces troncales de alta capacidad</td>
+</tr>
+<tr>
+<td><strong>P-Unlimited</strong></td>
+<td>Sin límite de licencia</td>
+<td>Operadores y nodos con interfaces 25G/40G+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuracion-base-en-routeros-v7">Configuración base en RouterOS v7<a class="headerlink" href="#configuracion-base-en-routeros-v7" title="Permanent link">&para;</a></h2>
+<p>Tras importar el disco CHR en tu hipervisor, el usuario inicial es <code>admin</code> sin contraseña (conviene cambiarla en el primer acceso por consola). Un arranque mínimo seguro con una WAN (<code>ether1</code>) y una LAN (<code>ether2</code>):</p>
+<div class="highlight"><pre><span></span><code># 1. Identidad y contraseña de administración
+/system/identity/set name=chr-edge-01
+/user/set admin password="CAMBIA-ESTA-CLAVE-LARGA"
+
+# 2. Direccionamiento y ruta por defecto
+/ip/address/add address=203.0.113.10/24 interface=ether1 comment="WAN"
+/ip/address/add address=10.10.20.1/24 interface=ether2 comment="LAN"
+/ip/route/add dst-address=0.0.0.0/0 gateway=203.0.113.1
+
+# 3. Desactivar servicios de gestión innecesarios y restringir SSH/WinBox a la LAN
+/ip/service/disable telnet,ftp,www,api,api-ssl
+/ip/service/set ssh address=10.10.20.0/24
+/ip/service/set winbox address=10.10.20.0/24
+
+# 4. Firewall stateful mínimo (input + forward)
+/ip/firewall/filter/add chain=input connection-state=established,related action=accept
+/ip/firewall/filter/add chain=input in-interface=ether2 action=accept comment="Permitir gestion LAN"
+/ip/firewall/filter/add chain=input action=drop comment="Denegar resto hacia el router"
+
+/ip/firewall/filter/add chain=forward connection-state=established,related action=accept
+/ip/firewall/filter/add chain=forward connection-state=invalid action=drop
+/ip/firewall/filter/add chain=forward in-interface=ether2 out-interface=ether1 action=accept
+/ip/firewall/filter/add chain=forward action=drop comment="Denegar resto en forward"
+
+# 5. NAT de salida para la LAN
+/ip/firewall/nat/add chain=srcnat out-interface=ether1 action=masquerade
+</code></pre></div>
+<h2 id="copias-de-seguridad-y-reversion">Copias de seguridad y reversión<a class="headerlink" href="#copias-de-seguridad-y-reversion" title="Permanent link">&para;</a></h2>
+<p>Conviene combinar dos tipos de copia antes de cualquier cambio o actualización de RouterOS:</p>
+<div class="highlight"><pre><span></span><code># Export legible en texto plano (ideal para versionar en Git y auditar diffs)
+/export file=chr-edge-01-base
+
+# Backup binario completo (solo restaurable en la misma versión/arquitectura)
+/system/backup/save name=chr-edge-01-bin
+</code></pre></div>
+<p>Además, en el hipervisor toma un snapshot de la VM antes de saltar de rama de RouterOS.</p>
 <h2 id="buenas-practicas">Buenas prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Separa plano de gestión y plano de datos.</li>
-<li>Documenta filtros de rutas y enrutamiento por políticas.</li>
-<li>Evalúa FastTrack/FastPath con cautela en producción.</li>
-<li>Controla versión de RouterOS para evitar regresiones.</li>
+<li>Separa el plano de gestión del plano de datos (VLAN o VRF dedicada) y limita WinBox/SSH por dirección origen.</li>
+<li>Documenta filtros de rutas BGP/OSPF y evita anunciar prefijos sin lista explícita.</li>
+<li>Evalúa <strong>FastTrack</strong> con cautela: acelera mucho el reenvío, pero salta colas simples, IPsec y parte del marcado de paquetes.</li>
+<li>Fija una versión estable de RouterOS en tu parque y valida las actualizaciones en un CHR clónico antes de tocar producción.</li>
 </ul>
 <h2 id="riesgos-comunes">Riesgos comunes<a class="headerlink" href="#riesgos-comunes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Configuraciones rápidas sin control de cambios.</li>
-<li>Falta de límites en servicios de gestión.</li>
-<li>No validar el impacto de las actualizaciones sobre el rendimiento.</li>
+<li>Dejar servicios de gestión (<code>www</code>, <code>api</code>, <code>winbox</code>, <code>ssh</code>) expuestos en la interfaz WAN.</li>
+<li>Olvidar que la licencia <strong>Free</strong> recorta cada interfaz a 1 Mbps de subida y diagnosticarlo como un fallo de red del hipervisor.</li>
+<li>Hacer cambios de firewall sin activar <strong>Safe Mode</strong> (<code>Ctrl+X</code> en consola), perdiendo el acceso remoto en remoto.</li>
 </ul>
 <h2 id="lista-de-comprobacion-operativa">Lista de comprobación operativa<a class="headerlink" href="#lista-de-comprobacion-operativa" title="Permanent link">&para;</a></h2>
 <ul>
-<li>¿La licencia CHR cubre el rendimiento real?</li>
-<li>¿Existen filtros anti-spoofing y bogons?</li>
-<li>¿Se monitoriza CPU, paquetes/s y colas?</li>
-<li>¿Hay procedimiento de reversión por versión?</li>
+<li>¿La licencia CHR cubre el ancho de banda real de subida por interfaz?</li>
+<li>¿Están desactivados <code>telnet</code>, <code>ftp</code>, <code>www</code> y restringidos <code>ssh</code>/<code>winbox</code> a la red de gestión?</li>
+<li>¿Existen reglas de firewall <code>input</code>/<code>forward</code> con denegación por defecto y filtros anti-spoofing/bogons?</li>
+<li>¿Se monitoriza CPU, paquetes/s, colas y tráfico por interfaz (SNMP o syslog remoto)?</li>
+<li>¿Hay export en texto plano y procedimiento de reversión probado?</li>
 </ul>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://help.mikrotik.com/docs/spaces/ROS/pages/18350234/Cloud+Hosted+Router+CHR">MikroTik: Cloud Hosted Router</a></li>
+<li><a href="https://help.mikrotik.com/docs/spaces/ROS/pages/18350234/Cloud+Hosted+Router+CHR">MikroTik: Cloud Hosted Router (CHR)</a></li>
+<li><a href="https://help.mikrotik.com/docs/spaces/ROS/pages/328353/Securing+your+router">MikroTik: Securing your router (RouterOS)</a></li>
 </ul>
 
 

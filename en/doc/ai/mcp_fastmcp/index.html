@@ -6618,23 +6618,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Resources and next steps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#included-files-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Included files (example)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -9654,12 +9637,16 @@
 
 
 <h1 id="mcp-model-context-protocol-and-fastmcp-quick-guide">MCP (Model Context Protocol) and FastMCP — quick guide<a class="headerlink" href="#mcp-model-context-protocol-and-fastmcp-quick-guide" title="Permanent link">&para;</a></h1>
-<p>Summary
-- What MCP is: a simple protocol that lets clients and <em>model-serving</em> backends share context, conversations and metadata in a standard way (requests/responses, streaming, health, session control).
-- What FastMCP is: a lightweight, teaching-oriented implementation (the example used here) for standing up a minimal MCP server and connecting Python/Node.js clients.</p>
-<p>Who this guide is for
-- Infra/DevOps engineers who want to expose an LLM through an interoperable API.
-- Developers who need a quick local server for testing and prototyping.</p>
+<p>Summary</p>
+<ul>
+<li>What MCP is: a simple protocol that lets clients and <em>model-serving</em> backends share context, conversations and metadata in a standard way (requests/responses, streaming, health, session control).</li>
+<li>What FastMCP is: a lightweight, teaching-oriented implementation (the example used here) for standing up a minimal MCP server and connecting Python/Node.js clients.</li>
+</ul>
+<p>Who this guide is for</p>
+<ul>
+<li>Infra/DevOps engineers who want to expose an LLM through an interoperable API.</li>
+<li>Developers who need a quick local server for testing and prototyping.</li>
+</ul>
 <hr />
 <h2 id="1-the-idea-in-a-nutshell-2-minutes">1 — The idea in a nutshell (2 minutes) 💡<a class="headerlink" href="#1-the-idea-in-a-nutshell-2-minutes" title="Permanent link">&para;</a></h2>
 <ul>
@@ -9684,10 +9671,12 @@
 <p>Payloads: plain JSON; include <code>client_id</code>, <code>api_key</code> (where applicable) and <code>trace_id</code> for observability.</p>
 <h2 id="4-quickstart-minimal-server-fastmcp-python-copypaste">4 — Quickstart: minimal server (FastMCP) — Python (copy/paste) ✅<a class="headerlink" href="#4-quickstart-minimal-server-fastmcp-python-copypaste" title="Permanent link">&para;</a></h2>
 <p>Minimum requirements: Python 3.11+, virtualenv</p>
-<p>Quick commands:
-1. python -m venv .venv &amp;&amp; source .venv/bin/activate
-2. pip install fastapi[all] uvicorn httpx
-3. Create <code>fastmcp.py</code> (snippet below) and run <code>uvicorn fastmcp:app --reload --port 8080</code></p>
+<p>Quick commands:</p>
+<ol>
+<li>python -m venv .venv &amp;&amp; source .venv/bin/activate</li>
+<li>pip install fastapi[all] uvicorn httpx</li>
+<li>Create <code>fastmcp.py</code> (snippet below) and run <code>uvicorn fastmcp:app --reload --port 8080</code></li>
+</ol>
 <p>Snippet (file <code>fastmcp.py</code>):</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">WebSocket</span><span class="p">,</span> <span class="n">HTTPException</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
@@ -9770,11 +9759,19 @@ websocat<span class="w"> </span>-t<span class="w"> </span>ws://localhost:8080/mc
 </code></pre></div>
 <h2 id="6-nodejs-client-quick-example">6 — Node.js client (quick example)<a class="headerlink" href="#6-nodejs-client-quick-example" title="Permanent link">&para;</a></h2>
 <p>Install: npm init -y &amp;&amp; npm i node-fetch@2</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
-<span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">()=&gt;{</span>
-<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'http://localhost:8080/mcp'</span><span class="p">;</span>
-<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">base</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">'/session'</span><span class="p">,{</span><span class="nx">method</span><span class="o">:</span><span class="s1">'POST'</span><span class="p">})).</span><span class="nx">json</span><span class="p">()).</span><span class="nx">session_id</span><span class="p">;</span>
-<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">resp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">base</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">sid</span><span class="si">}</span><span class="sb">/prompt`</span><span class="p">,{</span><span class="nx">method</span><span class="o">:</span><span class="s1">'POST'</span><span class="p">,</span><span class="nx">headers</span><span class="o">:</span><span class="p">{</span><span class="s1">'content-type'</span><span class="o">:</span><span class="s1">'application/json'</span><span class="p">},</span><span class="nx">body</span><span class="o">:</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="nx">prompt</span><span class="o">:</span><span class="s1">'Summarise MCP'</span><span class="p">})})).</span><span class="nx">json</span><span class="p">();</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">"node-fetch"</span><span class="p">);</span>
+<span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"http://localhost:8080/mcp"</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">base</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">"/session"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s2">"POST"</span><span class="w"> </span><span class="p">})).</span><span class="nx">json</span><span class="p">()</span>
+<span class="w">  </span><span class="p">).</span><span class="nx">session_id</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">resp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">base</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">sid</span><span class="si">}</span><span class="sb">/prompt`</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s2">"POST"</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"content-type"</span><span class="o">:</span><span class="w"> </span><span class="s2">"application/json"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="w"> </span><span class="nx">prompt</span><span class="o">:</span><span class="w"> </span><span class="s2">"Summarise MCP"</span><span class="w"> </span><span class="p">}),</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="w">  </span><span class="p">).</span><span class="nx">json</span><span class="p">();</span>
 <span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">resp</span><span class="p">);</span>
 <span class="p">})();</span>
 </code></pre></div>
@@ -9810,20 +9807,12 @@ websocat<span class="w"> </span>-t<span class="w"> </span>ws://localhost:8080/mc
 <hr />
 <h2 id="resources-and-next-steps">Resources and next steps<a class="headerlink" href="#resources-and-next-steps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Example in this repo: copy <code>fastmcp.py</code> and run it locally.</li>
-<li>For production: add authentication, TLS and deploy on k8s using <code>Deployment</code> + <code>Ingress</code>.</li>
+<li>Run the <code>fastmcp.py</code> server locally and wire it to an MCP client or a RAG pipeline.</li>
+<li>For production: add authentication, TLS and deploy on Kubernetes using <code>Deployment</code> + <code>Ingress</code> (or behind a reverse proxy such as HAProxy/Nginx).</li>
 </ul>
 <blockquote>
 <p>Note: FastMCP in this guide is a teaching implementation. For a production gateway, integrate it with your model provider (OpenAI/Anthropic/llama-servers) or with a local runtime (vLLM, Ollama, etc.).</p>
 </blockquote>
-<hr />
-<h3 id="included-files-example">Included files (example)<a class="headerlink" href="#included-files-example" title="Permanent link">&para;</a></h3>
-<ul>
-<li><code>fastmcp.py</code> — demo server</li>
-<li><code>Dockerfile</code> — minimal container</li>
-<li><code>examples/</code> — Python/Node.js clients</li>
-</ul>
-<p>If you'd like, I can: 1) add the example files to the repo and 2) show how to deploy it with Docker Compose or on Kubernetes (manifests). Which one first?</p>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://modelcontextprotocol.io/specification/latest">Model Context Protocol: specification</a></li>
