@@ -8,7 +8,7 @@ difficulty: intermediate
 estimated_time: 22 min
 category: Ciberseguridad
 status: published
-last_reviewed: 2026-08-03
+last_reviewed: 2026-11-23
 prerequisites:
   - "Linux intermedio (systemd, journalctl)"
   - "Redes básicas (TCP/IP, puertos)"

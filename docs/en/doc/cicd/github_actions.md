@@ -1,6 +1,6 @@
 ---
 title: "Introduction to GitHub Actions"
-description: "Documentation about introduction to GitHub Actions"
+description: "Getting started with GitHub Actions: workflows, events, jobs, steps and a practical Python build-and-test example."
 tags: ['ci-cd', 'automation']
 category: DevOps
 updated: 2026-10-11
@@ -13,7 +13,7 @@ prerequisites: ["Basic DevOps knowledge"]
 
 # Introduction to GitHub Actions
 
-GitHub Actions is a Continuous Integration and Continuous Deployment (CI/CD) platform that allows you to automate your build, test, and deployment pipeline.
+Building by hand, remembering to run tests before every push and deploying from a laptop works right up until the first slip-up. GitHub Actions automates that pipeline straight from the repository using YAML files triggered on every change. Below are the building blocks and a working Python workflow to get started.
 
 ## Key Concepts
 

@@ -13,7 +13,7 @@ contributors: ["@rasty94"]
 
 # Software Supply Chain Security
 
-This guide hardens the software lifecycle end to end: generating SBOMs, checking for vulnerabilities, signing and verifying images, and raising your SLSA assurance level.
+You can harden a server down to the kernel and still ship compromised code if someone tampers with a base image, a dependency or the CI runner itself. Supply chain security is about proving what is inside every artifact and who built it: SBOMs with Syft, scanning with Grype/Trivy, verifiable signing with Cosign/Rekor and SLSA levels.
 
 ## Goals
 

@@ -8,7 +8,7 @@ difficulty: intermediate
 estimated_time: 36 min
 category: Cybersecurity
 status: published
-last_reviewed: 2026-07-19
+last_reviewed: 2026-11-23
 prerequisites:
   - "Basic DevOps knowledge"
   - "Basic use of restic or borg"

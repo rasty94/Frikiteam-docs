@@ -13,9 +13,9 @@ prerequisites:
   - "Intermediate Linux"
 ---
 
-## Summary
+## The problem
 
-This guide explains how to scan for vulnerabilities in containers, Docker images and application dependencies. It focuses on open-source tools such as Trivy, Clair and Snyk, with integration into CI/CD pipelines.
+A Docker image that was clean yesterday can carry a critical CVE in OpenSSL or an untouched transitive dependency today. If you do not scan before deploying — and periodically in the registry — you only find out when it is already too late. Here we look at scanning images, containers and dependencies with Trivy, Clair and Snyk, and wiring it into CI/CD so vulnerable builds stop before release.
 
 ## Prerequisites
 

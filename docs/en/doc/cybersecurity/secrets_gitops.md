@@ -8,7 +8,7 @@ difficulty: intermediate
 estimated_time: 20 min
 category: Cybersecurity
 status: published
-last_reviewed: 2026-07-18
+last_reviewed: 2026-11-23
 prerequisites:
   - "Kubernetes fundamentals"
   - "GitOps concepts"

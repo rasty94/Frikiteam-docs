@@ -1,9 +1,10 @@
 ---
 title: "Threat Modeling"
+description: "How to build a threat model for cloud and DevOps infrastructure using OWASP Top 10 and MITRE ATT&CK to prioritize risks."
 tags: ['cybersecurity']
 
-updated: 2026-01-23
-last_reviewed: 2026-01-25
+updated: 2026-11-23
+last_reviewed: 2026-11-23
 difficulty: intermediate
 category: Cybersecurity
 status: published
@@ -13,9 +14,9 @@ prerequisites:
   - "Intermediate Linux"
 ---
 
-## Summary
+## The problem
 
-This guide explains what a threat model is and how to identify common threats in cloud and DevOps infrastructure environments. It is based on frameworks such as OWASP Top 10 for web/infrastructure applications and MITRE ATT&CK for adversary tactics.
+Hardening infrastructure without first thinking through what you are protecting and how it could be attacked leads to spending effort on flashy controls while the back door stays open. A threat model brings order before you touch a single rule: identifying assets, attack paths and priorities using frameworks like OWASP Top 10 and MITRE ATT&CK.
 
 ## Prerequisites
 

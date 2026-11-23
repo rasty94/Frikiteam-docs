@@ -1,6 +1,6 @@
 ---
 title: "Storage para bases de datos: PostgreSQL + Ceph"
-description: "Documentación sobre storage para bases de datos: postgresql + ceph"
+description: "Cómo configurar PostgreSQL sobre Ceph RBD: arquitectura, ajuste de I/O, replicación y puntos críticos de latencia para bases de datos."
 tags: ['storage']
 updated: 2026-10-11
 difficulty: advanced
@@ -15,7 +15,7 @@ contributors: ["@rasty94"]
 
 # Storage para bases de datos: PostgreSQL + Ceph
 
-Esta guía explica cómo configurar PostgreSQL con Ceph como storage backend, optimizando rendimiento y alta disponibilidad para bases de datos críticas.
+Montar PostgreSQL sobre almacenamiento distribuido como Ceph RBD da replicación automática y flexibilidad, pero si lo dejas con los valores por defecto la latencia de escritura (`fsync` y WAL) puede estrangular la base de datos. Aquí vemos cómo diseñar la arquitectura, ajustar Ceph y PostgreSQL y evitar los cuellos de botella habituales.
 
 ## 🏗️ Arquitectura
 

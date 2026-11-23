@@ -8,7 +8,7 @@ difficulty: intermediate
 estimated_time: 32 min
 category: Cybersecurity
 status: published
-last_reviewed: 2026-07-19
+last_reviewed: 2026-11-23
 prerequisites:
   - "Intermediate Linux"
   - "Basic DevOps knowledge"

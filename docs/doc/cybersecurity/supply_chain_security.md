@@ -13,7 +13,7 @@ contributors: ["@rasty94"]
 
 # Seguridad de la Cadena de Suministro (Supply Chain)
 
-Esta guía refuerza la seguridad end-to-end del ciclo de software: generación de SBOMs, verificación de vulnerabilidades, firma/verificación de imágenes y niveles de garantía SLSA.
+Puedes endurecer el servidor al milímetro y seguir desplegando código comprometido si alguien manipula una imagen base, una dependencia o el propio *runner* de CI. Asegurar la cadena de suministro consiste en poder demostrar qué lleva exactamente cada artefacto y quién lo construyó: SBOMs con Syft, escaneo con Grype/Trivy, firma verificable con Cosign/Rekor y niveles SLSA.
 
 ## Objetivos
 

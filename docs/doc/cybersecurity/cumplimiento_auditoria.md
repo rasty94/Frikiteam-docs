@@ -8,7 +8,7 @@ difficulty: intermediate
 estimated_time: 45 min
 category: Ciberseguridad
 status: published
-last_reviewed: 2026-07-19
+last_reviewed: 2026-11-23
 prerequisites:
   - "Administración de sistemas Linux"
   - "Fundamentos de CI/CD"

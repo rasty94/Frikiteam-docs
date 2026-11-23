@@ -14,9 +14,9 @@ reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
 
-## Resumen
+## El problema
 
-Esta guía explica cómo escanear vulnerabilidades en contenedores, imágenes Docker y dependencias de aplicaciones. Se enfoca en herramientas open-source como Trivy, Clair y Snyk, con integración en pipelines CI/CD.
+Una imagen Docker que ayer estaba limpia puede arrastrar hoy un CVE crítico en OpenSSL o en una dependencia transitiva que nadie tocó. Si no escaneas antes de desplegar —y de forma periódica en el registro—, acabas enterándote tarde. Vamos a ver cómo detectar vulnerabilidades en imágenes, contenedores y dependencias con Trivy, Clair y Snyk, y cómo integrarlo en CI/CD para cortar el paso a tiempo.
 
 ## Prerrequisitos
 

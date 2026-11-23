@@ -1,12 +1,13 @@
 ---
 title: "Modelo de Amenazas"
+description: "Cómo construir un modelo de amenazas en infraestructura cloud y DevOps usando OWASP Top 10 y MITRE ATT&CK para priorizar riesgos."
 tags: ['cybersecurity']
-updated: 2026-01-23
+updated: 2026-11-23
 difficulty: intermediate
 estimated_time: 2 min
 category: Ciberseguridad
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-11-23
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Linux intermedio"
@@ -14,9 +15,9 @@ reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
 
-## Resumen
+## El problema
 
-Esta guía explica qué es un modelo de amenazas y cómo identificar amenazas comunes en entornos de infraestructura cloud y DevOps. Se basa en frameworks como OWASP Top 10 para aplicaciones web/infra y MITRE ATT&CK para tácticas de adversarios.
+Asegurar una infraestructura sin haber pensado antes qué quieres proteger y quién podría atacarlo lleva a gastar tiempo en controles vistosos mientras la puerta de atrás sigue abierta. Un modelo de amenazas pone orden antes de tocar una sola regla: identifica activos, vectores de ataque y prioridades apoyándose en marcos como OWASP Top 10 y MITRE ATT&CK.
 
 ## Prerrequisitos
 

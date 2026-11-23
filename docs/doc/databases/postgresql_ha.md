@@ -8,7 +8,7 @@ difficulty: advanced
 estimated_time: 42 min
 category: Bases de Datos
 status: published
-last_reviewed: 2026-07-19
+last_reviewed: 2026-11-23
 prerequisites:
   - "Administración básica de PostgreSQL"
   - "Conocimientos básicos de DevOps"

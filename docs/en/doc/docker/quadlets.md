@@ -8,7 +8,7 @@ difficulty: intermediate
 estimated_time: 20 min
 category: Containers
 status: published
-last_reviewed: 2026-08-03
+last_reviewed: 2026-11-23
 prerequisites:
   - "Podman installed"
   - "Basic systemd (units, targets, journalctl)"

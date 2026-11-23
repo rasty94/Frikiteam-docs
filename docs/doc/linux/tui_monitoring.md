@@ -8,7 +8,7 @@ difficulty: beginner
 estimated_time: 15 min
 category: Linux
 status: published
-last_reviewed: 2026-08-03
+last_reviewed: 2026-11-23
 prerequisites:
   - "Linux básico (procesos, SSH)"
 reviewers: ["@rasty94"]

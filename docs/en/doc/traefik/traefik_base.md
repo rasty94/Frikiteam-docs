@@ -7,7 +7,7 @@ difficulty: intermediate
 estimated_time: 18 min
 category: Networking
 status: published
-last_reviewed: 2026-08-03
+last_reviewed: 2026-11-23
 prerequisites: ["Docker", "Basic DNS", "TLS certificates"]
 reviewers: ["@rasty94"]
 contributors: ["@rasty94"]

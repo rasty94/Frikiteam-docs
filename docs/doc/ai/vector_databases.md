@@ -14,9 +14,9 @@ contributors: ["@rasty94"]
 
 # Bases de Datos Vectoriales
 
-## Introducción
+## El problema
 
-Las **bases de datos vectoriales** son sistemas especializados en almacenar, indexar y buscar vectores de alta dimensionalidad (embeddings). Son fundamentales para aplicaciones de IA como búsqueda semántica, RAG, sistemas de recomendación y detección de similitudes.
+Cuando quieres buscar en tu documentación o en miles de logs por *significado* y no por coincidencia literal de palabras, un `LIKE '%...%'` en SQL se queda corto enseguida. Para eso existen las **bases de datos vectoriales**: almacenan e indexan *embeddings* de alta dimensionalidad para resolver búsqueda semántica, RAG y similitud en milisegundos.
 
 ## ¿Por qué Vector Databases?
 

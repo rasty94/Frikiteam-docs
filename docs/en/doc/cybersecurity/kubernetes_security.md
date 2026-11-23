@@ -17,9 +17,9 @@ contributors: ["@rasty94"]
 
 # Kubernetes Security: RBAC and Best Practices
 
-## Introduction
+## The problem
 
-This guide covers how to implement security controls in Kubernetes, focusing on RBAC (Role-Based Access Control), Network Policies, Pod Security Standards and admission controllers.
+A freshly installed Kubernetes cluster usually starts wide open: every pod can talk to every other pod, containers run as `root` unless stopped, and an over-privileged `ServiceAccount` turns any app bug into cluster-wide access. Here we go through the core layers to lock it down: RBAC, Network Policies, Pod Security Standards and admission controllers.
 
 ## RBAC (Role-Based Access Control)
 

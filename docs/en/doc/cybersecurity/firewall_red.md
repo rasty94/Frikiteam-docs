@@ -13,9 +13,9 @@ prerequisites:
   - "Intermediate Linux"
 ---
 
-## Summary
+## The problem
 
-This guide covers firewall configuration on Linux (iptables/nftables, UFW) and intrusion detection tools such as Suricata/Zeek. It includes practical examples for network hardening on servers and containers.
+Bringing up a service on a Linux server without filtering what comes in and goes out leaves admin ports, databases and daemons exposed to the outside — and once Docker enters the picture, its NAT rules can bypass the host firewall silently. Here we go through locking down the perimeter with UFW, iptables and nftables, and pairing it with intrusion detection (Suricata and Zeek) on servers and containers.
 
 ## Prerequisites
 

@@ -1,9 +1,10 @@
 ---
 title: "Security Principles"
+description: "Defense in Depth, Zero Trust and Least Privilege applied to real infrastructure, with concrete examples in Docker and Kubernetes."
 tags: ['cybersecurity', 'best-practices', 'hardening', 'zero-trust']
 
-updated: 2026-01-23
-last_reviewed: 2026-01-25
+updated: 2026-11-23
+last_reviewed: 2026-11-23
 difficulty: intermediate
 category: Cybersecurity
 status: published
@@ -13,9 +14,9 @@ prerequisites:
   - "Intermediate Linux"
 ---
 
-## Summary
+## The problem
 
-This guide covers fundamental security principles applied to DevOps environments and modern infrastructure. It focuses on Defense in Depth, Zero Trust and Least Privilege, with practical examples in Kubernetes and Docker.
+Betting the security of a platform on a single perimeter firewall or a strong password works right up until that one layer fails. When a misconfiguration or service vulnerability hits, the blast radius depends on how many barriers sit behind it. Here we walk through the three principles that keep a small incident from turning into a full compromise — Defense in Depth, Zero Trust and Least Privilege — applied to Docker and Kubernetes.
 
 ## Prerequisites
 

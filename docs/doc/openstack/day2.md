@@ -1,7 +1,7 @@
 ---
-title: "OpenStack Day-2 Operations: Maintenance and Production Management"
+title: "Operaciones día 2 en OpenStack: mantenimiento y gestión en producción"
 tags: ['openstack']
-description: "Complete guide for Day-2 operations in OpenStack: upgrades, backups, monitoring, capacity planning, and incident response."
+description: "Operación diaria de un clúster OpenStack en producción: actualizaciones, copias de seguridad, monitorización, planificación de capacidad y respuesta a incidentes."
 keywords: OpenStack, Day-2, operations, maintenance, upgrades, backups, monitoring, capacity planning, production, ops
 updated: 2026-10-11
 difficulty: intermediate

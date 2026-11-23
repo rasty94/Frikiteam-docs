@@ -1,12 +1,13 @@
 ---
 title: "Principios de Seguridad"
+description: "Defense in Depth, Zero Trust y Least Privilege aplicados a infraestructura real: ejemplos concretos en Docker y Kubernetes."
 tags: ['cybersecurity', 'best-practices', 'hardening', 'zero-trust']
-updated: 2026-01-23
+updated: 2026-11-23
 difficulty: intermediate
 estimated_time: 2 min
 category: Ciberseguridad
 status: published
-last_reviewed: 2026-01-25
+last_reviewed: 2026-11-23
 prerequisites:
   - "Conocimientos básicos de DevOps"
   - "Linux intermedio"
@@ -14,9 +15,9 @@ reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
 
-## Resumen
+## El problema
 
-Esta guía cubre principios fundamentales de seguridad aplicados a entornos DevOps e infraestructura moderna. Se enfoca en Defense in Depth, Zero Trust y Least Privilege, con ejemplos prácticos en Kubernetes y Docker.
+Confiar la seguridad de una plataforma a un único firewall perimetral o a una contraseña fuerte funciona hasta que esa sola capa cae. Cuando ocurre un fallo de configuración o una vulnerabilidad en un servicio, el daño depende de cuántas barreras más tenga delante el atacante. Aquí repasamos los tres principios que evitan que un incidente menor se convierta en compromiso total —Defense in Depth, Zero Trust y Least Privilege— aterrizados en Docker y Kubernetes.
 
 ## Prerrequisitos
 

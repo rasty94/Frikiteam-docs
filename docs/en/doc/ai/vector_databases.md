@@ -13,9 +13,9 @@ prerequisites: ["Basic Python"]
 
 # Vector Databases
 
-## Introduction
+## The problem
 
-**Vector databases** are specialized systems for storing, indexing, and searching high-dimensional vectors (embeddings). They are fundamental for AI applications such as semantic search, RAG, recommendation systems, and similarity detection.
+When you need to search your documentation or thousands of logs by *meaning* rather than exact string matches, SQL `LIKE '%...%'` hits a wall fast. That is what **vector databases** solve: they store and index high-dimensional embeddings to power semantic search, RAG and similarity lookups in milliseconds.
 
 ## Why Vector Databases?
 
