@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentación oficial del proyecto Frikiteam 🚀">
+        <meta name="description" content="Cómo validar diagramas Mermaid en local y en GitHub Actions usando mermaid-cli y validate_mermaid.sh.">
       
       
       
@@ -66,13 +66,15 @@
     
     
   
+  <!-- frikiteam.es es el punto de entrada en buscadores; docs sigue navegable y rastreable sin canibalizar -->
+  <meta name="robots" content="noindex, follow">
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "9e48bf05019f47f6bdf00a4979128ca2"}'></script>
 
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Mermaid — Verificación y uso - Frikiteam Docs" />
-<meta property="og:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="og:description" content="Cómo validar diagramas Mermaid en local y en GitHub Actions usando mermaid-cli y validate_mermaid.sh." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/dev/mermaid.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -80,7 +82,7 @@
 <meta property="og:url" content="https://docs.frikiteam.es/dev/mermaid/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="Mermaid — Verificación y uso - Frikiteam Docs" />
-<meta property="twitter:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="twitter:description" content="Cómo validar diagramas Mermaid en local y en GitHub Actions usando mermaid-cli y validate_mermaid.sh." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/dev/mermaid.png" />
 </head>
   
@@ -7858,10 +7860,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#scripts-de-verificacion" class="md-nav__link">
+  <a href="#el-problema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scripts de verificación
+        El problema
       
     </span>
   </a>
@@ -7869,10 +7871,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mejores-practicas" class="md-nav__link">
+  <a href="#validacion-en-local" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mejores prácticas
+        Validación en local
       
     </span>
   </a>
@@ -7884,6 +7886,17 @@
     <span class="md-ellipsis">
       
         Integración en CI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas prácticas
       
     </span>
   </a>
@@ -9523,37 +9536,39 @@
 
 
 <h1 id="mermaid-verificacion-y-uso">Mermaid — Verificación y uso<a class="headerlink" href="#mermaid-verificacion-y-uso" title="Permanent link">&para;</a></h1>
-<p>En el proyecto FrikiTeam utilizamos Mermaid para diagramas incluidos en la documentación. Aquí te explico cómo verificar diagramas y cómo integrarlos en CI.</p>
-<h2 id="scripts-de-verificacion">Scripts de verificación<a class="headerlink" href="#scripts-de-verificacion" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Existe <code>internal/mermaid/tools/check_diagrams.py</code> que se puede usar para validar la sintaxis de los diagramas.</li>
-</ul>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>internal/mermaid/tools/check_diagrams.py
+<h2 id="el-problema">El problema<a class="headerlink" href="#el-problema" title="Permanent link">&para;</a></h2>
+<p>MkDocs no valida la sintaxis de los diagramas Mermaid durante <code>mkdocs build</code>: un paréntesis sin comillas o una flecha mal cerrada pasa la compilación en verde y solo se descubre cuando alguien abre la página en el navegador y ve un bloque de error.</p>
+<p>En FrikiTeam validamos todos los diagramas antes de publicar usando <code>@mermaid-js/mermaid-cli</code> (<code>mmdc</code>) y el script <code>validate_mermaid.sh</code> de la raíz del repositorio.</p>
+<h2 id="validacion-en-local">Validación en local<a class="headerlink" href="#validacion-en-local" title="Permanent link">&para;</a></h2>
+<p>Instala la misma versión fijada en CI (fijamos la mayor para evitar cambios de sintaxis entre versiones):</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>@mermaid-js/mermaid-cli@12
 </code></pre></div>
-<blockquote>
-<p>Nota: Si el script devuelve un error o está vacío, documenta su comportamiento y añade un test en CI.</p>
-</blockquote>
-<h2 id="mejores-practicas">Mejores prácticas<a class="headerlink" href="#mejores-practicas" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Escribe diagramas claros y evita dependencias del tamaño del contenedor</li>
-<li>Añade comentarios cuando la lógica del diagrama sea compleja</li>
-<li>Usa los ejemplos de <code>internal/mermaid/diagramas_guia.md</code></li>
-</ul>
+<p>Después ejecuta el validador desde la raíz de <code>Frikiteam-docs</code>:</p>
+<div class="highlight"><pre><span></span><code>./validate_mermaid.sh
+</code></pre></div>
+<p>El script recorre todos los ficheros <code>.md</code> bajo <code>docs/</code>, extrae cada bloque Mermaid con <code>awk</code> y lo renderiza contra Chromium headless mediante:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">printf</span><span class="w"> </span><span class="s2">"%b"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$diagram</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>mmdc<span class="w"> </span>-i<span class="w"> </span>/dev/stdin<span class="w"> </span>-o<span class="w"> </span><span class="s2">"</span><span class="nv">$tmp_out</span><span class="s2">"</span><span class="w"> </span>-p<span class="w"> </span>puppeteer-config.json
+</code></pre></div>
+<p>Si todos los diagramas renderizan sin error, descarta las salidas temporales y termina con código <code>0</code>. Si falla alguno, muestra el fichero y el bloque afectado y devuelve código distinto de cero.</p>
 <h2 id="integracion-en-ci">Integración en CI<a class="headerlink" href="#integracion-en-ci" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Añadir un paso que ejecute la verificación de diagramas como parte del workflow (antes de <code>mkdocs build</code>).</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="c1"># ejemplo: steps</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Verificar diagramas</span>
-<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python3 internal/mermaid/tools/check_diagrams.py</span>
+<p>El workflow <code>.github/workflows/docs-ci.yml</code> incluye el job <code>quality</code>, que ejecuta la validación en cada <code>push</code> y <code>pull_request</code> sobre <code>main</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm install -g @mermaid-js/mermaid-cli@12</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Validate Mermaid diagrams</span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./validate_mermaid.sh</span>
 </code></pre></div>
+<h2 id="buenas-practicas">Buenas prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Entrecomilla las etiquetas con caracteres especiales</strong>: paréntesis, corchetes o dos puntos dentro de un nodo suelen romper el parser si no van entre comillas (<code>A["API (v2)"]</code>).</li>
+<li><strong>Mantén cada diagrama acotado</strong>: si un diagrama supera ~15 nodos, suele ser más legible dividirlo en dos vistas (arquitectura general y flujo concreto).</li>
+<li><strong>No pongas fences literales de Mermaid en texto de ejemplo</strong>: el extractor de <code>validate_mermaid.sh</code> busca líneas que abran bloque Mermaid en todo <code>docs/</code> e intentaría compilarlo.</li>
+<li><strong>Valida siempre antes del commit</strong>: ejecutar <code>./validate_mermaid.sh</code> en local ahorra rondas de CI.</li>
+</ul>
 <h2 id="problemas-comunes">Problemas comunes<a class="headerlink" href="#problemas-comunes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Diagrama no se renderiza -&gt; validar sintaxis o la consola del navegador.</li>
-<li>Colisión de estilos -&gt; revisar <code>docs/stylesheets/extra.css</code>.</li>
+<li><strong>El diagrama no se renderiza en el navegador</strong>: revisa la salida de <code>./validate_mermaid.sh</code> o la consola del navegador; casi siempre es un carácter reservado sin comillas o un tipo de diagrama no soportado por la versión de Mermaid de MkDocs Material.</li>
+<li><strong><code>mmdc</code> falla al arrancar Chromium en Linux/CI</strong>: asegúrate de pasar <code>-p puppeteer-config.json</code> (el script ya lo incluye) para desactivar el sandbox cuando corre en contenedores sin privilegios.</li>
+<li><strong>Colisión de estilos en el tema</strong>: revisa <code>docs/stylesheets/extra.css</code> si un diagrama aparece recortado o con contraste bajo en modo oscuro.</li>
 </ul>
-<hr />
-<p>Si prefieres que implemente una versión mínima del <code>check_diagrams.py</code> para validar la existencia de bloques <code>mermaid</code> en los <code>md</code>, lo puedo hacer y añadir la configuración en CI (opcional).</p>
 
 
 

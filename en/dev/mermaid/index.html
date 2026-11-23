@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentación oficial del proyecto Frikiteam 🚀">
+        <meta name="description" content="How to validate Mermaid diagrams locally and in GitHub Actions using mermaid-cli and validate_mermaid.sh.">
       
       
       
@@ -66,13 +66,15 @@
     
     
   
+  <!-- frikiteam.es es el punto de entrada en buscadores; docs sigue navegable y rastreable sin canibalizar -->
+  <meta name="robots" content="noindex, follow">
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "9e48bf05019f47f6bdf00a4979128ca2"}'></script>
 
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Mermaid — Validation and usage - Frikiteam Docs" />
-<meta property="og:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="og:description" content="How to validate Mermaid diagrams locally and in GitHub Actions using mermaid-cli and validate_mermaid.sh." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/en/dev/mermaid.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -80,7 +82,7 @@
 <meta property="og:url" content="https://docs.frikiteam.es/en/dev/mermaid/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="Mermaid — Validation and usage - Frikiteam Docs" />
-<meta property="twitter:description" content="Documentación oficial del proyecto Frikiteam 🚀" />
+<meta property="twitter:description" content="How to validate Mermaid diagrams locally and in GitHub Actions using mermaid-cli and validate_mermaid.sh." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/en/dev/mermaid.png" />
 </head>
   
@@ -7858,10 +7860,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#validation-scripts" class="md-nav__link">
+  <a href="#the-problem" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Validation scripts
+        The problem
       
     </span>
   </a>
@@ -7869,10 +7871,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
+  <a href="#local-validation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Best practices
+        Local validation
       
     </span>
   </a>
@@ -7884,6 +7886,17 @@
     <span class="md-ellipsis">
       
         CI integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best practices
       
     </span>
   </a>
@@ -9523,37 +9536,39 @@
 
 
 <h1 id="mermaid-validation-and-usage">Mermaid — Validation and usage<a class="headerlink" href="#mermaid-validation-and-usage" title="Permanent link">&para;</a></h1>
-<p>In the FrikiTeam project we use Mermaid for the diagrams included in the documentation. This page explains how to validate diagrams and how to wire them into CI.</p>
-<h2 id="validation-scripts">Validation scripts<a class="headerlink" href="#validation-scripts" title="Permanent link">&para;</a></h2>
-<ul>
-<li>There is an <code>internal/mermaid/tools/check_diagrams.py</code> script that can be used to validate diagram syntax.</li>
-</ul>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>internal/mermaid/tools/check_diagrams.py
+<h2 id="the-problem">The problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h2>
+<p>MkDocs does not validate Mermaid diagram syntax during <code>mkdocs build</code>: an unquoted parenthesis or a malformed arrow passes the build silently and only surfaces when a reader opens the page and hits a syntax error box.</p>
+<p>In FrikiTeam we validate every diagram before publishing using <code>@mermaid-js/mermaid-cli</code> (<code>mmdc</code>) and the <code>validate_mermaid.sh</code> script at the repository root.</p>
+<h2 id="local-validation">Local validation<a class="headerlink" href="#local-validation" title="Permanent link">&para;</a></h2>
+<p>Install the same major version pinned in CI (pinning prevents syntax changes between major releases):</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>@mermaid-js/mermaid-cli@12
 </code></pre></div>
-<blockquote>
-<p>Note: If the script returns an error or produces no output, document its behavior and add a test in CI.</p>
-</blockquote>
+<p>Then run the validator from the root of <code>Frikiteam-docs</code>:</p>
+<div class="highlight"><pre><span></span><code>./validate_mermaid.sh
+</code></pre></div>
+<p>The script scans every <code>.md</code> file under <code>docs/</code>, extracts each Mermaid block with <code>awk</code>, and renders it through headless Chromium with:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">printf</span><span class="w"> </span><span class="s2">"%b"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$diagram</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>mmdc<span class="w"> </span>-i<span class="w"> </span>/dev/stdin<span class="w"> </span>-o<span class="w"> </span><span class="s2">"</span><span class="nv">$tmp_out</span><span class="s2">"</span><span class="w"> </span>-p<span class="w"> </span>puppeteer-config.json
+</code></pre></div>
+<p>When every diagram renders cleanly, it removes the temporary outputs and exits <code>0</code>. If any block fails, it prints the offending file and exits non-zero.</p>
+<h2 id="ci-integration">CI integration<a class="headerlink" href="#ci-integration" title="Permanent link">&para;</a></h2>
+<p>The <code>.github/workflows/docs-ci.yml</code> workflow defines a <code>quality</code> job that runs the check on every <code>push</code> and <code>pull_request</code> targeting <code>main</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm install -g @mermaid-js/mermaid-cli@12</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Validate Mermaid diagrams</span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./validate_mermaid.sh</span>
+</code></pre></div>
 <h2 id="best-practices">Best practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Write clear diagrams and avoid depending on the container size</li>
-<li>Add comments when the diagram logic is complex</li>
-<li>Use the examples in <code>internal/mermaid/diagramas_guia.md</code></li>
+<li><strong>Quote labels with special characters</strong>: parentheses, brackets, or colons inside a node often break the parser unless quoted (<code>A["API (v2)"]</code>).</li>
+<li><strong>Keep diagrams focused</strong>: once a diagram grows past ~15 nodes, splitting it into an overview and a specific flow is usually easier to read.</li>
+<li><strong>Avoid literal Mermaid fences in prose examples</strong>: the extractor in <code>validate_mermaid.sh</code> scans all of <code>docs/</code> for Mermaid fence openers and would try to compile them.</li>
+<li><strong>Validate before committing</strong>: running <code>./validate_mermaid.sh</code> locally avoids CI round-trips.</li>
 </ul>
-<h2 id="ci-integration">CI integration<a class="headerlink" href="#ci-integration" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Add a step that runs the diagram validation as part of the workflow (before <code>mkdocs build</code>).</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="c1"># example: steps</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Validate diagrams</span>
-<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python3 internal/mermaid/tools/check_diagrams.py</span>
-</code></pre></div>
 <h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Diagram does not render -&gt; check the syntax or the browser console.</li>
-<li>Style collisions -&gt; review <code>docs/stylesheets/extra.css</code>.</li>
+<li><strong>Diagram fails to render in the browser</strong>: check the output of <code>./validate_mermaid.sh</code> or the browser console; it is almost always an unquoted reserved character or a diagram type unsupported by the Mermaid version bundled with MkDocs Material.</li>
+<li><strong><code>mmdc</code> fails to launch Chromium on Linux/CI</strong>: make sure <code>-p puppeteer-config.json</code> is passed (already handled by the script) so Chromium disables the sandbox in unprivileged containers.</li>
+<li><strong>Theme style collisions</strong>: check <code>docs/stylesheets/extra.css</code> if a diagram looks clipped or low-contrast in dark mode.</li>
 </ul>
-<hr />
-<p>If you would rather I implement a minimal version of <code>check_diagrams.py</code> to validate the presence of <code>mermaid</code> blocks in the <code>md</code> files, I can do that and add the CI configuration (optional).</p>
 
 
 
