@@ -44,7 +44,7 @@ El workflow es `.github/workflows/docs-ci.yml` y tiene tres jobs. Solo el primer
 
 ```mermaid
 flowchart TD
-    A["build (strict)"] --> B["test_wordpress_format.py"]
+    A["build (strict)"] --> B["test_publish_to_astro.py"]
     B --> C["validate_metadata.py --strict"]
     C --> D["check_sync.py --strict"]
     D --> E["mkdocs build --strict"]
@@ -63,7 +63,7 @@ El orden importa para leer el fallo: los pasos van en secuencia y el primero que
 Reproducir el job completo en local son cuatro comandos:
 
 ```bash
-python test_wordpress_format.py
+python test_publish_to_astro.py
 python scripts/validate_metadata.py --strict
 python scripts/check_sync.py --strict
 mkdocs build --strict

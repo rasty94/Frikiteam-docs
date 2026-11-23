@@ -295,20 +295,6 @@ def at_nine(day):
     return datetime(y, m, d, 9, 0, tzinfo=MADRID).astimezone(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
 
 
-def adopt(astro):
-    """Añade `source:` a los artículos que vinieron de WordPress, usando el estado del pipeline antiguo."""
-    state = json.loads((DOCS_ROOT / '.wp_sync_state.json').read_text())
-    by_id = {v['post_id']: k for k, v in state.items()}
-    n = 0
-    for slug, m in load_posts(astro).items():
-        src = by_id.get(m.get('wpId'))
-        if src and not m.get('source') and (DOCS_ROOT / src).exists():
-            f = m['_file']
-            f.write_text(f.read_text(encoding='utf-8').replace('\nwpId:', f'\nsource: {json.dumps(src)}\nwpId:', 1), encoding='utf-8')
-            n += 1
-    print(f'{n} artículos con `source` añadido')
-
-
 def english(astro, es):
     """La gemela EN de cada artículo ES: misma serie y misma fecha que la ES (sale el mismo día), y su propia URL,
     sacada de su título la primera vez y fija después (el emparejamiento es por `source`, no por el slug)."""
@@ -345,18 +331,15 @@ def main():
     ap.add_argument('--astro', type=Path, default=ASTRO_ROOT)
     ap.add_argument('--write', action='store_true')
     ap.add_argument('--out', type=Path)
-    ap.add_argument('--adopt', action='store_true')
     ap.add_argument('--serie', action='append', default=[], metavar='RUTA=SERIE')
     ap.add_argument('--fecha', action='append', default=[], metavar='RUTA=AAAA-MM-DD', help='día de salida de un artículo nuevo (09:00 Madrid)')
     ap.add_argument('--no-render', action='store_true', help='no ejecutar mmdc (los diagramas nuevos quedan sin imagen)')
     a = ap.parse_args()
-    if a.adopt:
-        return adopt(a.astro)
 
     posts = load_posts(a.astro)
     by_source = {m['source']: s for s, m in posts.items() if m.get('source')}
     if not by_source:
-        sys.exit('Ningún artículo tiene `source`. Lanza antes --adopt.')
+        sys.exit('Ningún artículo tiene `source`.')
     series = dict(s.split('=', 1) for s in a.serie)
     fechas = dict(s.split('=', 1) for s in a.fecha)
     diagrams = Diagrams(a.astro, render=not a.no_render)

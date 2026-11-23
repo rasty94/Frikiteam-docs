@@ -1,6 +1,6 @@
 # FrikiTeam Docs
 
-Documentación técnica multi‑idioma (ES/EN) basada en MkDocs Material, con despliegue continuo. Las entradas del blog se publican con `scripts/publish_to_astro.py` (ver `CLAUDE.md`); `wordpress_sync.py` es el flujo anterior, hasta apagar WordPress.
+Documentación técnica multi‑idioma (ES/EN) basada en MkDocs Material, con despliegue continuo. Las entradas del blog (`frikiteam.es`) se publican con `scripts/publish_to_astro.py`.
 
 ## Estructura del proyecto
 
@@ -152,21 +152,11 @@ Notas CI/CD:
 - Para previsualización en PRs, añade un job que suba `site/` como artifact.
 - Si usas otra plataforma (Cloudflare Pages, Netlify), configura el build command `mkdocs build` y output `site/`.
 
-## Sincronización con WordPress
+## Publicación en el blog (Astro)
 
-Para sincronizar artículos de la documentación a WordPress:
+Las entradas de `frikiteam.es` se generan directamente desde esta documentación (ES y EN) hacia el repo hermano `../frikiteam-astro`:
 
-1. Configura las variables de entorno (copia `.env.example` a `.env` y edita):
-
-   ```bash
-   export WP_SITE_URL=https://frikiteam.es
-   export WP_USERNAME=tu_usuario
-   export WP_APP_PASSWORD=tu_app_password
-   ```
-
-2. Ejecuta el script:
-
-   - Modo interactivo: `python wordpress_sync.py --interactive` (permite buscar por título o nombre de archivo)
-   - Archivo específico: `python wordpress_sync.py --file docs/doc/docker/docker_base.md --status draft`
-
-El script actualizará automáticamente `done.md` con el progreso de publicación.
+```bash
+python scripts/publish_to_astro.py           # informe (qué cambia y qué fecha recibe lo nuevo)
+python scripts/publish_to_astro.py --write   # escribe las entradas en ../frikiteam-astro
+```

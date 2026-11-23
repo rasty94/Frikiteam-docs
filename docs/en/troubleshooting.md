@@ -44,7 +44,7 @@ The workflow is `.github/workflows/docs-ci.yml` and it has three jobs. Only the 
 
 ```mermaid
 flowchart TD
-    A["build (strict)"] --> B["test_wordpress_format.py"]
+    A["build (strict)"] --> B["test_publish_to_astro.py"]
     B --> C["validate_metadata.py --strict"]
     C --> D["check_sync.py --strict"]
     D --> E["mkdocs build --strict"]
@@ -63,7 +63,7 @@ The order matters when reading a failure: the steps run in sequence and the firs
 Reproducing the whole job locally is four commands:
 
 ```bash
-python test_wordpress_format.py
+python test_publish_to_astro.py
 python scripts/validate_metadata.py --strict
 python scripts/check_sync.py --strict
 mkdocs build --strict
