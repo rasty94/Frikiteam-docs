@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="ONTAP concepts (cluster, aggregates, SVM, volumes, LIFs), basic CLI, NFS exports and SMB shares, snapshots and SnapMirror, space efficiency and integration with Proxmox and Kubernetes over NFS and iSCSI.">
+        <meta name="description" content="ONTAP architecture (cluster, HA pair, aggregates, SVM, FlexVol, LIFs), networking and failover, NFS/SMB/iSCSI step by step, QoS, SnapMirror, REST API, Ansible and integration with Proxmox and Kubernetes.">
       
       
       
@@ -16,7 +16,7 @@
         <link rel="prev" href="../../pure_storage/pure_storage_base/">
       
       
-        <link rel="next" href="../../protocols/protocols/">
+        <link rel="next" href="../snapmirror_dr/">
       
       
         
@@ -72,7 +72,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="NetApp ONTAP — Base Guide - Frikiteam Docs" />
-<meta property="og:description" content="ONTAP concepts (cluster, aggregates, SVM, volumes, LIFs), basic CLI, NFS exports and SMB shares, snapshots and SnapMirror, space efficiency and integration with Proxmox and Kubernetes over NFS and iSCSI." />
+<meta property="og:description" content="ONTAP architecture (cluster, HA pair, aggregates, SVM, FlexVol, LIFs), networking and failover, NFS/SMB/iSCSI step by step, QoS, SnapMirror, REST API, Ansible and integration with Proxmox and Kubernetes." />
 <meta property="og:image" content="https://docs.frikiteam.es/assets/images/social/en/doc/storage/netapp/netapp_base.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -80,7 +80,7 @@
 <meta property="og:url" content="https://docs.frikiteam.es/en/doc/storage/netapp/netapp_base/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="NetApp ONTAP — Base Guide - Frikiteam Docs" />
-<meta property="twitter:description" content="ONTAP concepts (cluster, aggregates, SVM, volumes, LIFs), basic CLI, NFS exports and SMB shares, snapshots and SnapMirror, space efficiency and integration with Proxmox and Kubernetes over NFS and iSCSI." />
+<meta property="twitter:description" content="ONTAP architecture (cluster, HA pair, aggregates, SVM, FlexVol, LIFs), networking and failover, NFS/SMB/iSCSI step by step, QoS, SnapMirror, REST API, Ansible and integration with Proxmox and Kubernetes." />
 <meta property="twitter:image" content="https://docs.frikiteam.es/assets/images/social/en/doc/storage/netapp/netapp_base.png" />
 </head>
   
@@ -1545,6 +1545,68 @@
   
   
   
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_6" id="__nav_2_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NetApp
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    NetApp
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -1560,7 +1622,7 @@
   <span class="md-ellipsis">
     
   
-    NetApp
+    Base
   
 
     
@@ -1585,7 +1647,7 @@
   <span class="md-ellipsis">
     
   
-    NetApp
+    Base
   
 
     
@@ -1640,10 +1702,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ontap-concepts" class="md-nav__link">
+  <a href="#ontap-concepts-and-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ONTAP concepts
+        ONTAP concepts and architecture
       
     </span>
   </a>
@@ -1651,10 +1713,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#basic-cli" class="md-nav__link">
+  <a href="#networking-and-high-availability-lifs-vlans-and-failover" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Basic CLI
+        Networking and high availability (LIFs, VLANs and failover)
       
     </span>
   </a>
@@ -1662,22 +1724,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-and-publishing-a-volume" class="md-nav__link">
+  <a href="#basic-inspection-cli" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Creating and publishing a volume
+        Basic inspection CLI
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Creating and publishing a volume">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#publishing-storage-nfs-smb-and-iscsi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Publishing storage: NFS, SMB and iSCSI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Publishing storage: NFS, SMB and iSCSI">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#checking-from-a-linux-client" class="md-nav__link">
+  <a href="#nfs-linux-nas-proxmox-and-kubernetes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Checking from a Linux client
+        NFS (Linux NAS, Proxmox and Kubernetes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smb-cifs-windows-and-mixed-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SMB / CIFS (Windows and mixed environments)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iscsi-block-storage-with-multipath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        iSCSI (block storage with multipath)
       
     </span>
   </a>
@@ -1690,13 +1785,52 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#space-efficiency" class="md-nav__link">
+  <a href="#space-efficiency-qos-and-anti-ransomware" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Space efficiency
+        Space efficiency, QoS and anti-ransomware
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Space efficiency, QoS and anti-ransomware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#efficiency-and-capacity-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Efficiency and capacity control
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-qos-stopping-noisy-neighbors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage QoS (stopping noisy neighbors)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anti-ransomware-and-immutable-snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anti-ransomware and immutable snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1705,6 +1839,17 @@
     <span class="md-ellipsis">
       
         Snapshots and SnapMirror
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automation-rest-api-and-ansible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automation: REST API and Ansible
       
     </span>
   </a>
@@ -1723,10 +1868,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#kubernetes-integration" class="md-nav__link">
+  <a href="#kubernetes-integration-trident" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Kubernetes integration
+        Kubernetes integration (Trident)
       
     </span>
   </a>
@@ -1769,6 +1914,84 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../snapmirror_dr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SnapMirror y DR
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../automation_monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automatización y Harvest
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--published"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -9468,11 +9691,29 @@
   
 
       
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    NetApp
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
     </ol>
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermediate</span> <span class="md-badge md-badge--secondary">Estimated time: 18 min</span> <span class="md-badge md-badge--primary">Category: Storage</span> <span class="md-badge md-badge--green">Published</span></div>
+              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermediate</span> <span class="md-badge md-badge--secondary">Estimated time: 26 min</span> <span class="md-badge md-badge--primary">Category: Storage</span> <span class="md-badge md-badge--green">Published</span></div>
                 
                   
 
@@ -9506,27 +9747,55 @@
 
 <h1 id="netapp-ontap-base-guide">NetApp ONTAP — Base Guide<a class="headerlink" href="#netapp-ontap-base-guide" title="Permanent link">&para;</a></h1>
 <h2 id="the-problem">The problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h2>
-<p>You are handed a NetApp array and discover it does not look like a NAS server: there is a cluster, nodes, aggregates, something called an SVM, and IP addresses that belong to "logical interfaces" instead of a network card. You create a volume, export it and the clients cannot see it, because in ONTAP creating the volume does not publish it: you also need the <em>junction path</em>, the export policy and a LIF in the right SVM. Each layer has its reason to exist, but you have to learn them in order.</p>
-<p>This page is the map: what each object is, how they relate, the basic commands to inspect them, and how it all connects to Proxmox and Kubernetes. It is a starting point, not an ONTAP administration manual.</p>
+<p>You are handed a NetApp array and discover it does not look like a regular NAS server: there is a cluster, HA node pairs, aggregates, something called an SVM, broadcast domains, and IP addresses bound to "logical interfaces" instead of a NIC. You create a volume, export it and clients still cannot see it, because in ONTAP creating a volume does not publish it: you also need the <em>junction path</em>, the <em>export policy</em> (or <em>igroup</em> for SAN) and a LIF on the right SVM and VLAN. Every layer has a reason to exist, but you have to learn them in order.</p>
+<p>This page is the operational starting map: object model, networking and high availability, inspection CLI, publishing over NFS, SMB and iSCSI, space efficiency, QoS and ransomware protection, snapshots and SnapMirror, automation via REST API/Ansible, and integration with Proxmox and Kubernetes.</p>
 <div class="admonition note">
 <p class="admonition-title">What this covers and what it does not</p>
-<p>This page covers the <strong>object model</strong> and access over NFS/SMB/iSCSI from your infrastructure. For comparing protocols and measuring performance see <a href="../../protocols/protocols/">Storage protocols</a>; for another commercial array, <a href="../../pure_storage/pure_storage_base/">Pure Storage</a>; for software-defined storage, <a href="../../ceph/ceph_base/">Ceph</a>.</p>
+<p>This page covers the <strong>object model, baseline operations and access over NFS/SMB/iSCSI</strong> from your infrastructure. For comparing protocols and measuring performance see <a href="../../protocols/protocols/">Storage protocols</a>; for another commercial array, <a href="../../pure_storage/pure_storage_base/">Pure Storage</a>; for software-defined storage, <a href="../../ceph/ceph_base/">Ceph</a>.</p>
 </div>
 <h2 id="table-of-contents">📋 Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="#ontap-concepts">ONTAP concepts</a></li>
-<li><a href="#basic-cli">Basic CLI</a></li>
-<li><a href="#creating-and-publishing-a-volume">Creating and publishing a volume</a></li>
-<li><a href="#space-efficiency">Space efficiency</a></li>
+<li><a href="#ontap-concepts-and-architecture">ONTAP concepts and architecture</a></li>
+<li><a href="#networking-and-high-availability-lifs-vlans-and-failover">Networking and high availability (LIFs, VLANs and failover)</a></li>
+<li><a href="#basic-inspection-cli">Basic inspection CLI</a></li>
+<li><a href="#publishing-storage-nfs-smb-and-iscsi">Publishing storage: NFS, SMB and iSCSI</a></li>
+<li><a href="#space-efficiency-qos-and-anti-ransomware">Space efficiency, QoS and anti-ransomware</a></li>
 <li><a href="#snapshots-and-snapmirror">Snapshots and SnapMirror</a></li>
+<li><a href="#automation-rest-api-and-ansible">Automation: REST API and Ansible</a></li>
 <li><a href="#proxmox-integration">Proxmox integration</a></li>
-<li><a href="#kubernetes-integration">Kubernetes integration</a></li>
+<li><a href="#kubernetes-integration-trident">Kubernetes integration (Trident)</a></li>
 <li><a href="#troubleshooting">Troubleshooting</a></li>
 <li><a href="#best-practices">Best practices</a></li>
 <li><a href="#references">References</a></li>
 </ul>
-<h2 id="ontap-concepts">ONTAP concepts<a class="headerlink" href="#ontap-concepts" title="Permanent link">&para;</a></h2>
-<p>ONTAP is the operating system of NetApp arrays (FAS, AFF, ASA). The objects, from the bottom up:</p>
+<h2 id="ontap-concepts-and-architecture">ONTAP concepts and architecture<a class="headerlink" href="#ontap-concepts-and-architecture" title="Permanent link">&para;</a></h2>
+<p>ONTAP is the operating system running on NetApp arrays (FAS, AFF, ASA and ONTAP Select). Objects are organized into two planes: the <strong>physical layer</strong> (nodes, disks and aggregates) and the <strong>logical layer</strong> seen by clients (SVMs, volumes and LIFs).</p>
+<pre class="mermaid"><code>flowchart TB
+    subgraph Cluster["ONTAP Cluster (unified management)"]
+        subgraph HA["HA Pair"]
+            N1["Node 1"]
+            N2["Node 2"]
+            N1 &lt;--&gt;|"Cluster Interconnect / HA"| N2
+        end
+        AG1["Aggregate 1 (RAID-DP / RAID-TEC)"]
+        AG2["Aggregate 2 (RAID-DP / RAID-TEC)"]
+        N1 --&gt; AG1
+        N2 --&gt; AG2
+
+        subgraph SVM["SVM / vserver (multi-tenant boundary)"]
+            V1["FlexVol NAS (/vol_datos)&lt;br/&gt;Qtrees + Export Policy / Share"]
+            V2["FlexVol SAN&lt;br/&gt;LUNs + igroup"]
+            L1["NFS/SMB LIF"]
+            L2["iSCSI LIF (x2 per path)"]
+        end
+
+        AG1 --&gt; V1
+        AG2 --&gt; V2
+    end
+
+    L1 --&gt;|"NFSv4.1 / SMB"| PVE["Proxmox / NAS Clients"]
+    L2 --&gt;|"iSCSI + Multipath (ALUA)"| K8S["Kubernetes / Hypervisors"]</code></pre>
+<p>The objects, from the bottom up:</p>
 <table>
 <thead>
 <tr>
@@ -9537,125 +9806,201 @@
 <tbody>
 <tr>
 <td><strong>Node</strong></td>
-<td>A physical controller. Nodes are grouped into high-availability pairs (HA pairs) that cover for each other</td>
+<td>A physical controller. Nodes are grouped into high-availability pairs (<em>HA pairs</em>) that take over each other's disks during a failure (<em>takeover/giveback</em>)</td>
 </tr>
 <tr>
 <td><strong>Cluster</strong></td>
-<td>The set of nodes managed as one unit, with a single management point</td>
+<td>The set of nodes managed as a single unit, through one cluster management LIF</td>
 </tr>
 <tr>
 <td><strong>Aggregate</strong></td>
-<td>A pool of disks on a node. It provides the physical capacity on which volumes live</td>
+<td>A pool of physical disks (RAID-DP or RAID-TEC) owned by a node. Provides the physical capacity on which volumes live</td>
 </tr>
 <tr>
-<td><strong>SVM</strong> (vserver)</td>
-<td><em>Storage Virtual Machine</em>: a virtual file/block server with its own namespace, users, protocols and LIFs. It is the multi-tenancy boundary</td>
+<td><strong>SVM</strong> (<code>vserver</code>)</td>
+<td><em>Storage Virtual Machine</em>: a virtual file/block server with its own namespace, DNS, users, protocols and LIFs. It is the multi-tenancy boundary</td>
 </tr>
 <tr>
-<td><strong>Volume (FlexVol)</strong></td>
-<td>The unit clients see: it holds files (NAS) or LUNs (SAN). It belongs to an SVM and lives in an aggregate</td>
+<td><strong>Volume (FlexVol / FlexGroup)</strong></td>
+<td>The logical unit clients see: holds files (NAS) or LUNs (SAN). A FlexVol lives in one aggregate; a FlexGroup spans a single namespace across multiple aggregates</td>
 </tr>
 <tr>
 <td><strong>Qtree</strong></td>
-<td>A subdirectory inside a volume to which quotas can be applied</td>
+<td>A logical subdirectory inside a volume that can have its own quotas and security style</td>
 </tr>
 <tr>
 <td><strong>LUN</strong></td>
-<td>A block disk presented over iSCSI or FC, stored inside a volume</td>
+<td>A block disk presented over iSCSI, FC or NVMe/TCP, stored inside a volume</td>
 </tr>
 <tr>
 <td><strong>LIF</strong></td>
-<td><em>Logical Interface</em>: the service IP (or WWPN) of an SVM. It is bound to a physical port and can migrate between nodes</td>
+<td><em>Logical Interface</em>: the service IP (or WWPN) of an SVM. Bound to a physical port, <code>ifgrp</code> or VLAN, and able to migrate between nodes</td>
 </tr>
 </tbody>
 </table>
 <p>The ideas that prevent the most stumbles:</p>
 <ul>
 <li><strong>Clients talk to the SVM, not the cluster.</strong> You mount <code>svm1:/vol_datos</code>, not a node. The IP you point to is a data LIF of that SVM.</li>
-<li><strong>LIFs are mobile.</strong> If a node goes down or a takeover happens, the LIF migrates and the IP keeps answering. That is why the client must never point to a node's management IP.</li>
-<li><strong>A NAS volume needs a <em>junction path</em></strong>: its position in the SVM's namespace tree (<code>/vol_datos</code>). Without it the volume exists but cannot be exported.</li>
-<li><strong>Access = enabled protocol + LIF + policy.</strong> In NFS the policy is the <em>export policy</em>; in SMB, the share and its ACLs; in iSCSI, the <em>igroup</em> that maps the LUN to the initiators.</li>
+<li><strong>LIFs are mobile (for NAS).</strong> If a node goes down or a takeover occurs, the NAS LIF migrates to the partner and the IP keeps answering. For <strong>SAN (iSCSI/FC)</strong> LIFs do not migrate: the client keeps active paths to both nodes via multipath (ALUA).</li>
+<li><strong>A NAS volume needs a <em>junction path</em></strong>: its position in the SVM's namespace tree (<code>/vol_datos</code>). Without it, the volume exists but cannot be exported or shared.</li>
+<li><strong>Access = enabled protocol + LIF + policy.</strong> In NFS it is the <em>export policy</em>; in SMB, the <em>share</em> and its ACLs; in iSCSI, the <em>igroup</em> and <em>LUN mapping</em>.</li>
 </ul>
-<h2 id="basic-cli">Basic CLI<a class="headerlink" href="#basic-cli" title="Permanent link">&para;</a></h2>
-<p>The ONTAP CLI is hierarchical (<code>volume show</code>, <code>network interface show</code>) and you connect over SSH to the cluster management LIF with an administrator user. The inspection commands are safe and change nothing:</p>
-<div class="highlight"><pre><span></span><code>cluster show                  # cluster nodes and their state
-storage aggregate show        # aggregates, used and free capacity
-vserver show                  # SVMs and allowed protocols
-volume show                   # volumes, their SVM, aggregate and size
-network interface show        # LIFs: current IP, node and port, status
-volume snapshot show          # snapshots per volume
+<h2 id="networking-and-high-availability-lifs-vlans-and-failover">Networking and high availability (LIFs, VLANs and failover)<a class="headerlink" href="#networking-and-high-availability-lifs-vlans-and-failover" title="Permanent link">&para;</a></h2>
+<p>Many early NetApp issues come from ONTAP's networking layer, which decouples physical connectivity from logical services using four building blocks:</p>
+<ul>
+<li><strong><code>ifgrp</code> (Interface Group):</strong> physical port aggregation (typically LACP in <code>multimode_lacp</code> mode) on each node.</li>
+<li><strong>VLAN:</strong> tagged subinterface over a port or <code>ifgrp</code> (for example <code>a0a-100</code>).</li>
+<li><strong>Broadcast Domain:</strong> groups ports/VLANs across nodes that share the same Layer-2 domain. It defines which ports a NAS LIF can fail over to if its node goes down.</li>
+<li><strong>IPspace:</strong> an isolated routing table (equivalent to a VRF) separating management, data or multi-tenant networks with overlapping subnets.</li>
+</ul>
+<p>Before any maintenance — or when diagnosing unexpected latency — check these three items:</p>
+<div class="highlight"><pre><span></span><code>storage failover show                 # HA pair health and whether takeover is enabled
+network port broadcast-domain show    # ports grouped by Layer-2 domain
+network interface show -is-home false # LIFs NOT currently on their home node
 </code></pre></div>
-<p>Each command can be filtered by SVM or volume with parameters such as <code>-vserver</code> and <code>-volume</code>, and completes with the tab key. Read them in prose: <code>network interface show</code> tells you whether each LIF is up and whether it is on its home node or has migrated; <code>volume show</code> tells you the available space and which aggregate each volume belongs to.</p>
+<p>If a NAS LIF shows <code>is-home false</code> after a reboot or maintenance window, traffic still enters through the partner node and crosses the <em>cluster interconnect</em> to reach the node owning the aggregate, adding extra latency. Reverting all LIFs back to their home nodes is non-disruptive for NAS:</p>
+<div class="highlight"><pre><span></span><code>network interface revert *
+</code></pre></div>
+<h2 id="basic-inspection-cli">Basic inspection CLI<a class="headerlink" href="#basic-inspection-cli" title="Permanent link">&para;</a></h2>
+<p>The ONTAP CLI is hierarchical (<code>volume show</code>, <code>network interface show</code>) and accessed over SSH to the cluster management LIF with an admin account. Inspection commands are read-only:</p>
+<div class="highlight"><pre><span></span><code>cluster show                          # cluster nodes and their state
+storage aggregate show                # aggregates, used and free capacity
+vserver show                          # SVMs and allowed protocols
+volume show                           # volumes, SVM, aggregate, size and usage
+volume show -percent-used &gt;80         # volumes above 80% capacity
+network interface show                # LIFs: current IP, node, port and status
+volume snapshot show                  # snapshots per volume
+lun show                              # published LUNs, size and state
+</code></pre></div>
+<p>Every command supports filters like <code>-vserver</code>, <code>-volume</code> or <code>-fields</code> and tab completion.</p>
 <div class="admonition warning">
 <p class="admonition-title">Version dependent</p>
-<p>The syntax and displayed fields change between ONTAP versions (9.x adds parameters and reorganizes some outputs). Check the help for your version with <code>?</code> in the CLI itself before copying commands from another installation.</p>
+<p>Exact syntax and output columns vary across ONTAP 9.x releases. Check the built-in help with <code>?</code> in your CLI before pasting commands from another installation.</p>
 </div>
-<h2 id="creating-and-publishing-a-volume">Creating and publishing a volume<a class="headerlink" href="#creating-and-publishing-a-volume" title="Permanent link">&para;</a></h2>
-<p>Logical order: volume, access policy, publication. Example for an NFS datastore:</p>
+<h2 id="publishing-storage-nfs-smb-and-iscsi">Publishing storage: NFS, SMB and iSCSI<a class="headerlink" href="#publishing-storage-nfs-smb-and-iscsi" title="Permanent link">&para;</a></h2>
+<h3 id="nfs-linux-nas-proxmox-and-kubernetes">NFS (Linux NAS, Proxmox and Kubernetes)<a class="headerlink" href="#nfs-linux-nas-proxmox-and-kubernetes" title="Permanent link">&para;</a></h3>
+<p>Logical order: volume, access policy and assignment. Example for an NFS datastore:</p>
 <div class="highlight"><pre><span></span><code>volume create -vserver svm1 -volume vol_datos -aggregate aggr1_nodo1 -size 500GB -junction-path /vol_datos
 vserver export-policy create -vserver svm1 -policyname pol_proxmox
 vserver export-policy rule create -vserver svm1 -policyname pol_proxmox -clientmatch 10.0.10.0/24 -protocol nfs -rorule sys -rwrule sys -superuser sys
 volume modify -vserver svm1 -volume vol_datos -policy pol_proxmox
 </code></pre></div>
-<p>The <em>export policy</em> is the equivalent of the <code>/etc/exports</code> file: it defines which clients get in and with what privileges. <code>-superuser sys</code> is equivalent to <code>no_root_squash</code> and should only be granted to trusted hosts, such as hypervisors. An empty policy lets nobody through, and the default rule of the <code>default</code> policy is rarely what you want.</p>
-<p>To expose the same volume over SMB you create a share on its junction path, provided the SVM has CIFS configured and joined to the domain:</p>
-<div class="highlight"><pre><span></span><code>vserver cifs share create -vserver svm1 -share-name datos -path /vol_datos
-vserver cifs share show -vserver svm1
-</code></pre></div>
-<p>The share controls access by user and group through ACLs; the export policy plays no part in SMB. If the volume is shared over NFS and SMB at the same time, the volume's security style (unix, ntfs or mixed) decides how permissions are resolved between the two worlds: choose it when creating the volume and do not change it once there is data inside.</p>
-<h3 id="checking-from-a-linux-client">Checking from a Linux client<a class="headerlink" href="#checking-from-a-linux-client" title="Permanent link">&para;</a></h3>
-<p>Before accepting the volume as good, mount it by hand from an authorized host and write a test file:</p>
+<p>The <em>export policy</em> is the equivalent of <code>/etc/exports</code>: it defines which clients can mount and with what privileges. <code>-superuser sys</code> equals <code>no_root_squash</code> and should only be granted to trusted hosts such as hypervisors. An empty policy denies everyone, and the default rule in <code>default</code> is rarely what you want.</p>
+<p>Verify from an authorized Linux client:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/netapp
 sudo<span class="w"> </span>mount<span class="w"> </span>-t<span class="w"> </span>nfs<span class="w"> </span>-o<span class="w"> </span><span class="nv">vers</span><span class="o">=</span><span class="m">4</span>.1<span class="w"> </span><span class="m">10</span>.0.10.50:/vol_datos<span class="w"> </span>/mnt/netapp
 touch<span class="w"> </span>/mnt/netapp/prueba<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/mnt/netapp
 sudo<span class="w"> </span>umount<span class="w"> </span>/mnt/netapp
 </code></pre></div>
-<p>The IP is that of a data LIF of the SVM and the path is the junction path. If the mount fails, the client's message almost always distinguishes between "there is no route to the LIF" and "the LIF answers but the export policy rejects you". If the server only offers NFSv3, change <code>vers=4.1</code> to <code>vers=3</code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">NFS version</p>
-<p>Which NFS versions are enabled is an SVM setting and varies with its configuration and the ONTAP version. Confirm it with your administrator before fixing <code>vers=</code> in <code>/etc/fstab</code>.</p>
+<p>Which NFS versions are enabled is an SVM setting (<code>vserver nfs show</code>). Confirm it before pinning <code>vers=</code> in <code>/etc/fstab</code>.</p>
 </div>
-<h2 id="space-efficiency">Space efficiency<a class="headerlink" href="#space-efficiency" title="Permanent link">&para;</a></h2>
-<p>ONTAP applies deduplication, compression and compaction at the volume level. On all-flash systems (AFF, ASA) they usually come enabled by default; on FAS with spinning disks it is worth checking.</p>
+<h3 id="smb-cifs-windows-and-mixed-environments">SMB / CIFS (Windows and mixed environments)<a class="headerlink" href="#smb-cifs-windows-and-mixed-environments" title="Permanent link">&para;</a></h3>
+<p>To expose a volume over SMB, create a share on its junction path once the SVM has CIFS configured and domain-joined:</p>
+<div class="highlight"><pre><span></span><code>vserver cifs share create -vserver svm1 -share-name datos -path /vol_datos
+vserver cifs share show -vserver svm1
+</code></pre></div>
+<p>The share controls access by user and group via ACLs; the export policy does not apply to SMB. If the same volume is shared over both NFS and SMB, its security style (<code>unix</code>, <code>ntfs</code> or <code>mixed</code>) determines how permissions map across protocols: choose it at creation time and avoid changing it with data inside.</p>
+<h3 id="iscsi-block-storage-with-multipath">iSCSI (block storage with multipath)<a class="headerlink" href="#iscsi-block-storage-with-multipath" title="Permanent link">&para;</a></h3>
+<p>For latency-sensitive workloads (databases or block VM disks), iSCSI requires creating the container volume, the LUN, the <em>igroup</em> containing host IQNs, and the mapping:</p>
+<div class="highlight"><pre><span></span><code># 1. Container volume (no junction-path: not exported over NAS)
+volume create -vserver svm1 -volume vol_iscsi_db -aggregate aggr1_nodo1 -size 500GB
+
+# 2. Create the LUN inside the volume
+lun create -vserver svm1 -path /vol/vol_iscsi_db/lun_pg -size 400GB -ostype linux -space-reserve disabled
+
+# 3. Register Linux host initiators (check with: cat /etc/iscsi/initiatorname.iscsi)
+lun igroup create -vserver svm1 -igroup ig_proxmox -protocol iscsi -ostype linux -initiator iqn.1993-08.org.debian:01:nodo1,iqn.1993-08.org.debian:01:nodo2
+
+# 4. Map the LUN to the igroup and verify
+lun mapping create -vserver svm1 -path /vol/vol_iscsi_db/lun_pg -igroup ig_proxmox
+lun mapping show -vserver svm1
+</code></pre></div>
+<p>On the Linux hosts, discover the iSCSI LIFs on <strong>both array nodes</strong> (ideally across two separate subnets/VLANs) and confirm <code>multipath</code> shows active-optimized paths (ALUA) to the node owning the volume and active-non-optimized paths to its partner:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>iscsiadm<span class="w"> </span>-m<span class="w"> </span>discovery<span class="w"> </span>-t<span class="w"> </span>sendtargets<span class="w"> </span>-p<span class="w"> </span><span class="m">10</span>.0.20.51
+sudo<span class="w"> </span>iscsiadm<span class="w"> </span>-m<span class="w"> </span>discovery<span class="w"> </span>-t<span class="w"> </span>sendtargets<span class="w"> </span>-p<span class="w"> </span><span class="m">10</span>.0.21.52
+sudo<span class="w"> </span>iscsiadm<span class="w"> </span>-m<span class="w"> </span>node<span class="w"> </span>--login
+sudo<span class="w"> </span>multipath<span class="w"> </span>-ll
+</code></pre></div>
+<h2 id="space-efficiency-qos-and-anti-ransomware">Space efficiency, QoS and anti-ransomware<a class="headerlink" href="#space-efficiency-qos-and-anti-ransomware" title="Permanent link">&para;</a></h2>
+<h3 id="efficiency-and-capacity-control">Efficiency and capacity control<a class="headerlink" href="#efficiency-and-capacity-control" title="Permanent link">&para;</a></h3>
+<p>ONTAP runs deduplication, compression and compaction at the volume level (usually enabled by default on AFF/ASA systems; verify on FAS with <code>volume efficiency show</code>).</p>
 <ul>
-<li><strong>Thin provisioning</strong>: the volume declares a size but only consumes what is written. Watch the free space of the <strong>aggregate</strong>, not just the volume: you can promise more than exists.</li>
-<li><strong><code>volume autosize</code></strong>: lets the volume grow by itself up to a defined maximum. Always use it with a limit, so a runaway client does not eat the aggregate.</li>
-<li><strong>Quotas on qtrees</strong>: if several teams share a volume, one qtree per team with its quota bounds consumption.</li>
-<li><strong>FabricPool</strong>: moves cold blocks to an S3 object store (on-prem or cloud). The volume's policy (<code>auto</code>, <code>snapshot-only</code>...) decides what counts as cold; evaluate the retrieval latency before applying it to data that is read often.</li>
+<li><strong>Thin provisioning:</strong> the volume advertises a size but consumes only written blocks. Always monitor free space on the <strong>aggregate</strong>, not just the volume.</li>
+<li><strong><code>volume autosize</code>:</strong> allows a volume to grow automatically up to a ceiling (<code>-mode grow -maximum-size ...</code>). Always set a maximum so one runaway workload cannot fill the aggregate.</li>
+<li><strong>Quotas on qtrees:</strong> bound consumption when multiple teams share a volume.</li>
+<li><strong>FabricPool:</strong> tiers cold blocks to an S3 object store (on-prem or cloud) according to policy (<code>auto</code>, <code>snapshot-only</code>…). Measure recall latency before enabling it on hot datasets.</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Efficiency is not guaranteed capacity</p>
-<p>Dedupe and compression ratios depend on the data: compressed databases, video or already-encrypted data barely improve. Size with the real data, not the brochure ratio.</p>
+<p>Dedupe and compression ratios depend on the workload: compressed databases, video or already-encrypted data barely shrink. Size for real data, not brochure ratios.</p>
 </div>
+<h3 id="storage-qos-stopping-noisy-neighbors">Storage QoS (stopping noisy neighbors)<a class="headerlink" href="#storage-qos-stopping-noisy-neighbors" title="Permanent link">&para;</a></h3>
+<p>Without QoS, a bulk dump or runaway VM can saturate IOPS on a shared aggregate and slow down everything else. A fixed QoS policy caps a volume's throughput ceiling:</p>
+<div class="highlight"><pre><span></span><code>qos policy-group create -vserver svm1 -policy-group pg_backups -max-throughput 200MB/s
+volume modify -vserver svm1 -volume vol_backups -qos-policy-group pg_backups
+qos policy-group show
+</code></pre></div>
+<p>All-flash systems also support <strong>guaranteed minimums</strong> (<code>-min-throughput</code>) for critical databases and adaptive QoS policies (IOPS/TB).</p>
+<h3 id="anti-ransomware-and-immutable-snapshots">Anti-ransomware and immutable snapshots<a class="headerlink" href="#anti-ransomware-and-immutable-snapshots" title="Permanent link">&para;</a></h3>
+<p>Recent ONTAP 9.x releases add two key defensive layers (subject to licensing and model support):</p>
+<ul>
+<li><strong>Autonomous Ransomware Protection (ARP):</strong> monitors entropy and abnormal write patterns on NAS volumes and automatically takes a snapshot when activity matches mass encryption.</li>
+<li><strong>Snapshot Locking (Tamperproof Snapshots / SnapLock):</strong> prevents snapshots from being deleted during their retention period even with administrator credentials, protecting recovery points if management access is compromised.</li>
+</ul>
 <h2 id="snapshots-and-snapmirror">Snapshots and SnapMirror<a class="headerlink" href="#snapshots-and-snapmirror" title="Permanent link">&para;</a></h2>
-<p>An ONTAP <strong>snapshot</strong> is a point-in-time image of the volume based on pointers, not a data copy: it is created in seconds and only consumes space when the original blocks change. That is why you can have many.</p>
+<p>An ONTAP <strong>snapshot</strong> is a pointer-based point-in-time image (WAFL): it is created in seconds and only consumes space as original blocks change.</p>
 <div class="highlight"><pre><span></span><code>volume snapshot create -vserver svm1 -volume vol_datos -snapshot antes_de_migrar
 volume snapshot show -vserver svm1 -volume vol_datos
 </code></pre></div>
 <ul>
-<li><strong>Snapshot policies</strong>: assigned to the volume, they generate periodic copies (for example hourly, daily and weekly) with a retention for each. This is where you define how much history you get "for free".</li>
-<li><strong>Restoring</strong>: you can recover a specific file from the volume's hidden <code>.snapshot</code> directory or revert the whole volume to a snapshot. Reverting the volume discards everything after it: it is the nuclear option.</li>
-<li><strong>SnapMirror</strong>: replicates a volume to another (in the same cluster or another) by transferring only the blocks changed between snapshots. It is the basis of disaster recovery. There are asynchronous modes, with an RPO equal to the schedule interval, and synchronous modes for near-zero RPO.</li>
-<li><strong>Snapshot labels (<code>snapmirror-label</code>)</strong>: let the relationship replicate or retain only certain snapshots, useful for having different retentions at source and destination.</li>
-<li><strong>SnapVault / long-retention destination</strong>: the destination keeps more history than the source. Schedule an update after critical events, such as a database dump.</li>
+<li><strong>Snapshot policies:</strong> generate scheduled copies (hourly, daily, weekly) with per-volume retention. Watch snapshot reserve (<code>percent-snapshot-space</code>): once snapshots exceed their reserve, they spill into active volume space (<em>snapshot spill</em>).</li>
+<li><strong>Restoring:</strong> recover individual files from the hidden <code>.snapshot</code> directory, or revert the entire volume (<code>volume snapshot restore</code>, which discards everything after that snapshot).</li>
+<li><strong>SnapMirror:</strong> replicates volumes to another cluster by transferring only changed blocks between snapshots. Supports asynchronous replication (RPO equal to the schedule interval) and synchronous modes for near-zero RPO.</li>
+<li><strong>Labels (<code>snapmirror-label</code>) and SnapVault:</strong> keep short retention on the source and long archival retention on the destination.</li>
 </ul>
-<div class="highlight"><pre><span></span><code>snapmirror show               # replication relationships, their state and lag
+<div class="highlight"><pre><span></span><code>snapmirror show                       # state, health and lag of all relationships
 </code></pre></div>
-<p>A relationship is created and initialized between two volumes, with the destination marked as type DP or its equivalent in your version. The exact steps change between versions and between cluster peering and SVM peering, so follow the guide for your version.</p>
 <div class="admonition danger">
 <p class="admonition-title">A snapshot is not a backup</p>
-<p>Snapshots live in the same volume and the same aggregate as the data: if the array is lost, or an administrator deletes the volume, they go with it. SnapMirror to another cluster improves the case a lot, but it is still a copy managed by the same system. Apply the rule from <a href="../../../backups/strategy_321/">3-2-1 Strategy</a> and complement it with an independent copy, for example with <a href="../../../backups/restic_borg/">Restic and Borg</a>.</p>
+<p>Snapshots live in the same volume and aggregate as the data: if the array is lost or the volume is deleted, they go with it. SnapMirror to a second cluster improves resilience dramatically, but still lives on the same storage plane. Follow the <a href="../../../backups/strategy_321/">3-2-1 Strategy</a> and keep an independent off-array copy, for instance with <a href="../../../backups/restic_borg/">Restic and Borg</a>.</p>
 </div>
+<h2 id="automation-rest-api-and-ansible">Automation: REST API and Ansible<a class="headerlink" href="#automation-rest-api-and-ansible" title="Permanent link">&para;</a></h2>
+<p>Since ONTAP 9.6+, the <strong>native REST API</strong> has progressively replaced SSH scraping and ZAPI (ONTAPI), making inventory and provisioning scriptable with standard tools:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># List volumes in an SVM using curl and jq</span>
+curl<span class="w"> </span>-sk<span class="w"> </span>-u<span class="w"> </span>admin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"https://cluster-mgmt.example.local/api/storage/volumes?svm.name=svm1&amp;fields=name,size,space.used,state"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.records[] | {name, state, size, used: .space.used}'</span>
+</code></pre></div>
+<p>For infrastructure as code, NetApp's official <strong><code>netapp.ontap</code></strong> Ansible collection (<code>ansible-galaxy collection install netapp.ontap</code>) drives the REST API idempotently:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ensure NFS volume exists in ONTAP</span>
+<span class="w">  </span><span class="nt">netapp.ontap.na_ontap_volume</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vol_datos</span>
+<span class="w">    </span><span class="nt">vserver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">svm1</span>
+<span class="w">    </span><span class="nt">aggregate_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aggr1_nodo1</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500</span>
+<span class="w">    </span><span class="nt">size_unit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gb</span>
+<span class="w">    </span><span class="nt">junction_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/vol_datos</span>
+<span class="w">    </span><span class="nt">policy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pol_proxmox</span>
+<span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">ontap_host</span><span class="nv"> </span><span class="s">}}"</span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">ontap_user</span><span class="nv"> </span><span class="s">}}"</span>
+<span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">ontap_pass</span><span class="nv"> </span><span class="s">}}"</span>
+<span class="w">    </span><span class="nt">https</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">validate_certs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>This lets you version volumes, export policies, igroups and snapshot policies in Git using the same workflow as the rest of your servers (see <a href="../../../ansible/ansible_base/">Ansible: infrastructure automation</a>).</p>
 <h2 id="proxmox-integration">Proxmox integration<a class="headerlink" href="#proxmox-integration" title="Permanent link">&para;</a></h2>
-<p>Two paths, depending on what matters most:</p>
-<p><strong>NFS</strong> is the simplest: the volume is mounted as shared storage, ideal for disk images, ISOs and backups, and for live migration between nodes without configuring anything else. In Proxmox it is added from the interface or with <code>pvesm</code>:</p>
+<p>Two paths, depending on your trade-off between simplicity and latency:</p>
+<p><strong>NFS</strong> is the most straightforward: mounted as shared storage for VM disks (<code>qcow2</code>/<code>raw</code>), ISOs and backups, with instant live migration across nodes:</p>
 <div class="highlight"><pre><span></span><code>pvesm<span class="w"> </span>add<span class="w"> </span>nfs<span class="w"> </span>netapp-nfs<span class="w"> </span>--server<span class="w"> </span><span class="m">10</span>.0.10.50<span class="w"> </span>--export<span class="w"> </span>/vol_datos<span class="w"> </span>--content<span class="w"> </span>images,iso,backup
 </code></pre></div>
-<p>The IP is an NFS data LIF of the SVM, not the management one. Allow <strong>all</strong> Proxmox nodes in the export policy. Prefer NFSv4.1 when the environment supports it and tune <code>rsize</code>/<code>wsize</code> only after measuring with <code>fio</code>, as explained in <a href="../../protocols/protocols/">Storage protocols</a>. For a data LIF with several network paths, check your Proxmox version's support for NFS multipath and session options before basing the design on them.</p>
-<p><strong>iSCSI</strong> offers block storage and better latency for databases or sensitive VMs. The LUN is published to each node's initiators (igroup), <code>multipath</code> is configured on the hosts and shared LVM or similar is set up on top of the device. It is more work and multipath needs care: two iSCSI LIFs on different networks and active paths on both nodes.</p>
-<p>Rule of thumb: NFS for general datastores, iSCSI for the workloads where you measure latency and can justify it. Platform details are in <a href="../../../proxmox/proxmox_base/">Proxmox base</a>.</p>
-<h2 id="kubernetes-integration">Kubernetes integration<a class="headerlink" href="#kubernetes-integration" title="Permanent link">&para;</a></h2>
-<p>NetApp's CSI provider is called <strong>Trident</strong>. It is installed in the cluster, given a <em>backend</em> (the SVM and its credentials) and <em>StorageClasses</em> are exposed pointing to that backend. The backend type defines the protocol: the <code>ontap-nas</code> drivers for NFS and <code>ontap-san</code> for iSCSI.</p>
+<p>Point to an NFS data LIF (never management), allow <strong>every node</strong> in the Proxmox cluster in the export policy and prefer NFSv4.1 when enabled. Tune <code>rsize</code>/<code>wsize</code> only after measuring with <code>fio</code> (<a href="../../protocols/protocols/">Storage protocols</a>).</p>
+<p><strong>iSCSI</strong> provides block storage and tighter latency for databases or critical VMs. Map the LUN to the Proxmox nodes' <em>igroup</em>, configure <code>multipath</code> across two separate iSCSI LIFs, and create shared LVM on top.</p>
+<p>Rule of thumb: NFS for general datastores, iSCSI where measured latency justifies the extra operational complexity. Platform details are in <a href="../../../proxmox/proxmox_base/">Proxmox base</a>.</p>
+<h2 id="kubernetes-integration-trident">Kubernetes integration (Trident)<a class="headerlink" href="#kubernetes-integration-trident" title="Permanent link">&para;</a></h2>
+<p>NetApp's official CSI driver is <strong>Trident</strong>. Install it in the cluster, configure a backend (<code>TridentBackendConfig</code>) pointing to the SVM and expose <code>StorageClasses</code> by protocol (<code>ontap-nas</code> for NFS, <code>ontap-nas-economy</code> for many small qtree-backed volumes, and <code>ontap-san</code> for iSCSI/FC/NVMe):</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">storage.k8s.io/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">StorageClass</span>
 <span class="nt">metadata</span><span class="p">:</span>
@@ -9667,14 +10012,14 @@ volume snapshot show -vserver svm1 -volume vol_datos
 <span class="nt">allowVolumeExpansion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
 <ul>
-<li><code>WaitForFirstConsumer</code> delays volume creation until a pod exists, so it is created where it will be used.</li>
-<li><code>allowVolumeExpansion: true</code> allows growing the PVC online.</li>
-<li>One StorageClass per service level (for example <code>ontap-nas</code> for shared files and a block one for databases) lets the application team decide without touching the array.</li>
-<li>Kubernetes nodes need access in the export policy (NFS) or the igroup (iSCSI), and the NFS/iSCSI clients installed.</li>
+<li><code>WaitForFirstConsumer</code> delays provisioning until a pod is scheduled.</li>
+<li><code>allowVolumeExpansion: true</code> enables online PVC growth.</li>
+<li>Separating <code>StorageClasses</code> by tier or QoS (e.g. <code>ontap-nas</code> vs <code>ontap-san-db</code>) lets application teams pick performance without touching the array.</li>
+<li>Kubernetes worker nodes need the NFS/iSCSI client packages installed and access granted in the export policy or igroup.</li>
 </ul>
 <div class="admonition warning">
-<p class="admonition-title">Names and parameters depend on the Trident version</p>
-<p>The StorageClass parameters, the backend format and the available drivers change between Trident and ONTAP versions. Check against the documentation for the installed version. The general CSI model and access modes are in <a href="../../kubernetes_csi/">Kubernetes and CSI</a>.</p>
+<p class="admonition-title">Parameters depend on the Trident version</p>
+<p>Drivers, <code>StorageClass</code> parameters and backend CRDs evolve across Trident and ONTAP versions. Always verify against the docs for your installed release. The general CSI model is covered in <a href="../../kubernetes_csi/">Kubernetes and CSI</a>.</p>
 </div>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <table>
@@ -9687,77 +10032,89 @@ volume snapshot show -vserver svm1 -volume vol_datos
 </thead>
 <tbody>
 <tr>
-<td>The NFS client gets <code>access denied</code> when mounting</td>
-<td>The client IP matches no rule in the export policy, or the policy is not assigned to the volume</td>
-<td>Check <code>vserver export-policy rule show</code> and that the volume uses that policy</td>
+<td>NFS client gets <code>access denied</code> on mount</td>
+<td>Client IP matches no export policy rule, or the policy is not assigned to the volume</td>
+<td>Check <code>vserver export-policy rule show</code> and confirm the volume's assigned policy</td>
 </tr>
 <tr>
-<td>The volume exists but cannot be mounted</td>
-<td>It has no junction path, or the SVM does not have NFS enabled</td>
+<td>Volume exists but cannot be mounted</td>
+<td>Missing <em>junction path</em>, or NFS is not enabled on the SVM</td>
 <td>Check <code>volume show</code> and <code>vserver show</code></td>
 </tr>
 <tr>
-<td>It mounts but files belong to <code>nobody</code></td>
-<td>ID domain mismatch in NFSv4 or user mapping mismatch</td>
-<td>Align the ID domain between client and SVM, or use NFSv3 if there is no central identity</td>
+<td>Mounts, but files are owned by <code>nobody</code></td>
+<td>NFSv4 ID domain or user-mapping mismatch</td>
+<td>Align IDmap domain between client and SVM, or use NFSv3 if there is no central directory</td>
 </tr>
 <tr>
-<td>The client cannot reach the IP</td>
-<td>The LIF migrated, is down or is on a different VLAN</td>
-<td><code>network interface show</code>: the LIF's status and current node</td>
+<td>Client cannot reach the IP</td>
+<td>LIF migrated, is down, or sits on a different VLAN</td>
+<td>Check <code>network interface show</code> and <code>network port broadcast-domain show</code></td>
 </tr>
 <tr>
-<td>The volume fills up even though the aggregate has space</td>
-<td><code>autosize</code> disabled or with a low maximum</td>
-<td>Adjust <code>volume autosize</code> or enlarge the volume</td>
+<td>Extra latency on a NAS volume after maintenance</td>
+<td>LIF stayed off its home node and traverses the <em>cluster interconnect</em></td>
+<td>Run <code>network interface show -is-home false</code> and revert with <code>network interface revert *</code></td>
 </tr>
 <tr>
-<td>The aggregate fills up suddenly</td>
-<td>Oversubscribed thin provisioning, or retained snapshots consuming space</td>
-<td>Check <code>storage aggregate show</code> and the snapshot policy</td>
+<td>Volume fills up even though the aggregate has space</td>
+<td><code>autosize</code> disabled, low max size or <em>snapshot spill</em></td>
+<td>Check <code>volume show</code>, <code>volume snapshot show</code> and adjust <code>volume autosize</code></td>
 </tr>
 <tr>
-<td>The SMB share does not authenticate</td>
-<td>The SVM is not joined to the domain or there is clock skew with the domain controller</td>
-<td>Check the SVM's CIFS configuration and synchronize time</td>
+<td>Aggregate fills up suddenly</td>
+<td>Oversubscribed thin provisioning or excessive snapshot retention</td>
+<td>Check <code>storage aggregate show</code>, quotas and snapshot policies</td>
 </tr>
 <tr>
-<td>Irregular performance over iSCSI</td>
-<td>Misconfigured multipath or only one active path</td>
-<td>Verify there are active paths for each LIF and the balancing on the host</td>
+<td>One volume slows down the whole aggregate</td>
+<td>Noisy neighbor without an IOPS/throughput cap</td>
+<td>Check <code>qos policy-group show</code> and assign a QoS ceiling to the noisy volume</td>
 </tr>
 <tr>
-<td>SnapMirror shows growing lag</td>
-<td>Saturated link or a previous transfer that has not finished</td>
-<td><code>snapmirror show</code> and check bandwidth and schedule</td>
+<td>SMB share fails to authenticate</td>
+<td>SVM not joined to the domain or clock skew against the DC</td>
+<td>Check SVM CIFS configuration and synchronize NTP</td>
+</tr>
+<tr>
+<td>Inconsistent iSCSI performance</td>
+<td>Broken multipath or single active path (missing ALUA)</td>
+<td>Verify <code>multipath -ll</code> on the host and both iSCSI LIFs across the HA pair</td>
+</tr>
+<tr>
+<td>SnapMirror lag keeps growing</td>
+<td>Saturated link or previous transfer still running</td>
+<td>Run <code>snapmirror show</code> and review bandwidth, throttle and schedule</td>
 </tr>
 </tbody>
 </table>
 <h2 id="best-practices">Best practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>One SVM per trust domain</strong> (environments, customers, teams): it is the boundary of access and protocols.</li>
-<li><strong>Data LIFs separate from management</strong>, and at least one per node and protocol so failover keeps the service up.</li>
-<li><strong>Minimal export policies</strong>: specific subnets, <code>superuser</code> only for hypervisors, never <code>0.0.0.0/0</code>.</li>
-<li><strong>One volume per datastore or application</strong>, not one giant volume: snapshots, quotas and restores per unit.</li>
-<li><strong><code>autosize</code> with a limit and alerts</strong> on the aggregate's free space.</li>
-<li><strong>Explicit snapshot policies</strong>, with labels to decide what SnapMirror replicates.</li>
-<li><strong>Test the restore</strong>, from <code>.snapshot</code> and from the SnapMirror destination, before you need it.</li>
-<li><strong>An independent copy outside the array</strong>: a snapshot and a replica do not replace a real backup.</li>
-<li><strong>Document the ONTAP and Trident versions</strong> in use; the commands and parameters on this page may differ in others.</li>
+<li><strong>One SVM per trust domain</strong> (environments, teams or tenants): isolates protocols, networks and administration.</li>
+<li><strong>Keep data LIFs separate from management</strong>, with at least one LIF per node and protocol; check <code>is-home false</code> after every maintenance window.</li>
+<li><strong>Check <code>storage failover show</code> before touching a node:</strong> never perform disruptive work while the HA pair is degraded.</li>
+<li><strong>Minimal export policies:</strong> specific subnets, <code>-superuser sys</code> only for hypervisors, never <code>0.0.0.0/0</code>.</li>
+<li><strong>One volume per datastore or application</strong>, not one monolithic volume: enables granular snapshots, QoS and restores.</li>
+<li><strong>Use QoS and bounded <code>autosize</code></strong> to protect aggregates from noisy neighbors and runaway growth.</li>
+<li><strong>Explicit snapshot policies and regular restore drills</strong> (both from <code>.snapshot</code> and from the SnapMirror destination).</li>
+<li><strong>Automate day-to-day changes with REST API or <code>netapp.ontap</code></strong> to prevent manual drift across clusters.</li>
+<li><strong>Keep an independent off-array copy:</strong> snapshots and SnapMirror do not replace a real 3-2-1 backup.</li>
 </ul>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://docs.netapp.com/us-en/ontap/">NetApp ONTAP documentation</a></li>
-<li><a href="https://docs.netapp.com/us-en/trident/">Trident documentation</a></li>
+<li><a href="https://docs.netapp.com/us-en/ontap/">Official NetApp ONTAP documentation</a></li>
+<li><a href="https://docs.netapp.com/us-en/ontap-cli/">ONTAP CLI reference</a></li>
+<li><a href="https://docs.netapp.com/us-en/ontap-automation/">ONTAP REST API</a></li>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/netapp/ontap/index.html">Ansible <code>netapp.ontap</code> collection</a></li>
+<li><a href="https://docs.netapp.com/us-en/trident/">NetApp Trident documentation</a></li>
+<li><a href="../snapmirror_dr/">SnapMirror, SnapVault and Disaster Recovery</a> · <a href="../automation_monitoring/">Automation and metrics with Harvest</a></li>
 <li><a href="../../protocols/protocols/">Storage protocols</a> · <a href="../../kubernetes_csi/">Kubernetes and CSI</a></li>
 <li><a href="../../pure_storage/pure_storage_base/">Pure Storage</a> · <a href="../../ceph/ceph_base/">Ceph</a></li>
 <li><a href="../../../backups/strategy_321/">3-2-1 Strategy</a> · <a href="../../../backups/restic_borg/">Restic and Borg</a></li>
 <li><a href="../../../proxmox/proxmox_base/">Proxmox base</a></li>
-<li><a href="https://docs.netapp.com/us-en/ontap-cli/volume-create.html">ONTAP: volume create</a></li>
-<li><a href="https://docs.netapp.com/us-en/ontap-cli/vserver-export-policy-rule-create.html">ONTAP: vserver export-policy rule create</a></li>
-<li><a href="https://docs.netapp.com/us-en/ontap-cli/vserver-cifs-share-create.html">ONTAP: vserver cifs share create</a></li>
-<li><a href="https://docs.netapp.com/us-en/trident/trident-use/ontap-nas.html">Trident: backend ontap-nas</a></li>
-<li><a href="https://docs.netapp.com/us-en/trident/trident-use/create-stor-class.html">Trident: creating a StorageClass</a></li>
+<li><a href="https://docs.netapp.com/us-en/ontap-cli/volume-create.html">ONTAP: <code>volume create</code></a> · <a href="https://docs.netapp.com/us-en/ontap-cli/lun-create.html"><code>lun create</code></a> · <a href="https://docs.netapp.com/us-en/ontap-cli/qos-policy-group-create.html"><code>qos policy-group create</code></a></li>
+<li><a href="https://docs.netapp.com/us-en/ontap-cli/vserver-export-policy-rule-create.html">ONTAP: <code>vserver export-policy rule create</code></a> · <a href="https://docs.netapp.com/us-en/ontap-cli/vserver-cifs-share-create.html"><code>vserver cifs share create</code></a></li>
+<li><a href="https://docs.netapp.com/us-en/trident/trident-use/ontap-nas.html">Trident: <code>ontap-nas</code> backend</a> · <a href="https://docs.netapp.com/us-en/trident/trident-use/create-stor-class.html">creating a StorageClass</a></li>
 </ul>
 
 
