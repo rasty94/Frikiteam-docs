@@ -26,6 +26,7 @@ def test_blanco_tras_admonicion():
 def test_admonicion_sin_titulo_y_con_titulo_vacio():
     assert 'admonition-title">Tip<' in body('!!! tip\n    x\n')
     assert 'admonition-title' not in body('!!! tip ""\n    x\n')
+    assert 'admonition-title">Antes de tocar <code>sshd_config</code></p>' in body('!!! warning "Antes de tocar `sshd_config`"\n    x\n')
 
 
 def test_codigo_no_se_toca():
@@ -89,6 +90,8 @@ def test_titulos_sin_emoji_y_sin_indice_a_mano():
     out = body('## 📋 Tabla de Contenidos\n\n- [Uso](#uso)\n\n## 🎯 Uso\n\nTexto\n\n### ⚠️ Ojo\n')
     assert 'Tabla' not in out and '- [Uso]' not in out
     assert '<h2 id="uso">Uso</h2>' in out and '<h3 id="ojo">Ojo</h3>' in out
+    en = convert_body('## Table of Contents\n\n- [Use](#use)\n\n## Use\n\n```mermaid\ngraph LR\n```\n', 'T', lambda code: '/d.png', lang='en')
+    assert 'Table' not in en and '![Diagram: Use](/d.png)' in en
 
 
 if __name__ == '__main__':

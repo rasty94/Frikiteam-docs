@@ -78,8 +78,8 @@ def _heading(level, text, ids):
 
 def _alt(state):
     """Texto alternativo de un diagrama: la sección en la que está, que es lo que lo describe."""
-    h = state.get('heading') or ''
-    return h if h.lower().startswith('diagrama') else f'Diagrama: {h}' if h else 'Diagrama'
+    h, word = state.get('heading') or '', 'Diagram' if state.get('lang') == 'en' else 'Diagrama'
+    return h if h.lower().startswith(word.lower()) else f'{word}: {h}' if h else word
 
 
 _IMG = re.compile(r'!\[([^\]]*)\]\(([^)\s]+)\)(\{[^}]*\})?')
@@ -129,12 +129,12 @@ def _blocks(lines, ids, diagram, image, state):
             title = kind.capitalize() if adm.group(2) is None else adm.group(2)
             out += [f'<div class="admonition {kind}">']
             if title:
-                out += [f'<p class="admonition-title">{html.escape(title, quote=False)}</p>']
+                out += [f'<p class="admonition-title">{re.sub(r"`([^`]+)`", r"<code>\1</code>", html.escape(title, quote=False))}</p>']  # dentro de HTML, `x` no es código
             out += ['', *_blocks([b[4:] if b.startswith('    ') else '' for b in body], ids, diagram, image, state), '', '</div>', '']  # sin esa línea en blanco, el <div> se traga lo que sigue
             i = j
             continue
         head = _HEAD.match(line)
-        if head and re.fullmatch(r'tabla de contenidos?', _EMOJI.sub('', head.group(2)).strip(), re.I):
+        if head and re.fullmatch(r'tabla de contenidos?|table of contents', _EMOJI.sub('', head.group(2)).strip(), re.I):
             # El índice a mano del documento: el blog ya pinta el suyo («En este artículo») y saldrían dos.
             i += 1
             while i < n and not _HEAD.match(lines[i]):
@@ -150,10 +150,10 @@ def _blocks(lines, ids, diagram, image, state):
     return out
 
 
-def convert_body(text, title, diagram=lambda code: None, image=lambda src: src):
+def convert_body(text, title, diagram=lambda code: None, image=lambda src: src, lang='es'):
     text = _RAW.sub('', _RAW_LINE.sub('', text))
     text = re.sub(r'\A\s*# .+\n+', '', text)  # el título de la página: la plantilla de Astro pinta el suyo
-    body = '\n'.join(_blocks(text.split('\n'), set(), diagram, image, {'heading': title}))
+    body = '\n'.join(_blocks(text.split('\n'), set(), diagram, image, {'heading': title, 'lang': lang}))
     return re.sub(r'\n{3,}', '\n\n', body).strip('\n') + '\n'
 
 
@@ -247,6 +247,8 @@ class Images:
         if re.match(r'(https?:|data:|/)', src):
             return src
         path = (self.base / src.split('#')[0]).resolve()
+        if not path.is_file():  # las páginas EN usan las imágenes de su gemela ES (MkDocs hace lo mismo)
+            path = Path(str(path).replace(f'{DOCS_ROOT}/docs/en/', f'{DOCS_ROOT}/docs/', 1))
         if not path.is_file():
             print(f'  Aviso: imagen no encontrada en {self.slug}: {src}', file=sys.stderr)
             return src
@@ -273,9 +275,9 @@ def candidates():
         yield rel, meta, body
 
 
-def load_posts(astro):
+def load_posts(astro, folder='posts'):
     posts = {}
-    for p in sorted((astro / 'src' / 'content' / 'posts').glob('*.md')):
+    for p in sorted((astro / 'src' / 'content' / folder).glob('*.md')):
         meta, _ = split_frontmatter(p.read_text(encoding='utf-8'))
         posts[p.stem] = dict(meta, _file=p, date=_iso(meta.get('date')), updated=_iso(meta.get('updated')))
     return posts
@@ -305,6 +307,37 @@ def adopt(astro):
             f.write_text(f.read_text(encoding='utf-8').replace('\nwpId:', f'\nsource: {json.dumps(src)}\nwpId:', 1), encoding='utf-8')
             n += 1
     print(f'{n} artículos con `source` añadido')
+
+
+def english(astro, es):
+    """La gemela EN de cada artículo ES: misma serie y misma fecha que la ES (sale el mismo día), y su propia URL,
+    sacada de su título la primera vez y fija después (el emparejamiento es por `source`, no por el slug)."""
+    posts = load_posts(astro, 'posts-en')
+    by_source = {m['source']: s for s, m in posts.items()}
+    cats = {c['slug']: c['en']['name'] for c in json.loads((astro / 'src/data/categories.json').read_text())}
+    taken, out, seen = set(posts), [], set()
+    for _, m, *_ in es:
+        rel = 'docs/en/' + m['source'].removeprefix('docs/')
+        path = DOCS_ROOT / rel
+        if not path.exists():
+            continue
+        meta, body = split_frontmatter(path.read_text(encoding='utf-8'))
+        if meta.get('draft') or not meta.get('title'):
+            continue
+        seen.add(rel)
+        slug = by_source.get(rel)
+        if not slug:
+            slug = base = wp_slug(meta['title'])
+            k = 2
+            while slug in taken:
+                slug, k = f'{base}-{k}', k + 1
+            taken.add(slug)
+        image = m.get('image') or ''
+        alt = f'{cats.get(m["category"], m["category"])} series — Frikiteam' if 'frikiteam-serie-' in image else meta['title'] if image else ''
+        out.append((slug, dict(title=meta['title'], source=rel, date=m['date'], updated=_iso(meta.get('updated')) or m['updated'],
+                               category=m['category'], description=meta.get('description'), tags=meta.get('tags') or m.get('tags') or [],
+                               image=image, imageAlt=alt), body))
+    return out, [s for s, m in posts.items() if m['source'] not in seen]
 
 
 def main():
@@ -362,13 +395,22 @@ def main():
         print(f'  SIN SERIE {rel} (category: {cat}) → usa --serie {rel}=<serie>')
     for s in gone:
         print(f'  FUENTE DESAPARECIDA {s} ← {posts[s]["source"]}')
+    en, en_gone = english(a.astro, upd + new)
+    print(f'inglés: {len(en)} gemelos · sin gemela EN {len(upd) + len(new) - len(en)} · EN cuya fuente ya no está {len(en_gone)}')
+    for s in en_gone:
+        print(f'  EN HUÉRFANO posts-en/{s}.md')
     if not (a.write or a.out):
         return
     outdir.mkdir(parents=True, exist_ok=True)
     for slug, m, b, *_ in upd + new:
         body = convert_body(b, m['title'], diagrams, Images(a.astro, slug, m['source']))
         (outdir / f'{slug}.md').write_text(render_post(m, body), encoding='utf-8')
-    print(f'escritos {len(upd) + len(new)} artículos en {outdir}; diagramas sin imagen: {len(diagrams.missing)}')
+    en_dir = a.out / 'en' if a.out else a.astro / 'src' / 'content' / 'posts-en'
+    en_dir.mkdir(parents=True, exist_ok=True)
+    for slug, m, b in en:
+        body = convert_body(b, m['title'], diagrams, Images(a.astro, slug, m['source']), lang='en')
+        (en_dir / f'{slug}.md').write_text(render_post(m, body), encoding='utf-8')
+    print(f'escritos {len(upd) + len(new)} artículos ES y {len(en)} EN; diagramas sin imagen: {len(diagrams.missing)}')
 
 
 if __name__ == '__main__':

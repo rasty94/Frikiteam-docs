@@ -32,6 +32,7 @@ están en el README de `frikiteam-astro`. Lo que importa al escribir aquí:
 
 - Cada página con título es un artículo, salvo `index.md`, `draft: true`, las seis de navegación de `NO_ARTICULO` y las de `EXCLUIR` (el script).
 - El `# Título` inicial se descarta: la plantilla del blog pinta el suyo.
+- La gemela `docs/en/` se publica también, en `/en/`, el mismo día que la española. Lo que se escriba en EN acaba en el blog: nada de avisos «TRANSLATION PENDING» en páginas ya traducidas.
 - Del Markdown solo se convierten las admoniciones `!!!`, mermaid y `{% raw %}`; `???`, pestañas `===`, emojis `:x:`, `==marca==`, notas al pie o
   `{ .clase }` **no se soportan** (hoy no se usan). Si los necesitas, amplía el script y su test antes.
 - Un `:` sin comillas en el título deja el frontmatter ilegible: el script salta la página y lo avisa.
