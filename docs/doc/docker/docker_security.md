@@ -41,7 +41,7 @@ Un contenedor no es una máquina virtual. Es un proceso del host con namespaces,
 - [Red: dónde publicas los puertos](#red-donde-publicas-los-puertos)
 - [Troubleshooting](#troubleshooting)
 - [Checklist](#checklist)
-- [Enlaces relacionados](#enlaces-relacionados)
+- [Referencias](#referencias)
 
 ## El daemon es root equivalente
 

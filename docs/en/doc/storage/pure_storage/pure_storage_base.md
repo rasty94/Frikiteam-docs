@@ -32,7 +32,7 @@ A FlashArray performs well when you treat it as **a small set of declarative obj
 
 - [Product line and tiers](#product-line-and-tiers)
 - [Object model](#object-model)
-- [Provisioning from the CLI](#provisioning-from-the-cli)
+- [Provisioning with Ansible](#provisioning-with-ansible)
 - [Connecting hosts: iSCSI, multipath and NFS](#connecting-hosts-iscsi-multipath-and-nfs)
 - [Data reduction and thin provisioning](#data-reduction-and-thin-provisioning)
 - [Snapshots, clones and protection groups](#snapshots-clones-and-protection-groups)

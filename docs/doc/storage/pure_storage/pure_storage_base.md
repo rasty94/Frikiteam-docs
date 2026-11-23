@@ -32,7 +32,7 @@ Un FlashArray rinde bien cuando lo tratas como **un pequeño conjunto de objetos
 
 - [Línea de producto y tiers](#linea-de-producto-y-tiers)
 - [Modelo de objetos](#modelo-de-objetos)
-- [Provisioning por CLI](#provisioning-por-cli)
+- [Provisioning con Ansible](#provisioning-con-ansible)
 - [Conectar hosts: iSCSI, multipath y NFS](#conectar-hosts-iscsi-multipath-y-nfs)
 - [Reducción de datos y thin provisioning](#reduccion-de-datos-y-thin-provisioning)
 - [Snapshots, clones y protection groups](#snapshots-clones-y-protection-groups)

@@ -41,7 +41,7 @@ A container is not a virtual machine. It is a host process with namespaces, cgro
 - [Network: where you publish ports](#network-where-you-publish-ports)
 - [Troubleshooting](#troubleshooting)
 - [Checklist](#checklist)
-- [Related links](#related-links)
+- [References](#references)
 
 ## The daemon is root-equivalent
 
