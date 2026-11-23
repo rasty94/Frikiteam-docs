@@ -18,6 +18,12 @@ Mi idea es proporcionar documentación práctica, clara y útil sobre las tecnol
 
 ### 📅 **23 de noviembre de 2026**
 
+#### 💾 **NetApp ONTAP a fondo: guía base ampliada, SnapMirror/DR y automatización con Harvest (ES/EN)**
+
+- **NetApp ONTAP (base ampliada)**: [NetApp ONTAP — Guía base](doc/storage/netapp/netapp_base.md) — diagrama de arquitectura, red y failover (`ifgrp`, VLANs, Broadcast Domains, `is-home false`), iSCSI paso a paso con multipath ALUA, QoS y protección antiransomware.
+- **SnapMirror y DR**: [NetApp ONTAP: SnapMirror, SnapVault y recuperación ante desastres](doc/storage/netapp/snapmirror_dr.md) — cluster/SVM peering, políticas `XDP` (`MirrorAllSnapshots` frente a `MirrorAndVault`), failover (`break`), vuelta atrás segura con `resync` inverso y diagnóstico de *lag*.
+- **Automatización y métricas**: [NetApp ONTAP automatizado: REST API, Ansible y métricas con Harvest](doc/storage/netapp/automation_monitoring.md) — consultas a la REST API nativa, playbooks idempotentes con `netapp.ontap` y métricas en Prometheus/Grafana con NetApp Harvest.
+
 #### 📡 **Monitorización clásica: Zabbix y Nagios (ES/EN)**
 
 - **Zabbix**: [Zabbix 8.0 LTS: monitorización de servidores y red](doc/monitoring/zabbix.md) — instalación en Debian 13 con PostgreSQL y Nginx desde el repositorio oficial, agente 2 en modo activo y con PSK, plantillas y macros, descubrimiento, alertas que no se ignoran, proxies y cómo evitar que la base de datos se coma el disco.

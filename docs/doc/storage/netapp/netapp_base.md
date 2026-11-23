@@ -367,6 +367,7 @@ allowVolumeExpansion: true
 - [ONTAP REST API](https://docs.netapp.com/us-en/ontap-automation/)
 - [Colección Ansible `netapp.ontap`](https://docs.ansible.com/ansible/latest/collections/netapp/ontap/index.html)
 - [Documentación de NetApp Trident](https://docs.netapp.com/us-en/trident/)
+- [SnapMirror, SnapVault y recuperación ante desastres](snapmirror_dr.md) · [Automatización y métricas con Harvest](automation_monitoring.md)
 - [Protocolos de almacenamiento](../protocols/protocols.md) · [Kubernetes y CSI](../kubernetes_csi.md)
 - [Pure Storage](../pure_storage/pure_storage_base.md) · [Ceph](../ceph/ceph_base.md)
 - [Estrategia 3-2-1](../../backups/strategy_321.md) · [Restic y Borg](../../backups/restic_borg.md)
