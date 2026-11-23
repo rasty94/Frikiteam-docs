@@ -17,7 +17,7 @@ contributors: ["@rasty94"]
 
 # ASN & BGP
 
-Los Sistemas Autónomos (AS) y el Protocolo de Gateway Fronterizo (BGP) son fundamentales para el enrutamiento interdominio en Internet. Este documento explica cómo funciona el enrutamiento global de Internet.
+Cuando sales de una red interna con rutas estáticas y conectas dos operadores, un centro de datos propio o un clúster Kubernetes con MetalLB en modo BGP, necesitas entender cómo deciden los routers por qué camino enviar cada paquete. Aquí repasamos qué son los Sistemas Autónomos (AS), cómo funciona BGP y qué vigilar en políticas, seguridad y diagnóstico.
 
 ## Conceptos Básicos
 

@@ -1,5 +1,6 @@
 ---
 title: "Dex IdP (OIDC Federado)"
+description: "Despliegue y configuración de Dex como proveedor OIDC federado para unificar el inicio de sesión en Kubernetes y herramientas internas."
 tags: ['identity', 'cybersecurity']
 updated: 2026-10-11
 difficulty: intermediate

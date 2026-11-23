@@ -1,5 +1,6 @@
 ---
 title: "Firewall y Seguridad de Red"
+description: "Configuración de firewalls en Linux (UFW, iptables, nftables) y detección de intrusiones con Suricata y Zeek en servidores y contenedores."
 tags: ['cybersecurity', 'firewall', 'networking', 'siem']
 updated: 2026-01-23
 difficulty: intermediate

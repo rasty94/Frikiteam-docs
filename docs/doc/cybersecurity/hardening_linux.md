@@ -1,5 +1,6 @@
 ---
 title: "Hardening de Servidores Linux"
+description: "Guía práctica de hardening en servidores Linux: SSH, usuarios, kernel sysctl, servicios mínimos y auditoría continua."
 updated: 2026-10-11
 tags: ['cybersecurity', 'linux', 'hardening', 'firewall']
 difficulty: intermediate

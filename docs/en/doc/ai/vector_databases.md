@@ -1,5 +1,6 @@
 ---
 title: "Vector Databases for AI"
+description: "Practical guide to vector databases for AI: embeddings, HNSW/IVF indexing and comparing Qdrant, Chroma and pgvector."
 updated: 2026-10-11
 last_reviewed: 2026-10-11
 tags: ['ai', 'vector-db']

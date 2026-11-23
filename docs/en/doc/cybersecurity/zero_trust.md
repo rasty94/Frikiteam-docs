@@ -1,5 +1,6 @@
 ---
 title: "Zero Trust in Practice"
+description: "Applying Zero Trust to real infrastructure: strong identity, mTLS, micro-segmentation and per-request verification."
 updated: 2026-10-11
 tags: ['cybersecurity', 'zero-trust', 'encryption', 'identity', 'devsecops', 'kubernetes']
 difficulty: intermediate

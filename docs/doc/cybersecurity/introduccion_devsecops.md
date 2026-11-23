@@ -1,5 +1,6 @@
 ---
 title: "Introducción a Ciberseguridad en DevOps"
+description: "Fundamentos de DevSecOps: cómo integrar la seguridad en cada fase del ciclo de vida sin frenar los despliegues."
 tags: ['cybersecurity', 'devsecops', 'devops']
 updated: 2026-10-11
 difficulty: intermediate

@@ -16,7 +16,7 @@ contributors: ["@rasty94"]
 
 # Protocolos y Métricas de Almacenamiento
 
-Este documento recoge una visión práctica sobre protocolos de almacenamiento comunes y las métricas que debes medir para dimensionar y operar sistemas de almacenamiento:
+Elegir almacenamiento mirando solo los gigabytes libres acaba mal en cuanto una base de datos dispara la latencia de escritura o un backup satura el enlace. Antes de decidir entre iSCSI, NFS, SMB, RBD o S3 conviene entender qué protocolo encaja con cada carga y qué métricas —IOPS, latencia y throughput— importan de verdad al dimensionar y operar discos.
 
 ## Protocolos comunes
 

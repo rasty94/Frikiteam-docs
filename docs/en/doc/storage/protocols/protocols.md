@@ -16,7 +16,7 @@ contributors: ["@rasty94"]
 
 # Storage Protocols and Metrics
 
-This document gathers a practical overview of common storage protocols and the metrics you should measure to size and operate storage systems:
+Picking storage by looking only at raw terabytes goes sideways as soon as a database hits write latency or a backup saturates the link. Before choosing between iSCSI, NFS, SMB, RBD or S3, it helps to know which protocol fits each workload and which metrics — IOPS, latency and throughput — actually matter when sizing and operating storage.
 
 ## Common protocols
 

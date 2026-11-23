@@ -1,5 +1,6 @@
 ---
 title: "RAG - Retrieval-Augmented Generation"
+description: "How RAG (Retrieval-Augmented Generation) works: embeddings, vector search, chunking and practical integration with local LLMs."
 updated: 2026-10-11
 last_reviewed: 2026-10-11
 tags: ['ai', 'rag', 'llm', 'vector-db']
@@ -15,9 +16,9 @@ prerequisites:
 
 # RAG: Retrieval-Augmented Generation
 
-## Introduction
+## The problem
 
-**RAG (Retrieval-Augmented Generation)** is a technique that combines large language models (LLMs) with information retrieval systems to improve the accuracy and relevance of generated responses. Instead of relying solely on the model's pre-trained knowledge, RAG allows the LLM to access updated external information.
+A local LLM handles general knowledge well, yet knows nothing about your internal runbooks, yesterday's incidents or company docs — and fine-tuning it every week is impractical. **RAG (Retrieval-Augmented Generation)** closes that gap by retrieving the relevant passages from your own knowledge base first and injecting them as context before generating an answer.
 
 ## RAG Architecture
 

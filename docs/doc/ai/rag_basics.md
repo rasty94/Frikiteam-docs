@@ -1,5 +1,6 @@
 ---
 title: "RAG - Retrieval-Augmented Generation"
+description: "Cómo funciona RAG (Retrieval-Augmented Generation): embeddings, búsqueda vectorial, chunking e integración práctica con LLMs locales."
 updated: 2026-10-11
 tags: ['ai', 'rag', 'llm', 'vector-db']
 difficulty: intermediate
@@ -16,9 +17,9 @@ contributors: ["@rasty94"]
 
 # RAG: Retrieval-Augmented Generation
 
-## Introducción
+## El problema
 
-**RAG (Retrieval-Augmented Generation)** es una técnica que combina modelos de lenguaje grandes (LLMs) con sistemas de recuperación de información para mejorar la precisión y relevancia de las respuestas generadas. En lugar de depender únicamente del conocimiento preentrenado del modelo, RAG permite al LLM acceder a información externa actualizada.
+Un LLM local responde bien sobre conocimiento general, pero no sabe nada de tus runbooks internos, tus incidencias de ayer ni la documentación propia de tu empresa —y reentrenarlo cada semana no es viable. **RAG (Retrieval-Augmented Generation)** resuelve ese hueco buscando primero los fragmentos relevantes en tu base documental e inyectándolos como contexto antes de generar la respuesta.
 
 ## Arquitectura de RAG
 

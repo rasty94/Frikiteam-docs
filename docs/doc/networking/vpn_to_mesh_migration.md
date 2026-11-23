@@ -12,7 +12,7 @@ updated: 2026-10-11
 
 # Migración de VPN Tradicionales a Mesh Networking
 
-Esta guía proporciona una estrategia completa para migrar desde VPN tradicionales (OpenVPN, IPsec) hacia soluciones modernas de mesh networking como WireGuard y ZeroTier. Incluye análisis de compatibilidad, planes de migración y mejores prácticas para minimizar downtime.
+Cuando una VPN clásica con OpenVPN o IPsec empieza a hacer cuello de botella en un único concentrador, cada alta de usuario exige regenerar certificados y cualquier cambio de subred rompe rutas en media empresa, toca dar el salto a una malla. El reto real no es instalar WireGuard o ZeroTier, sino migrar en caliente sin cortar el acceso a producción. Aquí tienes el plan por fases.
 
 ## 🎯 Por qué Migrar a Mesh Networking
 

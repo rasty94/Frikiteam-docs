@@ -15,7 +15,7 @@ prerequisites:
 
 # pfSense (virtual router/firewall)
 
-pfSense is a mature and stable platform, especially useful for teams that value predictable operations.
+When you need to segment VLANs, manage NAT and run VPNs inside a virtualized environment without buying a hardware appliance or fighting the CLI on every rule change, pfSense remains a solid choice for maturity and predictable operations.
 
 ## When to choose pfSense
 

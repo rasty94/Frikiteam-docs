@@ -1,5 +1,6 @@
 ---
 title: "Trivy Operator: Continuous Scanning in Kubernetes"
+description: "Continuous Kubernetes security scanning with Trivy Operator: automated vulnerability, RBAC and misconfiguration reports."
 updated: 2026-10-11
 tags: ['cybersecurity', 'kubernetes', 'vulnerability-scanning', 'devsecops', 'monitoring']
 difficulty: intermediate

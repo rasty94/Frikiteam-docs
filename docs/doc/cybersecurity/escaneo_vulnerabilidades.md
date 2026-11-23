@@ -1,5 +1,6 @@
 ---
 title: "Escaneo de Vulnerabilidades"
+description: "Escaneo de vulnerabilidades en imágenes Docker, contenedores y dependencias con Trivy, Clair y Snyk integrados en CI/CD."
 tags: ['cybersecurity', 'vulnerability-scanning']
 updated: 2026-01-24
 difficulty: intermediate

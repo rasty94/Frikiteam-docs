@@ -15,7 +15,7 @@ prerequisites:
 
 # ASN & BGP
 
-Autonomous Systems (AS) and the Border Gateway Protocol (BGP) are the backbone of interdomain routing on the Internet. This guide explains how global Internet routing works, how ASNs are assigned, and how to configure and secure BGP.
+Once you move past static routes inside a single LAN — peering with two ISPs, running your own data center or exposing Kubernetes services via MetalLB in BGP mode — you need to understand how routers decide where to send traffic. Here we cover Autonomous Systems (AS), how BGP works, and what to watch for in routing policies, security and troubleshooting.
 
 ## Key Concepts
 

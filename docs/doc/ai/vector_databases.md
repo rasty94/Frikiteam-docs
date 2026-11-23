@@ -1,5 +1,6 @@
 ---
 title: "Vector Databases para IA"
+description: "Introducción práctica a las bases de datos vectoriales para IA: embeddings, índices HNSW/IVF y comparativa de Qdrant, Chroma y pgvector."
 updated: 2026-10-11
 tags: ['ai', 'vector-db']
 difficulty: beginner

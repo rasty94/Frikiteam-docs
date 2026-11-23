@@ -1,5 +1,6 @@
 ---
 title: "Firewall and Network Security"
+description: "Configuring Linux firewalls (UFW, iptables, nftables) and intrusion detection with Suricata and Zeek on servers and containers."
 tags: ['cybersecurity', 'firewall', 'networking', 'siem']
 
 updated: 2026-01-23

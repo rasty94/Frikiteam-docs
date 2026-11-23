@@ -1,5 +1,6 @@
 ---
 title: "Local Model Ecosystem"
+description: "Comparison of frameworks for running local LLMs: Ollama, LM Studio, llama.cpp and vLLM by performance and use case."
 updated: 2026-10-11
 last_reviewed: 2026-10-11
 tags: ['ai', 'llm', 'ollama', 'vllm']

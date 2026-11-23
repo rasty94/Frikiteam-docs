@@ -1,5 +1,6 @@
 ---
 title: "Monitoreo de Seguridad"
+description: "Monitorización de seguridad en tiempo de ejecución con Falco en Kubernetes y Wazuh como SIEM, con reglas y alertas prácticas."
 tags: ['cybersecurity', 'monitoring', 'siem']
 updated: 2026-10-11
 difficulty: intermediate
@@ -14,9 +15,9 @@ reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
 
-## Resumen
+## El problema
 
-Esta guía explica cómo implementar monitoreo de seguridad en entornos DevOps, enfocándose en Falco para detección de anomalías en Kubernetes y Wazuh para SIEM básico. Incluye configuración, reglas y integración con alertas.
+Los logs de aplicación te dicen cuándo devuelve un 500 un servicio, pero rara vez te avisan si alguien abre una shell dentro de un contenedor, modifica `/etc/passwd` o lee secretos inesperados en caliente. Para ver eso necesitas monitorización de seguridad en tiempo de ejecución: aquí vemos cómo combinar Falco en Kubernetes con Wazuh como SIEM para detectar anomalías y alertar a tiempo.
 
 ## Prerrequisitos
 

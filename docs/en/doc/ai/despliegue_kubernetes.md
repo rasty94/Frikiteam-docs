@@ -1,5 +1,6 @@
 ---
 title: "Deploying LLMs at Scale with Kubernetes"
+description: "How to deploy and scale LLMs in production on Kubernetes using vLLM, GPUs, autoscaling and latency optimization."
 tags: ['ai', 'kubernetes', 'vllm', 'helm', 'high-availability', 'best-practices']
 difficulty: advanced
 time: 45 minutes

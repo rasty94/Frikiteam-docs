@@ -1,5 +1,6 @@
 ---
 title: "Ecosistema de Modelos Locales"
+description: "Comparativa de frameworks para ejecutar LLMs en local: Ollama, LM Studio, llama.cpp y vLLM según rendimiento y caso de uso."
 updated: 2026-10-11
 tags: ['ai', 'llm', 'ollama', 'vllm']
 difficulty: intermediate

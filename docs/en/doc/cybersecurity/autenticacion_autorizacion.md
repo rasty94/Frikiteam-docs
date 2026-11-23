@@ -1,5 +1,6 @@
 ---
 title: "Authentication and Authorization"
+description: "Authentication and authorization in modern infrastructure: OAuth2, OIDC, JWT, RBAC and solid access control."
 tags: ['cybersecurity', 'identity']
 
 updated: 2026-01-23

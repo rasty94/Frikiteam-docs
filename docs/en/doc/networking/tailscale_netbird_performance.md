@@ -14,7 +14,7 @@ estimated_time: 10 min
 
 # Performance Benchmarks: Tailscale vs NetBird
 
-This guide provides a detailed technical comparison between **Tailscale** and **NetBird**, focusing on critical performance metrics for production environments. It includes real benchmarks, resource usage analysis, and recommendations based on specific use cases.
+On paper, both Tailscale and NetBird run on WireGuard underneath, so it is tempting to assume they perform identically. In practice, NAT traversal, relays (DERP vs TURN), CPU overhead and stability under sustained load create real differences. Here we measure both on latency, throughput and resource usage.
 
 ## 🎯 Comparison Objectives
 

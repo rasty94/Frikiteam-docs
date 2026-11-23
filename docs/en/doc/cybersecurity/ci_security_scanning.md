@@ -1,5 +1,6 @@
 ---
 title: "CI Security Scanning: SAST, DAST and Containers"
+description: "How to integrate SAST, DAST and container scanning into CI/CD pipelines to catch vulnerabilities before deployment."
 updated: 2026-10-11
 tags: ['cybersecurity', 'ci-cd', 'devsecops', 'containers', 'vulnerability-scanning']
 difficulty: intermediate

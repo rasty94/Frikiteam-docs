@@ -1,5 +1,6 @@
 ---
 title: "Despliegue de LLMs a Escala con Kubernetes"
+description: "Cómo desplegar y escalar LLMs en producción sobre Kubernetes con vLLM, GPUs, autoscaling y optimización de latencia."
 tags: ['ai', 'kubernetes', 'vllm', 'helm', 'high-availability', 'best-practices']
 status: published
 difficulty: advanced

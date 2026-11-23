@@ -1,5 +1,6 @@
 ---
 title: "Dex IdP (Federated OIDC)"
+description: "Deploying and configuring Dex as a federated OIDC provider to unify login across Kubernetes and internal tools."
 tags: ['identity', 'cybersecurity']
 updated: 2026-10-11
 last_reviewed: 2026-10-11

@@ -15,7 +15,7 @@ reviewers: ["@rasty94"]
 contributors: ["@rasty94"]
 ---
 
-pfSense es una plataforma madura y estable, especialmente útil para entornos que valoran predictibilidad operativa.
+Cuando necesitas segmentar VLANs, gestionar NAT y levantar VPNs en un entorno virtualizado sin depender de un firewall físico ni pelearte con la consola en cada cambio, pfSense sigue siendo una apuesta segura por madurez y previsibilidad operativa.
 
 ## Cuándo elegir pfSense
 

@@ -1,5 +1,6 @@
 ---
 title: "Vulnerability Scanning"
+description: "Scanning Docker images, containers and dependencies for vulnerabilities with Trivy, Clair and Snyk in CI/CD pipelines."
 tags: ['cybersecurity', 'vulnerability-scanning']
 
 updated: 2026-01-24

@@ -1,5 +1,6 @@
 ---
 title: "Gestión de Secretos"
+description: "Cómo gestionar secretos en DevOps sin subir credenciales a Git: Vault, SOPS, variables cifradas y rotación segura."
 tags: ['cybersecurity', 'secrets', 'kubernetes', 'devops']
 updated: 2026-01-24
 difficulty: intermediate

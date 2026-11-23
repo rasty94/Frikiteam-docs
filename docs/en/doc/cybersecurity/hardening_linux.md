@@ -1,5 +1,6 @@
 ---
 title: "Linux Server Hardening"
+description: "Practical Linux server hardening guide: SSH, users, kernel sysctl, minimal services and continuous auditing."
 updated: 2026-10-11
 last_reviewed: 2026-10-11
 tags: ['cybersecurity', 'linux', 'hardening', 'firewall']

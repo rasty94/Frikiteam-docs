@@ -1,5 +1,6 @@
 ---
 title: "Seguridad en Kubernetes"
+description: "Guía práctica para asegurar un clúster Kubernetes: RBAC, Network Policies, Pod Security Standards y admission controllers."
 updated: 2026-10-11
 tags: ['cybersecurity', 'kubernetes', 'rbac', 'hardening']
 difficulty: intermediate

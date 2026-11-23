@@ -1,5 +1,6 @@
 ---
 title: Introduction to Cybersecurity in DevOps
+description: "DevSecOps fundamentals: embedding security into every stage of the delivery lifecycle without slowing down releases."
 tags: ['cybersecurity', 'devsecops', 'devops']
 updated: 2026-10-11
 last_reviewed: 2026-10-11

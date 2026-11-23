@@ -1,5 +1,6 @@
 ---
 title: Secrets Management
+description: "How to manage secrets in DevOps without committing credentials to Git: Vault, SOPS, encrypted variables and safe rotation."
 tags: ['cybersecurity', 'secrets', 'kubernetes', 'devops']
 updated: 2026-01-24
 last_reviewed: 2026-01-25

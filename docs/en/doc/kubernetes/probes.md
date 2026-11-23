@@ -1,5 +1,6 @@
 ---
 title: Kubernetes — Readiness and Liveness Probes
+description: "How to configure readiness, liveness and startup probes in Kubernetes to prevent rollout downtime and crash loops."
 tags: ['kubernetes']
 updated: 2026-10-11
 difficulty: expert

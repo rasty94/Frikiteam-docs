@@ -1,5 +1,6 @@
 ---
 title: "Autenticación y Autorización"
+description: "Autenticación y autorización en infraestructura moderna: OAuth2, OIDC, JWT, RBAC y control de acceso sin puntos débiles."
 tags: ['cybersecurity', 'identity']
 updated: 2026-01-23
 difficulty: intermediate

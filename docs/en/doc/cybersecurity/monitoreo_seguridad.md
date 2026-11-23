@@ -1,5 +1,6 @@
 ---
 title: "Security Monitoring"
+description: "Runtime security monitoring with Falco on Kubernetes and Wazuh as a SIEM, including practical rules and alerting."
 tags: ['cybersecurity', 'monitoring', 'siem']
 
 updated: 2026-10-11
@@ -13,9 +14,9 @@ prerequisites:
   - "Intermediate Linux"
 ---
 
-## Summary
+## The problem
 
-This guide explains how to implement security monitoring in DevOps environments, focusing on Falco for anomaly detection in Kubernetes and Wazuh for basic SIEM. It covers configuration, rules and alert integration.
+Application logs tell you when a service returns HTTP 500, but they rarely warn you when someone spawns a shell inside a container, edits `/etc/passwd` or reads unexpected secrets at runtime. Catching that requires runtime security monitoring: here we combine Falco on Kubernetes with Wazuh as a SIEM to spot anomalies and alert early.
 
 ## Prerequisites
 

@@ -1,5 +1,6 @@
 ---
 title: Kubernetes — Readiness y Liveness Probes
+description: "Cómo configurar readiness, liveness y startup probes en Kubernetes para evitar cortes en despliegues y reinicios en bucle."
 tags: ['kubernetes']
 updated: 2026-10-11
 difficulty: expert

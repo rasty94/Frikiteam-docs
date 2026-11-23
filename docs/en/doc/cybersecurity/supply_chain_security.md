@@ -1,5 +1,6 @@
 ---
 title: "Supply Chain Security: SBOM, SLSA and Image Signing"
+description: "Software supply chain security: generating SBOMs with Syft, scanning, signing with Cosign/Rekor and SLSA levels."
 updated: 2026-10-11
 tags: ['cybersecurity', 'supply-chain']
 difficulty: intermediate

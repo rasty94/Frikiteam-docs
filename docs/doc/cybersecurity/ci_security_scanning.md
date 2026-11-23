@@ -1,5 +1,6 @@
 ---
 title: "CI Security Scanning: SAST, DAST y Contenedores"
+description: "Cómo integrar SAST, DAST y escaneo de contenedores en pipelines CI/CD para frenar vulnerabilidades antes de desplegar."
 updated: 2026-10-11
 tags: ['cybersecurity', 'ci-cd', 'devsecops', 'containers', 'vulnerability-scanning']
 difficulty: intermediate

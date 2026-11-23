@@ -1,5 +1,6 @@
 ---
 title: "Zero Trust en Práctica"
+description: "Cómo aplicar Zero Trust en infraestructura real: identidad fuerte, mTLS, microsegmentación y verificación continua por petición."
 updated: 2026-10-11
 tags: ['cybersecurity', 'zero-trust', 'encryption', 'identity', 'devsecops', 'kubernetes']
 difficulty: intermediate
