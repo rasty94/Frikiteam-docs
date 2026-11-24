@@ -7567,45 +7567,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Llaves de Jinja en bloques de código">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#por-que-a-veces-no-falla" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Por qué a veces no falla
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#como-detectarlo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cómo detectarlo
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#la-solucion" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        La solución
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -9626,8 +9587,8 @@
   </nav>
 
               
-              <article class="md-content__inner md-typeset"><div class="document-metadata"><span class="md-badge md-badge--yellow">Intermedio</span> <span class="md-badge md-badge--secondary">Tiempo estimado: 15 min</span> <span class="md-badge md-badge--primary">Categoría: General</span> <span class="md-badge md-badge--green">Publicado</span></div>
-                
+              <article class="md-content__inner md-typeset">
+                <div class="document-metadata"><span class="md-badge md-badge--yellow">Intermedio</span><span class="md-badge md-badge--secondary">Tiempo estimado: 15 min</span><span class="md-badge md-badge--primary">Categoría: General</span><span class="md-badge md-badge--green">Publicado</span></div>
                   
 
   <nav class="md-tags" >
@@ -9743,95 +9704,10 @@ Aborted with 1 warnings in strict mode!
 </code></pre></div>
 <p>Y aquí está la trampa del modo estricto: sin él ese mismo aviso no aborta nada, pero el plugin <strong>sustituye el contenido de la página por el mensaje de error</strong> y lo publica. Es exactamente lo que hace el job <code>quality</code>, que ejecuta <code>mkdocs build</code> sin <code>--strict</code> para poder validar enlaces después. Por eso <code>--strict</code> no es una opción para pedantes: es lo único que distingue "se publicó" de "se publicó bien".</p>
 <h2 id="llaves-de-jinja-en-bloques-de-codigo">Llaves de Jinja en bloques de código<a class="headerlink" href="#llaves-de-jinja-en-bloques-de-codigo" title="Permanent link">&para;</a></h2>
-<p>Este es <em>el</em> fallo de este repositorio, y el que más tiempo cuesta encontrar.</p>
-<p>El plugin <code>macros</code> pasa cada página por Jinja2 <strong>antes</strong> de que Markdown la vea. Para Jinja, un bloque de código no existe: el fichero es texto plano y las tres marcas que busca — <code>{{ }}</code>, <code>{% %}</code> y <code>{# #}</code> — se interpretan estén donde estén, dentro de un <code>```bash</code> o fuera de él.</p>
-<p>Lo que hace con cada secuencia:</p>
-<table>
-<thead>
-<tr>
-<th>Secuencia</th>
-<th>Qué hace Jinja</th>
-<th>Resultado</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>${HOME}</code>, <code>$1</code>, <code>${VAR:-default}</code></td>
-<td>Nada: <code>$</code> y <code>{</code> sueltos no son delimitadores</td>
-<td>Inofensivo</td>
-</tr>
-<tr>
-<td><code>${#ARRAY[@]}</code></td>
-<td><code>{#</code> <strong>abre un comentario</strong></td>
-<td>Peligroso</td>
-</tr>
-<tr>
-<td><code>{{ variable }}</code></td>
-<td>Variable indefinida; con <code>on_undefined: keep</code> (el valor por defecto) la deja tal cual</td>
-<td>Confuso, no rompe</td>
-</tr>
-<tr>
-<td><code>{{ objeto.campo }}</code></td>
-<td>Atributo de algo indefinido → <code>UndefinedError</code></td>
-<td>Rompe la página</td>
-</tr>
-<tr>
-<td><code>{{ .Values.image.tag }}</code> (Helm, Go)</td>
-<td>Expresión inválida → texto sustituido</td>
-<td>Corrompe en silencio</td>
-</tr>
-<tr>
-<td><code>{% if %}</code>, <code>{% for %}</code> (Jinja de Ansible)</td>
-<td>Bloque de control sin cerrar → <code>TemplateSyntaxError</code></td>
-<td>Rompe la página</td>
-</tr>
-<tr>
-<td><code>id{{texto}}</code> (nodo hexagonal de Mermaid)</td>
-<td>Variable Jinja</td>
-<td>Corrompe el diagrama</td>
-</tr>
-</tbody>
-</table>
-<h3 id="por-que-a-veces-no-falla">Por qué a veces no falla<a class="headerlink" href="#por-que-a-veces-no-falla" title="Permanent link">&para;</a></h3>
-<p>Un comentario de Jinja empieza en <code>{#</code> y termina en el primer <code>#}</code>. Con <code>${#SERVICIOS[@]}</code> hay dos desenlaces posibles, y el malo es el que <strong>no</strong> da error:</p>
-<ul>
-<li><strong>Si no aparece ningún <code>#}</code> en el resto del fichero</strong>, Jinja lanza <code>TemplateSyntaxError: Missing end of comment tag</code>. Ruidoso, molesto, fácil: sale un aviso, y con <code>--strict</code> el build muere.</li>
-<li><strong>Si más adelante hay un <code>#}</code></strong> — otro array, un comentario de Python, una cadena de formato cualquiera — Jinja considera todo lo que hay en medio un comentario y <strong>lo borra</strong>. Sin aviso, sin error, sin rastro. El build pasa en verde y la página publicada aparece cortada desde el array hasta ese <code>#}</code>, a veces varias secciones más abajo.</li>
-</ul>
-<p>Ese segundo caso es el que produce el síntoma raro: el fuente está bien, <code>git diff</code> está bien, la revisión del PR está bien, y la página en <code>docs.frikiteam.es</code> sale mutilada. Nadie ha borrado nada; Jinja se lo ha comido.</p>
-<h3 id="como-detectarlo">Cómo detectarlo<a class="headerlink" href="#como-detectarlo" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 1. Construir sin --strict deja el volcado de error dentro del HTML publicado</span>
-mkdocs<span class="w"> </span>build
-grep<span class="w"> </span>-rl<span class="w"> </span><span class="s2">"Macro Syntax Error"</span><span class="w"> </span>site/
-grep<span class="w"> </span>-rl<span class="w"> </span><span class="s2">"Macro Rendering Error"</span><span class="w"> </span>site/
-
-<span class="c1"># 2. Buscar expansiones de array de shell sin proteger en el fuente</span>
-grep<span class="w"> </span>-rn<span class="w"> </span><span class="s1">'\${#'</span><span class="w"> </span>docs<span class="w"> </span>--include<span class="o">=</span><span class="s1">'*.md'</span>
-
-<span class="c1"># 3. Comparar longitudes: si el HTML es mucho más corto que el Markdown, falta contenido</span>
-wc<span class="w"> </span>-c<span class="w"> </span>docs/doc/linux/bash_apis_rest.md<span class="w"> </span>site/doc/linux/bash_apis_rest/index.html
-</code></pre></div>
-<p>El segundo comando también encuentra las apariciones ya protegidas (esta misma página sale en la lista), así que la comprobación real es abrir cada resultado y ver si está dentro de un bloque protegido.</p>
-<h3 id="la-solucion">La solución<a class="headerlink" href="#la-solucion" title="Permanent link">&para;</a></h3>
-<p>Envolver el bloque entero en <code>{% raw %}</code> y <code>{% endraw %}</code>. Jinja no toca nada de lo que hay dentro y lo copia literal a la salida:</p>
-<div class="highlight"><pre><span></span><code>{% raw %}
-<span class="sb">```bash</span>
-<span class="nv">SERVICIOS</span><span class="o">=(</span>nginx<span class="w"> </span>postgres<span class="w"> </span>redis<span class="o">)</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">"Total: </span><span class="si">${#</span><span class="nv">SERVICIOS</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="p">!SERVICIOS[@]</span><span class="si">}</span><span class="s2">"</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$i</span><span class="s2"> -&gt; </span><span class="si">${</span><span class="nv">SERVICIOS</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">done</span>
-<span class="sb">```</span>
-{% endraw %}
-</code></pre></div>
-<p>Detalles que importan:</p>
-<ul>
-<li><strong>Las marcas van fuera del cercado, no dentro.</strong> Si las metes entre las comillas invertidas aparecerán impresas en la página.</li>
-<li><strong>Envuelve el bloque completo</strong>, no la línea problemática. Un <code>raw</code> por línea funciona, pero al siguiente que edite el fichero se le olvidará.</li>
-<li><strong>Deja una línea en blanco</strong> entre el cercado y las marcas si el bloque va dentro de una lista o una admonición: Markdown necesita ver la indentación.</li>
-<li>Fuera de los bloques de código el mismo truco vale en línea: <code>{{ ansible_date_time.iso8601 }}</code> está escrito con <code>raw</code> alrededor de las comillas invertidas.</li>
-</ul>
-<p>Lo que <strong>no</strong> hay que hacer: cambiar los delimitadores en <code>mkdocs.yml</code>, escapar con barras invertidas (Jinja no las reconoce) o poner <code>render_macros: false</code> en el frontmatter. Lo último funciona, pero apaga las macros de la página entera y esconde el problema en lugar de resolverlo.</p>
+<blockquote>
+<p><strong>Nota (24/11/2026):</strong> <code>mkdocs-macros-plugin</code> se retiró del proyecto y los badges de metadatos pasaron a renderizarse directamente en <code>overrides/main.html</code>. <strong>Ya no hace falta envolver bloques de código en <code>{% raw %}</code>.</strong></p>
+</blockquote>
+<p>Se conserva esta nota por si en el futuro se vuelve a activar <code>mkdocs-macros-plugin</code> o trabajas en otro repo que lo use: ese plugin pasa cada página por Jinja2 <strong>antes</strong> de que Markdown la vea, de modo que <code>${#ARRAY[@]}</code>, <code>{{ objeto.campo }}</code> o <code>{% if %}</code> dentro de un bloque de código se interpretan como Jinja (y <code>{#</code> puede recortar silenciosamente una página si más abajo aparece <code>#}</code>). La solución en repos con <code>macros</code> activo es envolver el bloque entero en <code>{% raw %}</code> … <code>{% endraw %}</code> fuera del cercado de código.</p>
 <h2 id="enlaces-rotos">Enlaces rotos<a class="headerlink" href="#enlaces-rotos" title="Permanent link">&para;</a></h2>
 <p>MkDocs valida los enlaces internos al construir, con dos niveles distintos según lo que falle:</p>
 <table>
@@ -10048,6 +9924,7 @@ python<span class="w"> </span>scripts/check_freshness.py<span class="w"> </span>
 
 
                 
+
               </article>
             </div>
           
@@ -10098,112 +9975,5 @@ python<span class="w"> </span>scripts/check_freshness.py<span class="w"> </span>
       <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
-  <script data-mkdocs-jupyter-mathjax="{&quot;url&quot;: &quot;https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-mml-chtml.js&quot;, &quot;version&quot;: 4}">
-/* Shared by full pages and Material's instant navigation. */
-(() => {
-  const config = JSON.parse(document.currentScript.dataset.mkdocsJupyterMathjax);
-  if (window.mkdocsJupyterMathJax) return;
-
-  let loading;
-  let queue = Promise.resolve();
-  let previous = [];
-
-  const ready = async () => {
-    if (!loading) {
-      loading = (async () => {
-        let math = window.MathJax;
-        if (!math?.typesetPromise) {
-          const url = new URL(config.url, document.baseURI).href;
-          const existing = Array.from(document.scripts).find(script =>
-            script.src && (script.src === url || script.id === 'MathJax-script' ||
-              (/mathjax/i.test(script.src) &&
-               /\/(?:MathJax|latest|(?:tex|mml)(?:-mml)?-(?:chtml|svg))\.js(?:[?#]|$)/i.test(script.src))));
-          if (existing) {
-            if (!math?.startup?.promise) {
-              await new Promise((resolve, reject) => {
-                existing.addEventListener('load', resolve, { once: true });
-                existing.addEventListener('error', reject, { once: true });
-              });
-            }
-          } else {
-            // Keep site macros, delimiters and startup hooks when supplied.
-            const options = math || {};
-            window.MathJax = {
-              ...options,
-              loader: {
-                ...options.loader,
-                load: Array.from(new Set(['ui/safe', ...(options.loader?.load || [])]))
-              },
-              startup: { typeset: false, ...options.startup },
-              tex: {
-                tags: 'ams',
-                useLabelIds: true,
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']],
-                processEscapes: true,
-                processEnvironments: true,
-                ...options.tex
-              }
-            };
-            await new Promise((resolve, reject) => {
-              const script = document.createElement('script');
-              script.src = config.url;
-              script.id = 'MathJax-script';
-              script.async = true;
-              script.onload = resolve;
-              script.onerror = reject;
-              document.head.appendChild(script);
-            });
-          }
-        }
-        math = window.MathJax;
-        await math.startup.promise;
-        return math;
-      })();
-    }
-    const math = await loading;
-    // A site owner can extend the v3 queue again on each navigation.
-    await math.startup.promise;
-    return math;
-  };
-
-  const unrendered = node => {
-    if (node.matches('mjx-container')) return [];
-    if (!node.querySelector('mjx-container')) return [node];
-    // In v3, scanning generated assistive MathML again produces nested output.
-    return Array.from(node.children).flatMap(unrendered);
-  };
-
-  const refresh = () => {
-    // A separate chain also serializes v3, without changing v4's startup promise.
-    queue = queue.then(async () => {
-      const notebooks = Array.from(document.querySelectorAll('.jupyter-wrapper'));
-      if (!notebooks.length && !previous.length) return;
-      if (notebooks.length === previous.length &&
-          notebooks.every((node, index) => node === previous[index])) return;
-      const math = await ready();
-      if (previous.length) {
-        math.typesetClear(previous);
-        math.texReset();
-      }
-      previous = notebooks.filter(node => node.isConnected);
-      const pending = previous.flatMap(unrendered);
-      if (pending.length) await math.typesetPromise(pending);
-    }).catch(error => console.error('mkdocs-jupyter: MathJax rendering failed', error));
-    return queue;
-  };
-
-  window.mkdocsJupyterMathJax = { refresh };
-  const start = () => {
-    if (typeof document$ !== 'undefined') document$.subscribe(refresh);
-    else refresh();
-  };
-  // Theme bundles and user-provided MathJax scripts can follow notebook content.
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', start, { once: true });
-  } else start();
-})();
-
-</script>
-</body>
+  </body>
 </html>
