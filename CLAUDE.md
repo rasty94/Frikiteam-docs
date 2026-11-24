@@ -18,8 +18,7 @@ publicado sea correcto y verificable, no que haya mucho.
 
 - `./validate_mermaid.sh` renderiza todos los diagramas y tarda minutos: lánzalo en
   segundo plano y solo si has tocado diagramas.
-- Verifica los problemas de renderizado sobre `site/*.html`, no sobre el fuente. Los
-  fallos del plugin de macros son invisibles en el Markdown.
+- Verifica los problemas de renderizado sobre `site/*.html` cuando cambies plantillas o CSS.
 - Nunca ejecutes más de un `mkdocs build` a la vez. Si despachas agentes en paralelo,
   diles que no compilen y compila tú una vez al final.
 
@@ -64,22 +63,15 @@ están en el README de `frikiteam-astro`. Lo que importa al escribir aquí:
   `python scripts/validate_metadata.py --fix-reading-time` lo recalcula en las dos.
   No lo repitas a mano en el cuerpo de la página.
 
-## Jinja dentro de bloques de código
+## Bloques de código y Mermaid
 
-El plugin `macros` pasa cada página por Jinja2 antes que Markdown, también dentro de
-los bloques de código. Envuelve el bloque entero en `{% raw %}` … `{% endraw %}` cuando
-contenga:
+`mkdocs-macros-plugin` se retiró el 24/11/2026 (los badges de metadatos se renderizan
+directamente en `overrides/main.html`), así que ya **no** hace falta envolver `{{ … }}`,
+`{% … %}` ni `${#array[@]}` en `{% raw %}`.
 
-- `{{ … }}`: plantillas Go, Helm, Grafana, Ansible. Una variable indefinida no rompe
-  (`on_undefined: keep`) pero sale con los espacios normalizados; `{{ obj.campo }}` sí
-  rompe.
-- `{% … %}`: bloques de control de Ansible/Jinja.
-- `{#`: **el peligroso**. `${#array[@]}` abre un comentario Jinja; si más adelante hay
-  un `#}`, se borra todo lo de en medio sin error. Si no lo hay, el build muere.
-
-`${VAR}` y `$(cmd)` son inofensivos. Para mostrar `{% raw %}` literalmente en una página
-usa `{{ "{% raw %}" }}`. Nunca escribas el cercado ```` ```mermaid ```` completo dentro
-de prosa: el `awk` de `validate_mermaid.sh` se cree que empieza un diagrama.
+Lo único que sigue exigiendo cuidado al escribir en prosa es Mermaid: nunca escribas el
+cercado ```` ```mermaid ```` completo dentro de prosa, porque el `awk` de
+`validate_mermaid.sh` lo interpreta como el inicio de un diagrama.
 
 ## Escribir contenido
 

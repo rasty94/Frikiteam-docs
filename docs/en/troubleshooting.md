@@ -98,78 +98,9 @@ And here is the strict-mode catch: without it that same warning aborts nothing, 
 
 ## Jinja braces in code blocks
 
-This is *the* failure of this repository, and the one that takes longest to find.
+> **Note (2026-11-24):** `mkdocs-macros-plugin` has been retired from this project and metadata badges are now rendered directly in `overrides/main.html`. **Wrapping code blocks in `{% raw %}` is no longer needed.**
 
-The `macros` plugin runs every page through Jinja2 **before** Markdown ever sees it. To Jinja, a code block does not exist: the file is plain text and the three markers it looks for — {% raw %}`{{ }}`, `{% %}` and `{# #}`{% endraw %} — are interpreted wherever they appear, inside a ```` ```bash ```` fence or outside it.
-
-What it does with each sequence:
-
-{% raw %}
-
-| Sequence | What Jinja does | Result |
-|---|---|---|
-| `${HOME}`, `$1`, `${VAR:-default}` | Nothing: a bare `$` and `{` are not delimiters | Harmless |
-| `${#ARRAY[@]}` | `{#` **opens a comment** | Dangerous |
-| `{{ variable }}` | Undefined variable; with `on_undefined: keep` (the default) it is left as is | Confusing, does not break |
-| `{{ object.field }}` | Attribute of something undefined → `UndefinedError` | Breaks the page |
-| `{{ .Values.image.tag }}` (Helm, Go) | Invalid expression → substituted text | Corrupts silently |
-| `{% if %}`, `{% for %}` (Ansible's Jinja) | Unclosed control block → `TemplateSyntaxError` | Breaks the page |
-| `id{{text}}` (Mermaid hexagon node) | Jinja variable | Corrupts the diagram |
-
-{% endraw %}
-
-### Why it does not always fail
-
-A Jinja comment starts at {% raw %}`{#`{% endraw %} and ends at the first `#}`. With {% raw %}`${#SERVICES[@]}`{% endraw %} there are two possible outcomes, and the bad one is the one that does **not** raise an error:
-
-- **If no `#}` appears in the rest of the file**, Jinja raises `TemplateSyntaxError: Missing end of comment tag`. Noisy, annoying, easy: you get a warning, and with `--strict` the build dies.
-- **If a `#}` shows up further down** — another array, a Python comment, any format string — Jinja treats everything in between as a comment and **deletes it**. No warning, no error, no trace. The build goes green and the published page is cut from the array down to that `#}`, sometimes several sections later.
-
-That second case produces the strange symptom: the source is fine, `git diff` is fine, the PR review is fine, and the page on `docs.frikiteam.es` comes out mutilated. Nobody deleted anything; Jinja ate it.
-
-### How to detect it
-
-{% raw %}
-```bash
-# 1. Building without --strict leaves the error dump inside the published HTML
-mkdocs build
-grep -rl "Macro Syntax Error" site/
-grep -rl "Macro Rendering Error" site/
-
-# 2. Look for unprotected shell array expansions in the source
-grep -rn '\${#' docs --include='*.md'
-
-# 3. Compare lengths: if the HTML is far shorter than the Markdown, content is missing
-wc -c docs/doc/linux/bash_apis_rest.md site/doc/linux/bash_apis_rest/index.html
-```
-{% endraw %}
-
-The second command also finds the occurrences that are already protected (this very page shows up in the list), so the real check is opening each result and seeing whether it sits inside a protected block.
-
-### The fix
-
-Wrap the whole block in `{{ "{% raw %}" }}` and `{{ "{% endraw %}" }}`. Jinja leaves everything inside untouched and copies it verbatim to the output:
-
-````markdown
-{{ "{% raw %}" }}
-```bash
-SERVICES=(nginx postgres redis)
-echo "Total: {% raw %}${#SERVICES[@]}{% endraw %}"
-for i in "{% raw %}${!SERVICES[@]}{% endraw %}"; do
-  echo "$i -> {% raw %}${SERVICES[$i]}{% endraw %}"
-done
-```
-{{ "{% endraw %}" }}
-````
-
-Details that matter:
-
-- **The markers go outside the fence, not inside.** Put them between the backticks and they will be printed on the page.
-- **Wrap the whole block**, not the offending line. One `raw` per line works, but the next person editing the file will forget.
-- **Leave a blank line** between the fence and the markers if the block sits inside a list or an admonition: Markdown needs to see the indentation.
-- Outside code blocks the same trick works inline: {% raw %}`{{ ansible_date_time.iso8601 }}`{% endraw %} is written with `raw` wrapped around the backticks.
-
-What **not** to do: change the delimiters in `mkdocs.yml`, escape with backslashes (Jinja does not recognise them) or set `render_macros: false` in the frontmatter. The last one works, but it disables macros for the entire page and hides the problem instead of fixing it.
+This note is kept in case `mkdocs-macros-plugin` is ever re-enabled or you work in another repository that uses it: that plugin passes every page through Jinja2 **before** Markdown sees it, so `${#ARRAY[@]}`, `{{ object.field }}`, or `{% if %}` inside code blocks are evaluated as Jinja (and `{#` can silently strip content if a `#}` appears later in the file). In repos with `macros` enabled, the fix is wrapping the full block in `{% raw %}` … `{% endraw %}` outside the code fence.
 
 ## Broken links
 
@@ -284,7 +215,7 @@ npm install -g @mermaid-js/mermaid-cli
 
 The script extracts every `mermaid` block from the files under `docs/` and renders it with `mmdc` into a temporary PNG using `puppeteer-config.json`; if the render fails it prints the error and exits 1. Two important details: **if `mmdc` is not installed, the script validates nothing and exits 0** — a green `./validate_mermaid.sh` may only mean you do not have the tool —, and its extractor is a line-by-line `awk`, not a parser: write the full fence in the middle of a paragraph and it thinks a diagram starts there, ending up validating your prose. Which is why this page never spells it out.
 
-The two syntax failures that show up most here: labels with parentheses, accents or slashes need quotes (`A["Node (1)"]`), and the hexagon node {% raw %}`id{{text}}`{% endraw %} uses double braces, which Jinja interprets before Mermaid ever sees them — it has to be protected with `raw` like any other block.
+The two syntax failures that show up most here: labels with parentheses, accents or slashes need quotes (`A["Node (1)"]`), and the hexagon node `id{{text}}` uses double braces, which Jinja interprets before Mermaid ever sees them — it has to be protected with `raw` like any other block.
 
 ## A page does not show up on the site
 
@@ -322,16 +253,16 @@ If a page you have just rewritten still shows up as stale, the cause is usually 
 | Symptom | Command | What to look at |
 |---|---|---|
 | `Aborted with N warnings in strict mode!` | `mkdocs build --strict 2>&1 \| grep WARNING` | The N `WARNING` lines, scattered across the output |
-| The published page comes out cut short | {% raw %}`grep -rn '\${#' docs --include='*.md'`{% endraw %} | An unprotected {% raw %}`{#`{% endraw %} that opened a Jinja comment |
+| The published page comes out cut short | `grep -rn '\${#' docs --include='*.md'` | An unprotected `{#` that opened a Jinja comment |
 | The published page is an error dump | `grep -rl "Macro Syntax Error" site/` | Invalid Jinja; wrap the block in `raw` |
-| `Missing end of comment tag` | The line the `[macros]` warning points at | A {% raw %}`${#array[@]}`{% endraw %} outside `raw` |
+| `Missing end of comment tag` | The line the `[macros]` warning points at | A `${#array[@]}` outside `raw` |
 | `The 'minify' plugin is not installed` | `which mkdocs` | Must be `.venv/bin/mkdocs`, not the system one |
 | `is not found among documentation files` | The file name in the warning itself | The broken link is on that page, not on the target |
 | An anchor that leads nowhere | `mkdocs build 2>&1 \| grep "contains a link"` | `INFO` lines: they do not break `--strict` |
 | `ARCHIVOS DESINCRONIZADOS` | `python scripts/check_sync.py --verbose` | ES `updated` later than the EN one |
 | `tags fuera del vocabulario` | `python scripts/validate_metadata.py --strict` | `TAG_VOCABULARY` in `scripts/validate_metadata.py` |
 | `categoría 'X' debería ser 'Y'` | `python scripts/validate_metadata.py --strict` | The ES → EN pair in `CATEGORY_VOCABULARY` |
-| A diagram shows up as a blank gap | Browser console, or `./validate_mermaid.sh` | Unquoted labels, or {% raw %}`{{ }}`{% endraw %} without `raw` |
+| A diagram shows up as a blank gap | Browser console, or `./validate_mermaid.sh` | Unquoted labels, or `{{ }}` without `raw` |
 | `validate_mermaid.sh` passes when it should not | `command -v mmdc` | Without `mmdc` the script validates nothing and exits 0 |
 | A page you just wrote shows as stale | `git log --format=%cs -1 -- docs/path.md` | Not committed, or committed as `chore(meta):` |
 | Git dates missing or wrong | `ENABLE_GIT_DATES=true mkdocs build` | Off in CI; locally it needs the full history |

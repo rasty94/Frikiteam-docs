@@ -7,3 +7,44 @@
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "9e48bf05019f47f6bdf00a4979128ca2"}'></script>
 {% endblock %}
+
+{% block content %}
+  {%- if page and page.meta -%}
+    {%- set is_en = (config.theme.language == 'en') or ((page.file.src_path | default('')).startswith('en/')) -%}
+    {%- set lang_key = 'en' if is_en else 'es' -%}
+    {%- set m = page.meta -%}
+    {%- set diff_colors = {'beginner': 'green', 'intermediate': 'yellow', 'advanced': 'orange', 'expert': 'red'} -%}
+    {%- set diff_labels = {
+      'es': {'beginner': 'Principiante', 'intermediate': 'Intermedio', 'advanced': 'Avanzado', 'expert': 'Experto'},
+      'en': {'beginner': 'Beginner', 'intermediate': 'Intermediate', 'advanced': 'Advanced', 'expert': 'Expert'}
+    } -%}
+    {%- set status_colors = {'draft': 'grey', 'review': 'yellow', 'published': 'green', 'archived': 'red'} -%}
+    {%- set status_labels = {
+      'es': {'draft': 'Borrador', 'review': 'En revisión', 'published': 'Publicado', 'archived': 'Archivado'},
+      'en': {'draft': 'Draft', 'review': 'In Review', 'published': 'Published', 'archived': 'Archived'}
+    } -%}
+    {%- if m.difficulty or m.estimated_time or m.category or m.status or m.prerequisites -%}
+      <div class="document-metadata">
+        {%- if m.difficulty -%}
+          {%- set d = (m.difficulty | string | lower) -%}
+          <span class="md-badge md-badge--{{ diff_colors.get(d, 'grey') }}">{{ diff_labels[lang_key].get(d, m.difficulty) }}</span>
+        {%- endif -%}
+        {%- if m.estimated_time -%}
+          <span class="md-badge md-badge--secondary">{{ 'Estimated time' if is_en else 'Tiempo estimado' }}: {{ m.estimated_time }}</span>
+        {%- endif -%}
+        {%- if m.category -%}
+          <span class="md-badge md-badge--primary">{{ 'Category' if is_en else 'Categoría' }}: {{ m.category }}</span>
+        {%- endif -%}
+        {%- if m.status -%}
+          {%- set s = (m.status | string | lower) -%}
+          <span class="md-badge md-badge--{{ status_colors.get(s, 'grey') }}">{{ status_labels[lang_key].get(s, m.status) }}</span>
+        {%- endif -%}
+        {%- if m.prerequisites -%}
+          {%- set prereq_text = (m.prerequisites | join(', ')) if (m.prerequisites is iterable and m.prerequisites is not string) else m.prerequisites -%}
+          <span class="md-badge md-badge--secondary" title="{{ 'Prerequisites' if is_en else 'Prerrequisitos' }}: {{ prereq_text | e }}">💡 {{ 'Prerequisites' if is_en else 'Prerrequisitos' }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+  {{ super() }}
+{% endblock %}
