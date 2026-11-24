@@ -188,7 +188,6 @@ HealthOnFailure=restart
 
 Current state and why it failed:
 
-{% raw %}
 
 ```bash
 podman healthcheck run myapp                    # run the check right now
@@ -196,7 +195,6 @@ podman inspect myapp --format '{{.State.Health.Status}}'
 podman inspect myapp --format '{{range .State.Health.Log}}{{.Output}}{{end}}'
 ```
 
-{% endraw %}
 
 The same reasoning applied to orchestration is in [Kubernetes probes](../kubernetes/probes.md): `HealthStartPeriod` is the conceptual equivalent of `startupProbe`.
 
@@ -288,7 +286,7 @@ Decision rule: **Compose for local development** (bring the whole stack up and t
 | `Unit myapp.service not found` | Syntax error, or file in the wrong path | Read the `daemon-reload` output |
 | Doesn't start after a host reboot | Lingering not enabled | `loginctl show-user $USER \| grep Linger` |
 | `Permission denied` on a volume | Missing SELinux label | Add `:Z` |
-| Restart loop with no clear error | `HealthCmd` not runnable in the image | {% raw %}`podman inspect --format '{{range .State.Health.Log}}{{.Output}}{{end}}'`{% endraw %} |
+| Restart loop with no clear error | `HealthCmd` not runnable in the image | `podman inspect --format '{{range .State.Health.Log}}{{.Output}}{{end}}'` |
 | Changes not taking effect | Missing `daemon-reload` | Reload again and `restart` |
 | Fails rootless, works as root | Port <1024, or subuid not configured | `sysctl net.ipv4.ip_unprivileged_port_start` |
 

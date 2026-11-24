@@ -225,7 +225,6 @@ Pon siempre un tope (`(( pagina > 100 )) && break`): una API que devuelve siempr
 
 Junta todo lo anterior: lee endpoints de un fichero, los consulta en paralelo y sale con código distinto de 0 si algo falla — para que cron te avise de verdad.
 
-{% raw %}
 
 ```bash
 #!/usr/bin/env bash
@@ -263,7 +262,6 @@ printf '%s\n' "$resultados" | sort | column -t -s $'\t'   # sort: xargs -P no ga
 ! grep -qE $'\t(FALLO|CAIDO)\t' <<<"$resultados"
 ```
 
-{% endraw %}
 
 ```bash
 # Autocomprobación mínima: el script debe fallar cuando un endpoint falla

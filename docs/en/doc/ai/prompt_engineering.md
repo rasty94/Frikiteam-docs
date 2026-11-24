@@ -235,15 +235,15 @@ Extract technical entities from incident descriptions.
 
 Example 1:
 Text: "PostgreSQL database on srv-db-01 is experiencing high CPU usage"
-Entities: {% raw %}{"technology": "PostgreSQL", "resource": "database", "server": "srv-db-01", "metric": "CPU usage", "status": "high"}{% endraw %}
+Entities: {"technology": "PostgreSQL", "resource": "database", "server": "srv-db-01", "metric": "CPU usage", "status": "high"}
 
 Example 2:
 Text: "Nginx reverse proxy returning 502 errors for api.example.com"
-Entities: {% raw %}{"technology": "Nginx", "resource": "reverse proxy", "error": "502", "domain": "api.example.com"}{% endraw %}
+Entities: {"technology": "Nginx", "resource": "reverse proxy", "error": "502", "domain": "api.example.com"}
 
 Example 3:
 Text: "Kubernetes pod web-frontend-abc123 is in CrashLoopBackOff state"
-Entities: {% raw %}{"technology": "Kubernetes", "resource": "pod", "name": "web-frontend-abc123", "status": "CrashLoopBackOff"}{% endraw %}
+Entities: {"technology": "Kubernetes", "resource": "pod", "name": "web-frontend-abc123", "status": "CrashLoopBackOff"}
 
 Now extract entities from this text:
 Text: "{text}"
@@ -409,7 +409,6 @@ Step 5 - Conclusion and solution:
 [Your reasoning here]
 
 Final format in JSON:
-{% raw %}
 {
   "error_type": "...",
   "root_cause": "...",
@@ -417,7 +416,6 @@ Final format in JSON:
   "solution": "...",
   "confidence": 0.0-1.0
 }
-{% endraw %}
 """
     
     response = requests.post("http://localhost:11434/api/generate", json={
@@ -924,14 +922,12 @@ Analyze the responses and determine:
 3. Final synthesized answer (combine the best from all)
 
 JSON format:
-{% raw %}
 {
   "consensus_points": ["..."],
   "divergence_points": ["..."],
   "final_answer": "...",
   "confidence": 0.0-1.0
 }
-{% endraw %}
 """
     
     consensus_response = requests.post("http://localhost:11434/api/generate", json={

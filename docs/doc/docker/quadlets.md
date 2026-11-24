@@ -188,7 +188,6 @@ HealthOnFailure=restart
 
 Estado actual y por qué falló:
 
-{% raw %}
 
 ```bash
 podman healthcheck run miapp                    # ejecutar la comprobación ahora
@@ -196,7 +195,6 @@ podman inspect miapp --format '{{.State.Health.Status}}'
 podman inspect miapp --format '{{range .State.Health.Log}}{{.Output}}{{end}}'
 ```
 
-{% endraw %}
 
 El mismo razonamiento, aplicado a orquestación, está en [Probes de Kubernetes](../kubernetes/probes.md): `HealthStartPeriod` es el equivalente conceptual de `startupProbe`.
 
@@ -288,7 +286,7 @@ Regla de decisión: **Compose para desarrollo local** (levantar y tirar el stack
 | `Unit miapp.service not found` | Error de sintaxis, o fichero en ruta equivocada | Ver la salida de `daemon-reload` |
 | No arranca al reiniciar el host | Falta *lingering* | `loginctl show-user $USER \| grep Linger` |
 | `Permission denied` en un volumen | Etiqueta SELinux ausente | Añadir `:Z` |
-| Reinicios en bucle sin error claro | `HealthCmd` inejecutable en la imagen | {% raw %}`podman inspect --format '{{range .State.Health.Log}}{{.Output}}{{end}}'`{% endraw %} |
+| Reinicios en bucle sin error claro | `HealthCmd` inejecutable en la imagen | `podman inspect --format '{{range .State.Health.Log}}{{.Output}}{{end}}'` |
 | Cambios que no se aplican | Falta `daemon-reload` | Repetir reload y `restart` |
 | Falla en rootless, funciona en root | Puerto <1024, o subuid sin configurar | `sysctl net.ipv4.ip_unprivileged_port_start` |
 

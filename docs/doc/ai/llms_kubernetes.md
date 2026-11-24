@@ -172,7 +172,6 @@ ingress:
 
 El `Deployment`. Lo relevante está en los comentarios; el resto es Helm rutinario.
 
-{% raw %}
 ```yaml
 {{- $isVllm := eq .Values.engine "vllm" -}}
 apiVersion: apps/v1
@@ -259,14 +258,12 @@ spec:
             medium: Memory
             sizeLimit: 8Gi
 ```
-{% endraw %}
 
 !!! danger "`/dev/shm` es obligatorio en vLLM multi-GPU"
     El `/dev/shm` por defecto de un contenedor son 64 MB. vLLM usa memoria compartida entre procesos para el tensor parallelism y con 64 MB el arranque se cuelga sin un error claro. El `emptyDir` con `medium: Memory` es el equivalente en Kubernetes de `--ipc=host` en Docker. Este volumen es la causa del 90% de los "se queda parado en el arranque y no dice nada".
 
 El `Service` es un `ClusterIP` corriente apuntando al puerto `http`, sin nada particular. El `Ingress` sí tiene dos ajustes que no puedes omitir:
 
-{% raw %}
 ```yaml
 {{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
@@ -296,7 +293,6 @@ spec:
                   name: http
 {{- end }}
 ```
-{% endraw %}
 
 !!! warning "`proxy-buffering: off` no es opcional si haces streaming"
     Con buffering activado, el proxy acumula la respuesta SSE y la entrega de golpe al final. Funcionalmente "funciona", pero el usuario ve una pantalla en blanco durante 40 segundos y luego un muro de texto. Es el bug que más tarda en diagnosticarse porque no aparece en ningún log.
@@ -382,7 +378,6 @@ Un servicio de inferencia necesita al menos dos secretos: el `HF_TOKEN` para des
 
 El chart **no gestiona secretos, los consume**: referencia un `Secret` por nombre y da por hecho que alguien lo ha materializado antes. Ese alguien es External Secrets Operator o Sealed Secrets, y el mecanismo de orden es la sync wave.
 
-{% raw %}
 ```yaml
 # templates/externalsecret.yaml — wave 0: existe antes que el Deployment
 {{- if .Values.externalSecret.enabled }}
@@ -406,7 +401,6 @@ spec:
         property: token
 {{- end }}
 ```
-{% endraw %}
 
 La comparativa completa entre SOPS, Sealed Secrets y ESO —modelo de amenaza, rotación, qué pasa cuando pierdes la clave— está en [Secretos en GitOps](../cybersecurity/secrets_gitops.md). Para este caso concreto, el criterio corto:
 
@@ -521,7 +515,6 @@ helm upgrade --install ollama-dev ./charts/inference -n llm-dev -f values-ollama
 
 En GitOps, generar esos `Application` a mano es repetitivo y se desincroniza. El `ApplicationSet` con generador `list` los deriva de una sola definición:
 
-{% raw %}
 ```yaml
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
@@ -560,7 +553,6 @@ spec:
           prune: true
           selfHeal: true
 ```
-{% endraw %}
 
 Añadir un modelo pasa a ser tres líneas en el generador y un fichero de values. Quitarlo es borrar esas tres líneas: con `prune: true`, ArgoCD elimina el release completo. Para multi-tenant, la separación fuerte no la da Helm sino Kubernetes: un `Namespace` por tenant con `ResourceQuota` sobre `requests.nvidia.com/gpu`, de modo que ningún equipo acapare el pool.
 

@@ -221,7 +221,7 @@ Un usuario sin privilegios no puede crear interfaces `veth` en el host ni manipu
 - **slirp4netns**: el backend clásico, anterior a pasta. Sigue disponible con `--network=slirp4netns`.
 
 ```bash
-{% raw %}podman info -f '{{.Host.RootlessNetworkCmd}}'{% endraw %}
+podman info -f '{{.Host.RootlessNetworkCmd}}'
 # pasta
 
 # Forzar un backend concreto

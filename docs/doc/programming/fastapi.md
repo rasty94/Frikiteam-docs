@@ -250,7 +250,6 @@ journalctl --user -u miapi.service -f
 
 Un workflow que construye la imagen en cada push y la publica en el registro de GitHub al etiquetar. Los detalles de triggers, cachés y secretos están en [GitHub Actions](../cicd/github_actions.md).
 
-{% raw %}
 ```yaml
 name: build-api
 on:
@@ -277,7 +276,6 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
 ```
-{% endraw %}
 
 !!! warning "Versiones de las acciones"
     Los `@v4`, `@v3` y `@v6` son ejemplos: comprueba la versión mayor vigente de cada acción y considera fijarla por SHA. Antes del `push`, añade un job que ejecute los tests (`pytest`) y el arranque de la imagen contra `/livez`.

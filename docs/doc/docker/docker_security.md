@@ -76,14 +76,12 @@ Cuatro detalles marcan la diferencia: usa **UID y GID numéricos** en `USER` y n
 
 Verifica lo construido, que es distinto de lo que creías construir:
 
-{% raw %}
 
 ```bash
 docker run --rm --entrypoint id miimagen:1.0
 docker inspect -f '{{.Config.User}}' miimagen:1.0
 ```
 
-{% endraw %}
 
 Si el segundo comando devuelve vacío, la imagen corre como root y da igual lo que ponga el README. En ejecución puedes forzarlo con `--user 10001:10001`, útil para imágenes de terceros que no puedes reconstruir.
 
@@ -155,7 +153,7 @@ Estas dos capas actúan por debajo de las capabilities: sobre las llamadas al si
 # Perfil propio, previamente cargado en el host con apparmor_parser
 docker run --security-opt apparmor=mi-perfil miimagen:1.0
 # Qué tiene aplicado un contenedor en marcha
-{% raw %}docker inspect -f '{{.AppArmorProfile}} {{json .HostConfig.SecurityOpt}}' micontenedor{% endraw %}
+docker inspect -f '{{.AppArmorProfile}} {{json .HostConfig.SecurityOpt}}' micontenedor
 ```
 
 !!! warning "Depende del host, no de la imagen"
@@ -191,7 +189,6 @@ En **tiempo de ejecución**, las variables de entorno son legibles en `docker in
 
 Cómo auditar una imagen que ya existe:
 
-{% raw %}
 
 ```bash
 # Comandos completos de cada capa: aquí salen los ARG y los COPY delatores
@@ -202,7 +199,6 @@ docker inspect -f '{{json .Config.Env}}' miimagen:1.0
 trivy image --scanners secret miimagen:1.0
 ```
 
-{% endraw %}
 
 !!! danger "Un secreto filtrado en una imagen publicada es un secreto quemado"
     Reconstruir la imagen no lo arregla: la capa antigua sigue en el registro y en el caché de quien la haya descargado. El único remedio real es **rotar la credencial**. Borrar el tag es limpieza, no mitigación.
@@ -278,7 +274,7 @@ Referenciar por digest es el paso previo a todo lo demás y no requiere ninguna 
 ```bash
 docker run -p 127.0.0.1:8080:80 nginx:alpine   # solo local
 docker run -p 8080:80 nginx:alpine             # todas las interfaces
-docker ps --format 'table {% raw %}{{.Names}}\t{{.Ports}}{% endraw %}'
+docker ps --format 'table {{.Names}}\t{{.Ports}}'
 ```
 
 Para una base de datos que solo consume otro contenedor ni siquiera hace falta publicar: en una red *bridge* definida por el usuario, los contenedores se alcanzan por nombre. La regla operativa es publicar solo lo que atiende tráfico externo y ponerlo detrás de un [proxy inverso](../traefik/traefik_base.md).

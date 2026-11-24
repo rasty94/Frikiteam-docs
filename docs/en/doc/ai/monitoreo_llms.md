@@ -430,7 +430,6 @@ sum(rate(vllm:request_success_total{finished_reason="length"}[15m]))
 
 An alert must meet two conditions: it indicates real user harm, and there is something the on-call person can do about it. Almost every LLM alert written by default fails the second one.
 
-{% raw %}
 ```yaml
 # llm-alerts.yaml
 groups:
@@ -495,7 +494,6 @@ groups:
         annotations:
           summary: "Token consumption 3x above the same window yesterday"
 ```
-{% endraw %}
 
 And the ones you should **not** create:
 

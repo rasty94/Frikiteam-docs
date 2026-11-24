@@ -158,7 +158,6 @@ keyAlias=upload
 
 And in CI, the material is restored from secrets right before building:
 
-{% raw %}
 
 ```yaml
 - name: Restore the signing material
@@ -176,7 +175,6 @@ And in CI, the material is restored from secrets right before building:
     KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
 ```
 
-{% endraw %}
 
 Details that are not cosmetic:
 
@@ -201,7 +199,6 @@ What is worth caching:
 
 The cache key derives from the lock files, not from the repository content: if it does not include the lockfile you serve stale dependencies; if it includes everything you never get a hit.
 
-{% raw %}
 
 ```yaml
 - uses: actions/cache@v4
@@ -213,7 +210,6 @@ The cache key derives from the lock files, not from the repository content: if i
     restore-keys: deps-${{ runner.os }}-
 ```
 
-{% endraw %}
 
 !!! warning "Cache downloads, not compilation output"
     Putting `build/`, `.dart_tool/` or Gradle intermediates into the cache between runs produces weird, irreproducible failures: an artifact compiled with an earlier configuration surviving a change that should have invalidated it. When an absurd error appears that does not reproduce locally, the first test is to run the job with a clean cache.

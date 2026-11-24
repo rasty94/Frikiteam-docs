@@ -248,7 +248,6 @@ The difference from a normal `plan` matters: `plan` mixes two things — what ch
 
 Storing a long-lived `AWS_ACCESS_KEY_ID` in repository secrets means having a permanent credential, with write access to the state and to the infrastructure, in a place many people can read or exfiltrate from a modified workflow. With OIDC, the CI provider issues a short-lived token that the cloud validates against an identity provider: **there is no key to rotate and none to leak**.
 
-{% raw %}
 
 ```yaml
 permissions:
@@ -268,7 +267,6 @@ jobs:
       - run: terraform plan -out=tfplan
 ```
 
-{% endraw %}
 
 The critical piece is on the cloud side: the role's *trust policy* must restrict who can assume it — repository, and ideally a specific branch or environment. A role that trusts any repository in the organisation puts the production `apply` within reach of anyone with workflow permissions. Use **two roles**: `terraform-ci-plan` with read access to the state, assumable from any PR, and `terraform-ci-apply` with write access, assumable only from the main branch and with approval. That way an external PR produces a reviewable `plan` without being able to write the state. Details in [IaC security](../cybersecurity/seguridad_iac.md) and [secrets in GitOps](../cybersecurity/secrets_gitops.md).
 

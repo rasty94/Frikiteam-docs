@@ -225,7 +225,6 @@ Always add a cap (`(( page > 100 )) && break`): an API that keeps returning the 
 
 It pulls the pieces together: read endpoints from a file, query them in parallel, and exit non-zero when something fails — so cron actually tells you.
 
-{% raw %}
 
 ```bash
 #!/usr/bin/env bash
@@ -263,7 +262,6 @@ printf '%s\n' "$results" | sort | column -t -s $'\t'   # sort: xargs -P gives no
 ! grep -qE $'\t(FAIL|DOWN)\t' <<<"$results"
 ```
 
-{% endraw %}
 
 ```bash
 # Minimal self-check: the script must fail when an endpoint fails

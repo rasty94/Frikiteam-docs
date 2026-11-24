@@ -248,7 +248,6 @@ La diferencia con un `plan` normal importa: `plan` mezcla dos cosas —lo que ca
 
 Guardar un `AWS_ACCESS_KEY_ID` de larga duración en los secretos del repositorio significa tener una credencial permanente, con permisos de escritura sobre el state y sobre la infraestructura, en un sitio que mucha gente puede leer o exfiltrar desde un workflow modificado. Con OIDC, el proveedor de CI emite un token de corta duración que la nube valida contra un proveedor de identidad: **no hay clave que rotar ni que filtrar**.
 
-{% raw %}
 
 ```yaml
 permissions:
@@ -268,7 +267,6 @@ jobs:
       - run: terraform plan -out=tfplan
 ```
 
-{% endraw %}
 
 La pieza crítica está del lado de la nube: la *trust policy* del rol debe limitar quién puede asumirlo —repositorio y, a ser posible, rama o entorno concretos—. Un rol que confía en cualquier repositorio de la organización deja el `apply` de producción al alcance de cualquiera con permisos de workflow. Usa **dos roles**: `terraform-ci-plan` con acceso de lectura al state, asumible desde cualquier PR, y `terraform-ci-apply` con escritura, asumible solo desde la rama principal y con aprobación. Así un PR externo genera un `plan` revisable sin poder escribir el state. Detalles en [seguridad en IaC](../cybersecurity/seguridad_iac.md) y [secretos en GitOps](../cybersecurity/secrets_gitops.md).
 

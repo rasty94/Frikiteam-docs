@@ -76,14 +76,12 @@ Four details make the difference: use **numeric UID and GID** in `USER` rather t
 
 Verify what you built, which is not the same as what you thought you built:
 
-{% raw %}
 
 ```bash
 docker run --rm --entrypoint id myimage:1.0
 docker inspect -f '{{.Config.User}}' myimage:1.0
 ```
 
-{% endraw %}
 
 If the second command returns nothing, the image runs as root no matter what the README claims. At runtime you can force it with `--user 10001:10001`, which is useful for third-party images you cannot rebuild.
 
@@ -155,7 +153,7 @@ These two layers sit below capabilities: on system calls and on file access.
 # Custom profile, previously loaded on the host with apparmor_parser
 docker run --security-opt apparmor=my-profile myimage:1.0
 # What a running container actually has applied
-{% raw %}docker inspect -f '{{.AppArmorProfile}} {{json .HostConfig.SecurityOpt}}' mycontainer{% endraw %}
+docker inspect -f '{{.AppArmorProfile}} {{json .HostConfig.SecurityOpt}}' mycontainer
 ```
 
 !!! warning "It depends on the host, not on the image"
@@ -191,7 +189,6 @@ At **runtime**, environment variables are readable through `docker inspect`, in 
 
 How to audit an image that already exists:
 
-{% raw %}
 
 ```bash
 # Full command of each layer: this is where the telltale ARGs and COPYs show up
@@ -202,7 +199,6 @@ docker inspect -f '{{json .Config.Env}}' myimage:1.0
 trivy image --scanners secret myimage:1.0
 ```
 
-{% endraw %}
 
 !!! danger "A secret leaked in a published image is a burned secret"
     Rebuilding the image does not fix it: the old layer is still in the registry and in the cache of everyone who pulled it. The only real remedy is to **rotate the credential**. Deleting the tag is housekeeping, not mitigation.
@@ -278,7 +274,7 @@ Referencing by digest is the prerequisite for all of the above and needs no new 
 ```bash
 docker run -p 127.0.0.1:8080:80 nginx:alpine   # local only
 docker run -p 8080:80 nginx:alpine             # every interface
-docker ps --format 'table {% raw %}{{.Names}}\t{{.Ports}}{% endraw %}'
+docker ps --format 'table {{.Names}}\t{{.Ports}}'
 ```
 
 A database consumed only by another container does not need publishing at all: on a user-defined *bridge* network, containers reach each other by name. The operational rule is to publish only what serves external traffic and to put it behind a [reverse proxy](../traefik/traefik_base.md).

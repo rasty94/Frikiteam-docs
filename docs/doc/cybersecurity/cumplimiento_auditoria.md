@@ -398,7 +398,6 @@ No son excluyentes. Lo sensato: Lynis semanal para ruido operativo, OpenSCAP men
 
 La regla que resume todo esto: **si un humano tiene que acordarse de generar la evidencia, no existirá cuando la pidan.**
 
-{% raw %}
 ```yaml
 # .github/workflows/compliance-scan.yml
 name: Compliance scan
@@ -432,7 +431,6 @@ jobs:
           aws s3 cp "arf-${{ matrix.host }}-$STAMP.xml" \
             "s3://ft-compliance-evidence/openscap/$(date -u +%Y/%m)/"
 ```
-{% endraw %}
 
 La pieza crítica no es el escaneo: es el destino.
 

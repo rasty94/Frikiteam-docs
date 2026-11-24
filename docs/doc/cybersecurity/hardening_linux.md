@@ -489,8 +489,8 @@ oscap xccdf generate report scan-results.xml > report.html
     - name: Configure SSH
       lineinfile:
         path: /etc/ssh/sshd_config
-        regexp: "{% raw %}{{ item.regexp }}{% endraw %}"
-        line: "{% raw %}{{ item.line }}{% endraw %}"
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
       loop:
         - { regexp: '^PermitRootLogin', line: 'PermitRootLogin no' }
         - { regexp: '^PasswordAuthentication', line: 'PasswordAuthentication no' }
@@ -499,7 +499,7 @@ oscap xccdf generate report scan-results.xml > report.html
     - name: Configure UFW
       ufw:
         rule: allow
-        port: '{% raw %}{{ item }}{% endraw %}'
+        port: '{{ item }}'
         proto: tcp
       loop:
         - 2222

@@ -32,7 +32,6 @@ helm upgrade --install spire-crds spiffe/spire-crds -n spire-server --create-nam
 helm upgrade --install spire spiffe/spire -n spire-server
 
 # Ejemplo de SPIFFE ID emitido a un deployment
-{% raw %}
 kubectl apply -f - <<'EOF'
 apiVersion: spire.spiffe.io/v1alpha1
 kind: ClusterSPIFFEID
@@ -44,7 +43,6 @@ spec:
     matchLabels:
       app: api-frontend
 EOF
-{% endraw %}
 ```
 
 ## mTLS con Service Mesh (Istio)

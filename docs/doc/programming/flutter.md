@@ -158,7 +158,6 @@ keyAlias=upload
 
 Y en CI, el material se restaura desde secretos justo antes de compilar:
 
-{% raw %}
 
 ```yaml
 - name: Restaurar el material de firma
@@ -176,7 +175,6 @@ Y en CI, el material se restaura desde secretos justo antes de compilar:
     KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
 ```
 
-{% endraw %}
 
 Detalles que no son cosméticos:
 
@@ -201,7 +199,6 @@ Qué merece la pena cachear:
 
 La clave del caché se deriva de los ficheros de bloqueo, no del contenido del repositorio: si no incluye el lockfile, sirves dependencias viejas; si incluye todo, nunca aciertas.
 
-{% raw %}
 
 ```yaml
 - uses: actions/cache@v4
@@ -213,7 +210,6 @@ La clave del caché se deriva de los ficheros de bloqueo, no del contenido del r
     restore-keys: deps-${{ runner.os }}-
 ```
 
-{% endraw %}
 
 !!! warning "Cachea descargas, no resultados de compilación"
     Meter `build/`, `.dart_tool/` o los intermedios de Gradle en el caché entre ejecuciones produce fallos raros e irreproducibles: un artefacto compilado con una configuración anterior que sobrevive a un cambio que debería haberlo invalidado. Cuando aparezca un error absurdo que no se reproduce en local, la primera prueba es lanzar el job con el caché limpio.

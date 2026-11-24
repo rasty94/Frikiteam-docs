@@ -250,7 +250,6 @@ journalctl --user -u miapi.service -f
 
 A workflow that builds the image on every push and publishes it to the GitHub registry when tagged. Details on triggers, caches and secrets are in [GitHub Actions](../cicd/github_actions.md).
 
-{% raw %}
 ```yaml
 name: build-api
 on:
@@ -277,7 +276,6 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
 ```
-{% endraw %}
 
 !!! warning "Action versions"
     The `@v4`, `@v3` and `@v6` are examples: check the current major version of each action and consider pinning by SHA. Before the `push`, add a job that runs the tests (`pytest`) and starts the image against `/livez`.

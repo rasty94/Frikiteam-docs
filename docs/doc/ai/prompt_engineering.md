@@ -237,15 +237,15 @@ Extrae entidades técnicas de descripciones de incidentes.
 
 Ejemplo 1:
 Texto: "PostgreSQL database on srv-db-01 is experiencing high CPU usage"
-Entidades: {% raw %}{"technology": "PostgreSQL", "resource": "database", "server": "srv-db-01", "metric": "CPU usage", "status": "high"}{% endraw %}
+Entidades: {"technology": "PostgreSQL", "resource": "database", "server": "srv-db-01", "metric": "CPU usage", "status": "high"}
 
 Ejemplo 2:
 Texto: "Nginx reverse proxy returning 502 errors for api.example.com"
-Entidades: {% raw %}{"technology": "Nginx", "resource": "reverse proxy", "error": "502", "domain": "api.example.com"}{% endraw %}
+Entidades: {"technology": "Nginx", "resource": "reverse proxy", "error": "502", "domain": "api.example.com"}
 
 Ejemplo 3:
 Texto: "Kubernetes pod web-frontend-abc123 is in CrashLoopBackOff state"
-Entidades: {% raw %}{"technology": "Kubernetes", "resource": "pod", "name": "web-frontend-abc123", "status": "CrashLoopBackOff"}{% endraw %}
+Entidades: {"technology": "Kubernetes", "resource": "pod", "name": "web-frontend-abc123", "status": "CrashLoopBackOff"}
 
 Ahora extrae entidades de este texto:
 Texto: "{text}"
@@ -411,7 +411,6 @@ Paso 5 - Conclusión y solución:
 [Tu razonamiento aquí]
 
 Formato final en JSON:
-{% raw %}
 {
   "error_type": "...",
   "root_cause": "...",
@@ -419,7 +418,6 @@ Formato final en JSON:
   "solution": "...",
   "confidence": 0.0-1.0
 }
-{% endraw %}
 """
     
     response = requests.post("http://localhost:11434/api/generate", json={
@@ -926,14 +924,12 @@ Analiza las respuestas y determina:
 3. Respuesta final sintetizada (combina lo mejor de todas)
 
 Formato JSON:
-{% raw %}
 {
   "consensus_points": ["..."],
   "divergence_points": ["..."],
   "final_answer": "...",
   "confidence": 0.0-1.0
 }
-{% endraw %}
 """
     
     consensus_response = requests.post("http://localhost:11434/api/generate", json={

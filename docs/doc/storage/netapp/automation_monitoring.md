@@ -80,7 +80,6 @@ pip install requests
 
 El siguiente playbook crea (o asegura) la *export policy*, su regla para la subred de hipervisores y el volumen NFS con su política de snapshots y límite de *autosize*:
 
-{% raw %}
 ```yaml
 - name: Aprovisionar datastore NFS en NetApp ONTAP
   hosts: localhost
@@ -130,7 +129,6 @@ El siguiente playbook crea (o asegura) la *export policy*, su regla para la subr
         max_autosize: 800
         max_autosize_unit: gb
 ```
-{% endraw %}
 
 Ejecutar el mismo playbook dos veces no duplica recursos ni provoca cortes: si el volumen ya existe con 500 GB y esa política, Ansible devuelve `ok` sin tocar la cabina. Guarda `ontap_pass` siempre cifrada (Ansible Vault o SOPS, ver [Secretos en GitOps](../../cybersecurity/secrets_gitops.md)).
 

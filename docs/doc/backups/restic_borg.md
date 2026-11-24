@@ -178,7 +178,6 @@ borg key export $BORG_REPO /root/borg-key-backup.txt
 
 Cada copia es un *archivo* con nombre dentro del repositorio. Borg expande marcadores como `{hostname}` y `{now}` para no tener que inventar nombres:
 
-{% raw %}
 
 ```bash
 borg create --stats --progress \
@@ -190,7 +189,6 @@ borg create --stats --progress \
     /etc /home /srv/app
 ```
 
-{% endraw %}
 
 `--exclude-caches` salta los directorios marcados con un fichero `CACHEDIR.TAG`, que es como señalan su caché pip, cargo o muchos navegadores. `--stats` imprime al final el tamaño original, comprimido y **deduplicado** del archivo: la última cifra es lo que realmente ha crecido el repositorio.
 

@@ -63,7 +63,6 @@ spec:
 
 ## Enforcement with Kyverno (example)
 
-{% raw %}
 ```yaml
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
@@ -89,7 +88,6 @@ spec:
           operator: GreaterThan
           value: 0
 ```
-{% endraw %}
 
 ## Best Practices
 - Run Trivy Operator in a dedicated namespace with restrictive PSP/PSA

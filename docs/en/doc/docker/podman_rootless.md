@@ -221,7 +221,7 @@ An unprivileged user cannot create `veth` interfaces on the host nor manipulate 
 - **slirp4netns**: the classic backend, predating pasta. It is still available with `--network=slirp4netns`.
 
 ```bash
-{% raw %}podman info -f '{{.Host.RootlessNetworkCmd}}'{% endraw %}
+podman info -f '{{.Host.RootlessNetworkCmd}}'
 # pasta
 
 # Force a specific backend

@@ -152,7 +152,6 @@ No es un tecnicismo: un rol no idempotente reescribe ficheros y reinicia servici
 
 **1. `command` y `shell` sin declarar cuándo cambian algo.** Siempre reportan `changed`, porque Ansible no puede saber qué hicieron. Si el comando produce un artefacto, lo resuelve `creates:` (o su gemelo `removes:`); si no, lo decide su salida — `changed_when: false` para lo que sólo consulta, una expresión sobre `stdout` o `rc` para lo que actúa:
 
-{% raw %}
 ```yaml
 - name: Compile the assets
   ansible.builtin.command: npm run build
@@ -169,7 +168,6 @@ No es un tecnicismo: un rol no idempotente reescribe ficheros y reinicia servici
   register: resultado
   changed_when: "'applied' in resultado.stdout"
 ```
-{% endraw %}
 
 **2. `lineinfile` con una expresión que no reconoce lo que escribe.** Si la `regexp` busca un patrón y la `line` escribe otro que ya no encaja, la segunda pasada no la encuentra y la añade otra vez: a las veinte ejecuciones tienes veinte líneas. La `regexp` debe casar con la **clave**; la `line` lleva clave y valor.
 
@@ -183,7 +181,7 @@ No es un tecnicismo: un rol no idempotente reescribe ficheros y reinicia servici
 
 Si vas a tocar más de dos líneas del mismo fichero, abandona `lineinfile` y usa `template`: el fichero entero pasa a ser tuyo y la idempotencia sale gratis.
 
-**3. Plantillas con contenido volátil.** Una plantilla que renderiza {% raw %}`{{ ansible_date_time.iso8601 }}`{% endraw %} o un valor aleatorio produce un fichero distinto en cada pasada, y por tanto `changed` eterno. La cabecera de "generado por Ansible" va sin fecha.
+**3. Plantillas con contenido volátil.** Una plantilla que renderiza `{{ ansible_date_time.iso8601 }}` o un valor aleatorio produce un fichero distinto en cada pasada, y por tanto `changed` eterno. La cabecera de "generado por Ansible" va sin fecha.
 
 **4. `state: latest` y descargas sin condición.** `package: state=latest` reporta `changed` cada vez que el repositorio publica una actualización: correcto, pero no idempotente por definición. En cualquier cosa que deba ser reproducible, `state: present` con la versión fijada. Cuando `idempotence` falla, la salida señala la tarea pero no siempre el motivo: el diagnóstico directo es repetir la pasada mostrando el diff con `molecule converge -- --diff -v`, que sobre `template`, `copy` y `lineinfile` enseña el diff del fichero — ahí suele aparecer el espacio en blanco, el salto de línea final o el permiso que baila.
 
@@ -191,7 +189,6 @@ Si vas a tocar más de dos líneas del mismo fichero, abandona `lineinfile` y us
 
 Tras `converge` toca comprobar que el sistema quedó como dices. Dos caminos, ambos válidos. **Con el módulo `assert`** (verifier `ansible`, el de por defecto): sin dependencias nuevas y en el lenguaje que ya usas.
 
-{% raw %}
 ```yaml
 # molecule/default/verify.yml
 ---
@@ -208,7 +205,6 @@ Tras `converge` toca comprobar que el sistema quedó como dices. Dos caminos, am
     - name: The site must answer
       ansible.builtin.uri: { url: "http://localhost/", status_code: 200 }
 ```
-{% endraw %}
 
 **Con Testinfra** (ficheros `test_*.py` dentro del escenario): pytest con una API de introspección del sistema; compensa cuando las comprobaciones tienen lógica, parametrización o mucho volumen.
 
@@ -262,7 +258,6 @@ Prueba lo que declaras en `meta/main.yml` y nada más. Si los metadatos dicen De
 
 El patrón mínimo que funciona: lint como job separado y una matriz de escenarios.
 
-{% raw %}
 ```yaml
 # .github/workflows/molecule.yml
 name: Molecule
@@ -290,7 +285,6 @@ jobs:
       - run: pip install -r requirements-test.txt   # versiones fijadas
       - run: molecule test -s ${{ matrix.scenario }}
 ```
-{% endraw %}
 
 Las tres decisiones que importan ahí: `fail-fast: false`, porque quieres saber si falla en Debian *y* en Rocky; versiones fijadas en `requirements-test.txt`, porque Molecule y sus plugins rompen compatibilidad entre mayores y un `pip install molecule` sin fijar convierte el CI en una bomba de relojería; y el lint antes que Molecule, porque tarda segundos y evita levantar contenedores para descubrir un error de estilo. Los runners `ubuntu-latest` traen Docker preinstalado, así que el driver de contenedor funciona sin preparativos; el de VM no, porque necesita virtualización anidada y runner propio. Más contexto de workflows en [Introducción a GitHub Actions](../cicd/github_actions.md).
 

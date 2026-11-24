@@ -24,7 +24,6 @@ Wire security scanners into your pipelines to catch code-level vulnerabilities (
 
 ## GitHub Actions: Example Workflow
 
-{% raw %}
 ```yaml
 name: security-scan
 on:
@@ -74,7 +73,6 @@ jobs:
         with:
           sarif_file: results.sarif
 ```
-{% endraw %}
 
 ## Approval Policies
 

@@ -24,7 +24,6 @@ Integra escáneres de seguridad en pipelines para detectar vulnerabilidades de c
 
 ## GitHub Actions: Workflow de ejemplo
 
-{% raw %}
 ```yaml
 name: security-scan
 on:
@@ -74,7 +73,6 @@ jobs:
         with:
           sarif_file: results.sarif
 ```
-{% endraw %}
 
 ## Políticas de Aprobación
 

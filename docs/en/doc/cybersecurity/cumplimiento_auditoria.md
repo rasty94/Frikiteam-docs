@@ -398,7 +398,6 @@ They are not mutually exclusive. The sensible split: Lynis weekly for operationa
 
 The rule that sums all of this up: **if a human has to remember to generate the evidence, it will not exist when it is asked for.**
 
-{% raw %}
 ```yaml
 # .github/workflows/compliance-scan.yml
 name: Compliance scan
@@ -432,7 +431,6 @@ jobs:
           aws s3 cp "arf-${{ matrix.host }}-$STAMP.xml" \
             "s3://ft-compliance-evidence/openscap/$(date -u +%Y/%m)/"
 ```
-{% endraw %}
 
 The critical piece is not the scan: it is the destination.
 

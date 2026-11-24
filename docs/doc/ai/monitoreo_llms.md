@@ -430,7 +430,6 @@ sum(rate(vllm:request_success_total{finished_reason="length"}[15m]))
 
 Una alerta debe cumplir dos condiciones: indica daño real al usuario, y hay algo que la persona de guardia puede hacer al recibirla. Casi todas las alertas de LLM que se escriben por defecto fallan la segunda.
 
-{% raw %}
 ```yaml
 # alertas-llm.yaml
 groups:
@@ -495,7 +494,6 @@ groups:
         annotations:
           summary: "Consumo de tokens 3x por encima del mismo tramo de ayer"
 ```
-{% endraw %}
 
 Y las que **no** deberías crear:
 

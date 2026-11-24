@@ -80,7 +80,6 @@ pip install requests
 
 This playbook creates (or ensures) the export policy, its rule for the hypervisor subnet, and the NFS volume with snapshot policy and bounded autosize:
 
-{% raw %}
 ```yaml
 - name: Provision NFS datastore on NetApp ONTAP
   hosts: localhost
@@ -130,7 +129,6 @@ This playbook creates (or ensures) the export policy, its rule for the hyperviso
         max_autosize: 800
         max_autosize_unit: gb
 ```
-{% endraw %}
 
 Running the same playbook twice never duplicates objects or disrupts mounts: if the volume already exists at 500 GB with that policy, Ansible reports `ok` without touching the array. Always encrypt `ontap_pass` (Ansible Vault or SOPS — see [Secrets in GitOps](../../cybersecurity/secrets_gitops.md)).
 

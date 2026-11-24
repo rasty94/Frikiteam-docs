@@ -407,7 +407,6 @@ spec:
 
 ### Grafana Dashboard
 
-{% raw %}
 ```json
 {
   "dashboard": {
@@ -437,7 +436,6 @@ spec:
   }
 }
 ```
-{% endraw %}
 
 ## 🔄 Update Strategies
 

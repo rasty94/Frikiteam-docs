@@ -219,7 +219,6 @@ kubectl get secret -n observability prometheus-grafana -o jsonpath="{.data.admin
 
 Import dashboard ID `1860` (Node Exporter Full) or create a custom one:
 
-{% raw %}
 ```json
 {
   "dashboard": {
@@ -278,11 +277,9 @@ Import dashboard ID `1860` (Node Exporter Full) or create a custom one:
   }
 }
 ```
-{% endraw %}
 
 ### Pods and Containers Dashboard
 
-{% raw %}
 ```json
 {
   "dashboard": {
@@ -331,11 +328,9 @@ Import dashboard ID `1860` (Node Exporter Full) or create a custom one:
   }
 }
 ```
-{% endraw %}
 
 ### Ingress and Services Dashboard
 
-{% raw %}
 ```json
 {
   "dashboard": {
@@ -376,7 +371,6 @@ Import dashboard ID `1860` (Node Exporter Full) or create a custom one:
   }
 }
 ```
-{% endraw %}
 
 ## � OpenTelemetry and Distributed Tracing
 
@@ -557,7 +551,6 @@ service:
 
 ### Alerting Rules for Kubernetes
 
-{% raw %}
 ```yaml
 # alert-rules.yaml
 groups:
@@ -626,11 +619,9 @@ groups:
       summary: "Slow response time on {{ $labels.service }}"
       description: "95th percentile response time is {{ $value }}s for service {{ $labels.service }}."
 ```
-{% endraw %}
 
 ### Advanced Alertmanager Configuration
 
-{% raw %}
 ```yaml
 # alertmanager-config.yaml
 global:
@@ -712,7 +703,6 @@ inhibit_rules:
       alertname: 'PodNotReady|HighMemoryUsage|HighCPUUsage'
     equal: ['instance']
 ```
-{% endraw %}
 
 ## � Storage Monitoring (Ceph, Pure Storage, NetApp)
 
@@ -738,7 +728,6 @@ spec:
 
 #### Ceph Dashboard in Grafana
 
-{% raw %}
 ```json
 {
   "dashboard": {
@@ -789,7 +778,6 @@ spec:
   }
 }
 ```
-{% endraw %}
 
 ### Pure Storage Metrics
 
@@ -845,7 +833,6 @@ node_netstat_Tcp_ActiveOpens
 
 ### Networking Dashboard
 
-{% raw %}
 ```json
 {
   "dashboard": {
@@ -894,7 +881,6 @@ node_netstat_Tcp_ActiveOpens
   }
 }
 ```
-{% endraw %}
 
 ## 🔧 Troubleshooting with Jaeger
 

@@ -225,7 +225,6 @@ HSTS y la terminación TLS van en el proxy, no aquí — ver [certificados TLS](
 
 El principio que ordena todo lo demás: **construir una vez, desplegar muchas**. El artefacto — una imagen etiquetada con el SHA del commit, o un tarball del directorio de salida — es el mismo en todos los entornos. Si tienes que reconstruir para promocionar, no estás desplegando lo que probaste.
 
-{% raw %}
 
 ```yaml
 name: build-deploy
@@ -259,7 +258,6 @@ jobs:
           REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
 ```
 
-{% endraw %}
 
 Detalles que ahorran incidentes:
 

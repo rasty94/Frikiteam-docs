@@ -141,7 +141,6 @@ if (leaked.length || missing.length) process.exit(1);
 
 What is missing is what triggers the build every day. A GitHub Action calls Cloudflare's *deploy hook*, but first it checks whether it is needed:
 
-{% raw %}
 ```yaml
 on:
   schedule:
@@ -161,7 +160,6 @@ jobs:
       - if: steps.live.outputs.done != 'true'
         run: node scripts/check-live.mjs "$LIVE" 15
 ```
-{% endraw %}
 
 `check-live.mjs` looks for the latest post that is due and checks that it is at its URL **and** linked from the home page. With `0` it only probes; with `15` it waits up to 15 minutes and, if it does not appear, fails red, which is the e-mail alert.
 

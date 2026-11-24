@@ -755,7 +755,7 @@ jobs:
         run: python scripts/generate_docs.py --input src/ --output docs/api/
       
       - name: Generate changelog
-        run: python scripts/generate_changelog.py --version {% raw %}${{ github.ref_name }}{% endraw %}
+        run: python scripts/generate_changelog.py --version ${{ github.ref_name }}
       
       - name: Commit changes
         run: |

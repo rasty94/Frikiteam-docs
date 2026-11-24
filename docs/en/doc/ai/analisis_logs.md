@@ -91,7 +91,6 @@ Provide:
 5. **Severity:** critical/high/medium/low
 
 JSON format:
-{% raw %}
 {
   "error_type": "...",
   "root_cause": "...",
@@ -99,7 +98,6 @@ JSON format:
   "suggested_fix": "...",
   "severity": "..."
 }
-{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -228,7 +226,6 @@ Identify:
 5. **Permanent fix:** Definitive solution
 
 JSON format:
-{% raw %}
 {
   "crash_reason": "...",
   "error_line": "...",
@@ -236,7 +233,6 @@ JSON format:
   "immediate_fix": "...",
   "permanent_fix": "..."
 }
-{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -447,7 +443,6 @@ For each suspicious IP, determine:
 4. **Firewall rule:** Specific command to block it
 
 JSON format:
-{% raw %}
 {
   "threats": [
     {
@@ -459,7 +454,6 @@ JSON format:
     }
   ]
 }
-{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -523,7 +517,6 @@ Identify:
 5. **Mitigation:** Immediate actions
 
 JSON format:
-{% raw %}
 {
   "common_pattern": "...",
   "probable_cause": "...",
@@ -531,7 +524,6 @@ JSON format:
   "diagnosis": "...",
   "mitigation": "..."
 }
-{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -658,7 +650,6 @@ Analyze these logs and detect ONLY real anomalies (errors, critical warnings, ab
 {logs[-3000:]}  # Últimos 3000 chars
 
 For each anomaly found, respond in JSON:
-{% raw %}
 {
   "anomalies": [
     {
@@ -670,9 +661,8 @@ For each anomaly found, respond in JSON:
     }
   ]
 }
-{% endraw %}
 
-If there are NO anomalies, respond: {% raw %}{"anomalies": []}{% endraw %}
+If there are NO anomalies, respond: {"anomalies": []}
 """
         
         response = requests.post(self.ollama_url, json={
@@ -716,21 +706,17 @@ Given this incident, suggest specific commands to auto-remediate it:
 **Affected services:** {', '.join(incident.affected_services)}
 
 If auto-remediation is possible, respond:
-{% raw %}
 {
   "can_auto_fix": true,
   "commands": ["comando1", "comando2"],
   "explanation": "what the commands do"
 }
-{% endraw %}
 
 If it requires human intervention:
-{% raw %}
 {
   "can_auto_fix": false,
   "reason": "why it cannot be auto-fixed"
 }
-{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={

@@ -462,11 +462,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Build image
-        run: docker build -t myapp:{% raw %}${{ github.sha }}{% endraw %} .
+        run: docker build -t myapp:${{ github.sha }} .
       - name: Run Trivy scan
         uses: aquasecurity/trivy-action@v0.36.0
         with:
-          image-ref: 'myapp:{% raw %}${{ github.sha }}{% endraw %}'
+          image-ref: 'myapp:${{ github.sha }}'
           format: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'

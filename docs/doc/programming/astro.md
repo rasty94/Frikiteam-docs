@@ -141,7 +141,6 @@ if (leaked.length || missing.length) process.exit(1);
 
 Falta lo que dispara la compilación cada día. Una Action de GitHub llama al *deploy hook* de Cloudflare, pero antes comprueba si hace falta:
 
-{% raw %}
 ```yaml
 on:
   schedule:
@@ -161,7 +160,6 @@ jobs:
       - if: steps.live.outputs.done != 'true'
         run: node scripts/check-live.mjs "$LIVE" 15
 ```
-{% endraw %}
 
 `check-live.mjs` busca la última entrada que ya toca y mira que esté en su URL **y** enlazada desde la portada. Con `0` solo sondea; con `15` espera hasta 15 minutos y, si no aparece, falla en rojo, que es el aviso por correo.
 

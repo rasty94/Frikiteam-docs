@@ -225,7 +225,6 @@ HSTS and TLS termination belong in the proxy, not here — see [TLS certificates
 
 The principle that governs everything else: **build once, deploy many times**. The artifact — an image tagged with the commit SHA, or a tarball of the output directory — is the same in every environment. If you have to rebuild in order to promote, you are not deploying what you tested.
 
-{% raw %}
 
 ```yaml
 name: build-deploy
@@ -259,7 +258,6 @@ jobs:
           REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
 ```
 
-{% endraw %}
 
 Details that save you incidents:
 

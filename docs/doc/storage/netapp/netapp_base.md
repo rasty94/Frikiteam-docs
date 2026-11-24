@@ -270,7 +270,6 @@ curl -sk -u admin \
 
 Para infraestructura como código, la colección oficial **`netapp.ontap`** de Ansible (`ansible-galaxy collection install netapp.ontap`) usa la REST API de forma idempotente:
 
-{% raw %}
 ```yaml
 - name: Asegurar volumen NFS en ONTAP
   netapp.ontap.na_ontap_volume:
@@ -288,7 +287,6 @@ Para infraestructura como código, la colección oficial **`netapp.ontap`** de A
     https: true
     validate_certs: true
 ```
-{% endraw %}
 
 Esto permite versionar volúmenes, *export policies*, *igroups* y políticas de snapshot en Git con el mismo flujo que el resto de servidores (ver [Ansible: automatización de infraestructura](../../ansible/ansible_base.md)).
 

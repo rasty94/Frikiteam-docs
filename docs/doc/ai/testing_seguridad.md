@@ -758,13 +758,11 @@ Considera:
 - Consistencia con hechos conocidos
 
 Responde en JSON:
-{% raw %}
 {
   "confidence": 0.0,
   "reason": "explicación breve",
   "source": "cómo lo sabes"
 }
-{% endraw %}
 """
         
         response = requests.post(self.ollama_url, json={

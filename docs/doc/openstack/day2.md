@@ -375,7 +375,7 @@ groups:
         labels:
           severity: critical
         annotations:
-          summary: "Hypervisor {% raw %}{{ $labels.hostname }}{% endraw %} is down"
+          summary: "Hypervisor {{ $labels.hostname }} is down"
       
       - alert: CephHealthError
         expr: ceph_health_status == 2
