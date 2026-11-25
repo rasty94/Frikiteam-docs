@@ -25,8 +25,8 @@ You have a Raspberry Pi that should do one thing only: resolve DNS for the house
 
 DietPi tackles all three at once. It is a trimmed-down Debian with images for dozens of boards and for x86, logs go to RAM by default, and the whole first boot can be written down in a text file (`dietpi.txt`) that you edit before inserting the card. Keep that file and reinstalling becomes flash, copy, plug in.
 
-!!! warning "Not yet tested in the homelab"
-    This article has been checked against the official DietPi documentation, against `dietpi.txt` and the `dietpi-software` script on the repository's `master` branch, and against the CHANGELOG for version 10.9 (2026-11-21), but I have not yet tried it on a homelab machine. If something doesn't behave as described here, please open an erratum.
+!!! note "Tested in the homelab"
+    I run DietPi in the homelab on many installs, both on Raspberry Pi and on x86 virtual machines. The `dietpi.txt` keys, the `dietpi-software` names and the options are also checked against the official documentation and the CHANGELOG of version 10.9 (2026-11-21). Installing on a physical x86 PC follows the official documentation. If something does not behave as described here, please open an erratum.
 
 ## 📋 Table of Contents
 
