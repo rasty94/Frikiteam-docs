@@ -16,6 +16,16 @@ My idea is to provide practical, clear, and useful documentation about the techn
 
 ## 🆕 Latest Updates
 
+### 📅 **November 25, 2026**
+
+#### **Homelab as code and day-2 operations (ES/EN)**
+
+- **Cloud-init templates**: [Cloud-init templates in Proxmox](doc/proxmox/cloud_init_templates.md) — a template from the Debian 13 cloud image, user, SSH keys and IP with `qm set`, linked and full clones, `cicustom` snippets and qemu-guest-agent.
+- **OpenTofu**: [Proxmox as code with OpenTofu](doc/proxmox/opentofu.md) — least-privilege API token, the `bpg/proxmox` provider, clones from the template with `for_each`, remote state, drift and importing existing VMs.
+- **Unattended upgrades**: [Unattended upgrades on Debian](doc/linux/unattended_upgrades.md) — what `unattended-upgrades` really updates on trixie, origins, blacklist, apt timers, controlled reboots, notifications and what should not update on its own.
+- **Restore drill**: [Restore drill: proving the backup comes back](doc/backups/restore_drill.md) — RPO/RTO, restoring on an isolated machine, checks with restic, Borg and PBS, a service with PostgreSQL, measuring real time and logging the drill.
+- **DietPi**: [DietPi — Minimal Debian for Raspberry Pi, other SBCs and x86](doc/linux/dietpi.md) — unattended first boot with `dietpi.txt`, `dietpi-software`, looking after the SD card (RAMlog, root on SSD), `dietpi-backup`, updates, SSH, and when it makes sense on a mini PC or a VM.
+
 ### 📅 **November 23, 2026**
 
 #### 💾 **NetApp ONTAP in depth: expanded base guide, SnapMirror/DR and automation with Harvest (ES/EN)**
